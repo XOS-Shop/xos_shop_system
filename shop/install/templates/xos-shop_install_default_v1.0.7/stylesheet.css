@@ -1,0 +1,159 @@
+/* -----------------------------------------------------------------------------
+ project    : XOS-Shop, open source e-commerce system
+              http://www.xos-shop.com
+                                                                     
+ template   : xos-shop_install_default_v1.0.7
+ version    : 1.0.7 for XOS-Shop version 1.0 rc7s                                                                     
+ filename   : stylesheet.css
+ author     : Hanspeter Zeller <hpz@xos-shop.com>
+ copyright  : Copyright (c) 2007 Hanspeter Zeller
+ license    : This file is part of XOS-Shop.
+
+              XOS-Shop is free software: you can redistribute it and/or modify
+              it under the terms of the GNU General Public License as published
+              by the Free Software Foundation, either version 3 of the License,
+              or (at your option) any later version.
+
+              XOS-Shop is distributed in the hope that it will be useful,
+              but WITHOUT ANY WARRANTY; without even the implied warranty of
+              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+              GNU General Public License for more details.
+
+              You should have received a copy of the GNU General Public License
+              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.
+----------------------------------------------------------------------------- */
+
+html, body {
+	height: 100%; 
+	margin: 0;
+	padding: 0;
+  }
+
+td, ul, p, body { 
+  font-family: Verdana, Arial, sans-serif; 
+  font-size: 11px; 
+  line-height: 1.5; 
+  }
+  
+input {  
+  font: 12px verdana, arial, helvetica;
+  }
+
+#spacer {
+	height: 40%; 
+	width: 100px;
+	margin-bottom: -262px; 
+	float: left; 
+	}
+
+#content {
+	height: 60%;
+	max-width: 1250px;	 
+	clear: left; 
+  }
+
+body { font-family:Verdana, Arial, Helvetica, sans-serif;
+	background-color: #FFFFFF;
+  margin: 0 auto 0 auto;
+  max-width: 1300px;	
+	}
+
+tr.logo-head {
+  background-color: #ff7c2a;
+  }
+
+td.nav-head {
+  color: #ffffff;
+	text-decoration: none;
+	font-size: 10px;
+	font-weight: bold;
+	}
+
+tr.main {
+  background-color: #000000;
+  color: #ff7c2a;
+  }
+
+td.smallText { 
+  font-size: 10px;
+  color: #000000;
+  }
+
+.mainContent { 
+  font-size: 10px;
+	color: #fffc53;
+	}
+
+.pageTitle { 
+  font-size: 11px; 
+  line-height: 1.5; 
+  font-weight: bold; 
+  text-decoration: underline; 
+  }
+
+.longDescription { 
+  visibility: hidden; 
+  display: none; 
+  }
+
+.smallDesc { 
+  font-size: 9px; 
+  line-height: 1.5; 
+  }
+
+.boxMe { 
+  font-size: 12px; 
+  color: #ff0000; 
+  background-color: #e5e5e5; 
+  border: 5px solid #e5e5e5; 
+  }
+
+.noteBox { 
+  font-size: 11px; 
+  line-height: 1.5; 
+  color: #ff0000; 
+  background-color: #fef3da; 
+  border: thin dashed; 
+  padding: 6px; 
+  }
+ 
+.infoBoxHeading { 
+  font-size: 12px;
+	color: #ffffff;
+	font-weight: bold;
+	background-color: #FF7C2A;
+	border: 1px solid #FF7C2A;
+	} 
+ 
+.infoBox { 
+  font-size: 10px;
+	color: #000000;
+	background-color: #D9D9D9;
+	border: 1px solid #FF7C2A
+	} 
+	
+.infoBoxContent { 
+  font-size: 10px;
+	color: #000000;
+	}	
+  
+a:link, a:visited { 
+  color: #000000;
+	text-decoration: none;
+  }
+
+a:hover { 
+  color: #ff7c2a;
+	text-decoration: none;
+	}
+	
+a.nav-head:link, a.nav-head:visited { 
+  color: #ffffff;
+	text-decoration: none;
+  }
+
+a.nav-head:hover { 
+  color: #fffc53;
+	text-decoration: none;
+	}	
+	

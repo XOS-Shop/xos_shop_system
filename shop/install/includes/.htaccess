@@ -1,0 +1,10 @@
+
+<FilesMatch "\.(php|sql)$">
+Order Deny,Allow
+Deny from all
+</FilesMatch>
+
+<Files install_db.php>
+Order Deny,Allow
+Allow from all
+</Files>
