@@ -1,0 +1,61 @@
+
+SYSTEMVORAUSSETZUNGEN
+
+Betriebs-System:           Unix, Linux, BSD, Solaris, Microsoft Windows
+Web-Server:                NCSA-kompatibler Webserver (Apache empfohlen) 
+Skriptsprache:             PHP ab Version 5.2 mit (GDLib2 und GIF Create Support)
+Datenbank-System:          MySQL ab Version 4.0.2
+
+--------------------------------------------------------------------------------
+
+INSTALLATIONS-VORBEREITUNGEN
+
+Ordner "shop" mit hilfe eines FTP Client-Programms auf den Webserver ins Webroot-Verzeichnis überspielen.
+Auch leere Verzeichnisse müssen übertragen werden.
+
+danch Rechte setzen:
+/shop/admin/includes/configure.php = chmod 777 
+/shop/includes/configure.php = chmod 777
+
+--------------------------------------------------------------------------------
+
+WEBBASIERTE INSTALLATION
+
+Rufe die URL: http://www.your-domain.tld/shop/install/index.php auf. Es öffnet sich die web-
+basierende Installationsoberfläche von XOS-Shop. Folge nun den Anweisungen am Bildschirm.
+
+--------------------------------------------------------------------------------
+
+NACH INSTALLATION
+
+Verzeichnis /shop/install löschen.
+
+danach Rechte setzen:
+/shop/admin/includes/configure.php = chmod 444 
+/shop/includes/configure.php = chmod 444
+
+--------------------------------------------------------------------------------
+
+SICH ALS ADMINISTRATOR ANMELDEN
+
+Wichtiger Hinweis: das Verzeichnis "admin" wurde während der Installation eventuell umbenannt.
+
+Rufe die URL: http://www.your-domain.tld/shop/admin auf.
+Im Anmelde-Panel mit 
+eMail-Adresse: admin@localhost
+Kennwort:      admin
+
+--------------------------------------------------------------------------------
+
+SICH ALS KUNDE ANMELDEN
+
+und wenn du die Datenbank mit Beispiel-Daten installiert hast sind auch zwei Beispiel-Kunden dabei.
+Rufe die URL: http://www.your-domain.tld/shop
+danach
+Ihr Konto
+und nun 
+eMail-Adresse: retail@localhost
+Passwort:      retail
+oder
+eMail-Adresse: reseller@localhost
+Passwort:      reseller

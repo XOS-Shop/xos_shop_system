@@ -1,0 +1,193 @@
+
+##ChangeLog
+
+# XOS-Shop v1.0_rc7s (Release 05/09/2014
+
+- update:  CKEditor Version-4.3.3 auf CKEditor Version-4.4.0
+
+# XOS-Shop v1.0_rc7r (Release 04/11/2014
+
+- update:  Smarty Version-3.1.17 auf Smarty Version-3.1.18
+
+# XOS-Shop v1.0_rc7q (Release 04/04/2014
+
+- update:  CKEditor Version-4.3.3 auf CKEditor Version-4.3.4
+- feature: Modulfunktionalität erweitert
+- feature: Modulfunktion Aktionen-Rekorder eingefügt
+- feature: Modulfunktion Header Tags eingefügt
+- feature: Modulfunktion Social Bookmarks eingefügt
+- feature: Module Anmeldungen in die Administration, Kontakt, Kunden-Passwort zurücksetzen und Produkt weiterempfehlen in Modulfunktionalität Aktionen-Rekorder eingefügt
+- feature: Module Piwik und Robot NoIndex in Modulfunktionalität Header Tags eingefügt
+- feature: Module E-Mail, Facebook und Twitter in Modulfunktionalität Social Bookmarks eingefügt
+- feature: In der Shop-Administration unter Hilfsprogramme Aktionen-Rekorder eingebaut
+- feature: Im Frontend in der Produkt-Detailansicht werden jetzt neu in der Box Weiterempfehlen die Social Bookmarks angezeigt  
+
+# XOS-Shop v1.0_rc7p (Release 03/14/2014
+
+- update:  Smarty Version-3.1.16 auf Smarty Version-3.1.17
+- update:  CKEditor Version-4.3.1 auf CKEditor Version-4.3.3
+- update:  PHPMailer Version-5.2.4 auf PHPMailer Version-5.2.7
+- feature: In Template "black-tabs-cbox" und "blue-tabs-c" jQuery-jqzoom durch jQuery-elevateZoom Version-3.0.8 ersetzt
+
+# XOS-Shop v1.0_rc7o (Release 01/17/2014
+
+- update:  Smarty Version-3.1.15 auf Smarty Version-3.1.16
+- bugfix:  In der Shop-Administration werden Die Requests in den Hauptmenüpunkten nicht mehr doppelt gesendet
+- feature: Die Möglichkeit das Administrations-Verzeichnis umzubenennen hinzugefügt
+
+# XOS-Shop v1.0_rc7n (Release 12/23/2013
+
+- update:  CKEditor Version-4.3 auf CKEditor Version-4.3.1
+- update:  Versionsupdate "jquery-1.9" auf "jquery-1.10.2"
+- feature: User-Interface "jquery-ui-1.10.3" eingefügt
+
+# XOS-Shop v1.0_rc7m (Release 11/25/2013
+
+- update:  CKEditor Version-4.2.2 auf CKEditor Version-4.3
+- feature: Neues Template "black-tabs-cbox-dotted" hinzugefügt
+- bugfix:  In "shopping_cart.tpl" diverse colspan Attribute angepasst
+
+# XOS-Shop v1.0_rc7l (Release 11/11/2013
+
+- update:  CKEditor Version-4.2.1 auf CKEditor Version-4.2.2
+- update:  In Template "black-tabs-cbox" Colorbox Version-1.4.30 auf Colorbox Version-1.4.33
+- update:  Smarty Version-3.1.14 auf Smarty Version-3.1.15
+
+# XOS-Shop v1.0_rc7k (Release 09/10/2013
+
+- update:  CKEditor Version-4.2 auf CKEditor Version-4.2.1
+- update:  In Template "black-tabs-cbox" Colorbox Version-1.4.27 auf Colorbox Version-1.4.30
+
+# XOS-Shop v1.0_rc7j (Release 07/27/2013
+
+- bugfix:  Wenn Datenbankabfragen gespeicherten werden sollen, werden nun auch die Fehlermeldungen richtig gespeichert
+- feature: Der Datenbankzugriff erfolgt wenn möglich via der PHP-Erweiterung "mysqli" anstatt der veralteten Erweiterung "mysql" 
+- update:  CKEditor Version-4.1.2 auf CKEditor Version-4.2
+
+# XOS-Shop v1.0_rc7i (Release 07/08/2013
+
+- feature: In der Administration > Konfiguration > eMail  Die Möglichkeit eingefügt via der Versandart SMTP Nachrichten verschlüsselt zu übermitteln 
+- update:  PHPMailer Version-5.1 auf PHPMailer Version-5.2.4 
+- update:  Smarty Version-3.1.13 auf Smarty Version-3.1.14
+
+# XOS-Shop v1.0_rc7h (Release 06/25/2013
+
+- feature: Mit dem CKeditor können Links auf Dateien der Shopinstallation oder auf Datenbankinhalte der Shopdatenbank gesetzt werden
+- feature: In der Administration > Kunden > Kunden Kommentarfeld hinzugefügt deren Inhalt nur Administratoren sehen können 
+- feature: In der Administration > Katalog > Kategorien/Artikel > Produkt [Bearbeiten] erweiterte Produktbildinformationen eingefügt
+- feature: In der Konfiguration  Wahlmöglichkeit "In übergeordneten Kategorien Produkte anzeigen" eingefügt 
+- feature: Neues Template "black-tabs-cbox" mit Colorbox als lightbox hinzugefügt 
+- update:  CKEditor Version-4.1 auf CKEditor Version-4.1.2
+
+# XOS-Shop v1.0_rc7g (Release 04/08/2013
+
+- bugfix:  In der Schnellsuche werden nun nur noch Vorschläge zu Produkten die auch angezeigt werden können gemacht
+- feature: Im Datei-Manager wird nun zwischen Bild- und anderen Dateien unterschieden und Bilder werden angezeigt
+
+# XOS-Shop v1.0_rc7f (Release 03/30/2013
+
+- bugfix:  In Bild-Lightboxen werden die Bild-Links zu weiteren Bildern nun Protokollabhängig (http/https) korrekt generiert
+- feature: Das Hinzufügen eines Produkts wird in einer Fancybox bestätigt
+- feature: In allen Templates DOMWindow-boxen durch Fancyboxen ersetzt
+- update:  CKEditor Version-4.0.2 auf CKEditor Version-4.1
+
+# XOS-Shop v1.0_rc7e (Release 03/16/2013)
+
+- feature: Shop-System angepasst damit auch HTML5-Templates eingesetzt werden können
+- feature: Ein Template nach HTML5 Standard hinzugefügt
+- update:  CKEditor Version-4.0.1 auf CKEditor Version-4.0.2
+
+# XOS-Shop v1.0_rc7d (Release 02/10/2013)
+
+- bugfix:  In diversen PHP-Scripten reset() vor each() gesetzt
+- feature: Im  Admin-Template können nun auch PHP-Scripte eingebunden werden
+- update:  jquery Version-1.8.1 auf jquery Version-1.9
+- update:  Smarty Version-3.1.12 auf Smarty Version-3.1.13
+- update:  CKEditor Version-3.6.5 auf CKEditor Version-4.0.1
+
+# XOS-Shop v1.0_rc7c (Release 12/04/2012)
+
+- bugfix:  In product_info.php Zeile 267 und Zeile 474 Variablenname angepasst
+- feature: Templates mit Zoom- bzw. Lupen-Funktion für Produktbilder erweitert
+- feature: In den Templates können nun auch PHP-Scripte eingebunden werden
+
+# XOS-Shop v1.0_rc7b (Release 10/27/2012)
+
+- bugfix:  Datenbank-Dump "xos-shop_without_sample_data" an mitgelieferte Templates angepasst
+- bugfix:  In attributes_products.php Zeile 42 und attributes_values.php Zeile 71 wird ein leerer Array übergeben wenn Offset <= 0
+- update:  Smarty Version-3.1.11 auf Smarty Version-3.1.12
+- update:  CKEditor Version-3.6.4 auf CKEditor Version-3.6.5
+
+# XOS-Shop v1.0_rc7a (Release 09/21/2012)
+
+- feature: Produktinformationen können jetzt durch Tabs segmentiert werden
+
+# XOS-Shop v1.0_rc7 (Release 08/28/2012)
+
+- feature: Checkout in allen Templates und Sprachdateien angepasst
+- update:  Smarty Version-3.1.7 auf Smarty Version-3.1.11
+- update:  CKEditor Version-3.6.3 auf CKEditor Version-3.6.4
+
+# XOS-Shop v1.0_rc6 (Release 05/19/2012)
+
+- feature: Inhalts-Seiten in Menüstruktur eingeführt, dies gibt die Möglichkeit das System als CMS zu nutzen
+- feature: Inhalts-Seiten können im Menü versteckt werden
+- feature: Es ist nun wählbar ob eine Sprache im Frontend angezeigt wird oder nicht 
+- update:  Produkte und Kategorien können nur noch in relevante Ordner kopiert bzw. verschoben werden
+- update:  CKEditor Version-3.6.2 auf CKEditor Version-3.6.3
+- bugfix:  Alle Versandarten die installiert sind werden in der Kundengruppe angezeigt
+- bugfix:  Produkteanzahl hinter Kategorien werden nicht mehr angezeigt wenn alle Status "inaktiv" sind
+
+# XOS-Shop v1.0_rc5 (Release 04/04/2012)
+
+- feature: Die Maximalwerte für die Bildgröße (Large) sind nun pro hochgeladenem Bild wählbar
+- feature: In Kategorien, Produkten, Inhalts-Seiten und Bannern können interne Links gesetzt werden
+- feature: Die Möglichkeit eine Kategorie als Inhalts-Seite zu nutzen eingefügt (CMS-Funktionalität)
+- feature: Kategorien haben nun eine eigene Seite und sind so einfacher zu editieren
+- feature: Bei "Tabellarische Versandkosten" wird das zugrundeliegende Gewicht bzw. der Betrag angezeigt          
+- update:  Smarty Version-3.1.7 auf Smarty Version-3.1.8
+- bugfix:  Fehlerhafte Behandlung von “Integers” in der Funktion Wert nicht Null behoben wieder zurückgesetzt 
+- bugfix:  Beim verschieben einer Kategorie wird der “Status” nun korrekt gesetzt
+
+# XOS-Shop v1.0_rc4 (Release 02/03/2012)
+
+- feature: Globales Overlay-Bild im Ordner [/shop/contents/image/] mit Vorrang vor den Overlays in den Template-Bildordner
+- feature: Nachnahmegebühren können mit berechnet und angezeigt werden           
+- update:  Datumsangaben werden Serverunabhängig in der richtigen Sprache angezeigt
+- update:  Datenbank-Feldlängen angepasst
+- update:  Session-Token für Kunden eingeführt
+- update:  Verbesserung der Validierung von E-Mail-Adressen
+- update:  Kennwortverschlüsselung basierend auf Phpass eingeführt
+- update:  In erweiterte Suche werden die Suchergebnisse unten angezeigt
+- update:  In erweiterte Suche Kategorien-/Hersteller-Filter enthalten nur noch relevante Optionen
+- update:  Vorschlagsliste der Schnellsuche optimiert
+- update:  Smarty Version-3.0.8 auf Smarty Version-3.1.7
+- update:  CKEditor Version-3.6 auf CKEditor Version-3.6.2
+- bugfix:  Fehler bei Artikelanzahl dem Lager gutschreiben behoben
+- bugfix:  Fehlerhafte Behandlung von Integers in der Funktion Wert nicht Null behoben
+- bugfix:  Bilder mit Leerzeichen im Bildnamen werden nun  auch angezeigt
+- bugfix:  Warnung wenn Konfigurationsdatei im Admin beschreibbar ist 
+- bugfix:  Überprüfung damit nicht die Kunden Standard-Adresse gelöscht wird
+- bugfix:  Diverse fehlerhafte Datenbank-Inputs korrigiert
+
+# XOS-Shop v1.0_rc3 (Release 07/24/2011)
+
+- feature: Alle Templates werden im Bildschirm mittig zentriert angezeigt
+- feature: Untermenüs werden als Vorschau in Popups angezeigt
+- feature: Optionen können als Übersichtslisten angezeigt werden
+- feature: Eine Vorschlagsliste wird in der Schnellsuche eingeblendet
+- feature: Bewertungssystem kann wahlweise (Global) aktiviert werden
+- update:  Smarty Version-3.0.7 auf Smarty Version-3.0.8
+- update:  CKEditor Version-3.5.2 auf CKEditor Version-3.6
+
+# XOS-Shop v1.0_rc2 (Release 03/12/2011)
+
+- update:  Smarty Version-2.6.26 auf Smarty Version-3.0.7
+- update:  Templates der neuen Smarty Version angepasst
+- update:  PHPMailer Version-1.73 auf PHPMailer Version-5.1
+- update:  FCKeditor Version-2.6.2 auf CKEditor Version-3.5.2
+- bugfix:  Produkte werden auch ohne Zuordnung eines Herstellers angezeigt
+
+# XOS-Shop v1.0_rc1 (Release 05/09/2010)
+
+           Erstes Release
