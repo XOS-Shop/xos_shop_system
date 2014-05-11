@@ -1,0 +1,538 @@
+/* -----------------------------------------------------------------------------
+ project    : XOS-Shop, open source e-commerce system
+              http://www.xos-shop.com
+                                                                     
+ template   : blue-tabs-b
+ version    : 1.0.7 for XOS-Shop version 1.0 rc7s
+ descrip    : xos-shop default template with tabs navigation
+              and popup windows as lightboxes and div/css layout                                                                     
+ filename   : buttons.css
+ author     : Hanspeter Zeller <hpz@xos-shop.com>
+ copyright  : Copyright (c) 2007 Hanspeter Zeller
+ license    : This file is part of XOS-Shop.
+
+              XOS-Shop is free software: you can redistribute it and/or modify
+              it under the terms of the GNU General Public License as published
+              by the Free Software Foundation, either version 3 of the License,
+              or (at your option) any later version.
+
+              XOS-Shop is distributed in the hope that it will be useful,
+              but WITHOUT ANY WARRANTY; without even the implied warranty of
+              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+              GNU General Public License for more details.
+
+              You should have received a copy of the GNU General Public License
+              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.    
+--------------------------------------------------------------------------------
+ this file is based on: 
+              osCommerce, Open Source E-Commerce Solutions
+              http://www.oscommerce.com
+              Copyright (c) 2003 osCommerce
+              filename: stylesheet.css                      
+
+              Released under the GNU General Public License 
+----------------------------------------------------------------------------- */
+
+a.button-back, 
+a:hover.button-back {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+a.button-back span,
+a:hover.button-back span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-continue-shopping,
+a:hover.button-continue-shopping {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+a.button-continue-shopping span, 
+a:hover.button-continue-shopping span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-checkout,
+a:hover.button-checkout {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+a.button-checkout span, 
+a:hover.button-checkout span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-reviews,
+a:hover.button-reviews {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+a.button-reviews span, 
+a:hover.button-reviews span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-write-review,
+a:hover.button-write-review {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+a.button-write-review span, 
+a:hover.button-write-review span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-add-to-cart,
+a:hover.button-add-to-cart {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+a.button-add-to-cart span, 
+a:hover.button-add-to-cart span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-delete,
+a:hover.button-delete {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+a.button-delete span, 
+a:hover.button-delete span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-reset,
+a:hover.button-reset {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+a.button-reset span, 
+a:hover.button-reset span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-update,
+a:hover.button-update {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+a.button-update span, 
+a:hover.button-update span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-update-cart,
+a:hover.button-update-cart {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+a.button-update-cart span, 
+a:hover.button-update-cart span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-continue,
+a:hover.button-continue {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;  
+}
+
+a.button-continue span, 
+a:hover.button-continue span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-search,
+a:hover.button-search {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;  
+}
+
+a.button-search span, 
+a:hover.button-search span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-login,
+a:hover.button-login {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+a.button-login span, 
+a:hover.button-login span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-add-address, 
+a:hover.button-add-address {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+a.button-add-address span,
+a:hover.button-add-address span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-change-address, 
+a:hover.button-change-address {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+a.button-change-address span,
+a:hover.button-change-address span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-confirm-order, 
+a:hover.button-confirm-order {
+  background: url(button_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 5px;
+  height: 18px;
+  padding-right: 9px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+a.button-confirm-order span,
+a:hover.button-confirm-order span {
+  background: url(button_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 15px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-buy-now,
+a:hover.button-buy-now {
+  background: url(button_small_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 1px;
+  height: 16px;
+  padding-right: 6px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;  
+}
+
+a.button-buy-now span, 
+a:hover.button-buy-now span {
+  background: url(button_small_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 14px;
+  padding: 1px 0 1px 5px;
+}
+
+a.button-switch-view,
+a:hover.button-switch-view {
+  background: url(button_switch_view_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 20px;
+  height: 20px;
+  padding-right: 5px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+a.button-switch-view span, 
+a:hover.button-switch-view span {
+  background: url(button_switch_view_left.gif) no-repeat;
+  display: block;
+  line-height: 17px;
+  padding: 2px 0 2px 5px;
+}
+
+a.button-small-view,
+a:hover.button-small-view {
+  background: url(button_xs_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 2px;
+  height: 13px;
+  padding-right: 5px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;  
+}
+
+a.button-small-view span, 
+a:hover.button-small-view span {
+  background: url(button_xs_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 12px;
+  padding: 0 0 1px 3px;
+}
+
+a.button-small-edit,
+a:hover.button-small-edit {
+  background: url(button_xs_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 2px;
+  height: 13px;
+  padding-right: 5px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;  
+}
+
+a.button-small-edit span, 
+a:hover.button-small-edit span {
+  background: url(button_xs_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 12px;
+  padding: 0 0 1px 3px;
+}
+
+a.button-small-delete,
+a:hover.button-small-delete {
+  background: url(button_xs_orange_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 2px;
+  height: 13px;
+  padding-right: 5px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;  
+}
+
+a.button-small-delete span, 
+a:hover.button-small-delete span {
+  background: url(button_xs_orange_left.gif) no-repeat;
+  display: block;
+  line-height: 12px;
+  padding: 0 0 1px 3px;
+}

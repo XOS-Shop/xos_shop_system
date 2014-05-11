@@ -1,0 +1,197 @@
+/* -----------------------------------------------------------------------------
+ project    : XOS-Shop, open source e-commerce system
+              http://www.xos-shop.com
+                                                                     
+ template   : xs_admin
+ version    : 1.0.7 for XOS-Shop version 1.0 rc7s
+ descrip    : xos-shop default template for admin with css-buttons
+              and tables for layout                                                                     
+ filename   : style.css
+ author     : Hanspeter Zeller <hpz@xos-shop.com>
+ copyright  : Copyright (c) 2007 Hanspeter Zeller
+ license    : This file is part of XOS-Shop.
+
+              XOS-Shop is free software: you can redistribute it and/or modify
+              it under the terms of the GNU General Public License as published
+              by the Free Software Foundation, either version 3 of the License,
+              or (at your option) any later version.
+
+              XOS-Shop is distributed in the hope that it will be useful,
+              but WITHOUT ANY WARRANTY; without even the implied warranty of
+              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+              GNU General Public License for more details.
+
+              You should have received a copy of the GNU General Public License
+              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.
+----------------------------------------------------------------------------- */
+
+img {
+  border: 0;
+}
+
+html, body {
+	height: 100%; 
+	margin: 0;
+	padding: 0;
+        }
+
+#spacer {
+	height: 50%; 
+	width: 100px;
+	margin-bottom: -262px; 
+	float: left; 
+	}
+
+#content {
+	height: 50%;
+	max-width: 1250px; 
+	clear: left; 
+        }
+
+body { font-family:Verdana, Arial, Helvetica, sans-serif;
+	background-color: #FFFFFF;
+  margin: 0 auto 0 auto;
+  max-width: 1300px;	
+	}
+
+tr.mainback {background-color: #FFFFFF;}
+
+tr.logo-head {background-color: #FF7C2A;}
+
+td.nav-head {color: #FFFFFF;
+	text-decoration: none;
+	font-size: 10px;
+	font-weight: bold;
+	}
+
+tr.main {background-color: #000000;
+      color: #FFFC53;
+      }
+
+td.login_heading { font-size: 12px;
+	font-weight: bold;
+	color: #FFFC53;
+	}
+
+td.logoff_heading { font-size: 14px;
+	font-weight: bold;
+	color: #ffffff;
+	}
+
+table.login_form_bg { background-color: #666666;}
+
+table.login_form {background-color: #D9D9D9;}
+
+td.smallText { font-size: 10px;
+      color: #000000;
+      }
+
+td.login { font-size: 12px;
+	color: #000000;
+	}
+
+a { color: #000000;
+	text-decoration: none;}
+
+a:hover { color: #FF7C2A;
+	text-decoration: none;
+	}
+	
+a.nav-head { color: #FFFFFF;
+	text-decoration: none;}
+
+a:hover.nav-head { color: #FFFC53;
+	text-decoration: none;
+	}	
+
+a.sub { color: #FFFC53;
+	text-decoration: none;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 1.5;
+	}
+
+a:hover.sub { color: #FFFFFF;
+	text-decoration: underline;
+	font-size: 11px;
+	font-weight: bold;
+	line-height: 1.5;
+	}
+
+.menuBoxHeading { font-size: 12px;
+	color: #ffffff;
+	font-weight: bold;
+	background-color: #FF7C2A;
+	border: 1px solid #FF7C2A;
+	}
+
+.infoBox { font-size: 10px;
+	color: #000000;
+	background-color: #D9D9D9;
+	border: 1px solid #FF7C2A
+	}
+
+.heading { font-size: 20px;
+	font-weight: bold;
+	line-height: 1.5;
+	color: #D9D9D9;
+	}
+
+.indexmain { font-size: 17px;
+	font-weight: bold;
+	line-height: 1.5;
+	color: #ffffff;
+	}
+
+a.indexmain { color: #FF7C2A;
+	text-decoration: none;
+	}
+
+a:hover.indexmain{ color: #D9D9D9;
+	text-decoration: underline;
+	}
+
+/* Buttons */
+a.button-default, 
+a:hover.button-default {
+  background: url(button_default_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 0px;
+  height: 20px;
+  margin-top: 1px;
+  margin-bottom: 1px;  
+  padding-right: 5px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: normal;
+  cursor: pointer;
+  }
+
+a.button-default span,
+a:hover.button-default span {
+  background: url(button_default_left.gif) no-repeat;
+  display: block;
+  line-height: 16px;
+  padding: 2px 0 3px 5px;
+  }
+  
+/* CSS clear */
+html body div.clear,
+html body span.clear {
+  background: none;
+  border: 0;
+  clear: both;
+  display: block;
+  float: none;
+  font-size: 0;
+  margin: 0;
+  padding: 0;
+  position: static;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  }  

@@ -1,0 +1,209 @@
+/* -----------------------------------------------------------------------------
+ project    : XOS-Shop, open source e-commerce system
+              http://www.xos-shop.com
+                                                                     
+ template   : xs_admin
+ version    : 1.0.7 for XOS-Shop version 1.0 rc7s
+ descrip    : xos-shop default template for admin with css-buttons
+              and tables for layout                                                                     
+ filename   : stylesheet.css
+ author     : Hanspeter Zeller <hpz@xos-shop.com>
+ copyright  : Copyright (c) 2007 Hanspeter Zeller
+ license    : This file is part of XOS-Shop.
+
+              XOS-Shop is free software: you can redistribute it and/or modify
+              it under the terms of the GNU General Public License as published
+              by the Free Software Foundation, either version 3 of the License,
+              or (at your option) any later version.
+
+              XOS-Shop is distributed in the hope that it will be useful,
+              but WITHOUT ANY WARRANTY; without even the implied warranty of
+              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+              GNU General Public License for more details.
+
+              You should have received a copy of the GNU General Public License
+              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.    
+--------------------------------------------------------------------------------
+ this file is based on: 
+              osCommerce, Open Source E-Commerce Solutions
+              http://www.oscommerce.com
+              Copyright (c) 2003 osCommerce
+              filename: stylesheet.css                      
+
+              Released under the GNU General Public License 
+----------------------------------------------------------------------------- */
+
+img { border: 0; }
+
+/* links */
+a { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; font-weight: normal; text-decoration: none; }
+a:hover { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; font-weight: normal; text-decoration: underline; }
+
+a.updateAttribute { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; font-weight: normal; text-decoration: underline; }
+a:hover.updateAttribute { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ff7c2a; font-weight: normal; text-decoration: underline; }
+
+a.headerLink { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; font-weight: bold; text-decoration: none; }
+a:hover.headerLink { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; font-weight: bold; text-decoration: underline; }
+
+a.menuBoxHeadingLink { font-size: 10px; color: #ffffff; font-weight: bold; text-decoration: none; display: block;}
+a:hover.menuBoxHeadingLink { font-size: 10px; color: #ffffff; font-weight: bold; text-decoration: none; }
+
+a.menuBoxContentLink { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; font-weight: normal; text-decoration: none; }
+a:hover.menuBoxContentLink { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ff7c2a; font-weight: normal; text-decoration: none; }
+a.menuBoxContentLinkSelected { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; font-weight: bold; text-decoration: none; }
+a:hover.menuBoxContentLinkSelected { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ff7c2a; font-weight: bold; text-decoration: none; }
+
+a.splitPageLink { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #1AD900; font-weight: bold; text-decoration: none; }
+a:hover.splitPageLink { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ff7c2a; font-weight: bold; text-decoration: none; }
+
+/* menu box */
+.menuBoxHeading { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; background-color: #ff7c2a; font-weight: bold; }
+.menuBoxHeadingSelected { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; background-color: #000000; font-weight: bold; }
+.menuBoxContent { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; font-weight: bold; }
+.menuBoxContentSelected { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; background-color: #fcf85a; font-weight: bold; }
+
+/* page */
+body { background-color: #ffffff; color: #000000; margin: 0 auto 0 auto; max-width: 1300px; }
+.main-div { position: relative; }
+.header { background-color: #ff7c2a; }
+.headerBar { background-color: #000000; }
+.headerBarContent { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; font-weight: bold; padding: 2px; }
+.columnLeft { background-color: #D9D9D9; border-color: #ff7c2a; border-width: 1px; border-style: solid; }
+.pageHeading { font-family: Verdana, Arial, sans-serif; font-size: 18px; color: #000000; font-weight: bold; }
+
+/* data table */
+.dataHeadingRow { background-color: #000000; }
+.dataHeadingContent { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; font-weight: bold; }
+.dataTableHeadingRow { background-color: #FF7C2A; }
+.dataTableHeadingContent { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; font-weight: bold; }
+.dataTableRow { background-color: #DFE4F4; }
+.dataTableRowSelected { background-color: #D9D9D9; cursor: pointer; }
+.dataTableRowOver { background-color: #FFFFFF; cursor: pointer; cursor: pointer; }
+.dataTableContent { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; font-weight: bold; }
+.dataTableSplitPageRow { background-color: #000000; }
+.dataTableSplitPageContent { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; font-weight: bold; }
+
+/* info box */
+.infoBoxHeading { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ffffff; background-color: #000000; }
+.infoBoxContent { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #000000; background-color: #D9D9D9; }
+
+/* message box */
+
+.messageBox { font-family: Verdana, Arial, sans-serif; font-size: 10px; }
+.messageStackError, .messageStackWarning { font-family: Verdana, Arial, sans-serif; font-size: 10px; background-color: #ffb3b5; }
+.messageStackSuccess { font-family: Verdana, Arial, sans-serif; font-size: 10px; background-color: #99ff00; }
+
+/* forms */
+checkbox, input, radio, select, textarea, file { font-family: Verdana, Arial, sans-serif; font-size: 11px; }
+form { display: inline; }
+
+/* account */
+.formArea { background-color: #DFE4F4; border-color: #ff7c2a; border-style: solid; border-width: 1px; }
+.formAreaTitle { font-family: Tahoma, Verdana, Arial, sans-serif; font-size: 12px; font-weight: bold; }
+
+/* attributes */
+.attributes-odd { background-color: #dfe4f4; }
+.attributes-even { background-color: #ffffff; }
+
+/* miscellaneous */
+.specialPrice { color: #ff0000; }
+.oldPrice { text-decoration: line-through; }
+.fieldRequired { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ff0000; }
+.smallText { font-family: Verdana, Arial, sans-serif; font-size: 10px; }
+.main { font-family: Verdana, Arial, sans-serif; font-size: 12px; }
+.errorText { font-family: Verdana, Arial, sans-serif; font-size: 10px; color: #ff0000; }
+.tableRecreateImages { font-family: Verdana, Arial, sans-serif; font-size: 12px;  color: #ffffff; background-color: #000000; border-color: #ff7c2a; border-width: 4px; border-style: solid;}
+.text-deco-underline { text-decoration: underline; }
+
+/* Buttons */
+a.button-default, 
+a:hover.button-default {
+  background: url(button_default_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 0px;
+  height: 20px;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  padding-right: 5px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+a.button-default span,
+a:hover.button-default span {
+  background: url(button_default_left.gif) no-repeat;
+  display: block;
+  line-height: 16px;
+  padding: 2px 0 3px 5px;
+}
+
+a.button-attributes-default, 
+a:hover.button-attributes-default {
+  background: url(button_attributes_default_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 0px;
+  height: 16px;
+  padding-right: 2px;
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+a.button-attributes-default span,
+a:hover.button-attributes-default span {
+  background: url(button_attributes_default_left.gif) no-repeat;
+  display: block;
+  line-height: 14px;
+  padding: 1px 0 1px 2px;
+}
+
+a.button-attributes-not-up-to-date, 
+a:hover.button-attributes-not-up-to-date {
+  background: url(button_attributes_not_up_to_date_right.gif) no-repeat scroll top right;
+  display: block;
+  text-indent: 0px;
+  height: 16px;
+  padding-right: 2px;
+  text-decoration: none;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+a.button-attributes-not-up-to-date span,
+a:hover.button-attributes-not-up-to-date span {
+  background: url(button_attributes_not_up_to_date_left.gif) no-repeat;
+  display: block;
+  line-height: 14px;
+  padding: 1px 0 1px 2px;
+}
+
+/* CSS clear */
+html body div.clear,
+html body span.clear {
+     background: none;
+     border: 0;
+     clear: both;
+     display: block;
+     float: none;
+     font-size: 0;
+     margin: 0;
+     padding: 0;
+     position: static;
+     overflow: hidden;
+     visibility: hidden;
+     width: 0;
+     height: 0;
+}

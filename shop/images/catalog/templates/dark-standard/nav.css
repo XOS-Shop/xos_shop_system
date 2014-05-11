@@ -1,0 +1,458 @@
+/* -----------------------------------------------------------------------------
+ project    : XOS-Shop, open source e-commerce system
+              http://www.xos-shop.com
+                                                                     
+ template   : dark-standard
+ version    : 1.0.7 for XOS-Shop version 1.0 rc7s
+ descrip    : xos-shop extra template with popup windows as lightboxes 
+              and div/css layout                                                                     
+ filename   : nav.css
+ author     : Hanspeter Zeller <hpz@xos-shop.com>
+ copyright  : Copyright (c) 2007 Hanspeter Zeller
+ license    : This file is part of XOS-Shop.
+
+              XOS-Shop is free software: you can redistribute it and/or modify
+              it under the terms of the GNU General Public License as published
+              by the Free Software Foundation, either version 3 of the License,
+              or (at your option) any later version.
+
+              XOS-Shop is distributed in the hope that it will be useful,
+              but WITHOUT ANY WARRANTY; without even the implied warranty of
+              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+              GNU General Public License for more details.
+
+              You should have received a copy of the GNU General Public License
+              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.    
+--------------------------------------------------------------------------------
+ this file is based on: 
+              osCommerce, Open Source E-Commerce Solutions
+              http://www.oscommerce.com
+              Copyright (c) 2003 osCommerce
+              filename: stylesheet.css                      
+
+              Released under the GNU General Public License 
+----------------------------------------------------------------------------- */
+
+.main-cat { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal;
+  background-color : #fff;   
+  background-image : url("main-cat.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 19px;
+  padding-right : 5px; 
+} 
+
+.main-cat-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-color : #fff; 
+  background-image : url("main-cat-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 19px;
+  padding-right : 5px;
+} 
+
+.main-cat-last { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal;
+  background-color : #fff; 
+  background-image : url("main-cat-last.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 19px;
+  padding-right : 5px;  
+}
+ 
+.main-cat-last-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-color : #fff; 
+  background-image : url("main-cat-last-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 19px;
+  padding-right : 5px;
+}
+
+* html .main-cat,
+* html .main-cat-selected,  
+* html .main-cat-last, 
+* html .main-cat-last-selected { /*IE6 only*/  
+  padding-right : 0;
+}
+
+*+html .main-cat,
+*+html .main-cat-selected,  
+*+html .main-cat-last, 
+*+html .main-cat-last-selected { /*IE7 only*/ 
+  padding-right : 0; 
+}
+
+.sub-cat-level1 { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal;  
+  background-image : url("sub-cat-level1.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 13px;
+} 
+
+.sub-cat-level1-selected { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level1-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 13px;
+} 
+
+.sub-cat-level1-last { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal; 
+  background-image : url("sub-cat-level1-last.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 13px;
+}
+
+.sub-cat-level1-last-selected { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level1-last-selected.gif");  
+  background-repeat : no-repeat; 
+  background-position : top left; 
+   padding-left : 13px;
+}
+
+.sub-cat-level2 { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal; 
+  background-image : url("sub-cat-level2.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 14px; 
+} 
+
+.sub-cat-level2-selected { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level2-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 14px;
+} 
+
+.sub-cat-level2-last { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal; 
+  background-image : url("sub-cat-level2-last.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 14px; 
+}
+
+.sub-cat-level2-last-selected { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : bold; 
+  background-image : url("sub-cat-level2-last-selected.gif");
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 14px;
+} 
+
+.sub-cat-level3 { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal; 
+  background-image : url("sub-cat-level3.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 14px; 
+} 
+
+.sub-cat-level3-selected { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level3-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 14px; 
+} 
+
+.sub-cat-level3-last { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal; 
+  background-image : url("sub-cat-level3-last.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 14px;  
+}
+ 
+.sub-cat-level3-last-selected { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level3-last-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 14px; 
+}
+/* new for level4 */
+.sub-cat-level4 { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal;   
+  background-image : url("sub-cat-level4.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 14px; 
+} 
+
+.sub-cat-level4-selected { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level4-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 14px; 
+} 
+
+.sub-cat-level4-last { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal;   
+  background-image : url("sub-cat-level4-last.gif"); 
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 14px; 
+}
+
+.sub-cat-level4-last-selected { 
+  font-size : 10px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level4-last-selected.gif");
+  background-repeat : no-repeat; 
+  background-position : top left; 
+  padding-left : 14px; 
+} 
+
+.main-cat a,
+.main-cat-selected a,  
+.main-cat-last a, 
+.main-cat-last-selected a,
+.sub-cat-level1 a,
+.sub-cat-level1-selected a, 
+.sub-cat-level1-last a,
+.sub-cat-level1-last-selected a, 
+.sub-cat-level2 a,
+.sub-cat-level2-selected a,
+.sub-cat-level2-last a,
+.sub-cat-level2-last-selected a, 
+.sub-cat-level3 a,
+.sub-cat-level3-selected a,
+.sub-cat-level3-last a,
+.sub-cat-level3-last-selected a,
+/* new for level4 */
+.sub-cat-level4 a,
+.sub-cat-level4-selected a,
+.sub-cat-level4-last a,
+.sub-cat-level4-last-selected a {
+/*  font-size : 11px; */ 
+  line-height: 13px;
+  padding: 2px 0 2px 0; 
+  display : block; 
+  width : 100%; 
+} 
+
+.main-cat a:hover,
+.main-cat-last a:hover { 
+  color : #3857ff; 
+  text-decoration : underline; 
+  display : block; 
+}
+
+.main-cat-selected a:hover, 
+.main-cat-last-selected a:hover, 
+.sub-cat-level1 a:hover,
+.sub-cat-level1-selected a:hover,  
+.sub-cat-level1-last a:hover, 
+.sub-cat-level1-last-selected a:hover, 
+.sub-cat-level2 a:hover,
+.sub-cat-level2-selected a:hover,
+.sub-cat-level2-last a:hover,  
+.sub-cat-level2-last-selected a:hover, 
+.sub-cat-level3 a:hover,  
+.sub-cat-level3-selected a:hover,
+.sub-cat-level3-last a:hover,
+.sub-cat-level3-last-selected a:hover,
+/* new for level4 */
+.sub-cat-level4 a:hover,  
+.sub-cat-level4-selected a:hover,
+.sub-cat-level4-last a:hover,
+.sub-cat-level4-last-selected a:hover { 
+  color : #ff7c2a; 
+  text-decoration : underline; 
+  display : block; 
+}
+
+.main-cat:hover,
+.sub-cat-level1:hover,
+.sub-cat-level2:hover,
+.sub-cat-level3:hover,  
+/* new for level4 */
+.sub-cat-level4:hover { 
+  background-color: #c7dbef;
+}
+
+.ul-cat-outer { 
+  margin: 0; 
+  padding: 0; 
+  list-style: none; 
+}
+
+.ul-cat-inner { 
+  margin: 0; 
+  padding: 0; 
+  list-style: none; 
+} 
+
+.main-cat ul,
+.main-cat ul .sub-cat-level1 ul,
+.main-cat ul .sub-cat-level1 ul .sub-cat-level2 ul,
+.main-cat-selected ul .sub-cat-level1 ul,
+.main-cat-selected ul .sub-cat-level1 ul .sub-cat-level2 ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul,
+/* new for level4 */
+.main-cat ul .sub-cat-level1 ul .sub-cat-level2 ul .sub-cat-level3 ul,
+.main-cat-selected ul .sub-cat-level1 ul .sub-cat-level2 ul .sub-cat-level3 ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul .sub-cat-level3 ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2-selected ul .sub-cat-level3 ul {  
+  position: absolute;
+  top: 0px;
+  left: 135px;
+  width: 168px;
+  margin: 0; 
+  padding: 4px 4px 5px 6px; 
+  list-style: none; 
+  border: 1px solid #ff8a43;	
+  z-index: 1001;	
+  display: none; 
+}  
+
+.main-cat ul,
+.main-cat-selected ul .sub-cat-level1 ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul {
+  top: 0px;
+}
+
+.main-cat-selected ul .sub-cat-level1 ul {
+  left: 120px;
+}
+
+.main-cat-selected ul .sub-cat-level1 ul .sub-cat-level2 ul {
+/*  left: 139px; */
+}
+
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul {
+  left: 106px;
+}
+/* new for level4 */
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2-selected ul .sub-cat-level3 ul { 
+  left: 107px;
+} 
+
+*+html .main-cat ul { /*IE7 only*/ 
+  left: 168px;
+}
+
+*+html .main-cat ul .sub-cat-level1 ul,
+*+html .main-cat ul .sub-cat-level1 ul .sub-cat-level2 ul { /*IE7 only*/ 
+  left: 139px;
+}
+
+*+html .main-cat-selected ul .sub-cat-level1 ul { /*IE7 only*/ 
+  left: 149px;
+}
+
+*+html .main-cat-selected ul .sub-cat-level1 ul .sub-cat-level2 ul { /*IE7 only*/ 
+  left: 139px;
+}
+
+*+html .main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul { /*IE7 only*/ 
+  left: 136px;
+}
+ /* new for level4 */
+*+html .main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2-selected ul .sub-cat-level3 ul { 
+  left: 122px;
+}
+
+.main-cat ul, 
+.main-cat ul .sub-cat-level1 ul,
+.main-cat ul .sub-cat-level1 ul .sub-cat-level2 ul,
+/* new for level4 */
+.main-cat ul .sub-cat-level1 ul .sub-cat-level2 ul .sub-cat-level3 ul {			
+  background-color: #fff;
+}
+
+
+.main-cat-selected ul .sub-cat-level1 ul,
+.main-cat-selected ul .sub-cat-level1 ul .sub-cat-level2 ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul,
+/* new for level4 */
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul .sub-cat-level3 ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2-selected ul .sub-cat-level3 ul {		
+  background-color: #fff;
+}
+
+.main-cat:hover ul,
+.main-cat ul .sub-cat-level1:hover ul,
+.main-cat ul .sub-cat-level1 ul .sub-cat-level2:hover ul,
+.main-cat-selected ul .sub-cat-level1:hover ul,
+.main-cat-selected ul .sub-cat-level1 ul .sub-cat-level2:hover ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2:hover ul,
+/* new for level4 */
+.main-cat ul .sub-cat-level1 ul .sub-cat-level2 ul .sub-cat-level3:hover ul,
+.main-cat-selected ul .sub-cat-level1 ul .sub-cat-level2 ul .sub-cat-level3:hover ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul .sub-cat-level3:hover ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2-selected ul .sub-cat-level3:hover ul {
+  display: block;
+} 

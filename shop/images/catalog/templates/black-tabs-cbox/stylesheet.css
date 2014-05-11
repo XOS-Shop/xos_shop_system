@@ -1,0 +1,1043 @@
+/* -----------------------------------------------------------------------------
+ project    : XOS-Shop, open source e-commerce system
+              http://www.xos-shop.com
+                                                                     
+ template   : black-tabs-cbox
+ version    : 1.0.7 for XOS-Shop version 1.0 rc7s
+ descrip    : xos-shop default template with tabs navigation
+              and popup windows as lightboxes and div/css layout                                                                     
+ filename   : stylesheet.css
+ author     : Hanspeter Zeller <hpz@xos-shop.com>
+ copyright  : Copyright (c) 2007 Hanspeter Zeller
+ license    : This file is part of XOS-Shop.
+
+              XOS-Shop is free software: you can redistribute it and/or modify
+              it under the terms of the GNU General Public License as published
+              by the Free Software Foundation, either version 3 of the License,
+              or (at your option) any later version.
+
+              XOS-Shop is distributed in the hope that it will be useful,
+              but WITHOUT ANY WARRANTY; without even the implied warranty of
+              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+              GNU General Public License for more details.
+
+              You should have received a copy of the GNU General Public License
+              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.    
+--------------------------------------------------------------------------------
+ this file is based on: 
+              osCommerce, Open Source E-Commerce Solutions
+              http://www.oscommerce.com
+              Copyright (c) 2003 osCommerce
+              filename: stylesheet.css                      
+
+              Released under the GNU General Public License 
+----------------------------------------------------------------------------- */
+
+img {
+  border: 0;
+}
+
+fieldset {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	background: transparent;
+}
+
+legend {
+  display: none;
+}
+
+.account-personal-gif {
+  background-image : url("account_personal.gif"); 
+  background-repeat : no-repeat; 
+  background-position : center;
+}
+
+.account-orders-gif {
+  background-image : url("account_orders.gif"); 
+  background-repeat : no-repeat; 
+  background-position : center;
+}
+
+.account-notifications-gif {
+  background-image : url("account_notifications.gif"); 
+  background-repeat : no-repeat; 
+  background-position : center;
+}
+
+.create-account-label {
+  padding: 4px; 
+  width: 180px; 
+  float: left; 
+  display: block;
+}
+
+.create-account-input {
+  padding: 4px; 
+  float: left;
+}
+
+.checkout-new-address-label {
+  padding: 4px; 
+  width: 160px; 
+  float: left; 
+  display: block;
+}
+
+.checkout-new-address-input {
+  padding: 4px; 
+  float: left;
+}
+
+.address-book-details-label {
+  padding: 4px; 
+  width: 160px; 
+  float: left; 
+  display: block;
+}
+
+.address-book-details-input {
+  padding: 4px; 
+  float: left;
+}
+
+.edit-account-label {
+  padding: 4px; 
+  width: 160px; 
+  float: left; 
+  display: block;
+}
+
+.edit-account-input {
+  padding: 4px; 
+  float: left;
+}
+
+.account-password-label {
+  padding: 4px; 
+  width: 160px; 
+  float: left; 
+  display: block;
+}
+
+.account-password-input {
+  padding: 4px; 
+  float: left;
+}
+
+.tell-a-friend-label {
+  padding: 4px; 
+  width: 180px; 
+  float: left; 
+  display: block;
+}
+
+.tell-a-friend-input {
+  padding: 4px; 
+  float: left;
+}
+
+.login-label {
+  padding: 4px; 
+  width: 110px; 
+  float: left; 
+  display: block;
+}
+
+.login-input {
+  padding: 4px; 
+  float: left;
+}
+
+#info-box-heading-search {
+  padding: 3px 0 3px 6px;
+}
+
+#main-div {
+  background : #fff;
+  margin-left: auto;
+  margin-right: auto;    
+  max-width : 1300px; 
+}
+
+#page {
+  background : #fff;
+  text-align : left;
+  width : 995px;
+  margin : 0 auto;
+}  
+
+.box-text { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+} 
+
+.stock-warning { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  color : #cc0033; 
+} 
+
+.products-notifications { 
+  background : #f2fff7; 
+}
+ 
+.order-edit { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  color : #70d250; 
+  text-decoration : underline; 
+} 
+
+body {
+  text-align : center;
+  background : #ffffff; 
+  color : #000000; 
+  margin : 0; 
+}
+ 
+a { 
+  color : #000000; 
+  text-decoration : none; 
+} 
+
+a:hover { 
+  color : #ff7c2a; 
+  text-decoration : underline; 
+} 
+
+form { 
+  display : inline; 
+} 
+
+.header-outer { 
+/* background : #dedede; */
+  background-image : url("header_background.gif");  
+} 
+
+.header { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  color : #000000; 
+  font-weight : bold; 
+} 
+
+a.header { 
+  color : #000000; 
+} 
+
+a.header:hover { 
+  color : #ff7c2a; 
+} 
+
+.header-navi { 
+  font-family : Verdana, Arial, sans-serif;
+  margin: 2px 0 0 0;
+  padding: 1px 4px 2px 2px;
+  font-size : 11px;
+  line-height : 15px; 
+  background : #040404; 
+  color : #ffffff; 
+  font-weight : bold; 
+}  
+
+a.header-navi { 
+  color : #ffffff; 
+} 
+
+a.header-navi:hover { 
+  color : #ffffff; 
+} 
+
+.header-error { 
+  font-family : Tahoma, Verdana, Arial, sans-serif; 
+  font-size : 12px; 
+  background : #ff0000; 
+  color : #ffffff; 
+  font-weight : bold; 
+  text-align : center; 
+} 
+
+.header-info { 
+  font-family : Tahoma, Verdana, Arial, sans-serif; 
+  font-size : 12px; 
+  background : #00ff00; 
+  color : #ffffff; 
+  font-weight : bold; 
+  text-align : center; 
+} 
+
+.footer { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  color : #ff7c2a; 
+  font-weight : bold; 
+} 
+
+.info-box { 
+  background : #e8e8e8; 
+} 
+
+.info-box-contents { 
+  background : #fefefe; 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+}
+
+.info-box-central { 
+  background : #b6b7cb; 
+}
+
+.info-box-central-contents { 
+  background : #ffffff; 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px;
+  border: solid 1px #b6b7cb;
+  border-radius: 10px;  
+}
+
+.info-box-notice-contents { 
+  background : #ffe6e6; 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px;
+  border: solid 1px #ff8e90;   
+} 
+
+.info-box-heading { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  font-weight : bold; 
+  color : #000000; 
+  padding : 1px 0 1px 0;  
+}
+
+.central-contents {
+  background : #fff;
+  width : 817px;
+  margin : 4px 0 0 0;
+  float : left;
+  position : relative;
+  z-index : 999;  
+}
+
+.for-ie6 { /* IE 6 befolgt nachfolgende Deklarationen */
+  background : #fff;
+  position : absolute;  
+}
+
+html>body .for-ie6 { /* IE 6 ignoriert nachfolgende Deklarationen */
+  position : relative;  
+}
+
+.column-left { 
+  width : 174px; 
+  margin : 4px 4px 0 0;
+/*  border-top: 18px solid #040404; */
+  float : left;
+}
+
+*+html .column-left { /*IE7 only*/
+  position:relative;
+  z-index : 1000; 
+}
+
+.column-right { 
+  width : 156px; 
+  margin : 4px 0; 
+  float : right;
+} 
+
+.column-left .info-box-heading { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 13px; 
+  font-weight : bold; 
+  background : #e6e6e6;
+  color : #000000;
+  padding : 3px 0 3px 6px; 
+} 
+
+.column-right .info-box-heading { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  font-weight : bold; 
+  background : #ff7c2a; 
+  color : #ffffff;
+  padding : 3px 0 3px 6px; 
+}
+
+.column-left .info-box-heading img { 
+  float : right; 
+  margin-top : 2px;
+} 
+
+.column-right .info-box-heading img { 
+  float : right; 
+  margin-top : 2px;
+}
+
+.column-left .info-box-contents {
+  margin : 0 0 4px 0;
+}
+
+.column-right .info-box-contents {
+  margin : 0 0 4px 0;
+}
+ 
+.product-listing-heading, 
+.product-listing-heading a, 
+.product-listing-heading a:hover { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  background : #000000; 
+  color : #ffffff; 
+  font-weight : bold; 
+}
+
+tr:first-child .product-listing-heading:first-child {
+  border-top-left-radius: 10px;
+}
+
+tr:first-child .product-listing-heading:last-child {
+  border-top-right-radius: 10px;
+}
+
+table.product-listing, div.product-listing { 
+  border : 1px; 
+  border-style : solid; 
+  border-color : #b6b7cb; 
+  border-spacing : 0;
+  border-radius: 10px; 
+} 
+
+tr.product-listing-odd { 
+/*  background : #dfe4f4; */
+  background : #fefefe; 
+} 
+
+tr.product-listing-even { 
+  background : #ffffff; 
+}  
+
+td.product-listing-data { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px;
+  border-bottom: 1px dashed #b6b7cb; 
+}
+
+td.product-listing-data-last { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px;
+}
+
+tr:last-child .product-listing-data-last:first-child {
+  border-bottom-left-radius: 10px;
+} 
+
+tr:last-child .product-listing-data-last:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+.product-listing-inner-data { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px;
+}  
+
+.product-listing-cart-heading, 
+.product-listing-cart-heading a, 
+.product-listing-cart-heading a:hover { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  background : #000000; 
+  color : #ffffff; 
+  font-weight : bold; 
+}
+
+tr:first-child .product-listing-cart-heading:first-child { 
+  border-top-left-radius: 10px; 
+} 
+
+tr:first-child .product-listing-cart-heading:last-child { 
+  border-top-right-radius: 10px;
+}
+
+ table.product-listing-cart { 
+  border : 1px; 
+  border-style : solid; 
+  border-color : #b6b7cb; 
+  border-spacing : 0;
+  border-radius: 10px; 
+}
+
+tr.product-listing-cart-odd { 
+/*  background : #dfe4f4; */
+  background : #fefefe;
+} 
+
+tr.product-listing-cart-even { 
+  background : #ffffff; 
+} 
+
+td.product-listing-cart-data { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+}
+
+tr:last-child .product-listing-cart-data-last { 
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.product-listing-account-history-info-heading, 
+.product-listing-account-history-info-heading a, 
+.product-listing-account-history-info-heading a:hover { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  background : #000000; 
+  color : #ffffff; 
+  font-weight : bold; 
+}
+
+tr.product-listing-account-history-info-background { 
+  background : #d8d8d8; 
+}
+
+td.product-listing-account-history-info-data { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+}
+
+.product-listing-checkout-confirmation-heading, 
+.product-listing-checkout-confirmation-heading a, 
+.product-listing-checkout-confirmation-heading a:hover { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  background : #000000; 
+  color : #ffffff; 
+  font-weight : bold; 
+}
+
+tr.product-listing-checkout-confirmation-background { 
+  background : #d8d8d8; 
+}
+
+td.product-listing-checkout-confirmation-data { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+}
+
+a.page-results { 
+  color : #0000ff; 
+} 
+
+a.page-results:hover { 
+  color : #0000ff; 
+  background : #ffff33; 
+} 
+
+.page-heading { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 20px; 
+  font-weight : bold; 
+  color : #ff7c2a; 
+}
+
+.page-heading img {
+  float : right; 
+} 
+
+.main { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  line-height : 1.5; 
+} 
+
+.small-text { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+} 
+
+.field-key { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  font-weight : bold;
+  line-height: 20px;
+  padding: 2px 0 2px 4px; 
+  width: 180px; 
+  float: left; 
+  display: block;   
+} 
+
+.field-value { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px;
+  padding: 2px 0 2px 0; 
+  float: left;   
+}
+ 
+.table-heading-upcoming-products { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 12px; 
+  font-weight : bold; 
+} 
+
+span.new-item-in-cart { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  color : #ff0000; 
+}
+
+span.welcome-string { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  color : #000000; 
+  font-weight : normal; 
+}
+
+span.greet-user { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 12px; 
+  color : #f0a480; 
+  font-weight : bold; 
+} 
+
+span.mark-product-out-of-stock { 
+  font-family : Tahoma, Verdana, Arial, sans-serif; 
+  font-size : 12px; 
+  color : #c76170; 
+  font-weight : bold; 
+} 
+
+span.product-special-price { 
+  font-family : Verdana, Arial, sans-serif; 
+  color : #ff0000; 
+}
+
+.checkout-bar-delivery-gif {
+  background-image : url("checkout-bar-delivery.gif"); 
+  background-repeat : no-repeat; 
+  background-position : center;
+  width: 100%; 
+  height: 11px; 
+  font-size: 0;
+}
+
+.checkout-bar-payment-gif {
+  background-image : url("checkout-bar-payment.gif"); 
+  background-repeat : no-repeat; 
+  background-position : center;
+  width: 100%; 
+  height: 11px; 
+  font-size: 0;
+}
+
+.checkout-bar-confirmation-gif {
+  background-image : url("checkout-bar-confirmation.gif"); 
+  background-repeat : no-repeat; 
+  background-position : center;
+  width: 100%; 
+  height: 11px; 
+  font-size: 0;
+}
+
+.checkout-bar-finished-gif{
+  background-image : url("checkout-bar-finished.gif"); 
+  background-repeat : no-repeat; 
+  background-position : center;
+  width: 100%; 
+  height: 11px; 
+  font-size: 0;
+}
+
+.checkout-bar-finished-from, 
+.checkout-bar-to { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  color : #8c8c8c; 
+} 
+
+.checkout-bar-from,
+.checkout-bar-current { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  color : #000000; 
+}
+
+.red-mark { 
+  color : #ff0000; 
+}
+
+/* message box */
+
+.message-stack-error, 
+.message-stack-warning { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  background-color : #ffb3b5; 
+} 
+
+.message-stack-success { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  background-color : #99ff00; 
+}
+
+.module-row {
+}
+
+.module-row-over { 
+  background-color : #d3d3d3;
+  cursor : pointer; 
+  cursor : pointer; 
+} 
+
+.module-row-selected { 
+  background-color : #bebebe; 
+} 
+
+/* input requirement */
+
+.input-requirement { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  color : #ff0000; 
+} 
+
+/* price label */
+.price-label {
+/*  background-color : #fffc53; */
+}
+
+/* option-link in product_info.php [noscript] */
+.option-selected {
+  font-weight : bold;
+}
+
+.option-link {
+  color : gray;
+}
+
+/* Product sorting in product_listing_b */
+
+#sort {
+  float: left;
+  padding: 3px; 
+}
+
+* html #sort { /*IE6 only*/
+  display: none;
+}
+
+#sort_box {
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  background: #ffffff;
+  cursor: pointer;   
+  min-width: 100px;
+}
+
+#sort_list {
+  font-family : Verdana, Arial, sans-serif;
+  font-size : 11px;
+  background: #ffffff;
+  position: absolute; 
+  z-index: 999;
+  min-width: 100px;
+  display: none;
+}
+
+#sort_box ul,
+#sort_list ul {
+  margin: 0; 
+  padding: 0; 
+  list-style: none; 
+  border-style: solid; 
+  border-width: 1px; 
+  border-color: #b6b7cb;
+  white-space: nowrap;
+}
+
+#sort_box ul li,
+#sort_list ul li {
+  padding: 3px; 
+  white-space: nowrap;
+}
+
+#sort_box:hover #sort_list {
+  display: block;
+} 
+
+/* Product info images */
+
+#info-images-header { 
+  color : #000000;
+  text-align: center;   
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  font-weight : bold; 
+  line-height : 17px; 
+  background-color : #ffffff;
+  position : relative; 
+  top : 0; 
+  left : 0; 
+  width : 195px; 
+  height : 18px; 
+  border-right : 2px solid #ffffff; 
+} 
+
+#info-images { 
+  color : #000; 
+  background-color : #fff; 
+  position : relative; 
+  top : 0; 
+  left : 0; 
+  width : 195px; 
+  height : 214px; 
+/*  border-left : 1px solid #b6b7cb; */
+/*  border-right : 1px solid #b6b7cb; */
+/*  border-top : 1px solid #b6b7cb; */
+} 
+
+.info { 
+  color : #000; 
+  background-color : #fff; 
+  text-align : center; 
+  visibility : hidden; 
+  padding-top : 4px; 
+  position : absolute; 
+  top : 0; 
+  left : 0; 
+  width : 193px; 
+  height : 188px; 
+}
+
+.info-img { 
+  max-width : 193px;
+  max-height : 188px; 
+} 
+
+#info0 { 
+  visibility : visible; 
+}
+
+.glass { 
+  color : #000; 
+  background-color : #fff; 
+  text-align : center; 
+  visibility : hidden; 
+  position : absolute; 
+  top : 192px; 
+  left : 0; 
+  width : 193px; 
+  max-height : 22px; 
+  overflow : hidden; 
+}
+
+#glass0 { 
+  visibility : visible; 
+}
+
+#info-thumbs { 
+  color : #000; 
+  background-color : #fff; 
+  position : relative; 
+  top : 0; 
+  left : 0; 
+  width : 195px;
+/*  border-left : 1px solid #b6b7cb; */
+/*  border-right : 1px solid #b6b7cb; */
+/*  border-bottom : 1px solid #b6b7cb; */
+  padding-bottom : 2px;
+}
+        
+.thumb {
+  color : #000; 
+  text-decoration : none; 
+  background-color : white; 
+  text-align : center; 
+  margin-top : 3px; 
+  margin-left : 2px; 
+  position : relative; 
+  top : 0; 
+  left : 0; 
+  width : 28px; 
+  height : 28px; 
+  float : left; 
+  overflow : hidden; 
+  border : 1px solid #94a6b5; 
+  cursor : pointer; 
+} 
+
+#thumb0 { 
+  border-color : red; 
+}
+
+/* form elements */
+
+input, select { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+}
+
+input[type="text"], input[type="password"], select {
+  background-color: #ffffff;
+  border: solid 1px #b6b7cb;
+  padding: 2px;  
+}
+
+textarea {  
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  background-color: #ffffff;
+  border: solid 1px #b6b7cb;
+  width : 99.5%;
+}
+
+.wrapper-search-keywords input {
+/*  border: solid 1px #000000; */
+}
+
+.wrapper-advanced-search-keywords input {
+  width: 99%;
+}
+
+.popup-image-thumb-active {
+  border-style: solid; 
+  border-width: 1px; 
+  border-color: #ff7c2a;
+}
+
+.popup-image-thumb-non-active {
+  border-style: solid; 
+  border-width: 1px; 
+  border-color: #b6b7cb;
+}
+
+.popup-image-large {
+  border-style: solid; 
+  border-width: 1px; 
+  border-color: #b6b7cb;
+}
+
+/* CSS clear */
+html body div.clear,
+html body span.clear {
+     background: none;
+     border: 0;
+     clear: both;
+     display: block;
+     float: none;
+     font-size: 0;
+     margin: 0;
+     padding: 0;
+     position: static;
+     overflow: hidden;
+     visibility: hidden;
+     width: 0;
+     height: 0;
+}
+
+.text-deco-underline { 
+  text-decoration: underline;
+}
+
+.text-deco-line-through {
+  text-decoration: line-through;
+}
+
+.options-list-draw-separator {
+  display:inline-block;
+  width:95%;
+  text-align:left;
+  font-weight : bold;
+}
+
+.options-list {
+  display:inline-block;
+  width:95%;
+  text-align:center;
+  font-weight : bold;
+}
+
+a.options-list {
+  background: url(replace.gif) no-repeat;
+  display:inline-block;
+  width:95%;
+  text-align:left;
+  font-weight : bold;
+}
+
+/* description tabs in product_info.tpl  */
+
+.descrip-tabs {
+  margin: 0 15px -1px 15px;
+  padding: 5px 10px 0 0;
+  list-style: none;
+  clear: both;
+  display: none; 				
+}      
+
+.descrip-tabs li {
+  display: inline;
+}
+
+.descrip-tabs a {
+  margin: 2px 0 0 0;
+  padding: 5px 8px;
+  border: solid 1px #b6b7cb;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;  
+  display: inline-block;
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+}
+
+.descrip-tabs a:hover {
+  background: #d8d8d8;
+  color: #000;
+}
+
+.descrip-tabs a.active {
+  border-bottom: solid 1px #feffff;
+  background: #feffff;
+  color: #000;
+}
+
+/* Show or hide box shopping_cart  */
+
+#shopping_cart_list {
+  display: none;
+}
+
+#shopping_cart_box:hover #shopping_cart_list {
+  display: block;
+}
+
+/* Show or hide box currencies noscript  */
+
+html>body #currencies_list_noscript { /* IE 6 ignoriert nachfolgende Deklarationen */
+  display: none;
+}
+
+#currencies_box_noscript:hover #currencies_list_noscript {
+  display: block;
+}
+
+/* product options select-tag in product_info.tpl */
+
+.products-options-pull-down select {
+  min-width: 300px;
+}
+
+/* jQuery elevateZoom  */
+
+.zoomLens {
+  border-radius: 10px;  
+}
+
+.zoomWindow {
+  border-radius: 10px;
+  box-shadow:3px 3px 7px #333333;  
+}  

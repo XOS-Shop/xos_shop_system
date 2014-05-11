@@ -1,0 +1,787 @@
+/* -----------------------------------------------------------------------------
+ project    : XOS-Shop, open source e-commerce system
+              http://www.xos-shop.com
+                                                                     
+ template   : orange-table
+ version    : 1.0.7 for XOS-Shop version 1.0 rc7s
+ descrip    : xos-shop default template with css-buttons and tables for layout                                                                     
+ filename   : stylesheet.css
+ author     : Hanspeter Zeller <hpz@xos-shop.com>
+ copyright  : Copyright (c) 2007 Hanspeter Zeller
+ license    : This file is part of XOS-Shop.
+
+              XOS-Shop is free software: you can redistribute it and/or modify
+              it under the terms of the GNU General Public License as published
+              by the Free Software Foundation, either version 3 of the License,
+              or (at your option) any later version.
+
+              XOS-Shop is distributed in the hope that it will be useful,
+              but WITHOUT ANY WARRANTY; without even the implied warranty of
+              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+              GNU General Public License for more details.
+
+              You should have received a copy of the GNU General Public License
+              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.    
+--------------------------------------------------------------------------------
+ this file is based on: 
+              osCommerce, Open Source E-Commerce Solutions
+              http://www.oscommerce.com
+              Copyright (c) 2003 osCommerce
+              filename: stylesheet.css                      
+
+              Released under the GNU General Public License 
+----------------------------------------------------------------------------- */
+
+img {
+  border: 0;
+}
+
+.main-div {
+  background : #fff;
+  margin-left: auto;
+  margin-right: auto;  
+  max-width : 1300px; 
+} 
+
+.box-text { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+} 
+
+.stock-warning { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  color : #cc0033; 
+} 
+
+.products-notifications { 
+  background : #f2fff7; 
+}
+ 
+.order-edit { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  color : #70d250; 
+  text-decoration : underline; 
+} 
+
+body { 
+  background : #ffffff; 
+  color : #000000; 
+  margin : 0; 
+}
+ 
+a { 
+  color : #000000; 
+  text-decoration : none; 
+} 
+
+a:hover { 
+  color : #ff7c2a; 
+  text-decoration : underline; 
+} 
+
+form { 
+  display : inline; 
+} 
+
+td.header { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  background : #ff7c2a; 
+  color : #ffffff; 
+  font-weight : bold; 
+} 
+
+a.header { 
+  color : #ffffff; 
+} 
+
+a.header:hover { 
+  color : #fffc53; 
+} 
+
+td.header-navi { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  background : #000000; 
+  color : #ffffff; 
+  font-weight : bold; 
+} 
+
+a.header-navi { 
+  color : #ffffff; 
+} 
+
+a.header-navi:hover { 
+  color : #ffffff; 
+} 
+
+tr.header-error { 
+  background : #ff0000; 
+}
+ 
+td.header-error { 
+  font-family : Tahoma, Verdana, Arial, sans-serif; 
+  font-size : 12px; 
+  background : #ff0000; 
+  color : #ffffff; 
+  font-weight : bold; 
+  text-align : center; 
+} 
+
+tr.header-info { 
+  background : #00ff00; 
+} 
+
+td.header-info { 
+  font-family : Tahoma, Verdana, Arial, sans-serif; 
+  font-size : 12px; 
+  background : #00ff00; 
+  color : #ffffff; 
+  font-weight : bold; 
+  text-align : center; 
+} 
+
+tr.footer { 
+  background : #ffffff; 
+} 
+
+td.footer { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  background : #ffffff; 
+  color : #ff7c2a; 
+  font-weight : bold; 
+} 
+
+.info-box { 
+  background : #b6b7cb; 
+} 
+
+.info-box-contents { 
+  background : #f8f8f9; 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+}
+
+.info-box-central { 
+  background : #b6b7cb; 
+}
+
+.info-box-central-contents { 
+  background : #f8f8f9; 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+}
+ 
+.info-box-notice { 
+  background : #ff8e90; 
+} 
+
+.info-box-notice-contents { 
+  background : #ffe6e6; 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+} 
+
+.info-box-heading { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  font-weight : bold; 
+  background : #000000; 
+  color : #ffffff; 
+} 
+
+.column-left .info-box-heading { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  font-weight : bold; 
+  background : #ff7c2a; 
+  color : #ffffff; 
+} 
+
+.column-right .info-box-heading { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  font-weight : bold; 
+  background : #ff7c2a; 
+  color : #ffffff; 
+} 
+
+.column-left .info-box-heading a { 
+  color : #ffffff;
+  text-decoration : none; 
+} 
+
+.column-right .info-box-heading a {
+  color : #ffffff;
+  text-decoration : none; 
+}
+
+.column-left .info-box-heading a:hover { 
+  color : #ffffff;
+  text-decoration : underline; 
+} 
+
+.column-right .info-box-heading a:hover {
+  color : #ffffff;
+  text-decoration : underline; 
+}
+
+td.info-box, 
+span.info-box { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+}
+ 
+.product-listing-heading, 
+.product-listing-heading a, 
+.product-listing-heading a:hover { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  background : #000000; 
+  color : #ffffff; 
+  font-weight : bold; 
+}
+
+table.product-listing, div.product-listing { 
+  border : 1px; 
+  border-style : solid; 
+  border-color : #b6b7cb; 
+  border-spacing : 0; 
+} 
+
+tr.product-listing-odd { 
+  background : #f0f0f0; 
+} 
+
+tr.product-listing-even { 
+  background : #ffffff; 
+}  
+
+td.product-listing-data { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px;
+  border-bottom: 1px dashed #b6b7cb; 
+}
+
+td.product-listing-data-last { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px;
+}
+
+.product-listing-inner-data { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px;
+}  
+
+.product-listing-cart-heading, 
+.product-listing-cart-heading a, 
+.product-listing-cart-heading a:hover { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  background : #000000; 
+  color : #ffffff; 
+  font-weight : bold; 
+}
+
+ table.product-listing-cart { 
+  border : 1px; 
+  border-style : solid; 
+  border-color : #b6b7cb; 
+  border-spacing : 0; 
+}
+
+tr.product-listing-cart-odd { 
+  background : #f0f0f0; 
+} 
+
+tr.product-listing-cart-even { 
+  background : #ffffff; 
+} 
+
+td.product-listing-cart-data { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+}
+
+.product-listing-account-history-info-heading, 
+.product-listing-account-history-info-heading a, 
+.product-listing-account-history-info-heading a:hover { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  background : #000000; 
+  color : #ffffff; 
+  font-weight : bold; 
+}
+
+tr.product-listing-account-history-info-background { 
+  background : #f0f0f0; 
+}
+
+td.product-listing-account-history-info-data { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+}
+
+.product-listing-checkout-confirmation-heading, 
+.product-listing-checkout-confirmation-heading a, 
+.product-listing-checkout-confirmation-heading a:hover { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  background : #000000; 
+  color : #ffffff; 
+  font-weight : bold; 
+}
+
+tr.product-listing-checkout-confirmation-background { 
+  background : #f0f0f0; 
+}
+
+td.product-listing-checkout-confirmation-data { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+}
+
+a.page-results { 
+  color : #0000ff; 
+} 
+
+a.page-results:hover { 
+  color : #0000ff; 
+  background : #ffff33; 
+} 
+
+.page-heading { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 20px; 
+  font-weight : bold; 
+  color : #ff7c2a; 
+} 
+
+.main { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  line-height : 1.5; 
+} 
+
+.small-text { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+} 
+
+td.field-key { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  font-weight : bold; 
+} 
+
+td.field-value { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+}
+ 
+td.table-heading-upcoming-products { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 12px; 
+  font-weight : bold; 
+}
+
+tr.upcoming-products-odd { 
+  background : #f0f0f0; 
+} 
+
+tr.upcoming-products-even { 
+  background : #ffffff; 
+}  
+
+span.new-item-in-cart { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  color : #ff0000; 
+}
+
+span.welcome-string { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  color : #000000; 
+  font-weight : normal; 
+}
+
+span.greet-user { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 12px; 
+  color : #f0a480; 
+  font-weight : bold; 
+} 
+
+span.mark-product-out-of-stock { 
+  font-family : Tahoma, Verdana, Arial, sans-serif; 
+  font-size : 12px; 
+  color : #c76170; 
+  font-weight : bold; 
+} 
+
+span.product-special-price { 
+  font-family : Verdana, Arial, sans-serif; 
+  color : #ff0000; 
+}
+
+.checkout-bar-from, 
+.checkout-bar-to { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  color : #8c8c8c; 
+} 
+
+.checkout-bar-current { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  color : #000000; 
+}
+
+.red-mark { 
+  color : #ff0000; 
+}
+
+/* message box */
+
+.message-stack-error, 
+.message-stack-warning { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  background-color : #ffb3b5; 
+} 
+
+.message-stack-success { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  background-color : #99ff00; 
+}
+
+.module-row {
+}
+
+.module-row-over { 
+  background-color : #e6e6e6;
+  cursor : pointer; 
+  cursor : pointer; 
+} 
+
+.module-row-selected { 
+  background-color : #d8d8d8; 
+} 
+
+/* input requirement */
+
+.input-requirement { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  color : #ff0000; 
+} 
+
+/* price label */
+.price-label {
+background-color : #fffc53;
+}
+
+/* option-link in product_info.php [noscript] */
+.option-selected {
+  font-weight : bold;
+}
+
+.option-link {
+  color : gray;
+}
+
+/* Product sorting in product_listing_b */
+
+#sort {
+  float: left;
+  padding: 3px; 
+}
+
+* html #sort { /*IE6 only*/
+  display: none;
+}
+
+#sort_box {
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  background: #ffffff;
+  cursor: pointer;   
+  min-width: 100px;
+}
+
+#sort_list {
+  font-family : Verdana, Arial, sans-serif;
+  font-size : 11px;
+  background: #ffffff;
+  position: absolute; 
+  z-index: 999;
+  min-width: 100px;
+  display: none;
+}
+
+#sort_box ul,
+#sort_list ul {
+  margin: 0; 
+  padding: 0; 
+  list-style: none; 
+  border-style: solid; 
+  border-width: 1px; 
+  border-color: #b6b7cb;
+  white-space: nowrap;
+}
+
+#sort_box ul li,
+#sort_list ul li {
+  padding: 3px; 
+  white-space: nowrap;
+}
+
+#sort_box:hover #sort_list {
+  display: block;
+} 
+
+/* Product info images */
+
+#info-images-header { 
+  color : white; 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  font-weight : bold; 
+  line-height : 17px; 
+  background-color : #000000; 
+  text-indent : 6px; 
+  position : relative; 
+  top : 0; 
+  left : 0; 
+  width : 195px; 
+  height : 18px; 
+  border-right : 2px solid #000000; 
+} 
+
+#info-images { 
+  color : #000; 
+  background-color : #fff; 
+  position : relative; 
+  top : 0; 
+  left : 0; 
+  width : 195px; 
+  height : 214px; 
+  border-left : 1px solid #b6b7cb;
+  border-right : 1px solid #b6b7cb;
+  border-top : 1px solid #b6b7cb;
+} 
+
+.info { 
+  color : #000; 
+  background-color : #fff; 
+  text-align : center; 
+  visibility : hidden; 
+  padding-top : 4px; 
+  position : absolute; 
+  top : 0; 
+  left : 0; 
+  width : 193px; 
+  height : 188px; 
+}
+
+.info-img { 
+  max-width : 193px;
+  max-height : 188px; 
+} 
+
+#info0 { 
+  visibility : visible; 
+}
+
+.glass { 
+  color : #000; 
+  background-color : #fff; 
+  text-align : center; 
+  visibility : hidden; 
+  position : absolute; 
+  top : 192px; 
+  left : 0; 
+  width : 193px; 
+  max-height : 22px; 
+  overflow : hidden; 
+}
+
+#glass0 { 
+  visibility : visible; 
+}
+
+#info-thumbs { 
+  color : #000; 
+  background-color : #fff; 
+  position : relative; 
+  top : 0; 
+  left : 0; 
+  width : 195px;
+  border-left : 1px solid #b6b7cb;
+  border-right : 1px solid #b6b7cb;
+  border-bottom : 1px solid #b6b7cb;
+  padding-bottom : 2px;
+}
+        
+.thumb {
+  color : #000; 
+  text-decoration : none; 
+  background-color : white; 
+  text-align : center; 
+  margin-top : 3px; 
+  margin-left : 2px; 
+  position : relative; 
+  top : 0; 
+  left : 0; 
+  width : 28px; 
+  height : 28px; 
+  float : left; 
+  overflow : hidden; 
+  border : 1px solid #94a6b5; 
+  cursor : pointer; 
+} 
+
+#thumb0 { 
+  border-color : red; 
+}
+
+/* form elements */
+
+input, select { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+}
+
+input[type="text"], input[type="password"], select {
+  background-color: #ffffff;
+  border: solid 1px #b6b7cb;
+  padding: 2px;  
+}
+
+textarea {  
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 11px; 
+  background-color: #ffffff;
+  border: solid 1px #b6b7cb;
+  width : 99.5%;
+}
+
+.wrapper-search-keywords input {
+  border: solid 1px #000000;
+}
+
+.wrapper-advanced-search-keywords input {
+  width: 99%;
+}
+
+.popup-image-thumb-active {
+  border-style: solid; 
+  border-width: 1px; 
+  border-color: #ff7c2a;
+}
+
+.popup-image-thumb-non-active {
+  border-style: solid; 
+  border-width: 1px; 
+  border-color: #b6b7cb;
+}
+
+.popup-image-large {
+  border-style: solid; 
+  border-width: 1px; 
+  border-color: #b6b7cb;
+}
+
+/* CSS clear */
+html body div.clear,
+html body span.clear {
+     background: none;
+     border: 0;
+     clear: both;
+     display: block;
+     float: none;
+     font-size: 0;
+     margin: 0;
+     padding: 0;
+     position: static;
+     overflow: hidden;
+     visibility: hidden;
+     width: 0;
+     height: 0;
+}
+
+.text-deco-underline { 
+  text-decoration: underline;
+}
+
+.text-deco-line-through {
+  text-decoration: line-through;
+}
+
+.options-list-draw-separator {
+  display:inline-block;
+  width:95%;
+  text-align:left;
+  font-weight : bold;
+}
+
+.options-list {
+  display:inline-block;
+  width:95%;
+  text-align:center;
+  font-weight : bold;
+}
+
+a.options-list {
+  background: url(replace.gif) no-repeat;
+  display:inline-block;
+  width:95%;
+  text-align:left;
+  font-weight : bold;
+}
+
+/* description tabs in product_info.tpl  */
+
+.descrip-tabs {
+  margin: 0 0 -1px 0;
+  padding: 5px 0 0 0;
+  list-style: none;
+  clear: both;
+  display: none; 				
+}      
+
+.descrip-tabs li {
+  display: inline;
+}
+
+.descrip-tabs a {
+  margin: 2px 0 0 0;
+  padding: 5px 8px;
+  border: solid 1px #b6b7cb;
+  display: inline-block;
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+}
+
+.descrip-tabs a:hover {
+  background: #d8d8d8;
+  color: #000;
+}
+
+.descrip-tabs a.active {
+  border-bottom: solid 1px #f0f0f0;
+  background: #f0f0f0;
+  color: #000;
+}
+
+/* product options select-tag in product_info.tpl */
+
+.products-options-pull-down select {
+  min-width: 300px;
+}

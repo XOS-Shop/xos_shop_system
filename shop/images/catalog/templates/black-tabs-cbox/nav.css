@@ -1,0 +1,945 @@
+/* -----------------------------------------------------------------------------
+ project    : XOS-Shop, open source e-commerce system
+              http://www.xos-shop.com
+                                                                     
+ template   : black-tabs-cbox
+ version    : 1.0.7 for XOS-Shop version 1.0 rc7s
+ descrip    : xos-shop default template with tabs navigation
+              and popup windows as lightboxes and div/css layout                                                                     
+ filename   : nav.css
+ author     : Hanspeter Zeller <hpz@xos-shop.com>
+ copyright  : Copyright (c) 2007 Hanspeter Zeller
+ license    : This file is part of XOS-Shop.
+
+              XOS-Shop is free software: you can redistribute it and/or modify
+              it under the terms of the GNU General Public License as published
+              by the Free Software Foundation, either version 3 of the License,
+              or (at your option) any later version.
+
+              XOS-Shop is distributed in the hope that it will be useful,
+              but WITHOUT ANY WARRANTY; without even the implied warranty of
+              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+              GNU General Public License for more details.
+
+              You should have received a copy of the GNU General Public License
+              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.    
+--------------------------------------------------------------------------------
+ this file is based on: 
+              osCommerce, Open Source E-Commerce Solutions
+              http://www.oscommerce.com
+              Copyright (c) 2003 osCommerce
+              filename: stylesheet.css                      
+
+              Released under the GNU General Public License 
+----------------------------------------------------------------------------- */
+
+.main-cat { 
+  display: none; 
+} 
+
+.main-cat { 
+  display: none; 
+} 
+
+.main-cat-selected { 
+  font-size : 0; 
+  font-family : Verdana, Arial, Helvetica, sans-serif;
+  line-height : 0;
+  text-indent : -9999px; /* for IE6 */ 
+  width : 100%;
+}
+
+.main-cat-selected > a { 
+  visibility: hidden;
+}  
+
+.main-cat-last { 
+  display: none;  
+}
+ 
+.main-cat-last-selected { 
+  display: none;    
+}
+
+.sub-cat-level1 { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal;   
+  background-image : url("sub-cat-level1.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px;
+  text-indent : 0; /* for IE6 */  
+  padding-left : 19px;
+  padding-right : 5px;
+} 
+
+.sub-cat-level1-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+/*  background-color : #fefefe; */ 
+  background-image : url("sub-cat-level1-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px;
+  text-indent : 0; /* for IE6 */  
+  padding-left : 19px;
+  padding-right : 5px;
+} 
+
+.sub-cat-level1-last { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal;   
+  background-image : url("sub-cat-level1-last.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px;
+  text-indent : 0; /* for IE6 */  
+  padding-left : 19px;
+  padding-right : 5px;
+}
+ 
+.sub-cat-level1-last-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+/*  background-color : #fefefe; */ 
+  background-image : url("sub-cat-level1-last-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px;
+  text-indent : 0; /* for IE6 */  
+  padding-left : 19px;
+  padding-right : 5px; 
+}
+
+* html .sub-cat-level1,
+* html .sub-cat-level1-selected, 
+* html .sub-cat-level1-last,
+* html .sub-cat-level1-last-selected { /*IE6 only*/  
+  padding-right : 0;
+}
+
+*+html .sub-cat-level1,
+*+html .sub-cat-level1-selected, 
+*+html .sub-cat-level1-last,
+*+html .sub-cat-level1-last-selected { /*IE7 only*/  
+  padding-right : 0;
+}
+
+.sub-cat-level2 { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : normal;  
+  background-image : url("sub-cat-level2.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 13px;  
+} 
+
+.sub-cat-level2-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level2-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 13px; 
+} 
+
+.sub-cat-level2-last { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal;   
+  background-image : url("sub-cat-level2-last.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 13px; 
+}
+
+.sub-cat-level2-last-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level2-last-selected.gif");  
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 13px; 
+}
+
+.sub-cat-level3 { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal;   
+  background-image : url("sub-cat-level3.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px; 
+} 
+
+.sub-cat-level3-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level3-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px; 
+} 
+
+.sub-cat-level3-last { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal;   
+  background-image : url("sub-cat-level3-last.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px; 
+}
+
+.sub-cat-level3-last-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level3-last-selected.gif");
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px; 
+} 
+/* new for level4 */
+.sub-cat-level4 { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal;   
+  background-image : url("sub-cat-level4.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px; 
+} 
+
+.sub-cat-level4-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level4-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px; 
+} 
+
+.sub-cat-level4-last { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal;   
+  background-image : url("sub-cat-level4-last.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px; 
+}
+
+.sub-cat-level4-last-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level4-last-selected.gif");
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px; 
+} 
+
+* html .sub-cat-level1,
+* html .sub-cat-level1-selected,
+* html .sub-cat-level1-last,
+* html .sub-cat-level1-last-selected { /*IE6 only  [.column-left (width = 174px) - 19px]*/
+  width : 155px;
+}
+
+* html .sub-cat-level2,
+* html .sub-cat-level2-selected,
+* html .sub-cat-level2-last,
+* html .sub-cat-level2-last-selected  { /*IE6 only  [.column-left (width = 174px) - 19px - 14px]*/
+  width : 141px;
+}
+
+* html .sub-cat-level3,
+* html .sub-cat-level3-selected,
+* html .sub-cat-level3-last,
+* html .sub-cat-level3-last-selected  { /*IE6 only  [.column-left (width = 174px) - 19px - 14px - 14px]*/
+  width : 127px;
+}
+/* new for level4 */
+* html .sub-cat-level4,
+* html .sub-cat-level4-selected,
+* html .sub-cat-level4-last,
+* html .sub-cat-level4-last-selected  { /*IE6 only  [.column-left (width = 174px) - 19px - 14px - 14px - 14px]*/
+  width : 113px;
+}
+
+.sub-cat-level1 a,
+.sub-cat-level1-selected a, 
+.sub-cat-level1-last a,
+.sub-cat-level1-last-selected a, 
+.sub-cat-level2 a,
+.sub-cat-level2-selected a,
+.sub-cat-level2-last a,
+.sub-cat-level2-last-selected a, 
+.sub-cat-level3 a,
+.sub-cat-level3-selected a,
+.sub-cat-level3-last a,
+.sub-cat-level3-last-selected a,
+/* new for level4 */
+.sub-cat-level4 a,
+.sub-cat-level4-selected a,
+.sub-cat-level4-last a,
+.sub-cat-level4-last-selected a {
+/*  font-size : 11px; */
+  line-height: 18px;
+  padding: 2px 0 2px 0; 
+  display : block; 
+  width : 100%; 
+}
+
+.sub-cat-level1:hover,
+.sub-cat-level2:hover,
+.sub-cat-level3:hover,  
+/* new for level4 */
+.sub-cat-level4:hover { 
+  background-color: #dedede;
+}
+ 
+.sub-cat-level1 a:hover,
+.sub-cat-level1-selected a:hover,  
+.sub-cat-level1-last a:hover, 
+.sub-cat-level1-last-selected a:hover, 
+.sub-cat-level2 a:hover,
+.sub-cat-level2-selected a:hover,
+.sub-cat-level2-last a:hover,  
+.sub-cat-level2-last-selected a:hover, 
+.sub-cat-level3 a:hover,  
+.sub-cat-level3-selected a:hover,
+.sub-cat-level3-last a:hover,
+.sub-cat-level3-last-selected a:hover,
+/* new for level4 */
+.sub-cat-level4 a:hover,  
+.sub-cat-level4-selected a:hover,
+.sub-cat-level4-last a:hover,
+.sub-cat-level4-last-selected a:hover { 
+  color : #ff7c2a; 
+  text-decoration : underline; 
+  display : block; 
+}
+
+.ul-cat-outer { 
+  margin: 0; 
+  padding: 0; 
+  list-style: none;
+}
+
+.ul-cat-inner {
+  margin: 0; 
+  padding: 0; 
+  list-style: none;
+} 
+
+.main-cat ul,
+.main-cat ul .sub-cat-level1 ul,
+.main-cat ul .sub-cat-level1 ul .sub-cat-level2 ul,
+.main-cat-selected ul .sub-cat-level1 ul,
+.main-cat-selected ul .sub-cat-level1 ul .sub-cat-level2 ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul,
+/* new for level4 */
+.main-cat ul .sub-cat-level1 ul .sub-cat-level2 ul .sub-cat-level3 ul,
+.main-cat-selected ul .sub-cat-level1 ul .sub-cat-level2 ul .sub-cat-level3 ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul .sub-cat-level3 ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2-selected ul .sub-cat-level3 ul { 
+  position: absolute;
+  top: -5px;
+  left: 139px;
+  width: 168px;
+  margin: 0; 
+  padding: 4px 4px 5px 6px; 
+  list-style: none;
+  background-color: #fefefe;
+  border: 1px solid #000;
+  z-index: 1001;	
+  display: none; 
+} 
+
+.main-cat-selected ul .sub-cat-level1 ul .sub-cat-level2 ul { 
+  left: 138px;
+}
+
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul { 
+  left: 120px;
+}  
+/* new for level4 */
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2-selected ul .sub-cat-level3 ul { 
+  left: 107px;
+} 
+
+*+html .main-cat ul,
+*+html .main-cat ul .sub-cat-level1 ul,
+*+html .main-cat ul .sub-cat-level1 ul .sub-cat-level2 ul,
+*+html .main-cat-selected ul .sub-cat-level1 ul,
+*+html .main-cat-selected ul .sub-cat-level1 ul .sub-cat-level2 ul,
+*+html .main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul { /*IE7 only*/
+  left: 174px;
+}
+
+*+html .main-cat-selected ul .sub-cat-level1 ul .sub-cat-level2 ul { 
+  left: 138px;
+}
+
+*+html .main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul { 
+  left: 155px;
+}
+/* new for level4 */
+*+html .main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2-selected ul .sub-cat-level3 ul { 
+  left: 142px;
+}
+
+.main-cat ul .sub-cat-level1 ul .sub-cat-level2 ul,
+/* new for level4 */
+.main-cat ul .sub-cat-level1 ul .sub-cat-level2 ul .sub-cat-level3 ul {	
+  background-color: #fefefe;
+}
+
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul,
+/* new for level4 */
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul .sub-cat-level3 ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2-selected ul .sub-cat-level3 ul {	
+  background-color: #fefefe;
+}
+
+.main-cat:hover ul,
+.main-cat ul .sub-cat-level1:hover ul,
+.main-cat ul .sub-cat-level1 ul .sub-cat-level2:hover ul,
+.main-cat-selected ul .sub-cat-level1:hover ul,
+.main-cat-selected ul .sub-cat-level1 ul .sub-cat-level2:hover ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2:hover ul,
+/* new for level4 */
+.main-cat ul .sub-cat-level1 ul .sub-cat-level2 ul .sub-cat-level3:hover ul,
+.main-cat-selected ul .sub-cat-level1 ul .sub-cat-level2 ul .sub-cat-level3:hover ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2 ul .sub-cat-level3:hover ul,
+.main-cat-selected ul .sub-cat-level1-selected ul .sub-cat-level2-selected ul .sub-cat-level3:hover ul {
+  display: block; 
+}  
+
+/* tabs */
+
+.tab-nav {
+  margin: 0;
+  padding: 0;
+}
+
+.tab-main-cat,
+.tab-main-cat-last {
+  background-color: #dedede;
+  background-repeat: no-repeat;
+  background-position: right top;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: #000000;  
+  font-weight: bold;
+  width: 114px;
+  height: 28px;
+  margin: 0 2px 0 0;
+  float: left;
+  display: block; 
+}
+
+.tab-main-cat-selected,
+.tab-main-cat-last-selected {
+  background-color: #040404;
+  background-repeat: no-repeat;
+  background-position: right top;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: #ffffff;  
+  font-weight: bold;
+  width: 114px;
+  height: 28px;
+  margin: 0 2px 0 0;
+  float: left;  
+}
+
+.tab-main-cat a,
+.tab-main-cat-last a,
+.tab-main-cat-selected a,
+.tab-main-cat-last-selected a {
+  color: inherit;
+  font-size: 11px;
+  font-family: Verdana, Arial, Helvetica, sans-serif; 
+  line-height: 11px;
+  display: block;
+  padding: 3px 4px 4px 4px;
+  cursor: pointer;
+  height: 100%;
+}
+
+.tab-main-cat a:hover,
+.tab-main-cat-last a:hover {
+  color: inherit;
+  text-decoration : none;
+  cursor: pointer;
+  height: 100%;  
+  display: block;
+}
+
+.tab-main-cat-selected a:hover,
+.tab-main-cat-last-selected a:hover {
+  color: inherit;
+  text-decoration : none;
+  cursor: pointer;
+  height: 100%;  
+  display: block;
+}
+
+* html .tab-main-cat a,
+* html .tab-main-cat-last a { /*IE6 only*/
+  color: #000000;
+}
+
+* html .tab-main-cat-selected a,
+* html .tab-main-cat-last-selected a { /*IE6 only*/
+  color: #ffffff;
+}
+
+* html .tab-main-cat a:hover,
+* html .tab-main-cat-last a:hover { /*IE6 only*/
+  color: #000000;
+  background-color: #bebdbd;
+  background-repeat: no-repeat;
+  background-position: right top;
+}
+
+* html .tab-main-cat-selected a:hover,
+* html .tab-main-cat-last-selected a:hover { /*IE6 only*/
+  color: #ffffff;
+  background-color: #040404;
+  background-repeat: no-repeat;
+  background-position: right top;
+}
+
+*+html .tab-main-cat > a,
+*+html .tab-main-cat-last > a { /*IE7 only*/
+  color: #000000;
+}
+
+*+html .tab-main-cat-selected > a,
+*+html .tab-main-cat-last-selected > a { /*IE7 only*/
+  color: #ffffff;
+}
+
+*+html .tab-main-cat > a:hover,
+*+html .tab-main-cat-last > a:hover { /*IE7 only*/
+  color: #000000;
+}
+
+*+html .tab-main-cat-selected > a:hover,
+*+html .tab-main-cat-last-selected > a:hover { /*IE7 only*/
+  color: #ffffff;  
+}
+
+.tab-main-cat:hover,
+.tab-main-cat-last:hover {
+  color: #000000;
+  background-color: #bebdbd;
+  background-repeat: no-repeat;
+  background-position: right top;
+  text-decoration : none;
+  cursor: pointer;
+}
+
+.tab-main-cat-selected:hover,
+.tab-main-cat-last-selected:hover {
+  color: #ffffff;
+  background-color: #040404;
+  background-repeat: no-repeat;
+  background-position: right top;
+  text-decoration : none;
+  cursor: pointer;
+}
+
+.tab-sub-cat-level1 {
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal;  
+  background-image : url("sub-cat-level1.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 19px;
+} 
+
+.tab-sub-cat-level1-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("tab-sub-cat-level1-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 19px;
+} 
+
+.tab-sub-cat-level1-last { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal; 
+  background-image : url("sub-cat-level1-last.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 19px; 
+}
+
+.tab-sub-cat-level1-last-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level1-last-selected.gif");  
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 19px;
+}
+
+.tab-sub-cat-level2 { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal; 
+  background-image : url("sub-cat-level2.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 13px; 
+} 
+
+.tab-sub-cat-level2-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("tab-sub-cat-level2-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 13px; 
+} 
+
+.tab-sub-cat-level2-last { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal; 
+  background-image : url("sub-cat-level2-last.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 13px;  
+}
+
+.tab-sub-cat-level2-last-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : bold; 
+  background-image : url("sub-cat-level2-last-selected.gif");
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 13px; 
+} 
+
+.tab-sub-cat-level3 { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal; 
+  background-image : url("sub-cat-level3.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px; 
+} 
+
+.tab-sub-cat-level3-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("tab-sub-cat-level3-selected.gif"); /* modified for level4 */
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px;
+} 
+
+.tab-sub-cat-level3-last { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal; 
+  background-image : url("sub-cat-level3-last.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px;
+}
+ 
+.tab-sub-cat-level3-last-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level3-last-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px; 
+}
+/* new for level4 */
+.tab-sub-cat-level4 { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal; 
+  background-image : url("sub-cat-level4.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px; 
+} 
+
+.tab-sub-cat-level4-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level4-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px;
+} 
+
+.tab-sub-cat-level4-last { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px;
+  font-weight : normal; 
+  background-image : url("sub-cat-level4-last.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px;
+}
+ 
+.tab-sub-cat-level4-last-selected { 
+  font-size : 11px; 
+  font-family : Verdana, Arial, Helvetica, sans-serif; 
+  line-height : 18px; 
+  font-weight : bold; 
+  background-image : url("sub-cat-level4-last-selected.gif"); 
+  background-repeat : no-repeat; 
+  background-position : 0px 2px; 
+  padding-left : 14px; 
+}
+
+.tab-sub-cat-level1 a,
+.tab-sub-cat-level1-selected a, 
+.tab-sub-cat-level1-last a,
+.tab-sub-cat-level1-last-selected a, 
+.tab-sub-cat-level2 a,
+.tab-sub-cat-level2-selected a,
+.tab-sub-cat-level2-last a,
+.tab-sub-cat-level2-last-selected a, 
+.tab-sub-cat-level3 a,
+.tab-sub-cat-level3-selected a,
+.tab-sub-cat-level3-last a,
+.tab-sub-cat-level3-last-selected a,
+/* new for level4 */
+.tab-sub-cat-level4 a,
+.tab-sub-cat-level4-selected a,
+.tab-sub-cat-level4-last a,
+.tab-sub-cat-level4-last-selected a {
+/*  font-size : 11px; */
+  line-height: 18px;
+  padding: 2px 0 2px 0;
+  color: #000000; 
+  display : block; 
+  width : 100%; 
+}
+
+.tab-sub-cat-level1:hover,
+.tab-sub-cat-level1-selected:hover,  
+.tab-sub-cat-level2:hover,
+.tab-sub-cat-level2-selected:hover,
+.tab-sub-cat-level3:hover,  
+.tab-sub-cat-level3-selected:hover,
+/* new for level4 */
+.tab-sub-cat-level4:hover,  
+.tab-sub-cat-level4-selected:hover {
+  background-color: #dedede;
+}
+
+.tab-main-cat-selected .tab-sub-cat-level1:hover,
+.tab-main-cat-selected .tab-sub-cat-level1-selected:hover,  
+.tab-main-cat-selected .tab-sub-cat-level2:hover,
+.tab-main-cat-selected .tab-sub-cat-level2-selected:hover,
+.tab-main-cat-selected .tab-sub-cat-level3:hover,  
+.tab-main-cat-selected .tab-sub-cat-level3-selected:hover,
+/* new for level4 */
+.tab-main-cat-selected .tab-sub-cat-level4:hover,  
+.tab-main-cat-selected .tab-sub-cat-level4-selected:hover {
+  background-color: #fff;
+}
+
+.tab-sub-cat-level1 a:hover,
+.tab-sub-cat-level1-selected a:hover,  
+.tab-sub-cat-level1-last a:hover, 
+.tab-sub-cat-level1-last-selected a:hover, 
+.tab-sub-cat-level2 a:hover,
+.tab-sub-cat-level2-selected a:hover,
+.tab-sub-cat-level2-last a:hover,  
+.tab-sub-cat-level2-last-selected a:hover, 
+.tab-sub-cat-level3 a:hover,  
+.tab-sub-cat-level3-selected a:hover,
+.tab-sub-cat-level3-last a:hover,
+.tab-sub-cat-level3-last-selected a:hover,
+/* new for level4 */
+.tab-sub-cat-level4 a:hover,  
+.tab-sub-cat-level4-selected a:hover,
+.tab-sub-cat-level4-last a:hover,
+.tab-sub-cat-level4-last-selected a:hover {
+  background-image : none;
+  color : #ff7c2a; 
+  text-decoration : underline; 
+  display : block; 
+}
+
+.ul-tab-outer {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  clear: both;  
+}
+
+.ul-tab-outer > li{
+  margin-top: 2px;  
+} 
+
+.ul-tab-inner {
+  margin: 0; 
+  padding: 0; 
+  list-style: none; 
+} 
+
+.tab-main-cat ul,
+.tab-main-cat ul .tab-sub-cat-level1 ul,
+.tab-main-cat ul .tab-sub-cat-level1 ul .tab-sub-cat-level2 ul,
+
+.tab-main-cat-selected ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1 ul .tab-sub-cat-level2 ul,
+
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2-selected ul,
+/* new for level4 */
+.tab-main-cat ul .tab-sub-cat-level1 ul .tab-sub-cat-level2 ul .tab-sub-cat-level3 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1 ul .tab-sub-cat-level2 ul .tab-sub-cat-level3 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2 ul .tab-sub-cat-level3 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2-selected ul .tab-sub-cat-level3 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2-selected ul .tab-sub-cat-level3-selected ul { 
+  position: absolute;
+  top: 0px;
+  left: 140px;
+  width: 168px;
+  margin: 0; 
+  padding: 4px 4px 5px 6px; 
+  list-style: none;
+  background-color: #fefefe;	
+  border: 1px solid #000;
+  z-index: 1002;	
+  display: none; 
+}
+
+.tab-main-cat ul,
+.tab-main-cat-selected ul {
+  top: 28px;
+/*  left: 0px; */
+  left: 15px;  
+}
+
+.tab-main-cat ul .tab-sub-cat-level1 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul {
+  top:  -5px;
+  left: 144px;
+}
+
+.tab-main-cat ul .tab-sub-cat-level1 ul .tab-sub-cat-level2 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1 ul .tab-sub-cat-level2 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2-selected ul {
+  top:  -5px;
+  left: 144px;
+} 
+/* new for level4 */
+.tab-main-cat ul .tab-sub-cat-level1 ul .tab-sub-cat-level2 ul .tab-sub-cat-level3 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1 ul .tab-sub-cat-level2 ul .tab-sub-cat-level3 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2 ul .tab-sub-cat-level3 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2-selected ul .tab-sub-cat-level3 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2-selected ul .tab-sub-cat-level3-selected ul {
+  top:  -5px;
+  left: 144px;
+} 
+
+.tab-main-cat ul, 
+.tab-main-cat ul .tab-sub-cat-level1 ul,
+.tab-main-cat ul .tab-sub-cat-level1 ul .tab-sub-cat-level2 ul,
+ /* new for level4 */
+.tab-main-cat ul .tab-sub-cat-level1 ul .tab-sub-cat-level2 ul .tab-sub-cat-level3 ul {	
+  background-color: #fefefe;
+}
+
+.tab-main-cat-selected ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1 ul .tab-sub-cat-level2 ul,
+
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2-selected ul,
+/* new for level4 */
+.tab-main-cat-selected ul .tab-sub-cat-level1 ul .tab-sub-cat-level2 ul .tab-sub-cat-level3 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2 ul .tab-sub-cat-level3 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2-selected ul .tab-sub-cat-level3 ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2-selected ul .tab-sub-cat-level3-selected ul {	
+  background-color: #e6e6e6;
+}
+
+.tab-main-cat:hover ul,
+.tab-main-cat ul .tab-sub-cat-level1:hover ul,
+.tab-main-cat ul .tab-sub-cat-level1 ul .tab-sub-cat-level2:hover ul,
+
+.tab-main-cat-selected:hover ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1:hover ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1 ul .tab-sub-cat-level2:hover ul,
+
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected:hover ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2:hover ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2-selected:hover ul,
+/* new for level4 */
+.tab-main-cat ul .tab-sub-cat-level1 ul .tab-sub-cat-level2 ul .tab-sub-cat-level3:hover ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1 ul .tab-sub-cat-level2 ul .tab-sub-cat-level3:hover ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2 ul .tab-sub-cat-level3:hover ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2-selected ul .tab-sub-cat-level3:hover ul,
+.tab-main-cat-selected ul .tab-sub-cat-level1-selected ul .tab-sub-cat-level2-selected ul .tab-sub-cat-level3-selected:hover ul {
+  display: block;
+}
