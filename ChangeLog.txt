@@ -190,4 +190,4 @@
 
 # XOS-Shop v1.0_rc1 (Release 05/09/2010)
 
-
+           Erstes Release
