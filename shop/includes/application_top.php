@@ -215,6 +215,8 @@
     $session_started = true;
   }
 
+  if (!preg_match('/^[a-z0-9]{26}$/i', session_id()) && !preg_match('/^[a-z0-9]{32}$/i', session_id())) session_regenerate_id(true);
+  
 // initialize a session token
   if (!isset($_SESSION['sessiontoken'])) {
     $_SESSION['sessiontoken'] = md5(xos_rand() . xos_rand() . xos_rand() . xos_rand());

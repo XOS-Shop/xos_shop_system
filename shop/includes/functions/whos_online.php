@@ -70,4 +70,8 @@
       xos_db_query("insert into " . TABLE_WHOS_ONLINE . " (customer_id, full_name, session_id, ip_address, time_entry, time_last_click, last_page_url) values ('" . (int)$wo_customer_id . "', '" . xos_db_input($wo_full_name) . "', '" . xos_db_input($wo_session_id) . "', '" . xos_db_input($wo_ip_address) . "', '" . xos_db_input($current_time) . "', '" . xos_db_input($current_time) . "', '" . xos_db_input($wo_last_page_url) . "')");
     }
   }
+  
+  function xos_whos_online_update_session_id($old_id, $new_id) {
+    xos_db_query("update " . TABLE_WHOS_ONLINE . " set session_id = '" . xos_db_input($new_id) . "' where session_id = '" . xos_db_input($old_id) . "'");
+  }   
 ?>

@@ -145,19 +145,10 @@
 
   function xos_session_recreate() {
 
-      $session_backup = $_SESSION;
-
-      unset($_GET[xos_session_name()], $_POST[xos_session_name()], $_COOKIE[xos_session_name()]);
-
-      session_destroy();
-
-      if (STORE_SESSIONS == 'mysql') {
-        session_set_save_handler('_sess_open', '_sess_close', '_sess_read', '_sess_write', '_sess_destroy', '_sess_gc');
-      }
-
-      xos_session_start();
-
-      $_SESSION = $session_backup;
-      unset($session_backup);
+      $old_id = session_id();
+      
+      session_regenerate_id(true);
+      
+      xos_whos_online_update_session_id($old_id, session_id());  
   }
 ?>
