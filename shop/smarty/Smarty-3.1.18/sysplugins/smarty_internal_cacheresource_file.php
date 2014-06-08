@@ -180,7 +180,9 @@
                 $_cacheDirs = new RecursiveDirectoryIterator($_dir);
                 $_cache = new RecursiveIteratorIterator($_cacheDirs, RecursiveIteratorIterator::CHILD_FIRST);
                 foreach ($_cache as $_file) {
-                    if (substr(basename($_file->getPathname()),0,1) == '.' || strpos($_file, '.svn') !== false) continue;
+                    // if (substr(basename($_file->getPathname()),0,1) == '.' || strpos($_file, '.svn') !== false) continue;
+                    // NOTE: delete only files with the extension ".php"
+                    if (substr($_file, -4) != '.php') continue;
                     // directory ?
                     if ($_file->isDir()) {
                         if (!$_cache->isDot()) {

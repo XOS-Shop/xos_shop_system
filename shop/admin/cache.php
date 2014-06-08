@@ -36,6 +36,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
     if ($_GET['reset'] == 'all_blocks') {
       $smarty_cache_control->clearAllCache();
+    } elseif ($_GET['reset'] == 'all_compiled_template_files') {  
+      $smarty_cache_control->clearCompiledTemplate();
     } else {
       $smarty_cache_control->clearCache(null, $_GET['reset']);           
     }
@@ -75,6 +77,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     }
   
     $smarty->assign(array('cache_blocks' => $cache_blocks_array,
+                          'link_filename_cache_reset_all_compiled_template_files' => xos_href_link(FILENAME_CACHE, 'reset=all_compiled_template_files'),
                           'link_filename_cache_reset_all_blocks' => xos_href_link(FILENAME_CACHE, 'reset=all_blocks')));    
   }
   

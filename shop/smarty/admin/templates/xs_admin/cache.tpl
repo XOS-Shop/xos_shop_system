@@ -34,6 +34,7 @@
           <tr>
             <td class="pageHeading">[@{#heading_title#}@]</td>
             <td class="pageHeading" align="right"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="[@{#heading_image_width#}@]" height="[@{#heading_image_height#}@]" /></td>
+            <td class="smallText" align="right"><a href="[@{$link_filename_cache_reset_all_compiled_template_files}@]" class="button-default" style="margin-right: 5px; float: right" title=" [@{#button_title_clear_all_compiled_template_files#}@] "><span>[@{#button_text_clear_all_compiled_template_files#}@]</span></a></td>
           </tr>
         </table></td>
       </tr>

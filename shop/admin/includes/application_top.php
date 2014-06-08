@@ -127,6 +127,7 @@
   
 // and create an smarty instance for cache control  
   $smarty_cache_control = new Smarty();
+  $smarty_cache_control->compile_dir = DIR_FS_SMARTY . 'catalog/templates_c/';
   $smarty_cache_control->cache_dir = DIR_FS_SMARTY . 'catalog/cache/';       
 
 // if gzip_compression is enabled, start to buffer the output 
