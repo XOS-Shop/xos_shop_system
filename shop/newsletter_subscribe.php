@@ -187,7 +187,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
                           'isset_customer_id' => isset($_SESSION['customer_id']) ? true : false,
                           'link_filename_default' => xos_href_link(FILENAME_DEFAULT),
                           'input_field_email_address' => xos_draw_input_field('subscriber_email_address', (($subscriber_email_address) ? '' : $_GET['subscriber_email_address']), 'id="newsletter_subscribe_email_address"'),
-                          'input_security_code' => xos_draw_input_field('security_code', '', 'id="newsletter_subscribe_security_code" maxlength="8"', 'text', false),
+                          'input_security_code' => xos_draw_input_field('security_code', '', 'id="newsletter_subscribe_security_code" maxlength="8" autocomplete="off"', 'text', false),
 //                          'captcha_img' => '<img src="' . xos_href_link(FILENAME_CAPTCHA, '', 'SSL') . '" alt="captcha" title=" captcha " style="cursor:pointer;" onclick="javascript:this.src=\'' . xos_href_link(FILENAME_CAPTCHA, '', 'SSL') . (SID ? '&amp;' : '?') . '\'+Math.random();" />',
                           'captcha_img' => '<img src="' . xos_href_link(FILENAME_CAPTCHA, '', 'SSL') . '" alt="captcha" title=" captcha " />',                           
                           'form_end' => '</form>'));

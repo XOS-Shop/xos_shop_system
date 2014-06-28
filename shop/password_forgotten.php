@@ -141,7 +141,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   $smarty->assign(array('form_begin' => xos_draw_form('password_forgotten', xos_href_link(FILENAME_PASSWORD_FORGOTTEN, 'action=process', 'SSL'), 'post', '', true),
                         'input_field_email_address' => xos_draw_input_field('email_address', '', 'id="password_forgotten_email_address"'),
-                        'input_security_code' => xos_draw_input_field('security_code', '', 'id="password_forgotten_security_code" maxlength="8"', 'text', false),
+                        'input_security_code' => xos_draw_input_field('security_code', '', 'id="password_forgotten_security_code" maxlength="8" autocomplete="off"', 'text', false),
 //                        'captcha_img' => '<img src="' . xos_href_link(FILENAME_CAPTCHA, '', 'SSL') . '" alt="captcha" title=" captcha " style="cursor:pointer;" onclick="javascript:this.src=\'' . xos_href_link(FILENAME_CAPTCHA, '', 'SSL') . (SID ? '&amp;' : '?') . '\'+Math.random();" />',
                         'captcha_img' => '<img src="' . xos_href_link(FILENAME_CAPTCHA, '', 'SSL') . '" alt="captcha" title=" captcha " />',                        
                         'link_back' => $back_link,
