@@ -237,9 +237,7 @@ define('ICON_ERROR', 'Error');
 define('ICON_SUCCESS', 'Correcto');
 define('ICON_WARNING', 'Advertencia');
 
-define('TEXT_GREETING_PERSONAL', 'Bienvenido de nuevo <span class="greet-user">%s!</span> ¿Le gustaria ver que <a href="%s"><span class="text-deco-underline">nuevos productos</span></a> hay disponibles?');
 define('TEXT_GREETING_PERSONAL_RELOGON', '<small>Si no es %s, por favor <a href="%s"><span class="text-deco-underline">entre aqui</span></a> e introduzca sus datos.</small>');
-define('TEXT_GREETING_GUEST', 'Bienvenido <span class="greet-user">Invitado!</span> ¿Le gustaria <a href="%s"><span class="text-deco-underline">entrar en su cuenta</span></a> o preferiria <a href="%s"><span class="text-deco-underline">crear una cuenta nueva</span></a>?');
 define('BOX_TEXT_GREETING_PERSONAL', 'Bienvenido de nuevo<br /><span class="greet-user">%s</span>');
 define('BOX_TEXT_GREETING_GUEST', 'Bienvenido <span class="greet-user">Invitado</span>');
 

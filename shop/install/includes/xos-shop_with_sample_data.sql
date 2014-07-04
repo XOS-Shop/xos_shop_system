@@ -1167,6 +1167,9 @@ insert into contents_data (content_id, language_id, name, heading_title, content
   // define(\'CONSTANT\', \'value\');
   ////////////////////////////////////////////////////////////////////////////////
 */
+  define(\'TEXT_GREETING_PERSONAL\', \'Welcome back <span class=\"greet-user\">%s!</span> Would you like to see which <a href=\"%s\"><span class=\"text-deco-underline\">new products</span></a> are available to purchase?\');
+  define(\'TEXT_GREETING_GUEST\', \'Welcome <span class=\"greet-user\">Guest!</span> Would you like to <a href=\"%s\"><span class=\"text-deco-underline\">log yourself in</span></a>? Or would you prefer to <a href=\"%s\"><span class=\"text-deco-underline\">create an account</span></a>?\');
+
   if (isset($_SESSION[\'customer_first_name\']) && isset($_SESSION[\'customer_id\'])) {
     if (ACCOUNT_GENDER == \'true\' && isset($_SESSION[\'customer_gender\']) && $_SESSION[\'customer_gender\'] != \'\') {
       $welcome_string = sprintf(TEXT_GREETING_PERSONAL, ($_SESSION[\'customer_gender\'] == \'m\' ? MALE_ADDRESS : FEMALE_ADDRESS) . \'&nbsp;\' . xos_output_string_protected($_SESSION[\'customer_first_name\']) . \'&nbsp;\' . xos_output_string_protected($_SESSION[\'customer_lastname\']), xos_href_link(FILENAME_PRODUCTS_NEW));
@@ -1212,6 +1215,9 @@ insert into contents_data (content_id, language_id, name, heading_title, content
   // define(\'CONSTANT\', \'value\');
   ////////////////////////////////////////////////////////////////////////////////
 */
+  define(\'TEXT_GREETING_PERSONAL\', \'Schön das Sie wieder da sind <span class=\"greet-user\">%s!</span> Möchten Sie die <a href=\"%s\"><span class=\"text-deco-underline\">neue Produkte</span></a> ansehen?\');
+  define(\'TEXT_GREETING_GUEST\', \'Herzlich Willkommen <span class=\"greet-user\">Gast!</span> Möchten Sie sich <a href=\"%s\"><span class=\"text-deco-underline\">anmelden</span></a>? Oder wollen Sie ein <a href=\"%s\"><span class=\"text-deco-underline\">Kundenkonto</span></a> eröffnen?\');
+
   if (isset($_SESSION[\'customer_first_name\']) && isset($_SESSION[\'customer_id\'])) {
     if (ACCOUNT_GENDER == \'true\' && isset($_SESSION[\'customer_gender\']) && $_SESSION[\'customer_gender\'] != \'\') {
       $welcome_string = sprintf(TEXT_GREETING_PERSONAL, ($_SESSION[\'customer_gender\'] == \'m\' ? MALE_ADDRESS : FEMALE_ADDRESS) . \'&nbsp;\' . xos_output_string_protected($_SESSION[\'customer_first_name\']) . \'&nbsp;\' . xos_output_string_protected($_SESSION[\'customer_lastname\']), xos_href_link(FILENAME_PRODUCTS_NEW));
@@ -1257,6 +1263,9 @@ insert into contents_data (content_id, language_id, name, heading_title, content
   // define(\'CONSTANT\', \'value\');
   ////////////////////////////////////////////////////////////////////////////////
 */
+  define(\'TEXT_GREETING_PERSONAL\', \'Bienvenido de nuevo <span class=\"greet-user\">%s!</span> ¿Le gustaria ver que <a href=\"%s\"><span class=\"text-deco-underline\">nuevos productos</span></a> hay disponibles?\');
+  define(\'TEXT_GREETING_GUEST\', \'Bienvenido <span class=\"greet-user\">Invitado!</span> ¿Le gustaria <a href=\"%s\"><span class=\"text-deco-underline\">entrar en su cuenta</span></a> o preferiria <a href=\"%s\"><span class=\"text-deco-underline\">crear una cuenta nueva</span></a>?\');
+    
   if (isset($_SESSION[\'customer_first_name\']) && isset($_SESSION[\'customer_id\'])) {
     if (ACCOUNT_GENDER == \'true\' && isset($_SESSION[\'customer_gender\']) && $_SESSION[\'customer_gender\'] != \'\') {
       $welcome_string = sprintf(TEXT_GREETING_PERSONAL, ($_SESSION[\'customer_gender\'] == \'m\' ? MALE_ADDRESS : FEMALE_ADDRESS) . \'&nbsp;\' . xos_output_string_protected($_SESSION[\'customer_first_name\']) . \'&nbsp;\' . xos_output_string_protected($_SESSION[\'customer_lastname\']), xos_href_link(FILENAME_PRODUCTS_NEW));
