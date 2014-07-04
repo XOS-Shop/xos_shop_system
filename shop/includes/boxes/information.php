@@ -38,22 +38,16 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   
   if(!$smarty->isCached(SELECTED_TPL . '/includes/boxes/information.tpl', $cache_id)){
 
-    $contents_query = xos_db_query("select c.content_id, cd.name from " . TABLE_CONTENTS . " c, " . TABLE_CONTENTS_DATA . " cd where c.type = 'info' and c.status = '1' and c.content_id = cd.content_id and cd.language_id = '" . (int)$_SESSION['languages_id'] . "' order by c.sort_order ");
+    $contents_query = xos_db_query("select c.content_id, c.link_request_type, cd.name from " . TABLE_CONTENTS . " c, " . TABLE_CONTENTS_DATA . " cd where c.type = 'info' and c.status = '1' and c.content_id = cd.content_id and cd.language_id = '" . (int)$_SESSION['languages_id'] . "' order by c.sort_order ");
     
     $contents_array = array();
     while ($contents = xos_db_fetch_array($contents_query)) {      
                                                
-      $contents_array[]=array('link_filename_content_content_id' => xos_href_link(FILENAME_CONTENT,'content_id=' . $contents['content_id']),
+      $contents_array[]=array('link_filename_content_content_id' => xos_href_link(FILENAME_CONTENT, 'content_id=' . $contents['content_id'], (!empty($contents['link_request_type']) ? $contents['link_request_type'] : 'NONSSL')),
                               'name' => $contents['name']);
     }
     
     $smarty->assign('box_information_contents', $contents_array);
-  
-    if (SEND_EMAILS == 'true') {
-      $smarty->assign('box_information_link_filename_contact_us', xos_href_link(FILENAME_CONTACT_US, '', 'SSL'));
-    } else {
-      $smarty->assign('box_information_link_filename_contact_us', 'mailto:' . STORE_OWNER_EMAIL_ADDRESS);
-    }
   }  
   
   $output_information = $smarty->fetch(SELECTED_TPL . '/includes/boxes/information.tpl', $cache_id);

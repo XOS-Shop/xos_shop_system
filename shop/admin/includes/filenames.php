@@ -111,7 +111,6 @@
                           'checkout_shipping_address.php' => 'SSL',
                           'checkout_success.php' => 'SSL',  
                           'content.php' => 'NONSSL',
-                          'contact_us.php' => 'SSL',
                           'cookie_usage.php' => 'NONSSL',
                           'create_account.php' => 'SSL',
                           'create_account_success.php' => 'SSL',

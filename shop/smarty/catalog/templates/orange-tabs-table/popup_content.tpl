@@ -66,7 +66,7 @@
 <script type="text/javascript" src="[@{$link_to_dynamic_js}@]"></script>
 </head>
 <body style="margin: 0;">
-<table style="min-width : 450px;" border="0" cellspacing="0" cellpadding="0">
+<table width="100%" style="min-width : 450px;" border="0" cellspacing="0" cellpadding="0">
   <tr>   
     <td width="1%">&nbsp;</td>      
     <td valign="top"><table border="0" width="100%" cellspacing="0" cellpadding="0">

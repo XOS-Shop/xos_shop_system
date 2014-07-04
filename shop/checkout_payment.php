@@ -195,11 +195,11 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $smarty->assign('checkbox_accept_conditions', xos_draw_checkbox_field('accept_conditions', '1', false, 'id="accept_conditions"'));
   }
   
-  $popup_status_query = xos_db_query("select status from " . TABLE_CONTENTS . "  where type = 'system_popup' and status = '1' and content_id = '7' LIMIT 1");
+  $popup_status_query = xos_db_query("select status from " . TABLE_CONTENTS . "  where type = 'system_popup' and status = '1' and content_id = '8' LIMIT 1");
       
   $smarty->assign(array('form_begin' => xos_draw_form('checkout_payment', xos_href_link(FILENAME_CHECKOUT_CONFIRMATION, '', 'SSL'), 'post', 'onsubmit="return check_form();"', true),
                         'form_end' => '</form>',
-                        'link_filename_popup_content_7' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'content_id=7', $request_type) : '',                        
+                        'link_filename_popup_content_8' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'content_id=8', $request_type) : '',                        
                         'link_filename_checkout_payment_address' => xos_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', 'SSL'),
                         'link_filename_checkout_shipping' => xos_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'),
                         'address_label' => xos_address_label($_SESSION['customer_id'], $_SESSION['billto'], true, ' ', '<br />'),

@@ -101,15 +101,15 @@
      [@{if $checkbox_accept_conditions}@]
           <div class="main"><b>[@{#table_heading_conditions#}@]</b></div>      
           <div class="info-box-central-contents" style="padding: 2px 11px 2px 11px;">
-          [@{if $link_filename_popup_content_7}@]                        
+          [@{if $link_filename_popup_content_8}@]                        
             <div class="main" style="padding: 1px;">              
               <script type="text/javascript">
               /* <![CDATA[ */            
-                document.write('<a href="[@{$link_filename_popup_content_7}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a>');
+                document.write('<a href="[@{$link_filename_popup_content_8}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a>');
               /* ]]> */   
               </script>             
               <noscript>
-                &nbsp;<a href="[@{$link_filename_popup_content_7}@]" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a>
+                &nbsp;<a href="[@{$link_filename_popup_content_8}@]" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a>
               </noscript>   
             </div>
           [@{/if}@]

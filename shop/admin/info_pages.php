@@ -51,6 +51,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       case 'update':
         if (isset($_POST['content_id'])) $content_id = xos_db_prepare_input($_POST['content_id']);
         $type = xos_db_prepare_input($_POST['type']);
+        $link_request_type = xos_db_prepare_input($_POST['link_request_type']);
         
         if ($_POST['status'] == 1) {
           $status = xos_db_prepare_input($_POST['status']);
@@ -72,6 +73,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
         if ($content_error == false) {
           $sql_data_array = array('type' => $type,
+                                  'link_request_type' => $link_request_type,
                                   'sort_order' => $sort_order);
                                                      
           if ($action == 'insert') {
@@ -89,7 +91,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
           for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
             $sql_data_array = array('name' => xos_db_prepare_input(htmlspecialchars_decode($_POST['name'][$languages[$i]['id']])),         
                                     'heading_title' => xos_db_prepare_input(htmlspecialchars($_POST['heading_title'][$languages[$i]['id']])),
-                                    'content' => preg_replace_callback('#href=\"?(([^\" >]*?\.php)([^\" >]*?))#siU', 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags(xos_db_prepare_input($_POST['content'][$languages[$i]['id']]), '<img>'))) != '') ? xos_db_prepare_input($_POST['content'][$languages[$i]['id']]) : ''));
+                                    'content' => preg_replace_callback('#href=\"?(([^\" >]*?\.php)([^\" >]*?))#siU', 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags(xos_db_prepare_input($_POST['content'][$languages[$i]['id']]), '<img>'))) != '') ? xos_db_prepare_input($_POST['content'][$languages[$i]['id']]) : ''),
+                                    'php_source' => xos_db_prepare_input($_POST['php_source'][$languages[$i]['id']]));
             
             if ($action == 'insert') {
               $sql_data_array['content_id'] = $content_id;          
@@ -139,6 +142,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
     $parameters = array('content_id' => '',
                         'type' => '',
+                        'link_request_type' => '',
                         'status' => '',
                         'sort_order' => '');
 
@@ -150,7 +154,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       $cID = xos_db_prepare_input($_GET['cID']);
       
       if (!$reload == true) {
-        $contents_query =  xos_db_query("select content_id, type, status, sort_order   from " . TABLE_CONTENTS . " where content_id = '" . (int)$cID . "'");
+        $contents_query =  xos_db_query("select content_id, type, link_request_type, status, sort_order   from " . TABLE_CONTENTS . " where content_id = '" . (int)$cID . "'");
         $contents = xos_db_fetch_array($contents_query);
         $cInfo->objectInfo($contents);
       } elseif (xos_not_null($_POST)) {
@@ -183,7 +187,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 //    $type_array[] = array('id' => 'system_popup', 'text' => 'system_popup');
 //    $type_array[] = array('id' => 'not_in_menu', 'text' => 'not_in_menu');   
      
-    $smarty->assign(array('pull_down_type' => xos_draw_pull_down_menu('type', $type_array, $cInfo->type, 'onchange="updateSort()"'),                          
+    $smarty->assign(array('pull_down_type' => xos_draw_pull_down_menu('type', $type_array, $cInfo->type, 'onchange="updateSort()"'),
+                          'pull_down_link_request_type' => xos_draw_pull_down_menu('link_request_type', array(array('id' => 'NONSSL', 'text' => 'NONSSL'), array('id' => 'SSL', 'text' => 'SSL')), $cInfo->link_request_type),                          
                           'radio_status_0' => xos_draw_radio_field('status', '0', $cInfo->status == 1 ? false : true),   
                           'radio_status_1' => xos_draw_radio_field('status', '1', $cInfo->status == 1 ? true : false),                                                    
                           'input_sort_order' => xos_draw_input_field('sort_order', $cInfo->sort_order, 'maxlength="3" size="3"')));
@@ -198,21 +203,25 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     }
 
     $languages = xos_get_languages();
-    $contents_data_array = array();    
+    $contents_data_array = array();
+    $php_code_included = false;    
     for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
-      $contents_data_query = xos_db_query("select name, heading_title, content from " . TABLE_CONTENTS_DATA . " where content_id = '" . (int)$cInfo->content_id . "' and language_id = '" . (int)$languages[$i]['id'] . "'");
+      $contents_data_query = xos_db_query("select name, heading_title, content, php_source from " . TABLE_CONTENTS_DATA . " where content_id = '" . (int)$cInfo->content_id . "' and language_id = '" . (int)$languages[$i]['id'] . "'");
       $contents_data = xos_db_fetch_array($contents_data_query);
+      if (!empty($cInfo->php_source[$languages[$i]['id']]) || !empty($contents_data['php_source'])) $php_code_included = true;
       $contents_data_array[]=array('languages_image' => xos_image(DIR_WS_CATALOG_IMAGES . 'catalog/templates/' . DEFAULT_TPL . '/' . $languages[$i]['directory'] . '/' . $languages[$i]['image'], $languages[$i]['name']),
                                    'input_name' => xos_draw_input_field('name[' . $languages[$i]['id'] . ']', (isset($cInfo->name[$languages[$i]['id']]) ? stripslashes(htmlspecialchars($cInfo->name[$languages[$i]['id']])) : htmlspecialchars($contents_data['name'])), 'maxlength="64" size="30"', true),
                                    'input_heading_title' => xos_draw_input_field('heading_title[' . $languages[$i]['id'] . ']', (isset($cInfo->heading_title[$languages[$i]['id']]) ? stripslashes($cInfo->heading_title[$languages[$i]['id']]) : $contents_data['heading_title']), 'maxlength="255" size="80"'),
                                    'content_name' => 'content[' . $languages[$i]['id'] . ']',
                                    'info_pages_template_file' => DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/templates/' . $languages[$i]['directory'] . '/info_pages_template.js',
                                    'info_pages_template_lang' => $languages[$i]['directory'] . '_default',
-                                   'textarea_content' => xos_draw_textarea_field('content[' . $languages[$i]['id'] . ']', '130', '25', (isset($cInfo->content[$languages[$i]['id']]) ? stripslashes($cInfo->content[$languages[$i]['id']]) : $contents_data['content'])));
+                                   'textarea_content' => xos_draw_textarea_field('content[' . $languages[$i]['id'] . ']', '130', '25', (isset($cInfo->content[$languages[$i]['id']]) ? stripslashes($cInfo->content[$languages[$i]['id']]) : $contents_data['content'])),
+                                   'textarea_php_source' => xos_draw_textarea_field('php_source[' . $languages[$i]['id'] . ']', '130', '25', (isset($cInfo->php_source[$languages[$i]['id']]) ? stripslashes($cInfo->php_source[$languages[$i]['id']]) : $contents_data['php_source']), 'class="textarea-php-code" readonly="readonly"'));
       
     }
     
     $smarty->assign(array('contents_data' => $contents_data_array,
+                          'php_code_included' => $php_code_included,
                           'link_filename_info_pages_cancel' => xos_href_link(FILENAME_INFO_PAGES, (isset($_GET['page']) ? 'page=' . $_GET['page'] . '&' : '') . (isset($_GET['cID']) ? 'cID=' . $_GET['cID'] : ''))));
 
   } elseif ($action == 'preview') {

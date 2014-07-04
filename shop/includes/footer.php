@@ -34,7 +34,10 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   require(DIR_WS_INCLUDES . 'counter.php');
 
   if ($banner_footer = xos_banner_exists('dynamic', 'footer')) {
-    $smarty->assign('footer_banner_footer', xos_display_banner('static', $banner_footer));
+    $banner = array();
+    $banner = xos_display_banner('static', $banner_footer);
+    eval(' ?>' . $banner['banner_php_source'] . '<?php ');
+    $smarty->assign('footer_banner_footer', $banner['banner_string']);
   }
   
   $smarty->assign(array('footer_counter_now' => $counter_now,

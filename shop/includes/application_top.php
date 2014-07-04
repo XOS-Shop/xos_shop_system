@@ -521,10 +521,10 @@
 // add category names or the manufacturer name to the site trail
   if (isset($cPath_array)) {
     for ($i=0, $n=sizeof($cPath_array); $i<$n; $i++) {
-      $categories_query = xos_db_query("select c.is_page, cpd.categories_or_pages_name from " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd left join " . TABLE_CATEGORIES_OR_PAGES . " c on cpd.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and cpd.categories_or_pages_id = '" . (int)$cPath_array[$i] . "' and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'");    
+      $categories_query = xos_db_query("select c.link_request_type, c.is_page, cpd.categories_or_pages_name from " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd left join " . TABLE_CATEGORIES_OR_PAGES . " c on cpd.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and cpd.categories_or_pages_id = '" . (int)$cPath_array[$i] . "' and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'");    
       if (xos_db_num_rows($categories_query) > 0) {
         $categories = xos_db_fetch_array($categories_query);
-        $site_trail->add($categories['categories_or_pages_name'], xos_href_link(FILENAME_DEFAULT, 'cPath=' . implode('_', array_slice($cPath_array, 0, ($i+1)))));
+        $site_trail->add($categories['categories_or_pages_name'], xos_href_link(FILENAME_DEFAULT, 'cPath=' . implode('_', array_slice($cPath_array, 0, ($i+1))), (!empty($categories['link_request_type']) ? $categories['link_request_type'] : 'NONSSL')));
         $page_info = $categories['is_page'];
       } else {
         break;
@@ -594,7 +594,7 @@
   $smarty->assign(array('nl' => "\n",
                         'is_shop' => $is_shop,
                         'page_info' => $page_info,                        
-                        'link_filename_popup_content_5' => STATUS_POPUP_CONTENT_5 == '1' ? xos_href_link(FILENAME_POPUP_CONTENT, 'content_id=5', $request_type) : '',
+                        'link_filename_popup_content_6' => STATUS_POPUP_CONTENT_6 == '1' ? xos_href_link(FILENAME_POPUP_CONTENT, 'content_id=6', $request_type) : '',
                         'end_tags' => (DISPLAY_PAGE_PARSE_TIME == 'true' && STORE_PAGE_PARSE_TIME == 'true' ? $templateIntegration->getBlocks('footer_scripts') : $templateIntegration->getBlocks('footer_scripts') . "</body>\n</html>"),
                         'date_format_long' => xos_date_format(DATE_FORMAT_LONG),
                         'languages_path' => DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $_SESSION['language'] . '/',

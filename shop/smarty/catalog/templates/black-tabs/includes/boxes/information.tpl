@@ -27,12 +27,13 @@
 ********************************************************************************
 *}@]
 
+[@{if $box_information_contents}@]
 <!-- information -->
           <div class="info-box-heading">[@{#box_heading_information#}@]</div>
           <div class="info-box-contents" style="padding: 11px 3px 11px 3px;">
             [@{foreach name=loop item=content from=$box_information_contents}@]
               <div style="padding: 1px;"><a href="[@{$content.link_filename_content_content_id}@]">[@{$content.name}@]</a></div>
             [@{/foreach}@]
-              <div style="padding: 1px;"><a href="[@{$box_information_link_filename_contact_us}@]">[@{#box_information_contact#}@]</a></div>
           </div>
 <!-- information_eof -->
+[@{/if}@]

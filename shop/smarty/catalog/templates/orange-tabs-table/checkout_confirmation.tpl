@@ -238,7 +238,7 @@
         <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="10" /></td>
       </tr>      
      [@{/if}@]
-     [@{if $link_filename_popup_content_7}@]
+     [@{if $link_filename_popup_content_8}@]
       <tr>      
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>      
@@ -255,11 +255,11 @@
                 <td class="main" colspan="2">                          
                   <script type="text/javascript">
                   /* <![CDATA[ */
-                    document.write('&nbsp;<a href="[@{$link_filename_popup_content_7}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a><a style="margin: 0 0 0 30px;" href="[@{$link_filename_popup_content_7}@]" target="_blank"><img src="[@{$images_path}@]print_red.gif" style="vertical-align:middle" title=" [@{#text_printable_version#}@] " alt="[@{#text_printable_version#}@]" /></a>');
+                    document.write('&nbsp;<a href="[@{$link_filename_popup_content_8}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a><a style="margin: 0 0 0 30px;" href="[@{$link_filename_popup_content_8}@]" target="_blank"><img src="[@{$images_path}@]print_red.gif" style="vertical-align:middle" title=" [@{#text_printable_version#}@] " alt="[@{#text_printable_version#}@]" /></a>');
                   /* ]]> */   
                   </script>
                   <noscript>
-                    &nbsp;<a href="[@{$link_filename_popup_content_7}@]" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a>
+                    &nbsp;<a href="[@{$link_filename_popup_content_8}@]" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a>
                   </noscript>                              
                 </td>                
               </tr>                                                     

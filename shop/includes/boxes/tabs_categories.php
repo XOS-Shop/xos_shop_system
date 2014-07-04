@@ -48,7 +48,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
           $class_name = (xos_has_category_subcategories($counter) ? ($cPath_array && in_array($counter, $cPath_array) ? 'main-cat-selected' : 'main-cat') : ($cPath_array && in_array($counter, $cPath_array) ? 'main-cat-last-selected' : 'main-cat-last'));
           if ($cPath_array && in_array($counter, $cPath_array)) {
             $category_name = $tree[$counter]['name']; 
-            $category_href_link = xos_href_link(FILENAME_DEFAULT, 'cPath=' . $tree[$counter]['path']);         
+            $category_href_link = xos_href_link(FILENAME_DEFAULT, 'cPath=' . $tree[$counter]['path'], (!empty($tree[$counter]['link_request_type']) ? $tree[$counter]['link_request_type'] : 'NONSSL'));         
             $tab_class_name = 'tab-selected';
             if (xos_has_category_subcategories($counter)) $category_selected = true;
           } else {
@@ -82,13 +82,13 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
           $categories_array[]=array('class_name' => $class_name,
                                     'level' => $tree[$counter]['level'],
                                     'level_will_change' => $level_change_last,
-                                    'href_link' => xos_href_link(FILENAME_DEFAULT, $cPath_new),
+                                    'href_link' => xos_href_link(FILENAME_DEFAULT, $cPath_new, (!empty($tree[$counter]['link_request_type']) ? $tree[$counter]['link_request_type'] : 'NONSSL')),
                                     'count_products' => ($count_products > 0 ? $count_products : false),
                                     'name' => $tree[$counter]['name']);
        
           if ($tree[$counter]['level']=='0' && $include_tabs) {                          
             $tabs_array[]=array('class_name' => $tab_class_name,
-                                'href_link' => xos_href_link(FILENAME_DEFAULT, $cPath_new),
+                                'href_link' => xos_href_link(FILENAME_DEFAULT, $cPath_new, (!empty($tree[$counter]['link_request_type']) ? $tree[$counter]['link_request_type'] : 'NONSSL')),
                                 'count_products' => ($count_products > 0 ? $count_products : false),
                                 'name' => $tree[$counter]['name']); 
           }
@@ -111,12 +111,12 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     function xos_get_category_or_page_tree($full_tree = false, $parent_id = '0', $level = '0', $path = '', $category_tree_array = array()) {
     global $cPath_array;
        
-      $categories_query = xos_db_query("select c.categories_or_pages_id, cpd.categories_or_pages_name, c.parent_id, c.is_page from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = cpd.categories_or_pages_id and c.page_not_in_menu != '1' and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "' and c.parent_id = '" . (int)$parent_id . "' and c.categories_or_pages_status = '1' order by c.sort_order, cpd.categories_or_pages_name");
+      $categories_query = xos_db_query("select c.categories_or_pages_id, c.link_request_type, c.parent_id, c.is_page, cpd.categories_or_pages_name from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = cpd.categories_or_pages_id and c.page_not_in_menu != '1' and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "' and c.parent_id = '" . (int)$parent_id . "' and c.categories_or_pages_status = '1' order by c.sort_order, cpd.categories_or_pages_name");
       while ($categories = xos_db_fetch_array($categories_query)) {
         if ($full_tree) {   
-          $category_tree_array[$categories['categories_or_pages_id']] = array('is_page' => $categories['is_page'], 'name' => $categories['categories_or_pages_name'], 'parent' => $categories['parent_id'], 'level' => $level, 'path' => $path . $categories['categories_or_pages_id'], 'next_id' => false );
+          $category_tree_array[$categories['categories_or_pages_id']] = array('link_request_type' => $categories['link_request_type'], 'is_page' => $categories['is_page'], 'name' => $categories['categories_or_pages_name'], 'parent' => $categories['parent_id'], 'level' => $level, 'path' => $path . $categories['categories_or_pages_id'], 'next_id' => false );
         } else {
-          if ($level == '0' || (isset($cPath_array) && in_array($categories['categories_or_pages_id'], $cPath_array)) || (isset($cPath_array) && in_array($categories['parent_id'], $cPath_array))) $category_tree_array[$categories['categories_or_pages_id']] = array('is_page' => $categories['is_page'], 'name' => $categories['categories_or_pages_name'], 'parent' => $categories['parent_id'], 'level' => $level, 'path' => $path . $categories['categories_or_pages_id'], 'next_id' => false );
+          if ($level == '0' || (isset($cPath_array) && in_array($categories['categories_or_pages_id'], $cPath_array)) || (isset($cPath_array) && in_array($categories['parent_id'], $cPath_array))) $category_tree_array[$categories['categories_or_pages_id']] = array('link_request_type' => $categories['link_request_type'], 'is_page' => $categories['is_page'], 'name' => $categories['categories_or_pages_name'], 'parent' => $categories['parent_id'], 'level' => $level, 'path' => $path . $categories['categories_or_pages_id'], 'next_id' => false );
         }
         $category_tree_array = xos_get_category_or_page_tree($full_tree, $categories['categories_or_pages_id'], $level + 1, $path . $categories['categories_or_pages_id'] . '_', $category_tree_array);
       }

@@ -97,14 +97,14 @@
                                           </div>
                                           <div class="price-label small-text" style="padding: 1px; text-align: right; white-space: nowrap;">                         
                                             [@{$product_new.tax_description|replace:'SMARTY_TAX_WITHOUT_VAT':#text_tax_without_vat#|replace:'SMARTY_TAX_NO_VAT':#text_tax_no_vat#|replace:'SMARTY_TAX_INC_VAT':#text_tax_inc_vat#|replace:'SMARTY_TAX_PLUS_VAT':#text_tax_plus_vat#}@]<br />                                                                                     
-                                            [@{if $link_filename_popup_content_5}@]                 
+                                            [@{if $link_filename_popup_content_6}@]                 
                                             <script type="text/javascript">
                                             /* <![CDATA[ */
-                                              document.write('[@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_5}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />');
+                                              document.write('[@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_6}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />');
                                             /* ]]> */   
                                             </script>
                                             <noscript>
-                                              [@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_5}@]" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />
+                                              [@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_6}@]" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />
                                             </noscript>
                                             [@{else}@]
                                               [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
@@ -115,14 +115,14 @@
                                             <div class="price-label main" style="padding: 1px; text-align: right; white-space: nowrap;"><b>[@{if $product_new.price_special}@]<span class="text-deco-line-through">[@{$product_new.price}@]</span> <span class="product-special-price">[@{$product_new.price_special}@]</span>[@{else}@][@{$product_new.price}@][@{/if}@]</b></div>
                                             <div class="price-label small-text" style="padding: 1px; text-align: right; white-space: nowrap;">
                                               [@{$product_new.tax_description|replace:'SMARTY_TAX_WITHOUT_VAT':#text_tax_without_vat#|replace:'SMARTY_TAX_NO_VAT':#text_tax_no_vat#|replace:'SMARTY_TAX_INC_VAT':#text_tax_inc_vat#|replace:'SMARTY_TAX_PLUS_VAT':#text_tax_plus_vat#}@]<br />              
-                                              [@{if $link_filename_popup_content_5}@]                 
+                                              [@{if $link_filename_popup_content_6}@]                 
                                               <script type="text/javascript">
                                               /* <![CDATA[ */
-                                                document.write('[@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_5}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />');
+                                                document.write('[@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_6}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />');
                                               /* ]]> */   
                                               </script>
                                               <noscript>
-                                                [@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_5}@]" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />
+                                                [@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_6}@]" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />
                                               </noscript>
                                               [@{else}@]
                                                 [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />

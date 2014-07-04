@@ -1037,13 +1037,13 @@ function xos_selected_file($filename) {
           xos_db_query("update " . TABLE_CONTENTS . " set status = '0', last_modified = now() where content_id = '" . (int)$contents_id['content_id'] . "'");
         }
       }
-      if ((int)$content_id == 5) {
-        xos_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '1', last_modified = now() where configuration_key = 'STATUS_POPUP_CONTENT_5'");
+      if ((int)$content_id == 6) {
+        xos_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '1', last_modified = now() where configuration_key = 'STATUS_POPUP_CONTENT_6'");
       }        
       return xos_db_query("update " . TABLE_CONTENTS . " set status = '1', last_modified = now() where content_id = '" . (int)$content_id . "'");
     } elseif ($status == '0') {
-      if ((int)$content_id == 5) {
-        xos_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '0', last_modified = now() where configuration_key = 'STATUS_POPUP_CONTENT_5'");
+      if ((int)$content_id == 6) {
+        xos_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '0', last_modified = now() where configuration_key = 'STATUS_POPUP_CONTENT_6'");
       }      
       return xos_db_query("update " . TABLE_CONTENTS . " set status = '0', last_modified = now() where content_id = '" . (int)$content_id . "'");
     } else {

@@ -206,17 +206,17 @@
         <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="info-box-central">
           <tr class="info-box-central-contents">
             <td><table border="0" cellspacing="0" cellpadding="2">
-             [@{if $link_filename_popup_content_7}@]              
+             [@{if $link_filename_popup_content_8}@]              
               <tr>
                 <td width="10"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="10" height="1" /></td>
                 <td class="main" colspan="2">                          
                   <script type="text/javascript">
                   /* <![CDATA[ */
-                    document.write('&nbsp;<a href="[@{$link_filename_popup_content_7}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a>');
+                    document.write('&nbsp;<a href="[@{$link_filename_popup_content_8}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a>');
                   /* ]]> */   
                   </script>
                   <noscript>
-                    &nbsp;<a href="[@{$link_filename_popup_content_7}@]" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a>
+                    &nbsp;<a href="[@{$link_filename_popup_content_8}@]" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a>
                   </noscript>                              
                 </td>                
               </tr>

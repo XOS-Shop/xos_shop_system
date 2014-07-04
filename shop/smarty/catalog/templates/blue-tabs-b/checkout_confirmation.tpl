@@ -169,17 +169,17 @@
           </div>
           <div style="height: 10px; font-size: 0;">&nbsp;</div>                
      [@{/if}@]
-     [@{if $link_filename_popup_content_7}@]
+     [@{if $link_filename_popup_content_8}@]
           <div class="main"><b>[@{#table_heading_conditions#}@]</b></div>      
           <div class="info-box-central-contents" style="padding: 2px 11px 2px 11px;">                       
             <div class="main" style="padding: 1px;">              
               <script type="text/javascript">
               /* <![CDATA[ */            
-                document.write('<a href="[@{$link_filename_popup_content_7}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a><a style="margin: 0 0 0 30px;" href="[@{$link_filename_popup_content_7}@]" target="_blank"><img src="[@{$images_path}@]print_red.gif" style="vertical-align:middle" title=" [@{#text_printable_version#}@] " alt="[@{#text_printable_version#}@]" /></a>');
+                document.write('<a href="[@{$link_filename_popup_content_8}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a><a style="margin: 0 0 0 30px;" href="[@{$link_filename_popup_content_8}@]" target="_blank"><img src="[@{$images_path}@]print_red.gif" style="vertical-align:middle" title=" [@{#text_printable_version#}@] " alt="[@{#text_printable_version#}@]" /></a>');
               /* ]]> */   
               </script>             
               <noscript>
-                &nbsp;<a href="[@{$link_filename_popup_content_7}@]" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a>
+                &nbsp;<a href="[@{$link_filename_popup_content_8}@]" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a>
               </noscript>   
             </div>                         
           </div>        

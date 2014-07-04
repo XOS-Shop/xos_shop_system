@@ -81,7 +81,7 @@
       $banners_query = xos_db_query("select count(*) as count from " . TABLE_BANNERS . " where status = '1' and banners_group = '" . $identifier . "'");
       $banners = xos_db_fetch_array($banners_query);
       if ($banners['count'] > 0) {
-        $banner = xos_random_select("select b.banners_id, bc.banners_title, bc.banners_url, bc.banners_image, bc.banners_html_text from " . TABLE_BANNERS . " b, " . TABLE_BANNERS_CONTENT . " bc where b.banners_id = bc.banners_id and bc.language_id = '" . (int)$_SESSION['languages_id'] . "' and b.status = '1' and b.banners_group = '" . $identifier . "'");
+        $banner = xos_random_select("select b.banners_id, bc.banners_title, bc.banners_url, bc.banners_image, bc.banners_html_text, bc.banners_php_source from " . TABLE_BANNERS . " b, " . TABLE_BANNERS_CONTENT . " bc where b.banners_id = bc.banners_id and bc.language_id = '" . (int)$_SESSION['languages_id'] . "' and b.status = '1' and b.banners_group = '" . $identifier . "'");
       } else {
         return '<b>XOS ERROR! (xos_display_banner(' . $action . ', ' . $identifier . ') -> No banners with group \'' . $identifier . '\' found!</b>';
       }
@@ -89,7 +89,7 @@
       if (is_array($identifier)) {
         $banner = $identifier;
       } else {
-        $banner_query = xos_db_query("select b.banners_id, bc.banners_title, bc.banners_url, bc.banners_image, bc.banners_html_text from " . TABLE_BANNERS . " b, " . TABLE_BANNERS_CONTENT . " bc where b.banners_id = bc.banners_id and bc.language_id = '" . (int)$_SESSION['languages_id'] . "' and status = '1' and b.banners_id = '" . (int)$identifier . "'");
+        $banner_query = xos_db_query("select b.banners_id, bc.banners_title, bc.banners_url, bc.banners_image, bc.banners_html_text, bc.banners_php_source from " . TABLE_BANNERS . " b, " . TABLE_BANNERS_CONTENT . " bc where b.banners_id = bc.banners_id and bc.language_id = '" . (int)$_SESSION['languages_id'] . "' and status = '1' and b.banners_id = '" . (int)$identifier . "'");
         if (xos_db_num_rows($banner_query)) {
           $banner = xos_db_fetch_array($banner_query);
         } else {
@@ -100,20 +100,21 @@
       return '<b>XOS ERROR! (xos_display_banner(' . $action . ', ' . $identifier . ') -> Unknown $action parameter value - it must be either \'dynamic\' or \'static\'</b>';
     }
     
-    $banner_string = false;
-    $banner_string = ($banner['banners_image'] ? $banner['banners_url'] != '' ? '<a href="' . xos_href_link(FILENAME_REDIRECT, 'action=banner&goto=' . $banner['banners_id']) . '" target="_blank">' . xos_image(DIR_WS_IMAGES . 'banners/' . rawurlencode($banner['banners_image']), $banner['banners_title']) . '</a>' : xos_image(DIR_WS_IMAGES . 'banners/' . rawurlencode($banner['banners_image']), $banner['banners_title']) : '') . $banner['banners_html_text'];
-    $banner_string ? xos_update_banner_display_count($banner['banners_id']) : '';
+    $banner_array = array();
+    $banner_array['banner_string'] = ($banner['banners_image'] ? $banner['banners_url'] != '' ? '<a href="' . xos_href_link(FILENAME_REDIRECT, 'action=banner&goto=' . $banner['banners_id']) . '" target="_blank">' . xos_image(DIR_WS_IMAGES . 'banners/' . rawurlencode($banner['banners_image']), $banner['banners_title']) . '</a>' : xos_image(DIR_WS_IMAGES . 'banners/' . rawurlencode($banner['banners_image']), $banner['banners_title']) : '') . $banner['banners_html_text'];
+    $banner_array['banner_php_source'] = $banner['banners_php_source'];
+    if (!empty($banner_array['banner_string']) || !empty($banner_array['banner_php_source'])) xos_update_banner_display_count($banner['banners_id']);
 
-    return $banner_string;
+    return $banner_array;
   }
 
 ////
 // Check to see if a banner exists
   function xos_banner_exists($action, $identifier) {
     if ($action == 'dynamic') {
-      return xos_random_select("select b.banners_id, bc.banners_title, bc.banners_url, bc.banners_image, bc.banners_html_text from " . TABLE_BANNERS . " b, " . TABLE_BANNERS_CONTENT . " bc where b.banners_id = bc.banners_id and bc.language_id = '" . (int)$_SESSION['languages_id'] . "' and status = '1' and b.banners_group = '" . $identifier . "'");
+      return xos_random_select("select b.banners_id, bc.banners_title, bc.banners_url, bc.banners_image, bc.banners_html_text, bc.banners_php_source from " . TABLE_BANNERS . " b, " . TABLE_BANNERS_CONTENT . " bc where b.banners_id = bc.banners_id and bc.language_id = '" . (int)$_SESSION['languages_id'] . "' and status = '1' and b.banners_group = '" . $identifier . "'");
     } elseif ($action == 'static') {
-      $banner_query = xos_db_query("select b.banners_id, bc.banners_title, bc.banners_url, bc.banners_image, bc.banners_html_text from " . TABLE_BANNERS . " b, " . TABLE_BANNERS_CONTENT . " bc where b.banners_id = bc.banners_id and bc.language_id = '" . (int)$_SESSION['languages_id'] . "' and status = '1' and b.banners_id = '" . (int)$identifier . "'");
+      $banner_query = xos_db_query("select b.banners_id, bc.banners_title, bc.banners_url, bc.banners_image, bc.banners_html_text, bc.banners_php_source from " . TABLE_BANNERS . " b, " . TABLE_BANNERS_CONTENT . " bc where b.banners_id = bc.banners_id and bc.language_id = '" . (int)$_SESSION['languages_id'] . "' and status = '1' and b.banners_id = '" . (int)$identifier . "'");
       return xos_db_fetch_array($banner_query);
     } else {
       return false;

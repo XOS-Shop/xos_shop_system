@@ -44,8 +44,7 @@
 /* <![CDATA[ */
 function toggle(targetId, iState) // 1 visible, 0 hidden
 {
-   var obj = document.getElementById(targetId).style;
-   obj.visibility = iState ? "visible" : "hidden";
+   $(targetId).css('visibility', iState ? 'visible' : 'hidden');
 }
 
 function updateSort() {
@@ -55,19 +54,25 @@ function updateSort() {
 
   if (selectedVal == "info") {
     document.forms["content"].sort_order.value = sortVal;
-    toggle('sort1',1);
-    toggle('sort2',1);
-    toggle('content_title_note',0);
+    toggle('#sort1',1);
+    toggle('#sort2',1);
+    toggle('#sort3',1);
+    toggle('#sort4',1);     
+    toggle('#content_title_note',0);
   } else if (selectedVal == "index") {
     document.forms["content"].sort_order.value = "";
-    toggle('sort1',0);
-    toggle('sort2',0);    
-    toggle('content_title_note',1);     
+    toggle('#sort1',0);
+    toggle('#sort2',0);
+    toggle('#sort3',0);
+    toggle('#sort4',0);         
+    toggle('#content_title_note',1);     
   } else {
     document.forms["content"].sort_order.value = "";
-    toggle('sort1',0);
-    toggle('sort2',0);
-    toggle('content_title_note',0); 
+    toggle('#sort1',0);
+    toggle('#sort2',0);
+    toggle('#sort3',0);
+    toggle('#sort4',0);    
+    toggle('#content_title_note',0); 
   }
 }
 /* ]]> */
@@ -80,9 +85,9 @@ function updateSort() {
             <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="10" /></td>
           </tr>
           <tr class="dataTableRow">
-            <td><table border="0" cellspacing="0" cellpadding="2">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main">[@{#text_content_type#}@]</td>
+                <td class="main" width="1%">[@{#text_content_type#}@]</td>
                 <td class="main">[@{$pull_down_type}@]</td>
               </tr>
               <tr>
@@ -94,7 +99,14 @@ function updateSort() {
               </tr>
               <tr>
                 <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="10" /></td>
-              </tr>         
+              </tr>               
+              <tr>
+                <td class="main"><div id="sort3">[@{#text_connection_type#}@]</div></td>
+                <td class="main"><div id="sort4">[@{$pull_down_link_request_type}@]</div></td>
+              </tr>
+              <tr>
+                <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="10" /></td>
+              </tr>                                     
               [@{if $update}@]                    
               <tr>
                 <td class="main">[@{#text_content_status#}@]</td>
@@ -122,12 +134,7 @@ function updateSort() {
               <tr>
                 <td class="main">&nbsp;</td>
                 <td class="smallText">
-                  <div id="content_title_note" style="padding: 0 0 5px 30px">[@{#text_content_title_note#}@]</div>
-<script type="text/javascript">
-/* <![CDATA[ */
-updateSort();
-/* ]]> */
-</script>                 
+                  <div id="content_title_note" style="padding: 0 0 5px 30px">[@{#text_content_title_note#}@]</div>                 
                 </td>
               </tr>
               [@{if $wysiwyg}@]
@@ -175,8 +182,83 @@ updateSort();
                 </table></td>             
               </tr>
               [@{/foreach}@]                             
-              [@{/if}@]         
-            </table></td>
+              [@{/if}@]              
+              <tr>
+                <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="15" /></td>
+              </tr>                           
+              [@{foreach name=php_source item=content_data from=$contents_data}@]
+              [@{if $php_code_included}@]              
+              [@{if $smarty.foreach.php_source.first}@]
+              <tr style="background: red;">
+                <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="15" /></td>
+              </tr>  
+              [@{/if}@]                              
+              <tr style="background: red;">              
+                <td class="main" valign="top" style="color: #fff; font-weight: bold; padding-left: 3px;">[@{if $smarty.foreach.php_source.first}@][@{#text_embedded_php_code#}@]<br /><br /><a class="button-default textarea-unlock" style="float: left;" title=" [@{#button_title_unlock#}@] "><span>[@{#button_text_unlock#}@]</span></a><a class="button-default textarea-lock" style="float: left; display: none;" title=" [@{#button_title_lock#}@] "><span>[@{#button_text_lock#}@]</span></a>[@{/if}@]</td>
+                <td><table border="0" cellspacing="0" cellpadding="0">         
+                  <tr>
+                    <td class="main" valign="top">[@{$content_data.languages_image}@]&nbsp;</td>
+                    <td class="main">[@{$content_data.textarea_php_source}@]</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="10" /></td>
+                  </tr>               
+                </table></td>             
+              </tr>
+              [@{else}@]
+              [@{if $smarty.foreach.php_source.first}@]
+              <tr>
+                <td colspan="2"><img src="[@{$images_path}@]pixel_black.gif" alt="" width="100%" height="1" /></td>
+              </tr> 
+              <tr>
+                <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="3" /></td>
+              </tr>               
+              <tr>
+                <td class="main" colspan="2">[@{#text_embed_php_code#}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="5" height="15" /><img id="icon_arrow_down" onmouseover="this.style.cursor='pointer'" src="[@{$images_path}@]icon_arrow_down.gif" height="15" width="24" title=" [@{#text_embed_php_code#}@] " alt="[@{#text_embed_php_code#}@]" /></td>
+              </tr> 
+              <tr>
+                <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="7" /></td>
+              </tr>                
+              [@{/if}@]
+              [@{if $smarty.foreach.php_source.first}@]
+              <tr class="textareas_php_code" style="background: red; display: none;">
+                <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="12" /></td>
+              </tr>  
+              [@{/if}@]               
+              <tr class="textareas_php_code" style="background: red; display: none;">              
+                <td class="main" valign="top" style="color: #fff; font-weight: bold; padding-left: 3px;">[@{if $smarty.foreach.php_source.first}@][@{#text_embedded_php_code#}@]<br /><br /><a class="button-default textarea-unlock" style="float: left;" title=" [@{#button_title_unlock#}@] "><span>[@{#button_text_unlock#}@]</span></a><a class="button-default textarea-lock" style="float: left; display: none;" title=" [@{#button_title_lock#}@] "><span>[@{#button_text_lock#}@]</span></a>[@{/if}@]</td>
+                <td><table border="0" cellspacing="0" cellpadding="0">         
+                  <tr>
+                    <td class="main" valign="top">[@{$content_data.languages_image}@]&nbsp;</td>
+                    <td class="main">[@{$content_data.textarea_php_source}@]</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="10" /></td>
+                  </tr>               
+                </table></td>             
+              </tr>                
+              [@{/if}@]              
+              [@{/foreach}@]                                       
+            </table>
+<script type="text/javascript">
+/* <![CDATA[ */
+updateSort();
+$("#icon_arrow_down").click(function() {
+  $(".textareas_php_code").toggle();
+});
+$(".textarea-unlock").click(function() {
+  $(".textarea-php-code").attr("readonly", false);
+  $(".textarea-unlock").css("display", "none");
+  $(".textarea-lock").css("display", "");
+});
+$(".textarea-lock").click(function() {
+  $(".textarea-php-code").attr("readonly", true);
+  $(".textarea-unlock").css("display", "");
+  $(".textarea-lock").css("display", "none");  
+});
+/* ]]> */
+</script>              
+            </td>
           </tr>
           <tr>
             <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="10" /></td>

@@ -57,6 +57,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         $new_banners_group = xos_db_prepare_input($_POST['new_banners_group']);
         $banners_group = (empty($new_banners_group)) ? xos_db_prepare_input($_POST['banners_group']) : $new_banners_group;
         $banners_html_text = xos_db_prepare_input($_POST['banners_html_text']);
+        $banners_php_source = xos_db_prepare_input($_POST['banners_php_source']);
         $current_banners_image = xos_db_prepare_input($_POST['current_banners_image']);
         $current_date_scheduled = xos_db_prepare_input($_POST['current_date_scheduled']);
         $expires_date = xos_date_raw(xos_db_prepare_input($_POST['expires_date']));
@@ -122,7 +123,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
             $sql_data_array = array('banners_title' => $banners_title[$languages[$i]['id']],
                                     'banners_url' => $banners_url[$languages[$i]['id']],
                                     'banners_image' => $db_image,
-                                    'banners_html_text' => preg_replace_callback('#href=\"?(([^\" >]*?\.php)([^\" >]*?))#siU', 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags($banners_html_text[$languages[$i]['id']], '<img>'))) != '') ? $banners_html_text[$languages[$i]['id']] : ''));
+                                    'banners_html_text' => preg_replace_callback('#href=\"?(([^\" >]*?\.php)([^\" >]*?))#siU', 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags($banners_html_text[$languages[$i]['id']], '<img>'))) != '') ? $banners_html_text[$languages[$i]['id']] : ''),
+                                    'banners_php_source' => $banners_php_source[$languages[$i]['id']]);
 
             unset($banners_image->filename);
             
@@ -320,10 +322,12 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     }
     
     $languages = xos_get_languages();
-    $banners_content_array = array();    
+    $banners_content_array = array();
+    $php_code_included = false;    
     for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
-      $banners_content_query = xos_db_query("select banners_title, banners_url, banners_image, banners_html_text from " . TABLE_BANNERS_CONTENT . " where banners_id = '" . (int)$bInfo->banners_id . "' and language_id = '" . (int)$languages[$i]['id'] . "'");
+      $banners_content_query = xos_db_query("select banners_title, banners_url, banners_image, banners_html_text, banners_php_source from " . TABLE_BANNERS_CONTENT . " where banners_id = '" . (int)$bInfo->banners_id . "' and language_id = '" . (int)$languages[$i]['id'] . "'");
       $banners_content = xos_db_fetch_array($banners_content_query);
+      if (!empty($bInfo->banners_php_source[$languages[$i]['id']]) || !empty($banners_content['banners_php_source'])) $php_code_included = true;
       $banners_content_array[]=array('languages_image' => xos_image(DIR_WS_CATALOG_IMAGES . 'catalog/templates/' . DEFAULT_TPL . '/' . $languages[$i]['directory'] . '/' . $languages[$i]['image'], $languages[$i]['name']),
                                      'link_popup_image' => xos_href_link(FILENAME_POPUP_IMAGE, 'banner=' . $bInfo->banners_id . '&lang=' . $languages[$i]['id']),                                     
                                      'input_banners_title' => xos_draw_input_field('banners_title[' . $languages[$i]['id'] . ']', isset($bInfo->banners_title[$languages[$i]['id']]) ? stripslashes($bInfo->banners_title[$languages[$i]['id']]) : $banners_content['banners_title'], '', true),
@@ -335,7 +339,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                                      'banners_html_text_name' => 'banners_html_text[' . $languages[$i]['id'] . ']',
                                      'banner_manager_template_file' => DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/templates/' . $languages[$i]['directory'] . '/banner_manager_template.js',
                                      'banner_manager_template_lang' => $languages[$i]['directory'] . '_default',                                    
-                                     'textarea_banners_html_text' => xos_draw_textarea_field('banners_html_text[' . $languages[$i]['id'] . ']', '110', '18', isset($bInfo->banners_html_text[$languages[$i]['id']]) ? stripslashes($bInfo->banners_html_text[$languages[$i]['id']]) : $banners_content['banners_html_text']));      
+                                     'textarea_banners_html_text' => xos_draw_textarea_field('banners_html_text[' . $languages[$i]['id'] . ']', '110', '18', isset($bInfo->banners_html_text[$languages[$i]['id']]) ? stripslashes($bInfo->banners_html_text[$languages[$i]['id']]) : $banners_content['banners_html_text']),
+                                     'textarea_banners_php_source' => xos_draw_textarea_field('banners_php_source[' . $languages[$i]['id'] . ']', '110', '18', (isset($bInfo->banners_php_source[$languages[$i]['id']]) ? stripslashes($bInfo->banners_php_source[$languages[$i]['id']]) : $banners_content['banners_php_source']), 'class="textarea-php-code" readonly="readonly"'));      
     }             
 
     $smarty->assign(array('new_banner' => true,
@@ -348,6 +353,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                           'input_expires_date' => xos_draw_input_field('expires_date', $bInfo->expires_date, 'id="expires_date" style="background: #ffffcc;" size ="10"'),
                           'input_expires_impressions' => xos_draw_input_field('expires_impressions', $bInfo->expires_impressions, 'maxlength="7" size="7"'),
                           'banners_content' => $banners_content_array,
+                          'php_code_included' => $php_code_included,
                           'link_filename_banner_manager' => xos_href_link(FILENAME_BANNER_MANAGER, (isset($_GET['page']) ? 'page=' . $_GET['page'] . '&' : '') . (isset($_GET['bID']) ? 'bID=' . $_GET['bID'] : '')),
                           'form_end' => '</form>'));
                           

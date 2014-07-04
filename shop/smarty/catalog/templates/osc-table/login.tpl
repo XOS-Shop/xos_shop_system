@@ -91,14 +91,14 @@
       [@{if $cart_contents}@]
       <tr>
         <td class="smallText">[@{#text_visitors_cart#}@]
-        [@{if $link_filename_popup_content_9}@]       
+        [@{if $link_filename_popup_content_10}@]       
         <script type="text/javascript">
         /* <![CDATA[ */
-          document.write('<a href="[@{$link_filename_popup_content_9}@]" class="lightbox-system-popup" target="_blank">[@{#text_visitors_cart_link#}@]</a>');
+          document.write('<a href="[@{$link_filename_popup_content_10}@]" class="lightbox-system-popup" target="_blank">[@{#text_visitors_cart_link#}@]</a>');
         /* ]]> */   
         </script>
         <noscript>
-          <a href="[@{$link_filename_popup_content_9}@]" target="_blank">[@{#text_visitors_cart_link#}@]</a>
+          <a href="[@{$link_filename_popup_content_10}@]" target="_blank">[@{#text_visitors_cart_link#}@]</a>
         </noscript>
         [@{/if}@]       
         </td>

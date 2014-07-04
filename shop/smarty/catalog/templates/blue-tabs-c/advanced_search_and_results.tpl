@@ -50,14 +50,14 @@
           <div style="height: 10px; font-size: 0;">&nbsp;</div>
 
           <div class="small-text" style="padding: 0 0 0 1px; float: left; white-space: nowrap;">
-            [@{if $link_filename_popup_content_8}@]            
+            [@{if $link_filename_popup_content_9}@]            
             <script type="text/javascript">
             /* <![CDATA[ */            
-              document.write('<a href="[@{$link_filename_popup_content_8}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_search_help_link#}@]</span> [?]</a>');
+              document.write('<a href="[@{$link_filename_popup_content_9}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_search_help_link#}@]</span> [?]</a>');
             /* ]]> */   
             </script>
             <noscript>
-              <a href="[@{$link_filename_popup_content_8}@]" target="_blank"><span class="text-deco-underline">[@{#text_search_help_link#}@]</span> [?]</a>
+              <a href="[@{$link_filename_popup_content_9}@]" target="_blank"><span class="text-deco-underline">[@{#text_search_help_link#}@]</span> [?]</a>
             </noscript>
             [@{/if}@]            
             </div>

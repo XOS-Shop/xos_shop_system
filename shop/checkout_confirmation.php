@@ -221,11 +221,11 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $smarty->assign('tax_groups', true);
   }
   
-  $popup_status_query = xos_db_query("select status from " . TABLE_CONTENTS . "  where type = 'system_popup' and status = '1' and content_id = '7' LIMIT 1");
+  $popup_status_query = xos_db_query("select status from " . TABLE_CONTENTS . "  where type = 'system_popup' and status = '1' and content_id = '8' LIMIT 1");
 
   $smarty->assign(array('form_begin' => xos_draw_form('checkout_confirmation', $form_action_url, 'post', 'onsubmit="return check_form();"'),
                         'form_end' => '</form>',
-                        'link_filename_popup_content_7' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'content_id=7', $request_type) : '',
+                        'link_filename_popup_content_8' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'content_id=8', $request_type) : '',
                         'order_products' => $order_products_array,
                         'billing_address' => xos_address_format($order->billing['format_id'], $order->billing, 1, ' ', '<br />'),
                         'payment_method' => $order->info['payment_method'],

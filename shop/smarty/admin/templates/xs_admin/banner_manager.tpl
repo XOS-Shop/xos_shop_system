@@ -45,9 +45,9 @@
             <td class="dataTableHeadingContent" align="left">&nbsp;</td> 
           </tr>
           <tr class="dataTableRow">            
-            <td><table border="0" cellspacing="0" cellpadding="2">
+            <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
               <tr>
-                <td class="main" valign="top">[@{#text_banners_group#}@]</td>
+                <td class="main" width="1%">[@{#text_banners_group#}@]</td>
                 <td class="main">[@{$pull_down_banners_group}@]&nbsp;[@{#text_banners_new_group#}@]&nbsp;[@{$input_new_banners_group}@]</td>
               </tr>              
               <tr>
@@ -165,11 +165,83 @@
                 </table></td> 
               </tr>
               [@{/foreach}@]              
-              [@{/if}@]
+              [@{/if}@]                            
               <tr>
-                <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="10" /></td>
+                <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="15" /></td>
+              </tr>                           
+              [@{foreach name=php_source item=banner_content from=$banners_content}@]
+              [@{if $php_code_included}@]              
+              [@{if $smarty.foreach.php_source.first}@]
+              <tr style="background: red;">
+                <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="15" /></td>
+              </tr>  
+              [@{/if}@]                              
+              <tr style="background: red;">              
+                <td class="main" valign="top" style="color: #fff; font-weight: bold; padding-left: 3px;">[@{if $smarty.foreach.php_source.first}@][@{#text_embedded_php_code#}@]<br /><br /><a class="button-default textarea-unlock" style="float: left;" title=" [@{#button_title_unlock#}@] "><span>[@{#button_text_unlock#}@]</span></a><a class="button-default textarea-lock" style="float: left; display: none;" title=" [@{#button_title_lock#}@] "><span>[@{#button_text_lock#}@]</span></a>[@{/if}@]</td>
+                <td><table border="0" cellspacing="0" cellpadding="0">         
+                  <tr>
+                    <td class="main" valign="top">[@{$banner_content.languages_image}@]&nbsp;</td>
+                    <td class="main">[@{$banner_content.textarea_banners_php_source}@]</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="10" /></td>
+                  </tr>               
+                </table></td>             
               </tr>
-            </table></td>
+              [@{else}@]
+              [@{if $smarty.foreach.php_source.first}@]
+              <tr>
+                <td colspan="2"><img src="[@{$images_path}@]pixel_black.gif" alt="" width="100%" height="1" /></td>
+              </tr> 
+              <tr>
+                <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="3" /></td>
+              </tr>               
+              <tr>
+                <td class="main" colspan="2">[@{#text_embed_php_code#}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="5" height="15" /><img id="icon_arrow_down" onmouseover="this.style.cursor='pointer'" src="[@{$images_path}@]icon_arrow_down.gif" height="15" width="24" title=" [@{#text_embed_php_code#}@] " alt="[@{#text_embed_php_code#}@]" /></td>
+              </tr> 
+              <tr>
+                <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="7" /></td>
+              </tr>                
+              [@{/if}@]
+              [@{if $smarty.foreach.php_source.first}@]
+              <tr class="textareas_php_code" style="background: red; display: none;">
+                <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="12" /></td>
+              </tr>  
+              [@{/if}@]               
+              <tr class="textareas_php_code" style="background: red; display: none;">              
+                <td class="main" valign="top" style="color: #fff; font-weight: bold; padding-left: 3px;">[@{if $smarty.foreach.php_source.first}@][@{#text_embedded_php_code#}@]<br /><br /><a class="button-default textarea-unlock" style="float: left;" title=" [@{#button_title_unlock#}@] "><span>[@{#button_text_unlock#}@]</span></a><a class="button-default textarea-lock" style="float: left; display: none;" title=" [@{#button_title_lock#}@] "><span>[@{#button_text_lock#}@]</span></a>[@{/if}@]</td>
+                <td><table border="0" cellspacing="0" cellpadding="0">         
+                  <tr>
+                    <td class="main" valign="top">[@{$banner_content.languages_image}@]&nbsp;</td>
+                    <td class="main">[@{$banner_content.textarea_banners_php_source}@]</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="10" /></td>
+                  </tr>               
+                </table></td>             
+              </tr>                
+              [@{/if}@]              
+              [@{/foreach}@]                
+
+            </table>
+<script type="text/javascript">
+/* <![CDATA[ */
+$("#icon_arrow_down").click(function() {
+  $(".textareas_php_code").toggle();
+});
+$(".textarea-unlock").click(function() {
+  $(".textarea-php-code").attr("readonly", false);
+  $(".textarea-unlock").css("display", "none");
+  $(".textarea-lock").css("display", "");
+});
+$(".textarea-lock").click(function() {
+  $(".textarea-php-code").attr("readonly", true);
+  $(".textarea-unlock").css("display", "");
+  $(".textarea-lock").css("display", "none");  
+});
+/* ]]> */
+</script>            
+            </td>
           </tr>         
           <tr>
             <td><table border="0" width="100%" cellspacing="0" cellpadding="2"> 

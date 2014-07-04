@@ -76,8 +76,11 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     $smarty->assign('header_link_filename_logoff', xos_href_link(FILENAME_LOGOFF, '', 'SSL'));
   }
   
-  if ($banner_header = xos_banner_exists('dynamic', 'header')) {                         
-    $smarty->assign('header_banner_header',  xos_display_banner('static', $banner_header));
+  if ($banner_header = xos_banner_exists('dynamic', 'header')) {
+    $banner = array(); 
+    $banner = xos_display_banner('static', $banner_header);
+    eval(' ?>' . $banner['banner_php_source'] . '<?php ');
+    $smarty->assign('header_banner_header', $banner['banner_string']);
   }   
   
   $smarty->assign(array('header_store_name' => STORE_NAME,

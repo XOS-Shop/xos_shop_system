@@ -206,7 +206,7 @@
 
           <div style="height: 10px; font-size: 0;">&nbsp;</div>
           
-          [@{if $link_filename_popup_content_6}@] 
+          [@{if $link_filename_popup_content_7}@] 
           <div class="main"><b>[@{#category_information#}@]</b></div>     
 
           <div class="info-box-central-contents">            
@@ -214,11 +214,11 @@
             <div class="main" style="margin: 4px;">         
               <script type="text/javascript">
               /* <![CDATA[ */            
-                document.write('<a href="[@{$link_filename_popup_content_6}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_privacy_notice_link#}@]</span></a>');
+                document.write('<a href="[@{$link_filename_popup_content_7}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_privacy_notice_link#}@]</span></a>');
               /* ]]> */   
               </script>              
               <noscript>
-                <a href="[@{$link_filename_popup_content_6}@]" target="_blank"><span class="text-deco-underline">[@{#text_privacy_notice_link#}@]</span></a>
+                <a href="[@{$link_filename_popup_content_7}@]" target="_blank"><span class="text-deco-underline">[@{#text_privacy_notice_link#}@]</span></a>
               </noscript>          
             </div> 
             

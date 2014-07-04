@@ -80,10 +80,11 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       case 'update_page':
         if (isset($_POST['categories_or_pages_id'])) $categories_or_pages_id = xos_db_prepare_input($_POST['categories_or_pages_id']);
         $page_not_in_menu = xos_db_prepare_input($_POST['page_not_in_menu']);
+        $link_request_type = xos_db_prepare_input($_POST['link_request_type']);
         $sort_order = xos_db_prepare_input($_POST['sort_order']);
         $categories_or_pages_status = xos_db_prepare_input($_POST['categories_or_pages_status']);
         $current_categories_or_pages_status = xos_db_prepare_input($_POST['current_categories_or_pages_status']);
-        $sql_data_array = array('sort_order' => (int)$sort_order, 'is_page' => 'true', 'page_not_in_menu' => (int)$page_not_in_menu, 'categories_or_pages_status' => (int)$categories_or_pages_status);
+        $sql_data_array = array('link_request_type' => $link_request_type, 'sort_order' => (int)$sort_order, 'is_page' => 'true', 'page_not_in_menu' => (int)$page_not_in_menu, 'categories_or_pages_status' => (int)$categories_or_pages_status);
 
         $languages = xos_get_languages();
         
@@ -123,14 +124,16 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                 
           $categories_or_pages_name_array = $_POST['categories_or_pages_name'];
           $categories_or_pages_heading_title_array = $_POST['categories_or_pages_heading_title'];
-          $categories_or_pages_content_array = $_POST['categories_or_pages_content'];        
+          $categories_or_pages_content_array = $_POST['categories_or_pages_content'];
+          $categories_or_pages_php_source_array = $_POST['categories_or_pages_php_source'];        
           for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
 
             $language_id = $languages[$i]['id'];
 
             $sql_data_array = array('categories_or_pages_name' => xos_db_prepare_input(htmlspecialchars_decode($categories_or_pages_name_array[$language_id])),         
                                     'categories_or_pages_heading_title' => xos_db_prepare_input(htmlspecialchars($categories_or_pages_heading_title_array[$language_id])),
-                                    'categories_or_pages_content' => preg_replace_callback('#href=\"?(([^\" >]*?\.php)([^\" >]*?))#siU', 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags(xos_db_prepare_input($categories_or_pages_content_array[$language_id]), '<img>'))) != '') ? xos_db_prepare_input($categories_or_pages_content_array[$language_id]) : ''));
+                                    'categories_or_pages_content' => preg_replace_callback('#href=\"?(([^\" >]*?\.php)([^\" >]*?))#siU', 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags(xos_db_prepare_input($categories_or_pages_content_array[$language_id]), '<img>'))) != '') ? xos_db_prepare_input($categories_or_pages_content_array[$language_id]) : ''),
+                                    'categories_or_pages_php_source' => xos_db_prepare_input($categories_or_pages_php_source_array[$language_id]));
 
             if ($action == 'insert_page') {
               $insert_sql_data = array('categories_or_pages_id' => $categories_or_pages_id,
@@ -218,6 +221,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
   if ($action == 'new_page') {
     $parameters = array('categories_or_pages_id' => '',
+                        'link_request_type' => '',
                         'page_name' => '',
                         'page_not_in_menu' => '',
                         'sort_order' => '',                        
@@ -229,7 +233,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     
       $cpID = xos_db_prepare_input($_GET['cpID']);
              
-      $page_query = xos_db_query("select c.categories_or_pages_id, cpd.categories_or_pages_name as page_name, c.page_not_in_menu, c.sort_order, c.categories_or_pages_status from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = '" . (int)$cpID . "' and c.categories_or_pages_id = cpd.categories_or_pages_id and cpd.language_id = '" . (int)$_SESSION['used_lng_id'] . "'");    
+      $page_query = xos_db_query("select c.categories_or_pages_id, c.link_request_type, cpd.categories_or_pages_name as page_name, c.page_not_in_menu, c.sort_order, c.categories_or_pages_status from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = '" . (int)$cpID . "' and c.categories_or_pages_id = cpd.categories_or_pages_id and cpd.language_id = '" . (int)$_SESSION['used_lng_id'] . "'");    
       $page = xos_db_fetch_array($page_query);
       $cInfo->objectInfo($page);      
     } elseif (xos_not_null($_POST)) {
@@ -247,22 +251,24 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
     $languages = xos_get_languages();
     $contents_data_array = array(); 
-          
+    $php_code_included = false;      
     for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
     
-      $page_data_query = xos_db_query("select categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content from " . TABLE_CATEGORIES_OR_PAGES_DATA . " where categories_or_pages_id = '" . (int)$cInfo->categories_or_pages_id . "' and language_id = '" . (int)$languages[$i]['id'] . "'");    
+      $page_data_query = xos_db_query("select categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source from " . TABLE_CATEGORIES_OR_PAGES_DATA . " where categories_or_pages_id = '" . (int)$cInfo->categories_or_pages_id . "' and language_id = '" . (int)$languages[$i]['id'] . "'");    
       $page_data = xos_db_fetch_array($page_data_query);
-
+      if (!empty($cInfo->categories_or_pages_php_source[$languages[$i]['id']]) || !empty($page_data['categories_or_pages_php_source'])) $php_code_included = true;
       $pages_data_array[]=array('languages_image' => xos_image(DIR_WS_CATALOG_IMAGES . 'catalog/templates/' . DEFAULT_TPL . '/' . $languages[$i]['directory'] . '/' . $languages[$i]['image'], $languages[$i]['name']),
                                 'input_name' => xos_draw_input_field('categories_or_pages_name[' . $languages[$i]['id'] . ']', (isset($cInfo->categories_or_pages_name[$languages[$i]['id']]) ? stripslashes(htmlspecialchars($cInfo->categories_or_pages_name[$languages[$i]['id']])) : htmlspecialchars($page_data['categories_or_pages_name'])), 'maxlength="64" size="30"', true),
                                 'input_heading_title' => xos_draw_input_field('categories_or_pages_heading_title[' . $languages[$i]['id'] . ']', (isset($cInfo->categories_or_pages_heading_title[$languages[$i]['id']]) ? stripslashes($cInfo->categories_or_pages_heading_title[$languages[$i]['id']]) : $page_data['categories_or_pages_heading_title']), 'maxlength="255" size="80"'),
                                 'page_description' => 'categories_or_pages_content[' . $languages[$i]['id'] . ']',
                                 'page_template_file' => DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/templates/' . $languages[$i]['directory'] . '/page_template.js',
                                 'page_template_lang' => $languages[$i]['directory'] . '_default',
-                                'page_textarea' => xos_draw_textarea_field('categories_or_pages_content[' . $languages[$i]['id'] . ']', '130', '25', (isset($cInfo->categories_or_pages_content[$languages[$i]['id']]) ? stripslashes($cInfo->categories_or_pages_content[$languages[$i]['id']]) : $page_data['categories_or_pages_content'])));      
+                                'page_textarea' => xos_draw_textarea_field('categories_or_pages_content[' . $languages[$i]['id'] . ']', '130', '25', (isset($cInfo->categories_or_pages_content[$languages[$i]['id']]) ? stripslashes($cInfo->categories_or_pages_content[$languages[$i]['id']]) : $page_data['categories_or_pages_content'])),
+                                'page_textarea_php_source' => xos_draw_textarea_field('categories_or_pages_php_source[' . $languages[$i]['id'] . ']', '130', '25', (isset($cInfo->categories_or_pages_php_source[$languages[$i]['id']]) ? stripslashes($cInfo->categories_or_pages_php_source[$languages[$i]['id']]) : $page_data['categories_or_pages_php_source']), 'class="textarea-php-code" readonly="readonly"'));      
     }          
 
     $smarty->assign(array('update' => isset($_GET['cpID']) ? true : false,
+                          'php_code_included' => $php_code_included,
                           'form_begin' => isset($_GET['cpID']) ? xos_draw_form('update_page', FILENAME_PAGES, 'action=update_page&cPath=' . $cPath . '&cpID=' . $_GET['cpID'], 'post', 'onsubmit="return confirm(\'' . JS_CONFIRM_UPDATE . '\')" enctype="multipart/form-data"') . xos_draw_hidden_field('categories_or_pages_id', $cInfo->categories_or_pages_id) : xos_draw_form('insert_page', FILENAME_PAGES, 'action=insert_page&cPath=' . $cPath, 'post', 'onsubmit="return confirm(\'' . JS_CONFIRM_INSERT . '\')" enctype="multipart/form-data"'),
                           'hidden_fields' => xos_draw_hidden_field('page_name', $cInfo->page_name) . xos_draw_hidden_field('current_categories_or_pages_status', $cInfo->categories_or_pages_status),
                           'pages_data' => $pages_data_array,                         
@@ -270,7 +276,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                           'radio_page_not_in_menu_1' => xos_draw_radio_field('page_not_in_menu', '1', $cInfo->page_not_in_menu == 1 ? true : false),                         
                           'radio_status_0' => xos_draw_radio_field('categories_or_pages_status', '0', $cInfo->categories_or_pages_status == 1 ? false : true),   
                           'radio_status_1' => xos_draw_radio_field('categories_or_pages_status', '1', $cInfo->categories_or_pages_status == 1 ? true : false),                          
-                          'input_sort_order' => xos_draw_input_field('sort_order', $cInfo->sort_order, 'maxlength="5" size="3"'),                                                  
+                          'input_sort_order' => xos_draw_input_field('sort_order', $cInfo->sort_order, 'maxlength="5" size="3"'),
+                          'pull_down_link_request_type' => xos_draw_pull_down_menu('link_request_type', array(array('id' => 'NONSSL', 'text' => 'NONSSL'), array('id' => 'SSL', 'text' => 'SSL')), $cInfo->link_request_type),                                                  
                           'text_new_page' => sprintf(TEXT_NEW_PAGE_3, (!isset($_GET['cpID']) ? TEXT_NEW_PAGE_1 : TEXT_NEW_PAGE_2), xos_output_generated_page_path($current_page_id)),                                                    
                           'link_filename_pages' => xos_href_link(FILENAME_PAGES, 'cPath=' . $cPath . (isset($_GET['cpID']) ? '&cpID=' . (int)$_GET['cpID'] : '')),                          
                           'form_end' => '</form>'));

@@ -29,11 +29,15 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_POPUP_CONTENT);  
 
   if (isset($_GET['content_id'])) {
-    $content_query = xos_db_query("select c.content_id, c.type, cd.name, cd.heading_title, cd.content from " . TABLE_CONTENTS . " c, " . TABLE_CONTENTS_DATA . " cd where c.status = '1' and c.content_id = '" . (int)$_GET['content_id'] . "' and c.content_id = cd.content_id and cd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
+    $content_id = xos_db_prepare_input($_GET['content_id']);
+    $content_query = xos_db_query("select c.content_id, c.type, cd.name, cd.heading_title, cd.content, cd.php_source from " . TABLE_CONTENTS . " c, " . TABLE_CONTENTS_DATA . " cd where c.status = '1' and c.content_id = '" . (int)$content_id . "' and c.content_id = cd.content_id and cd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
+    $content = xos_db_fetch_array($content_query);
+    eval(' ?>' . $content['php_source'] . '<?php ');
   } else {
-    $content_query = xos_db_query("select cp.categories_or_pages_id, cpd.categories_or_pages_name as name, cpd.categories_or_pages_heading_title as heading_title, cpd.categories_or_pages_content as content from " . TABLE_CATEGORIES_OR_PAGES . " cp, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where cp.categories_or_pages_status = '1' and cp.categories_or_pages_id = '" . (int)$_GET['page_content_id'] . "' and cp.categories_or_pages_id = cpd.categories_or_pages_id and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
+    $page_content_id = xos_db_prepare_input($_GET['page_content_id']);
+    $content_query = xos_db_query("select cp.categories_or_pages_id, cpd.categories_or_pages_name as name, cpd.categories_or_pages_heading_title as heading_title, cpd.categories_or_pages_content as content from " . TABLE_CATEGORIES_OR_PAGES . " cp, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where cp.categories_or_pages_status = '1' and cp.categories_or_pages_id = '" . (int)$page_content_id . "' and cp.categories_or_pages_id = cpd.categories_or_pages_id and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
+    $content = xos_db_fetch_array($content_query);
   }
-  $content = xos_db_fetch_array($content_query);
 
   $smarty->assign('html_header_add_page_title', PAGE_TITLE_TRAIL_SEPARATOR . $content['name']);
   

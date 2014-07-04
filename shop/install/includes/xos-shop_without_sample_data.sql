@@ -131,6 +131,7 @@ CREATE TABLE banners_content (
   banners_url varchar(255) NOT NULL,
   banners_image varchar(255) NOT NULL,
   banners_html_text text,
+  banners_php_source text,
   PRIMARY KEY (banners_id, language_id)
 );
 
@@ -147,6 +148,7 @@ CREATE TABLE banners_history (
 DROP TABLE IF EXISTS categories_or_pages;
 CREATE TABLE categories_or_pages (
    categories_or_pages_id int NOT NULL auto_increment,
+   link_request_type set('NONSSL','SSL') NOT NULL DEFAULT 'NONSSL',
    categories_image varchar(255),
    parent_id int DEFAULT '0' NOT NULL,
    product_list_b tinyint(1) DEFAULT '0' NOT NULL,
@@ -167,6 +169,7 @@ CREATE TABLE categories_or_pages_data (
    categories_or_pages_name varchar(255) NOT NULL,
    categories_or_pages_heading_title varchar(255),
    categories_or_pages_content text,
+   categories_or_pages_php_source text,
    PRIMARY KEY (categories_or_pages_id, language_id),
    KEY IDX_CATEGORIES_OR_PAGES_NAME (categories_or_pages_name)
 );
@@ -188,7 +191,8 @@ CREATE TABLE configuration (
 DROP TABLE IF EXISTS contents;
 CREATE TABLE contents (
   content_id int(11) NOT NULL auto_increment,
-  type varchar(32) NOT NULL, 
+  type varchar(32) NOT NULL,
+  link_request_type set('NONSSL','SSL') NOT NULL DEFAULT 'NONSSL', 
   status tinyint(1) DEFAULT '0' NOT NULL,
   sort_order int(3),  
   last_modified datetime,
@@ -203,6 +207,7 @@ CREATE TABLE contents_data (
   name varchar(255),
   heading_title varchar(255),
   content text,
+  php_source text,
   PRIMARY KEY (content_id, language_id)
 );
 
@@ -1039,7 +1044,7 @@ INSERT INTO configuration (configuration_key, configuration_value, configuration
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SOCIAL_BOOKMARKS_TWITTER_STATUS', 'true', '6', '1','xos_cfg_select_option(array(\'true\', \'false\'), ', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SOCIAL_BOOKMARKS_TWITTER_SORT_ORDER', '30', '6', '0', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('LAST_CUSTOMERS_GROUPS_ID', '0', '6', '0', now());
-INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('STATUS_POPUP_CONTENT_5', '1', '6', '0', now());
+INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('STATUS_POPUP_CONTENT_6', '1', '6', '0', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('LAST_COUNTRY_ID', '300', '6', '0', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('NEW_ORDER', 'false', '6', '0', now());
 
@@ -1121,43 +1126,563 @@ INSERT INTO configuration (configuration_key, configuration_value, configuration
 
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('SITE_OFFLINE', 'false', '17', '1', 'xos_cfg_select_option(array(\'true\', \'false\'), ', now());
 
-INSERT INTO contents (content_id, type, status, sort_order, date_added) VALUES ('1', 'info', '1', '1', now());
-INSERT INTO contents (content_id, type, status, sort_order, date_added) VALUES ('2', 'info', '1', '2', now());
-INSERT INTO contents (content_id, type, status, sort_order, date_added) VALUES ('3', 'info', '1', '3', now());
-INSERT INTO contents (content_id, type, status, sort_order, date_added) VALUES ('4', 'index', '1', '0', now());
-INSERT INTO contents (content_id, type, status, sort_order, date_added) VALUES ('5', 'system_popup', '1', '0', now());
-INSERT INTO contents (content_id, type, status, sort_order, date_added) VALUES ('6', 'system_popup', '1', '0', now());
-INSERT INTO contents (content_id, type, status, sort_order, date_added) VALUES ('7', 'system_popup', '1', '0', now());
-INSERT INTO contents (content_id, type, status, sort_order, date_added) VALUES ('8', 'system_popup', '1', '0', now());
-INSERT INTO contents (content_id, type, status, sort_order, date_added) VALUES ('9', 'system_popup', '1', '0', now());
+INSERT INTO contents (content_id, type, link_request_type, status, sort_order, date_added) VALUES ('1', 'info', 'NONSSL', '1', '1', now());
+INSERT INTO contents (content_id, type, link_request_type, status, sort_order, date_added) VALUES ('2', 'info', 'NONSSL', '1', '2', now());
+INSERT INTO contents (content_id, type, link_request_type, status, sort_order, date_added) VALUES ('3', 'info', 'NONSSL', '1', '3', now());
+INSERT INTO contents (content_id, type, link_request_type, status, sort_order, date_added) VALUES ('4', 'info', 'SSL', '1', '4', now());
+INSERT INTO contents (content_id, type, link_request_type, status, sort_order, date_added) VALUES ('5', 'index', 'NONSSL', '1', '0', now());
+INSERT INTO contents (content_id, type, link_request_type, status, sort_order, date_added) VALUES ('6', 'system_popup', 'NONSSL', '1', '0', now());
+INSERT INTO contents (content_id, type, link_request_type, status, sort_order, date_added) VALUES ('7', 'system_popup', 'NONSSL', '1', '0', now());
+INSERT INTO contents (content_id, type, link_request_type, status, sort_order, date_added) VALUES ('8', 'system_popup', 'NONSSL', '1', '0', now());
+INSERT INTO contents (content_id, type, link_request_type, status, sort_order, date_added) VALUES ('9', 'system_popup', 'NONSSL', '1', '0', now());
+INSERT INTO contents (content_id, type, link_request_type, status, sort_order, date_added) VALUES ('10', 'system_popup', 'NONSSL', '1', '0', now());
 
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) VALUES ('1', '1', 'Shipping &amp; Returns', 'Shipping &amp; Returns', 'Put here your Shipping &amp; Returns information.');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) VALUES ('1', '2', 'Liefer- und Versandkosten', 'Liefer- und Versandkosten', 'Fügen Sie hier Ihre Informationen über Liefer- und Versandkosten ein.');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) VALUES ('1', '3', 'Envíos / Devoluciones', 'Envíos y Devoluciones', 'Ponga aqui información sobre los Envíos y Devoluciones.');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) VALUES ('2', '1', 'Privacy Notice', 'Privacy Notice', 'Put here your Privacy Notice information.');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) VALUES ('2', '2', 'Privatsphäre / Datenschutz', 'Privatsphäre und Datenschutz', 'Fügen Sie hier Ihre Informationen über Privatsphäre und Datenschutz ein.');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) VALUES ('2', '3', 'Confidencialidad', 'Confidencialidad', 'Ponga aqui información sobre el tratamiento de los datos.');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) VALUES ('3', '1', 'Terms and Conditions', 'General Business Conditions', 'Put here your general business conditions information.');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) VALUES ('3', '2', 'Unsere AGB\'s', 'Allgemeine Geschäftsbedingungen', 'Fügen Sie hier Ihre allgemeinen Geschäftsbedingungen ein.');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) VALUES ('3', '3', 'Términos y Condiciones', 'Condiciones General de Negocios', 'Ponga aqui sus condiciones general de negocios.');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) VALUES ('4', '1', 'What\'s New Here?', 'What\'s New Here?', '<div>This is a default setup of the XOS-Shop project, products shown are for demonstrational purposes, <strong>any products purchased will not be delivered nor will the customer be billed</strong>. Any information seen on these products is to be treated as fictional.</div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) VALUES ('4', '2', 'Unser Angebot', 'Unser Angebot', '<div>Dies ist eine Standardinstallation von XOS-Shop. Alle hier gezeigten Produkte sind fiktiv zu verstehen. <strong>Eine hier getätigte Bestellung wird NICHT ausgeführt werden, Sie erhalten keine Lieferung oder Rechnung.</strong></div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) VALUES ('4', '3', '¿Que hay de nuevo por aqui?', '¿Que hay de nuevo por aqui?', '<div>Esta es la configuración por defecto de XOS-Shop, los productos mostrados aqui son únicamente para demonstración, <strong>cualquier compra realizada no será entregada al cliente, ni se le cobrará</strong>. Cualquier información que vea sobre estos productos debe ser tratada como ficticia.</div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) values ('5', '2', 'Liefer- und Versandkosten', 'Liefer- und Versandkosten', '<div style=\"width: 600px;\"><p>Fügen Sie hier Ihre Informationen über Liefer- und Versandkosten ein.</p></div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) values ('5', '1', 'Shipping &amp; Returns', 'Shipping &amp; Returns', '<div style=\"width: 600px;\"><p>Put here your Shipping &amp; Returns information.</p></div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) values ('5', '3', 'Envíos / Devoluciones', 'Envíos y Devoluciones', '<div style=\"width: 600px;\"><p>Ponga aqui información sobre los Envíos y Devoluciones.</p></div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) values ('6', '2', 'Privatsphäre / Datenschutz', 'Privatsphäre und Datenschutz', '<div style=\"width: 600px;\"><p>Fügen Sie hier Ihre Informationen über Privatsphäre und Datenschutz ein.</p></div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) values ('6', '1', 'Privacy Notice', 'Privacy Notice', '<div style=\"width: 600px;\"><p>Put here your Privacy Notice information.</p></div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) values ('6', '3', 'Confidencialidad', 'Confidencialidad', '<div style=\"width: 600px;\"><p>Ponga aqui información sobre el tratamiento de los datos.</p></div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) values ('7', '2', 'Unsere AGB\'s', 'Allgemeine Geschäftsbedingungen', '<div style=\"width: 600px;\"><p>Fügen Sie hier Ihre allgemeinen Geschäftsbedingungen ein.</p></div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) values ('7', '1', 'Terms and Conditions', 'General Business Conditions', '<div style=\"width: 600px;\"><p>Put here your general business conditions information.</p></div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) values ('7', '3', 'Términos y Condiciones', 'Condiciones General de Negocios', '<div style=\"width: 600px;\"><p>Ponga aqui sus condiciones general de negocios.</p></div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) values ('8', '2', 'Hilfe zur erweiterten Suche', 'Hilfe zur erweiterten Suche', '<div style=\"width: 600px;\"><p>Die Suchfunktion ermöglicht Ihnen die Suche in den Produktnamen, Produktbeschreibungen, Herstellern und Artikelnummern.<br /> <br /> Sie haben die Möglichkeit logische Operatoren wie \"AND\" (Und) und \"OR\" (oder) zu verwenden.<br /> <br /> Als Beispiel könnten Sie also angeben: <u>Microsoft AND Maus</u>.<br /> <br /> Desweiteren können Sie Klammern verwenden um die Suche zu verschachteln, also z.B.:<br /> <br /> <u>Microsoft AND (Maus OR Tastatur OR \"Visual Basic\")</u>.<br /> <br /> Mit Anführungszeichen können Sie mehrere Worte zu einem Suchbegriff zusammenfassen.</p></div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) values ('8', '1', 'Search Help', 'Search Help', '<div style=\"width: 600px;\"><p>Keywords may be separated by AND and/or OR statements for greater control of the search results.<br /> <br /> For example, <u>Microsoft AND mouse</u> would generate a result set that contain both words. However, for <u>mouse OR keyboard</u>, the result set returned would contain both or either words.<br /> <br /> Exact matches can be searched for by enclosing keywords in double-quotes.<br /> <br /> For example, <u>\"notebook computer\"</u> would generate a result set which match the exact string.<br /> <br /> Brackets can be used for further control on the result set.<br /> <br /> For example, <u>Microsoft and (keyboard or mouse or \"visual basic\")</u>.</p></div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) values ('8', '3', 'Consejos para Búsqueda Avanzada', 'Consejos para Búsqueda Avanzada', '<div style=\"width: 600px;\"><p>El motor de búsqueda le permite hacer una búsqueda por palabras clave en el modelo, nombre y descripción del producto y en el nombre del fabricante.<br /> <br /> Cuando haga una busqueda por palabras o frases clave, puede separar estas con los operadores lógicos AND y OR. Por ejemplo, puede hacer una busqueda por <u>microsoft AND raton</u>. Esta búsqueda daría como resultado los productos que contengan ambas palabras. Por el contrario, si teclea <u>raton OR teclado</u>, conseguirá una lista de los productos que contengan las dos o solo una de las palabras. Si no se separan las palabras o frases clave con AND o con OR, la búsqueda se hara usando por defecto el operador logico AND.<br /> <br /> Puede realizar busquedas exactas de varias palabras encerrandolas entre comillas. Por ejemplo, si busca <u>\"ordenador portatil\"</u>, obtendrás una lista de productos que tengan exactamente esa cadena en ellos.<br /> <br /> Se pueden usar paratensis para controlar el orden de las operaciones lógicas. Por ejemplo, puede introducir <u>microsoft and (teclado or raton or \"visual basic\")</u>.</p></div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) values ('9', '2', 'Besucherwarenkorb / Kundenwarenkorb', 'Besucherwarenkorb / Kundenwarenkorb', '<div style=\"width: 600px;\"><p><b><i>Besucherwarenkorb</i></b><br /> Jeder Besucher unseres Online-Shops bekommt einen \'Besucherwarenkorb\'. Damit kann er seine ausgewählten Produkte sammeln. Sobald der Besucher den Online-Shop verlässt, verfällt dessen Inhalt.</p> <p><b><i>Kundenwarenkorb</i></b><br /> Jeder angemeldete Kunde verfügt über einen \'Kundenwarenkorb\' zum Einkaufen, mit dem er auch zu einem späterem Zeitpunkt den Einkauf beenden kann. Jeder Artikel bleibt darin registriert bis der Kunde zur Kasse geht, oder die Produkte darin löscht.</p> <p><b><i>Information</i></b><br /> Die Besuchereingaben werden automatisch bei der Registrierung als Kunde in den Kundenwarenkorb übernommen</p></div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) values ('9', '1', 'Visitors Cart / Members Cart', 'Visitors Cart / Members Cart', '<div style=\"width: 600px;\"><p><b><i>Visitors Cart</i></b><br /> Every visitor to our online shop will be given a \'Visitors Cart\'. This allows the visitor to store their products in a temporary shopping cart. Once the visitor leaves the online shop, so will the contents of their shopping cart.</p> <p><b><i>Members Cart</i></b><br /> Every member to our online shop that logs in is given a \'Members Cart\'. This allows the member to add products to their shopping cart, and come back at a later date to finalize their checkout. All products remain in their shopping cart until the member has checked them out, or removed the products themselves.</p> <p><b><i>Info</i></b><br /> If a member adds products to their \'Visitors Cart\' and decides to log in to the online shop to use their \'Members Cart\', the contents of their \'Visitors Cart\' will merge with their \'Members Cart\' contents automatically.</p></div>');
-INSERT INTO contents_data (content_id, language_id, name, heading_title, content) values ('9', '3', 'Cesta del Visitante / Cesta del Asociado', 'Cesta del Visitante / Cesta del Asociado', '<div style=\"width: 600px;\"><p><b><i>Cesta de Visitante</i></b><br /> A cada visitante de nuestro catálogo le es asignado una \'Cesta de Visitante\'. Esto permite al invitado guardar sus productos en una cesta temporal. Una vez que el visitante abandona el catálogo, tambien desaparece el contenido de su cesta.</p> <p><b><i>Cesta de Asociado</i></b><br /> A cada miembro nuestro se le asigna una \'Cesta de Asociado\'. Esto permite al asociado añadir productos a su cesta de la compra, y volver mas tarde para finalizar el pedido. Todos los productos permanecen en la cesta hasta que el asociado ha realizado el pedido, o hasta que sean eliminados de la cesta manualmente.</p> <p><b><i>Información</i></b><br /> Si un asociado añade un articulo a su \'Cesta de Visitante\' y despues decide Entrar a su Cuenta para usar su \'Cesta de Asociado\', el contenido de la \'Cesta de Visitante\' sera añadido a la \'Cesta de Asociado\' automáticamente.</p></div>');
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) VALUES ('1', '1', 'Shipping &amp; Returns', 'Shipping &amp; Returns', 'Put here your Shipping &amp; Returns information.', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) VALUES ('1', '2', 'Liefer- und Versandkosten', 'Liefer- und Versandkosten', 'Fügen Sie hier Ihre Informationen über Liefer- und Versandkosten ein.', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) VALUES ('1', '3', 'Envíos / Devoluciones', 'Envíos y Devoluciones', 'Ponga aqui información sobre los Envíos y Devoluciones.', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) VALUES ('2', '1', 'Privacy Notice', 'Privacy Notice', 'Put here your Privacy Notice information.', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) VALUES ('2', '2', 'Privatsphäre / Datenschutz', 'Privatsphäre und Datenschutz', 'Fügen Sie hier Ihre Informationen über Privatsphäre und Datenschutz ein.', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) VALUES ('2', '3', 'Confidencialidad', 'Confidencialidad', 'Ponga aqui información sobre el tratamiento de los datos.', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) VALUES ('3', '1', 'Terms and Conditions', 'General Business Conditions', 'Put here your general business conditions information.', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) VALUES ('3', '2', 'Unsere AGB\'s', 'Allgemeine Geschäftsbedingungen', 'Fügen Sie hier Ihre allgemeinen Geschäftsbedingungen ein.', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) VALUES ('3', '3', 'Términos y Condiciones', 'Condiciones General de Negocios', 'Ponga aqui sus condiciones general de negocios.', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) VALUES ('4', '1', 'Contact Us', 'Contact Us', '', '<?php
+/*
+////////////////////////////////////////////////////////////////////////////////
+// project    : XOS-Shop, open source e-commerce system
+//              http://www.xos-shop.com
+//                                                                     
+// filename   : contact_us.php
+// author     : Hanspeter Zeller <hpz@xos-shop.com>
+// copyright  : Copyright (c) 2007 Hanspeter Zeller
+// license    : This file is part of XOS-Shop.
+//
+//              XOS-Shop is free software: you can redistribute it and/or modify
+//              it under the terms of the GNU General Public License as published
+//              by the Free Software Foundation, either version 3 of the License,
+//              or (at your option) any later version.
+//
+//              XOS-Shop is distributed in the hope that it will be useful,
+//              but WITHOUT ANY WARRANTY; without even the implied warranty of
+//              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//              GNU General Public License for more details.
+//
+//              You should have received a copy of the GNU General Public License
+//              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.   
+//------------------------------------------------------------------------------
+// this file is based on: 
+//              osCommerce, Open Source E-Commerce Solutions
+//              http://www.oscommerce.com
+//              Copyright (c) 2003 osCommerce
+//              filename: contact_us.php                      
+//
+//              Released under the GNU General Public License 
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/includes/content/\' . FILENAME_CONTACT_US) == \'overwrite_all\')) : 
+
+/*
+  ////////////////////////////////////////////////////////////////////////////////
+  // insert below your named constants
+  // example:
+  // define(\'CONSTANT\', \'value\');
+  ////////////////////////////////////////////////////////////////////////////////
+*/  
+  define(\'CONTACT_US_EMAIL_SUBJECT\', \'Enquiry to \' . STORE_NAME);
+  define(\'CONTACT_US_TEXT_SECURITY_CODE_ERROR\', \'The entered Security-Code does not agree with the indicated code - please make any necessary corrections.\');
+  define(\'CONTACT_US_ERROR_ACTION_RECORDER\', \'Error: An enquiry has already been sent. Please try again in %s minutes.\'); 
+
+  define(\'CONTACT_US_HEADING_TITLE\', \'Contact Us\');
+  define(\'CONTACT_US_TEXT_SUCCESS\', \'Your enquiry has been successfully sent to the Store Owner.\');
+  define(\'CONTACT_US_ENTRY_NAME\', \'Full Name:\');
+  define(\'CONTACT_US_ENTRY_EMAIL\', \'E-Mail Address:\');
+  define(\'CONTACT_ENTRY_SECURITY_CODE\', \'Security Code:\');
+  define(\'CONTACT_ENTRY_ENQUIRY\', \'Enquiry:\');
+  define(\'CONTACT_US_BUTTON_TITLE_CONTINUE\', \'Continue\');
+  define(\'CONTACT_US_BUTTON_TEXT_CONTINUE\', \'Continue\');              
+
+  define(\'CONTACT_US_HTML_EMAIL_TEXT_ENQUIRY\', \'Enquiry\');
+  define(\'CONTACT_US_TEXT_EMAIL_TEXT_ENQUIRY\', \'Enquiry\');  
+
+  if (SEND_EMAILS != \'true\') {
+    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die();
+    xos_redirect(xos_href_link(FILENAME_DEFAULT), false);
+  }  
+
+/* redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled (or the session has not started) */
+  if ($session_started == false) {
+    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die(\'We have detected that your browser does not support cookies, or has set cookies to be disabled.<br />To continue shopping online, we encourage you to enable cookies on your browser.\');
+    xos_redirect(xos_href_link(FILENAME_COOKIE_USAGE));
+  }
+
+  if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'send\')) {
+    $name = xos_db_prepare_input($_POST[\'name\']);
+    $email_address = xos_db_prepare_input($_POST[\'email_address\']);
+    $enquiry = xos_db_prepare_input(urldecode($_POST[\'enquiry\']));
+    
+    $error = false;
+
+    if (!isset($_SESSION[\'customer_id\'])) {
+      if (!isset($_SESSION[\'captcha_spam\']) || $_POST[\'security_code\'] != $_SESSION[\'captcha_spam\']) {
+        $error = true;
+
+        $messageStack->add(\'contact\', CONTACT_US_TEXT_SECURITY_CODE_ERROR);    
+      }
+        
+      unset($_SESSION[\'captcha_spam\']);
+    }
+    
+    if (!xos_validate_email($email_address)) {
+      $error = true;
+      
+      $messageStack->add(\'contact\', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
+    }
+    
+    $actionRecorder = new actionRecorder(\'ar_contact_us\', (isset($_SESSION[\'customer_id\']) ? $_SESSION[\'customer_id\'] : null), $name);
+    if (!$actionRecorder->canPerform() && $actionRecorder->check()) {
+      $error = true;
+
+      $actionRecorder->record(false);
+
+      $messageStack->add(\'contact\', sprintf(CONTACT_US_ERROR_ACTION_RECORDER, (defined(\'MODULE_ACTION_RECORDER_CONTACT_US_EMAIL_MINUTES\') ? (int)MODULE_ACTION_RECORDER_CONTACT_US_EMAIL_MINUTES : 15)));
+    }      
+      
+    if ($error == false) {
+    
+      $smarty->unregisterFilter(\'output\',\'smarty_outputfilter_trimwhitespace\');
+    
+      $smarty->assign(array(\'html_params\' => HTML_PARAMS,
+                            \'xhtml_lang\' => XHTML_LANG,
+                            \'charset\' => CHARSET,
+                            \'store_name_address\' => STORE_NAME_ADDRESS,
+                            \'store_name\' => STORE_NAME,
+                            \'src_embedded_shop_logo\' => \'cid:shop_logo\',
+                            \'src_shop_logo\' => HTTP_SERVER . DIR_WS_CATALOG . DIR_WS_IMAGES . (is_file(DIR_FS_CATALOG . \'images/email_shop_logo/\' . EMAIL_SHOP_LOGO) ? \'email_shop_logo/\' : \'catalog/templates/\' . SELECTED_TPL . \'/\') . EMAIL_SHOP_LOGO,
+                            \'enquiry_text\' => $enquiry));
+      
+      $output_contact_us_email_html = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_html.tpl\'); 
+      $output_contact_us_email_text = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_text.tpl\');
+      $smarty->clearAssign(array(\'html_params\',
+                                  \'xhtml_lang\',
+                                  \'charset\',
+                                  \'store_name_address\',
+                                  \'store_name\',
+                                  \'src_embedded_shop_logo\',
+                                  \'src_shop_logo\',
+                                  \'enquiry_text\'));  
+  
+      $email_to_store_owner = new mailer(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, CONTACT_US_EMAIL_SUBJECT, $output_contact_us_email_html, $output_contact_us_email_text, $name, $email_address, EMAIL_SHOP_LOGO);
+              
+      if(!$email_to_store_owner->send()) {
+        $messageStack->add(\'contact\', sprintf(ERROR_PHPMAILER, $email_to_store_owner->ErrorInfo));
+      } else {
+        $actionRecorder->record();
+        xos_redirect(xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=success\'));
+      }
+    }    
+  }
+
+  if ($messageStack->size(\'contact\') > 0) {
+    $smarty->assign(\'message_stack\', $messageStack->output(\'contact\'));
+  }
+
+  if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'success\')) {
+    $smarty->assign(\'sent\', true);
+  }
+
+  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=send\', \'SSL\')),
+                        \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
+                        \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'id=\"contact_us_name\"\'),
+                        \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'id=\"contact_us_email_address\"\'),
+                        \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
+/*                        \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" style=\"cursor:pointer;\" onclick=\"javascript:this.src=\\\'\' . xos_href_link(FILENAME_CAPTCHA, \'\', \'SSL\') . (SID ? \'&amp;\' : \'?\') . \'\\\'+Math.random();\" />\', */
+                        \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
+                        \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id, \'SSL\')),
+                        \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'id=\"contact_us_enquiry\"\'),
+                        \'form_end\' => \'</form>\'));
+
+  $smarty->configLoad(\'languages/\' . $_SESSION[\'language\'] . \'.conf\', \'contact_us\');
+  $content[\'content\'] .= $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us.tpl\');
+  
+  $smarty->clearAssign(array(\'message_stack\',
+                             \'sent\',
+                             \'form_begin\',
+                             \'isset_customer_id\',
+                             \'input_field_name\',
+                             \'input_field_email\',
+                             \'input_security_code\',
+                             \'captcha_img\',                          
+                             \'link_filename_default\',
+                             \'textarea\',
+                             \'form_end\'));
+                               
+endif;
+?>');
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) VALUES ('4', '2', 'Kontakt', 'Kontakt', '', '<?php
+/*
+////////////////////////////////////////////////////////////////////////////////
+// project    : XOS-Shop, open source e-commerce system
+//              http://www.xos-shop.com
+//                                                                     
+// filename   : contact_us.php
+// author     : Hanspeter Zeller <hpz@xos-shop.com>
+// copyright  : Copyright (c) 2007 Hanspeter Zeller
+// license    : This file is part of XOS-Shop.
+//
+//              XOS-Shop is free software: you can redistribute it and/or modify
+//              it under the terms of the GNU General Public License as published
+//              by the Free Software Foundation, either version 3 of the License,
+//              or (at your option) any later version.
+//
+//              XOS-Shop is distributed in the hope that it will be useful,
+//              but WITHOUT ANY WARRANTY; without even the implied warranty of
+//              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//              GNU General Public License for more details.
+//
+//              You should have received a copy of the GNU General Public License
+//              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.   
+//------------------------------------------------------------------------------
+// this file is based on: 
+//              osCommerce, Open Source E-Commerce Solutions
+//              http://www.oscommerce.com
+//              Copyright (c) 2003 osCommerce
+//              filename: contact_us.php                      
+//
+//              Released under the GNU General Public License 
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/includes/content/\' . FILENAME_CONTACT_US) == \'overwrite_all\')) : 
+
+/*
+  ////////////////////////////////////////////////////////////////////////////////
+  // insert below your named constants
+  // example:
+  // define(\'CONSTANT\', \'value\');
+  ////////////////////////////////////////////////////////////////////////////////
+*/  
+  define(\'CONTACT_US_EMAIL_SUBJECT\', \'Anfrage an \' . STORE_NAME);
+  define(\'CONTACT_US_TEXT_SECURITY_CODE_ERROR\', \'Der eingegebene Sicherheitscode stimmt nicht mit mit dem angezeigten Code überein - bitte korrigieren.\');
+  define(\'CONTACT_US_ERROR_ACTION_RECORDER\', \'Fehler: Eine Anfrage wurde bereits gesendet. Bitte versuchen Sie es erneut in %s Minuten.\');
+
+  define(\'CONTACT_US_HEADING_TITLE\', \'Kontakt\');
+  define(\'CONTACT_US_TEXT_SUCCESS\', \'Ihre Anfrage wurde erfolgreich an den Vertrieb gesendet.\');
+  define(\'CONTACT_US_ENTRY_NAME\', \'Vollständiger Name:\');
+  define(\'CONTACT_US_ENTRY_EMAIL\', \'eMail-Adresse:\');
+  define(\'CONTACT_ENTRY_SECURITY_CODE\', \'Sicherheitscode:\');
+  define(\'CONTACT_ENTRY_ENQUIRY\', \'Anfrage:\');
+  define(\'CONTACT_US_BUTTON_TITLE_CONTINUE\', \'Weiter\');
+  define(\'CONTACT_US_BUTTON_TEXT_CONTINUE\', \'Weiter\');              
+
+  define(\'CONTACT_US_HTML_EMAIL_TEXT_ENQUIRY\', \'Anfrage\');
+  define(\'CONTACT_US_TEXT_EMAIL_TEXT_ENQUIRY\', \'Anfrage\');  
+
+  if (SEND_EMAILS != \'true\') {
+    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die();
+    xos_redirect(xos_href_link(FILENAME_DEFAULT), false);
+  }  
+
+/* redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled (or the session has not started) */
+  if ($session_started == false) {
+    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die(\'We have detected that your browser does not support cookies, or has set cookies to be disabled.<br />To continue shopping online, we encourage you to enable cookies on your browser.\');
+    xos_redirect(xos_href_link(FILENAME_COOKIE_USAGE));
+  }
+
+  if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'send\')) {
+    $name = xos_db_prepare_input($_POST[\'name\']);
+    $email_address = xos_db_prepare_input($_POST[\'email_address\']);
+    $enquiry = xos_db_prepare_input(urldecode($_POST[\'enquiry\']));
+    
+    $error = false;
+
+    if (!isset($_SESSION[\'customer_id\'])) {
+      if (!isset($_SESSION[\'captcha_spam\']) || $_POST[\'security_code\'] != $_SESSION[\'captcha_spam\']) {
+        $error = true;
+
+        $messageStack->add(\'contact\', CONTACT_US_TEXT_SECURITY_CODE_ERROR);    
+      }
+        
+      unset($_SESSION[\'captcha_spam\']);
+    }
+    
+    if (!xos_validate_email($email_address)) {
+      $error = true;
+      
+      $messageStack->add(\'contact\', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
+    }
+    
+    $actionRecorder = new actionRecorder(\'ar_contact_us\', (isset($_SESSION[\'customer_id\']) ? $_SESSION[\'customer_id\'] : null), $name);
+    if (!$actionRecorder->canPerform() && $actionRecorder->check()) {
+      $error = true;
+
+      $actionRecorder->record(false);
+
+      $messageStack->add(\'contact\', sprintf(CONTACT_US_ERROR_ACTION_RECORDER, (defined(\'MODULE_ACTION_RECORDER_CONTACT_US_EMAIL_MINUTES\') ? (int)MODULE_ACTION_RECORDER_CONTACT_US_EMAIL_MINUTES : 15)));
+    }      
+      
+    if ($error == false) {
+    
+      $smarty->unregisterFilter(\'output\',\'smarty_outputfilter_trimwhitespace\');
+    
+      $smarty->assign(array(\'html_params\' => HTML_PARAMS,
+                            \'xhtml_lang\' => XHTML_LANG,
+                            \'charset\' => CHARSET,
+                            \'store_name_address\' => STORE_NAME_ADDRESS,
+                            \'store_name\' => STORE_NAME,
+                            \'src_embedded_shop_logo\' => \'cid:shop_logo\',
+                            \'src_shop_logo\' => HTTP_SERVER . DIR_WS_CATALOG . DIR_WS_IMAGES . (is_file(DIR_FS_CATALOG . \'images/email_shop_logo/\' . EMAIL_SHOP_LOGO) ? \'email_shop_logo/\' : \'catalog/templates/\' . SELECTED_TPL . \'/\') . EMAIL_SHOP_LOGO,
+                            \'enquiry_text\' => $enquiry));
+      
+      $output_contact_us_email_html = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_html.tpl\'); 
+      $output_contact_us_email_text = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_text.tpl\');
+      $smarty->clearAssign(array(\'html_params\',
+                                  \'xhtml_lang\',
+                                  \'charset\',
+                                  \'store_name_address\',
+                                  \'store_name\',
+                                  \'src_embedded_shop_logo\',
+                                  \'src_shop_logo\',
+                                  \'enquiry_text\'));  
+  
+      $email_to_store_owner = new mailer(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, CONTACT_US_EMAIL_SUBJECT, $output_contact_us_email_html, $output_contact_us_email_text, $name, $email_address, EMAIL_SHOP_LOGO);
+              
+      if(!$email_to_store_owner->send()) {
+        $messageStack->add(\'contact\', sprintf(ERROR_PHPMAILER, $email_to_store_owner->ErrorInfo));
+      } else {
+        $actionRecorder->record();
+        xos_redirect(xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=success\'));
+      }
+    }    
+  }
+
+  if ($messageStack->size(\'contact\') > 0) {
+    $smarty->assign(\'message_stack\', $messageStack->output(\'contact\'));
+  }
+
+  if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'success\')) {
+    $smarty->assign(\'sent\', true);
+  }
+
+  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=send\', \'SSL\')),
+                        \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
+                        \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'id=\"contact_us_name\"\'),
+                        \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'id=\"contact_us_email_address\"\'),
+                        \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
+/*                        \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" style=\"cursor:pointer;\" onclick=\"javascript:this.src=\\\'\' . xos_href_link(FILENAME_CAPTCHA, \'\', \'SSL\') . (SID ? \'&amp;\' : \'?\') . \'\\\'+Math.random();\" />\', */
+                        \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
+                        \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id, \'SSL\')),
+                        \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'id=\"contact_us_enquiry\"\'),
+                        \'form_end\' => \'</form>\'));
+
+  $smarty->configLoad(\'languages/\' . $_SESSION[\'language\'] . \'.conf\', \'contact_us\');
+  $content[\'content\'] .= $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us.tpl\');
+  
+  $smarty->clearAssign(array(\'message_stack\',
+                             \'sent\',
+                             \'form_begin\',
+                             \'isset_customer_id\',
+                             \'input_field_name\',
+                             \'input_field_email\',
+                             \'input_security_code\',
+                             \'captcha_img\',                          
+                             \'link_filename_default\',
+                             \'textarea\',
+                             \'form_end\'));
+                               
+endif;
+?>');
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) VALUES ('4', '3', 'Contactenos', 'Contactenos', '', '<?php
+/*
+////////////////////////////////////////////////////////////////////////////////
+// project    : XOS-Shop, open source e-commerce system
+//              http://www.xos-shop.com
+//                                                                     
+// filename   : contact_us.php
+// author     : Hanspeter Zeller <hpz@xos-shop.com>
+// copyright  : Copyright (c) 2007 Hanspeter Zeller
+// license    : This file is part of XOS-Shop.
+//
+//              XOS-Shop is free software: you can redistribute it and/or modify
+//              it under the terms of the GNU General Public License as published
+//              by the Free Software Foundation, either version 3 of the License,
+//              or (at your option) any later version.
+//
+//              XOS-Shop is distributed in the hope that it will be useful,
+//              but WITHOUT ANY WARRANTY; without even the implied warranty of
+//              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//              GNU General Public License for more details.
+//
+//              You should have received a copy of the GNU General Public License
+//              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.   
+//------------------------------------------------------------------------------
+// this file is based on: 
+//              osCommerce, Open Source E-Commerce Solutions
+//              http://www.oscommerce.com
+//              Copyright (c) 2003 osCommerce
+//              filename: contact_us.php                      
+//
+//              Released under the GNU General Public License 
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/includes/content/\' . FILENAME_CONTACT_US) == \'overwrite_all\')) : 
+
+/*
+  ////////////////////////////////////////////////////////////////////////////////
+  // insert below your named constants
+  // example:
+  // define(\'CONSTANT\', \'value\');
+  ////////////////////////////////////////////////////////////////////////////////
+*/  
+  define(\'CONTACT_US_EMAIL_SUBJECT\', \'Consulta a \' . STORE_NAME);
+  define(\'CONTACT_US_TEXT_SECURITY_CODE_ERROR\', \'El código de seguridad que ha introducido es incorrecto - por favor haga los cambios necesarios.\');
+  define(\'CONTACT_US_ERROR_ACTION_RECORDER\', \'Error: Una investigación ya ha sido enviada. Por favor trate nuevamente en %s minutos.\'); 
+
+  define(\'CONTACT_US_HEADING_TITLE\', \'Contactenos\');
+  define(\'CONTACT_US_TEXT_SUCCESS\', \'Su consulta ha sido enviada al encargado de la tienda.\');
+  define(\'CONTACT_US_ENTRY_NAME\', \'Nombre Completo:\');
+  define(\'CONTACT_US_ENTRY_EMAIL\', \'Dirección E-Mail:\');
+  define(\'CONTACT_ENTRY_SECURITY_CODE\', \'Código de Seguridad:\');
+  define(\'CONTACT_ENTRY_ENQUIRY\', \'Consulta:\');
+  define(\'CONTACT_US_BUTTON_TITLE_CONTINUE\', \'Continuar\');
+  define(\'CONTACT_US_BUTTON_TEXT_CONTINUE\', \'Continuar\');              
+
+  define(\'CONTACT_US_HTML_EMAIL_TEXT_ENQUIRY\', \'Consulta\');
+  define(\'CONTACT_US_TEXT_EMAIL_TEXT_ENQUIRY\', \'Consulta\');  
+
+  if (SEND_EMAILS != \'true\') {
+    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die();
+    xos_redirect(xos_href_link(FILENAME_DEFAULT), false);
+  }  
+
+/* redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled (or the session has not started) */
+  if ($session_started == false) {
+    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die(\'We have detected that your browser does not support cookies, or has set cookies to be disabled.<br />To continue shopping online, we encourage you to enable cookies on your browser.\');
+    xos_redirect(xos_href_link(FILENAME_COOKIE_USAGE));
+  }
+
+  if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'send\')) {
+    $name = xos_db_prepare_input($_POST[\'name\']);
+    $email_address = xos_db_prepare_input($_POST[\'email_address\']);
+    $enquiry = xos_db_prepare_input(urldecode($_POST[\'enquiry\']));
+    
+    $error = false;
+
+    if (!isset($_SESSION[\'customer_id\'])) {
+      if (!isset($_SESSION[\'captcha_spam\']) || $_POST[\'security_code\'] != $_SESSION[\'captcha_spam\']) {
+        $error = true;
+
+        $messageStack->add(\'contact\', CONTACT_US_TEXT_SECURITY_CODE_ERROR);    
+      }
+        
+      unset($_SESSION[\'captcha_spam\']);
+    }
+    
+    if (!xos_validate_email($email_address)) {
+      $error = true;
+      
+      $messageStack->add(\'contact\', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
+    }
+    
+    $actionRecorder = new actionRecorder(\'ar_contact_us\', (isset($_SESSION[\'customer_id\']) ? $_SESSION[\'customer_id\'] : null), $name);
+    if (!$actionRecorder->canPerform() && $actionRecorder->check()) {
+      $error = true;
+
+      $actionRecorder->record(false);
+
+      $messageStack->add(\'contact\', sprintf(CONTACT_US_ERROR_ACTION_RECORDER, (defined(\'MODULE_ACTION_RECORDER_CONTACT_US_EMAIL_MINUTES\') ? (int)MODULE_ACTION_RECORDER_CONTACT_US_EMAIL_MINUTES : 15)));
+    }      
+      
+    if ($error == false) {
+    
+      $smarty->unregisterFilter(\'output\',\'smarty_outputfilter_trimwhitespace\');
+    
+      $smarty->assign(array(\'html_params\' => HTML_PARAMS,
+                            \'xhtml_lang\' => XHTML_LANG,
+                            \'charset\' => CHARSET,
+                            \'store_name_address\' => STORE_NAME_ADDRESS,
+                            \'store_name\' => STORE_NAME,
+                            \'src_embedded_shop_logo\' => \'cid:shop_logo\',
+                            \'src_shop_logo\' => HTTP_SERVER . DIR_WS_CATALOG . DIR_WS_IMAGES . (is_file(DIR_FS_CATALOG . \'images/email_shop_logo/\' . EMAIL_SHOP_LOGO) ? \'email_shop_logo/\' : \'catalog/templates/\' . SELECTED_TPL . \'/\') . EMAIL_SHOP_LOGO,
+                            \'enquiry_text\' => $enquiry));
+      
+      $output_contact_us_email_html = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_html.tpl\'); 
+      $output_contact_us_email_text = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_text.tpl\');
+      $smarty->clearAssign(array(\'html_params\',
+                                  \'xhtml_lang\',
+                                  \'charset\',
+                                  \'store_name_address\',
+                                  \'store_name\',
+                                  \'src_embedded_shop_logo\',
+                                  \'src_shop_logo\',
+                                  \'enquiry_text\'));  
+  
+      $email_to_store_owner = new mailer(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, CONTACT_US_EMAIL_SUBJECT, $output_contact_us_email_html, $output_contact_us_email_text, $name, $email_address, EMAIL_SHOP_LOGO);
+              
+      if(!$email_to_store_owner->send()) {
+        $messageStack->add(\'contact\', sprintf(ERROR_PHPMAILER, $email_to_store_owner->ErrorInfo));
+      } else {
+        $actionRecorder->record();
+        xos_redirect(xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=success\'));
+      }
+    }    
+  }
+
+  if ($messageStack->size(\'contact\') > 0) {
+    $smarty->assign(\'message_stack\', $messageStack->output(\'contact\'));
+  }
+
+  if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'success\')) {
+    $smarty->assign(\'sent\', true);
+  }
+
+  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=send\', \'SSL\')),
+                        \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
+                        \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'id=\"contact_us_name\"\'),
+                        \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'id=\"contact_us_email_address\"\'),
+                        \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
+/*                        \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" style=\"cursor:pointer;\" onclick=\"javascript:this.src=\\\'\' . xos_href_link(FILENAME_CAPTCHA, \'\', \'SSL\') . (SID ? \'&amp;\' : \'?\') . \'\\\'+Math.random();\" />\', */
+                        \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
+                        \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id, \'SSL\')),
+                        \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'id=\"contact_us_enquiry\"\'),
+                        \'form_end\' => \'</form>\'));
+
+  $smarty->configLoad(\'languages/\' . $_SESSION[\'language\'] . \'.conf\', \'contact_us\');
+  $content[\'content\'] .= $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us.tpl\');
+  
+  $smarty->clearAssign(array(\'message_stack\',
+                             \'sent\',
+                             \'form_begin\',
+                             \'isset_customer_id\',
+                             \'input_field_name\',
+                             \'input_field_email\',
+                             \'input_security_code\',
+                             \'captcha_img\',                          
+                             \'link_filename_default\',
+                             \'textarea\',
+                             \'form_end\'));
+                               
+endif;
+?>');
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) VALUES ('5', '1', 'What\'s New Here?', 'What\'s New Here?', '<div>This is a default setup of the XOS-Shop project, products shown are for demonstrational purposes, <strong>any products purchased will not be delivered nor will the customer be billed</strong>. Any information seen on these products is to be treated as fictional.</div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) VALUES ('5', '2', 'Unser Angebot', 'Unser Angebot', '<div>Dies ist eine Standardinstallation von XOS-Shop. Alle hier gezeigten Produkte sind fiktiv zu verstehen. <strong>Eine hier getätigte Bestellung wird NICHT ausgeführt werden, Sie erhalten keine Lieferung oder Rechnung.</strong></div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) VALUES ('5', '3', '¿Que hay de nuevo por aqui?', '¿Que hay de nuevo por aqui?', '<div>Esta es la configuración por defecto de XOS-Shop, los productos mostrados aqui son únicamente para demonstración, <strong>cualquier compra realizada no será entregada al cliente, ni se le cobrará</strong>. Cualquier información que vea sobre estos productos debe ser tratada como ficticia.</div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) values ('6', '2', 'Liefer- und Versandkosten', 'Liefer- und Versandkosten', '<div style=\"width: 600px;\"><p>Fügen Sie hier Ihre Informationen über Liefer- und Versandkosten ein.</p></div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) values ('6', '1', 'Shipping &amp; Returns', 'Shipping &amp; Returns', '<div style=\"width: 600px;\"><p>Put here your Shipping &amp; Returns information.</p></div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) values ('6', '3', 'Envíos / Devoluciones', 'Envíos y Devoluciones', '<div style=\"width: 600px;\"><p>Ponga aqui información sobre los Envíos y Devoluciones.</p></div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) values ('7', '2', 'Privatsphäre / Datenschutz', 'Privatsphäre und Datenschutz', '<div style=\"width: 600px;\"><p>Fügen Sie hier Ihre Informationen über Privatsphäre und Datenschutz ein.</p></div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) values ('7', '1', 'Privacy Notice', 'Privacy Notice', '<div style=\"width: 600px;\"><p>Put here your Privacy Notice information.</p></div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) values ('7', '3', 'Confidencialidad', 'Confidencialidad', '<div style=\"width: 600px;\"><p>Ponga aqui información sobre el tratamiento de los datos.</p></div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) values ('8', '2', 'Unsere AGB\'s', 'Allgemeine Geschäftsbedingungen', '<div style=\"width: 600px;\"><p>Fügen Sie hier Ihre allgemeinen Geschäftsbedingungen ein.</p></div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) values ('8', '1', 'Terms and Conditions', 'General Business Conditions', '<div style=\"width: 600px;\"><p>Put here your general business conditions information.</p></div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) values ('8', '3', 'Términos y Condiciones', 'Condiciones General de Negocios', '<div style=\"width: 600px;\"><p>Ponga aqui sus condiciones general de negocios.</p></div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) values ('9', '2', 'Hilfe zur erweiterten Suche', 'Hilfe zur erweiterten Suche', '<div style=\"width: 600px;\"><p>Die Suchfunktion ermöglicht Ihnen die Suche in den Produktnamen, Produktbeschreibungen, Herstellern und Artikelnummern.<br /> <br /> Sie haben die Möglichkeit logische Operatoren wie \"AND\" (Und) und \"OR\" (oder) zu verwenden.<br /> <br /> Als Beispiel könnten Sie also angeben: <u>Microsoft AND Maus</u>.<br /> <br /> Desweiteren können Sie Klammern verwenden um die Suche zu verschachteln, also z.B.:<br /> <br /> <u>Microsoft AND (Maus OR Tastatur OR \"Visual Basic\")</u>.<br /> <br /> Mit Anführungszeichen können Sie mehrere Worte zu einem Suchbegriff zusammenfassen.</p></div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) values ('9', '1', 'Search Help', 'Search Help', '<div style=\"width: 600px;\"><p>Keywords may be separated by AND and/or OR statements for greater control of the search results.<br /> <br /> For example, <u>Microsoft AND mouse</u> would generate a result set that contain both words. However, for <u>mouse OR keyboard</u>, the result set returned would contain both or either words.<br /> <br /> Exact matches can be searched for by enclosing keywords in double-quotes.<br /> <br /> For example, <u>\"notebook computer\"</u> would generate a result set which match the exact string.<br /> <br /> Brackets can be used for further control on the result set.<br /> <br /> For example, <u>Microsoft and (keyboard or mouse or \"visual basic\")</u>.</p></div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) values ('9', '3', 'Consejos para Búsqueda Avanzada', 'Consejos para Búsqueda Avanzada', '<div style=\"width: 600px;\"><p>El motor de búsqueda le permite hacer una búsqueda por palabras clave en el modelo, nombre y descripción del producto y en el nombre del fabricante.<br /> <br /> Cuando haga una busqueda por palabras o frases clave, puede separar estas con los operadores lógicos AND y OR. Por ejemplo, puede hacer una busqueda por <u>microsoft AND raton</u>. Esta búsqueda daría como resultado los productos que contengan ambas palabras. Por el contrario, si teclea <u>raton OR teclado</u>, conseguirá una lista de los productos que contengan las dos o solo una de las palabras. Si no se separan las palabras o frases clave con AND o con OR, la búsqueda se hara usando por defecto el operador logico AND.<br /> <br /> Puede realizar busquedas exactas de varias palabras encerrandolas entre comillas. Por ejemplo, si busca <u>\"ordenador portatil\"</u>, obtendrás una lista de productos que tengan exactamente esa cadena en ellos.<br /> <br /> Se pueden usar paratensis para controlar el orden de las operaciones lógicas. Por ejemplo, puede introducir <u>microsoft and (teclado or raton or \"visual basic\")</u>.</p></div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) values ('10', '2', 'Besucherwarenkorb / Kundenwarenkorb', 'Besucherwarenkorb / Kundenwarenkorb', '<div style=\"width: 600px;\"><p><b><i>Besucherwarenkorb</i></b><br /> Jeder Besucher unseres Online-Shops bekommt einen \'Besucherwarenkorb\'. Damit kann er seine ausgewählten Produkte sammeln. Sobald der Besucher den Online-Shop verlässt, verfällt dessen Inhalt.</p> <p><b><i>Kundenwarenkorb</i></b><br /> Jeder angemeldete Kunde verfügt über einen \'Kundenwarenkorb\' zum Einkaufen, mit dem er auch zu einem späterem Zeitpunkt den Einkauf beenden kann. Jeder Artikel bleibt darin registriert bis der Kunde zur Kasse geht, oder die Produkte darin löscht.</p> <p><b><i>Information</i></b><br /> Die Besuchereingaben werden automatisch bei der Registrierung als Kunde in den Kundenwarenkorb übernommen</p></div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) values ('10', '1', 'Visitors Cart / Members Cart', 'Visitors Cart / Members Cart', '<div style=\"width: 600px;\"><p><b><i>Visitors Cart</i></b><br /> Every visitor to our online shop will be given a \'Visitors Cart\'. This allows the visitor to store their products in a temporary shopping cart. Once the visitor leaves the online shop, so will the contents of their shopping cart.</p> <p><b><i>Members Cart</i></b><br /> Every member to our online shop that logs in is given a \'Members Cart\'. This allows the member to add products to their shopping cart, and come back at a later date to finalize their checkout. All products remain in their shopping cart until the member has checked them out, or removed the products themselves.</p> <p><b><i>Info</i></b><br /> If a member adds products to their \'Visitors Cart\' and decides to log in to the online shop to use their \'Members Cart\', the contents of their \'Visitors Cart\' will merge with their \'Members Cart\' contents automatically.</p></div>', NULL);
+INSERT INTO contents_data (content_id, language_id, name, heading_title, content, php_source) values ('10', '3', 'Cesta del Visitante / Cesta del Asociado', 'Cesta del Visitante / Cesta del Asociado', '<div style=\"width: 600px;\"><p><b><i>Cesta de Visitante</i></b><br /> A cada visitante de nuestro catálogo le es asignado una \'Cesta de Visitante\'. Esto permite al invitado guardar sus productos en una cesta temporal. Una vez que el visitante abandona el catálogo, tambien desaparece el contenido de su cesta.</p> <p><b><i>Cesta de Asociado</i></b><br /> A cada miembro nuestro se le asigna una \'Cesta de Asociado\'. Esto permite al asociado añadir productos a su cesta de la compra, y volver mas tarde para finalizar el pedido. Todos los productos permanecen en la cesta hasta que el asociado ha realizado el pedido, o hasta que sean eliminados de la cesta manualmente.</p> <p><b><i>Información</i></b><br /> Si un asociado añade un articulo a su \'Cesta de Visitante\' y despues decide Entrar a su Cuenta para usar su \'Cesta de Asociado\', el contenido de la \'Cesta de Visitante\' sera añadido a la \'Cesta de Asociado\' automáticamente.</p></div>', NULL);
 
 INSERT INTO countries VALUES (14,'Österreich','AT','AUT','5');
 INSERT INTO countries VALUES (81,'Deutschland','DE','DEU','5');

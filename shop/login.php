@@ -166,13 +166,13 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $back_link = 'javascript:history.go(-1)';
   }
   
-  $popup_status_query = xos_db_query("select status from " . TABLE_CONTENTS . "  where type = 'system_popup' and status = '1' and content_id = '9' LIMIT 1");
+  $popup_status_query = xos_db_query("select status from " . TABLE_CONTENTS . "  where type = 'system_popup' and status = '1' and content_id = '10' LIMIT 1");
   
   $smarty->assign(array('link_filename_create_account' => xos_href_link(FILENAME_CREATE_ACCOUNT, 'rmp=0', 'SSL'),
                         'link_back' => $back_link,
                         'input_field_email_address' => xos_draw_input_field('email_address', '', 'id="email_address"'),
                         'input_field_password' => xos_draw_password_field('password', '', 'id="password"'),
-                        'link_filename_popup_content_9' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'content_id=9', $request_type) : '',
+                        'link_filename_popup_content_10' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'content_id=10', $request_type) : '',
                         'store_name' => STORE_NAME,
                         'form_end' => '</form>'));   
 

@@ -451,8 +451,9 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
         $cache_id = 'L3|cc_index_products|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['cPath'] . '-' . $_GET['sort'] . '-' . $_GET['page'] . '-' . $_GET['filter_id'] . '-' . $current_category_id . '-' . $_SESSION['max_display_products_in_category'] . '-' . $_SESSION['products_in_c_view'];
       }    
     
-      $category_query = xos_db_query("select cpd.categories_or_pages_name, cpd.categories_or_pages_heading_title, cpd.categories_or_pages_content, c.categories_image, c.product_list_b from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = '" . (int)$current_category_id . "' and cpd.categories_or_pages_id = '" . (int)$current_category_id . "' and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
+      $category_query = xos_db_query("select cpd.categories_or_pages_name, cpd.categories_or_pages_heading_title, cpd.categories_or_pages_content, cpd.categories_or_pages_php_source, c.categories_image, c.product_list_b from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = '" . (int)$current_category_id . "' and cpd.categories_or_pages_id = '" . (int)$current_category_id . "' and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'");      
       $category = xos_db_fetch_array($category_query);
+      eval(' ?>' . $category['categories_or_pages_php_source'] . '<?php ');
 
       if ($session_started) {
         $pull_down_menu_display_products_in_category = xos_draw_form('display_products_in_category', xos_href_link(FILENAME_DEFAULT, '', 'NONSSL', false, true, false, false, false), 'get') . xos_hide_session_id();
@@ -730,9 +731,9 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
     
     if(!$smarty->isCached(SELECTED_TPL . '/index.tpl', $cache_id)){  
    
-      $content_query = xos_db_query("select cd.name, cd.heading_title, cd.content from " . TABLE_CONTENTS . " c, " . TABLE_CONTENTS_DATA . " cd where c.type = 'index' and c.status = '1' and c.content_id = cd.content_id and cd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
+      $content_query = xos_db_query("select cd.name, cd.heading_title, cd.content, cd.php_source from " . TABLE_CONTENTS . " c, " . TABLE_CONTENTS_DATA . " cd where c.type = 'index' and c.status = '1' and c.content_id = cd.content_id and cd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
       $content = xos_db_fetch_array($content_query);
-    
+      eval(' ?>' . $content['php_source'] . '<?php ');
       $smarty->assign(array('heading_title' => $content['heading_title'],
                             'content' => $content['content']));
 
@@ -748,19 +749,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
   } 
 
   $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'index');    
-  $output_index = $smarty->fetch(SELECTED_TPL . '/index.tpl', $cache_id);
- 
-  if (isset($_SESSION['customer_first_name']) && isset($_SESSION['customer_id'])) {
-    if (ACCOUNT_GENDER == 'true' && isset($_SESSION['customer_gender']) && $_SESSION['customer_gender'] != '') {
-      $welcome_string = sprintf(TEXT_GREETING_PERSONAL, ($_SESSION['customer_gender'] == 'm' ? MALE_ADDRESS : FEMALE_ADDRESS) . '&nbsp;' . xos_output_string_protected($_SESSION['customer_first_name']) . '&nbsp;' . xos_output_string_protected($_SESSION['customer_lastname']), xos_href_link(FILENAME_PRODUCTS_NEW));
-    } else {
-      $welcome_string = sprintf(TEXT_GREETING_PERSONAL, xos_output_string_protected($_SESSION['customer_first_name']) . '&nbsp;' . xos_output_string_protected($_SESSION['customer_lastname']), xos_href_link(FILENAME_PRODUCTS_NEW)); 
-    }
-  } else {
-    $welcome_string = sprintf(TEXT_GREETING_GUEST, xos_href_link(FILENAME_LOGIN, '', 'SSL'), xos_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL'));
-  }
-      
-  $output_index = str_replace('[@{$welcome}@]', '<span class="welcome-string">' . $welcome_string . '</span>', $output_index);    
+  $output_index = $smarty->fetch(SELECTED_TPL . '/index.tpl', $cache_id); 
                           
   $smarty->assign('central_contents', $output_index);  
   

@@ -280,7 +280,7 @@
       <tr>
         <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="10" /></td>
       </tr>
-      [@{if $link_filename_popup_content_6}@]      
+      [@{if $link_filename_popup_content_7}@]      
       <tr>
         <td class="main"><b>[@{#category_information#}@]</b></td>
       </tr>
@@ -295,11 +295,11 @@
                 <td class="main" nowrap="nowrap"> 
                   <script type="text/javascript">
                   /* <![CDATA[ */
-                    document.write('<a href="[@{$link_filename_popup_content_6}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_privacy_notice_link#}@]</span></a>');
+                    document.write('<a href="[@{$link_filename_popup_content_7}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_privacy_notice_link#}@]</span></a>');
                   /* ]]> */   
                   </script>
                   <noscript>
-                    <a href="[@{$link_filename_popup_content_6}@]" target="_blank"><span class="text-deco-underline">[@{#text_privacy_notice_link#}@]</span></a>
+                    <a href="[@{$link_filename_popup_content_7}@]" target="_blank"><span class="text-deco-underline">[@{#text_privacy_notice_link#}@]</span></a>
                   </noscript>                  
                 </td>
               </tr>

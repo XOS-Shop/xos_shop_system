@@ -534,7 +534,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $smarty->assign('message_stack', $messageStack->output('search'));
   }
   
-  $popup_status_query = xos_db_query("select status from " . TABLE_CONTENTS . "  where type = 'system_popup' and status = '1' and content_id = '8' LIMIT 1");
+  $popup_status_query = xos_db_query("select status from " . TABLE_CONTENTS . "  where type = 'system_popup' and status = '1' and content_id = '9' LIMIT 1");
 
   $hidden_get_variables = '';
   if (!$session_started && xos_not_null($_GET['currency'])) {
@@ -554,7 +554,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                         'input_field_keywords' => xos_draw_input_field('keywords', stripslashes($_GET['keywords']), 'id="keywords"'),
                         'checkbox_search_in_description' => xos_draw_checkbox_field('search_in_description', '1', ($action && !isset($_GET['search_in_description']) ? false : true), 'id="search_in_description"'),
                         'link_filename_advanced_search_and_results' => xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS),
-                        'link_filename_popup_content_8' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'content_id=8', $request_type) : '',
+                        'link_filename_popup_content_9' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'content_id=9', $request_type) : '',
                         'categories_pull_down_menu' => xos_draw_pull_down_menu('categories_or_pages_id', $categories_array, $_GET['categories_or_pages_id'], 'id="categories_or_pages_id" onchange="UpdateManufacturers();"'),                        
                         'manufacturers_pull_down_menu' => xos_draw_pull_down_menu('_manufacturers_id', xos_get_manufacturers(array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS))), $_GET['_manufacturers_id'], 'id="manufacturers_id"'),
                         'input_field_pfrom' => xos_draw_input_field('pfrom', $_GET['pfrom'], 'id="pfrom"'),

@@ -206,24 +206,25 @@ create table banners_content (
   banners_url varchar(255) not null ,
   banners_image varchar(255) not null ,
   banners_html_text text ,
+  banners_php_source text ,
   PRIMARY KEY (banners_id, language_id)
 );
 
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text) values ('1', '1', 'XOS-Shop', 'http://www.xos-shop.com', 'xos-shop_banner.gif', '');
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text) values ('1', '2', 'XOS-Shop', 'http://www.xos-shop.com', 'xos-shop_banner.gif', '');
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text) values ('1', '3', 'XOS-Shop', 'http://www.xos-shop.com', 'xos-shop_banner.gif', '');
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text) values ('2', '1', 'Note', '', '', '<div style=\"text-align: center; border-bottom: red 2px solid; border-left: red 2px solid; padding-bottom: 2px; background-color: rgb(216,216,216); margin-top: 2px; padding-left: 10px; padding-right: 10px; font-family: arial; font-size: 16px; border-top: red 2px solid; border-right: red 2px solid; padding-top: 2px\">This is a default setup of the XOS-Shop project, products shown are for demonstrational purposes, any products purchased will not be delivered nor will the customer be billed. Any information seen on these products is to be treated as fictional.</div>');
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text) values ('2', '2', 'Hinweis', '', '', '<div style=\"text-align: center; border-bottom: red 2px solid; border-left: red 2px solid; padding-bottom: 2px; background-color: rgb(216,216,216); margin-top: 2px; padding-left: 10px; padding-right: 10px; font-family: arial; font-size: 16px; border-top: red 2px solid; border-right: red 2px solid; padding-top: 2px\">Dies ist eine XOS-Shop Standardinstallation. Alle hier gezeigten Produkte sind fiktiv zu verstehen. Eine hier getätigte Bestellung wird NICHT ausgeführt, Sie erhalten keine Lieferung oder Rechnung !</div>');
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text) values ('2', '3', 'Nota', '', '', '<div style=\"text-align: center; border-bottom: red 2px solid; border-left: red 2px solid; padding-bottom: 2px; background-color: rgb(216,216,216); margin-top: 2px; padding-left: 4px; padding-right: 4px; font-family: arial; font-size: 16px; border-top: red 2px solid; border-right: red 2px solid; padding-top: 2px\">Esta es la configuración por defecto de XOS-Shop, los productos mostrados aqui son únicamente para demonstración, cualquier compra realizada no será entregada al cliente, ni se le cobrará. Cualquier información que vea sobre estos productos debe ser tratada como ficticia.</div>');
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text) values ('3', '1', 'Validome', 'http://www.validome.org/referer', 'valid_xhtml_1_0.gif', '');
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text) values ('3', '2', 'Validome', 'http://www.validome.org/referer', 'valid_xhtml_1_0.gif', '');
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text) values ('3', '3', 'Validome', 'http://www.validome.org/referer', 'valid_xhtml_1_0.gif', '');
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text) values ('4', '1', 'W3C', 'http://validator.w3.org/check?uri=referer', 'valid-xhtml10.gif', '');
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text) values ('4', '2', 'W3C', 'http://validator.w3.org/check?uri=referer', 'valid-xhtml10.gif', '');
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text) values ('4', '3', 'W3C', 'http://validator.w3.org/check?uri=referer', 'valid-xhtml10.gif', '');
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text) values ('5', '2', 'valid-css21', 'http://jigsaw.w3.org/css-validator/check/referer', 'valid-css21.gif', '');
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text) values ('5', '1', 'valid-css21', 'http://jigsaw.w3.org/css-validator/check/referer', 'valid-css21.gif', '');
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text) values ('5', '3', 'valid-css21', 'http://jigsaw.w3.org/css-validator/check/referer', 'valid-css21.gif', '');
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('1', '1', 'XOS-Shop', 'http://www.xos-shop.com', 'xos-shop_banner.gif', '', NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('1', '2', 'XOS-Shop', 'http://www.xos-shop.com', 'xos-shop_banner.gif', '', NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('1', '3', 'XOS-Shop', 'http://www.xos-shop.com', 'xos-shop_banner.gif', '', NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('2', '1', 'Note', '', '', '<div style=\"text-align: center; border-bottom: red 2px solid; border-left: red 2px solid; padding-bottom: 2px; background-color: rgb(216,216,216); margin-top: 2px; padding-left: 10px; padding-right: 10px; font-family: arial; font-size: 16px; border-top: red 2px solid; border-right: red 2px solid; padding-top: 2px\">This is a default setup of the XOS-Shop project, products shown are for demonstrational purposes, any products purchased will not be delivered nor will the customer be billed. Any information seen on these products is to be treated as fictional.</div>', NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('2', '2', 'Hinweis', '', '', '<div style=\"text-align: center; border-bottom: red 2px solid; border-left: red 2px solid; padding-bottom: 2px; background-color: rgb(216,216,216); margin-top: 2px; padding-left: 10px; padding-right: 10px; font-family: arial; font-size: 16px; border-top: red 2px solid; border-right: red 2px solid; padding-top: 2px\">Dies ist eine XOS-Shop Standardinstallation. Alle hier gezeigten Produkte sind fiktiv zu verstehen. Eine hier getätigte Bestellung wird NICHT ausgeführt, Sie erhalten keine Lieferung oder Rechnung !</div>', NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('2', '3', 'Nota', '', '', '<div style=\"text-align: center; border-bottom: red 2px solid; border-left: red 2px solid; padding-bottom: 2px; background-color: rgb(216,216,216); margin-top: 2px; padding-left: 4px; padding-right: 4px; font-family: arial; font-size: 16px; border-top: red 2px solid; border-right: red 2px solid; padding-top: 2px\">Esta es la configuración por defecto de XOS-Shop, los productos mostrados aqui son únicamente para demonstración, cualquier compra realizada no será entregada al cliente, ni se le cobrará. Cualquier información que vea sobre estos productos debe ser tratada como ficticia.</div>', NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('3', '1', 'Validome', 'http://www.validome.org/referer', 'valid_xhtml_1_0.gif', '', NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('3', '2', 'Validome', 'http://www.validome.org/referer', 'valid_xhtml_1_0.gif', '', NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('3', '3', 'Validome', 'http://www.validome.org/referer', 'valid_xhtml_1_0.gif', '', NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('4', '1', 'W3C', 'http://validator.w3.org/check?uri=referer', 'valid-xhtml10.gif', '', NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('4', '2', 'W3C', 'http://validator.w3.org/check?uri=referer', 'valid-xhtml10.gif', '', NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('4', '3', 'W3C', 'http://validator.w3.org/check?uri=referer', 'valid-xhtml10.gif', '', NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('5', '2', 'valid-css21', 'http://jigsaw.w3.org/css-validator/check/referer', 'valid-css21.gif', '', NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('5', '1', 'valid-css21', 'http://jigsaw.w3.org/css-validator/check/referer', 'valid-css21.gif', '', NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('5', '3', 'valid-css21', 'http://jigsaw.w3.org/css-validator/check/referer', 'valid-css21.gif', '', NULL);
 
 drop table if exists banners_history;
 create table banners_history (
@@ -238,6 +239,7 @@ create table banners_history (
 drop table if exists categories_or_pages;
 create table categories_or_pages (
   categories_or_pages_id int(11) not null auto_increment,
+  link_request_type set('NONSSL','SSL') default 'NONSSL' not null ,
   categories_image varchar(255) ,
   parent_id int(11) default '0' not null ,
   product_list_b tinyint(1) default '0' not null ,
@@ -251,26 +253,26 @@ create table categories_or_pages (
   KEY IDX_PARENT_ID (parent_id)
 );
 
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('1', 'category_hardware.gif', '0', '0', '10', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('2', 'category_software.gif', '0', '0', '20', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('3', 'category_dvd_movies.gif', '0', '0', '30', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('4', 'subcategory_graphic_cards.gif', '1', '0', '40', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('5', 'subcategory_printers.gif', '1', '0', '30', 'false', '0', '1', date_sub(now(),interval 1 day), now());
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('6', 'subcategory_monitors.gif', '1', '0', '10', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('7', 'subcategory_speakers.gif', '1', '0', '50', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('8', 'subcategory_keyboards.gif', '1', '0', '80', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('9', 'subcategory_mice.gif', '1', '0', '60', 'false', '0', '1', date_sub(now(),interval 1 day), now());
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('10', 'subcategory_action.gif', '3', '1', '10', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('11', 'subcategory_science_fiction.gif', '3', '0', '40', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('12', 'subcategory_comedy.gif', '3', '0', '30', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('13', 'subcategory_cartoons.gif', '3', '0', '60', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('14', 'subcategory_thriller.gif', '3', '0', '50', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('15', 'subcategory_drama.gif', '3', '0', '20', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('16', 'subcategory_memory.gif', '1', '0', '70', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('17', 'subcategory_cdrom_drives.gif', '1', '0', '20', 'false', '0', '1', date_sub(now(),interval 1 day), now());
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('18', 'subcategory_simulation.gif', '2', '0', '20', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('19', 'subcategory_action_games.gif', '2', '0', '10', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
-insert into categories_or_pages (categories_or_pages_id, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('20', 'subcategory_strategy.gif', '2', '0', '30', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('1', 'NONSSL', 'category_hardware.gif', '0', '0', '10', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('2', 'NONSSL', 'category_software.gif', '0', '0', '20', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('3', 'NONSSL', 'category_dvd_movies.gif', '0', '0', '30', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('4', 'NONSSL', 'subcategory_graphic_cards.gif', '1', '0', '40', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('5', 'NONSSL', 'subcategory_printers.gif', '1', '0', '30', 'false', '0', '1', date_sub(now(),interval 1 day), now());
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('6', 'NONSSL', 'subcategory_monitors.gif', '1', '0', '10', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('7', 'NONSSL', 'subcategory_speakers.gif', '1', '0', '50', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('8', 'NONSSL', 'subcategory_keyboards.gif', '1', '0', '80', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('9', 'NONSSL', 'subcategory_mice.gif', '1', '0', '60', 'false', '0', '1', date_sub(now(),interval 1 day), now());
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('10', 'NONSSL', 'subcategory_action.gif', '3', '1', '10', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('11', 'NONSSL', 'subcategory_science_fiction.gif', '3', '0', '40', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('12', 'NONSSL', 'subcategory_comedy.gif', '3', '0', '30', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('13', 'NONSSL', 'subcategory_cartoons.gif', '3', '0', '60', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('14', 'NONSSL', 'subcategory_thriller.gif', '3', '0', '50', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('15', 'NONSSL', 'subcategory_drama.gif', '3', '0', '20', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('16', 'NONSSL', 'subcategory_memory.gif', '1', '0', '70', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('17', 'NONSSL', 'subcategory_cdrom_drives.gif', '1', '0', '20', 'false', '0', '1', date_sub(now(),interval 1 day), now());
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('18', 'NONSSL', 'subcategory_simulation.gif', '2', '0', '20', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('19', 'NONSSL', 'subcategory_action_games.gif', '2', '0', '10', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
+insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('20', 'NONSSL', 'subcategory_strategy.gif', '2', '0', '30', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
 
 drop table if exists categories_or_pages_data;
 create table categories_or_pages_data (
@@ -279,70 +281,71 @@ create table categories_or_pages_data (
   categories_or_pages_name varchar(255) not null ,
   categories_or_pages_heading_title varchar(255) ,
   categories_or_pages_content text ,
+  categories_or_pages_php_source text ,
   PRIMARY KEY (categories_or_pages_id, language_id),
   KEY IDX_CATEGORIES_OR_PAGES_NAME (categories_or_pages_name)
 );
 
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('1', '1', 'Hardware', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('2', '1', 'Software', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('3', '1', 'DVD Movies', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('4', '1', 'Graphics Cards', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('5', '1', 'Printers', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('6', '1', 'Monitors', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('7', '1', 'Speakers', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('8', '1', 'Keyboards', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('9', '1', 'Mice', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('10', '1', 'Action', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('11', '1', 'Science Fiction', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('12', '1', 'Comedy', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('13', '1', 'Cartoons', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('14', '1', 'Thriller', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('15', '1', 'Drama', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('16', '1', 'Memory', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('17', '1', 'CDROM Drives', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('18', '1', 'Simulation', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('19', '1', 'Action', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('20', '1', 'Strategy', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('1', '2', 'Hardware', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('2', '2', 'Software', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('3', '2', 'DVD Filme', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('4', '2', 'Grafikkarten', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('5', '2', 'Drucker', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('6', '2', 'Bildschirme', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('7', '2', 'Lautsprecher', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('8', '2', 'Tastaturen', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('9', '2', 'Mäuse', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('10', '2', 'Action', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('11', '2', 'Science Fiction', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('12', '2', 'Komödie', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('13', '2', 'Zeichentrick', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('14', '2', 'Thriller', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('15', '2', 'Drama', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('16', '2', 'Speicher', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('17', '2', 'CDROM Laufwerke', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('18', '2', 'Simulation', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('19', '2', 'Action', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('20', '2', 'Strategie', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('1', '3', 'Hardware', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('2', '3', 'Software', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('3', '3', 'Peliculas DVD', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('4', '3', 'Tarjetas Graficas', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('5', '3', 'Impresoras', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('6', '3', 'Monitores', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('7', '3', 'Altavoces', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('8', '3', 'Teclados', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('9', '3', 'Ratones', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('10', '3', 'Accion', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('11', '3', 'Ciencia Ficcion', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('12', '3', 'Comedia', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('13', '3', 'Dibujos Animados', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('14', '3', 'Suspense', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('15', '3', 'Drama', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('16', '3', 'Memoria', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('17', '3', 'Unidades CDROM', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('18', '3', 'Simulacion', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('19', '3', 'Accion', '', '');
-insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content) values ('20', '3', 'Estrategia', '', '');
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('1', '1', 'Hardware', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('2', '1', 'Software', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('3', '1', 'DVD Movies', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('4', '1', 'Graphics Cards', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('5', '1', 'Printers', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('6', '1', 'Monitors', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('7', '1', 'Speakers', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('8', '1', 'Keyboards', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('9', '1', 'Mice', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('10', '1', 'Action', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('11', '1', 'Science Fiction', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('12', '1', 'Comedy', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('13', '1', 'Cartoons', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('14', '1', 'Thriller', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('15', '1', 'Drama', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('16', '1', 'Memory', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('17', '1', 'CDROM Drives', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('18', '1', 'Simulation', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('19', '1', 'Action', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('20', '1', 'Strategy', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('1', '2', 'Hardware', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('2', '2', 'Software', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('3', '2', 'DVD Filme', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('4', '2', 'Grafikkarten', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('5', '2', 'Drucker', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('6', '2', 'Bildschirme', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('7', '2', 'Lautsprecher', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('8', '2', 'Tastaturen', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('9', '2', 'Mäuse', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('10', '2', 'Action', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('11', '2', 'Science Fiction', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('12', '2', 'Komödie', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('13', '2', 'Zeichentrick', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('14', '2', 'Thriller', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('15', '2', 'Drama', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('16', '2', 'Speicher', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('17', '2', 'CDROM Laufwerke', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('18', '2', 'Simulation', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('19', '2', 'Action', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('20', '2', 'Strategie', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('1', '3', 'Hardware', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('2', '3', 'Software', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('3', '3', 'Peliculas DVD', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('4', '3', 'Tarjetas Graficas', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('5', '3', 'Impresoras', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('6', '3', 'Monitores', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('7', '3', 'Altavoces', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('8', '3', 'Teclados', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('9', '3', 'Ratones', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('10', '3', 'Accion', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('11', '3', 'Ciencia Ficcion', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('12', '3', 'Comedia', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('13', '3', 'Dibujos Animados', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('14', '3', 'Suspense', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('15', '3', 'Drama', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('16', '3', 'Memoria', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('17', '3', 'Unidades CDROM', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('18', '3', 'Simulacion', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('19', '3', 'Accion', '', '', NULL);
+insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('20', '3', 'Estrategia', '', '', NULL);
 
 drop table if exists configuration;
 create table configuration (
@@ -500,7 +503,7 @@ insert into configuration (configuration_key, configuration_value, configuration
 insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('MODULE_SOCIAL_BOOKMARKS_TWITTER_STATUS', 'true', '6', '1', NULL, now(), NULL, 'xos_cfg_select_option(array(\'true\', \'false\'),');
 insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('MODULE_SOCIAL_BOOKMARKS_TWITTER_SORT_ORDER', '30', '6', '0', NULL, now(), NULL, NULL);
 insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('LAST_CUSTOMERS_GROUPS_ID', '1', '6', '0', now(), now(), NULL, NULL);
-insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('STATUS_POPUP_CONTENT_5', '1', '6', '0', now(), now(), NULL, NULL);
+insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('STATUS_POPUP_CONTENT_6', '1', '6', '0', now(), now(), NULL, NULL);
 insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('LAST_COUNTRY_ID', '300', '6', '0', NULL, now(), NULL, NULL);
 insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('NEW_ORDER', 'false', '6', '0', NULL, now(), NULL, NULL);
 insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('SHIPPING_ORIGIN_COUNTRY', '204', '7', '1', now(), now(), 'xos_get_country_name', 'xos_cfg_pull_down_country_list(');
@@ -575,6 +578,7 @@ drop table if exists contents;
 create table contents (
   content_id int(11) not null auto_increment,
   type varchar(32) not null ,
+  link_request_type set('NONSSL','SSL') default 'NONSSL' not null ,
   status tinyint(1) default '0' not null ,
   sort_order int(3) ,
   last_modified datetime ,
@@ -582,53 +586,705 @@ create table contents (
   PRIMARY KEY (content_id)
 );
 
-insert into contents (content_id, type, status, sort_order, last_modified, date_added) values ('1', 'info', '1', '1', NULL, date_sub(now(),interval 1 day));
-insert into contents (content_id, type, status, sort_order, last_modified, date_added) values ('2', 'info', '1', '2', NULL, date_sub(now(),interval 1 day));
-insert into contents (content_id, type, status, sort_order, last_modified, date_added) values ('3', 'info', '1', '3', NULL, date_sub(now(),interval 1 day));
-insert into contents (content_id, type, status, sort_order, last_modified, date_added) values ('4', 'index', '1', '0', now(), date_sub(now(),interval 1 day));
-insert into contents (content_id, type, status, sort_order, last_modified, date_added) values ('5', 'system_popup', '1', '0', NULL, date_sub(now(),interval 1 day));
-insert into contents (content_id, type, status, sort_order, last_modified, date_added) values ('6', 'system_popup', '1', '0', NULL, date_sub(now(),interval 1 day));
-insert into contents (content_id, type, status, sort_order, last_modified, date_added) values ('7', 'system_popup', '1', '0', NULL, date_sub(now(),interval 1 day));
-insert into contents (content_id, type, status, sort_order, last_modified, date_added) values ('8', 'system_popup', '1', '0', NULL, date_sub(now(),interval 1 day));
-insert into contents (content_id, type, status, sort_order, last_modified, date_added) values ('9', 'system_popup', '1', '0', NULL, date_sub(now(),interval 1 day));
+insert into contents (content_id, type, link_request_type, status, sort_order, last_modified, date_added) values ('1', 'info', 'NONSSL', '1', '1', NULL, date_sub(now(),interval 1 day));
+insert into contents (content_id, type, link_request_type, status, sort_order, last_modified, date_added) values ('2', 'info', 'NONSSL', '1', '2', NULL, date_sub(now(),interval 1 day));
+insert into contents (content_id, type, link_request_type, status, sort_order, last_modified, date_added) values ('3', 'info', 'NONSSL', '1', '3', NULL, date_sub(now(),interval 1 day)); 
+insert into contents (content_id, type, link_request_type, status, sort_order, last_modified, date_added) values ('4', 'info', 'SSL', '1', '4', NULL, date_sub(now(),interval 1 day));
+insert into contents (content_id, type, link_request_type, status, sort_order, last_modified, date_added) values ('5', 'index', 'NONSSL', '1', '0', NULL, date_sub(now(),interval 1 day));
+insert into contents (content_id, type, link_request_type, status, sort_order, last_modified, date_added) values ('6', 'system_popup', 'NONSSL', '1', '0', NULL, date_sub(now(),interval 1 day));
+insert into contents (content_id, type, link_request_type, status, sort_order, last_modified, date_added) values ('7', 'system_popup', 'NONSSL', '1', '0', NULL, date_sub(now(),interval 1 day));
+insert into contents (content_id, type, link_request_type, status, sort_order, last_modified, date_added) values ('8', 'system_popup', 'NONSSL', '1', '0', NULL, date_sub(now(),interval 1 day));
+insert into contents (content_id, type, link_request_type, status, sort_order, last_modified, date_added) values ('9', 'system_popup', 'NONSSL', '1', '0', NULL, date_sub(now(),interval 1 day));
+insert into contents (content_id, type, link_request_type, status, sort_order, last_modified, date_added) values ('10', 'system_popup', 'NONSSL', '1', '0', NULL, date_sub(now(),interval 1 day));
 
-drop table if exists contents_data;
 create table contents_data (
   content_id int(11) not null auto_increment,
   language_id int(11) default '1' not null ,
   name varchar(255) ,
   heading_title varchar(255) ,
   content text ,
+  php_source text ,
   PRIMARY KEY (content_id, language_id)
 );
 
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('1', '1', 'Shipping &amp; Returns', 'Shipping &amp; Returns', 'Put here your Shipping &amp; Returns information.');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('1', '2', 'Liefer- und Versandkosten', 'Liefer- und Versandkosten', 'Fügen Sie hier Ihre Informationen über Liefer- und Versandkosten ein.');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('1', '3', 'Envíos / Devoluciones', 'Envíos y Devoluciones', 'Ponga aqui información sobre los Envíos y Devoluciones.');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('2', '1', 'Privacy Notice', 'Privacy Notice', 'Put here your Privacy Notice information.');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('2', '2', 'Privatsphäre / Datenschutz', 'Privatsphäre und Datenschutz', 'Fügen Sie hier Ihre Informationen über Privatsphäre und Datenschutz ein.');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('2', '3', 'Confidencialidad', 'Confidencialidad', 'Ponga aqui información sobre el tratamiento de los datos.');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('3', '1', 'Terms and Conditions', 'General Business Conditions', 'Put here your general business conditions information.');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('3', '2', 'Unsere AGB\'s', 'Allgemeine Geschäftsbedingungen', 'Fügen Sie hier Ihre allgemeinen Geschäftsbedingungen ein.');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('3', '3', 'Términos y Condiciones', 'Condiciones General de Negocios', 'Ponga aqui sus condiciones general de negocios.');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('4', '1', 'What\'s New Here?', 'What\'s New Here?', '<div>[@{$welcome}@]</div><div>&#160;</div><div>This is a default setup of the XOS-Shop project, products shown are for demonstrational purposes, <strong>any products purchased will not be delivered nor will the customer be billed</strong>. Any information seen on these products is to be treated as fictional.</div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('4', '2', 'Unser Angebot', '[@{$welcome}@]', '<div>Dies ist eine XOS-Shop Standardinstallation. Alle hier gezeigten Produkte sind fiktiv zu verstehen. <strong>Eine hier getätigte Bestellung wird NICHT ausgeführt, Sie erhalten keine Lieferung oder Rechnung!</strong></div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('4', '3', '¿Que hay de nuevo por aqui?', '¿Que hay de nuevo por aqui?', '<div>[@{$welcome}@]</div><div>&#160;</div><div>Esta es la configuración por defecto de XOS-Shop, los productos mostrados aqui son únicamente para demonstración, <strong>cualquier compra realizada no será entregada al cliente, ni se le cobrará</strong>. Cualquier información que vea sobre estos productos debe ser tratada como ficticia.</div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('5', '2', 'Liefer- und Versandkosten', 'Liefer- und Versandkosten', '<div style=\"width: 600px;\"><p>Fügen Sie hier Ihre Informationen über Liefer- und Versandkosten ein.</p></div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('5', '1', 'Shipping &amp; Returns', 'Shipping &amp; Returns', '<div style=\"width: 600px;\"><p>Put here your Shipping &amp; Returns information.</p></div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('5', '3', 'Envíos / Devoluciones', 'Envíos y Devoluciones', '<div style=\"width: 600px;\"><p>Ponga aqui información sobre los Envíos y Devoluciones.</p></div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('6', '2', 'Privatsphäre / Datenschutz', 'Privatsphäre und Datenschutz', '<div style=\"width: 600px;\"><p>Fügen Sie hier Ihre Informationen über Privatsphäre und Datenschutz ein.</p></div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('6', '1', 'Privacy Notice', 'Privacy Notice', '<div style=\"width: 600px;\"><p>Put here your Privacy Notice information.</p></div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('6', '3', 'Confidencialidad', 'Confidencialidad', '<div style=\"width: 600px;\"><p>Ponga aqui información sobre el tratamiento de los datos.</p></div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('7', '2', 'Unsere AGB\'s', 'Allgemeine Geschäftsbedingungen', '<div style=\"width: 600px;\"><p>Fügen Sie hier Ihre allgemeinen Geschäftsbedingungen ein.</p></div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('7', '1', 'Terms and Conditions', 'General Business Conditions', '<div style=\"width: 600px;\"><p>Put here your general business conditions information.</p></div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('7', '3', 'Términos y Condiciones', 'Condiciones General de Negocios', '<div style=\"width: 600px;\"><p>Ponga aqui sus condiciones general de negocios.</p></div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('8', '2', 'Hilfe zur erweiterten Suche', 'Hilfe zur erweiterten Suche', '<div style=\"width: 600px;\"><p>Die Suchfunktion ermöglicht Ihnen die Suche in den Produktnamen, Produktbeschreibungen, Herstellern und Artikelnummern.<br /> <br /> Sie haben die Möglichkeit logische Operatoren wie \"AND\" (Und) und \"OR\" (oder) zu verwenden.<br /> <br /> Als Beispiel könnten Sie also angeben: <u>Microsoft AND Maus</u>.<br /> <br /> Desweiteren können Sie Klammern verwenden um die Suche zu verschachteln, also z.B.:<br /> <br /> <u>Microsoft AND (Maus OR Tastatur OR \"Visual Basic\")</u>.<br /> <br /> Mit Anführungszeichen können Sie mehrere Worte zu einem Suchbegriff zusammenfassen.</p></div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('8', '1', 'Search Help', 'Search Help', '<div style=\"width: 600px;\"><p>Keywords may be separated by AND and/or OR statements for greater control of the search results.<br /> <br /> For example, <u>Microsoft AND mouse</u> would generate a result set that contain both words. However, for <u>mouse OR keyboard</u>, the result set returned would contain both or either words.<br /> <br /> Exact matches can be searched for by enclosing keywords in double-quotes.<br /> <br /> For example, <u>\"notebook computer\"</u> would generate a result set which match the exact string.<br /> <br /> Brackets can be used for further control on the result set.<br /> <br /> For example, <u>Microsoft and (keyboard or mouse or \"visual basic\")</u>.</p></div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('8', '3', 'Consejos para Búsqueda Avanzada', 'Consejos para Búsqueda Avanzada', '<div style=\"width: 600px;\"><p>El motor de búsqueda le permite hacer una búsqueda por palabras clave en el modelo, nombre y descripción del producto y en el nombre del fabricante.<br /> <br /> Cuando haga una busqueda por palabras o frases clave, puede separar estas con los operadores lógicos AND y OR. Por ejemplo, puede hacer una busqueda por <u>microsoft AND raton</u>. Esta búsqueda daría como resultado los productos que contengan ambas palabras. Por el contrario, si teclea <u>raton OR teclado</u>, conseguirá una lista de los productos que contengan las dos o solo una de las palabras. Si no se separan las palabras o frases clave con AND o con OR, la búsqueda se hara usando por defecto el operador logico AND.<br /> <br /> Puede realizar busquedas exactas de varias palabras encerrandolas entre comillas. Por ejemplo, si busca <u>\"ordenador portatil\"</u>, obtendrás una lista de productos que tengan exactamente esa cadena en ellos.<br /> <br /> Se pueden usar paratensis para controlar el orden de las operaciones lógicas. Por ejemplo, puede introducir <u>microsoft and (teclado or raton or \"visual basic\")</u>.</p></div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('9', '2', 'Besucherwarenkorb / Kundenwarenkorb', 'Besucherwarenkorb / Kundenwarenkorb', '<div style=\"width: 600px;\"><p><b><i>Besucherwarenkorb</i></b><br /> Jeder Besucher unseres Online-Shops bekommt einen \'Besucherwarenkorb\'. Damit kann er seine ausgewählten Produkte sammeln. Sobald der Besucher den Online-Shop verlässt, verfällt dessen Inhalt.</p> <p><b><i>Kundenwarenkorb</i></b><br /> Jeder angemeldete Kunde verfügt über einen \'Kundenwarenkorb\' zum Einkaufen, mit dem er auch zu einem späterem Zeitpunkt den Einkauf beenden kann. Jeder Artikel bleibt darin registriert bis der Kunde zur Kasse geht, oder die Produkte darin löscht.</p> <p><b><i>Information</i></b><br /> Die Besuchereingaben werden automatisch bei der Registrierung als Kunde in den Kundenwarenkorb übernommen</p></div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('9', '1', 'Visitors Cart / Members Cart', 'Visitors Cart / Members Cart', '<div style=\"width: 600px;\"><p><b><i>Visitors Cart</i></b><br /> Every visitor to our online shop will be given a \'Visitors Cart\'. This allows the visitor to store their products in a temporary shopping cart. Once the visitor leaves the online shop, so will the contents of their shopping cart.</p> <p><b><i>Members Cart</i></b><br /> Every member to our online shop that logs in is given a \'Members Cart\'. This allows the member to add products to their shopping cart, and come back at a later date to finalize their checkout. All products remain in their shopping cart until the member has checked them out, or removed the products themselves.</p> <p><b><i>Info</i></b><br /> If a member adds products to their \'Visitors Cart\' and decides to log in to the online shop to use their \'Members Cart\', the contents of their \'Visitors Cart\' will merge with their \'Members Cart\' contents automatically.</p></div>');
-insert into contents_data (content_id, language_id, name, heading_title, content) values ('9', '3', 'Cesta del Visitante / Cesta del Asociado', 'Cesta del Visitante / Cesta del Asociado', '<div style=\"width: 600px;\"><p><b><i>Cesta de Visitante</i></b><br /> A cada visitante de nuestro catálogo le es asignado una \'Cesta de Visitante\'. Esto permite al invitado guardar sus productos en una cesta temporal. Una vez que el visitante abandona el catálogo, tambien desaparece el contenido de su cesta.</p> <p><b><i>Cesta de Asociado</i></b><br /> A cada miembro nuestro se le asigna una \'Cesta de Asociado\'. Esto permite al asociado añadir productos a su cesta de la compra, y volver mas tarde para finalizar el pedido. Todos los productos permanecen en la cesta hasta que el asociado ha realizado el pedido, o hasta que sean eliminados de la cesta manualmente.</p> <p><b><i>Información</i></b><br /> Si un asociado añade un articulo a su \'Cesta de Visitante\' y despues decide Entrar a su Cuenta para usar su \'Cesta de Asociado\', el contenido de la \'Cesta de Visitante\' sera añadido a la \'Cesta de Asociado\' automáticamente.</p></div>');
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('1', '1', 'Shipping &amp; Returns', 'Shipping &amp; Returns', 'Put here your Shipping &amp; Returns information.', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('1', '2', 'Liefer- und Versandkosten', 'Liefer- und Versandkosten', 'Fügen Sie hier Ihre Informationen über Liefer- und Versandkosten ein.', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('1', '3', 'Envíos / Devoluciones', 'Envíos y Devoluciones', 'Ponga aqui información sobre los Envíos y Devoluciones.', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('2', '1', 'Privacy Notice', 'Privacy Notice', 'Put here your Privacy Notice information.', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('2', '2', 'Privatsphäre / Datenschutz', 'Privatsphäre und Datenschutz', 'Fügen Sie hier Ihre Informationen über Privatsphäre und Datenschutz ein.', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('2', '3', 'Confidencialidad', 'Confidencialidad', 'Ponga aqui información sobre el tratamiento de los datos.', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('3', '1', 'Terms and Conditions', 'General Business Conditions', 'Put here your general business conditions information.', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('3', '2', 'Unsere AGB\'s', 'Allgemeine Geschäftsbedingungen', 'Fügen Sie hier Ihre allgemeinen Geschäftsbedingungen ein.', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('3', '3', 'Términos y Condiciones', 'Condiciones General de Negocios', 'Ponga aqui sus condiciones general de negocios.', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('4', '1', 'Contact Us', 'Contact Us', '', '<?php
+/*
+////////////////////////////////////////////////////////////////////////////////
+// project    : XOS-Shop, open source e-commerce system
+//              http://www.xos-shop.com
+//                                                                     
+// filename   : contact_us.php
+// author     : Hanspeter Zeller <hpz@xos-shop.com>
+// copyright  : Copyright (c) 2007 Hanspeter Zeller
+// license    : This file is part of XOS-Shop.
+//
+//              XOS-Shop is free software: you can redistribute it and/or modify
+//              it under the terms of the GNU General Public License as published
+//              by the Free Software Foundation, either version 3 of the License,
+//              or (at your option) any later version.
+//
+//              XOS-Shop is distributed in the hope that it will be useful,
+//              but WITHOUT ANY WARRANTY; without even the implied warranty of
+//              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//              GNU General Public License for more details.
+//
+//              You should have received a copy of the GNU General Public License
+//              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.   
+//------------------------------------------------------------------------------
+// this file is based on: 
+//              osCommerce, Open Source E-Commerce Solutions
+//              http://www.oscommerce.com
+//              Copyright (c) 2003 osCommerce
+//              filename: contact_us.php                      
+//
+//              Released under the GNU General Public License 
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/includes/content/\' . FILENAME_CONTACT_US) == \'overwrite_all\')) : 
+
+/*
+  ////////////////////////////////////////////////////////////////////////////////
+  // insert below your named constants
+  // example:
+  // define(\'CONSTANT\', \'value\');
+  ////////////////////////////////////////////////////////////////////////////////
+*/  
+  define(\'CONTACT_US_EMAIL_SUBJECT\', \'Enquiry to \' . STORE_NAME);
+  define(\'CONTACT_US_TEXT_SECURITY_CODE_ERROR\', \'The entered Security-Code does not agree with the indicated code - please make any necessary corrections.\');
+  define(\'CONTACT_US_ERROR_ACTION_RECORDER\', \'Error: An enquiry has already been sent. Please try again in %s minutes.\'); 
+
+  define(\'CONTACT_US_HEADING_TITLE\', \'Contact Us\');
+  define(\'CONTACT_US_TEXT_SUCCESS\', \'Your enquiry has been successfully sent to the Store Owner.\');
+  define(\'CONTACT_US_ENTRY_NAME\', \'Full Name:\');
+  define(\'CONTACT_US_ENTRY_EMAIL\', \'E-Mail Address:\');
+  define(\'CONTACT_ENTRY_SECURITY_CODE\', \'Security Code:\');
+  define(\'CONTACT_ENTRY_ENQUIRY\', \'Enquiry:\');
+  define(\'CONTACT_US_BUTTON_TITLE_CONTINUE\', \'Continue\');
+  define(\'CONTACT_US_BUTTON_TEXT_CONTINUE\', \'Continue\');              
+
+  define(\'CONTACT_US_HTML_EMAIL_TEXT_ENQUIRY\', \'Enquiry\');
+  define(\'CONTACT_US_TEXT_EMAIL_TEXT_ENQUIRY\', \'Enquiry\');  
+
+  if (SEND_EMAILS != \'true\') {
+    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die();
+    xos_redirect(xos_href_link(FILENAME_DEFAULT), false);
+  }  
+
+/* redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled (or the session has not started) */
+  if ($session_started == false) {
+    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die(\'We have detected that your browser does not support cookies, or has set cookies to be disabled.<br />To continue shopping online, we encourage you to enable cookies on your browser.\');
+    xos_redirect(xos_href_link(FILENAME_COOKIE_USAGE));
+  }
+
+  if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'send\')) {
+    $name = xos_db_prepare_input($_POST[\'name\']);
+    $email_address = xos_db_prepare_input($_POST[\'email_address\']);
+    $enquiry = xos_db_prepare_input(urldecode($_POST[\'enquiry\']));
+    
+    $error = false;
+
+    if (!isset($_SESSION[\'customer_id\'])) {
+      if (!isset($_SESSION[\'captcha_spam\']) || $_POST[\'security_code\'] != $_SESSION[\'captcha_spam\']) {
+        $error = true;
+
+        $messageStack->add(\'contact\', CONTACT_US_TEXT_SECURITY_CODE_ERROR);    
+      }
+        
+      unset($_SESSION[\'captcha_spam\']);
+    }
+    
+    if (!xos_validate_email($email_address)) {
+      $error = true;
+      
+      $messageStack->add(\'contact\', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
+    }
+    
+    $actionRecorder = new actionRecorder(\'ar_contact_us\', (isset($_SESSION[\'customer_id\']) ? $_SESSION[\'customer_id\'] : null), $name);
+    if (!$actionRecorder->canPerform() && $actionRecorder->check()) {
+      $error = true;
+
+      $actionRecorder->record(false);
+
+      $messageStack->add(\'contact\', sprintf(CONTACT_US_ERROR_ACTION_RECORDER, (defined(\'MODULE_ACTION_RECORDER_CONTACT_US_EMAIL_MINUTES\') ? (int)MODULE_ACTION_RECORDER_CONTACT_US_EMAIL_MINUTES : 15)));
+    }      
+      
+    if ($error == false) {
+    
+      $smarty->unregisterFilter(\'output\',\'smarty_outputfilter_trimwhitespace\');
+    
+      $smarty->assign(array(\'html_params\' => HTML_PARAMS,
+                            \'xhtml_lang\' => XHTML_LANG,
+                            \'charset\' => CHARSET,
+                            \'store_name_address\' => STORE_NAME_ADDRESS,
+                            \'store_name\' => STORE_NAME,
+                            \'src_embedded_shop_logo\' => \'cid:shop_logo\',
+                            \'src_shop_logo\' => HTTP_SERVER . DIR_WS_CATALOG . DIR_WS_IMAGES . (is_file(DIR_FS_CATALOG . \'images/email_shop_logo/\' . EMAIL_SHOP_LOGO) ? \'email_shop_logo/\' : \'catalog/templates/\' . SELECTED_TPL . \'/\') . EMAIL_SHOP_LOGO,
+                            \'enquiry_text\' => $enquiry));
+      
+      $output_contact_us_email_html = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_html.tpl\'); 
+      $output_contact_us_email_text = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_text.tpl\');
+      $smarty->clearAssign(array(\'html_params\',
+                                  \'xhtml_lang\',
+                                  \'charset\',
+                                  \'store_name_address\',
+                                  \'store_name\',
+                                  \'src_embedded_shop_logo\',
+                                  \'src_shop_logo\',
+                                  \'enquiry_text\'));  
+  
+      $email_to_store_owner = new mailer(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, CONTACT_US_EMAIL_SUBJECT, $output_contact_us_email_html, $output_contact_us_email_text, $name, $email_address, EMAIL_SHOP_LOGO);
+              
+      if(!$email_to_store_owner->send()) {
+        $messageStack->add(\'contact\', sprintf(ERROR_PHPMAILER, $email_to_store_owner->ErrorInfo));
+      } else {
+        $actionRecorder->record();
+        xos_redirect(xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=success\'));
+      }
+    }    
+  }
+
+  if ($messageStack->size(\'contact\') > 0) {
+    $smarty->assign(\'message_stack\', $messageStack->output(\'contact\'));
+  }
+
+  if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'success\')) {
+    $smarty->assign(\'sent\', true);
+  }
+
+  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=send\', \'SSL\')),
+                        \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
+                        \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'id=\"contact_us_name\"\'),
+                        \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'id=\"contact_us_email_address\"\'),
+                        \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
+/*                        \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" style=\"cursor:pointer;\" onclick=\"javascript:this.src=\\\'\' . xos_href_link(FILENAME_CAPTCHA, \'\', \'SSL\') . (SID ? \'&amp;\' : \'?\') . \'\\\'+Math.random();\" />\', */
+                        \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
+                        \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id, \'SSL\')),
+                        \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'id=\"contact_us_enquiry\"\'),
+                        \'form_end\' => \'</form>\'));
+
+  $smarty->configLoad(\'languages/\' . $_SESSION[\'language\'] . \'.conf\', \'contact_us\');
+  $content[\'content\'] .= $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us.tpl\');
+  
+  $smarty->clearAssign(array(\'message_stack\',
+                             \'sent\',
+                             \'form_begin\',
+                             \'isset_customer_id\',
+                             \'input_field_name\',
+                             \'input_field_email\',
+                             \'input_security_code\',
+                             \'captcha_img\',                          
+                             \'link_filename_default\',
+                             \'textarea\',
+                             \'form_end\'));
+                               
+endif;
+?>');
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('4', '2', 'Kontakt', 'Kontakt', '', '<?php
+/*
+////////////////////////////////////////////////////////////////////////////////
+// project    : XOS-Shop, open source e-commerce system
+//              http://www.xos-shop.com
+//                                                                     
+// filename   : contact_us.php
+// author     : Hanspeter Zeller <hpz@xos-shop.com>
+// copyright  : Copyright (c) 2007 Hanspeter Zeller
+// license    : This file is part of XOS-Shop.
+//
+//              XOS-Shop is free software: you can redistribute it and/or modify
+//              it under the terms of the GNU General Public License as published
+//              by the Free Software Foundation, either version 3 of the License,
+//              or (at your option) any later version.
+//
+//              XOS-Shop is distributed in the hope that it will be useful,
+//              but WITHOUT ANY WARRANTY; without even the implied warranty of
+//              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//              GNU General Public License for more details.
+//
+//              You should have received a copy of the GNU General Public License
+//              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.   
+//------------------------------------------------------------------------------
+// this file is based on: 
+//              osCommerce, Open Source E-Commerce Solutions
+//              http://www.oscommerce.com
+//              Copyright (c) 2003 osCommerce
+//              filename: contact_us.php                      
+//
+//              Released under the GNU General Public License 
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/includes/content/\' . FILENAME_CONTACT_US) == \'overwrite_all\')) : 
+
+/*
+  ////////////////////////////////////////////////////////////////////////////////
+  // insert below your named constants
+  // example:
+  // define(\'CONSTANT\', \'value\');
+  ////////////////////////////////////////////////////////////////////////////////
+*/  
+  define(\'CONTACT_US_EMAIL_SUBJECT\', \'Anfrage an \' . STORE_NAME);
+  define(\'CONTACT_US_TEXT_SECURITY_CODE_ERROR\', \'Der eingegebene Sicherheitscode stimmt nicht mit mit dem angezeigten Code überein - bitte korrigieren.\');
+  define(\'CONTACT_US_ERROR_ACTION_RECORDER\', \'Fehler: Eine Anfrage wurde bereits gesendet. Bitte versuchen Sie es erneut in %s Minuten.\');
+
+  define(\'CONTACT_US_HEADING_TITLE\', \'Kontakt\');
+  define(\'CONTACT_US_TEXT_SUCCESS\', \'Ihre Anfrage wurde erfolgreich an den Vertrieb gesendet.\');
+  define(\'CONTACT_US_ENTRY_NAME\', \'Vollständiger Name:\');
+  define(\'CONTACT_US_ENTRY_EMAIL\', \'eMail-Adresse:\');
+  define(\'CONTACT_ENTRY_SECURITY_CODE\', \'Sicherheitscode:\');
+  define(\'CONTACT_ENTRY_ENQUIRY\', \'Anfrage:\');
+  define(\'CONTACT_US_BUTTON_TITLE_CONTINUE\', \'Weiter\');
+  define(\'CONTACT_US_BUTTON_TEXT_CONTINUE\', \'Weiter\');              
+
+  define(\'CONTACT_US_HTML_EMAIL_TEXT_ENQUIRY\', \'Anfrage\');
+  define(\'CONTACT_US_TEXT_EMAIL_TEXT_ENQUIRY\', \'Anfrage\');  
+
+  if (SEND_EMAILS != \'true\') {
+    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die();
+    xos_redirect(xos_href_link(FILENAME_DEFAULT), false);
+  }  
+
+/* redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled (or the session has not started) */
+  if ($session_started == false) {
+    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die(\'We have detected that your browser does not support cookies, or has set cookies to be disabled.<br />To continue shopping online, we encourage you to enable cookies on your browser.\');
+    xos_redirect(xos_href_link(FILENAME_COOKIE_USAGE));
+  }
+
+  if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'send\')) {
+    $name = xos_db_prepare_input($_POST[\'name\']);
+    $email_address = xos_db_prepare_input($_POST[\'email_address\']);
+    $enquiry = xos_db_prepare_input(urldecode($_POST[\'enquiry\']));
+    
+    $error = false;
+
+    if (!isset($_SESSION[\'customer_id\'])) {
+      if (!isset($_SESSION[\'captcha_spam\']) || $_POST[\'security_code\'] != $_SESSION[\'captcha_spam\']) {
+        $error = true;
+
+        $messageStack->add(\'contact\', CONTACT_US_TEXT_SECURITY_CODE_ERROR);    
+      }
+        
+      unset($_SESSION[\'captcha_spam\']);
+    }
+    
+    if (!xos_validate_email($email_address)) {
+      $error = true;
+      
+      $messageStack->add(\'contact\', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
+    }
+    
+    $actionRecorder = new actionRecorder(\'ar_contact_us\', (isset($_SESSION[\'customer_id\']) ? $_SESSION[\'customer_id\'] : null), $name);
+    if (!$actionRecorder->canPerform() && $actionRecorder->check()) {
+      $error = true;
+
+      $actionRecorder->record(false);
+
+      $messageStack->add(\'contact\', sprintf(CONTACT_US_ERROR_ACTION_RECORDER, (defined(\'MODULE_ACTION_RECORDER_CONTACT_US_EMAIL_MINUTES\') ? (int)MODULE_ACTION_RECORDER_CONTACT_US_EMAIL_MINUTES : 15)));
+    }      
+      
+    if ($error == false) {
+    
+      $smarty->unregisterFilter(\'output\',\'smarty_outputfilter_trimwhitespace\');
+    
+      $smarty->assign(array(\'html_params\' => HTML_PARAMS,
+                            \'xhtml_lang\' => XHTML_LANG,
+                            \'charset\' => CHARSET,
+                            \'store_name_address\' => STORE_NAME_ADDRESS,
+                            \'store_name\' => STORE_NAME,
+                            \'src_embedded_shop_logo\' => \'cid:shop_logo\',
+                            \'src_shop_logo\' => HTTP_SERVER . DIR_WS_CATALOG . DIR_WS_IMAGES . (is_file(DIR_FS_CATALOG . \'images/email_shop_logo/\' . EMAIL_SHOP_LOGO) ? \'email_shop_logo/\' : \'catalog/templates/\' . SELECTED_TPL . \'/\') . EMAIL_SHOP_LOGO,
+                            \'enquiry_text\' => $enquiry));
+      
+      $output_contact_us_email_html = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_html.tpl\'); 
+      $output_contact_us_email_text = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_text.tpl\');
+      $smarty->clearAssign(array(\'html_params\',
+                                  \'xhtml_lang\',
+                                  \'charset\',
+                                  \'store_name_address\',
+                                  \'store_name\',
+                                  \'src_embedded_shop_logo\',
+                                  \'src_shop_logo\',
+                                  \'enquiry_text\'));  
+  
+      $email_to_store_owner = new mailer(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, CONTACT_US_EMAIL_SUBJECT, $output_contact_us_email_html, $output_contact_us_email_text, $name, $email_address, EMAIL_SHOP_LOGO);
+              
+      if(!$email_to_store_owner->send()) {
+        $messageStack->add(\'contact\', sprintf(ERROR_PHPMAILER, $email_to_store_owner->ErrorInfo));
+      } else {
+        $actionRecorder->record();
+        xos_redirect(xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=success\'));
+      }
+    }    
+  }
+
+  if ($messageStack->size(\'contact\') > 0) {
+    $smarty->assign(\'message_stack\', $messageStack->output(\'contact\'));
+  }
+
+  if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'success\')) {
+    $smarty->assign(\'sent\', true);
+  }
+
+  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=send\', \'SSL\')),
+                        \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
+                        \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'id=\"contact_us_name\"\'),
+                        \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'id=\"contact_us_email_address\"\'),
+                        \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
+/*                        \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" style=\"cursor:pointer;\" onclick=\"javascript:this.src=\\\'\' . xos_href_link(FILENAME_CAPTCHA, \'\', \'SSL\') . (SID ? \'&amp;\' : \'?\') . \'\\\'+Math.random();\" />\', */
+                        \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
+                        \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id, \'SSL\')),
+                        \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'id=\"contact_us_enquiry\"\'),
+                        \'form_end\' => \'</form>\'));
+
+  $smarty->configLoad(\'languages/\' . $_SESSION[\'language\'] . \'.conf\', \'contact_us\');
+  $content[\'content\'] .= $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us.tpl\');
+  
+  $smarty->clearAssign(array(\'message_stack\',
+                             \'sent\',
+                             \'form_begin\',
+                             \'isset_customer_id\',
+                             \'input_field_name\',
+                             \'input_field_email\',
+                             \'input_security_code\',
+                             \'captcha_img\',                          
+                             \'link_filename_default\',
+                             \'textarea\',
+                             \'form_end\'));
+                               
+endif;
+?>');
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('4', '3', 'Contactenos', 'Contactenos', '', '<?php
+/*
+////////////////////////////////////////////////////////////////////////////////
+// project    : XOS-Shop, open source e-commerce system
+//              http://www.xos-shop.com
+//                                                                     
+// filename   : contact_us.php
+// author     : Hanspeter Zeller <hpz@xos-shop.com>
+// copyright  : Copyright (c) 2007 Hanspeter Zeller
+// license    : This file is part of XOS-Shop.
+//
+//              XOS-Shop is free software: you can redistribute it and/or modify
+//              it under the terms of the GNU General Public License as published
+//              by the Free Software Foundation, either version 3 of the License,
+//              or (at your option) any later version.
+//
+//              XOS-Shop is distributed in the hope that it will be useful,
+//              but WITHOUT ANY WARRANTY; without even the implied warranty of
+//              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//              GNU General Public License for more details.
+//
+//              You should have received a copy of the GNU General Public License
+//              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.   
+//------------------------------------------------------------------------------
+// this file is based on: 
+//              osCommerce, Open Source E-Commerce Solutions
+//              http://www.oscommerce.com
+//              Copyright (c) 2003 osCommerce
+//              filename: contact_us.php                      
+//
+//              Released under the GNU General Public License 
+////////////////////////////////////////////////////////////////////////////////
+*/
+
+if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/includes/content/\' . FILENAME_CONTACT_US) == \'overwrite_all\')) : 
+
+/*
+  ////////////////////////////////////////////////////////////////////////////////
+  // insert below your named constants
+  // example:
+  // define(\'CONSTANT\', \'value\');
+  ////////////////////////////////////////////////////////////////////////////////
+*/  
+  define(\'CONTACT_US_EMAIL_SUBJECT\', \'Consulta a \' . STORE_NAME);
+  define(\'CONTACT_US_TEXT_SECURITY_CODE_ERROR\', \'El código de seguridad que ha introducido es incorrecto - por favor haga los cambios necesarios.\');
+  define(\'CONTACT_US_ERROR_ACTION_RECORDER\', \'Error: Una investigación ya ha sido enviada. Por favor trate nuevamente en %s minutos.\'); 
+
+  define(\'CONTACT_US_HEADING_TITLE\', \'Contactenos\');
+  define(\'CONTACT_US_TEXT_SUCCESS\', \'Su consulta ha sido enviada al encargado de la tienda.\');
+  define(\'CONTACT_US_ENTRY_NAME\', \'Nombre Completo:\');
+  define(\'CONTACT_US_ENTRY_EMAIL\', \'Dirección E-Mail:\');
+  define(\'CONTACT_ENTRY_SECURITY_CODE\', \'Código de Seguridad:\');
+  define(\'CONTACT_ENTRY_ENQUIRY\', \'Consulta:\');
+  define(\'CONTACT_US_BUTTON_TITLE_CONTINUE\', \'Continuar\');
+  define(\'CONTACT_US_BUTTON_TEXT_CONTINUE\', \'Continuar\');              
+
+  define(\'CONTACT_US_HTML_EMAIL_TEXT_ENQUIRY\', \'Consulta\');
+  define(\'CONTACT_US_TEXT_EMAIL_TEXT_ENQUIRY\', \'Consulta\');  
+
+  if (SEND_EMAILS != \'true\') {
+    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die();
+    xos_redirect(xos_href_link(FILENAME_DEFAULT), false);
+  }  
+
+/* redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled (or the session has not started) */
+  if ($session_started == false) {
+    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die(\'We have detected that your browser does not support cookies, or has set cookies to be disabled.<br />To continue shopping online, we encourage you to enable cookies on your browser.\');
+    xos_redirect(xos_href_link(FILENAME_COOKIE_USAGE));
+  }
+
+  if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'send\')) {
+    $name = xos_db_prepare_input($_POST[\'name\']);
+    $email_address = xos_db_prepare_input($_POST[\'email_address\']);
+    $enquiry = xos_db_prepare_input(urldecode($_POST[\'enquiry\']));
+    
+    $error = false;
+
+    if (!isset($_SESSION[\'customer_id\'])) {
+      if (!isset($_SESSION[\'captcha_spam\']) || $_POST[\'security_code\'] != $_SESSION[\'captcha_spam\']) {
+        $error = true;
+
+        $messageStack->add(\'contact\', CONTACT_US_TEXT_SECURITY_CODE_ERROR);    
+      }
+        
+      unset($_SESSION[\'captcha_spam\']);
+    }
+    
+    if (!xos_validate_email($email_address)) {
+      $error = true;
+      
+      $messageStack->add(\'contact\', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
+    }
+    
+    $actionRecorder = new actionRecorder(\'ar_contact_us\', (isset($_SESSION[\'customer_id\']) ? $_SESSION[\'customer_id\'] : null), $name);
+    if (!$actionRecorder->canPerform() && $actionRecorder->check()) {
+      $error = true;
+
+      $actionRecorder->record(false);
+
+      $messageStack->add(\'contact\', sprintf(CONTACT_US_ERROR_ACTION_RECORDER, (defined(\'MODULE_ACTION_RECORDER_CONTACT_US_EMAIL_MINUTES\') ? (int)MODULE_ACTION_RECORDER_CONTACT_US_EMAIL_MINUTES : 15)));
+    }      
+      
+    if ($error == false) {
+    
+      $smarty->unregisterFilter(\'output\',\'smarty_outputfilter_trimwhitespace\');
+    
+      $smarty->assign(array(\'html_params\' => HTML_PARAMS,
+                            \'xhtml_lang\' => XHTML_LANG,
+                            \'charset\' => CHARSET,
+                            \'store_name_address\' => STORE_NAME_ADDRESS,
+                            \'store_name\' => STORE_NAME,
+                            \'src_embedded_shop_logo\' => \'cid:shop_logo\',
+                            \'src_shop_logo\' => HTTP_SERVER . DIR_WS_CATALOG . DIR_WS_IMAGES . (is_file(DIR_FS_CATALOG . \'images/email_shop_logo/\' . EMAIL_SHOP_LOGO) ? \'email_shop_logo/\' : \'catalog/templates/\' . SELECTED_TPL . \'/\') . EMAIL_SHOP_LOGO,
+                            \'enquiry_text\' => $enquiry));
+      
+      $output_contact_us_email_html = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_html.tpl\'); 
+      $output_contact_us_email_text = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_text.tpl\');
+      $smarty->clearAssign(array(\'html_params\',
+                                  \'xhtml_lang\',
+                                  \'charset\',
+                                  \'store_name_address\',
+                                  \'store_name\',
+                                  \'src_embedded_shop_logo\',
+                                  \'src_shop_logo\',
+                                  \'enquiry_text\'));  
+  
+      $email_to_store_owner = new mailer(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, CONTACT_US_EMAIL_SUBJECT, $output_contact_us_email_html, $output_contact_us_email_text, $name, $email_address, EMAIL_SHOP_LOGO);
+              
+      if(!$email_to_store_owner->send()) {
+        $messageStack->add(\'contact\', sprintf(ERROR_PHPMAILER, $email_to_store_owner->ErrorInfo));
+      } else {
+        $actionRecorder->record();
+        xos_redirect(xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=success\'));
+      }
+    }    
+  }
+
+  if ($messageStack->size(\'contact\') > 0) {
+    $smarty->assign(\'message_stack\', $messageStack->output(\'contact\'));
+  }
+
+  if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'success\')) {
+    $smarty->assign(\'sent\', true);
+  }
+
+  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=send\', \'SSL\')),
+                        \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
+                        \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'id=\"contact_us_name\"\'),
+                        \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'id=\"contact_us_email_address\"\'),
+                        \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
+/*                        \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" style=\"cursor:pointer;\" onclick=\"javascript:this.src=\\\'\' . xos_href_link(FILENAME_CAPTCHA, \'\', \'SSL\') . (SID ? \'&amp;\' : \'?\') . \'\\\'+Math.random();\" />\', */
+                        \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
+                        \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id, \'SSL\')),
+                        \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'id=\"contact_us_enquiry\"\'),
+                        \'form_end\' => \'</form>\'));
+
+  $smarty->configLoad(\'languages/\' . $_SESSION[\'language\'] . \'.conf\', \'contact_us\');
+  $content[\'content\'] .= $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us.tpl\');
+  
+  $smarty->clearAssign(array(\'message_stack\',
+                             \'sent\',
+                             \'form_begin\',
+                             \'isset_customer_id\',
+                             \'input_field_name\',
+                             \'input_field_email\',
+                             \'input_security_code\',
+                             \'captcha_img\',                          
+                             \'link_filename_default\',
+                             \'textarea\',
+                             \'form_end\'));
+                               
+endif;
+?>');
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('5', '1', 'What\'s New Here?', 'What\'s New Here?', '<div>###WELCOME###</div><div>&#160;</div><div>This is a default setup of the XOS-Shop project, products shown are for demonstrational purposes, <strong>any products purchased will not be delivered nor will the customer be billed</strong>. Any information seen on these products is to be treated as fictional.</div>', '<?php
+/*
+////////////////////////////////////////////////////////////////////////////////
+// project    : XOS-Shop, open source e-commerce system
+//              http://www.xos-shop.com
+//                                                                     
+// filename   : PHP code snippets
+// author     : Hanspeter Zeller <hpz@xos-shop.com>
+// copyright  : Copyright (c) 2007 Hanspeter Zeller
+// license    : This code is part of XOS-Shop.
+//
+//              XOS-Shop is free software: you can redistribute it and/or modify
+//              it under the terms of the GNU General Public License as published
+//              by the Free Software Foundation, either version 3 of the License,
+//              or (at your option) any later version.
+//
+//              XOS-Shop is distributed in the hope that it will be useful,
+//              but WITHOUT ANY WARRANTY; without even the implied warranty of
+//              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//              GNU General Public License for more details.
+//
+//              You should have received a copy of the GNU General Public License
+//              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.   
+////////////////////////////////////////////////////////////////////////////////
+*/
+/*
+  ////////////////////////////////////////////////////////////////////////////////
+  // insert below your named constants
+  // example:
+  // define(\'CONSTANT\', \'value\');
+  ////////////////////////////////////////////////////////////////////////////////
+*/
+  if (isset($_SESSION[\'customer_first_name\']) && isset($_SESSION[\'customer_id\'])) {
+    if (ACCOUNT_GENDER == \'true\' && isset($_SESSION[\'customer_gender\']) && $_SESSION[\'customer_gender\'] != \'\') {
+      $welcome_string = sprintf(TEXT_GREETING_PERSONAL, ($_SESSION[\'customer_gender\'] == \'m\' ? MALE_ADDRESS : FEMALE_ADDRESS) . \'&nbsp;\' . xos_output_string_protected($_SESSION[\'customer_first_name\']) . \'&nbsp;\' . xos_output_string_protected($_SESSION[\'customer_lastname\']), xos_href_link(FILENAME_PRODUCTS_NEW));
+    } else {
+      $welcome_string = sprintf(TEXT_GREETING_PERSONAL, xos_output_string_protected($_SESSION[\'customer_first_name\']) . \'&nbsp;\' . xos_output_string_protected($_SESSION[\'customer_lastname\']), xos_href_link(FILENAME_PRODUCTS_NEW)); 
+    }
+  } else {
+    $welcome_string = sprintf(TEXT_GREETING_GUEST, xos_href_link(FILENAME_LOGIN, \'\', \'SSL\'), xos_href_link(FILENAME_CREATE_ACCOUNT, \'\', \'SSL\'));
+  }
+      
+  $content[\'heading_title\'] = str_replace(\'###WELCOME###\', \'<span class=\"welcome-string\">\' . $welcome_string . \'</span>\', $content[\'heading_title\']);
+  $content[\'content\'] = str_replace(\'###WELCOME###\', \'<span class=\"welcome-string\">\' . $welcome_string . \'</span>\', $content[\'content\']);
+?>');
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('5', '2', 'Unser Angebot', '###WELCOME###', '<div>Dies ist eine XOS-Shop Standardinstallation. Alle hier gezeigten Produkte sind fiktiv zu verstehen. <strong>Eine hier getätigte Bestellung wird NICHT ausgeführt, Sie erhalten keine Lieferung oder Rechnung!</strong></div>', '<?php
+/*
+////////////////////////////////////////////////////////////////////////////////
+// project    : XOS-Shop, open source e-commerce system
+//              http://www.xos-shop.com
+//                                                                     
+// filename   : PHP code snippets
+// author     : Hanspeter Zeller <hpz@xos-shop.com>
+// copyright  : Copyright (c) 2007 Hanspeter Zeller
+// license    : This code is part of XOS-Shop.
+//
+//              XOS-Shop is free software: you can redistribute it and/or modify
+//              it under the terms of the GNU General Public License as published
+//              by the Free Software Foundation, either version 3 of the License,
+//              or (at your option) any later version.
+//
+//              XOS-Shop is distributed in the hope that it will be useful,
+//              but WITHOUT ANY WARRANTY; without even the implied warranty of
+//              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//              GNU General Public License for more details.
+//
+//              You should have received a copy of the GNU General Public License
+//              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.   
+////////////////////////////////////////////////////////////////////////////////
+*/
+/*
+  ////////////////////////////////////////////////////////////////////////////////
+  // insert below your named constants
+  // example:
+  // define(\'CONSTANT\', \'value\');
+  ////////////////////////////////////////////////////////////////////////////////
+*/
+  if (isset($_SESSION[\'customer_first_name\']) && isset($_SESSION[\'customer_id\'])) {
+    if (ACCOUNT_GENDER == \'true\' && isset($_SESSION[\'customer_gender\']) && $_SESSION[\'customer_gender\'] != \'\') {
+      $welcome_string = sprintf(TEXT_GREETING_PERSONAL, ($_SESSION[\'customer_gender\'] == \'m\' ? MALE_ADDRESS : FEMALE_ADDRESS) . \'&nbsp;\' . xos_output_string_protected($_SESSION[\'customer_first_name\']) . \'&nbsp;\' . xos_output_string_protected($_SESSION[\'customer_lastname\']), xos_href_link(FILENAME_PRODUCTS_NEW));
+    } else {
+      $welcome_string = sprintf(TEXT_GREETING_PERSONAL, xos_output_string_protected($_SESSION[\'customer_first_name\']) . \'&nbsp;\' . xos_output_string_protected($_SESSION[\'customer_lastname\']), xos_href_link(FILENAME_PRODUCTS_NEW)); 
+    }
+  } else {
+    $welcome_string = sprintf(TEXT_GREETING_GUEST, xos_href_link(FILENAME_LOGIN, \'\', \'SSL\'), xos_href_link(FILENAME_CREATE_ACCOUNT, \'\', \'SSL\'));
+  }
+      
+  $content[\'heading_title\'] = str_replace(\'###WELCOME###\', \'<span class=\"welcome-string\">\' . $welcome_string . \'</span>\', $content[\'heading_title\']);
+  $content[\'content\'] = str_replace(\'###WELCOME###\', \'<span class=\"welcome-string\">\' . $welcome_string . \'</span>\', $content[\'content\']);
+?>');
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('5', '3', '¿Que hay de nuevo por aqui?', '¿Que hay de nuevo por aqui?', '<div>###WELCOME###</div><div>&#160;</div><div>Esta es la configuración por defecto de XOS-Shop, los productos mostrados aqui son únicamente para demonstración, <strong>cualquier compra realizada no será entregada al cliente, ni se le cobrará</strong>. Cualquier información que vea sobre estos productos debe ser tratada como ficticia.</div>', '<?php
+/*
+////////////////////////////////////////////////////////////////////////////////
+// project    : XOS-Shop, open source e-commerce system
+//              http://www.xos-shop.com
+//                                                                     
+// filename   : PHP code snippets
+// author     : Hanspeter Zeller <hpz@xos-shop.com>
+// copyright  : Copyright (c) 2007 Hanspeter Zeller
+// license    : This code is part of XOS-Shop.
+//
+//              XOS-Shop is free software: you can redistribute it and/or modify
+//              it under the terms of the GNU General Public License as published
+//              by the Free Software Foundation, either version 3 of the License,
+//              or (at your option) any later version.
+//
+//              XOS-Shop is distributed in the hope that it will be useful,
+//              but WITHOUT ANY WARRANTY; without even the implied warranty of
+//              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//              GNU General Public License for more details.
+//
+//              You should have received a copy of the GNU General Public License
+//              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.   
+////////////////////////////////////////////////////////////////////////////////
+*/
+/*
+  ////////////////////////////////////////////////////////////////////////////////
+  // insert below your named constants
+  // example:
+  // define(\'CONSTANT\', \'value\');
+  ////////////////////////////////////////////////////////////////////////////////
+*/
+  if (isset($_SESSION[\'customer_first_name\']) && isset($_SESSION[\'customer_id\'])) {
+    if (ACCOUNT_GENDER == \'true\' && isset($_SESSION[\'customer_gender\']) && $_SESSION[\'customer_gender\'] != \'\') {
+      $welcome_string = sprintf(TEXT_GREETING_PERSONAL, ($_SESSION[\'customer_gender\'] == \'m\' ? MALE_ADDRESS : FEMALE_ADDRESS) . \'&nbsp;\' . xos_output_string_protected($_SESSION[\'customer_first_name\']) . \'&nbsp;\' . xos_output_string_protected($_SESSION[\'customer_lastname\']), xos_href_link(FILENAME_PRODUCTS_NEW));
+    } else {
+      $welcome_string = sprintf(TEXT_GREETING_PERSONAL, xos_output_string_protected($_SESSION[\'customer_first_name\']) . \'&nbsp;\' . xos_output_string_protected($_SESSION[\'customer_lastname\']), xos_href_link(FILENAME_PRODUCTS_NEW)); 
+    }
+  } else {
+    $welcome_string = sprintf(TEXT_GREETING_GUEST, xos_href_link(FILENAME_LOGIN, \'\', \'SSL\'), xos_href_link(FILENAME_CREATE_ACCOUNT, \'\', \'SSL\'));
+  }
+      
+  $content[\'heading_title\'] = str_replace(\'###WELCOME###\', \'<span class=\"welcome-string\">\' . $welcome_string . \'</span>\', $content[\'heading_title\']);
+  $content[\'content\'] = str_replace(\'###WELCOME###\', \'<span class=\"welcome-string\">\' . $welcome_string . \'</span>\', $content[\'content\']);
+?>');
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('6', '1', 'Shipping &amp; Returns', 'Shipping &amp; Returns', '<div style=\"width: 600px;\"><p>Put here your Shipping &amp; Returns information.</p></div>', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('6', '2', 'Liefer- und Versandkosten', 'Liefer- und Versandkosten', '<div style=\"width: 600px;\"><p>Fügen Sie hier Ihre Informationen über Liefer- und Versandkosten ein.</p></div>', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('6', '3', 'Envíos / Devoluciones', 'Envíos y Devoluciones', '<div style=\"width: 600px;\"><p>Ponga aqui información sobre los Envíos y Devoluciones.</p></div>', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('7', '1', 'Privacy Notice', 'Privacy Notice', '<div style=\"width: 600px;\"><p>Put here your Privacy Notice information.</p></div>', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('7', '2', 'Privatsphäre / Datenschutz', 'Privatsphäre und Datenschutz', '<div style=\"width: 600px;\"><p>Fügen Sie hier Ihre Informationen über Privatsphäre und Datenschutz ein.</p></div>', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('7', '3', 'Confidencialidad', 'Confidencialidad', '<div style=\"width: 600px;\"><p>Ponga aqui información sobre el tratamiento de los datos.</p></div>', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('8', '1', 'Terms and Conditions', 'General Business Conditions', '<div style=\"width: 600px;\"><p>Put here your general business conditions information.</p></div>', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('8', '2', 'Unsere AGB\'s', 'Allgemeine Geschäftsbedingungen', '<div style=\"width: 600px;\"><p>Fügen Sie hier Ihre allgemeinen Geschäftsbedingungen ein.</p></div>', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('8', '3', 'Términos y Condiciones', 'Condiciones General de Negocios', '<div style=\"width: 600px;\"><p>Ponga aqui sus condiciones general de negocios.</p></div>', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('9', '1', 'Search Help', 'Search Help', '<div style=\"width: 600px;\"><p>Keywords may be separated by AND and/or OR statements for greater control of the search results.<br /> <br /> For example, <u>Microsoft AND mouse</u> would generate a result set that contain both words. However, for <u>mouse OR keyboard</u>, the result set returned would contain both or either words.<br /> <br /> Exact matches can be searched for by enclosing keywords in double-quotes.<br /> <br /> For example, <u>\"notebook computer\"</u> would generate a result set which match the exact string.<br /> <br /> Brackets can be used for further control on the result set.<br /> <br /> For example, <u>Microsoft and (keyboard or mouse or \"visual basic\")</u>.</p></div>', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('9', '2', 'Hilfe zur erweiterten Suche', 'Hilfe zur erweiterten Suche', '<div style=\"width: 600px;\"><p>Die Suchfunktion ermöglicht Ihnen die Suche in den Produktnamen, Produktbeschreibungen, Herstellern und Artikelnummern.<br /> <br /> Sie haben die Möglichkeit logische Operatoren wie \"AND\" (Und) und \"OR\" (oder) zu verwenden.<br /> <br /> Als Beispiel könnten Sie also angeben: <u>Microsoft AND Maus</u>.<br /> <br /> Desweiteren können Sie Klammern verwenden um die Suche zu verschachteln, also z.B.:<br /> <br /> <u>Microsoft AND (Maus OR Tastatur OR \"Visual Basic\")</u>.<br /> <br /> Mit Anführungszeichen können Sie mehrere Worte zu einem Suchbegriff zusammenfassen.</p></div>', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('9', '3', 'Consejos para Búsqueda Avanzada', 'Consejos para Búsqueda Avanzada', '<div style=\"width: 600px;\"><p>El motor de búsqueda le permite hacer una búsqueda por palabras clave en el modelo, nombre y descripción del producto y en el nombre del fabricante.<br /> <br /> Cuando haga una busqueda por palabras o frases clave, puede separar estas con los operadores lógicos AND y OR. Por ejemplo, puede hacer una busqueda por <u>microsoft AND raton</u>. Esta búsqueda daría como resultado los productos que contengan ambas palabras. Por el contrario, si teclea <u>raton OR teclado</u>, conseguirá una lista de los productos que contengan las dos o solo una de las palabras. Si no se separan las palabras o frases clave con AND o con OR, la búsqueda se hara usando por defecto el operador logico AND.<br /> <br /> Puede realizar busquedas exactas de varias palabras encerrandolas entre comillas. Por ejemplo, si busca <u>\"ordenador portatil\"</u>, obtendrás una lista de productos que tengan exactamente esa cadena en ellos.<br /> <br /> Se pueden usar paratensis para controlar el orden de las operaciones lógicas. Por ejemplo, puede introducir <u>microsoft and (teclado or raton or \"visual basic\")</u>.</p></div>', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('10', '1', 'Visitors Cart / Members Cart', 'Visitors Cart / Members Cart', '<div style=\"width: 600px;\"><p><b><i>Visitors Cart</i></b><br /> Every visitor to our online shop will be given a \'Visitors Cart\'. This allows the visitor to store their products in a temporary shopping cart. Once the visitor leaves the online shop, so will the contents of their shopping cart.</p> <p><b><i>Members Cart</i></b><br /> Every member to our online shop that logs in is given a \'Members Cart\'. This allows the member to add products to their shopping cart, and come back at a later date to finalize their checkout. All products remain in their shopping cart until the member has checked them out, or removed the products themselves.</p> <p><b><i>Info</i></b><br /> If a member adds products to their \'Visitors Cart\' and decides to log in to the online shop to use their \'Members Cart\', the contents of their \'Visitors Cart\' will merge with their \'Members Cart\' contents automatically.</p></div>', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('10', '2', 'Besucherwarenkorb / Kundenwarenkorb', 'Besucherwarenkorb / Kundenwarenkorb', '<div style=\"width: 600px;\"><p><b><i>Besucherwarenkorb</i></b><br /> Jeder Besucher unseres Online-Shops bekommt einen \'Besucherwarenkorb\'. Damit kann er seine ausgewählten Produkte sammeln. Sobald der Besucher den Online-Shop verlässt, verfällt dessen Inhalt.</p> <p><b><i>Kundenwarenkorb</i></b><br /> Jeder angemeldete Kunde verfügt über einen \'Kundenwarenkorb\' zum Einkaufen, mit dem er auch zu einem späterem Zeitpunkt den Einkauf beenden kann. Jeder Artikel bleibt darin registriert bis der Kunde zur Kasse geht, oder die Produkte darin löscht.</p> <p><b><i>Information</i></b><br /> Die Besuchereingaben werden automatisch bei der Registrierung als Kunde in den Kundenwarenkorb übernommen</p></div>', NULL);
+insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('10', '3', 'Cesta del Visitante / Cesta del Asociado', 'Cesta del Visitante / Cesta del Asociado', '<div style=\"width: 600px;\"><p><b><i>Cesta de Visitante</i></b><br /> A cada visitante de nuestro catálogo le es asignado una \'Cesta de Visitante\'. Esto permite al invitado guardar sus productos en una cesta temporal. Una vez que el visitante abandona el catálogo, tambien desaparece el contenido de su cesta.</p> <p><b><i>Cesta de Asociado</i></b><br /> A cada miembro nuestro se le asigna una \'Cesta de Asociado\'. Esto permite al asociado añadir productos a su cesta de la compra, y volver mas tarde para finalizar el pedido. Todos los productos permanecen en la cesta hasta que el asociado ha realizado el pedido, o hasta que sean eliminados de la cesta manualmente.</p> <p><b><i>Información</i></b><br /> Si un asociado añade un articulo a su \'Cesta de Visitante\' y despues decide Entrar a su Cuenta para usar su \'Cesta de Asociado\', el contenido de la \'Cesta de Visitante\' sera añadido a la \'Cesta de Asociado\' automáticamente.</p></div>', NULL);
 
 drop table if exists counter;
 create table counter (
