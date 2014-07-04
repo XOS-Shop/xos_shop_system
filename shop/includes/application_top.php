@@ -95,7 +95,7 @@
   }
 
 // require the smarty class and create an instance
-  require(DIR_FS_SMARTY . 'Smarty-3.1.18/Smarty.class.php');  
+  require(DIR_FS_SMARTY . 'Smarty-3.1.19/Smarty.class.php');  
   $smarty = new Smarty();
   $smarty->template_dir = DIR_FS_SMARTY . 'catalog/templates/';
   $smarty->compile_dir = DIR_FS_SMARTY . 'catalog/templates_c/';
