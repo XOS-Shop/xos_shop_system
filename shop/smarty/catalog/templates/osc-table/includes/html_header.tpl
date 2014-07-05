@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : osc-table
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7s
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7t
 * descrip    : oscommerce default template with css-buttons and tables for layout                                                                     
 * filename   : html_header.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
@@ -47,7 +47,7 @@
       	
 -->
 
-<meta name="generator" content="XOS-Shop version 1.0 rc7s, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0 rc7t, open source e-commerce system" />
 <title>[@{$html_header_page_title}@][@{$html_header_add_page_title}@]</title>
 <link rel="shortcut icon" type="image/x-icon" href="[@{$images_path}@]favicon.ico" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]jquery-ui-1.10.3.custom.css" />

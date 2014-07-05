@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : xos-shop_install_default_v1.0.7
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7s                                                                     
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7t                                                                     
 * filename   : install.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
 * copyright  : Copyright (c) 2007 Hanspeter Zeller
@@ -33,7 +33,7 @@
 <meta http-equiv="content-language" content="{#lang_code#}" />
 <meta http-equiv="content-script-type" content="text/javascript" />
 <meta http-equiv="content-style-type" content="text/css" />
-<meta name="generator" content="XOS-Shop version 1.0 rc7s, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0 rc7t, open source e-commerce system" />
 <title>XOS-Shop</title>
 <link rel="stylesheet" type="text/css" href="{$css_path}stylesheet.css" />
 <script type="text/javascript" src="{$js_path}toggle_xmlhttp.js"></script>

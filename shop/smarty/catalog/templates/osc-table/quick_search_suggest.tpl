@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : osc-table
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7s
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7t
 * descrip    : xos-shop default template with div/css layout                                                                    
 * filename   : quick_search_suggest.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>

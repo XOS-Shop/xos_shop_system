@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : orange-tabs
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7s
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7t
 * descrip    : xos-shop default template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                     
 * filename   : tell_a_friend_email_html.tpl
@@ -33,7 +33,7 @@
 <meta http-equiv="content-type" content="text/html; charset=[@{$charset}@]" />
 <meta http-equiv="content-language" content="[@{$xhtml_lang}@]" />
 <meta http-equiv="content-style-type" content="text/css" />
-<meta name="generator" content="XOS-Shop version 1.0 rc7s, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0 rc7t, open source e-commerce system" />
 <title></title>
 </head>
 <body>
