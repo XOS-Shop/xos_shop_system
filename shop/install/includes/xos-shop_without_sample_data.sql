@@ -1180,7 +1180,7 @@ INSERT INTO contents_data (content_id, language_id, name, heading_title, content
 ////////////////////////////////////////////////////////////////////////////////
 */
 
-if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/includes/content/\' . FILENAME_CONTACT_US) == \'overwrite_all\')) : 
+if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/includes/content/contact_us.php\') == \'overwrite_all\')) : 
 
 /*
   ////////////////////////////////////////////////////////////////////////////////
@@ -1353,7 +1353,7 @@ INSERT INTO contents_data (content_id, language_id, name, heading_title, content
 ////////////////////////////////////////////////////////////////////////////////
 */
 
-if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/includes/content/\' . FILENAME_CONTACT_US) == \'overwrite_all\')) : 
+if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/includes/content/contact_us.php\') == \'overwrite_all\')) : 
 
 /*
   ////////////////////////////////////////////////////////////////////////////////
@@ -1526,7 +1526,7 @@ INSERT INTO contents_data (content_id, language_id, name, heading_title, content
 ////////////////////////////////////////////////////////////////////////////////
 */
 
-if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/includes/content/\' . FILENAME_CONTACT_US) == \'overwrite_all\')) : 
+if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/includes/content/contact_us.php\') == \'overwrite_all\')) : 
 
 /*
   ////////////////////////////////////////////////////////////////////////////////
