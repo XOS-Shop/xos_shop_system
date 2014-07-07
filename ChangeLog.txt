@@ -1,6 +1,17 @@
 
 ##ChangeLog
 
+# XOS-Shop v1.0_rc7t (Release 07/06/2014)
+
+- feature: Den Inhalts-Seiten und den Bannern kann nun auch PHP-Qoellcode in der DB hinzugefügt werden
+- feature: Die Länge des Session Code wird jetzt überwacht
+- feature: Im Admin die Möglichkeit den Cache im Ordner "templates_c" zu leeren hinzugefügt
+- update:  Beim leeren des Ordners "cache" werden nur noch die Cachedateien gelöscht
+- update:  Dem Inputfeld "security_code" das Attribut "autocomplete=off" hinzugefügt
+- update:  Sessionen werden nun mit der PHP-eigenen Funktion “session_regenerate_id” erneuert
+- update:  Smarty Version-3.1.18 auf Smarty Version-3.1.19
+- update:  CKEditor Version-4.4.0 auf CKEditor Version-4.4.2
+
 # XOS-Shop v1.0_rc7s (Release 05/09/2014
 
 - update:  CKEditor Version-4.3.3 auf CKEditor Version-4.4.0
