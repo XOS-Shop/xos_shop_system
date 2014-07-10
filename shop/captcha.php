@@ -82,6 +82,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
   }  
   
   imagepng($img); 
-  imagedestroy($img); 
+  imagedestroy($img);
+  usleep(1000000); 
 endif;
 ?> 
