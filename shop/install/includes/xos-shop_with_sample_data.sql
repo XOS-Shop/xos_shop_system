@@ -1944,7 +1944,7 @@ create table orders_products_attributes (
   orders_id int(11) default '0' not null ,
   orders_products_id int(11) default '0' not null ,
   products_options varchar(32) not null ,
-  products_options_values varchar(32) not null ,
+  products_options_values varchar(64) not null ,
   options_values_price decimal(15,4) default '0.0000' not null ,
   options_values_price_text varchar(255) not null ,
   price_prefix char(1) not null ,

@@ -561,7 +561,7 @@ CREATE TABLE orders_products_attributes (
   orders_id int NOT NULL,
   orders_products_id int NOT NULL,
   products_options varchar(32) NOT NULL,
-  products_options_values varchar(32) NOT NULL,
+  products_options_values varchar(64) NOT NULL,
   options_values_price decimal(15,4) NOT NULL,
   options_values_price_text varchar(255) NOT NULL,
   price_prefix char(1) NOT NULL,
