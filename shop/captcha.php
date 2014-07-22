@@ -79,6 +79,20 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
       imagepstext ( $img, $char, $pfb, $pfbsize, $color, $background, $t_x, $t_y, 0, 0, $angle);
     } 
           
+  } else { 
+    imagedestroy($img);
+    $img = imagecreate(140, 40);
+    $color = ImageColorAllocate($img, 255, 0, 255);
+    $background = ImageColorAllocate ($img, 0, 255, 0);    
+    imagefill($img, 0, 0, $background);  
+    for ($i = 0; $i < $strlen; $i++) {    
+      $pfb = 5;
+      $t_x = $t_x + (imagefontwidth($pfb) * 3);
+      $t_y = 12;     
+      $char = substr($text, $i, 1);
+      imagestring($img, $pfb, $t_x, $t_y, $char, $color);
+    }
+    
   }  
   
   imagepng($img); 
