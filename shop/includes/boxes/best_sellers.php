@@ -50,7 +50,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       while ($best_sellers = xos_db_fetch_array($best_sellers_query)) {
         $rows++;      
         $bestsellers_list_array[]=array('number' => xos_row_number_format($rows),
-                                        'link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $best_sellers['products_id']),
+                                        'link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $best_sellers['products_id']),
                                         'name' => $best_sellers['products_name']);
       }  
          

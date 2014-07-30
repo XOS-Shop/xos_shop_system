@@ -71,7 +71,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     $random_special_product_image = xos_get_product_images($random_product['products_image']);                                              
 
     $smarty->assign(array('box_specials_link_filename_specials' => xos_href_link(FILENAME_SPECIALS),
-                          'box_specials_link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $random_product["products_id"]),
+                          'box_specials_link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $random_product["products_id"]),
                           'box_specials_product_image' => xos_image(DIR_WS_IMAGES . 'products/small/' . rawurlencode($random_special_product_image['name']), $random_product['products_name']),
                           'box_specials_product_name' => $random_product['products_name'],
                           'box_specials_product_price' => $specials_product_price,

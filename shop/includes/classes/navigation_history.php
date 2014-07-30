@@ -46,7 +46,7 @@
       global $request_type;
 
       $last_position = sizeof($this->path) - 1;
-      if ($this->path[$last_position]['page'] == basename($_SERVER['PHP_SELF']) && $this->path[$last_position]['get']['cPath'] == $_GET['cPath'] && $this->path[$last_position]['get']['products_id'] == $_GET['products_id'] && $this->path[$last_position]['get']['content_id'] == $_GET['content_id']) {
+      if ($this->path[$last_position]['page'] == basename($_SERVER['PHP_SELF']) && $this->path[$last_position]['get']['c'] == $_GET['c'] && $this->path[$last_position]['get']['p'] == $_GET['p'] && $this->path[$last_position]['get']['co'] == $_GET['co']) {
         array_splice($this->path, ($last_position));
       }
       

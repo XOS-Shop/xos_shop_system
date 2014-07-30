@@ -47,7 +47,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
         $new_product_in_cart = false;
       }      
       $cart_products_array[]=array('quantity' => $products[$i]['quantity'],
-                                   'link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . urlencode($products[$i]['id'])),
+                                   'link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . urlencode($products[$i]['id'])),
                                    'name' => $products[$i]['name'],
                                    'new_product_in_cart' => $new_product_in_cart);      
     }

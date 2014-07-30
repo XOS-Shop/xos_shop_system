@@ -31,12 +31,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/boxes/product_notifications.php') == 'overwrite_all')) : 
-  if (isset($_GET['products_id'])) {
-    $allowed_product_query = xos_db_query("select p.products_id total from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c where p.products_id = '" . (int)$_GET['products_id'] . "' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and c.categories_or_pages_status = '1' and p.products_status = '1'");
+  if (isset($_GET['p'])) {
+    $allowed_product_query = xos_db_query("select p.products_id total from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c where p.products_id = '" . (int)$_GET['p'] . "' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and c.categories_or_pages_status = '1' and p.products_status = '1'");
     if (xos_db_num_rows($allowed_product_query)) {
 
       if (isset($_SESSION['customer_id'])) {
-        $check_query = xos_db_query("select count(*) as count from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . (int)$_GET['products_id'] . "' and customers_id = '" . (int)$_SESSION['customer_id'] . "'");
+        $check_query = xos_db_query("select count(*) as count from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . (int)$_GET['p'] . "' and customers_id = '" . (int)$_SESSION['customer_id'] . "'");
         $check = xos_db_fetch_array($check_query);
         $notification_exists = (($check['count'] > 0) ? true : false);
       } else {
@@ -54,7 +54,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       }
       
       $smarty->assign(array('box_product_notifications_link_filename_account_notifications' => xos_href_link(FILENAME_ACCOUNT_NOTIFICATIONS, '', 'SSL'),
-                            'box_product_notifications_product_name' => xos_get_products_name($_GET['products_id'])));
+                            'box_product_notifications_product_name' => xos_get_products_name($_GET['p'])));
       $output_product_notifications = $smarty->fetch(SELECTED_TPL . '/includes/boxes/product_notifications.tpl');
                           
       $smarty->assign('box_product_notifications', $output_product_notifications);

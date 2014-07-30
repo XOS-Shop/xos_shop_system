@@ -172,7 +172,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                         'link_back' => $back_link,
                         'input_field_email_address' => xos_draw_input_field('email_address', '', 'id="email_address"'),
                         'input_field_password' => xos_draw_password_field('password', '', 'id="password"'),
-                        'link_filename_popup_content_10' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'content_id=10', $request_type) : '',
+                        'link_filename_popup_content_10' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=10', $request_type) : '',
                         'store_name' => STORE_NAME,
                         'form_end' => '</form>'));   
 

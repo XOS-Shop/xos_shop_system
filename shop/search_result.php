@@ -57,15 +57,15 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   require(DIR_WS_INCLUDES . 'header.php');
   require(DIR_WS_INCLUDES . 'footer.php');
 
-  is_numeric($_GET['max_display_search_results']) && $_GET['max_display_search_results'] >= 1 ? $_SESSION['max_display_search_results'] = (int)$_GET['max_display_search_results'] : '';
+  is_numeric($_GET['mdsr']) && $_GET['mdsr'] >= 1 ? $_SESSION['mdsr'] = (int)$_GET['mdsr'] : '';
 
-  if ($_GET['search_results_view'] == 'list') { 
-    $_SESSION['search_results_view'] = 'list'; 
-  } elseif ($_GET['search_results_view'] == 'grid') { 
-    $_SESSION['search_results_view'] = 'grid';
+  if ($_GET['srv'] == 'list') { 
+    $_SESSION['srv'] = 'list'; 
+  } elseif ($_GET['srv'] == 'grid') { 
+    $_SESSION['srv'] = 'grid';
   }
                        
-  if((PRODUCT_LISTS_FOR_SEARCH_RESULTS == 'B' && $_SESSION['search_results_view'] != 'list') || $_SESSION['search_results_view'] == 'grid') {  
+  if((PRODUCT_LISTS_FOR_SEARCH_RESULTS == 'B' && $_SESSION['srv'] != 'list') || $_SESSION['srv'] == 'grid') {  
   
     $product_list_b = true;
       
@@ -214,7 +214,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $hidden_get_variables = '';
     reset($_GET);
     while (list($key, $value) = each($_GET)) {
-      if ( ($key != 'max_display_search_results') && ($key != xos_session_name()) && ($key != 'page') && ($key != 'x') && ($key != 'y') ) {
+      if ( ($key != 'mdsr') && ($key != xos_session_name()) && ($key != 'page') && ($key != 'x') && ($key != 'y') ) {
         $hidden_get_variables .= xos_draw_hidden_field($key, $value);
       }
     }
@@ -236,21 +236,21 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $max_display_search_results_array[] = array('id' => MAX_DISPLAY_SEARCH_RESULTS, 'text' => MAX_DISPLAY_SEARCH_RESULTS . TEXT_MAX_PRODUCTS);
     }      
     $pull_down_menu_display_search_results_noscript = $pull_down_menu_display_search_results;
-    $pull_down_menu_display_search_results .= xos_draw_pull_down_menu('max_display_search_results', $max_display_search_results_array, (isset($_SESSION['max_display_search_results']) ? $_SESSION['max_display_search_results'] : MAX_DISPLAY_SEARCH_RESULTS), 'id="max_display_search_results" onchange="this.form.submit()"') . '</form>';
-    $pull_down_menu_display_search_results_noscript .= xos_draw_pull_down_menu('max_display_search_results', $max_display_search_results_array, (isset($_SESSION['max_display_search_results']) ? $_SESSION['max_display_search_results'] : MAX_DISPLAY_SEARCH_RESULTS), 'id="max_display_search_results" onchange="this.form.submit()"');    
+    $pull_down_menu_display_search_results .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array, (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'id="mdsr" onchange="this.form.submit()"') . '</form>';
+    $pull_down_menu_display_search_results_noscript .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array, (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'id="mdsr" onchange="this.form.submit()"');    
 
-    $link_switch_search_results_view = xos_href_link(FILENAME_SEARCH_RESULT, xos_get_all_get_params(array('search_results_view', 'sort', 'page')) . 'search_results_view=' . ($product_list_b ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
+    $link_switch_search_results_view = xos_href_link(FILENAME_SEARCH_RESULT, xos_get_all_get_params(array('srv', 'sort', 'page')) . 'srv=' . ($product_list_b ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
   }
 
   $smarty->assign(array('pull_down_menu_display_products' => $pull_down_menu_display_search_results,
                         'pull_down_menu_display_products_noscript_begin' => $pull_down_menu_display_search_results_noscript,
                         'pull_down_menu_display_products_noscript_end' => '</form>',
-                        'label_for_max_display_products' => 'max_display_search_results',
+                        'label_for_max_display_products' => 'mdsr',
                         'link_switch_view' => $link_switch_search_results_view)); 
 
   $listing_sql = $select_str . $from_str . $where_str . $order_str;
 
-  $max_display = isset($_SESSION['max_display_search_results']) ? $_SESSION['max_display_search_results'] : MAX_DISPLAY_SEARCH_RESULTS;
+  $max_display = isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS;
 
   require(DIR_WS_MODULES . FILENAME_PRODUCT_LISTING);
 

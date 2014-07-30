@@ -95,7 +95,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       
       $new_products_image = xos_get_product_images($new_products['products_image']);
                                                
-      $new_products_array[]=array('link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $new_products['products_id']),
+      $new_products_array[]=array('link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $new_products['products_id']),
                                   'image' => xos_image(DIR_WS_IMAGES . 'products/small/' . rawurlencode($new_products_image['name']), $new_products['products_name']),
                                   'info' => $new_products['products_info'],
                                   'price' => $new_product_price,

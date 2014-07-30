@@ -53,25 +53,25 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
       break;
 
     case 'manufacturer':
-      if (isset($_GET['manufacturers_id']) && xos_not_null($_GET['manufacturers_id'])) {
-        $manufacturer_query = xos_db_query("select manufacturers_url from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . (int)$_GET['manufacturers_id'] . "' and languages_id = '" . (int)$_SESSION['languages_id'] . "'");
+      if (isset($_GET['m']) && xos_not_null($_GET['m'])) {
+        $manufacturer_query = xos_db_query("select manufacturers_url from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . (int)$_GET['m'] . "' and languages_id = '" . (int)$_SESSION['languages_id'] . "'");
         if (xos_db_num_rows($manufacturer_query)) {
 // url exists in selected language
           $manufacturer = xos_db_fetch_array($manufacturer_query);
 
           if (xos_not_null($manufacturer['manufacturers_url'])) {
-            xos_db_query("update " . TABLE_MANUFACTURERS_INFO . " set url_clicked = url_clicked+1, date_last_click = now() where manufacturers_id = '" . (int)$_GET['manufacturers_id'] . "' and languages_id = '" . (int)$_SESSION['languages_id'] . "'");
+            xos_db_query("update " . TABLE_MANUFACTURERS_INFO . " set url_clicked = url_clicked+1, date_last_click = now() where manufacturers_id = '" . (int)$_GET['m'] . "' and languages_id = '" . (int)$_SESSION['languages_id'] . "'");
 
             xos_redirect($manufacturer['manufacturers_url']);
           }
         } else {
 // no url exists for the selected language, lets use the default language then
-          $manufacturer_query = xos_db_query("select mi.languages_id, mi.manufacturers_url from " . TABLE_MANUFACTURERS_INFO . " mi, " . TABLE_LANGUAGES . " l where mi.manufacturers_id = '" . (int)$_GET['manufacturers_id'] . "' and mi.languages_id = l.languages_id and l.code = '" . DEFAULT_LANGUAGE . "'");
+          $manufacturer_query = xos_db_query("select mi.languages_id, mi.manufacturers_url from " . TABLE_MANUFACTURERS_INFO . " mi, " . TABLE_LANGUAGES . " l where mi.manufacturers_id = '" . (int)$_GET['m'] . "' and mi.languages_id = l.languages_id and l.code = '" . DEFAULT_LANGUAGE . "'");
           if (xos_db_num_rows($manufacturer_query)) {
             $manufacturer = xos_db_fetch_array($manufacturer_query);
 
             if (xos_not_null($manufacturer['manufacturers_url'])) {
-              xos_db_query("update " . TABLE_MANUFACTURERS_INFO . " set url_clicked = url_clicked+1, date_last_click = now() where manufacturers_id = '" . (int)$_GET['manufacturers_id'] . "' and languages_id = '" . (int)$manufacturer['languages_id'] . "'");
+              xos_db_query("update " . TABLE_MANUFACTURERS_INFO . " set url_clicked = url_clicked+1, date_last_click = now() where manufacturers_id = '" . (int)$_GET['m'] . "' and languages_id = '" . (int)$manufacturer['languages_id'] . "'");
 
               xos_redirect($manufacturer['manufacturers_url']);
             }

@@ -28,8 +28,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
 
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_POPUP_CONTENT);  
 
-  if (isset($_GET['content_id'])) {
-    $content_id = xos_db_prepare_input($_GET['content_id']);
+  if (isset($_GET['co'])) {
+    $content_id = xos_db_prepare_input($_GET['co']);
     $content_query = xos_db_query("select c.content_id, c.type, cd.name, cd.heading_title, cd.content, cd.php_source from " . TABLE_CONTENTS . " c, " . TABLE_CONTENTS_DATA . " cd where c.status = '1' and c.content_id = '" . (int)$content_id . "' and c.content_id = cd.content_id and cd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
     $content = xos_db_fetch_array($content_query);
     eval(' ?>' . $content['php_source'] . '<?php ');

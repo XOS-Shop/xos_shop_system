@@ -38,7 +38,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     while($results = xos_db_fetch_array($suggest_query)) {
       if (strpos($results['products_name_marked'], '<span') !== false) { 
         $results_array[]=array('products_name' => $results['products_name_marked'],    	   
-                               'products_link' => xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $results['products_id']));	   
+                               'products_link' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $results['products_id']));	   
       }
     }
 /*
@@ -48,7 +48,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $products_name_marked = str_ireplace(mb_strtoupper(stripslashes($_GET['keywords']), 'UTF-8'), '<span class="red-mark">' . mb_strtoupper(stripslashes($_GET['keywords']), 'UTF-8') . '</span>', mb_strtoupper($results['products_name'], 'UTF-8'));
       if (strpos($products_name_marked, '<span') !== false) { 
         $results_array[]=array('products_name' => $products_name_marked,
-                               'products_link' => xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $results['products_id']));	   
+                               'products_link' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $results['products_id']));	   
       }
     } 
        
@@ -56,7 +56,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $suggest_query = xos_db_query($search_suggest_sql);
     while($results = xos_db_fetch_array($suggest_query)) {
       $results_array[]=array('products_name' => str_ireplace(mb_strtoupper(stripslashes($_GET['keywords']), 'UTF-8'), '<span class="red-mark">' . mb_strtoupper(stripslashes($_GET['keywords']), 'UTF-8') . '</span>', mb_strtoupper($results['products_name'], 'UTF-8')),
-                             'products_link' => xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $results['products_id']));	   
+                             'products_link' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $results['products_id']));	   
     }    
 */    
     if (!empty($results_array)) {

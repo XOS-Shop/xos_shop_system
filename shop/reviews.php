@@ -67,7 +67,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         
         $product_image = xos_get_product_images($reviews['products_image']);
           
-        $reviews_array[]=array('link_filename_product_reviews_info' => xos_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'products_id=' . $reviews['products_id'] . '&reviews_id=' . $reviews['reviews_id']),
+        $reviews_array[]=array('link_filename_product_reviews_info' => xos_href_link(FILENAME_PRODUCT_REVIEWS_INFO, 'p=' . $reviews['products_id'] . '&r=' . $reviews['reviews_id']),
                                 'date_added' => xos_date_long($reviews['date_added']),
                                 'products_image' => xos_image(DIR_WS_IMAGES . 'products/small/' . rawurlencode($product_image['name']), $reviews['products_name']),
                                 'td_width_img' => SMALL_PRODUCT_IMAGE_MAX_WIDTH + 10,

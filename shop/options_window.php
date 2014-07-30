@@ -28,15 +28,15 @@ if (!$is_shop) :
 elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_OPTIONS_WINDOW) == 'overwrite_all')) :
   $_SESSION['navigation']->remove_current_page();
 
-  if (xos_has_product_attributes((int)$_GET['products_id'])) {
+  if (xos_has_product_attributes((int)$_GET['p'])) {
   
-    $product_query = xos_db_query("select attributes_quantity, products_tax_class_id from " . TABLE_PRODUCTS . " where products_status = '1' and products_id = '" . (int)$_GET['products_id'] . "'");
+    $product_query = xos_db_query("select attributes_quantity, products_tax_class_id from " . TABLE_PRODUCTS . " where products_status = '1' and products_id = '" . (int)$_GET['p'] . "'");
     $product = xos_db_fetch_array($product_query);
     
     $attributes_quantity = xos_get_attributes_quantity($product['attributes_quantity']);
     $products_tax_rate = xos_get_tax_rate($product['products_tax_class_id']);
       
-    $opt_query = xos_db_query("select pa.options_id, po.products_options_name from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS . " po where pa.products_id = '" . (int)$_GET['products_id'] . "' and pa.options_id = po.products_options_id and po.language_id = '" . (int)$_SESSION['languages_id'] . "' order by pa.options_sort_order asc, pa.options_id asc");    
+    $opt_query = xos_db_query("select pa.options_id, po.products_options_name from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS . " po where pa.products_id = '" . (int)$_GET['p'] . "' and pa.options_id = po.products_options_id and po.language_id = '" . (int)$_SESSION['languages_id'] . "' order by pa.options_sort_order asc, pa.options_id asc");    
     
     $opt_array = array();
     $opt_values_array = array();
@@ -66,7 +66,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
     reset($opt_array);
     for ($i=0, $n=sizeof($opt_array); $i<$n; $i++) {
-      $opt_values_query = xos_db_query("select distinct pa.products_attributes_id, pa.options_values_id, pa.options_values_sort_order, pa.options_values_price, pa.price_prefix, po.products_options_name, pov.products_options_values_name from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id = '" . (int)$_GET['products_id'] . "' and pa.options_id = '" . (int)$opt_array[$i]['options_id'] . "' and pa.options_id = po.products_options_id and pa.options_values_id = pov.products_options_values_id and po.language_id = pov.language_id and po.language_id = '" . (int)$_SESSION['languages_id'] . "' order by pa.options_sort_order, pa.options_id, pa.options_values_sort_order, pov.products_options_values_name");
+      $opt_values_query = xos_db_query("select distinct pa.products_attributes_id, pa.options_values_id, pa.options_values_sort_order, pa.options_values_price, pa.price_prefix, po.products_options_name, pov.products_options_values_name from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id = '" . (int)$_GET['p'] . "' and pa.options_id = '" . (int)$opt_array[$i]['options_id'] . "' and pa.options_id = po.products_options_id and pa.options_values_id = pov.products_options_values_id and po.language_id = pov.language_id and po.language_id = '" . (int)$_SESSION['languages_id'] . "' order by pa.options_sort_order, pa.options_id, pa.options_values_sort_order, pov.products_options_values_name");
       while ($opt_values = xos_db_fetch_array($opt_values_query)) {   
         $opt_values_array[$opt_array[$i]['options_id']][] = array('options_values_id' => $opt_values['options_values_id'],
 //                                                                  'options_values_name' => $opt_values['products_options_values_name']);

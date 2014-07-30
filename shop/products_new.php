@@ -94,8 +94,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         
         $product_image = xos_get_product_images($products_new['products_image']); 
 
-        $products_new_array[]=array('link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $products_new['products_id']),
-                                    'href_buy_now' => xos_href_link(FILENAME_PRODUCTS_NEW, xos_get_all_get_params(array('action')) . 'action=buy_now&products_id=' . $products_new['products_id']),
+        $products_new_array[]=array('link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $products_new['products_id']),
+                                    'href_buy_now' => xos_href_link(FILENAME_PRODUCTS_NEW, xos_get_all_get_params(array('action')) . 'action=buy_now&p=' . $products_new['products_id']),
                                     'date_added' => xos_date_long($products_new['products_date_added']),
                                     'image' => xos_image(DIR_WS_IMAGES . 'products/small/' . rawurlencode($product_image['name']), $products_new['products_name']),
                                     'td_width_img' => SMALL_PRODUCT_IMAGE_MAX_WIDTH + 10,

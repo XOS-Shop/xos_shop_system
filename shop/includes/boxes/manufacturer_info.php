@@ -33,12 +33,12 @@
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/boxes/manufacturer_info.php') == 'overwrite_all')) : 
   if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
     $smarty->caching = 1;
-    $cache_id = 'L3|box_manufacturer_info|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_GET['products_id'];
+    $cache_id = 'L3|box_manufacturer_info|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_GET['p'];
   }
       
   if(!$smarty->isCached(SELECTED_TPL . '/includes/boxes/manufacturers_info.tpl', $cache_id)){
 
-    $manufacturer_query = xos_db_query("select m.manufacturers_id, m.manufacturers_image, mi.manufacturers_name, mi.manufacturers_url from " . TABLE_MANUFACTURERS . " m left join " . TABLE_MANUFACTURERS_INFO . " mi on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "'), " . TABLE_PRODUCTS . " p  where p.products_id = '" . (int)$_GET['products_id'] . "' and p.manufacturers_id = m.manufacturers_id");
+    $manufacturer_query = xos_db_query("select m.manufacturers_id, m.manufacturers_image, mi.manufacturers_name, mi.manufacturers_url from " . TABLE_MANUFACTURERS . " m left join " . TABLE_MANUFACTURERS_INFO . " mi on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "'), " . TABLE_PRODUCTS . " p  where p.products_id = '" . (int)$_GET['p'] . "' and p.manufacturers_id = m.manufacturers_id");
     if (xos_db_num_rows($manufacturer_query)) {
           
       $manufacturer = xos_db_fetch_array($manufacturer_query);
@@ -47,12 +47,12 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       }
       
       if (xos_not_null($manufacturer['manufacturers_url'])) {
-        $smarty->assign(array('box_manufacturer_info_link_to_the_manufacturer' => xos_href_link(FILENAME_REDIRECT, 'action=manufacturer&manufacturers_id=' . $manufacturer['manufacturers_id']),
+        $smarty->assign(array('box_manufacturer_info_link_to_the_manufacturer' => xos_href_link(FILENAME_REDIRECT, 'action=manufacturer&m=' . $manufacturer['manufacturers_id']),
                               'box_manufacturer_info_manufacturer_name' => $manufacturer['manufacturers_name']));
       }
       
       $smarty->assign(array('box_manufacturer_info_has_content' => true,
-                            'box_manufacturer_info_link_filename_default' => xos_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $manufacturer['manufacturers_id'])));                     
+                            'box_manufacturer_info_link_filename_default' => xos_href_link(FILENAME_DEFAULT, 'm=' . $manufacturer['manufacturers_id'])));                     
     }       
   }       
             

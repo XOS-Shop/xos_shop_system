@@ -45,8 +45,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   }
 
   $valid_product = false;
-  if (isset($_GET['products_id'])) {
-    $product_info_query = xos_db_query("select pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$_GET['products_id'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
+  if (isset($_GET['p'])) {
+    $product_info_query = xos_db_query("select pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$_GET['p'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
     if (xos_db_num_rows($product_info_query)) {
       $valid_product = true;
       $product_info = xos_db_fetch_array($product_info_query);
@@ -54,7 +54,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   }
 
   if ($valid_product == false) {
-    xos_redirect(xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . (int)$_GET['products_id']), false);
+    xos_redirect(xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . (int)$_GET['p']), false);
   }
 
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_TELL_A_FRIEND);
@@ -141,8 +141,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                             'to_name' => $to_name,
                             'from_name' => $from_name,
                             'products_name' => $product_info['products_name'],
-                            'link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . (int)$_GET['products_id'], 'NONSSL', false, false)));
-//      $smarty->assign('link_filename_product_info', xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . (int)$_GET['products_id'] . '&language=' . $customer_lng['code'], 'NONSSL', false, false));
+                            'link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . (int)$_GET['p'], 'NONSSL', false, false)));
+//      $smarty->assign('link_filename_product_info', xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . (int)$_GET['p'] . '&language=' . $customer_lng['code'], 'NONSSL', false, false));
       
       $smarty->configLoad('languages/' . $_SESSION['language'] . '_email.conf', 'tell_a_friend_email_html');
       $output_tell_a_friend_email_html = $smarty->fetch(SELECTED_TPL . '/includes/email/tell_a_friend_email_html.tpl');
@@ -169,7 +169,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         $actionRecorder->record();
         $messageStack->add_session('header', sprintf(TEXT_EMAIL_SUCCESSFUL_SENT, $product_info['products_name'], xos_output_string_protected($to_name)), 'success');        
         $_SESSION['navigation']->remove_current_page();
-        xos_redirect(xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . (int)$_GET['products_id']), false);
+        xos_redirect(xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . (int)$_GET['p']), false);
       }
     }
   } elseif (isset($_SESSION['customer_id'])) {
@@ -180,7 +180,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $from_email_address = $account['customers_email_address'];
   }
 
-  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_TELL_A_FRIEND, 'products_id=' . (int)$_GET['products_id']));
+  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_TELL_A_FRIEND, 'p=' . (int)$_GET['p']));
   
   $add_header = '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>';
   
@@ -202,7 +202,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $back_link = 'javascript:history.go(-1)';
   }
  
-  $smarty->assign(array('form_begin' => xos_draw_form('email_friend', xos_href_link(FILENAME_TELL_A_FRIEND, 'action=process&products_id=' . (int)$_GET['products_id'], 'SSL'), 'post', '', true),
+  $smarty->assign(array('form_begin' => xos_draw_form('email_friend', xos_href_link(FILENAME_TELL_A_FRIEND, 'action=process&p=' . (int)$_GET['p'], 'SSL'), 'post', '', true),
                         'isset_customer_id' => isset($_SESSION['customer_id']) ? true : false,
                         'products_name' => $product_info['products_name'],
                         'input_field_from_name' => xos_draw_input_field('from_name', '', (ALLOW_GUEST_TO_TELL_A_FRIEND == 'false' ? 'id="tell_a_friend_from_name" readonly="readonly"' : 'id="tell_a_friend_from_name"')),

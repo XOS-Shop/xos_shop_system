@@ -242,7 +242,7 @@
       $cPath_new = implode('_', $cPath_array);
     }
 
-    return 'cPath=' . $cPath_new;
+    return 'c=' . $cPath_new;
   }
 
 ////

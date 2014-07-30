@@ -37,7 +37,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     $upcoming_products_array = array();
     while ($expected = xos_db_fetch_array($expected_query)) {
                       
-      $upcoming_products_array[]=array('link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $expected['products_id']),
+      $upcoming_products_array[]=array('link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $expected['products_id']),
                                        'date_expected' => xos_date_short($expected['date_expected']),
                                        'name' => $expected['products_name']);                      
     }

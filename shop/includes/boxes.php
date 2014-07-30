@@ -35,11 +35,11 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   include(DIR_WS_BOXES . 'tabs_categories.php');
        
   if ($is_shop) {  
-    if (isset($_GET['products_id'])) include(DIR_WS_BOXES . 'manufacturer_info.php');
+    if (isset($_GET['p'])) include(DIR_WS_BOXES . 'manufacturer_info.php');
 
     if (isset($_SESSION['customer_id'])) include(DIR_WS_BOXES . 'order_history.php');
 
-    if (isset($_GET['products_id']) && PRODUCT_NOTIFICATION_ENABLED == 'true') {
+    if (isset($_GET['p']) && PRODUCT_NOTIFICATION_ENABLED == 'true') {
       if (isset($_SESSION['customer_id'])) {
         $check_query = xos_db_query("select count(*) as count from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . (int)$_SESSION['customer_id'] . "' and global_product_notifications = '1'");
         $check = xos_db_fetch_array($check_query);
@@ -55,7 +55,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       include(DIR_WS_BOXES . 'best_sellers.php');
     }
 
-    if (isset($_GET['products_id'])) {
+    if (isset($_GET['p'])) {
       if (basename($_SERVER['PHP_SELF']) != FILENAME_TELL_A_FRIEND) include(DIR_WS_BOXES . 'share_product.php');
     } else {
       include(DIR_WS_BOXES . 'whats_new.php');

@@ -1278,7 +1278,7 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
         $messageStack->add(\'contact\', sprintf(ERROR_PHPMAILER, $email_to_store_owner->ErrorInfo));
       } else {
         $actionRecorder->record();
-        xos_redirect(xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=success\'));
+        xos_redirect(xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=success\'));
       }
     }    
   }
@@ -1291,14 +1291,14 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
     $smarty->assign(\'sent\', true);
   }
 
-  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=send\', \'SSL\')),
+  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')),
                         \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
                         \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'id=\"contact_us_name\"\'),
                         \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'id=\"contact_us_email_address\"\'),
                         \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
 /*                        \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" style=\"cursor:pointer;\" onclick=\"javascript:this.src=\\\'\' . xos_href_link(FILENAME_CAPTCHA, \'\', \'SSL\') . (SID ? \'&amp;\' : \'?\') . \'\\\'+Math.random();\" />\', */
                         \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
-                        \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id, \'SSL\')),
+                        \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id, \'SSL\')),
                         \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'id=\"contact_us_enquiry\"\'),
                         \'form_end\' => \'</form>\'));
 
@@ -1451,7 +1451,7 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
         $messageStack->add(\'contact\', sprintf(ERROR_PHPMAILER, $email_to_store_owner->ErrorInfo));
       } else {
         $actionRecorder->record();
-        xos_redirect(xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=success\'));
+        xos_redirect(xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=success\'));
       }
     }    
   }
@@ -1464,14 +1464,14 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
     $smarty->assign(\'sent\', true);
   }
 
-  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=send\', \'SSL\')),
+  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')),
                         \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
                         \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'id=\"contact_us_name\"\'),
                         \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'id=\"contact_us_email_address\"\'),
                         \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
 /*                        \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" style=\"cursor:pointer;\" onclick=\"javascript:this.src=\\\'\' . xos_href_link(FILENAME_CAPTCHA, \'\', \'SSL\') . (SID ? \'&amp;\' : \'?\') . \'\\\'+Math.random();\" />\', */
                         \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
-                        \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id, \'SSL\')),
+                        \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id, \'SSL\')),
                         \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'id=\"contact_us_enquiry\"\'),
                         \'form_end\' => \'</form>\'));
 
@@ -1624,7 +1624,7 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
         $messageStack->add(\'contact\', sprintf(ERROR_PHPMAILER, $email_to_store_owner->ErrorInfo));
       } else {
         $actionRecorder->record();
-        xos_redirect(xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=success\'));
+        xos_redirect(xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=success\'));
       }
     }    
   }
@@ -1637,14 +1637,14 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
     $smarty->assign(\'sent\', true);
   }
 
-  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id . \'&action=send\', \'SSL\')),
+  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')),
                         \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
                         \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'id=\"contact_us_name\"\'),
                         \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'id=\"contact_us_email_address\"\'),
                         \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
 /*                        \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" style=\"cursor:pointer;\" onclick=\"javascript:this.src=\\\'\' . xos_href_link(FILENAME_CAPTCHA, \'\', \'SSL\') . (SID ? \'&amp;\' : \'?\') . \'\\\'+Math.random();\" />\', */
                         \'captcha_img\' => \'<img src=\"\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
-                        \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'content_id=\' . (int)$content_id, \'SSL\')),
+                        \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id, \'SSL\')),
                         \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'id=\"contact_us_enquiry\"\'),
                         \'form_end\' => \'</form>\'));
 

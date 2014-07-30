@@ -43,7 +43,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     $contents_array = array();
     while ($contents = xos_db_fetch_array($contents_query)) {      
                                                
-      $contents_array[]=array('link_filename_content_content_id' => xos_href_link(FILENAME_CONTENT, 'content_id=' . $contents['content_id'], (!empty($contents['link_request_type']) ? $contents['link_request_type'] : 'NONSSL')),
+      $contents_array[]=array('link_filename_content_content_id' => xos_href_link(FILENAME_CONTENT, 'co=' . $contents['content_id'], (!empty($contents['link_request_type']) ? $contents['link_request_type'] : 'NONSSL')),
                               'name' => $contents['name']);
     }
     

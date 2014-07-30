@@ -103,8 +103,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $product_image = xos_get_product_images($products[$i]['image']);
                        
       $products_array[]=array('checkbox_cart_delete' => xos_draw_checkbox_field('cart_delete[]', $products[$i]['id'], false, 'id="cart_delete_' . ($i + 1) . '"'),
-                              'link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . urlencode($products[$i]['id'])),
-                              'link_remove_product' => xos_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&rmp=0&products_id=' . urlencode($products[$i]['id'])),
+                              'link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . urlencode($products[$i]['id'])),
+                              'link_remove_product' => xos_href_link(FILENAME_SHOPPING_CART, 'action=remove_product&rmp=0&p=' . urlencode($products[$i]['id'])),
                               'products_image' => xos_image(DIR_WS_IMAGES . 'products/small/' . rawurlencode($product_image['name']), $products[$i]['name']),
                               'products_name' => $products[$i]['name'],
                               'products_packaging_unit' => $products[$i]['packaging_unit'],

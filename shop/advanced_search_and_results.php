@@ -231,27 +231,27 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                  '});' . "\n\n" .
                  
                  'function UpdateManufacturers() {' . "\n" .
-                 '  var NumManufacturers = document.advanced_search_and_results._manufacturers_id.options.length;' . "\n" .
+                 '  var NumManufacturers = document.advanced_search_and_results._m.options.length;' . "\n" .
                  '  var PostNumManufacturers = "";' . "\n" .
                  '  var SelectedManufacturer = "";' . "\n" .
                  '  var SelectedCategory = "";' . "\n\n" .
                  
-                 '  SelectedManufacturer = document.advanced_search_and_results._manufacturers_id.options[document.advanced_search_and_results._manufacturers_id.selectedIndex].value;' . "\n" .
-                 '  SelectedCategory = document.advanced_search_and_results.categories_or_pages_id.options[document.advanced_search_and_results.categories_or_pages_id.selectedIndex].value;' . "\n\n" .
+                 '  SelectedManufacturer = document.advanced_search_and_results._m.options[document.advanced_search_and_results._m.selectedIndex].value;' . "\n" .
+                 '  SelectedCategory = document.advanced_search_and_results.copid.options[document.advanced_search_and_results.copid.selectedIndex].value;' . "\n\n" .
 
                  '  while(NumManufacturers > 0) {' . "\n" .
                  '    NumManufacturers--;' . "\n" .
-                 '    document.advanced_search_and_results._manufacturers_id.options[NumManufacturers] = null;' . "\n" .
+                 '    document.advanced_search_and_results._m.options[NumManufacturers] = null;' . "\n" .
                  '  }' . "\n\n" .         
 
-                 xos_js_manufacturers_list('SelectedCategory', 'advanced_search_and_results', '_manufacturers_id') . "\n\n" .
+                 xos_js_manufacturers_list('SelectedCategory', 'advanced_search_and_results', '_m') . "\n\n" .
                  
-                 '  PostNumManufacturers = document.advanced_search_and_results._manufacturers_id.options.length;' . "\n\n" .
+                 '  PostNumManufacturers = document.advanced_search_and_results._m.options.length;' . "\n\n" .
                  
                  '  while(PostNumManufacturers > 0) {' . "\n" .
                  '    PostNumManufacturers--;' . "\n" .
-                 '    if (document.advanced_search_and_results._manufacturers_id.options[PostNumManufacturers].value == SelectedManufacturer)' . "\n" .
-                 '    document.advanced_search_and_results._manufacturers_id.options[PostNumManufacturers].selected = true;' . "\n" .
+                 '    if (document.advanced_search_and_results._m.options[PostNumManufacturers].value == SelectedManufacturer)' . "\n" .
+                 '    document.advanced_search_and_results._m.options[PostNumManufacturers].selected = true;' . "\n" .
                  '  }' . "\n\n" .                   
                  
                  '}' . "\n\n" .                  
@@ -528,7 +528,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   require(DIR_WS_INCLUDES . 'header.php');
   require(DIR_WS_INCLUDES . 'footer.php');                                 
 
-  $search_in_description = $_GET['search_in_description'];
+  $search_in_description = $_GET['sid'];
 
   if ($messageStack->size('search') > 0) {
     $smarty->assign('message_stack', $messageStack->output('search'));
@@ -552,11 +552,11 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   $smarty->assign(array('form_begin' => xos_draw_form('advanced_search_and_results', xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, '', 'NONSSL', false, true, false, false, false), 'get', 'onsubmit="return check_form(this);"') . $hidden_get_variables, 
                         'hide_session_id' => xos_hide_session_id(),
                         'input_field_keywords' => xos_draw_input_field('keywords', stripslashes($_GET['keywords']), 'id="keywords"'),
-                        'checkbox_search_in_description' => xos_draw_checkbox_field('search_in_description', '1', ($action && !isset($_GET['search_in_description']) ? false : true), 'id="search_in_description"'),
+                        'checkbox_search_in_description' => xos_draw_checkbox_field('sid', '1', ($action && !isset($_GET['sid']) ? false : true), 'id="search_in_description"'),
                         'link_filename_advanced_search_and_results' => xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS),
-                        'link_filename_popup_content_9' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'content_id=9', $request_type) : '',
-                        'categories_pull_down_menu' => xos_draw_pull_down_menu('categories_or_pages_id', $categories_array, $_GET['categories_or_pages_id'], 'id="categories_or_pages_id" onchange="UpdateManufacturers();"'),                        
-                        'manufacturers_pull_down_menu' => xos_draw_pull_down_menu('_manufacturers_id', xos_get_manufacturers(array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS))), $_GET['_manufacturers_id'], 'id="manufacturers_id"'),
+                        'link_filename_popup_content_9' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=9', $request_type) : '',
+                        'categories_pull_down_menu' => xos_draw_pull_down_menu('copid', $categories_array, $_GET['copid'], 'id="categories_or_pages_id" onchange="UpdateManufacturers();"'),                        
+                        'manufacturers_pull_down_menu' => xos_draw_pull_down_menu('_m', xos_get_manufacturers(array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS))), $_GET['_m'], 'id="manufacturers_id"'),
                         'input_field_pfrom' => xos_draw_input_field('pfrom', $_GET['pfrom'], 'id="pfrom"'),
                         'input_field_pto' => xos_draw_input_field('pto', $_GET['pto'], 'id="pto"'),
                         'input_field_dfrom' => xos_draw_input_field('dfrom', (($_GET['dfrom']) ? $_GET['dfrom'] : AS_FORMAT_STRING), 'id="id_dfrom"'),
@@ -565,15 +565,15 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                         'form_end' => '</form>'));
 ///////////////////////////////////////////////////////////
 if ($action && !$error) {
-  is_numeric($_GET['max_display_search_results']) && $_GET['max_display_search_results'] >= 1 ? $_SESSION['max_display_search_results'] = (int)$_GET['max_display_search_results'] : '';
+  is_numeric($_GET['mdsr']) && $_GET['mdsr'] >= 1 ? $_SESSION['mdsr'] = (int)$_GET['mdsr'] : '';
 
-  if ($_GET['search_results_view'] == 'list') { 
-    $_SESSION['search_results_view'] = 'list'; 
-  } elseif ($_GET['search_results_view'] == 'grid') { 
-    $_SESSION['search_results_view'] = 'grid';
+  if ($_GET['srv'] == 'list') { 
+    $_SESSION['srv'] = 'list'; 
+  } elseif ($_GET['srv'] == 'grid') { 
+    $_SESSION['srv'] = 'grid';
   }
                        
-  if((PRODUCT_LISTS_FOR_SEARCH_RESULTS == 'B' && $_SESSION['search_results_view'] != 'list') || $_SESSION['search_results_view'] == 'grid') {  
+  if((PRODUCT_LISTS_FOR_SEARCH_RESULTS == 'B' && $_SESSION['srv'] != 'list') || $_SESSION['srv'] == 'grid') {  
   
     $product_list_b = true;
       
@@ -667,11 +667,11 @@ if ($action && !$error) {
 
   $where_str = " where p.products_status = '1' and c.categories_or_pages_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id ";
 
-  if (isset($_GET['categories_or_pages_id']) && xos_not_null($_GET['categories_or_pages_id'])) {
+  if (isset($_GET['copid']) && xos_not_null($_GET['copid'])) {
     $subcategories_array = array();
-    xos_get_subcategories($subcategories_array, $_GET['categories_or_pages_id']);
+    xos_get_subcategories($subcategories_array, $_GET['copid']);
 
-    $where_str .= " and p2c.products_id = p.products_id and p2c.products_id = pd.products_id and (p2c.categories_or_pages_id = '" . (int)$_GET['categories_or_pages_id'] . "'";
+    $where_str .= " and p2c.products_id = p.products_id and p2c.products_id = pd.products_id and (p2c.categories_or_pages_id = '" . (int)$_GET['copid'] . "'";
 
     for ($i=0, $n=sizeof($subcategories_array); $i<$n; $i++ ) {
       $where_str .= " or p2c.categories_or_pages_id = '" . (int)$subcategories_array[$i] . "'";
@@ -680,8 +680,8 @@ if ($action && !$error) {
     $where_str .= ")";
   }
 
-  if (isset($_GET['_manufacturers_id']) && xos_not_null($_GET['_manufacturers_id'])) {
-    $where_str .= " and mi.manufacturers_id = '" . (int)$_GET['_manufacturers_id'] . "'";
+  if (isset($_GET['_m']) && xos_not_null($_GET['_m'])) {
+    $where_str .= " and mi.manufacturers_id = '" . (int)$_GET['_m'] . "'";
   }
 
   if (isset($search_keywords) && (sizeof($search_keywords) > 0)) {
@@ -697,7 +697,7 @@ if ($action && !$error) {
         default:
           $keyword = xos_db_prepare_input($search_keywords[$i]);
           $where_str .= "(pd.products_name like '%" . xos_db_input($keyword) . "%' or p.products_model like '%" . xos_db_input($keyword) . "%' or mi.manufacturers_name like '%" . xos_db_input($keyword) . "%'";
-          if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) $where_str .= " or pd.products_description like '%" . xos_db_input($keyword) . "%' or pd.products_info like '%" . xos_db_input($keyword) . "%'";
+          if (isset($_GET['sid']) && ($_GET['sid'] == '1')) $where_str .= " or pd.products_description like '%" . xos_db_input($keyword) . "%' or pd.products_info like '%" . xos_db_input($keyword) . "%'";
           $where_str .= ')';
           break;
       }
@@ -788,7 +788,7 @@ if ($action && !$error) {
     $hidden_get_variables = '';
     reset($_GET);
     while (list($key, $value) = each($_GET)) {
-      if ( ($key != 'max_display_search_results') && ($key != xos_session_name()) && ($key != 'page') && ($key != 'x') && ($key != 'y') ) {
+      if ( ($key != 'mdsr') && ($key != xos_session_name()) && ($key != 'page') && ($key != 'x') && ($key != 'y') ) {
         $hidden_get_variables .= xos_draw_hidden_field($key, $value);
       }
     }
@@ -810,21 +810,21 @@ if ($action && !$error) {
       $max_display_search_results_array[] = array('id' => MAX_DISPLAY_SEARCH_RESULTS, 'text' => MAX_DISPLAY_SEARCH_RESULTS . TEXT_MAX_PRODUCTS);
     }      
     $pull_down_menu_display_search_results_noscript = $pull_down_menu_display_search_results;
-    $pull_down_menu_display_search_results .= xos_draw_pull_down_menu('max_display_search_results', $max_display_search_results_array, (isset($_SESSION['max_display_search_results']) ? $_SESSION['max_display_search_results'] : MAX_DISPLAY_SEARCH_RESULTS), 'id="max_display_search_results" onchange="this.form.submit()"') . '</form>';
-    $pull_down_menu_display_search_results_noscript .= xos_draw_pull_down_menu('max_display_search_results', $max_display_search_results_array, (isset($_SESSION['max_display_search_results']) ? $_SESSION['max_display_search_results'] : MAX_DISPLAY_SEARCH_RESULTS), 'id="max_display_search_results" onchange="this.form.submit()"');    
+    $pull_down_menu_display_search_results .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array, (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'id="mdsr" onchange="this.form.submit()"') . '</form>';
+    $pull_down_menu_display_search_results_noscript .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array, (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'id="mdsr" onchange="this.form.submit()"');    
 
-    $link_switch_search_results_view = xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, xos_get_all_get_params(array('search_results_view', 'sort', 'page')) . 'search_results_view=' . ($product_list_b ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
+    $link_switch_search_results_view = xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, xos_get_all_get_params(array('srv', 'sort', 'page')) . 'srv=' . ($product_list_b ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
   }
 
   $smarty->assign(array('pull_down_menu_display_products' => $pull_down_menu_display_search_results,
                         'pull_down_menu_display_products_noscript_begin' => $pull_down_menu_display_search_results_noscript,
                         'pull_down_menu_display_products_noscript_end' => '</form>',
-                        'label_for_max_display_products' => 'max_display_search_results',
+                        'label_for_max_display_products' => 'mdsr',
                         'link_switch_view' => $link_switch_search_results_view)); 
 
   $listing_sql = $select_str . $from_str . $where_str . $order_str;
 
-  $max_display = isset($_SESSION['max_display_search_results']) ? $_SESSION['max_display_search_results'] : MAX_DISPLAY_SEARCH_RESULTS;
+  $max_display = isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS;
 
   require(DIR_WS_MODULES . FILENAME_PRODUCT_LISTING);
   

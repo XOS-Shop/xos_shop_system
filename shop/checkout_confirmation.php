@@ -225,7 +225,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   $smarty->assign(array('form_begin' => xos_draw_form('checkout_confirmation', $form_action_url, 'post', 'onsubmit="return check_form();"'),
                         'form_end' => '</form>',
-                        'link_filename_popup_content_8' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'content_id=8', $request_type) : '',
+                        'link_filename_popup_content_8' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=8', $request_type) : '',
                         'order_products' => $order_products_array,
                         'billing_address' => xos_address_format($order->billing['format_id'], $order->billing, 1, ' ', '<br />'),
                         'payment_method' => $order->info['payment_method'],

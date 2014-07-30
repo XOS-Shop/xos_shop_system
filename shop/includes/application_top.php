@@ -366,57 +366,57 @@
 
     if (DISPLAY_CART == 'true' || $_SESSION['javascript_enabled'] != 'true') {
       $goto =  FILENAME_SHOPPING_CART;
-      $parameters = array('action', 'cPath', 'products_id', 'pid');
+      $parameters = array('action', 'c', 'p', 'pid');
     } else {
       $goto = basename($_SERVER['PHP_SELF']);
       if ($_GET['action'] == 'buy_now' && basename($_SERVER['PHP_SELF']) != FILENAME_PRODUCT_REVIEWS && basename($_SERVER['PHP_SELF']) != FILENAME_PRODUCT_REVIEWS_INFO && basename($_SERVER['PHP_SELF']) != FILENAME_PRODUCT_REVIEWS_WRITE) {
-        $parameters = array('action', 'pid', 'products_id');
+        $parameters = array('action', 'pid', 'p');
       } else {
         $parameters = array('action', 'pid');
       }
     }
     switch ($_GET['action']) {
       // customer wants to update the product quantity in their shopping cart and product listings
-      case 'update_product' : for ($i=0, $n=sizeof($_POST['products_id']); $i<$n; $i++) {
-                                if (in_array($_POST['products_id'][$i], (is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : array()))) {
-                                  $_SESSION['cart']->remove($_POST['products_id'][$i]);
+      case 'update_product' : for ($i=0, $n=sizeof($_POST['p']); $i<$n; $i++) {
+                                if (in_array($_POST['p'][$i], (is_array($_POST['cart_delete']) ? $_POST['cart_delete'] : array()))) {
+                                  $_SESSION['cart']->remove($_POST['p'][$i]);
                                 } else {
-                                  $attributes = ($_POST['id'][$_POST['products_id'][$i]]) ? $_POST['id'][$_POST['products_id'][$i]] : '';
-                                  $_SESSION['cart']->add_cart($_POST['products_id'][$i], $_POST['cart_quantity'][$i], $attributes, false);
+                                  $attributes = ($_POST['id'][$_POST['p'][$i]]) ? $_POST['id'][$_POST['p'][$i]] : '';
+                                  $_SESSION['cart']->add_cart($_POST['p'][$i], $_POST['cart_quantity'][$i], $attributes, false);
                                 }
                               }
                               xos_redirect(xos_href_link($goto, xos_get_all_get_params($parameters)));
                               break;
       // customer adds a product from the products page
-      case 'add_product' :    if (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
-                                if (xos_has_product_attributes($_POST['products_id']) && basename($_SERVER['PHP_SELF']) != FILENAME_PRODUCT_INFO) {
-                                  xos_redirect(xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $_POST['products_id'] . (isset($_GET['manufacturers_id']) ? '&manufacturers_id=' . $_GET['manufacturers_id'] : '')), false);
+      case 'add_product' :    if (isset($_POST['p']) && is_numeric($_POST['p'])) {
+                                if (xos_has_product_attributes($_POST['p']) && basename($_SERVER['PHP_SELF']) != FILENAME_PRODUCT_INFO) {
+                                  xos_redirect(xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $_POST['p'] . (isset($_GET['m']) ? '&m=' . $_GET['m'] : '')), false);
                                 } else {
                                   $attributes = isset($_POST['id']) ? $_POST['id'] : '';                               
-                                  $_SESSION['cart']->add_cart($_POST['products_id'], $_SESSION['cart']->get_quantity(xos_get_uprid($_POST['products_id'], $attributes))+($_POST['products_quantity']), $attributes);
+                                  $_SESSION['cart']->add_cart($_POST['p'], $_SESSION['cart']->get_quantity(xos_get_uprid($_POST['p'], $attributes))+($_POST['products_quantity']), $attributes);
                                 }  
                               }
                               xos_redirect(xos_href_link($goto, xos_get_all_get_params($parameters)), false);
                               break;
       // performed by the 'buy now' button in products new listing and review page
-      case 'buy_now' :        if (isset($_GET['products_id'])) {
-                                if (xos_has_product_attributes($_GET['products_id'])) {
-                                  xos_redirect(xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $_GET['products_id'] . (isset($_GET['manufacturers_id']) ? '&manufacturers_id=' . $_GET['manufacturers_id'] : '')));
+      case 'buy_now' :        if (isset($_GET['p'])) {
+                                if (xos_has_product_attributes($_GET['p'])) {
+                                  xos_redirect(xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $_GET['p'] . (isset($_GET['m']) ? '&m=' . $_GET['m'] : '')));
                                 } else {
-                                  $_SESSION['cart']->add_cart($_GET['products_id'], $_SESSION['cart']->get_quantity($_GET['products_id'])+1);
+                                  $_SESSION['cart']->add_cart($_GET['p'], $_SESSION['cart']->get_quantity($_GET['p'])+1);
                                 }
                               }
                               xos_redirect(xos_href_link($goto, xos_get_all_get_params($parameters)));
                               break;
       // customer wants to remove the product in their shopping cart
-      case 'remove_product' : if (isset($_GET['products_id'])) {
-                                  $_SESSION['cart']->remove($_GET['products_id']);
+      case 'remove_product' : if (isset($_GET['p'])) {
+                                  $_SESSION['cart']->remove($_GET['p']);
                               }
-                              xos_redirect(xos_href_link($goto, xos_get_all_get_params(array('action', 'products_id')) . $goto ==  FILENAME_SHOPPING_CART ? 'rmp=0' : ''));
+                              xos_redirect(xos_href_link($goto, xos_get_all_get_params(array('action', 'p')) . $goto ==  FILENAME_SHOPPING_CART ? 'rmp=0' : ''));
                               break;                              
       case 'notify' :         if (isset($_SESSION['customer_id'])) {
-                                if (isset($_GET['products_id'])) {
-                                  $notify = $_GET['products_id'];
+                                if (isset($_GET['p'])) {
+                                  $notify = $_GET['p'];
                                 } elseif (isset($_GET['notify'])) {
                                   $notify = $_GET['notify'];
                                 } elseif (isset($_POST['notify'])) {
@@ -438,11 +438,11 @@
                                 xos_redirect(xos_href_link(FILENAME_LOGIN, '', 'SSL'));
                               }
                               break;
-      case 'notify_remove' :  if (isset($_SESSION['customer_id']) && isset($_GET['products_id'])) {
-                                $check_query = xos_db_query("select count(*) as count from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . $_GET['products_id'] . "' and customers_id = '" . $_SESSION['customer_id'] . "'");
+      case 'notify_remove' :  if (isset($_SESSION['customer_id']) && isset($_GET['p'])) {
+                                $check_query = xos_db_query("select count(*) as count from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . $_GET['p'] . "' and customers_id = '" . $_SESSION['customer_id'] . "'");
                                 $check = xos_db_fetch_array($check_query);
                                 if ($check['count'] > 0) {
-                                  xos_db_query("delete from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . $_GET['products_id'] . "' and customers_id = '" . $_SESSION['customer_id'] . "'");
+                                  xos_db_query("delete from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . $_GET['p'] . "' and customers_id = '" . $_SESSION['customer_id'] . "'");
                                 }
                                 xos_redirect(xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('action'))));
                               } else {
@@ -452,7 +452,7 @@
                               break;
       case 'cust_order' :     if (isset($_SESSION['customer_id']) && isset($_GET['pid'])) {
                                 if (xos_has_product_attributes($_GET['pid'])) {
-                                  xos_redirect(xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $_GET['pid']));
+                                  xos_redirect(xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $_GET['pid']));
                                 } else {
                                   $_SESSION['cart']->add_cart($_GET['pid'], $_SESSION['cart']->get_quantity($_GET['pid'])+1);
                                 }
@@ -494,10 +494,10 @@
   if (CACHE_LEVEL > 0 && NEW_ORDER == 'true') xos_update_new_order_date();   
 
 // calculate category path
-  if (isset($_GET['cPath'])) {
-    $cPath = $_GET['cPath'];
-  } elseif (isset($_GET['products_id']) && !isset($_GET['manufacturers_id'])) {
-    $cPath = xos_get_product_path($_GET['products_id']);
+  if (isset($_GET['c'])) {
+    $cPath = $_GET['c'];
+  } elseif (isset($_GET['p']) && !isset($_GET['m'])) {
+    $cPath = xos_get_product_path($_GET['p']);
   } else {
     $cPath = '';
   }
@@ -524,43 +524,43 @@
       $categories_query = xos_db_query("select c.link_request_type, c.is_page, cpd.categories_or_pages_name from " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd left join " . TABLE_CATEGORIES_OR_PAGES . " c on cpd.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and cpd.categories_or_pages_id = '" . (int)$cPath_array[$i] . "' and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'");    
       if (xos_db_num_rows($categories_query) > 0) {
         $categories = xos_db_fetch_array($categories_query);
-        $site_trail->add($categories['categories_or_pages_name'], xos_href_link(FILENAME_DEFAULT, 'cPath=' . implode('_', array_slice($cPath_array, 0, ($i+1))), (!empty($categories['link_request_type']) ? $categories['link_request_type'] : 'NONSSL')));
+        $site_trail->add($categories['categories_or_pages_name'], xos_href_link(FILENAME_DEFAULT, 'c=' . implode('_', array_slice($cPath_array, 0, ($i+1))), (!empty($categories['link_request_type']) ? $categories['link_request_type'] : 'NONSSL')));
         $page_info = $categories['is_page'];
       } else {
         break;
       }
     }
-  } elseif (isset($_GET['manufacturers_id']) && (basename($_SERVER['PHP_SELF']) != FILENAME_SHOPPING_CART)) {  
-    $manufacturers_query = xos_db_query("select manufacturers_name from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . (int)$_GET['manufacturers_id'] . "' and languages_id = '" . (int)$_SESSION['languages_id'] . "'");
+  } elseif (isset($_GET['m']) && (basename($_SERVER['PHP_SELF']) != FILENAME_SHOPPING_CART)) {  
+    $manufacturers_query = xos_db_query("select manufacturers_name from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . (int)$_GET['m'] . "' and languages_id = '" . (int)$_SESSION['languages_id'] . "'");
     if (xos_db_num_rows($manufacturers_query)) {
       $manufacturers = xos_db_fetch_array($manufacturers_query);
-      $site_trail->add($manufacturers['manufacturers_name'], xos_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $_GET['manufacturers_id']));
+      $site_trail->add($manufacturers['manufacturers_name'], xos_href_link(FILENAME_DEFAULT, 'm=' . $_GET['m']));
       $page_info = 'false';
     }
   } 
 /*
 // add the products model to the site trail
-  if (isset($_GET['products_id'])) {
-    $model_query = xos_db_query("select p.products_model from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p.products_id = p2c.products_id left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id, " . TABLE_PRODUCTS_DESCRIPTION . "  pd where c.categories_or_pages_status = '1' and p.products_id = '" . (int)$_GET['products_id'] . "' and p.products_id = pd.products_id");
+  if (isset($_GET['p'])) {
+    $model_query = xos_db_query("select p.products_model from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p.products_id = p2c.products_id left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id, " . TABLE_PRODUCTS_DESCRIPTION . "  pd where c.categories_or_pages_status = '1' and p.products_id = '" . (int)$_GET['p'] . "' and p.products_id = pd.products_id");
     if (xos_db_num_rows($model_query)) {
       $model = xos_db_fetch_array($model_query);
-      if (isset($_GET['manufacturers_id'])) {
-        $site_trail->add($model['products_model'], xos_href_link(FILENAME_PRODUCT_INFO, 'manufacturers_id=' . $_GET['manufacturers_id'] . '&products_id=' . $_GET['products_id']));
+      if (isset($_GET['m'])) {
+        $site_trail->add($model['products_model'], xos_href_link(FILENAME_PRODUCT_INFO, 'm=' . $_GET['m'] . '&p=' . $_GET['p']));
       } else { 
-        $site_trail->add($model['products_model'], xos_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $_GET['products_id']));
+        $site_trail->add($model['products_model'], xos_href_link(FILENAME_PRODUCT_INFO, 'c=' . $cPath . '&p=' . $_GET['p']));
       }
     }
   }
 */
 // add the products name to the site trail
-  if (isset($_GET['products_id'])) {
-    $name_query = xos_db_query("select pd.products_name from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p.products_id = p2c.products_id left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id, " . TABLE_PRODUCTS_DESCRIPTION . "  pd where p.products_status = '1' and c.categories_or_pages_status = '1' and p.products_id = '" . (int)$_GET['products_id'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
+  if (isset($_GET['p'])) {
+    $name_query = xos_db_query("select pd.products_name from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p.products_id = p2c.products_id left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id, " . TABLE_PRODUCTS_DESCRIPTION . "  pd where p.products_status = '1' and c.categories_or_pages_status = '1' and p.products_id = '" . (int)$_GET['p'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
     if (xos_db_num_rows($name_query)) {
       $name = xos_db_fetch_array($name_query);
-      if (isset($_GET['manufacturers_id'])) {      
-        $site_trail->add($name['products_name'], xos_href_link(FILENAME_PRODUCT_INFO, 'manufacturers_id=' . $_GET['manufacturers_id'] . '&products_id=' . $_GET['products_id']));        
+      if (isset($_GET['m'])) {      
+        $site_trail->add($name['products_name'], xos_href_link(FILENAME_PRODUCT_INFO, 'm=' . $_GET['m'] . '&p=' . $_GET['p']));        
       } else {
-        $site_trail->add($name['products_name'], xos_href_link(FILENAME_PRODUCT_INFO, 'cPath=' . $cPath . '&products_id=' . $_GET['products_id']));
+        $site_trail->add($name['products_name'], xos_href_link(FILENAME_PRODUCT_INFO, 'c=' . $cPath . '&p=' . $_GET['p']));
       }
     }
   }
@@ -594,7 +594,7 @@
   $smarty->assign(array('nl' => "\n",
                         'is_shop' => $is_shop,
                         'page_info' => $page_info,                        
-                        'link_filename_popup_content_6' => STATUS_POPUP_CONTENT_6 == '1' ? xos_href_link(FILENAME_POPUP_CONTENT, 'content_id=6', $request_type) : '',
+                        'link_filename_popup_content_6' => STATUS_POPUP_CONTENT_6 == '1' ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=6', $request_type) : '',
                         'end_tags' => (DISPLAY_PAGE_PARSE_TIME == 'true' && STORE_PAGE_PARSE_TIME == 'true' ? $templateIntegration->getBlocks('footer_scripts') : $templateIntegration->getBlocks('footer_scripts') . "</body>\n</html>"),
                         'date_format_long' => xos_date_format(DATE_FORMAT_LONG),
                         'languages_path' => DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $_SESSION['language'] . '/',

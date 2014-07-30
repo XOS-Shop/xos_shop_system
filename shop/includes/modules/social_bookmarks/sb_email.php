@@ -51,7 +51,7 @@
 
     function getOutput() {
 
-      return SEND_EMAILS == 'true' ? '<a href="' . xos_href_link(FILENAME_TELL_A_FRIEND, 'products_id=' . (int)$_GET['products_id'], 'SSL') . '"><img src="' . DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/icons_social_bookmarks/' . $this->icon . '" style="border: 0;" title="' . xos_output_string_protected($this->public_title) . '" alt="' . xos_output_string_protected($this->public_title) . '" /></a>' : '';
+      return SEND_EMAILS == 'true' ? '<a href="' . xos_href_link(FILENAME_TELL_A_FRIEND, 'p=' . (int)$_GET['p'], 'SSL') . '"><img src="' . DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/icons_social_bookmarks/' . $this->icon . '" style="border: 0;" title="' . xos_output_string_protected($this->public_title) . '" alt="' . xos_output_string_protected($this->public_title) . '" /></a>' : '';
     }
 
     function isEnabled() {

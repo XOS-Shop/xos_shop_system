@@ -72,8 +72,8 @@
 	        }			
         }
 
-        if ( (MODULE_HEADER_TAGS_PIWIK_EC_TRACKING == 'true') && (basename($_SERVER['PHP_SELF']) == FILENAME_PRODUCT_INFO) && ($_GET['products_id'] != '') ) {
-          $products_query = xos_db_query("select p.products_id, pd.products_name, cd.categories_or_pages_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, ". TABLE_CATEGORIES_OR_PAGES_DATA ." cd, " . TABLE_LANGUAGES . " l WHERE p.products_id = pd.products_id and p2c.categories_or_pages_id = cd.categories_or_pages_id and p.products_id = " . (int)$_GET['products_id'] . " and l.code = '" . xos_db_input(DEFAULT_LANGUAGE) . "' and l.languages_id = cd.language_id and l.languages_id = pd.language_id");
+        if ( (MODULE_HEADER_TAGS_PIWIK_EC_TRACKING == 'true') && (basename($_SERVER['PHP_SELF']) == FILENAME_PRODUCT_INFO) && ($_GET['p'] != '') ) {
+          $products_query = xos_db_query("select p.products_id, pd.products_name, cd.categories_or_pages_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, ". TABLE_CATEGORIES_OR_PAGES_DATA ." cd, " . TABLE_LANGUAGES . " l WHERE p.products_id = pd.products_id and p2c.categories_or_pages_id = cd.categories_or_pages_id and p.products_id = " . (int)$_GET['p'] . " and l.code = '" . xos_db_input(DEFAULT_LANGUAGE) . "' and l.languages_id = cd.language_id and l.languages_id = pd.language_id");
 	        $products = xos_db_fetch_array($products_query);	
 
           $piwikCode .= '  _paq.push([\'setEcommerceView\',"' . (int)$products['products_id'] . '","' . xos_output_string($products['products_name']) . '","' . xos_output_string($products['categories_or_pages_name']) . '"]);' . "\n";

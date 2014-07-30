@@ -34,7 +34,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
     $smarty->caching = 1;
     $cat_cache_id = 'L3|box_categories|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $cPath . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'];
-    $tab_cache_id = 'L3|box_tabs|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $cPath . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . basename($_SERVER['PHP_SELF']) . '-' . $_GET['manufacturers_id'] . '-' . $_GET['content_id'];
+    $tab_cache_id = 'L3|box_tabs|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $cPath . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . basename($_SERVER['PHP_SELF']) . '-' . $_GET['m'] . '-' . $_GET['co'];
   }
   
   if(!$smarty->isCached(SELECTED_TPL . '/includes/boxes/categories.tpl', $cat_cache_id) || !$smarty->isCached(SELECTED_TPL . '/includes/boxes/tabs.tpl', $tab_cache_id)){
@@ -48,7 +48,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
           $class_name = (xos_has_category_subcategories($counter) ? ($cPath_array && in_array($counter, $cPath_array) ? 'main-cat-selected' : 'main-cat') : ($cPath_array && in_array($counter, $cPath_array) ? 'main-cat-last-selected' : 'main-cat-last'));
           if ($cPath_array && in_array($counter, $cPath_array)) {
             $category_name = $tree[$counter]['name']; 
-            $category_href_link = xos_href_link(FILENAME_DEFAULT, 'cPath=' . $tree[$counter]['path'], (!empty($tree[$counter]['link_request_type']) ? $tree[$counter]['link_request_type'] : 'NONSSL'));         
+            $category_href_link = xos_href_link(FILENAME_DEFAULT, 'c=' . $tree[$counter]['path'], (!empty($tree[$counter]['link_request_type']) ? $tree[$counter]['link_request_type'] : 'NONSSL'));         
             $tab_class_name = 'tab-selected';
             if (xos_has_category_subcategories($counter)) $category_selected = true;
           } else {
@@ -64,7 +64,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
           $class_name = (xos_has_category_subcategories($counter) ? ($cPath_array && in_array($counter, $cPath_array) ? 'sub-cat-level4-selected' : 'sub-cat-level4') : ($cPath_array && in_array($counter, $cPath_array) ? 'sub-cat-level4-last-selected' : 'sub-cat-level4-last'));
         } 
 
-        $cPath_new = 'cPath=' . $tree[$counter]['path'];
+        $cPath_new = 'c=' . $tree[$counter]['path'];
         
         if (SHOW_EMPTY_CATEGORIES == 'false' || SHOW_COUNTS == 'true') {
           $products_in_category = xos_count_products_in_category($counter);
@@ -145,11 +145,11 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
 
     $category_selected = false;
     
-    $tabs_array[]=array('class_name' => (stristr(basename($_SERVER['PHP_SELF']),FILENAME_DEFAULT) && !$_GET[manufacturers_id] && !isset($cPath_array) ? 'tab-selected' : 'tab'),
+    $tabs_array[]=array('class_name' => (stristr(basename($_SERVER['PHP_SELF']),FILENAME_DEFAULT) && !$_GET['m'] && !isset($cPath_array) ? 'tab-selected' : 'tab'),
                         'href_link' => xos_href_link(FILENAME_DEFAULT),
                         'name' => 'SMARTY_SHOP_HOME');
                         
-    $full_tabs_array[]=array('class_name' => (stristr(basename($_SERVER['PHP_SELF']),FILENAME_DEFAULT) && !$_GET[manufacturers_id] && !isset($cPath_array) ? 'main-cat-last-selected' : 'main-cat-last'),
+    $full_tabs_array[]=array('class_name' => (stristr(basename($_SERVER['PHP_SELF']),FILENAME_DEFAULT) && !$_GET['m'] && !isset($cPath_array) ? 'main-cat-last-selected' : 'main-cat-last'),
                              'level' => 0,
                              'level_will_change' => '',
                              'href_link' => xos_href_link(FILENAME_DEFAULT),

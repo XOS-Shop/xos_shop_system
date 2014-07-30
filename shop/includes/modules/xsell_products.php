@@ -31,8 +31,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/modules/xsell_products.php') == 'overwrite_all')) :
-  if (isset($_GET['products_id'])) {
-    $xsell_query = xos_db_query("select distinct p.products_id, p.products_image, pd.products_name, pd.products_info, p.products_tax_class_id, p.products_price from " . TABLE_PRODUCTS_XSELL . " xp, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where xp.products_id = '" . (int)$_GET['products_id'] . "' and xp.xsell_id = p.products_id and p.products_id = pd.products_id and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_status = '1' and c.categories_or_pages_status = '1' order by xp.sort_order ");  
+  if (isset($_GET['p'])) {
+    $xsell_query = xos_db_query("select distinct p.products_id, p.products_image, pd.products_name, pd.products_info, p.products_tax_class_id, p.products_price from " . TABLE_PRODUCTS_XSELL . " xp, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where xp.products_id = '" . (int)$_GET['p'] . "' and xp.xsell_id = p.products_id and p.products_id = pd.products_id and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_status = '1' and c.categories_or_pages_status = '1' order by xp.sort_order ");  
     $num_products_xsell = xos_db_num_rows($xsell_query);
     if ($num_products_xsell > 0) {
     
@@ -76,7 +76,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
         
         $xsell_products_image = xos_get_product_images($xsell['products_image']);     
                                                
-        $xsell_products_array[]=array('link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $xsell['products_id']),
+        $xsell_products_array[]=array('link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $xsell['products_id']),
                                       'image' => xos_image(DIR_WS_IMAGES . 'products/small/' . rawurlencode($xsell_products_image['name']), $xsell['products_name']),
                                       'info' => $xsell['products_info'],
                                       'price' => $xsell_product_price,

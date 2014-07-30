@@ -47,8 +47,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       $manufacturers_array[] = array('id' => $manufacturers['manufacturers_id'],
                                      'text' => $manufacturers_name); 
                                                
-      if (isset($_GET['manufacturers_id']) && ($_GET['manufacturers_id'] == $manufacturers['manufacturers_id'])) $manufacturers_name = '<b>' . $manufacturers_name .'</b>';
-      $manufacturers_content_noscript .= '<a href="' . xos_href_link(FILENAME_DEFAULT, 'manufacturers_id=' . $manufacturers['manufacturers_id']) . '">' . $manufacturers_name . '</a><br />';
+      if (isset($_GET['m']) && ($_GET['m'] == $manufacturers['manufacturers_id'])) $manufacturers_name = '<b>' . $manufacturers_name .'</b>';
+      $manufacturers_content_noscript .= '<a href="' . xos_href_link(FILENAME_DEFAULT, 'm=' . $manufacturers['manufacturers_id']) . '">' . $manufacturers_name . '</a><br />';
     }
     $manufacturers_content_noscript = substr($manufacturers_content_noscript, 0, -6);
 
@@ -66,7 +66,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     }    
 
     $manufacturers_content = xos_draw_form('manufacturers', xos_href_link(FILENAME_DEFAULT, '', $request_type, false, true, false, false, false), 'get');
-    $manufacturers_content .= xos_draw_pull_down_menu('manufacturers_id', $manufacturers_array, (isset($_GET['manufacturers_id']) ? $_GET['manufacturers_id'] : ''), 'onchange="this.form.submit();" size="' . MAX_MANUFACTURERS_LIST . '" style="width: 95%"') . $hidden_get_variables . xos_hide_session_id();
+    $manufacturers_content .= xos_draw_pull_down_menu('m', $manufacturers_array, (isset($_GET['m']) ? $_GET['m'] : ''), 'onchange="this.form.submit();" size="' . MAX_MANUFACTURERS_LIST . '" style="width: 95%"') . $hidden_get_variables . xos_hide_session_id();
     $manufacturers_content .= '</form>';
                                    
 

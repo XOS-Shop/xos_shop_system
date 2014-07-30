@@ -65,18 +65,18 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
   if ($category_depth == 'nested') {
   
     if (DISPLAY_PRODUCT_LISTING_IN_PARENT_CATEGORY == 'true') {
-      is_numeric($_GET['max_display_products_in_category']) && $_GET['max_display_products_in_category'] >= 1 ? $_SESSION['max_display_products_in_category'] = $_GET['max_display_products_in_category'] : '';
+      is_numeric($_GET['mdpc']) && $_GET['mdpc'] >= 1 ? $_SESSION['mdpc'] = $_GET['mdpc'] : '';
 
-      if ($_GET['products_in_c_view'] == 'list') { 
-        $_SESSION['products_in_c_view'] = 'list'; 
-      } elseif ($_GET['products_in_c_view'] == 'grid') { 
-        $_SESSION['products_in_c_view'] = 'grid';
+      if ($_GET['pcv'] == 'list') { 
+        $_SESSION['pcv'] = 'list'; 
+      } elseif ($_GET['pcv'] == 'grid') { 
+        $_SESSION['pcv'] = 'grid';
       }
     }  
         
     if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
       $smarty->caching = 1;
-      $cache_id = 'L3|cc_index_categories|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['cPath'] . '-' . $_GET['sort'] . '-' . $_GET['page'] . '-' . $_GET['filter_id'] . '-' . $current_category_id . '-' . $_SESSION['max_display_products_in_category'] . '-' . $_SESSION['products_in_c_view'];
+      $cache_id = 'L3|cc_index_categories|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['c'] . '-' . $_GET['sort'] . '-' . $_GET['page'] . '-' . $_GET['filter'] . '-' . $current_category_id . '-' . $_SESSION['mdpc'] . '-' . $_SESSION['pcv'];
     }    
     
     $category_query = xos_db_query("select cpd.categories_or_pages_name, cpd.categories_or_pages_heading_title, cpd.categories_or_pages_content, c.categories_image, c.product_list_b from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = '" . (int)$current_category_id . "' and cpd.categories_or_pages_id = '" . (int)$current_category_id . "' and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
@@ -85,7 +85,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
     if (DISPLAY_PRODUCT_LISTING_IN_PARENT_CATEGORY == 'true') {
       if ($session_started) {
         $pull_down_menu_display_products_in_category = xos_draw_form('display_products_in_category', xos_href_link(FILENAME_DEFAULT, '', 'NONSSL', false, true, false, false, false), 'get') . xos_hide_session_id();
-        $pull_down_menu_display_products_in_category .= xos_draw_hidden_field('cPath', $cPath) . xos_draw_hidden_field('sort', $_GET['sort']) . xos_draw_hidden_field('filter_id', $_GET['filter_id']);
+        $pull_down_menu_display_products_in_category .= xos_draw_hidden_field('c', $cPath) . xos_draw_hidden_field('sort', $_GET['sort']) . xos_draw_hidden_field('filter', $_GET['filter']);
         $max_display_products_in_category_array = array();
         $set = false;
         for ($i = 10; $i <=50 ; $i=$i+10) {  
@@ -101,18 +101,18 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
           $max_display_products_in_category_array[] = array('id' => MAX_DISPLAY_PRODUCTS_IN_CATEGORY, 'text' => MAX_DISPLAY_PRODUCTS_IN_CATEGORY . TEXT_MAX_PRODUCTS);
         }      
         $pull_down_menu_display_products_in_category_noscript = $pull_down_menu_display_products_in_category;
-        $pull_down_menu_display_products_in_category .= xos_draw_pull_down_menu('max_display_products_in_category', $max_display_products_in_category_array, (isset($_SESSION['max_display_products_in_category']) ? $_SESSION['max_display_products_in_category'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'id="max_display_products_in_category" onchange="this.form.submit()"') . '</form>';
-        $pull_down_menu_display_products_in_category_noscript .= xos_draw_pull_down_menu('max_display_products_in_category', $max_display_products_in_category_array, (isset($_SESSION['max_display_products_in_category']) ? $_SESSION['max_display_products_in_category'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'id="max_display_products_in_category"');    
+        $pull_down_menu_display_products_in_category .= xos_draw_pull_down_menu('mdpc', $max_display_products_in_category_array, (isset($_SESSION['mdpc']) ? $_SESSION['mdpc'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'id="mdpc" onchange="this.form.submit()"') . '</form>';
+        $pull_down_menu_display_products_in_category_noscript .= xos_draw_pull_down_menu('mdpc', $max_display_products_in_category_array, (isset($_SESSION['mdpc']) ? $_SESSION['mdpc'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'id="mdpc"');    
 
-        $link_switch_products_in_c_view = xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('products_in_c_view', 'sort', 'page')) . 'products_in_c_view=' . ((($category['product_list_b'] == 1 && $_SESSION['products_in_c_view'] != 'list') || (!isset($_GET['manufacturers_id']) && $_SESSION['products_in_c_view'] == 'grid')) ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
+        $link_switch_products_in_c_view = xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('pcv', 'sort', 'page')) . 'pcv=' . ((($category['product_list_b'] == 1 && $_SESSION['pcv'] != 'list') || (!isset($_GET['m']) && $_SESSION['pcv'] == 'grid')) ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
       }
     
-      $max_display = isset($_SESSION['max_display_products_in_category']) ? $_SESSION['max_display_products_in_category'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY;
+      $max_display = isset($_SESSION['mdpc']) ? $_SESSION['mdpc'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY;
             
       $smarty->assign(array('pull_down_menu_display_products' => $pull_down_menu_display_products_in_category,
                             'pull_down_menu_display_products_noscript_begin' => $pull_down_menu_display_products_in_category_noscript,
                             'pull_down_menu_display_products_noscript_end' => '</form>',
-                            'label_for_max_display_products' => 'max_display_products_in_category',
+                            'label_for_max_display_products' => 'mdpc',
                             'link_switch_view' => $link_switch_products_in_c_view));
     }                
 
@@ -175,7 +175,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
       $new_products_category_id = $current_category_id;                       
       
       if (DISPLAY_PRODUCT_LISTING_IN_PARENT_CATEGORY == 'true') {
-        if(($category['product_list_b'] == 1 && $_SESSION['products_in_c_view'] != 'list') || $_SESSION['products_in_c_view'] == 'grid') {
+        if(($category['product_list_b'] == 1 && $_SESSION['pcv'] != 'list') || $_SESSION['pcv'] == 'grid') {
       
           $product_list_b = true;
       
@@ -270,12 +270,12 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
         $subcategories_str .= ")";
 
 // show the products in a given categorie
-        if (isset($_GET['filter_id']) && xos_not_null($_GET['filter_id'])) {
+        if (isset($_GET['filter']) && xos_not_null($_GET['filter'])) {
 // We are asked to show only specific catgeory
           if (($_SESSION['sppc_customer_group_show_tax'] == '1') && ($_SESSION['sppc_customer_group_tax_exempt'] != '1')) {      
-            $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, (IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * if(tr.tax_rate_final is null, 1, 1 + (tr.tax_rate_final / 100))) as final_price, tr.tax_rate_final from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_ZONES_TO_GEO_ZONES . " gz on (gz.zone_country_id is null or gz.zone_country_id = '0' or gz.zone_country_id = '" . (int)$customer_country_id . "') and (gz.zone_id is null or gz.zone_id = '0' or gz.zone_id = '" . (int)$customer_zone_id . "') left join " . TABLE_TAX_RATES_FINAL . " tr on p.products_tax_class_id = tr.tax_class_id and gz.geo_zone_id = tr.tax_zone_id," . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and mi.manufacturers_id = '" . (int)$_GET['filter_id'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' " . $subcategories_str . " group by p.products_id";        
+            $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, (IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * if(tr.tax_rate_final is null, 1, 1 + (tr.tax_rate_final / 100))) as final_price, tr.tax_rate_final from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_ZONES_TO_GEO_ZONES . " gz on (gz.zone_country_id is null or gz.zone_country_id = '0' or gz.zone_country_id = '" . (int)$customer_country_id . "') and (gz.zone_id is null or gz.zone_id = '0' or gz.zone_id = '" . (int)$customer_zone_id . "') left join " . TABLE_TAX_RATES_FINAL . " tr on p.products_tax_class_id = tr.tax_class_id and gz.geo_zone_id = tr.tax_zone_id," . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and mi.manufacturers_id = '" . (int)$_GET['filter'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' " . $subcategories_str . " group by p.products_id";        
           } else {
-            $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) as final_price from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "'," . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and mi.manufacturers_id = '" . (int)$_GET['filter_id'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' " . $subcategories_str . "";
+            $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) as final_price from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "'," . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and mi.manufacturers_id = '" . (int)$_GET['filter'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' " . $subcategories_str . "";
           }
         } else {
 // We show them all
@@ -350,22 +350,22 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
             } 
         
             $pull_down_menu = xos_draw_form('filter', xos_href_link(FILENAME_DEFAULT, '', $request_type, false, true, false, false, false), 'get') . $hidden_get_variables . xos_hide_session_id();
-            $pull_down_menu .= xos_draw_hidden_field('cPath', $cPath);
+            $pull_down_menu .= xos_draw_hidden_field('c', $cPath);
             $options = array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS));
             $pull_down_menu .= xos_draw_hidden_field('sort', $_GET['sort']);
             while ($filterlist = xos_db_fetch_array($filterlist_query)) {
               $options[] = array('id' => $filterlist['id'], 'text' => $filterlist['name']);
             }
             $pull_down_menu_noscript = $pull_down_menu;
-            $pull_down_menu .= xos_draw_pull_down_menu('filter_id', $options, (isset($_GET['filter_id']) ? $_GET['filter_id'] : ''), 'id="filter_id" onchange="this.form.submit()"') . '</form>';
-            $pull_down_menu_noscript .= xos_draw_pull_down_menu('filter_id', $options, (isset($_GET['filter_id']) ? $_GET['filter_id'] : ''), 'id="filter_id"'); 
+            $pull_down_menu .= xos_draw_pull_down_menu('filter', $options, (isset($_GET['filter']) ? $_GET['filter'] : ''), 'id="filter" onchange="this.form.submit()"') . '</form>';
+            $pull_down_menu_noscript .= xos_draw_pull_down_menu('filter', $options, (isset($_GET['filter']) ? $_GET['filter'] : ''), 'id="filter"'); 
           }
         }
 
         $smarty->assign(array('pull_down_menu' => $pull_down_menu,
                               'pull_down_menu_noscript_begin' => $pull_down_menu_noscript,
                               'pull_down_menu_noscript_end' => '</form>',
-                              'label_for_pull_down_menu' => 'filter_id'));
+                              'label_for_pull_down_menu' => 'filter'));
       }                          
     
       $smarty->caching = 0;
@@ -381,29 +381,29 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
       }            
     }    
 
-  } elseif ($category_depth == 'products' || !empty($_GET['manufacturers_id'])) { 
+  } elseif ($category_depth == 'products' || !empty($_GET['m'])) { 
                              
-    if (isset($_GET['manufacturers_id'])) { 
+    if (isset($_GET['m'])) { 
 
-      is_numeric($_GET['max_display_products_of_manufacturer']) && $_GET['max_display_products_of_manufacturer'] >= 1 ? $_SESSION['max_display_products_of_manufacturer'] = $_GET['max_display_products_of_manufacturer'] : '';
+      is_numeric($_GET['mdpm']) && $_GET['mdpm'] >= 1 ? $_SESSION['mdpm'] = $_GET['mdpm'] : '';
 
-      if ($_GET['products_of_m_view'] == 'list') { 
-        $_SESSION['products_of_m_view'] = 'list'; 
-      } elseif ($_GET['products_of_m_view'] == 'grid') { 
-        $_SESSION['products_of_m_view'] = 'grid';
+      if ($_GET['pmv'] == 'list') { 
+        $_SESSION['pmv'] = 'list'; 
+      } elseif ($_GET['pmv'] == 'grid') { 
+        $_SESSION['pmv'] = 'grid';
       }
     
       if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
         $smarty->caching = 1;
-        $cache_id = 'L3|cc_index_manufacturers|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['manufacturers_id'] . '-' . $_GET['sort'] . '-' . $_GET['page'] . '-' . $_GET['filter_id'] . '-' . $_SESSION['max_display_products_of_manufacturer'] . '-' . $_SESSION['products_of_m_view'];
+        $cache_id = 'L3|cc_index_manufacturers|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['m'] . '-' . $_GET['sort'] . '-' . $_GET['page'] . '-' . $_GET['filter'] . '-' . $_SESSION['mdpm'] . '-' . $_SESSION['pmv'];
       }    
         
-      $manufacturer_query = xos_db_query("select m.manufacturers_image, mi.manufacturers_name from " . TABLE_MANUFACTURERS . " m, " . TABLE_MANUFACTURERS_INFO . " mi where m.manufacturers_id = mi.manufacturers_id and m.manufacturers_id = '" . (int)$_GET['manufacturers_id'] . "' and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "'");
+      $manufacturer_query = xos_db_query("select m.manufacturers_image, mi.manufacturers_name from " . TABLE_MANUFACTURERS . " m, " . TABLE_MANUFACTURERS_INFO . " mi where m.manufacturers_id = mi.manufacturers_id and m.manufacturers_id = '" . (int)$_GET['m'] . "' and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "'");
       $manufacturer = xos_db_fetch_array($manufacturer_query);      
 
       if ($session_started) {
         $pull_down_menu_display_products_of_manufacturer = xos_draw_form('display_products_of_manufacturer', xos_href_link(FILENAME_DEFAULT, '', $request_type, false, true, false, false, false), 'get') . xos_hide_session_id();
-        $pull_down_menu_display_products_of_manufacturer .= xos_draw_hidden_field('manufacturers_id', $_GET['manufacturers_id']) . xos_draw_hidden_field('sort', $_GET['sort']) . xos_draw_hidden_field('filter_id', $_GET['filter_id']);
+        $pull_down_menu_display_products_of_manufacturer .= xos_draw_hidden_field('m', $_GET['m']) . xos_draw_hidden_field('sort', $_GET['sort']) . xos_draw_hidden_field('filter', $_GET['filter']);
         $max_display_products_of_manufacturer_array = array();
         $set = false;
         for ($i = 10; $i <=50 ; $i=$i+10) {  
@@ -419,13 +419,13 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
           $max_display_products_of_manufacturer_array[] = array('id' => MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER, 'text' => MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER . TEXT_MAX_PRODUCTS);
         }      
         $pull_down_menu_display_products_of_manufacturer_noscript = $pull_down_menu_display_products_of_manufacturer;
-        $pull_down_menu_display_products_of_manufacturer .= xos_draw_pull_down_menu('max_display_products_of_manufacturer', $max_display_products_of_manufacturer_array, (isset($_SESSION['max_display_products_of_manufacturer']) ? $_SESSION['max_display_products_of_manufacturer'] : MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER), 'id="max_display_products_of_manufacturer" onchange="this.form.submit()"') . '</form>';
-        $pull_down_menu_display_products_of_manufacturer_noscript .= xos_draw_pull_down_menu('max_display_products_of_manufacturer', $max_display_products_of_manufacturer_array, (isset($_SESSION['max_display_products_of_manufacturer']) ? $_SESSION['max_display_products_of_manufacturer'] : MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER), 'id="max_display_products_of_manufacturer"');    
+        $pull_down_menu_display_products_of_manufacturer .= xos_draw_pull_down_menu('mdpm', $max_display_products_of_manufacturer_array, (isset($_SESSION['mdpm']) ? $_SESSION['mdpm'] : MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER), 'id="mdpm" onchange="this.form.submit()"') . '</form>';
+        $pull_down_menu_display_products_of_manufacturer_noscript .= xos_draw_pull_down_menu('mdpm', $max_display_products_of_manufacturer_array, (isset($_SESSION['mdpm']) ? $_SESSION['mdpm'] : MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER), 'id="mdpm"');    
 
-        $link_switch_products_of_m_view = xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('products_of_m_view', 'sort', 'page')) . 'products_of_m_view=' . (((isset($_GET['manufacturers_id']) && $_SESSION['products_of_m_view'] != 'list' && PRODUCT_LISTS_FOR_MANUFACTURERS == 'B') || (isset($_GET['manufacturers_id']) && $_SESSION['products_of_m_view'] == 'grid')) ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
+        $link_switch_products_of_m_view = xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('pmv', 'sort', 'page')) . 'pmv=' . (((isset($_GET['m']) && $_SESSION['pmv'] != 'list' && PRODUCT_LISTS_FOR_MANUFACTURERS == 'B') || (isset($_GET['m']) && $_SESSION['pmv'] == 'grid')) ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
       }
 
-      $max_display = isset($_SESSION['max_display_products_of_manufacturer']) ? $_SESSION['max_display_products_of_manufacturer'] : MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER;
+      $max_display = isset($_SESSION['mdpm']) ? $_SESSION['mdpm'] : MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER;
       
       $smarty->assign(array('manufacturer' => true,
                             'heading_title' => $manufacturer['manufacturers_name'],
@@ -433,22 +433,22 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
                             'pull_down_menu_display_products' => $pull_down_menu_display_products_of_manufacturer,
                             'pull_down_menu_display_products_noscript_begin' => $pull_down_menu_display_products_of_manufacturer_noscript,
                             'pull_down_menu_display_products_noscript_end' => '</form>',
-                            'label_for_max_display_products' => 'max_display_products_of_manufacturer',
+                            'label_for_max_display_products' => 'mdpm',
                             'link_switch_view' => $link_switch_products_of_m_view)); 
             
     } elseif ($current_category_id) {
 
-      is_numeric($_GET['max_display_products_in_category']) && $_GET['max_display_products_in_category'] >= 1 ? $_SESSION['max_display_products_in_category'] = $_GET['max_display_products_in_category'] : '';
+      is_numeric($_GET['mdpc']) && $_GET['mdpc'] >= 1 ? $_SESSION['mdpc'] = $_GET['mdpc'] : '';
 
-      if ($_GET['products_in_c_view'] == 'list') { 
-        $_SESSION['products_in_c_view'] = 'list'; 
-      } elseif ($_GET['products_in_c_view'] == 'grid') { 
-        $_SESSION['products_in_c_view'] = 'grid';
+      if ($_GET['pcv'] == 'list') { 
+        $_SESSION['pcv'] = 'list'; 
+      } elseif ($_GET['pcv'] == 'grid') { 
+        $_SESSION['pcv'] = 'grid';
       }
         
       if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
         $smarty->caching = 1;
-        $cache_id = 'L3|cc_index_products|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['cPath'] . '-' . $_GET['sort'] . '-' . $_GET['page'] . '-' . $_GET['filter_id'] . '-' . $current_category_id . '-' . $_SESSION['max_display_products_in_category'] . '-' . $_SESSION['products_in_c_view'];
+        $cache_id = 'L3|cc_index_products|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['c'] . '-' . $_GET['sort'] . '-' . $_GET['page'] . '-' . $_GET['filter'] . '-' . $current_category_id . '-' . $_SESSION['mdpc'] . '-' . $_SESSION['pcv'];
       }    
     
       $category_query = xos_db_query("select cpd.categories_or_pages_name, cpd.categories_or_pages_heading_title, cpd.categories_or_pages_content, cpd.categories_or_pages_php_source, c.categories_image, c.product_list_b from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = '" . (int)$current_category_id . "' and cpd.categories_or_pages_id = '" . (int)$current_category_id . "' and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'");      
@@ -457,7 +457,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
 
       if ($session_started) {
         $pull_down_menu_display_products_in_category = xos_draw_form('display_products_in_category', xos_href_link(FILENAME_DEFAULT, '', 'NONSSL', false, true, false, false, false), 'get') . xos_hide_session_id();
-        $pull_down_menu_display_products_in_category .= xos_draw_hidden_field('cPath', $cPath) . xos_draw_hidden_field('sort', $_GET['sort']) . xos_draw_hidden_field('filter_id', $_GET['filter_id']);
+        $pull_down_menu_display_products_in_category .= xos_draw_hidden_field('c', $cPath) . xos_draw_hidden_field('sort', $_GET['sort']) . xos_draw_hidden_field('filter', $_GET['filter']);
         $max_display_products_in_category_array = array();
         $set = false;
         for ($i = 10; $i <=50 ; $i=$i+10) {  
@@ -473,13 +473,13 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
           $max_display_products_in_category_array[] = array('id' => MAX_DISPLAY_PRODUCTS_IN_CATEGORY, 'text' => MAX_DISPLAY_PRODUCTS_IN_CATEGORY . TEXT_MAX_PRODUCTS);
         }      
         $pull_down_menu_display_products_in_category_noscript = $pull_down_menu_display_products_in_category;
-        $pull_down_menu_display_products_in_category .= xos_draw_pull_down_menu('max_display_products_in_category', $max_display_products_in_category_array, (isset($_SESSION['max_display_products_in_category']) ? $_SESSION['max_display_products_in_category'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'id="max_display_products_in_category" onchange="this.form.submit()"') . '</form>';
-        $pull_down_menu_display_products_in_category_noscript .= xos_draw_pull_down_menu('max_display_products_in_category', $max_display_products_in_category_array, (isset($_SESSION['max_display_products_in_category']) ? $_SESSION['max_display_products_in_category'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'id="max_display_products_in_category"');    
+        $pull_down_menu_display_products_in_category .= xos_draw_pull_down_menu('mdpc', $max_display_products_in_category_array, (isset($_SESSION['mdpc']) ? $_SESSION['mdpc'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'id="mdpc" onchange="this.form.submit()"') . '</form>';
+        $pull_down_menu_display_products_in_category_noscript .= xos_draw_pull_down_menu('mdpc', $max_display_products_in_category_array, (isset($_SESSION['mdpc']) ? $_SESSION['mdpc'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'id="mdpc"');    
 
-        $link_switch_products_in_c_view = xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('products_in_c_view', 'sort', 'page')) . 'products_in_c_view=' . ((($category['product_list_b'] == 1 && $_SESSION['products_in_c_view'] != 'list') || (!isset($_GET['manufacturers_id']) && $_SESSION['products_in_c_view'] == 'grid')) ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
+        $link_switch_products_in_c_view = xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('pcv', 'sort', 'page')) . 'pcv=' . ((($category['product_list_b'] == 1 && $_SESSION['pcv'] != 'list') || (!isset($_GET['m']) && $_SESSION['pcv'] == 'grid')) ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
       }
 
-      $max_display = isset($_SESSION['max_display_products_in_category']) ? $_SESSION['max_display_products_in_category'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY;
+      $max_display = isset($_SESSION['mdpc']) ? $_SESSION['mdpc'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY;
             
       $smarty->assign(array('heading_title' => $category['categories_or_pages_heading_title'],
                             'category_name' => $category['categories_or_pages_name'],
@@ -488,14 +488,14 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
                             'pull_down_menu_display_products' => $pull_down_menu_display_products_in_category,
                             'pull_down_menu_display_products_noscript_begin' => $pull_down_menu_display_products_in_category_noscript,
                             'pull_down_menu_display_products_noscript_end' => '</form>',
-                            'label_for_max_display_products' => 'max_display_products_in_category',
+                            'label_for_max_display_products' => 'mdpc',
                             'link_switch_view' => $link_switch_products_in_c_view));                                      
     }
     
     
     if(!$smarty->isCached(SELECTED_TPL . '/index.tpl', $cache_id)){ 
     
-      if((($category['product_list_b'] == 1 && $_SESSION['products_in_c_view'] != 'list') || (!isset($_GET['manufacturers_id']) && $_SESSION['products_in_c_view'] == 'grid')) || ((isset($_GET['manufacturers_id']) && $_SESSION['products_of_m_view'] != 'list' && PRODUCT_LISTS_FOR_MANUFACTURERS == 'B') || (isset($_GET['manufacturers_id']) && $_SESSION['products_of_m_view'] == 'grid'))) {
+      if((($category['product_list_b'] == 1 && $_SESSION['pcv'] != 'list') || (!isset($_GET['m']) && $_SESSION['pcv'] == 'grid')) || ((isset($_GET['m']) && $_SESSION['pmv'] != 'list' && PRODUCT_LISTS_FOR_MANUFACTURERS == 'B') || (isset($_GET['m']) && $_SESSION['pmv'] == 'grid'))) {
       
         $product_list_b = true;
       
@@ -582,30 +582,30 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
       }    
 
 // show the products of a specified manufacturer
-      if (isset($_GET['manufacturers_id'])) {
-        if (isset($_GET['filter_id']) && xos_not_null($_GET['filter_id'])) {
+      if (isset($_GET['m'])) {
+        if (isset($_GET['filter']) && xos_not_null($_GET['filter'])) {
 // We are asked to show only a specific category
           if (($_SESSION['sppc_customer_group_show_tax'] == '1') && ($_SESSION['sppc_customer_group_tax_exempt'] != '1')) {    
-            $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, (IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * if(tr.tax_rate_final is null, 1, 1 + (tr.tax_rate_final / 100))) as final_price, tr.tax_rate_final from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_ZONES_TO_GEO_ZONES . " gz on (gz.zone_country_id is null or gz.zone_country_id = '0' or gz.zone_country_id = '" . (int)$customer_country_id . "') and (gz.zone_id is null or gz.zone_id = '0' or gz.zone_id = '" . (int)$customer_zone_id . "') left join " . TABLE_TAX_RATES_FINAL . " tr on p.products_tax_class_id = tr.tax_class_id and gz.geo_zone_id = tr.tax_zone_id," . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and mi.manufacturers_id = '" . (int)$_GET['manufacturers_id'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p2c.categories_or_pages_id = '" . (int)$_GET['filter_id'] . "' group by p.products_id";
+            $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, (IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * if(tr.tax_rate_final is null, 1, 1 + (tr.tax_rate_final / 100))) as final_price, tr.tax_rate_final from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_ZONES_TO_GEO_ZONES . " gz on (gz.zone_country_id is null or gz.zone_country_id = '0' or gz.zone_country_id = '" . (int)$customer_country_id . "') and (gz.zone_id is null or gz.zone_id = '0' or gz.zone_id = '" . (int)$customer_zone_id . "') left join " . TABLE_TAX_RATES_FINAL . " tr on p.products_tax_class_id = tr.tax_class_id and gz.geo_zone_id = tr.tax_zone_id," . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and mi.manufacturers_id = '" . (int)$_GET['m'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p2c.categories_or_pages_id = '" . (int)$_GET['filter'] . "' group by p.products_id";
           } else {
-            $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) as final_price from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "'," . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and mi.manufacturers_id = '" . (int)$_GET['manufacturers_id'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p2c.categories_or_pages_id = '" . (int)$_GET['filter_id'] . "'";
+            $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) as final_price from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "'," . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and mi.manufacturers_id = '" . (int)$_GET['m'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p2c.categories_or_pages_id = '" . (int)$_GET['filter'] . "'";
           }         
         } else {
 // We show them all
           if (($_SESSION['sppc_customer_group_show_tax'] == '1') && ($_SESSION['sppc_customer_group_tax_exempt'] != '1')) {            
-            $listing_sql = "select distinct " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, (IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * if(tr.tax_rate_final is null, 1, 1 + (tr.tax_rate_final / 100))) as final_price, tr.tax_rate_final from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_ZONES_TO_GEO_ZONES . " gz on (gz.zone_country_id is null or gz.zone_country_id = '0' or gz.zone_country_id = '" . (int)$customer_country_id . "') and (gz.zone_id is null or gz.zone_id = '0' or gz.zone_id = '" . (int)$customer_zone_id . "') left join " . TABLE_TAX_RATES_FINAL . " tr on p.products_tax_class_id = tr.tax_class_id and gz.geo_zone_id = tr.tax_zone_id left join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p.products_id = p2c.products_id left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and mi.manufacturers_id = '" . (int)$_GET['manufacturers_id'] . "' group by p.products_id";
+            $listing_sql = "select distinct " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, (IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * if(tr.tax_rate_final is null, 1, 1 + (tr.tax_rate_final / 100))) as final_price, tr.tax_rate_final from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_ZONES_TO_GEO_ZONES . " gz on (gz.zone_country_id is null or gz.zone_country_id = '0' or gz.zone_country_id = '" . (int)$customer_country_id . "') and (gz.zone_id is null or gz.zone_id = '0' or gz.zone_id = '" . (int)$customer_zone_id . "') left join " . TABLE_TAX_RATES_FINAL . " tr on p.products_tax_class_id = tr.tax_class_id and gz.geo_zone_id = tr.tax_zone_id left join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p.products_id = p2c.products_id left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and mi.manufacturers_id = '" . (int)$_GET['m'] . "' group by p.products_id";
           } else {
-            $listing_sql = "select distinct " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) as final_price from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p.products_id = p2c.products_id left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and mi.manufacturers_id = '" . (int)$_GET['manufacturers_id'] . "'";
+            $listing_sql = "select distinct " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) as final_price from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p.products_id = p2c.products_id left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and mi.manufacturers_id = '" . (int)$_GET['m'] . "'";
           }
         }
       } else {
 // show the products in a given categorie
-        if (isset($_GET['filter_id']) && xos_not_null($_GET['filter_id'])) {
+        if (isset($_GET['filter']) && xos_not_null($_GET['filter'])) {
 // We are asked to show only specific catgeory
           if (($_SESSION['sppc_customer_group_show_tax'] == '1') && ($_SESSION['sppc_customer_group_tax_exempt'] != '1')) {      
-            $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, (IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * if(tr.tax_rate_final is null, 1, 1 + (tr.tax_rate_final / 100))) as final_price, tr.tax_rate_final from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_ZONES_TO_GEO_ZONES . " gz on (gz.zone_country_id is null or gz.zone_country_id = '0' or gz.zone_country_id = '" . (int)$customer_country_id . "') and (gz.zone_id is null or gz.zone_id = '0' or gz.zone_id = '" . (int)$customer_zone_id . "') left join " . TABLE_TAX_RATES_FINAL . " tr on p.products_tax_class_id = tr.tax_class_id and gz.geo_zone_id = tr.tax_zone_id," . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and mi.manufacturers_id = '" . (int)$_GET['filter_id'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p2c.categories_or_pages_id = '" . (int)$current_category_id . "' group by p.products_id";        
+            $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, (IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * if(tr.tax_rate_final is null, 1, 1 + (tr.tax_rate_final / 100))) as final_price, tr.tax_rate_final from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_ZONES_TO_GEO_ZONES . " gz on (gz.zone_country_id is null or gz.zone_country_id = '0' or gz.zone_country_id = '" . (int)$customer_country_id . "') and (gz.zone_id is null or gz.zone_id = '0' or gz.zone_id = '" . (int)$customer_zone_id . "') left join " . TABLE_TAX_RATES_FINAL . " tr on p.products_tax_class_id = tr.tax_class_id and gz.geo_zone_id = tr.tax_zone_id," . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and mi.manufacturers_id = '" . (int)$_GET['filter'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p2c.categories_or_pages_id = '" . (int)$current_category_id . "' group by p.products_id";        
           } else {
-            $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) as final_price from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "'," . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and mi.manufacturers_id = '" . (int)$_GET['filter_id'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p2c.categories_or_pages_id = '" . (int)$current_category_id . "'";
+            $listing_sql = "select " . $select_column_list . " p.products_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) as final_price from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "'," . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and mi.manufacturers_id = '" . (int)$_GET['filter'] . "' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p2c.categories_or_pages_id = '" . (int)$current_category_id . "'";
           }
         } else {
 // We show them all
@@ -620,7 +620,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
       if ( (empty($_GET['sort'])) || (!preg_match('/^[0-9][ad]$/', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > sizeof($column_list)) ) {
         for ($i=0, $n=sizeof($column_list); $i<$n; $i++) {
           if ($column_list[$i] == 'PRODUCT_LIST_NAME') {
-            if (isset($_GET['manufacturers_id'])) {
+            if (isset($_GET['m'])) {
               $_GET['sort'] = $i . 'a';
               $listing_sql .= " order by pd.products_name";
             } else {
@@ -668,8 +668,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
 
 // optional Product List Filter
       if (PRODUCT_LIST_FILTER > 0) {
-        if (isset($_GET['manufacturers_id'])) {
-          $filterlist_sql = "select distinct c.categories_or_pages_id as id, cpd.categories_or_pages_name as name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_status = '1' and p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and p2c.categories_or_pages_id = cpd.categories_or_pages_id and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p.manufacturers_id = '" . (int)$_GET['manufacturers_id'] . "' order by cpd.categories_or_pages_name";
+        if (isset($_GET['m'])) {
+          $filterlist_sql = "select distinct c.categories_or_pages_id as id, cpd.categories_or_pages_name as name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_status = '1' and p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and p2c.categories_or_pages_id = cpd.categories_or_pages_id and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p.manufacturers_id = '" . (int)$_GET['m'] . "' order by cpd.categories_or_pages_name";
         } else {
           $filterlist_sql= "select distinct mi.manufacturers_id as id, mi.manufacturers_name as name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_MANUFACTURERS_INFO . " mi where p.products_status = '1' and p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = '" . (int)$current_category_id . "' order by mi.manufacturers_name";
         }
@@ -690,11 +690,11 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
           } 
         
           $pull_down_menu = xos_draw_form('filter', xos_href_link(FILENAME_DEFAULT, '', $request_type, false, true, false, false, false), 'get') . $hidden_get_variables . xos_hide_session_id();
-          if (isset($_GET['manufacturers_id'])) {
-            $pull_down_menu .= xos_draw_hidden_field('manufacturers_id', $_GET['manufacturers_id']);
+          if (isset($_GET['m'])) {
+            $pull_down_menu .= xos_draw_hidden_field('m', $_GET['m']);
             $options = array(array('id' => '', 'text' => TEXT_ALL_CATEGORIES));
           } else {
-            $pull_down_menu .= xos_draw_hidden_field('cPath', $cPath);
+            $pull_down_menu .= xos_draw_hidden_field('c', $cPath);
             $options = array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS));
           }
           $pull_down_menu .= xos_draw_hidden_field('sort', $_GET['sort']);
@@ -702,15 +702,15 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
             $options[] = array('id' => $filterlist['id'], 'text' => $filterlist['name']);
           }
           $pull_down_menu_noscript = $pull_down_menu;
-          $pull_down_menu .= xos_draw_pull_down_menu('filter_id', $options, (isset($_GET['filter_id']) ? $_GET['filter_id'] : ''), 'id="filter_id" onchange="this.form.submit()"') . '</form>';
-          $pull_down_menu_noscript .= xos_draw_pull_down_menu('filter_id', $options, (isset($_GET['filter_id']) ? $_GET['filter_id'] : ''), 'id="filter_id"'); 
+          $pull_down_menu .= xos_draw_pull_down_menu('filter', $options, (isset($_GET['filter']) ? $_GET['filter'] : ''), 'id="filter" onchange="this.form.submit()"') . '</form>';
+          $pull_down_menu_noscript .= xos_draw_pull_down_menu('filter', $options, (isset($_GET['filter']) ? $_GET['filter'] : ''), 'id="filter"'); 
         }
       }
 
       $smarty->assign(array('pull_down_menu' => $pull_down_menu,
                             'pull_down_menu_noscript_begin' => $pull_down_menu_noscript,
                             'pull_down_menu_noscript_end' => '</form>',
-                            'label_for_pull_down_menu' => 'filter_id',
+                            'label_for_pull_down_menu' => 'filter',
                             'display' => 'products'));    
     
       $smarty->caching = 0;
