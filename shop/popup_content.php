@@ -34,8 +34,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
     $content = xos_db_fetch_array($content_query);
     eval(' ?>' . $content['php_source'] . '<?php ');
   } else {
-    $page_content_id = xos_db_prepare_input($_GET['page_content_id']);
-    $content_query = xos_db_query("select cp.categories_or_pages_id, cpd.categories_or_pages_name as name, cpd.categories_or_pages_heading_title as heading_title, cpd.categories_or_pages_content as content from " . TABLE_CATEGORIES_OR_PAGES . " cp, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where cp.categories_or_pages_status = '1' and cp.categories_or_pages_id = '" . (int)$page_content_id . "' and cp.categories_or_pages_id = cpd.categories_or_pages_id and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
+    $pco = xos_db_prepare_input($_GET['pco']);
+    $content_query = xos_db_query("select cp.categories_or_pages_id, cpd.categories_or_pages_name as name, cpd.categories_or_pages_heading_title as heading_title, cpd.categories_or_pages_content as content from " . TABLE_CATEGORIES_OR_PAGES . " cp, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where cp.categories_or_pages_status = '1' and cp.categories_or_pages_id = '" . (int)$pco . "' and cp.categories_or_pages_id = cpd.categories_or_pages_id and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
     $content = xos_db_fetch_array($content_query);
   }
 
