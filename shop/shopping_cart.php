@@ -110,7 +110,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                               'products_packaging_unit' => $products[$i]['packaging_unit'],
                               'products_model' => $products[$i]['model'],
                               'stock_check' => $stock_check,
-                              'input_and_hidden_fields_quantity' => xos_draw_input_field('cart_quantity[]', $products[$i]['quantity'], 'id="cart_quantity_' . ($i + 1) . '" size="2"') . xos_draw_hidden_field('products_id[]', $products[$i]['id']),
+                              'input_and_hidden_fields_quantity' => xos_draw_input_field('cart_quantity[]', $products[$i]['quantity'], 'id="cart_quantity_' . ($i + 1) . '" size="2"') . xos_draw_hidden_field('p[]', $products[$i]['id']),
                               'products_tax' => xos_display_tax_value($products_tax_rate),
                               'products_price' => $currencies->format($products[$i]['price']),
                               'products_final_single_price' => $currencies->format($products[$i]['final_price']),
