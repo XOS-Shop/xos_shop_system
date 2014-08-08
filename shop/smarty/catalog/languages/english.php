@@ -104,6 +104,24 @@ function xos_date_raw($date, $reverse = false) {
   }
 }
 
+// Language-specific ASCII replacements for SEF URLs (URL compliant)
+$sef_url_trail_search = array("&");
+$sef_url_trail_replace = array("-and-");
+
+// Insertions for SEF URLs
+define('SEF_URL_NAME_REVIEWS', 'Reviews');
+define('SEF_URL_NAME_SPECIALS', 'Specials');
+define('SEF_URL_NAME_NEW_PRODUCTS', 'New Products');
+define('SEF_URL_NAME_SUBSCRIBE_NEWSLETTER', 'Subscribe to Newsletter');
+define('SEF_URL_NAME_TELL_A_FRIEND', 'Tell A Friend');
+define('SEF_URL_NAME_SHOPPING_CART', 'Cart Contents');
+define('SEF_URL_NAME_LOGIN', 'Login');
+define('SEF_URL_NAME_CREATE_ACCOUNT', 'Create an Account');
+define('SEF_URL_NAME_PASSWORD_FORGOTTEN', 'Login^Password Forgotten');
+define('SEF_URL_NAME_ADVANCED_SEARCH_AND_RESULTS', 'Advanced Search');
+define('SEF_URL_NAME_SEARCH_RESULT', 'Search Results');
+define('SEF_URL_NAME_COOKIE_USAGE', 'Cookie Usage');
+
 // Global entries for the <html> tag
 define('HTML_PARAMS','dir="LTR" lang="en"');
 

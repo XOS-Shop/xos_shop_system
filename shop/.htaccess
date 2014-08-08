@@ -35,3 +35,35 @@
 #
 #  php_value session.use_trans_sid 0
 #  php_value register_globals 0
+
+<IfModule mod_rewrite.c>
+  AcceptPathInfo On
+  RewriteEngine On
+   
+# RewriteBase instructions
+# Change RewriteBase dependent on how your shop is accessed as below.
+# http://www.mysite.com = RewriteBase /
+# http://www.mysite.com/catalog/ = RewriteBase /catalog/
+# http://www.mysite.com/catalog/shop/ = RewriteBase /catalog/shop/
+# Change the following line using the instructions above
+ 
+#  RewriteBase / 
+
+  RewriteRule ^(.*)[^-/]-a/(.*)$ index.php/$2 [NC,L]  
+  RewriteRule ^(.*)[^-/]-b/(.*)$ product_info.php/$2 [NC,L]
+  RewriteRule ^(.*)[^-/]-c/(.*)$ content.php/$2 [NC,L]
+  RewriteRule ^(.*)[^-/]-d/(.*)$ specials.php/$2 [NC,L]
+  RewriteRule ^(.*)[^-/]-e/(.*)$ products_new.php/$2 [NC,L]
+  RewriteRule ^(.*)[^-/]-f/(.*)$ newsletter_subscribe.php/$2 [NC,L]
+  RewriteRule ^(.*)[^-/]-g/(.*)$ reviews.php/$2 [NC,L]
+  RewriteRule ^(.*)[^-/]-h/(.*)$ product_reviews.php/$2 [NC,L]
+  RewriteRule ^(.*)[^-/]-i/(.*)$ product_reviews_info.php/$2 [NC,L]
+  RewriteRule ^(.*)[^-/]-k/(.*)$ tell_a_friend.php/$2 [NC,L]
+  RewriteRule ^(.*)[^-/]-l/(.*)$ shopping_cart.php/$2 [NC,L]
+  RewriteRule ^(.*)[^-/]-m/(.*)$ login.php/$2 [NC,L]
+  RewriteRule ^(.*)[^-/]-n/(.*)$ create_account.php/$2 [NC,L]
+  RewriteRule ^(.*)[^-/]-o/(.*)$ password_forgotten.php/$2 [NC,L]
+  RewriteRule ^(.*)[^-/]-p/(.*)$ advanced_search_and_results.php/$2 [NC,L]
+  RewriteRule ^(.*)[^-/]-q/(.*)$ search_result.php/$2 [NC,L]
+  RewriteRule ^(.*)[^-/]-r/(.*)$ cookie_usage.php/$2 [NC,L]        
+</IfModule> 

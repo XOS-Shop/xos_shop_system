@@ -51,7 +51,7 @@
 
     function getOutput() {
 
-      return '<a href="http://twitter.com/home?status=' . urlencode(xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . (int)$_GET['p'], 'NONSSL', false, false, false, false, false)) . '" target="_blank"><img src="' . DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/icons_social_bookmarks/' . $this->icon . '" style="border: 0;" title="' . xos_output_string_protected($this->public_title) . '" alt="' . xos_output_string_protected($this->public_title) . '" /></a>';
+      return '<a href="http://twitter.com/home?status=' . urlencode(xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . (int)$_GET['p'], 'NONSSL', false, true, false, false, false)) . '" target="_blank"><img src="' . DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/icons_social_bookmarks/' . $this->icon . '" style="border: 0;" title="' . xos_output_string_protected($this->public_title) . '" alt="' . xos_output_string_protected($this->public_title) . '" /></a>';
     }
 
     function isEnabled() {

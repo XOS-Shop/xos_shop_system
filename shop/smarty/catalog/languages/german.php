@@ -104,6 +104,24 @@ function xos_date_raw($date, $reverse = false) {
   }
 }
 
+// Language-specific ASCII replacements for SEF URLs (URL compliant)
+$sef_url_trail_search = array("ß", "ä", "ü", "ö", "Ä", "Ü", "Ö", "&");                        
+$sef_url_trail_replace  = array("ss", "ae", "ue", "oe", "Ae", "Ue", "Oe", "-und-");   
+
+// Insertions for SEF URLs
+define('SEF_URL_NAME_REVIEWS', 'Meinungen');
+define('SEF_URL_NAME_SPECIALS', 'Angebote');
+define('SEF_URL_NAME_NEW_PRODUCTS', 'Neue Produkte');
+define('SEF_URL_NAME_SUBSCRIBE_NEWSLETTER', 'Newsletter abonnieren');
+define('SEF_URL_NAME_TELL_A_FRIEND', 'Produkt weiterempfehlen');
+define('SEF_URL_NAME_SHOPPING_CART', 'Warenkorb');
+define('SEF_URL_NAME_LOGIN', 'Anmelden');
+define('SEF_URL_NAME_CREATE_ACCOUNT', 'Konto erstellen');
+define('SEF_URL_NAME_PASSWORD_FORGOTTEN', 'Anmelden^Passwort vergessen');
+define('SEF_URL_NAME_ADVANCED_SEARCH_AND_RESULTS', 'Erweiterte Suche');
+define('SEF_URL_NAME_SEARCH_RESULT', 'Suchergebnisse');
+define('SEF_URL_NAME_COOKIE_USAGE', 'Verwendung von Cookies');
+
 // Global entries for the <html> tag
 define('HTML_PARAMS','dir="LTR" lang="de"');
 

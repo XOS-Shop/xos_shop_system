@@ -37,21 +37,13 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   if (sizeof($registered_tpls) > 1) { 
     
     for ($i=0; $i<sizeof($registered_tpls); $i++) {
-      $tpl_array[] = array( 'id' => $registered_tpls[$i], 'text' => $registered_tpls[$i]);
+      $tpl_array[] = array( 'id' => xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('tpl')) . 'tpl=' . $registered_tpls[$i], $request_type, true, true, false, false, false), 'text' => $registered_tpls[$i]);
       $template_changer_content_noscript .= '<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('tpl')) . 'tpl=' . $registered_tpls[$i], $request_type, true, true, false, false, false) . '">' . '&nbsp; ' . (SELECTED_TPL == $registered_tpls[$i] ? '<b>' . $registered_tpls[$i] .'</b>' : $registered_tpls[$i]) . '</a><br />';       
     }
     $template_changer_content_noscript = substr($template_changer_content_noscript, 0, -6);    
 
-    $hidden_get_variables = '';
-    reset($_GET);
-    while (list($key, $value) = each($_GET)) {
-      if ( ($key != 'tpl') && ($key != xos_session_name()) && ($key != 'x') && ($key != 'y') ) {
-        $hidden_get_variables .= xos_draw_hidden_field($key, $value);
-      }
-    }
-
     $template_changer_content = xos_draw_form('templates', xos_href_link(basename($_SERVER['PHP_SELF']), '', $request_type, false, true, false, false, false), 'get');
-    $template_changer_content .= xos_draw_pull_down_menu('tpl', $tpl_array, SELECTED_TPL, 'onchange="this.form.submit();" style="width: 95%"') . $hidden_get_variables . xos_hide_session_id();
+    $template_changer_content .= xos_draw_pull_down_menu('tpl', $tpl_array, xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('tpl')) . 'tpl=' . SELECTED_TPL, $request_type, true, true, false, false, false), 'onchange="location = form.tpl.options[form.tpl.selectedIndex].value;" style="width: 95%"');
     $template_changer_content .= '</form>';
     
     $smarty->assign(array('box_template_changer_content' => $template_changer_content,

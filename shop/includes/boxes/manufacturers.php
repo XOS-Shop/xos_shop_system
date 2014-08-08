@@ -44,29 +44,16 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     }
     while ($manufacturers = xos_db_fetch_array($manufacturers_query)) {
       $manufacturers_name = ((strlen($manufacturers['manufacturers_name']) > MAX_DISPLAY_MANUFACTURER_NAME_LEN) ? (function_exists('mb_substr') ? mb_substr($manufacturers['manufacturers_name'], 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN, 'UTF-8') : substr($manufacturers['manufacturers_name'], 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN)) . '..' : $manufacturers['manufacturers_name']);     
-      $manufacturers_array[] = array('id' => $manufacturers['manufacturers_id'],
+      $manufacturers_array[] = array('id' => xos_href_link(FILENAME_DEFAULT, 'm=' . $manufacturers['manufacturers_id']),
                                      'text' => $manufacturers_name); 
                                                
       if (isset($_GET['m']) && ($_GET['m'] == $manufacturers['manufacturers_id'])) $manufacturers_name = '<b>' . $manufacturers_name .'</b>';
       $manufacturers_content_noscript .= '<a href="' . xos_href_link(FILENAME_DEFAULT, 'm=' . $manufacturers['manufacturers_id']) . '">' . $manufacturers_name . '</a><br />';
     }
-    $manufacturers_content_noscript = substr($manufacturers_content_noscript, 0, -6);
-
-    $hidden_get_variables = '';
-    if (!$session_started && xos_not_null($_GET['currency'])) {
-      $hidden_get_variables .= xos_draw_hidden_field('currency', $_GET['currency']);
-    }  
-
-    if (!$session_started && xos_not_null($_GET['language'])) {
-      $hidden_get_variables .= xos_draw_hidden_field('language', $_GET['language']);
-    }
-    
-    if (!$session_started && xos_not_null($_GET['tpl'])) {
-      $hidden_get_variables .= xos_draw_hidden_field('tpl', $_GET['tpl']);
-    }    
+    $manufacturers_content_noscript = substr($manufacturers_content_noscript, 0, -6);   
 
     $manufacturers_content = xos_draw_form('manufacturers', xos_href_link(FILENAME_DEFAULT, '', $request_type, false, true, false, false, false), 'get');
-    $manufacturers_content .= xos_draw_pull_down_menu('m', $manufacturers_array, (isset($_GET['m']) ? $_GET['m'] : ''), 'onchange="this.form.submit();" size="' . MAX_MANUFACTURERS_LIST . '" style="width: 95%"') . $hidden_get_variables . xos_hide_session_id();
+    $manufacturers_content .= xos_draw_pull_down_menu('m', $manufacturers_array, (isset($_GET['m']) ? xos_href_link(FILENAME_DEFAULT, 'm=' . $_GET['m']) : ''), 'onchange="if (form.m.selectedIndex != 0) location = form.m.options[form.m.selectedIndex].value;" size="' . MAX_MANUFACTURERS_LIST . '" style="width: 95%"');
     $manufacturers_content .= '</form>';
                                    
 

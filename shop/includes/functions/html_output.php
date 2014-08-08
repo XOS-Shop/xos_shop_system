@@ -33,7 +33,7 @@
 ////
 // The HTML href link wrapper function
   function xos_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true, $add_get_language = true, $add_get_currency = true, $add_get_tpl = true) {
-    global $session_started, $request_type;
+    global $session_started, $request_type, $cats, $mans, $cots;
     
     $add_parameter = false;
     
@@ -54,9 +54,156 @@
     } else {
       die('<br /><br /><span style="color : #ff0000;"><b>Error!</b></span><br /><br /><b>Unable to determine connection method on a link!<br /><br />Known methods: NONSSL SSL</b><br /><br />');
     }
+
+    if (SEARCH_ENGINE_FRIENDLY_URLS == 'true' && $search_engine_safe == true && xos_not_null($parameters)) $parameters = str_replace(array('&amp;', '%2F', '%5C'), array('&', '_.~', '~._'), $parameters); 
+        
+    if ( (SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true) ) {
+      if (!isset($cats)) {
+        $all_cat_query = xos_db_query("select c.categories_or_pages_id as id, cpd.categories_or_pages_name as name from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = cpd.categories_or_pages_id and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "' and c.categories_or_pages_status = '1'"); 
+        while ($cat = xos_db_fetch_array($all_cat_query)) {
+          $cats[$cat['id']] = $cat['name'];
+        }
+      }
       
-    if (xos_not_null($parameters)) {
-      if ( (SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true) ) $parameters = str_replace(array('&amp;', '%2F', '%5C'), array('&', '_.~', '~._'), $parameters);
+      if (!isset($mans)) {      
+        $all_man_query = xos_db_query("select manufacturers_id as id, manufacturers_name as name from " . TABLE_MANUFACTURERS_INFO . " where languages_id = '" . (int)$_SESSION['languages_id'] . "'");       
+        while ($man = xos_db_fetch_array($all_man_query)) {
+          $mans[$man['id']] = $man['name'];
+        }       
+      }
+            
+      if (!isset($cots)) { 
+      $all_content_query = xos_db_query("select content_id as id, name from " . TABLE_CONTENTS_DATA . " where language_id = '" . (int)$_SESSION['languages_id'] . "'"); 
+        while ($cot = xos_db_fetch_array($all_content_query)) {
+          $cots[$cot['id']] = $cot['name'];
+        }       
+      }
+             
+      parse_str($parameters, $param_array);
+      
+      switch ($page) {
+        case FILENAME_DEFAULT:                 
+          if (array_key_exists('c', $param_array)) {        
+            foreach(explode('_', $param_array['c']) as $value) {
+              $c_name_array[] = $cats[$value];
+            }                    
+            $name_str = implode('^', $c_name_array);                               
+          } elseif (array_key_exists('m', $param_array)) {        
+            $name_str = $mans[$param_array['m']];             
+          } else {        
+            $name_str = HEADER_TITLE_HOME;        
+          }         
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-a/' : FILENAME_DEFAULT;                          
+          break;      
+        case FILENAME_PRODUCT_INFO:        
+          if (array_key_exists('c', $param_array)) {             
+            foreach(explode('_', $param_array['c']) as $value) {
+              $c_name_array[] = $cats[$value];
+            }                  
+            $name_str = implode('^', $c_name_array);     
+          } elseif (array_key_exists('p', $param_array)) {              
+            if (array_key_exists('m', $param_array)) {        
+              $name_str = $mans[$param_array['m']];               
+            } else {       
+              $c_id_str = xos_get_product_path($param_array['p']);                 
+              foreach(explode('_', $c_id_str) as $value) {
+                $c_name_array[] = $cats[$value];
+              }                        
+              $name_str = implode('^', $c_name_array);                
+            }
+          }
+          $name_str = $name_str . '^' . xos_get_products_name($param_array['p']);
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-b/' : FILENAME_PRODUCT_INFO;                  
+          break;
+        case FILENAME_CONTENT:                
+          if (array_key_exists('co', $param_array)) {      
+            $co_name = $cots[$param_array['co']];      
+          }         
+          $page = ($trail_string = xos_sef_url_trail_converter($co_name)) ? $trail_string . '-c/' : FILENAME_CONTENT;                  
+          break;
+        case FILENAME_SPECIALS:
+          $name_str = SEF_URL_NAME_SPECIALS;                
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-d/' : FILENAME_SPECIALS; 
+          break; 
+        case FILENAME_PRODUCTS_NEW:
+          $name_str = SEF_URL_NAME_NEW_PRODUCTS;                
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-e/' : FILENAME_PRODUCTS_NEW; 
+          break;
+        case FILENAME_NEWSLETTER_SUBSCRIBE:
+          $name_str = SEF_URL_NAME_SUBSCRIBE_NEWSLETTER;                
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-f/' : FILENAME_NEWSLETTER_SUBSCRIBE; 
+          break;              
+        case FILENAME_REVIEWS:
+          $name_str = SEF_URL_NAME_REVIEWS;                
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-g/' : FILENAME_REVIEWS; 
+          break;                            
+        case FILENAME_PRODUCT_REVIEWS:            
+          if (array_key_exists('m', $param_array)) {        
+            $name_str = $mans[$param_array['m']];               
+          } else {       
+            $c_id_str = xos_get_product_path($param_array['p']);                 
+            foreach(explode('_', $c_id_str) as $value) {
+              $c_name_array[] = $cats[$value];
+            }                        
+            $name_str = implode('^', $c_name_array);                
+          }
+          $name_str = $name_str . '^' . xos_get_products_name($param_array['p']) . '^' . SEF_URL_NAME_REVIEWS;
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-h/' : FILENAME_PRODUCT_REVIEWS;
+          break; 
+        case FILENAME_PRODUCT_REVIEWS_INFO:
+          if (array_key_exists('m', $param_array)) {        
+            $name_str = $mans[$param_array['m']];               
+          } else {       
+            $c_id_str = xos_get_product_path($param_array['p']);                 
+            foreach(explode('_', $c_id_str) as $value) {
+              $c_name_array[] = $cats[$value];
+            }                        
+            $name_str = implode('^', $c_name_array);                
+          }
+          $name_str = $name_str . '^' . xos_get_products_name($param_array['p']) . '^' . SEF_URL_NAME_REVIEWS;               
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-i/' : FILENAME_PRODUCT_REVIEWS_INFO; 
+          break;
+        case FILENAME_TELL_A_FRIEND:     
+          $c_id_str = xos_get_product_path($param_array['p']);                 
+          foreach(explode('_', $c_id_str) as $value) {
+            $c_name_array[] = $cats[$value];
+          }                        
+          $name_str = implode('^', $c_name_array);                
+          $name_str = $name_str . '^' . xos_get_products_name($param_array['p']) . '^' . SEF_URL_NAME_TELL_A_FRIEND;               
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-k/' : FILENAME_TELL_A_FRIEND; 
+          break;
+        case FILENAME_SHOPPING_CART:
+          $name_str = SEF_URL_NAME_SHOPPING_CART;                
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-l/' : FILENAME_SHOPPING_CART; 
+          break;
+        case FILENAME_LOGIN:
+          $name_str = SEF_URL_NAME_LOGIN;                
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-m/' : FILENAME_LOGIN; 
+          break; 
+        case FILENAME_CREATE_ACCOUNT:
+          $name_str = SEF_URL_NAME_CREATE_ACCOUNT;                
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-n/' : FILENAME_CREATE_ACCOUNT; 
+          break;
+        case FILENAME_PASSWORD_FORGOTTEN:
+          $name_str = SEF_URL_NAME_PASSWORD_FORGOTTEN;                
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-o/' : FILENAME_PASSWORD_FORGOTTEN; 
+          break;
+        case FILENAME_ADVANCED_SEARCH_AND_RESULTS:
+          $name_str = SEF_URL_NAME_ADVANCED_SEARCH_AND_RESULTS;                
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-p/' : FILENAME_ADVANCED_SEARCH_AND_RESULTS; 
+          break;
+        case FILENAME_SEARCH_RESULT:
+          $name_str = SEF_URL_NAME_SEARCH_RESULT;                
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-q/' : FILENAME_SEARCH_RESULT; 
+          break;
+        case FILENAME_COOKIE_USAGE:
+          $name_str = SEF_URL_NAME_COOKIE_USAGE;                
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-r/' : FILENAME_COOKIE_USAGE; 
+          break;                                                                                                          
+      }                                         
+    }    
+                 
+    if (xos_not_null($parameters)) {                   
       $link .= $page . '?' . xos_output_string($parameters);
       $add_parameter = true;
       $separator = '&';
@@ -92,13 +239,7 @@
 
     if ( (SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true) ) {
     
-      while (strstr($link, '=%20')) $link = str_replace('=%20', '=', $link);
-
-      $link = str_replace('&&', '&', $link);
-      $link = str_replace('=&', '/^/', $link);
-      $link = str_replace('?', '/', $link);
-      $link = str_replace('&', '/', $link);
-      $link = str_replace('=', '/', $link); 
+      $link = str_replace(array('=%20', '&&', '=&', '/?', '?', '&', '='), array('=', '&', '/^/', '/', '/', '/', '/'), $link);    
       
       if ($add_parameter) $link = $link . '/';
 
@@ -109,6 +250,55 @@
     }
 
     return $link;
+  }
+
+////
+// SEF URL trail converter
+  function xos_sef_url_trail_converter($trail_string = '') {
+    global $sef_url_trail_search, $sef_url_trail_replace;
+  
+    if (!is_array($sef_url_trail_search) || !is_array($sef_url_trail_replace) || $trail_string == '' || SEARCH_ENGINE_FRIENDLY_URLS == 'false') return(false);
+
+    // Allgemeine ASCII-Ersetzungen (URL-konform) 
+    $search = array("¢", "£", "¥", "€", "°", "™", "–", "—", "%", "/");                       
+    $replace  = array("-ct-", "-GBP-", "-Yen-", "-EUR-", "-GRAD-", "-TM-", "-", "-", "-", "-");
+  
+    // Verbinden von allgemeinen ASCII-Ersetzungen mit sprachspezifischen ASCII-Ersetzungen aus 'smarty/catalog/languages/<sprache>.php' (URL-konform) 
+    $search = array_merge($search, $sef_url_trail_search);                        
+    $replace = array_merge($replace, $sef_url_trail_replace);                        
+
+    // Alle geschützten HTML-Leerzeichen durch '-' Zeichen ersetzen
+    $trail_string = preg_replace("/&(nbsp|#160);/i", "-",$trail_string);
+
+    // Alle benannten HTML-Zeichen in ihre entsprechenden Ursprungszeichen konvertieren
+    $trail_string = html_entity_decode($trail_string, ENT_NOQUOTES, 'UTF-8');
+
+    // HTML '<br />' und '<br>' durch '-' ersetzen
+    $trail_string = preg_replace("/<br(\s+)?\/?>/i","-",$trail_string);
+
+    // HTML-Tags entfernen
+    $trail_string = strip_tags($trail_string);
+
+    // Leerzeichen und folgende Zeichen '!?,*+' durch '-' ersetzen
+    $trail_string = preg_replace(array("/[\r\n\s]+/", "/[!?,\*\+]/"),"-",$trail_string);
+    // Wenn der Punkt auch ersetzt werden soll diese Zeile verwenden  
+    // $trail_string = preg_replace(array("/[\r\n\s]+/", "/[!?,\*\+\.]/"),"-",$trail_string);
+
+    // Die in '$search' und '$sef_url_trail_search' definierten Zeichen durch '$replace' und '$replace, $sef_url_trail_replace' ersetzen
+    $trail_string = str_replace($search, $replace,$trail_string);
+
+    // Definiert die letztendlich zugelassenen Zeichen
+    $trail_string = preg_replace("'[^a-zA-Z0-9@_\-._^~]+'", "", $trail_string); 
+  
+    // Mehrfach vorkommende '-' Zeichen auf ein '-' Zeichen reduzieren 
+    $trail_string = preg_replace("/(-){2,}/","-", $trail_string);
+
+// Jetzt wird '^' durch '/' ersetzt weil '/' der Wort-Trenner ist, danach werden noch eventuelle '-' vor und nach '/' sowie am Anfang und Ende der Zeichenkette entfernt
+// Zusätzlich werden am Anfang und Ende der Zeichenkette noch '_' und '~' entfernt, somit können auch diese Zeichen für die Erkennung verwendet werden. Beispiel:($trail_string . '~/' : FILENAME_DEFAULT)
+    $trail_string = str_replace(array("^", "-/", "/-"), "/", $trail_string);
+    $trail_string = trim($trail_string,"-_~");  
+
+    return($trail_string);
   }
 
 ////

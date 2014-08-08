@@ -788,30 +788,34 @@ if ($action && !$error) {
     $hidden_get_variables = '';
     reset($_GET);
     while (list($key, $value) = each($_GET)) {
-      if ( ($key != 'mdsr') && ($key != xos_session_name()) && ($key != 'page') && ($key != 'x') && ($key != 'y') ) {
+      if ( ($key != 'mdsr') && ($key != xos_session_name()) && ($key != 'page') ) {
         $hidden_get_variables .= xos_draw_hidden_field($key, $value);
       }
     }
          
-    $pull_down_menu_display_search_results = xos_draw_form('display_search_results', xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, '', 'NONSSL', false, true, false, false, false), 'get') . xos_hide_session_id();
-    $pull_down_menu_display_search_results .= $hidden_get_variables;
+    $pull_down_menu_display_search_results = xos_draw_form('display_search_results', xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, '', 'NONSSL', false, true, false, false, false), 'get');
+    $pull_down_menu_display_search_results_noscript = xos_draw_form('display_search_results', xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, '', 'NONSSL', false, false, false, false, false), 'get') . xos_hide_session_id();
+    $pull_down_menu_display_search_results_noscript .= $hidden_get_variables;
     $max_display_search_results_array = array();
+    $max_display_search_results_array_noscript = array();
     $set = false;
     for ($i = 10; $i <=50 ; $i=$i+10) {  
       if (MAX_DISPLAY_SEARCH_RESULTS <= $i && $set == false) {
-        $max_display_search_results_array[] = array('id' => MAX_DISPLAY_SEARCH_RESULTS, 'text' => MAX_DISPLAY_SEARCH_RESULTS . TEXT_MAX_PRODUCTS);
+        $max_display_search_results_array[] = array('id' => xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, xos_get_all_get_params(array('mdsr', 'page')) . 'mdsr=' . MAX_DISPLAY_SEARCH_RESULTS, 'NONSSL', true, true, false, false, false), 'text' => MAX_DISPLAY_SEARCH_RESULTS . TEXT_MAX_PRODUCTS);
+        $max_display_search_results_array_noscript[] = array('id' => MAX_DISPLAY_SEARCH_RESULTS, 'text' => MAX_DISPLAY_SEARCH_RESULTS . TEXT_MAX_PRODUCTS);
         $set = true;      
       }    
       if (MAX_DISPLAY_SEARCH_RESULTS != $i) {
-        $max_display_search_results_array[] = array('id' => $i, 'text' => $i . TEXT_MAX_PRODUCTS);
+        $max_display_search_results_array[] = array('id' => xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, xos_get_all_get_params(array('mdsr', 'page')) . 'mdsr=' . $i, 'NONSSL', true, true, false, false, false), 'text' => $i . TEXT_MAX_PRODUCTS);
+        $max_display_search_results_array_noscript[] = array('id' => $i, 'text' => $i . TEXT_MAX_PRODUCTS);
       }
     }  
     if ($set == false) {
-      $max_display_search_results_array[] = array('id' => MAX_DISPLAY_SEARCH_RESULTS, 'text' => MAX_DISPLAY_SEARCH_RESULTS . TEXT_MAX_PRODUCTS);
+      $max_display_search_results_array[] = array('id' => xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, xos_get_all_get_params(array('mdsr', 'page')) . 'mdsr=' . MAX_DISPLAY_SEARCH_RESULTS, 'NONSSL', true, true, false, false, false), 'text' => MAX_DISPLAY_SEARCH_RESULTS . TEXT_MAX_PRODUCTS);
+      $max_display_search_results_array_noscript[] = array('id' => MAX_DISPLAY_SEARCH_RESULTS, 'text' => MAX_DISPLAY_SEARCH_RESULTS . TEXT_MAX_PRODUCTS);
     }      
-    $pull_down_menu_display_search_results_noscript = $pull_down_menu_display_search_results;
-    $pull_down_menu_display_search_results .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array, (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'id="mdsr" onchange="this.form.submit()"') . '</form>';
-    $pull_down_menu_display_search_results_noscript .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array, (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'id="mdsr" onchange="this.form.submit()"');    
+    $pull_down_menu_display_search_results .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array, xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, xos_get_all_get_params(array('mdsr', 'page')) . 'mdsr=' . (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'NONSSL', true, true, false, false, false), 'id="mdsr" onchange="location = form.mdsr.options[form.mdsr.selectedIndex].value;"') . '</form>';
+    $pull_down_menu_display_search_results_noscript .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array_noscript, (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'id="mdsr"');    
 
     $link_switch_search_results_view = xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, xos_get_all_get_params(array('srv', 'sort', 'page')) . 'srv=' . ($product_list_b ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
   }

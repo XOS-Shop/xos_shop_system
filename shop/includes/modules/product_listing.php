@@ -179,7 +179,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
             } else {
               $table_inner_array[]=array('case' => 'name',
                                          'products_name' => $listing['products_name'],
-                                         'products_link' => xos_href_link(FILENAME_PRODUCT_INFO, ($cPath ? 'c=' . $cPath . '&' : '') . 'p=' . $listing['products_id']));
+                                         'products_link' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $listing['products_id']));
             }
             break;
           case 'PRODUCT_LIST_INFO':
@@ -223,7 +223,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
               $table_inner_array[]=array('case' => 'image',
                                          'products_image_small' => xos_image(DIR_WS_IMAGES . 'products/small/' . rawurlencode($products_image_name['name']), $listing['products_name']),
                                          'products_image_medium' => xos_image(DIR_WS_IMAGES . 'products/medium/' . rawurlencode($products_image_name['name']), $listing['products_name']),
-                                         'products_link_image' => xos_href_link(FILENAME_PRODUCT_INFO, ($cPath ? 'c=' . $cPath . '&' : '') . 'p=' . $listing['products_id']));
+                                         'products_link_image' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $listing['products_id']));
             }
             break;
           case 'PRODUCT_LIST_BUY_NOW':
@@ -233,7 +233,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
                                        'form_end' => '</form>',
                                        'label_for_products_input_quantity' => 'products_quantity_' . $listing['products_id'],
                                        'products_input_quantity' => xos_draw_input_field('products_quantity', '1','id="products_quantity_' . $listing['products_id'] . '" maxlength="5" size="3"'),
-                                       'products_hidden_field' => xos_draw_hidden_field('p', $listing['products_id']));
+                                       'products_hidden_field' => xos_draw_hidden_field('p', $listing['products_id'])); 
             break;
         }                                            
       }

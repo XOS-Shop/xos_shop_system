@@ -215,7 +215,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
       $filterlist_query = xos_db_query($filterlist_sql);
       if (xos_db_num_rows($filterlist_query) > 1) {
-      
+        
         $hidden_get_variables = '';
         if (!$session_started && xos_not_null($_GET['currency'])) {
           $hidden_get_variables .= xos_draw_hidden_field('currency', $_GET['currency']);
@@ -223,48 +223,56 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
         if (!$session_started && xos_not_null($_GET['language'])) {
           $hidden_get_variables .= xos_draw_hidden_field('language', $_GET['language']);
-        }      
+        }          
 
         if (!$session_started && xos_not_null($_GET['tpl'])) {
           $hidden_get_variables .= xos_draw_hidden_field('tpl', $_GET['tpl']);
-        }  
-           
-        $pull_down_menu = xos_draw_form('filter', xos_href_link(FILENAME_SPECIALS, '', 'NONSSL', false, true, false, false, false), 'get') . $hidden_get_variables . xos_hide_session_id();
-        $options = array(array('id' => '', 'text' => TEXT_ALL_CATEGORIES));
-        $pull_down_menu .= xos_draw_hidden_field('sort', $_GET['sort']);
+        } 
+        
+        $pull_down_menu = xos_draw_form('filter', xos_href_link(FILENAME_SPECIALS, '', 'NONSSL', false, true, false, false, false), 'get');
+        $pull_down_menu_noscript = xos_draw_form('filter', xos_href_link(FILENAME_SPECIALS, '', 'NONSSL', false, false, false, false, false), 'get') . $hidden_get_variables . xos_hide_session_id();            
+        $pull_down_menu_noscript .=  xos_draw_hidden_field('sort', $_GET['sort']);
+        $options = array();
+        $options_noscript = array();
+        $options = array(array('id' => xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('filter', 'page')) . 'filter=', 'NONSSL', true, true, false, false, false), 'text' => TEXT_ALL_CATEGORIES));
+        $options_noscript = array(array('id' => '', 'text' => TEXT_ALL_CATEGORIES));
         while ($filterlist = xos_db_fetch_array($filterlist_query)) {
-          $options[] = array('id' => $filterlist['id'], 'text' => $filterlist['name']);
+          $options[] = array('id' =>  xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('filter', 'page')) . 'filter=' . $filterlist['id'], 'NONSSL', true, true, false, false, false), 'text' => $filterlist['name']);
+          $options_noscript[] = array('id' => $filterlist['id'], 'text' => $filterlist['name']);
         }
-        $pull_down_menu_noscript = $pull_down_menu;
-        $pull_down_menu .= xos_draw_pull_down_menu('filter', $options, (isset($_GET['filter']) ? $_GET['filter'] : ''), 'id="filter" onchange="this.form.submit()"') . '</form>';
-        $pull_down_menu_noscript .= xos_draw_pull_down_menu('filter', $options, (isset($_GET['filter']) ? $_GET['filter'] : ''), 'id="filter"'); 
+        $pull_down_menu .= xos_draw_pull_down_menu('filter', $options, xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('filter', 'page')) . 'filter=' . (isset($_GET['filter']) ? $_GET['filter'] : ''), 'NONSSL', true, true, false, false, false), 'id="filter" onchange="location = form.filter.options[form.filter.selectedIndex].value;"') . '</form>';
+        $pull_down_menu_noscript .= xos_draw_pull_down_menu('filter', $options_noscript, (isset($_GET['filter']) ? $_GET['filter'] : ''), 'id="filter"'); 
       }
     }
     
     if ($session_started) {      
-      $pull_down_menu_display_special_products = xos_draw_form('display_special_products', xos_href_link(FILENAME_SPECIALS, '', 'NONSSL', false, true, false, false, false), 'get') . xos_hide_session_id();
-      $pull_down_menu_display_special_products .= xos_draw_hidden_field('sort', $_GET['sort']) . xos_draw_hidden_field('filter', $_GET['filter']);
+      $pull_down_menu_display_special_products = xos_draw_form('display_special_products', xos_href_link(FILENAME_SPECIALS, '', 'NONSSL', false, true, false, false, false), 'get');
+      $pull_down_menu_display_special_products_noscript = xos_draw_form('display_special_products', xos_href_link(FILENAME_SPECIALS, '', 'NONSSL', false, false, false, false, false), 'get') . xos_hide_session_id();
+      $pull_down_menu_display_special_products_noscript .= xos_draw_hidden_field('sort', $_GET['sort']) . xos_draw_hidden_field('filter', $_GET['filter']);
       $max_display_special_products_array = array();
+      $max_display_special_products_array_noscript = array();
       $set = false;
       for ($i = 10; $i <=50 ; $i=$i+10) {  
         if (MAX_DISPLAY_SPECIAL_PRODUCTS <= $i && $set == false) {
-          $max_display_special_products_array[] = array('id' => MAX_DISPLAY_SPECIAL_PRODUCTS, 'text' => MAX_DISPLAY_SPECIAL_PRODUCTS . TEXT_MAX_PRODUCTS);
+          $max_display_special_products_array[] = array('id' => xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('mdsp', 'page')) . 'mdsp=' . MAX_DISPLAY_SPECIAL_PRODUCTS, 'NONSSL', true, true, false, false, false), 'text' => MAX_DISPLAY_SPECIAL_PRODUCTS . TEXT_MAX_PRODUCTS);
+          $max_display_special_products_array_noscript[] = array('id' => MAX_DISPLAY_SPECIAL_PRODUCTS, 'text' => MAX_DISPLAY_SPECIAL_PRODUCTS . TEXT_MAX_PRODUCTS);
           $set = true;      
         }    
         if (MAX_DISPLAY_SPECIAL_PRODUCTS != $i) {
-          $max_display_special_products_array[] = array('id' => $i, 'text' => $i . TEXT_MAX_PRODUCTS);
+          $max_display_special_products_array[] = array('id' => xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('mdsp', 'page')) . 'mdsp=' . $i, 'NONSSL', true, true, false, false, false), 'text' => $i . TEXT_MAX_PRODUCTS);
+          $max_display_special_products_array_noscript[] = array('id' => $i, 'text' => $i . TEXT_MAX_PRODUCTS);
         }
       }  
       if ($set == false) {
-        $max_display_special_products_array[] = array('id' => MAX_DISPLAY_SPECIAL_PRODUCTS, 'text' => MAX_DISPLAY_SPECIAL_PRODUCTS . TEXT_MAX_PRODUCTS);
+        $max_display_special_products_array[] = array('id' => xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('mdsp', 'page')) . 'mdsp=' . MAX_DISPLAY_SPECIAL_PRODUCTS, 'NONSSL', true, true, false, false, false), 'text' => MAX_DISPLAY_SPECIAL_PRODUCTS . TEXT_MAX_PRODUCTS);
+        $max_display_special_products_array_noscript[] = array('id' => MAX_DISPLAY_SPECIAL_PRODUCTS, 'text' => MAX_DISPLAY_SPECIAL_PRODUCTS . TEXT_MAX_PRODUCTS);
       }      
-      $pull_down_menu_display_special_products_noscript = $pull_down_menu_display_special_products;
-      $pull_down_menu_display_special_products .= xos_draw_pull_down_menu('mdsp', $max_display_special_products_array, (isset($_SESSION['mdsp']) ? $_SESSION['mdsp'] : MAX_DISPLAY_SPECIAL_PRODUCTS), 'id="mdsp" onchange="this.form.submit()"') . '</form>';
-      $pull_down_menu_display_special_products_noscript .= xos_draw_pull_down_menu('mdsp', $max_display_special_products_array, (isset($_SESSION['mdsp']) ? $_SESSION['mdsp'] : MAX_DISPLAY_SPECIAL_PRODUCTS), 'id="mdsp"');
+      $pull_down_menu_display_special_products .= xos_draw_pull_down_menu('mdsp', $max_display_special_products_array, xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('mdsp', 'page')) . 'mdsp=' . (isset($_SESSION['mdsp']) ? $_SESSION['mdsp'] : MAX_DISPLAY_SPECIAL_PRODUCTS), 'NONSSL', true, true, false, false, false), 'id="mdsp" onchange="location = form.mdsp.options[form.mdsp.selectedIndex].value;"') . '</form>';
+      $pull_down_menu_display_special_products_noscript .= xos_draw_pull_down_menu('mdsp', $max_display_special_products_array_noscript, (isset($_SESSION['mdsp']) ? $_SESSION['mdsp'] : MAX_DISPLAY_SPECIAL_PRODUCTS), 'id="mdsp"');
       
       $link_switch_special_view = xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('sv', 'sort', 'page')) . 'sv=' . ($product_list_b ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
     }
-    
+
     $smarty->assign(array('pull_down_menu' => $pull_down_menu,
                           'pull_down_menu_noscript_begin' => $pull_down_menu_noscript,
                           'pull_down_menu_noscript_end' => '</form>',
