@@ -39,6 +39,17 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 /////////////////////////////////// 
   $site_trail->add(NAVBAR_TITLE_1, xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS));  
 
+  if (isset($_POST['keywords']) && isset($_POST['copid']) && isset($_POST['_m']) && isset($_POST['pfrom']) && isset($_POST['pto']) && isset($_POST['dfrom']) && isset($_POST['dto'])) {
+    $_GET['keywords'] = $_POST['keywords'];
+    $_GET['sid'] = $_POST['sid'];
+    $_GET['copid'] = $_POST['copid'];
+    $_GET['_m'] = $_POST['_m'];
+    $_GET['pfrom'] = $_POST['pfrom'];
+    $_GET['pto'] = $_POST['pto'];
+    $_GET['dfrom'] = $_POST['dfrom'];
+    $_GET['dto'] = $_POST['dto'];
+  }
+
   $action = (((isset($_GET['keywords']) || isset($_GET['pfrom']) || isset($_GET['pto']) || isset($_GET['dfrom']) || isset($_GET['dto'])) && !isset($_GET['from_search_result'])) ? true : false);
   $error = false;
 
@@ -549,7 +560,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $hidden_get_variables .= xos_draw_hidden_field('tpl', $_GET['tpl']);
   } 
 
-  $smarty->assign(array('form_begin' => xos_draw_form('advanced_search_and_results', xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, '', 'NONSSL', false, true, false, false, false), 'get', 'onsubmit="return check_form(this);"') . $hidden_get_variables, 
+  $smarty->assign(array('form_begin' => xos_draw_form('advanced_search_and_results', xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, '', 'NONSSL', false, true, false, false, false), 'post', 'onsubmit="return check_form(this);"') . $hidden_get_variables, 
                         'hide_session_id' => xos_hide_session_id(),
                         'input_field_keywords' => xos_draw_input_field('keywords', stripslashes($_GET['keywords']), 'id="keywords"'),
                         'checkbox_search_in_description' => xos_draw_checkbox_field('sid', '1', ($action && !isset($_GET['sid']) ? false : true), 'id="search_in_description"'),

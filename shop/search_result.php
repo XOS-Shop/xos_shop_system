@@ -34,8 +34,10 @@ require('includes/application_top.php');
 if (!$is_shop) :
   xos_redirect(xos_href_link(FILENAME_DEFAULT), false);  
 elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_SEARCH_RESULT) == 'overwrite_all')) :
-  require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_SEARCH_RESULT); 
-
+  require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_SEARCH_RESULT);
+   
+  if (isset($_POST['keywords'])) $_GET['keywords'] = $_POST['keywords'];
+  
   $_GET['keywords'] = xos_sanitize_string($_GET['keywords']);
   
   $keywords = '^^^^^^';
