@@ -163,12 +163,16 @@
           $name_str = $name_str . '^' . xos_get_products_name($param_array['p']) . '^' . SEF_URL_NAME_REVIEWS;               
           $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/i' : FILENAME_PRODUCT_REVIEWS_INFO; 
           break;
-        case FILENAME_TELL_A_FRIEND:     
-          $c_id_str = xos_get_product_path($param_array['p']);                 
-          foreach(explode('_', $c_id_str) as $value) {
-            $c_name_array[] = $cats[$value];
-          }                        
-          $name_str = implode('^', $c_name_array);                
+        case FILENAME_TELL_A_FRIEND:  
+          if (array_key_exists('m', $param_array)) {        
+            $name_str = $mans[$param_array['m']];               
+          } else {       
+            $c_id_str = xos_get_product_path($param_array['p']);                 
+            foreach(explode('_', $c_id_str) as $value) {
+              $c_name_array[] = $cats[$value];
+            }                        
+            $name_str = implode('^', $c_name_array);                
+          }            
           $name_str = $name_str . '^' . xos_get_products_name($param_array['p']) . '^' . SEF_URL_NAME_TELL_A_FRIEND;               
           $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/k' : FILENAME_TELL_A_FRIEND; 
           break;
