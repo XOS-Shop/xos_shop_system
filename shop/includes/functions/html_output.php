@@ -93,7 +93,7 @@
           } else {        
             $name_str = HEADER_TITLE_HOME;        
           }         
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-a/' : FILENAME_DEFAULT;                          
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/a' : FILENAME_DEFAULT;                          
           break;      
         case FILENAME_PRODUCT_INFO:        
           if (array_key_exists('c', $param_array)) {             
@@ -113,29 +113,29 @@
             }
           }
           $name_str = $name_str . '^' . xos_get_products_name($param_array['p']);
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-b/' : FILENAME_PRODUCT_INFO;                  
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/b' : FILENAME_PRODUCT_INFO;                  
           break;
         case FILENAME_CONTENT:                
           if (array_key_exists('co', $param_array)) {      
             $co_name = $cots[$param_array['co']];      
           }         
-          $page = ($trail_string = xos_sef_url_trail_converter($co_name)) ? $trail_string . '-c/' : FILENAME_CONTENT;                  
+          $page = ($trail_string = xos_sef_url_trail_converter($co_name)) ? $trail_string . '.html/c' : FILENAME_CONTENT;                  
           break;
         case FILENAME_SPECIALS:
           $name_str = SEF_URL_NAME_SPECIALS;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-d/' : FILENAME_SPECIALS; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/d' : FILENAME_SPECIALS; 
           break; 
         case FILENAME_PRODUCTS_NEW:
           $name_str = SEF_URL_NAME_NEW_PRODUCTS;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-e/' : FILENAME_PRODUCTS_NEW; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/e' : FILENAME_PRODUCTS_NEW; 
           break;
         case FILENAME_NEWSLETTER_SUBSCRIBE:
           $name_str = SEF_URL_NAME_SUBSCRIBE_NEWSLETTER;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-f/' : FILENAME_NEWSLETTER_SUBSCRIBE; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/f' : FILENAME_NEWSLETTER_SUBSCRIBE; 
           break;              
         case FILENAME_REVIEWS:
           $name_str = SEF_URL_NAME_REVIEWS;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-g/' : FILENAME_REVIEWS; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/g' : FILENAME_REVIEWS; 
           break;                            
         case FILENAME_PRODUCT_REVIEWS:            
           if (array_key_exists('m', $param_array)) {        
@@ -148,7 +148,7 @@
             $name_str = implode('^', $c_name_array);                
           }
           $name_str = $name_str . '^' . xos_get_products_name($param_array['p']) . '^' . SEF_URL_NAME_REVIEWS;
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-h/' : FILENAME_PRODUCT_REVIEWS;
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/h' : FILENAME_PRODUCT_REVIEWS;
           break; 
         case FILENAME_PRODUCT_REVIEWS_INFO:
           if (array_key_exists('m', $param_array)) {        
@@ -161,7 +161,7 @@
             $name_str = implode('^', $c_name_array);                
           }
           $name_str = $name_str . '^' . xos_get_products_name($param_array['p']) . '^' . SEF_URL_NAME_REVIEWS;               
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-i/' : FILENAME_PRODUCT_REVIEWS_INFO; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/i' : FILENAME_PRODUCT_REVIEWS_INFO; 
           break;
         case FILENAME_TELL_A_FRIEND:     
           $c_id_str = xos_get_product_path($param_array['p']);                 
@@ -170,35 +170,35 @@
           }                        
           $name_str = implode('^', $c_name_array);                
           $name_str = $name_str . '^' . xos_get_products_name($param_array['p']) . '^' . SEF_URL_NAME_TELL_A_FRIEND;               
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-k/' : FILENAME_TELL_A_FRIEND; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/k' : FILENAME_TELL_A_FRIEND; 
           break;
         case FILENAME_SHOPPING_CART:
           $name_str = SEF_URL_NAME_SHOPPING_CART;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-l/' : FILENAME_SHOPPING_CART; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/l' : FILENAME_SHOPPING_CART; 
           break;
         case FILENAME_LOGIN:
           $name_str = SEF_URL_NAME_LOGIN;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-m/' : FILENAME_LOGIN; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/m' : FILENAME_LOGIN; 
           break; 
         case FILENAME_CREATE_ACCOUNT:
           $name_str = SEF_URL_NAME_CREATE_ACCOUNT;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-n/' : FILENAME_CREATE_ACCOUNT; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/n' : FILENAME_CREATE_ACCOUNT; 
           break;
         case FILENAME_PASSWORD_FORGOTTEN:
           $name_str = SEF_URL_NAME_PASSWORD_FORGOTTEN;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-o/' : FILENAME_PASSWORD_FORGOTTEN; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/o' : FILENAME_PASSWORD_FORGOTTEN; 
           break;
         case FILENAME_ADVANCED_SEARCH_AND_RESULTS:
           $name_str = SEF_URL_NAME_ADVANCED_SEARCH_AND_RESULTS;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-p/' : FILENAME_ADVANCED_SEARCH_AND_RESULTS; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/p' : FILENAME_ADVANCED_SEARCH_AND_RESULTS; 
           break;
         case FILENAME_SEARCH_RESULT:
           $name_str = SEF_URL_NAME_SEARCH_RESULT;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-q/' : FILENAME_SEARCH_RESULT; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/q' : FILENAME_SEARCH_RESULT; 
           break;
         case FILENAME_COOKIE_USAGE:
           $name_str = SEF_URL_NAME_COOKIE_USAGE;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '-r/' : FILENAME_COOKIE_USAGE; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/r' : FILENAME_COOKIE_USAGE; 
           break;                                                                                                          
       }                                         
     }    
@@ -294,9 +294,9 @@
     $trail_string = preg_replace("/(-){2,}/","-", $trail_string);
 
 // Jetzt wird '^' durch '/' ersetzt weil '/' der Wort-Trenner ist, danach werden noch eventuelle '-' vor und nach '/' sowie am Anfang und Ende der Zeichenkette entfernt
-// Zusätzlich werden am Anfang und Ende der Zeichenkette noch '_' und '~' entfernt, somit können auch diese Zeichen für die Erkennung verwendet werden. Beispiel:($trail_string . '~/' : FILENAME_DEFAULT)
+// Zusätzlich werden am Anfang und Ende der Zeichenkette noch '_', '~' und '.' entfernt, somit können auch diese Zeichen für die Erkennung verwendet werden. Beispiel:($trail_string . '~/' : FILENAME_DEFAULT)
     $trail_string = str_replace(array("^", "-/", "/-"), "/", $trail_string);
-    $trail_string = trim($trail_string,"-_~");  
+    $trail_string = trim($trail_string,"-_~.");  
 
     return($trail_string);
   }
