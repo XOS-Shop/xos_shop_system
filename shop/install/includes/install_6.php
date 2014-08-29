@@ -146,6 +146,7 @@
     }
 
     $https_server = $enable_ssl == 'true' ? str_replace('http://', 'https://', $http_server) : '';
+    $https_cookie_domain = $enable_ssl == 'true' ? $http_cookie_domain : '';
 
     if (substr($http_catalog, -1) != '/') {
       $http_catalog .= '/';
@@ -181,7 +182,8 @@
                      '  define(\'HTTP_SERVER\', \'' . $http_server . '\'); // eg, http://localhost - should not be empty for productive servers' . "\n" .
                      '  define(\'HTTPS_SERVER\', \'' . $https_server . '\'); // eg, https://localhost - should not be empty for productive servers' . "\n" .
                      '  define(\'ENABLE_SSL\', \'' . $enable_ssl . '\'); // secure webserver' . "\n" .
-                     '  define(\'COOKIE_DOMAIN\', \'' . $http_cookie_domain . '\');' . "\n" .
+                     '  define(\'HTTP_COOKIE_DOMAIN\', \'' . $http_cookie_domain . '\');' . "\n" .
+                     '  define(\'HTTPS_COOKIE_DOMAIN\', \'' . $https_cookie_domain . '\');' . "\n" .
                      '  define(\'COOKIE_PATH\', \'' . $http_cookie_path . '\');' . "\n" .
                      '  define(\'DIR_WS_CATALOG\', \'' . $http_catalog . '\');' . "\n" .
                      '  define(\'DIR_WS_IMAGES\', \'images/\');' . "\n" .
@@ -244,7 +246,8 @@
                      '  define(\'HTTP_SERVER\', \'' . $http_server . '\'); // eg, http://localhost - should not be empty for productive servers' . "\n" .
                      '  define(\'HTTPS_SERVER\', \'' . $https_server . '\'); // eg, https://localhost - should not be empty for productive servers' . "\n" .
                      '  define(\'ENABLE_SSL\', \'' . $enable_ssl . '\'); // secure webserver' . "\n" .
-                     '  define(\'COOKIE_DOMAIN\', \'' . $http_cookie_domain . '\');' . "\n" .
+                     '  define(\'HTTP_COOKIE_DOMAIN\', \'' . $http_cookie_domain . '\');' . "\n" .
+                     '  define(\'HTTPS_COOKIE_DOMAIN\', \'' . $https_cookie_domain . '\');' . "\n" .
                      '  define(\'COOKIE_PATH\', \'' . $http_cookie_path . '\');' . "\n" .                    
                      '  define(\'DIR_FS_DOCUMENT_ROOT\', \'' . $dir_fs_document_root . '\'); // where the pages are located on the server' . "\n" .
                      '  define(\'DIR_WS_ADMIN\', \'' . $http_catalog . $admin_dir_name . '/\');' . "\n" .

@@ -139,6 +139,9 @@
     }
   } 
 
+// set the cookie domain
+  $cookie_domain = (($request_type == 'NONSSL') ? HTTP_COOKIE_DOMAIN : HTTPS_COOKIE_DOMAIN);
+
 // define our general functions used application-wide
   require(DIR_WS_FUNCTIONS . 'general.php');
   require(DIR_WS_FUNCTIONS . 'html_output.php');
@@ -159,11 +162,11 @@
   xos_session_name('XOSsidAdmin');
   xos_session_save_path(SESSION_WRITE_DIRECTORY);
 
-// set the session cookie parameters  
+// set the session cookie parameters
   ini_set('session.cookie_lifetime', '0');
   ini_set('session.cookie_path', COOKIE_PATH);
-  ini_set('session.cookie_domain', COOKIE_DOMAIN);
-  ini_set('session.use_only_cookies', (SESSION_FORCE_COOKIE_USE == 'true') ? 1 : 0);    
+  ini_set('session.cookie_domain', $cookie_domain);
+  ini_set('session.use_only_cookies', (SESSION_FORCE_COOKIE_USE == 'true') ? 1 : 0);        
 
 // start the session
   if (!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) setcookie(session_name(), $_GET[session_name()], 0, COOKIE_PATH, COOKIE_DOMAIN);

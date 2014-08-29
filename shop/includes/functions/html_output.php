@@ -235,10 +235,18 @@
       $add_parameter = true;     
     }    
 
-// Add the session ID when SID is defined
-    if ( ($add_session_id == true) && ($session_started == true) && (SESSION_FORCE_COOKIE_USE == 'false') && (defined('SID') && xos_not_null(SID)) ) {
+// Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
+    if ( ($add_session_id == true) && ($session_started == true) && (SESSION_FORCE_COOKIE_USE == 'false') ) {
+      if (SID) {
+        $_sid = SID;
+      } elseif ( ( ($request_type == 'NONSSL') && ($connection == 'SSL') && (ENABLE_SSL == true) ) || ( ($request_type == 'SSL') && ($connection == 'NONSSL') ) ) {
+        $_sid = xos_session_name() . '=' . xos_session_id();
+      }
+    }
+
+    if (isset($_sid)) {
       $add_parameter = true;
-      $link .= $separator . xos_output_string(SID);
+      $link .= $separator . xos_output_string($_sid);
     }
 
     if ( (SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true) ) {
@@ -468,7 +476,7 @@
   function xos_hide_session_id() {
     global $session_started;
 
-    if (($session_started == true) && defined('SID') && xos_not_null(SID)) {
+    if (SID) {
       return xos_draw_hidden_field(xos_session_name(), xos_session_id());
     }
   }

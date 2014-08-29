@@ -36,7 +36,8 @@
   define('HTTP_SERVER', ''); // eg, http://localhost - should not be empty for productive servers
   define('HTTPS_SERVER', ''); // eg, https://localhost - should not be empty for productive servers
   define('ENABLE_SSL', 'false'); // secure webserver
-  define('COOKIE_DOMAIN', '');
+  define('HTTP_COOKIE_DOMAIN', '');
+  define('HTTPS_COOKIE_DOMAIN', '');
   define('COOKIE_PATH', '');
   define('DIR_FS_DOCUMENT_ROOT', ''); // where your pages are located on the server
   define('DIR_WS_ADMIN', '/admin/');
