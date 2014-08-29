@@ -476,7 +476,7 @@
   function xos_hide_session_id() {
     global $session_started;
 
-    if (SID) {
+    if ($session_started == true && SID) {
       return xos_draw_hidden_field(xos_session_name(), xos_session_id());
     }
   }
