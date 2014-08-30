@@ -547,20 +547,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   
   $popup_status_query = xos_db_query("select status from " . TABLE_CONTENTS . "  where type = 'system_popup' and status = '1' and content_id = '9' LIMIT 1");
 
-  $hidden_get_variables = '';
-  if (!$session_started && xos_not_null($_GET['currency'])) {
-    $hidden_get_variables .= xos_draw_hidden_field('currency', $_GET['currency']);
-  }  
-
-  if (!$session_started && xos_not_null($_GET['language'])) {
-    $hidden_get_variables .= xos_draw_hidden_field('language', $_GET['language']);
-  }
-
-  if (!$session_started && xos_not_null($_GET['tpl'])) {
-    $hidden_get_variables .= xos_draw_hidden_field('tpl', $_GET['tpl']);
-  } 
-
-  $smarty->assign(array('form_begin' => xos_draw_form('advanced_search_and_results', xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, '', 'NONSSL', false, true, false, false, false), 'post', 'onsubmit="return check_form(this);"') . $hidden_get_variables, 
+  $smarty->assign(array('form_begin' => xos_draw_form('advanced_search_and_results', xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, '', 'NONSSL', false), 'post', 'onsubmit="return check_form(this);"'), 
                         'hide_session_id' => xos_hide_session_id(),
                         'input_field_keywords' => xos_draw_input_field('keywords', stripslashes($_GET['keywords']), 'id="keywords"'),
                         'checkbox_search_in_description' => xos_draw_checkbox_field('sid', '1', ($action && !isset($_GET['sid']) ? false : true), 'id="search_in_description"'),
