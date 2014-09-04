@@ -415,7 +415,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                             'link_filename_popup_file_manager_link_selection' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents')),
                             'link_filename_popup_file_manager_image' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=no_link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents/image')),
                             'link_filename_popup_file_manager_flash' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=no_link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents/flash')),
-                            'product_config' => DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/product_config.js',
+                            'product_config' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/product_config.js',
                             'lang_code' => xos_get_languages_code()));
     
     }
@@ -436,9 +436,9 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                               'input_new_p_unit' => xos_draw_input_field('products_new_p_unit[' . $languages[$i]['id'] . ']'),
                               'info_name' => 'products_info[' . $languages[$i]['id'] . ']',
                               'description_name' => 'products_description[' . $languages[$i]['id'] . ']',
-                              'product_info_template_file' => DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/templates/' . $languages[$i]['directory'] . '/product_info_template.js',
+                              'product_info_template_file' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/templates/' . $languages[$i]['directory'] . '/product_info_template.js',
                               'product_info_template_lang' => $languages[$i]['directory'] . '_default',
-                              'product_description_template_file' => DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/templates/' . $languages[$i]['directory'] . '/product_description_template.js',
+                              'product_description_template_file' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/templates/' . $languages[$i]['directory'] . '/product_description_template.js',
                               'product_description_template_lang' => $languages[$i]['directory'] . '_default',
                               'textarea_info' => xos_draw_textarea_field('products_info[' . $languages[$i]['id'] . ']', '90', '4', (isset($products_info[$languages[$i]['id']]) ? stripslashes($products_info[$languages[$i]['id']]) : xos_get_products_info($pInfo->products_id, $languages[$i]['id']))),
                               'textarea_description' => xos_draw_textarea_field('products_description[' . $languages[$i]['id'] . ']', '90', '15', (isset($products_description[$languages[$i]['id']]) ? stripslashes($products_description[$languages[$i]['id']]) : xos_get_products_description($pInfo->products_id, $languages[$i]['id']))),

@@ -316,7 +316,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                             'link_filename_popup_file_manager_link_selection' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents')),
                             'link_filename_popup_file_manager_image' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=no_link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents/image')),
                             'link_filename_popup_file_manager_flash' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=no_link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents/flash')),
-                            'banner_manager_config' => DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/banner_manager_config.js',                            
+                            'banner_manager_config' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/banner_manager_config.js',
                             'lang_code' => xos_get_languages_code()));
 
     }
@@ -337,7 +337,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                                      'selection_field_delete_banners_image' => xos_draw_selection_field('delete_banners_image[' . $languages[$i]['id'] . ']', 'checkbox', 'true'),                                      
                                      'hidden_field_current_banners_image' => xos_draw_hidden_field('current_banners_image[' . $languages[$i]['id'] . ']', isset($bInfo->banners_image[$languages[$i]['id']]) ? stripslashes($bInfo->banners_image[$languages[$i]['id']]) : $banners_content['banners_image']),                                    
                                      'banners_html_text_name' => 'banners_html_text[' . $languages[$i]['id'] . ']',
-                                     'banner_manager_template_file' => DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/templates/' . $languages[$i]['directory'] . '/banner_manager_template.js',
+                                     'banner_manager_template_file' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/templates/' . $languages[$i]['directory'] . '/banner_manager_template.js',
                                      'banner_manager_template_lang' => $languages[$i]['directory'] . '_default',                                    
                                      'textarea_banners_html_text' => xos_draw_textarea_field('banners_html_text[' . $languages[$i]['id'] . ']', '110', '18', isset($bInfo->banners_html_text[$languages[$i]['id']]) ? stripslashes($bInfo->banners_html_text[$languages[$i]['id']]) : $banners_content['banners_html_text']),
                                      'textarea_banners_php_source' => xos_draw_textarea_field('banners_php_source[' . $languages[$i]['id'] . ']', '110', '18', (isset($bInfo->banners_php_source[$languages[$i]['id']]) ? stripslashes($bInfo->banners_php_source[$languages[$i]['id']]) : $banners_content['banners_php_source']), 'class="textarea-php-code" readonly="readonly"'));      

@@ -596,7 +596,8 @@
 //  $smarty->loadFilter('output','trimwhitespace');
   $smarty->assign(array('nl' => "\n",
                         'is_shop' => $is_shop,
-                        'page_info' => $page_info,                        
+                        'page_info' => $page_info,
+                        'request_type' => $request_type,                        
                         'link_filename_popup_content_6' => STATUS_POPUP_CONTENT_6 == '1' ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=6', $request_type) : '',
                         'end_tags' => (DISPLAY_PAGE_PARSE_TIME == 'true' && STORE_PAGE_PARSE_TIME == 'true' ? $templateIntegration->getBlocks('footer_scripts') : $templateIntegration->getBlocks('footer_scripts') . "</body>\n</html>"),
                         'date_format_long' => xos_date_format(DATE_FORMAT_LONG),

@@ -46,6 +46,9 @@
 // Set the local configuration parameters - mainly for developers
   if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
 
+// set the type of request (secure or not)
+  $request_type = (getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
+
 // Include application configuration parameters
   require('includes/configure.php');
 
@@ -297,6 +300,7 @@
   $smarty->configLoad('templates/' . ADMIN_TPL . '/includes/configuration/config.conf');
 //  $smarty->loadFilter('output','trimwhitespace');
   $smarty->assign(array('images_path' => DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/',
+                        'request_type' => $request_type,
                         'project_title' => PROJECT_TITLE,
                         'project_logo' => PROJECT_LOGO,
                         'end_tags' => (DISPLAY_PAGE_PARSE_TIME == 'true' && STORE_PAGE_PARSE_TIME == 'true' ? '' : "</body>\n</html>"),

@@ -245,7 +245,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                             'link_filename_popup_file_manager_link_selection' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents')),
                             'link_filename_popup_file_manager_image' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=no_link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents/image')),
                             'link_filename_popup_file_manager_flash' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=no_link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents/flash')),
-                            'page_config' => DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/page_config.js',
+                            'page_config' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/page_config.js',
                             'lang_code' => xos_get_languages_code()));
     }
 
@@ -261,7 +261,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                                 'input_name' => xos_draw_input_field('categories_or_pages_name[' . $languages[$i]['id'] . ']', (isset($cInfo->categories_or_pages_name[$languages[$i]['id']]) ? stripslashes(htmlspecialchars($cInfo->categories_or_pages_name[$languages[$i]['id']])) : htmlspecialchars($page_data['categories_or_pages_name'])), 'maxlength="64" size="30"', true),
                                 'input_heading_title' => xos_draw_input_field('categories_or_pages_heading_title[' . $languages[$i]['id'] . ']', (isset($cInfo->categories_or_pages_heading_title[$languages[$i]['id']]) ? stripslashes($cInfo->categories_or_pages_heading_title[$languages[$i]['id']]) : $page_data['categories_or_pages_heading_title']), 'maxlength="255" size="80"'),
                                 'page_description' => 'categories_or_pages_content[' . $languages[$i]['id'] . ']',
-                                'page_template_file' => DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/templates/' . $languages[$i]['directory'] . '/page_template.js',
+                                'page_template_file' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/templates/' . $languages[$i]['directory'] . '/page_template.js',
                                 'page_template_lang' => $languages[$i]['directory'] . '_default',
                                 'page_textarea' => xos_draw_textarea_field('categories_or_pages_content[' . $languages[$i]['id'] . ']', '130', '25', (isset($cInfo->categories_or_pages_content[$languages[$i]['id']]) ? stripslashes($cInfo->categories_or_pages_content[$languages[$i]['id']]) : $page_data['categories_or_pages_content'])),
                                 'page_textarea_php_source' => xos_draw_textarea_field('categories_or_pages_php_source[' . $languages[$i]['id'] . ']', '130', '25', (isset($cInfo->categories_or_pages_php_source[$languages[$i]['id']]) ? stripslashes($cInfo->categories_or_pages_php_source[$languages[$i]['id']]) : $page_data['categories_or_pages_php_source']), 'class="textarea-php-code" readonly="readonly"'));      
