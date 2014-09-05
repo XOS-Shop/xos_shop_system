@@ -172,7 +172,7 @@
   ini_set('session.use_only_cookies', (SESSION_FORCE_COOKIE_USE == 'true') ? 1 : 0);        
 
 // start the session
-  if (!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) setcookie(session_name(), $_GET[session_name()], 0, COOKIE_PATH, COOKIE_DOMAIN);
+  if (!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) setcookie(session_name(), $_GET[session_name()], 0, COOKIE_PATH, $cookie_domain);
   xos_session_start();
 
   if (!preg_match('/^[a-z0-9]{26}$/i', session_id()) && !preg_match('/^[a-z0-9]{32}$/i', session_id())) session_regenerate_id(true);
