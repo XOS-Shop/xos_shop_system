@@ -222,9 +222,9 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
   if (getenv('HTTPS') == 'on') {
     $size = ((getenv('SSL_CIPHER_ALGKEYSIZE')) ? getenv('SSL_CIPHER_ALGKEYSIZE') . '-bit' : '<i>' . BOX_CONNECTION_UNKNOWN . '</i>');
-    $content_ssl = '<a href="' . xos_href_link(FILENAME_DEFAULT, 'ssl=disable' . ((!SID) ? '&' . xos_session_name() . '=' . xos_session_id() : '')) . '">' . xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icons/locked.gif', ICON_TITLE_LOCKED_CLICK_TO_UNLOCK, '', '', 'align="right"') . '</a>' . sprintf(BOX_CONNECTION_PROTECTED, $size);
+    $content_ssl = '<a href="' . xos_href_link(FILENAME_DEFAULT, 'ssl=disable') . '">' . xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icons/locked.gif', ICON_TITLE_LOCKED_CLICK_TO_UNLOCK, '', '', 'align="right"') . '</a>' . sprintf(BOX_CONNECTION_PROTECTED, $size);
   } elseif ($_SESSION['disable_ssl']) {
-    $content_ssl = '<a href="' . xos_href_link(FILENAME_DEFAULT, 'ssl=enable' . ((!SID) ? '&' . xos_session_name() . '=' . xos_session_id() : '')) . '">' . xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icons/unlocked.gif', ICON_TITLE_UNLOCKED_CLICK_TO_LOCK, '', '', 'align="right"') . '</a>' . BOX_CONNECTION_UNPROTECTED;
+    $content_ssl = '<a href="' . xos_href_link(FILENAME_DEFAULT, 'ssl=enable') . '">' . xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icons/unlocked.gif', ICON_TITLE_UNLOCKED_CLICK_TO_LOCK, '', '', 'align="right"') . '</a>' . BOX_CONNECTION_UNPROTECTED;
   } else {
     $content_ssl = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icons/unlocked.gif', ICON_TITLE_UNLOCKED, '', '', 'align="right"') . BOX_CONNECTION_UNPROTECTED;
   }
