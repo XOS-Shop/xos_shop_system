@@ -161,7 +161,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
 
     $full_tabs_array = array_merge($full_tabs_array, $full_cat_tree);
 
-    $page_name = explode('|',((DISPLAY_LINK_TO_ROOT_DIRECTORY == 'true' && DIR_WS_CATALOG != '/') ? '' : '|') . $site_trail->title_trail('|'));
+    $page_name = explode('|',((DISPLAY_LINK_TO_ROOT_DIRECTORY == 'true' && DIR_WS_CATALOG != '/' && DIR_WS_CATALOG != '') ? '' : '|') . $site_trail->title_trail('|'));
     if (!isset($cPath_array) && $page_name[1]) {    
       $tabs_array[]=array('class_name' => 'tab-selected',
                           'href_link' => false,

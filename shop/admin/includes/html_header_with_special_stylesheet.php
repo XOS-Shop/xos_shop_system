@@ -23,18 +23,20 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/html_header.php') == 'overwrite_all')) :
-  $smarty->assign(array('html_params' => HTML_PARAMS,
+  $smarty->assign(array('base_href' => ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER,
+                        'html_params' => HTML_PARAMS,
                         'xhtml_lang' => XHTML_LANG,
                         'charset' => CHARSET,
                         'style' => $style,                        
                         'javascript' => $javascript));
   
   $output_html_header_with_special_stylesheet = $smarty->fetch(ADMIN_TPL . '/includes/html_header_with_special_stylesheet.tpl');
-  $smarty->clearAssign(array('html_params',
-                              'xhtml_lang',
-                              'charset',
-                              'style',                              
-                              'javascript'));
+  $smarty->clearAssign(array('base_href',
+                             'html_params',
+                             'xhtml_lang',
+                             'charset',
+                             'style',                              
+                             'javascript'));
                           
   $smarty->assign('html_header', $output_html_header_with_special_stylesheet);
 endif;   

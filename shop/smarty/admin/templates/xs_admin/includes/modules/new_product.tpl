@@ -248,6 +248,7 @@
 /* <![CDATA[ */
   CKEDITOR.replace( '[@{$product_value.info_name}@]',
     {
+      baseHref: '[@{$product_base_href}@]',
       filebrowserBrowseUrl: '[@{$link_filename_popup_file_manager_link_selection}@]',
       filebrowserImageBrowseUrl: '[@{$link_filename_popup_file_manager_image}@]',
       filebrowserFlashBrowseUrl: '[@{$link_filename_popup_file_manager_flash}@]',
@@ -291,6 +292,7 @@
 /* <![CDATA[ */
   CKEDITOR.replace( '[@{$product_value.description_name}@]',
     {
+      baseHref: '[@{$product_base_href}@]',
       filebrowserBrowseUrl: '[@{$link_filename_popup_file_manager_link_selection}@]',
       filebrowserImageBrowseUrl: '[@{$link_filename_popup_file_manager_image}@]',
       filebrowserFlashBrowseUrl: '[@{$link_filename_popup_file_manager_flash}@]',

@@ -144,13 +144,15 @@
     if (isset($http_url['port']) && !empty($http_url['port'])) {
       $http_server .= ':' . $http_url['port'];
     }
+    $http_server .= '/';
 
     $https_server = $enable_ssl == 'true' ? str_replace('http://', 'https://', $http_server) : '';
     $https_cookie_domain = $enable_ssl == 'true' ? $http_cookie_domain : '';
 
     if (substr($http_catalog, -1) != '/') {
       $http_catalog .= '/';
-    }
+    }  
+    $http_catalog = ltrim($http_catalog, '/');
 
     $file_contents = '<?php' . "\n" .    
                      '////////////////////////////////////////////////////////////////////////////////' . "\n" . 

@@ -149,6 +149,7 @@ function updateSort() {
 /* <![CDATA[ */
   CKEDITOR.replace( '[@{$content_data.content_name}@]',
     {
+      baseHref: '[@{$info_pages_base_href}@]',
       filebrowserBrowseUrl: '[@{$link_filename_popup_file_manager_link_selection}@]',
       filebrowserImageBrowseUrl: '[@{$link_filename_popup_file_manager_image}@]',
       filebrowserFlashBrowseUrl: '[@{$link_filename_popup_file_manager_flash}@]',

@@ -52,10 +52,10 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
           $banner_id = $bInfo->banners_id;
           $days = '3';
           include(DIR_WS_INCLUDES . 'graphs/banner_infobox.php');          
-          $contents[] = array('text' => '<br />' . xos_image(DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banner_id . '.' . $banner_extension, '', '', '', 'name="banner_infobox"') . "\n" .
+          $contents[] = array('text' => '<br />' . xos_image(DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banner_id . '.' . $banner_extension, '', '', '', 'name="banner_infobox"') . "\n" .
                                         '<script type="text/javascript">' . "\n" .
                                         '/* <![CDATA[ */' . "\n" .               
-                                        '  document.images.banner_infobox.src="' . DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banner_id . '.' . $banner_extension . '?" + new Date().getTime();' . "\n" .                   
+                                        '  document.images.banner_infobox.src="' . DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banner_id . '.' . $banner_extension . '?" + new Date().getTime();' . "\n" .                   
                                         '/* ]]> */' . "\n" .
                                         '</script>' . "\n");          
         } else {

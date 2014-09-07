@@ -110,16 +110,16 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     switch ($type) {
       case 'yearly':
         include(DIR_WS_INCLUDES . 'graphs/banner_yearly.php');
-        $smarty->assign('banner_graph', xos_image(DIR_WS_IMAGES . 'graphs/banner_yearly-' . $banner_id . '.' . $banner_extension));
+        $smarty->assign('banner_graph', xos_image(DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_yearly-' . $banner_id . '.' . $banner_extension));
         break;
       case 'monthly':
         include(DIR_WS_INCLUDES . 'graphs/banner_monthly.php');
         $javascript = "\n" . '<script type="text/javascript">' . "\n" .
                       '/* <![CDATA[ */' . "\n" .               
-                      '  document.images.banner_monthly.src="' . DIR_WS_IMAGES . 'graphs/banner_monthly-' . $banner_id . '.' . $banner_extension . '?" + new Date().getTime();' . "\n" .                   
+                      '  document.images.banner_monthly.src="' . DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_monthly-' . $banner_id . '.' . $banner_extension . '?" + new Date().getTime();' . "\n" .                   
                       '/* ]]> */' . "\n" .
                       '</script>' . "\n";
-        $smarty->assign(array('banner_graph' => xos_image(DIR_WS_IMAGES . 'graphs/banner_monthly-' . $banner_id . '.' . $banner_extension, '', '', '', 'name="banner_monthly"'),
+        $smarty->assign(array('banner_graph' => xos_image(DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_monthly-' . $banner_id . '.' . $banner_extension, '', '', '', 'name="banner_monthly"'),
                               'javascript' => $javascript));         
         break;
       default:
@@ -127,10 +127,10 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         include(DIR_WS_INCLUDES . 'graphs/banner_daily.php');
         $javascript = "\n" . '<script type="text/javascript">' . "\n" .
                       '/* <![CDATA[ */' . "\n" .               
-                      '  document.images.banner_daily.src="' . DIR_WS_IMAGES . 'graphs/banner_daily-' . $banner_id . '.' . $banner_extension . '?" + new Date().getTime();' . "\n" .                   
+                      '  document.images.banner_daily.src="' . DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_daily-' . $banner_id . '.' . $banner_extension . '?" + new Date().getTime();' . "\n" .                   
                       '/* ]]> */' . "\n" .
                       '</script>' . "\n";
-        $smarty->assign(array('banner_graph' => xos_image(DIR_WS_IMAGES . 'graphs/banner_daily-' . $banner_id . '.' . $banner_extension, '', '', '', 'name="banner_daily"'),
+        $smarty->assign(array('banner_graph' => xos_image(DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_daily-' . $banner_id . '.' . $banner_extension, '', '', '', 'name="banner_daily"'),
                               'javascript' => $javascript)); 
         break;
     }

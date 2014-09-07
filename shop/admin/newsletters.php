@@ -277,6 +277,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                             'link_filename_popup_file_manager_flash' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=no_link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents/flash')),
                             'newsletter_config' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/newsletter_config.js',
                             'newsletter_template_file' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/templates/' . $_SESSION['language'] . '/newsletter_template.js',
+                            'newsletter_base_href' => ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER,
                             'newsletter_template_lang' => $_SESSION['language'] . '_default',
                             'lang_code' => xos_get_languages_code(),
                             'textarea_content_text_htlm' => xos_draw_textarea_field('content_text_htlm', '130', '25', $nInfo->content_text_htlm)));    

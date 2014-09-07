@@ -112,6 +112,7 @@
 /* <![CDATA[ */
   CKEDITOR.replace( '[@{$page_data.page_description}@]',
     {
+      baseHref: '[@{$page_base_href}@]',
       filebrowserBrowseUrl: '[@{$link_filename_popup_file_manager_link_selection}@]',
       filebrowserImageBrowseUrl: '[@{$link_filename_popup_file_manager_image}@]',
       filebrowserFlashBrowseUrl: '[@{$link_filename_popup_file_manager_flash}@]',

@@ -34,7 +34,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
                  
   $add_header .= $templateIntegration->getBlocks('header_tags');                
 
-  $smarty->assign(array('html_header_html_params' => HTML_PARAMS,
+  $smarty->assign(array('base_href' => ENABLE_SSL == 'true' ? ($request_type == 'SSL' ? HTTPS_SERVER : HTTP_SERVER) : HTTP_SERVER,
+                        'html_header_html_params' => HTML_PARAMS,
                         'html_header_xhtml_lang' => XHTML_LANG,
                         'html_header_charset' => CHARSET,
                         'html_header_page_title' => STORE_NAME . ($page_title_trail != '' ? PAGE_TITLE_TRAIL_SEPARATOR . $page_title_trail : ''),

@@ -131,7 +131,8 @@
 <script type="text/javascript">
 /* <![CDATA[ */
   CKEDITOR.replace( '[@{$banner_content.banners_html_text_name}@]',
-    {
+    { 
+      baseHref: '[@{$banner_manager_base_href}@]',
       filebrowserBrowseUrl: '[@{$link_filename_popup_file_manager_link_selection}@]',
       filebrowserImageBrowseUrl: '[@{$link_filename_popup_file_manager_image}@]',
       filebrowserFlashBrowseUrl: '[@{$link_filename_popup_file_manager_flash}@]',
