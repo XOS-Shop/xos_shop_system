@@ -517,7 +517,7 @@
   require(DIR_WS_CLASSES . 'site_trail.php');
   $site_trail = new site_trail;
 
-  if (DISPLAY_LINK_TO_ROOT_DIRECTORY == 'true' && DIR_WS_CATALOG != '/' && DIR_WS_CATALOG != '') $site_trail->add(HEADER_TITLE_TOP, str_replace(DIR_WS_CATALOG . FILENAME_DEFAULT, '', xos_href_link(FILENAME_DEFAULT, '', 'NONSSL', true, false)));
+  if (DISPLAY_LINK_TO_ROOT_DIRECTORY == 'true' && DIR_WS_CATALOG != '') $site_trail->add(HEADER_TITLE_TOP, str_replace(DIR_WS_CATALOG . FILENAME_DEFAULT, '', xos_href_link(FILENAME_DEFAULT, '', 'NONSSL', true, false)));
 //  $site_trail->add(HEADER_TITLE_TOP, HTTP_SERVER);    
   $site_trail->add(HEADER_TITLE_HOME, xos_href_link(FILENAME_DEFAULT));
 
