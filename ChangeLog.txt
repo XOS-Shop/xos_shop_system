@@ -1,6 +1,14 @@
 
 ##ChangeLog
 
+# XOS-Shop v1.0_rc7u (Release 09/09/2014)
+
+- feature: SEF URL's hinzugefügt
+- feature: Meta-Tag <base href=... im HTML-Header hinzugefügt
+- update:  Die 'captcha' Kompatibilität erweitert
+- update:  In der Datenbank 'products_options_values' in der Tabelle 'orders_products_attributes' erweitert
+- update:  CKEditor Version-4.4.2 auf CKEditor Version-4.4.4
+
 # XOS-Shop v1.0_rc7t (Release 07/06/2014)
 
 - feature: Den Inhalts-Seiten und den Bannern kann nun auch PHP-Qoellcode in der DB hinzugefügt werden
