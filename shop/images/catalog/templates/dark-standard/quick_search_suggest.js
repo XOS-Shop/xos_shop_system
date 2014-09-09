@@ -3,7 +3,7 @@
 //              http://www.xos-shop.com
 //
 // template   : dark-standard
-// version    : 1.0.7 for XOS-Shop version 1.0 rc7t
+// version    : 1.0.7 for XOS-Shop version 1.0 rc7u
 // descrip    : xos-shop extra template with popup windows as lightboxes 
 //              and div/css layout                                                                     
 // filename   : quick_search_suggest.js

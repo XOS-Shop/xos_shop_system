@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : orange-tabs-table
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7t
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
 * descrip    : xos-shop default template with tabs navigation
 *              and css-buttons and tables for layout                                                                     
 * filename   : html_header.tpl
@@ -48,7 +48,7 @@
       	
 -->
 
-<meta name="generator" content="XOS-Shop version 1.0 rc7t, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0 rc7u, open source e-commerce system" />
 <title>[@{$html_header_page_title}@][@{$html_header_add_page_title}@]</title>
 <base href="[@{$base_href}@]" />
 <link rel="shortcut icon" type="image/x-icon" href="[@{$images_path}@]favicon.ico" />

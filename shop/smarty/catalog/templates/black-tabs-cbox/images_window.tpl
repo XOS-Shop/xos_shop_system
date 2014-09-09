@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : black-tabs-cbox
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7t
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
 * descrip    : xos-shop default template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                     
 * filename   : images_window.tpl

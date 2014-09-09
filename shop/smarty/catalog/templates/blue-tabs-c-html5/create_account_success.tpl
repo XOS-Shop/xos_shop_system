@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : blue-tabs-c-html5
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7t
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
 * descrip    : xos-shop default template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                     
 * filename   : create_account_success.tpl

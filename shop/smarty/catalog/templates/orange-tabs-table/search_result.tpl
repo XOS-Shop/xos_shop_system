@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : orange-tabs-table
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7t
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
 * descrip    : xos-shop default template with tabs navigation
 *              and css-buttons and tables for layout                                                                     
 * filename   : search_result.tpl

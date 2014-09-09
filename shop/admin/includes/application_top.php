@@ -57,7 +57,7 @@
   define('ABSULUTE_MAXIMUM_HEIGHT_FOR_LARGE_PRODUCT_IMAGES', '1000');  
 
 // Define the project version
-  define('PROJECT_VERSION', 'XOS-Shop version 1.0 rc7t');
+  define('PROJECT_VERSION', 'XOS-Shop version 1.0 rc7u');
   
 // Define the project title
   define('PROJECT_TITLE', 'XOS-Shop');
