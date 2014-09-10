@@ -272,7 +272,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
           $hcd_pos = strpos($restore_query, 'HTTP Catalog Directory:') + 23;        
           $hcd_dir = trim(substr($restore_query, $hcd_pos, strpos($restore_query, "\n", $hcd_pos) - $hcd_pos));          
           if ($hcd_dir != DIR_WS_CATALOG) {
-            $restore_query = preg_replace(array('#href=\\\"' . $hcd_dir . '([a-zA-Z0-9\-_])#', '#src=\\\"' . $hcd_dir . '([a-zA-Z0-9\-_])#'), array('href=\"' . DIR_WS_CATALOG . '$1', 'src=\"' . DIR_WS_CATALOG . '$1'),  $restore_query);
+            $restore_query = preg_replace(array('#href=\\\"' . $hcd_dir . '([a-zA-Z0-9\-_])([^:]*)\"#', '#src=\\\"' . $hcd_dir . '([a-zA-Z0-9\-_])([^:]*)\"#'), array('href=\"' . DIR_WS_CATALOG . '$1$2"', 'src=\"' . DIR_WS_CATALOG . '$1$2"'),  $restore_query);
           }          
           $sql_array = array();
           $drop_table_names = array();
