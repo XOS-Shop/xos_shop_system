@@ -247,6 +247,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                 '}' . "\n\n" . 
                 
                 'function check_form_optional(form_name) {' . "\n" .
+                 
+                (($addresses_count < MAX_ADDRESS_BOOK_ENTRIES) ? "\n" : "\n" . '  return true;' . "\n\n") .
+                
                 '  var form = form_name;' . "\n\n" .
 
                 '  var firstname = form.elements[\'firstname\'].value;' . "\n" .
