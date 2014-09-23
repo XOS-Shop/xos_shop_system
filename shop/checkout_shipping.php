@@ -283,7 +283,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   $smarty->assign(array('form_begin' => xos_draw_form('checkout_address', xos_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'), 'post', '', true),
                         'hidden_field' => xos_draw_hidden_field('action', 'process'),
                         'form_end' => '</form>',
-                        'link_filename_checkout_shipping_address' => xos_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL'),
+                        'link_filename_checkout_shipping_address' => MAX_ADDRESS_BOOK_ENTRIES > 1 ? xos_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL') : xos_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'),
                         'address_label' => xos_address_label($_SESSION['customer_id'], $_SESSION['sendto'], true, ' ', '<br />'),
                         'textarea' => xos_draw_textarea_field('comments', '60', '5', $_SESSION['comments'], 'id="checkout_shipping_comments"')));
   
