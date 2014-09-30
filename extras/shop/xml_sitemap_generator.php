@@ -161,7 +161,7 @@
     }
   }
 
-  // generates cPath with helper array
+  // generates c with helper array
   function rv_get_path($cat_id, $code) {
     global $cat_array;
     
@@ -172,55 +172,7 @@
       $cat_id = $cat_array[$cat_id][$code]['parent_id'];
     }
     
-    return 'cPath='.implode('_', array_reverse($my_cat_array));
-  }
-
-  // The location link wrapper function
-  function xos_loc_link($page = '', $parameters = '', $connection = 'NONSSL', $search_engine_safe = true) {
-    
-    $add_parameter = false;
-  
-    if ($connection == 'NONSSL') {
-      $link = HTTP_SERVER . DIR_WS_CATALOG;
-    } elseif ($connection == 'SSL') {
-      if (ENABLE_SSL == true) {
-        $link = HTTPS_SERVER . DIR_WS_CATALOG;
-      } else {
-        $link = HTTP_SERVER . DIR_WS_CATALOG;
-      }
-    }
-      
-    if (xos_not_null($parameters)) {
-      if ( (SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true) ) $parameters = str_replace(array('%2F', '%5C'), array('_.~', '~._'), $parameters);
-      $link .= $page . '?' . xos_output_string($parameters);
-      $add_parameter = true;
-      $separator = '&';
-    } else {
-      $link .= $page;
-      $separator = '?';
-    }
-
-    while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
-
-    if ( (SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true) ) {
-    
-      while (strstr($link, '=%20')) $link = str_replace('=%20', '=', $link);
-
-      $link = str_replace('&&', '&', $link);
-      $link = str_replace('=&', '/^/', $link);
-      $link = str_replace('?', '/', $link);
-      $link = str_replace('&', '/', $link);
-      $link = str_replace('=', '/', $link);
-      
-      if ($add_parameter) $link = $link . '/';
-
-    } else {
-    
-      $link = str_replace(array('&amp;', '&'), array('&', '&amp;'), $link);
-    
-    }
-
-    return $link;
+    return 'c='.implode('_', array_reverse($my_cat_array));
   }
 
   // check if the selected directory is writeable 
@@ -242,175 +194,187 @@
   $strlen = strlen(SITEMAP_HEADER);
   $string = '';
 
-  $content_result = xos_db_query("
-    SELECT
-      c.content_id,
-      cd.language_id,
-      UNIX_TIMESTAMP(c.date_added) as date_added,
-      UNIX_TIMESTAMP(c.last_modified) as last_modified,
-      l.code
-    FROM
-      ".TABLE_CONTENTS." c, 
-      ".TABLE_CONTENTS_DATA." cd,
-      ".TABLE_LANGUAGES." l
-    WHERE
-      c.type = 'info' AND
-      c.status = '1' AND
-      c.content_id = cd.content_id AND
-      cd.language_id = l.languages_id
-    ORDER BY
-      c.content_id
-  ");
+  if (!isset($lng) || (isset($lng) && !is_object($lng))) {
+    include(DIR_WS_CLASSES . 'language.php');
+    $lng = new language;
+  }
+  
+  reset($lng->catalog_languages);
+  
+  while (list($lng_code, $value) = each($lng->catalog_languages)) {
 
-  if (xos_db_num_rows($content_result) > 0) {
-    while($content_data = xos_db_fetch_array($content_result)) {
+    unset($cats);
+    unset($mans); 
+    unset($cots);
+  
+    $_SESSION['languages_id'] = $value['id']; 
+
+    $content_result = xos_db_query("
+      SELECT
+        c.content_id,
+        cd.language_id,
+        UNIX_TIMESTAMP(c.date_added) as date_added,
+        UNIX_TIMESTAMP(c.last_modified) as last_modified
+      FROM
+        ".TABLE_CONTENTS." c, 
+        ".TABLE_CONTENTS_DATA." cd
+      WHERE
+        c.type = 'info' AND
+        c.status = '1' AND
+        c.content_id = cd.content_id AND
+        cd.language_id = '" . $value['id'] . "'
+      ORDER BY
+        c.content_id
+    ");
+
+    if (xos_db_num_rows($content_result) > 0) {
+      while($content_data = xos_db_fetch_array($content_result)) {
     
-      $lang_param = '&language='.$content_data['code'];
-      $date = ($content_data['last_modified'] != NULL) ? $content_data['last_modified'] : $content_data['date_added'];
+        $lang_param = (sizeof($lng->catalog_languages) > 1) ? '&language='.$lng_code : '';
+        $date = ($content_data['last_modified'] != NULL) ? $content_data['last_modified'] : $content_data['date_added'];
 
-      reset($currencies->currencies);
-      while (list($key) = each($currencies->currencies)) {
+        reset($currencies->currencies);
+        while (list($key) = each($currencies->currencies)) {
+          $curr_param = (sizeof($currencies->currencies) > 1) ? '&currency=' . $key : '';
       
-        $string = sprintf(SITEMAP_ENTRY, xos_loc_link('content.php', 'content_id='.$content_data['content_id'].$lang_param.'&currency=' . $key) , PRIORITY_CONTENTS, iso8601_date($date), CHANGEFREQ_CONTENTS);
+          $string = sprintf(SITEMAP_ENTRY, xos_href_link('content.php', 'co='.$content_data['content_id'].$lang_param.$curr_param, 'NONSSL', false) , PRIORITY_CONTENTS, iso8601_date($date), CHANGEFREQ_CONTENTS);
       
-        $function_write($fp, $string);
-        $strlen += strlen($string);
+          $function_write($fp, $string);
+          $strlen += strlen($string);
       
-        $c++;
-        if ($autogenerate) {
-          // 500000 entrys or filesize > 10,485,760 - some space for the last entry
-          if ( $c == MAX_ENTRYS || $strlen >= MAX_SIZE) {
-            $function_write($fp, SITEMAP_FOOTER);
-            $function_close($fp);
-            $c = 0;
-            $i++;
-            $fp = $function_open(($output_to_doc_root ? str_replace(DIR_WS_CATALOG, '/', DIR_FS_CATALOG) : DIR_FS_CATALOG).'sitemap'.$i.$file_extension, 'w');          
-            $function_write($fp, SITEMAP_HEADER);
-            $strlen = strlen(SITEMAP_HEADER);
-            $string = '';
+          $c++;
+          if ($autogenerate) {
+            // 500000 entrys or filesize > 10,485,760 - some space for the last entry
+            if ( $c == MAX_ENTRYS || $strlen >= MAX_SIZE) {
+              $function_write($fp, SITEMAP_FOOTER);
+              $function_close($fp);
+              $c = 0;
+              $i++;
+              $fp = $function_open(($output_to_doc_root ? str_replace(DIR_WS_CATALOG, '/', DIR_FS_CATALOG) : DIR_FS_CATALOG).'sitemap'.$i.$file_extension, 'w');          
+              $function_write($fp, SITEMAP_HEADER);
+              $strlen = strlen(SITEMAP_HEADER);
+              $string = '';
+            }
           }
         }
       }
     }
-  }
 
 
-  $cat_result = xos_db_query("
-    SELECT
-      c.categories_id,
-      c.parent_id,
-      cd.language_id,
-      UNIX_TIMESTAMP(c.date_added) as date_added,
-      UNIX_TIMESTAMP(c.last_modified) as last_modified,
-      l.code
-    FROM 
-      ".TABLE_CATEGORIES." c,
-      ".TABLE_CATEGORIES_DESCRIPTION." cd,
-      ".TABLE_LANGUAGES." l
-    WHERE
-      c.categories_status='1' AND
-      c.categories_id = cd.categories_id AND
-      cd.language_id = l.languages_id
-    ORDER by 
-      cd.categories_id
-  ");
+    $cat_result = xos_db_query("
+      SELECT
+        c.categories_or_pages_id,
+        c.parent_id,
+        cd.language_id,
+        UNIX_TIMESTAMP(c.date_added) as date_added,
+        UNIX_TIMESTAMP(c.last_modified) as last_modified
+      FROM 
+        ".TABLE_CATEGORIES_OR_PAGES." c,
+        ".TABLE_CATEGORIES_OR_PAGES_DATA." cd
+      WHERE
+        c.categories_or_pages_status='1' AND
+        c.categories_or_pages_id = cd.categories_or_pages_id AND
+        cd.language_id = '" . $value['id'] . "'
+      ORDER by 
+        cd.categories_or_pages_id
+    ");
 
-  $cat_array = array();
-  if (xos_db_num_rows($cat_result) > 0) {
-    while($cat_data = xos_db_fetch_array($cat_result)) {
-      $cat_array[$cat_data['categories_id']][$cat_data['code']] = $cat_data;
+    $cat_array = array();
+    if (xos_db_num_rows($cat_result) > 0) {
+      while($cat_data = xos_db_fetch_array($cat_result)) {
+        $cat_array[$cat_data['categories_or_pages_id']][$lng_code] = $cat_data;
+      }
     }
-  }
-  reset($cat_array);
+    reset($cat_array);
 
 
-  foreach($cat_array as $lang_array) {
-    foreach($lang_array as $cat_id => $cat_data) {
+    foreach($cat_array as $lang_array) {
+      foreach($lang_array as $cat_id => $cat_data) {
     
-      $lang_param = '&language='.$cat_data['code'];
-      $date = ($cat_data['last_modified'] != NULL) ? $cat_data['last_modified'] : $cat_data['date_added'];
+        $lang_param = (sizeof($lng->catalog_languages) > 1) ? '&language='.$lng_code : '';
+        $date = ($cat_data['last_modified'] != NULL) ? $cat_data['last_modified'] : $cat_data['date_added'];
 
-      reset($currencies->currencies);
-      while (list($key) = each($currencies->currencies)) {
+        reset($currencies->currencies);
+        while (list($key) = each($currencies->currencies)) {
+          $curr_param = (sizeof($currencies->currencies) > 1) ? '&currency=' . $key : '';
+         
+          $string = sprintf(SITEMAP_ENTRY, xos_href_link('index.php', rv_get_path($cat_data['categories_or_pages_id'], $lng_code).$lang_param.$curr_param, 'NONSSL', false) ,PRIORITY_CATEGORIES, iso8601_date($date), CHANGEFREQ_CATEGORIES);
       
-        $string = sprintf(SITEMAP_ENTRY, xos_loc_link('index.php', rv_get_path($cat_data['categories_id'], $cat_data['code']).$lang_param.'&currency=' . $key) ,PRIORITY_CATEGORIES, iso8601_date($date), CHANGEFREQ_CATEGORIES);
+          $function_write($fp, $string);
+          $strlen += strlen($string);
       
-        $function_write($fp, $string);
-        $strlen += strlen($string);
-      
-        $c++;
-        if ($autogenerate) {
-          // 500000 entrys or filesize > 10,485,760 - some space for the last entry
-          if ( $c == MAX_ENTRYS || $strlen >= MAX_SIZE) {
-            $function_write($fp, SITEMAP_FOOTER);
-            $function_close($fp);
-            $c = 0;
-            $i++;
-            $fp = $function_open(($output_to_doc_root ? str_replace(DIR_WS_CATALOG, '/', DIR_FS_CATALOG) : DIR_FS_CATALOG).'sitemap'.$i.$file_extension, 'w');          
-            $function_write($fp, SITEMAP_HEADER);
-            $strlen = strlen(SITEMAP_HEADER);
-            $string = '';
+          $c++;
+          if ($autogenerate) {
+            // 500000 entrys or filesize > 10,485,760 - some space for the last entry
+            if ( $c == MAX_ENTRYS || $strlen >= MAX_SIZE) {
+              $function_write($fp, SITEMAP_FOOTER);
+              $function_close($fp);
+              $c = 0;
+              $i++;
+              $fp = $function_open(($output_to_doc_root ? str_replace(DIR_WS_CATALOG, '/', DIR_FS_CATALOG) : DIR_FS_CATALOG).'sitemap'.$i.$file_extension, 'w');          
+              $function_write($fp, SITEMAP_HEADER);
+              $strlen = strlen(SITEMAP_HEADER);
+              $string = '';
+            }
           }
         }
       }
     }
-  }
 
 
-  $product_result = xos_db_query("
-    SELECT 
-      p.products_id,
-      pd.language_id,
-      UNIX_TIMESTAMP(p.products_date_added) as products_date_added,
-      UNIX_TIMESTAMP(p.products_last_modified) as products_last_modified,
-      l.code
-    FROM 
-      ".TABLE_PRODUCTS." p left join 
-      ".TABLE_PRODUCTS_TO_CATEGORIES." p2c on p.products_id = p2c.products_id left join 
-      ".TABLE_CATEGORIES." c on p2c.categories_id = c.categories_id, 
-      ".TABLE_PRODUCTS_DESCRIPTION."  pd,
-      ".TABLE_LANGUAGES." l 
-    WHERE 
-      c.categories_status = '1' and 
-      p.products_status = '1' and
-      pd.products_id = p.products_id and 
-      pd.language_id = l.languages_id
-    ORDER BY
-      p.products_id
-  ");
+    $product_result = xos_db_query("
+      SELECT 
+        p.products_id,
+        pd.language_id,
+        UNIX_TIMESTAMP(p.products_date_added) as products_date_added,
+        UNIX_TIMESTAMP(p.products_last_modified) as products_last_modified
+      FROM 
+        ".TABLE_PRODUCTS." p left join 
+        ".TABLE_PRODUCTS_TO_CATEGORIES." p2c on p.products_id = p2c.products_id left join 
+        ".TABLE_CATEGORIES_OR_PAGES." c on p2c.categories_or_pages_id = c.categories_or_pages_id, 
+        ".TABLE_PRODUCTS_DESCRIPTION."  pd
+      WHERE 
+        c.categories_or_pages_status = '1' AND 
+        p.products_status = '1' and
+        pd.products_id = p.products_id AND
+        pd.language_id = '" . $value['id'] . "'
+      ORDER BY
+        p.products_id
+    ");
 
-  if (xos_db_num_rows($product_result) > 0) {
-    while($product_data = xos_db_fetch_array($product_result)) {
+    if (xos_db_num_rows($product_result) > 0) {
+      while($product_data = xos_db_fetch_array($product_result)) {
     
-      $lang_param = '&language='.$product_data['code'];
-      $date = ($product_data['products_last_modified'] != NULL) ? $product_data['products_last_modified'] : $product_data['products_date_added'];
+        $lang_param = (sizeof($lng->catalog_languages) > 1) ? '&language='.$lng_code : '';
+        $date = ($product_data['products_last_modified'] != NULL) ? $product_data['products_last_modified'] : $product_data['products_date_added'];
       
-      reset($currencies->currencies);
-      while (list($key) = each($currencies->currencies)) {
+        reset($currencies->currencies);
+        while (list($key) = each($currencies->currencies)) {
+          $curr_param = (sizeof($currencies->currencies) > 1) ? '&currency=' . $key : '';
       
-        $string = sprintf(SITEMAP_ENTRY, xos_loc_link('product_info.php', 'products_id='.$product_data['products_id'].$lang_param.'&currency=' . $key) , PRIORITY_PRODUCTS, iso8601_date($date), CHANGEFREQ_PRODUCTS);
+          $string = sprintf(SITEMAP_ENTRY, xos_href_link('product_info.php', 'p='.$product_data['products_id'].$lang_param.$curr_param, 'NONSSL', false) , PRIORITY_PRODUCTS, iso8601_date($date), CHANGEFREQ_PRODUCTS);
       
-        $function_write($fp, $string);
-        $strlen += strlen($string);
+          $function_write($fp, $string);
+          $strlen += strlen($string);
       
-        $c++;
-        if ($autogenerate) {
-          // 500000 entrys or filesize > 10,485,760 - some space for the last entry
-          if ( $c == MAX_ENTRYS || $strlen >= MAX_SIZE) {
-            $function_write($fp, SITEMAP_FOOTER);
-            $function_close($fp);
-            $c = 0;
-            $i++;
-            $fp = $function_open(($output_to_doc_root ? str_replace(DIR_WS_CATALOG, '/', DIR_FS_CATALOG) : DIR_FS_CATALOG).'sitemap'.$i.$file_extension, 'w');          
-            $function_write($fp, SITEMAP_HEADER);
-            $strlen = strlen(SITEMAP_HEADER);
-            $string = '';
-          }
-        }      
+          $c++;
+          if ($autogenerate) {
+            // 500000 entrys or filesize > 10,485,760 - some space for the last entry
+            if ( $c == MAX_ENTRYS || $strlen >= MAX_SIZE) {
+              $function_write($fp, SITEMAP_FOOTER);
+              $function_close($fp);
+              $c = 0;
+              $i++;
+              $fp = $function_open(($output_to_doc_root ? str_replace(DIR_WS_CATALOG, '/', DIR_FS_CATALOG) : DIR_FS_CATALOG).'sitemap'.$i.$file_extension, 'w');          
+              $function_write($fp, SITEMAP_HEADER);
+              $strlen = strlen(SITEMAP_HEADER);
+              $string = '';
+            }
+          }      
+        }
       }
     }
   }
-
 
   $function_write($fp, SITEMAP_FOOTER);
   $function_close($fp);
