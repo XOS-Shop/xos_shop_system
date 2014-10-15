@@ -147,7 +147,10 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
         $_compile_id = isset($compile_id) ? preg_replace('![^\w\|]+!', '_', $compile_id) : null;
         $_dir_sep = $smarty->use_sub_dirs ? '/' : '^';
         $_compile_id_offset = $smarty->use_sub_dirs ? 3 : 0;
-        $_dir = realpath($smarty->getCacheDir()) . '/';
+        if (($_dir = realpath($smarty->getCacheDir())) === false) {
+            return 0;
+        }
+        $_dir .= '/';
         $_dir_length = strlen($_dir);
         if (isset($_cache_id)) {
             $_cache_id_parts = explode('|', $_cache_id);
@@ -191,7 +194,7 @@ class Smarty_Internal_CacheResource_File extends Smarty_CacheResource
                 // if (substr(basename($_file->getPathname()), 0, 1) == '.' || strpos($_file, '.svn') !== false) {
                 // NOTE: delete only files with the extension ".php"
                 if (substr($_file, -4) != '.php') {
-                    continue;
+                    continue; 
                 }
                 // directory ?
                 if ($_file->isDir()) {
