@@ -131,7 +131,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
             $sql_data_array = array('categories_or_pages_name' => xos_db_prepare_input(htmlspecialchars_decode($categories_or_pages_name_array[$language_id])),         
                                     'categories_or_pages_heading_title' => xos_db_prepare_input(htmlspecialchars($categories_or_pages_heading_title_array[$language_id])),
-                                    'categories_or_pages_content' => preg_replace_callback('#href=\"?(([^\" >]*?\.php)([^\" >]*?))#siU', 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags(xos_db_prepare_input($categories_or_pages_content_array[$language_id]), '<img>'))) != '') ? xos_db_prepare_input($categories_or_pages_content_array[$language_id]) : ''));
+                                    'categories_or_pages_content' => preg_replace_callback(array('#href=\"?(([^\" >]*?)(\.php)([^\" >]*?))#siU','#href=\"?(([^\" >]*?)(\.html/[a-r])([^\" >]*?))#siU'), 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags(xos_db_prepare_input($categories_or_pages_content_array[$language_id]), '<img>'))) != '') ? xos_db_prepare_input($categories_or_pages_content_array[$language_id]) : ''));
 
             if ($action == 'insert_category') {
               $insert_sql_data = array('categories_or_pages_id' => $categories_or_pages_id,
@@ -373,8 +373,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
             $sql_data_array = array('products_name' => xos_db_prepare_input(htmlspecialchars($_POST['products_name'][$language_id])),
                                     'products_description_tab_label' => xos_db_prepare_input(htmlspecialchars($_POST['products_description_tab_label'][$language_id])),
                                     'products_p_unit' => $products_p_unit,
-                                    'products_info' => preg_replace_callback('#href=\"?(([^\" >]*?\.php)([^\" >]*?))#siU', 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags(xos_db_prepare_input($_POST['products_info'][$language_id]), '<img>'))) != '') ? xos_db_prepare_input($_POST['products_info'][$language_id]) : ''),
-                                    'products_description' => preg_replace_callback('#href=\"?(([^\" >]*?\.php)([^\" >]*?))#siU', 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags(xos_db_prepare_input($_POST['products_description'][$language_id]), '<img>'))) != '') ? xos_db_prepare_input($_POST['products_description'][$language_id]) : ''),
+                                    'products_info' => preg_replace_callback(array('#href=\"?(([^\" >]*?)(\.php)([^\" >]*?))#siU','#href=\"?(([^\" >]*?)(\.html/[a-r])([^\" >]*?))#siU'), 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags(xos_db_prepare_input($_POST['products_info'][$language_id]), '<img>'))) != '') ? xos_db_prepare_input($_POST['products_info'][$language_id]) : ''),
+                                    'products_description' => preg_replace_callback(array('#href=\"?(([^\" >]*?)(\.php)([^\" >]*?))#siU','#href=\"?(([^\" >]*?)(\.html/[a-r])([^\" >]*?))#siU'), 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags(xos_db_prepare_input($_POST['products_description'][$language_id]), '<img>'))) != '') ? xos_db_prepare_input($_POST['products_description'][$language_id]) : ''),
                                     'products_url' => xos_db_prepare_input(htmlspecialchars($_POST['products_url'][$language_id])));
 
             if ($action == 'insert_product') {

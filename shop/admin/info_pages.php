@@ -91,7 +91,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
           for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
             $sql_data_array = array('name' => xos_db_prepare_input(htmlspecialchars_decode($_POST['name'][$languages[$i]['id']])),         
                                     'heading_title' => xos_db_prepare_input(htmlspecialchars($_POST['heading_title'][$languages[$i]['id']])),
-                                    'content' => preg_replace_callback('#href=\"?(([^\" >]*?\.php)([^\" >]*?))#siU', 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags(xos_db_prepare_input($_POST['content'][$languages[$i]['id']]), '<img>'))) != '') ? xos_db_prepare_input($_POST['content'][$languages[$i]['id']]) : ''),
+                                    'content' => preg_replace_callback(array('#href=\"?(([^\" >]*?)(\.php)([^\" >]*?))#siU','#href=\"?(([^\" >]*?)(\.html/[a-r])([^\" >]*?))#siU'), 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags(xos_db_prepare_input($_POST['content'][$languages[$i]['id']]), '<img>'))) != '') ? xos_db_prepare_input($_POST['content'][$languages[$i]['id']]) : ''),
                                     'php_source' => xos_db_prepare_input($_POST['php_source'][$languages[$i]['id']]));
             
             if ($action == 'insert') {

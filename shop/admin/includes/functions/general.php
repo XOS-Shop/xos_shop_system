@@ -399,12 +399,73 @@ function xos_selected_file($filename) {
   function internal_link_replacement($match) {
     global $linkable_files;
 
-    $replacement = '';  
-    $filename = str_replace(array(HTTP_SERVER, HTTPS_SERVER, DIR_WS_CATALOG), '', $match[2]);
+    $filename = '';
+    $replacement = '';
+    
+    if ($match[3] == '.php') { 
+    
+      $filename = str_replace(array(HTTP_SERVER, HTTPS_SERVER, DIR_WS_CATALOG), '', $match[2].$match[3]); 
+      
+    } elseif ((stripos($match[2], HTTP_SERVER)!== false || stripos($match[2], HTTPS_SERVER)!== false) && ((DIR_WS_CATALOG != '' && stripos($match[2], DIR_WS_CATALOG)!== false) || DIR_WS_CATALOG != '')) {
+
+      switch ($match[3]) {
+        case '.html/a':
+          $filename = 'index.php';
+          break;
+        case '.html/b':
+          $filename = 'product_info.php';
+          break;
+        case '.html/c':
+          $filename = 'content.php';
+          break;
+        case '.html/d':
+          $filename = 'specials.php';
+          break;
+        case '.html/e':
+          $filename = 'products_new.php';
+          break;
+        case '.html/f':
+          $filename = 'newsletter_subscribe.php';
+          break;
+        case '.html/g':
+          $filename = 'reviews.php';
+          break;
+        case '.html/h':
+          $filename = 'product_reviews.php';
+          break;
+        case '.html/i':
+          $filename = 'product_reviews_info.php';
+          break;
+        case '.html/k':
+          $filename = 'tell_a_friend.php';
+          break;
+        case '.html/l':
+          $filename = 'shopping_cart.php';
+          break;
+        case '.html/m':
+          $filename = 'login.php';
+          break;
+        case '.html/n':
+          $filename = 'create_account.php';
+          break;
+        case '.html/o':
+          $filename = 'password_forgotten.php';
+          break;
+        case '.html/p':
+          $filename = 'advanced_search_and_results.php';
+          break;
+        case '.html/q':
+          $filename = 'search_result.php';
+          break;
+        case '.html/r':
+          $filename = 'cookie_usage.php';
+          break;                                             
+      }
+    }    
 
     if (array_key_exists($filename, $linkable_files))  {
 
-      $p_url = parse_url($match[3]);           
+      $p_url = parse_url($match[4]);           
  
       if (!empty($p_url['path'])) { 
         $get_params = array();
@@ -431,7 +492,7 @@ function xos_selected_file($filename) {
    
       $query_return = xos_array_to_query_string($get_params, array('action', 'currency', 'language', 'tpl', 'rmp', 'XOSsid')); 
   
-      $replacement = str_replace($match[1], '[@{link xos_href_link(\''.$filename.'\', \''.$query_return.'\', \''.$linkable_files[$filename].'\')}@]', $match[0]);  
+      $replacement = str_replace($match[1], '[@{link xos_href_link(\''.$filename.'\', \''.$query_return.'\', \''.($linkable_files[$filename] == 'REQUEST_TYPE' ? $linkable_files[$filename] : (stripos($match[2], HTTP_SERVER)!== false ? 'NONSSL' : (stripos($match[2], HTTPS_SERVER)!== false ? 'SSL' : $linkable_files[$filename]))).'\')}@]', $match[0]);  
     } else {
       $replacement = $match[0];
     }  

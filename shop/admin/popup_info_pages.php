@@ -96,7 +96,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
      
   } else {
 
-    $contents_query = xos_db_query("select c.content_id, c.type, c.status, c.sort_order, c.last_modified, c.date_added, cd.name from " . TABLE_CONTENTS . " c, " . TABLE_CONTENTS_DATA . " cd where c.content_id = cd.content_id and cd.language_id = '" . (int)$_SESSION['used_lng_id'] . "' order by c.type ASC, c.sort_order ASC, c.content_id ASC ");
+    $contents_query = xos_db_query("select c.content_id, c.type, c.link_request_type, c.status, c.sort_order, c.last_modified, c.date_added, cd.name from " . TABLE_CONTENTS . " c, " . TABLE_CONTENTS_DATA . " cd where c.content_id = cd.content_id and cd.language_id = '" . (int)$_SESSION['used_lng_id'] . "' order by c.type ASC, c.sort_order ASC, c.content_id ASC ");
     
     $contents_array = array();
     while ($contents = xos_db_fetch_array($contents_query)) {

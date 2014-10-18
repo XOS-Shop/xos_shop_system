@@ -130,7 +130,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
     $pages_count = 0;
     $rows = 0;
-    $pages_query = xos_db_query("select c.categories_or_pages_id, cpd.categories_or_pages_name, c.parent_id, c.page_not_in_menu, c.sort_order, c.date_added, c.last_modified, c.categories_or_pages_status  from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.parent_id = '" . (int)$current_page_id . "' and c.categories_or_pages_id = cpd.categories_or_pages_id and c.is_page != 'false' and cpd.language_id = '" . (int)$_SESSION['used_lng_id'] . "' order by c.sort_order, cpd.categories_or_pages_name");
+    $pages_query = xos_db_query("select c.categories_or_pages_id, c.link_request_type, cpd.categories_or_pages_name, c.parent_id, c.page_not_in_menu, c.sort_order, c.date_added, c.last_modified, c.categories_or_pages_status  from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.parent_id = '" . (int)$current_page_id . "' and c.categories_or_pages_id = cpd.categories_or_pages_id and c.is_page != 'false' and cpd.language_id = '" . (int)$_SESSION['used_lng_id'] . "' order by c.sort_order, cpd.categories_or_pages_name");
     
     $pages_array = array(); 
     while ($pages = xos_db_fetch_array($pages_query)) {

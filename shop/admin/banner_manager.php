@@ -123,7 +123,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
             $sql_data_array = array('banners_title' => $banners_title[$languages[$i]['id']],
                                     'banners_url' => $banners_url[$languages[$i]['id']],
                                     'banners_image' => $db_image,
-                                    'banners_html_text' => preg_replace_callback('#href=\"?(([^\" >]*?\.php)([^\" >]*?))#siU', 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags($banners_html_text[$languages[$i]['id']], '<img>'))) != '') ? $banners_html_text[$languages[$i]['id']] : ''),
+                                    'banners_html_text' => preg_replace_callback(array('#href=\"?(([^\" >]*?)(\.php)([^\" >]*?))#siU','#href=\"?(([^\" >]*?)(\.html/[a-r])([^\" >]*?))#siU'), 'internal_link_replacement', (trim(str_replace('&#160;', '', strip_tags($banners_html_text[$languages[$i]['id']], '<img>'))) != '') ? $banners_html_text[$languages[$i]['id']] : ''),
                                     'banners_php_source' => $banners_php_source[$languages[$i]['id']]);
 
             unset($banners_image->filename);
