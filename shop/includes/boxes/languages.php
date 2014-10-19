@@ -43,8 +43,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   if (sizeof($lng->catalog_languages) > 1) { 
   
     while (list($key, $value) = each($lng->catalog_languages)) {
-      $languages_string .= ' <a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('language', 'currency', 'tpl', 'dfrom', 'dto')) . 'language=' . $key, $request_type, true, true, false) . '">' . xos_image(DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $value['directory'] . '/' . $value['image'], $value['name']) . '</a> ';
-      $languages_string_no_image .= ' <a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('language', 'currency', 'tpl', 'dfrom', 'dto')) . 'language=' . $key, $request_type, true, true, false) . '">' . $value['name'] . '</a> ';
+      $languages_string .= ' <a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('language', 'currency', 'tpl', 'dfrom', 'dto')) . 'language=' . $key, $request_type, true, ($value['id'] == $_SESSION['languages_id'] ? true : false), false) . '">' . xos_image(DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $value['directory'] . '/' . $value['image'], $value['name']) . '</a> ';
+      $languages_string_no_image .= ' <a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('language', 'currency', 'tpl', 'dfrom', 'dto')) . 'language=' . $key, $request_type, true, ($value['id'] == $_SESSION['languages_id'] ? true : false), false) . '">' . $value['name'] . '</a> ';
     }
 
     $smarty->assign(array('box_languages_languages_string' => $languages_string,
