@@ -37,6 +37,7 @@
   define('SECURITY_CODE_LENGTH', '8');
 
 // Set the level of error reporting
+  ini_set('display_errors', true);
   error_reporting(E_ALL & ~E_NOTICE);
 
 //  
