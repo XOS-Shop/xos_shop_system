@@ -82,7 +82,7 @@
   define('INSTALL_TPL', 'xos-shop_install_default_v1.0.7');
   
 // require the smarty class and create an instance
-  require('../smarty/Smarty-3.1.20/Smarty.class.php');  
+  require('../smarty/Smarty-3.1.21/Smarty.class.php');  
   $smarty = new Smarty(); 
   $smarty->template_dir = 'templates/' . INSTALL_TPL . '/';
   $smarty->config_dir = 'templates/' . INSTALL_TPL . '/';

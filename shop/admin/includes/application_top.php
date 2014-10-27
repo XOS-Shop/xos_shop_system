@@ -120,7 +120,7 @@
   define('ADMIN_TPL', 'xs_admin');
     
 // require the smarty class and create an instance
-  require(DIR_FS_SMARTY . 'Smarty-3.1.20/Smarty.class.php');  
+  require(DIR_FS_SMARTY . 'Smarty-3.1.21/Smarty.class.php');  
   $smarty = new Smarty();
   $smarty->template_dir = DIR_FS_SMARTY . 'admin/templates/';
   $smarty->compile_dir = DIR_FS_SMARTY . 'admin/templates_c/';
