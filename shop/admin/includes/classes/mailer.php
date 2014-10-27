@@ -44,7 +44,7 @@
       $this->Sendmail = SENDMAIL_PATH;
       
       $this->Host = SMTP_HOST;
-      $this->SMTPAuth = SMTP_AUTH;
+      $this->SMTPAuth = SMTP_AUTH == 'true' ? true : false;
       $this->SMTPSecure = SMTP_SECURE;      
       $this->Username = SMTP_USERNAME;
       $this->Password = SMTP_PASSWORD;
