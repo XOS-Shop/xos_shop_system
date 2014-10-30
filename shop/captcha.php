@@ -40,7 +40,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
 
   $text = randomString(5);
   $_SESSION['captcha_spam'] = $text; 
-          
+  
+  ob_end_clean();        
   header_remove();
   header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
   header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); 
