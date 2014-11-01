@@ -50,6 +50,7 @@
 <meta name="generator" content="XOS-Shop version 1.0 rc7u, open source e-commerce system" />
 <title>[@{$html_header_page_title}@][@{$html_header_add_page_title}@]</title>
 <base href="[@{$base_href}@]" />
+<link rel="canonical" href="[@{$html_header_link_canonical}@]" />
 <link rel="shortcut icon" type="image/x-icon" href="[@{$images_path}@]favicon.ico" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]jquery-ui-1.10.3.custom.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]nav.css" />

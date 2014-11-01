@@ -36,7 +36,7 @@ if (!$is_shop) :
 elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_PRODUCTS_NEW) == 'overwrite_all')) :
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_PRODUCTS_NEW);
 
-  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_PRODUCTS_NEW));
+  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_PRODUCTS_NEW, xos_get_all_get_params(array('language', 'currency', 'tpl', 'x', 'y'))));
   
   $add_header = '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>';
   

@@ -39,10 +39,12 @@
 
     function reset() {
       $this->_trail = array();
+      $this->_canonical_link = '';
     }
 
     function add($title, $link = '') {
       $this->_trail[] = array('title' => $title, 'link' => $link);
+      if ($link != '') $this->_canonical_link = $link; 
     }
 
     function breadcrumb_trail($separator = ' - ') {
@@ -70,6 +72,35 @@
       }
 
       return $trail_string;
-    }    
+    }
+    
+    function canonical_link() {
+    
+      if (session_id() == '') return $this->_canonical_link; 
+
+      $id = session_name() . '=' . session_id();
+      $id_sef = session_name() . '/' . session_id();
+
+      $this->_canonical_link = str_replace(
+        array('?' . $id . '&amp;', 
+              '?' . $id . '&', 
+              '?' . $id, 
+              '&amp;' . $id . '&amp;', 
+              '&' . $id . '&', 
+              '&amp;' . $id, 
+              '&' . $id, 
+              '/' . $id_sef),
+        array('?', 
+              '?', 
+              '', 
+              '&amp;', 
+              '&', 
+              '', 
+              '', 
+              ''),      
+        $this->_canonical_link);
+      
+      return $this->_canonical_link;
+    }   
   }
 ?>
