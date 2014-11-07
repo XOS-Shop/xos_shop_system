@@ -112,7 +112,7 @@
               $name_str = implode('^', $c_name_array);                
             }
           }
-          $name_str = $name_str . '^' . xos_get_products_name($param_array['p']);
+          $name_str = $name_str . '^' . htmlspecialchars_decode(xos_get_products_name($param_array['p']));
           $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/b' : FILENAME_PRODUCT_INFO;                  
           break;
         case FILENAME_CONTENT:                
@@ -147,7 +147,7 @@
             }                        
             $name_str = implode('^', $c_name_array);                
           }
-          $name_str = $name_str . '^' . xos_get_products_name($param_array['p']) . '^' . SEF_URL_NAME_REVIEWS;
+          $name_str = $name_str . '^' . htmlspecialchars_decode(xos_get_products_name($param_array['p'])) . '^' . SEF_URL_NAME_REVIEWS;
           $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/h' : FILENAME_PRODUCT_REVIEWS;
           break; 
         case FILENAME_PRODUCT_REVIEWS_INFO:
@@ -160,7 +160,7 @@
             }                        
             $name_str = implode('^', $c_name_array);                
           }
-          $name_str = $name_str . '^' . xos_get_products_name($param_array['p']) . '^' . SEF_URL_NAME_REVIEWS;               
+          $name_str = $name_str . '^' . htmlspecialchars_decode(xos_get_products_name($param_array['p'])) . '^' . SEF_URL_NAME_REVIEWS;               
           $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/i' : FILENAME_PRODUCT_REVIEWS_INFO; 
           break;
         case FILENAME_TELL_A_FRIEND:  
@@ -173,7 +173,7 @@
             }                        
             $name_str = implode('^', $c_name_array);                
           }            
-          $name_str = $name_str . '^' . xos_get_products_name($param_array['p']) . '^' . SEF_URL_NAME_TELL_A_FRIEND;               
+          $name_str = $name_str . '^' . htmlspecialchars_decode(xos_get_products_name($param_array['p'])) . '^' . SEF_URL_NAME_TELL_A_FRIEND;               
           $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $trail_string . '.html/k' : FILENAME_TELL_A_FRIEND; 
           break;
         case FILENAME_SHOPPING_CART:
