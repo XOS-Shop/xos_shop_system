@@ -130,7 +130,7 @@
   }
 
 // if gzip_compression is enabled, start to buffer the output 
-  if ( (GZIP_COMPRESSION == 'true') && (basename($_SERVER['PHP_SELF']) != FILENAME_DOWNLOAD) && ($ext_zlib_loaded = extension_loaded('zlib'))) {
+  if ( (GZIP_COMPRESSION == 'true') && (basename($_SERVER['PHP_SELF']) != FILENAME_DOWNLOAD) && (basename($_SERVER['PHP_SELF']) != FILENAME_CAPTCHA) && ($ext_zlib_loaded = extension_loaded('zlib'))) {
     if (($ini_zlib_output_compression = (int)ini_get('zlib.output_compression')) < 1) {
         ob_start('ob_gzhandler');
     } else {
