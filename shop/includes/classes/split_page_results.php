@@ -40,14 +40,14 @@
       $this->page_name = $page_holder;
 
       if (isset($_GET[$page_holder])) {
-        $page = $_GET[$page_holder];
+        $page = (int)$_GET[$page_holder];
       } elseif (isset($_POST[$page_holder])) {
-        $page = $_POST[$page_holder];
+        $page = (int)$_POST[$page_holder];
       } else {
-        $page = '';
+        $page = 1;
       }
 
-      if (empty($page) || !is_numeric($page)) $page = 1;
+      if (empty($page) || $page < 1) $page = 1;
       $this->current_page_number = $page;
 
       $this->number_of_rows_per_page = $max_rows;
