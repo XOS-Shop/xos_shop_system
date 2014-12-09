@@ -385,7 +385,7 @@
 
     if (xos_not_null($value)) {
       $field .= ' value="' . xos_output_string($value) . '"';
-    } elseif ( (isset($GLOBALS[$name])) && ($reinsert_value == true) ) {
+    } elseif (isset($GLOBALS[$name]) && is_string($GLOBALS[$name]) && $reinsert_value == true) {
       $field .= ' value="' . xos_output_string(stripslashes($GLOBALS[$name])) . '"';
     }
 
