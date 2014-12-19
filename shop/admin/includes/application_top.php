@@ -113,7 +113,11 @@
 // set application wide parameters
   $configuration_query = xos_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION);
   while ($configuration = xos_db_fetch_array($configuration_query)) {
-    define($configuration['cfgKey'], $configuration['cfgValue']);
+    if ($configuration['cfgKey'] == 'SESSION_FORCE_COOKIE_USE' && $configuration['cfgValue'] == 'true' && ENABLE_SSL == 'true' && HTTP_COOKIE_DOMAIN != HTTPS_COOKIE_DOMAIN) {
+      define($configuration['cfgKey'], 'false'); 
+    } else {
+      define($configuration['cfgKey'], $configuration['cfgValue']);
+    }     
   }
 
 // Define the admin template

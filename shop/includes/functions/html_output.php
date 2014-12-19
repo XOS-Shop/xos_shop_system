@@ -239,7 +239,7 @@
     if ( ($add_session_id == true) && ($session_started == true) && (SESSION_FORCE_COOKIE_USE == 'false') ) {
       if (SID) {
         $_sid = SID;
-      } elseif ( ( ( ($request_type == 'NONSSL') && ($connection == 'SSL') && (ENABLE_SSL == true) ) || ( ($request_type == 'SSL') && ($connection == 'NONSSL') ) ) && HTTP_COOKIE_DOMAIN != HTTPS_COOKIE_DOMAIN ) {
+      } elseif ( ( ( ($request_type == 'NONSSL') && ($connection == 'SSL') && (ENABLE_SSL == 'true') ) || ( ($request_type == 'SSL') && ($connection == 'NONSSL') && (ENABLE_SSL == 'true') ) ) && HTTP_COOKIE_DOMAIN != HTTPS_COOKIE_DOMAIN ) {
         $_sid = xos_session_name() . '=' . xos_session_id();
       }
     }

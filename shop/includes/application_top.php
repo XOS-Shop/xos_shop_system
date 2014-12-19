@@ -92,7 +92,11 @@
 // set the application parameters
   $configuration_query = xos_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION);
   while ($configuration = xos_db_fetch_array($configuration_query)) {
-    define($configuration['cfgKey'], $configuration['cfgValue']);  
+    if ($configuration['cfgKey'] == 'SESSION_FORCE_COOKIE_USE' && $configuration['cfgValue'] == 'true' && ENABLE_SSL == 'true' && HTTP_COOKIE_DOMAIN != HTTPS_COOKIE_DOMAIN) {
+      define($configuration['cfgKey'], 'false'); 
+    } else {
+      define($configuration['cfgKey'], $configuration['cfgValue']);
+    }    
   }
 
 // require the smarty class and create an instance
@@ -204,7 +208,7 @@
     }
 
     if ($spider_flag == false) {
-      if (!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) setcookie(session_name(), $_GET[session_name()], 0, COOKIE_PATH, $cookie_domain);
+      if ((!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) || (isset($_COOKIE[session_name()]) && isset($_GET[session_name()]) && $request_type == 'SSL' && ENABLE_SSL == 'true' && $_COOKIE[session_name()] != $_GET[session_name()] && HTTP_COOKIE_DOMAIN != HTTPS_COOKIE_DOMAIN)) setcookie(session_name(), $_GET[session_name()], 0, COOKIE_PATH, $cookie_domain);
       xos_session_start();
       $session_started = true;
     } else {
@@ -214,7 +218,7 @@
       }
     }
   } else {
-    if (!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) setcookie(session_name(), $_GET[session_name()], 0, COOKIE_PATH, $cookie_domain);
+    if ((!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) || (isset($_COOKIE[session_name()]) && isset($_GET[session_name()]) && $request_type == 'SSL' && ENABLE_SSL == 'true' && $_COOKIE[session_name()] != $_GET[session_name()] && HTTP_COOKIE_DOMAIN != HTTPS_COOKIE_DOMAIN)) setcookie(session_name(), $_GET[session_name()], 0, COOKIE_PATH, $cookie_domain);
     xos_session_start();
     $session_started = true;
   }
