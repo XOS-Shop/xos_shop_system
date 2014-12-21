@@ -55,9 +55,8 @@
                 <tr>
                   <td>
                     <p>{#text_error_permission#}</p>
-                    <div class="boxMe">{if !$config_file_catalog_writeable && !$config_file_admin_writeable}{#text_error_permission_description_a#}{else}{#text_error_permission_description_b#}{/if}
-                      {if !$config_file_catalog_writeable}<ul class="boxMe">{eval var=#text_error_permission_message_1#}</ul>{/if}
-                      {if !$config_file_admin_writeable}<ul class="boxMe">{eval var=#text_error_permission_message_2#}</ul>{/if}
+                    <div class="boxMe">{#text_error_permission_description#}
+                      <ul class="boxMe">{eval var=#text_error_permission_message#}</ul>
                     </div>
                     <p class="noteBox">{#text_error_permission_note_1#}</p>
                     <p class="noteBox">{#text_error_permission_note_2#}</p>

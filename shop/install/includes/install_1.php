@@ -67,8 +67,7 @@
                              'smarty/catalog/cache',
                              'smarty/catalog/templates_c',); 
                              
-  $files_array = array('includes/configure.php',
-                       $admin_dir_name . '/includes/configure.php',);                            
+  $files_array = array('includes/configure.php',);                            
                              
   $ws_path = substr(dirname(getenv('SCRIPT_NAME')), 0, -7);
   $fs_path = substr(dirname(getenv('SCRIPT_FILENAME')), 0, -7);                             

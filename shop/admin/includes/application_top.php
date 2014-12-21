@@ -51,7 +51,7 @@
   $request_type = (getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
 
 // Include application configuration parameters
-  require('includes/configure.php');
+  require('../includes/configure.php');
 
 // Define the absulute maximum size for large product images
   define('ABSULUTE_MAXIMUM_WIDTH_FOR_LARGE_PRODUCT_IMAGES', '1200');
@@ -284,12 +284,7 @@
 // check if the configure.php file is writeable  
   if ( (file_exists(DIR_FS_CATALOG . 'includes/configure.php')) && (is_writable(DIR_FS_CATALOG . 'includes/configure.php')) ) {
     $messageStack->add('header', WARNING_CONFIG_FILE_WRITEABLE, 'warning');
-  }
-
-// check if the configure.php file is writeable   
-  if ( (file_exists(DIR_FS_ADMIN . 'includes/configure.php')) && (is_writable(DIR_FS_ADMIN  . 'includes/configure.php')) ) {
-    $messageStack->add('header', WARNING_ADMIN_CONFIG_FILE_WRITEABLE, 'warning');
-  }   
+  }  
 
   if (basename($_SERVER['PHP_SELF']) == FILENAME_LOGIN || basename($_SERVER['PHP_SELF']) == FILENAME_PASSWORD_FORGOTTEN) {
     if (!defined('SECURITY_CHECK')) {
