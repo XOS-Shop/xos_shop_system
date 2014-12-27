@@ -536,3 +536,31 @@ a:hover.button-small-delete span {
   line-height: 12px;
   padding: 0 0 1px 3px;
 }
+
+/* increment/decrement in product_info.tpl */
+#inc {
+  position: relative;
+  top: 1px;
+  font-family: Arial;
+  color: #B6B7CB;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0 3px 0 0;
+  text-decoration: none;
+}
+     
+#dec {
+  font-family: Arial;
+  color: #B6B7CB;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0 8px 0 3px;
+  text-decoration: none;
+}
+     
+#inc:hover, #dec:hover {
+  color: #FF7C2A;
+  text-decoration: none;
+}

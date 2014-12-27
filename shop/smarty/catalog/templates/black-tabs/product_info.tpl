@@ -186,33 +186,29 @@ $(".lightbox-img").fancybox({
                         <div class="price-label small-text" style="padding: 2px; text-align: right; white-space: nowrap;">                         
                           [@{$products_tax_description|replace:'SMARTY_TAX_WITHOUT_VAT':#text_tax_without_vat#|replace:'SMARTY_TAX_NO_VAT':#text_tax_no_vat#|replace:'SMARTY_TAX_INC_VAT':#text_tax_inc_vat#|replace:'SMARTY_TAX_PLUS_VAT':#text_tax_plus_vat#}@]<br />                                                                                     
                           [@{if $link_filename_popup_content_6}@]                 
-                          <script type="text/javascript">
-                          /* <![CDATA[ */
-                            document.write('[@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_6}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />');
-                          /* ]]> */   
-                          </script>
-                          <noscript>
-                            [@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_6}@]" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />
-                          </noscript>
+                            [@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_6}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />
                           [@{else}@]
                             [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
                           [@{/if}@]
+                          [@{if $link_filename_popup_content_products_delivery_time && $products_delivery_time}@]
+                            &nbsp;<br /><span class="price-label main"><b>[@{*#text_plus#*}@]Lieferzeit:</b>&nbsp;<a href="[@{$link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$products_delivery_time}@]</span></a><br /></span>
+                          [@{elseif $products_delivery_time}@]
+                            &nbsp;<br /><span class="price-label main"><b>[@{*#text_plus#*}@]Lieferzeit:</b>&nbsp;[@{$products_delivery_time}@]<br /></span>
+                          [@{/if}@] 
                         </div>                                                      
                         [@{else}@]
                         <div class="price-label main" style="padding: 2px 2px 0 2px; text-align: right; white-space: nowrap;"><b>[@{if $products_price_special}@]<span class="text-deco-line-through">[@{$products_price}@]</span> <span class="product-special-price">[@{$products_price_special}@]</span>[@{else}@][@{$products_price}@][@{/if}@]</b></div>
                         <div class="price-label small-text" style="padding: 2px; text-align: right; white-space: nowrap;">
                           [@{$products_tax_description|replace:'SMARTY_TAX_WITHOUT_VAT':#text_tax_without_vat#|replace:'SMARTY_TAX_NO_VAT':#text_tax_no_vat#|replace:'SMARTY_TAX_INC_VAT':#text_tax_inc_vat#|replace:'SMARTY_TAX_PLUS_VAT':#text_tax_plus_vat#}@]<br />              
                           [@{if $link_filename_popup_content_6}@]                 
-                          <script type="text/javascript">
-                          /* <![CDATA[ */
-                            document.write('[@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_6}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />');
-                          /* ]]> */   
-                          </script>
-                          <noscript>
-                            [@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_6}@]" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />
-                          </noscript>
+                            [@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_6}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />
                           [@{else}@]
                             [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
+                          [@{/if}@]
+                          [@{if $link_filename_popup_content_products_delivery_time && $products_delivery_time}@]
+                            &nbsp;<br /><span class="price-label main"><b>[@{*#text_plus#*}@]Lieferzeit:</b>&nbsp;<a href="[@{$link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$products_delivery_time}@]</span></a><br /></span>
+                          [@{elseif $products_delivery_time}@]
+                            &nbsp;<br /><span class="price-label main"><b>[@{*#text_plus#*}@]Lieferzeit:</b>&nbsp;[@{$products_delivery_time}@]<br /></span>
                           [@{/if}@] 
                         </div>      
                         [@{/if}@]                   
@@ -299,6 +295,27 @@ $(".lightbox-img").fancybox({
                     <div style="float: right;">
                       <script type="text/javascript">
                       /* <![CDATA[ */
+                        $(function(){
+                          $("input[name='products_quantity']").before('<a id="inc" class="btn-plus">+</a>').after('<a id="dec" class="btn-minus">&ndash;</a>');
+                          $("#inc, #dec").click(function() {
+                            var oldValue = parseInt($(this).parent().find("input[name='products_quantity']").val());
+                            if ($(this).attr("id") == "inc") {
+                              if (oldValue > 0) {
+                                var newVal = oldValue + 1;
+                              } else {
+                                newVal = 1;
+                              }
+                            } else {
+                              // Don't allow decrementing below 1
+                              if (oldValue > 1) {
+                                var newVal = oldValue - 1;
+                              } else {
+                                newVal = 1;
+                              }
+                            }
+                          $(this).parent().find("input[name='products_quantity']").val(newVal);
+                          });
+                        });                      
                         document.write('<a id="add_to_cart" href="" onclick="cart_quantity.submit(); return false" class="button-add-to-cart" style="float: left" title=" [@{#button_title_in_cart#}@] "><span>[@{#button_text_in_cart#}@]</span></a><input type="image" src="[@{$images_path}@]pixel_trans.gif" alt="" />')
                       /* ]]> */  
                       </script>

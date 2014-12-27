@@ -294,7 +294,28 @@ $(".lightbox-img").colorbox({
                     </div>
                     <div style="float: right;">
                       <script type="text/javascript">
-                      /* <![CDATA[ */
+                      /* <![CDATA[ */ 
+                        $(function(){
+                          $("input[name='products_quantity']").before('<a id="inc" class="btn-plus">+</a>').after('<a id="dec" class="btn-minus">&ndash;</a>');
+                          $("#inc, #dec").click(function() {
+                            var oldValue = parseInt($(this).parent().find("input[name='products_quantity']").val());
+                            if ($(this).attr("id") == "inc") {
+                              if (oldValue > 0) {
+                                var newVal = oldValue + 1;
+                              } else {
+                                newVal = 1;
+                              }
+                            } else {
+                              // Don't allow decrementing below 1
+                              if (oldValue > 1) {
+                                var newVal = oldValue - 1;
+                              } else {
+                                newVal = 1;
+                              }
+                            }
+                          $(this).parent().find("input[name='products_quantity']").val(newVal);
+                          });
+                        });                       
                         document.write('<a id="add_to_cart" href="" onclick="cart_quantity.submit(); return false" class="button-add-to-cart" style="float: left" title=" [@{#button_title_in_cart#}@] "><span>[@{#button_text_in_cart#}@]</span></a><input type="image" src="[@{$images_path}@]pixel_trans.gif" alt="" />')
                       /* ]]> */  
                       </script>
