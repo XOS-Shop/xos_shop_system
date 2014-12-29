@@ -292,7 +292,9 @@
                       '    function response_processing() {' . "\n" .
                       '      if (http_request.readyState == 1) {' . "\n" .
                       '        document.getElementById("options").style.visibility = "hidden";' . "\n" .
-                      '        document.getElementById("loading").style.visibility = "visible";' . "\n" .                      
+                      '        document.getElementById("loading").style.visibility = "visible";' . "\n" . 
+                      '        document.getElementById("inc").style.visibility = "hidden";' . "\n" .
+                      '        document.getElementById("dec").style.visibility = "hidden";' . "\n" .                     
                       '        document.getElementById("products_quantity").style.visibility = "hidden";' . "\n" .
                       '        document.getElementById("add_to_cart").style.visibility = "hidden";' . "\n" .                                                                   
                       '      } else if (http_request.readyState == 4) {' . "\n" .
@@ -300,7 +302,9 @@
 //                      '            alert(http_request.responseText);' . "\n" .
                       '          document.getElementById("options").innerHTML = http_request.responseText;' . "\n" .
                       '          document.getElementById("options").style.visibility = "visible";' . "\n" .
-                      '          document.getElementById("loading").style.visibility = "hidden";' . "\n" .                      
+                      '          document.getElementById("loading").style.visibility = "hidden";' . "\n" . 
+                      '          document.getElementById("inc").style.visibility = "visible";' . "\n" . 
+                      '          document.getElementById("dec").style.visibility = "visible";' . "\n" .                      
                       '          document.getElementById("products_quantity").style.visibility = "visible";' . "\n" . 
                       '          document.getElementById("add_to_cart").style.visibility = "visible";' . "\n" .                                           
                       '        } else {' . "\n" .
