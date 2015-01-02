@@ -180,7 +180,8 @@
   if (!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) setcookie(session_name(), $_GET[session_name()], 0, COOKIE_PATH, $cookie_domain);
   xos_session_start();
 
-  if (!preg_match('/^[a-z0-9]{26}$/i', session_id()) && !preg_match('/^[a-z0-9]{32}$/i', session_id())) session_regenerate_id(true);
+//  if (!preg_match('/^(?:(?:[a-zA-Z0-9,-]{26})|(?:[a-zA-Z0-9,-]{32}))$/i', session_id())) session_regenerate_id(true);
+  if (!preg_match('/^[a-zA-Z0-9,-]{22,40}$/i', session_id())) session_regenerate_id(true);  
 
 // set the language
   if (!isset($_SESSION['language']) || isset($_GET['language'])) {

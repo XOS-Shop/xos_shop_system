@@ -87,6 +87,38 @@
   }
 
   function xos_session_start() {
+
+    $sane_session_id = true;
+
+    if (isset($_GET[xos_session_name()])) {
+      if (preg_match('/^[a-zA-Z0-9,-]+$/', $_GET[xos_session_name()]) == false) {
+        unset($_GET[xos_session_name()]);
+
+        $sane_session_id = false;
+      }
+    } elseif (isset($_POST[xos_session_name()])) {
+      if (preg_match('/^[a-zA-Z0-9,-]+$/', $_POST[xos_session_name()]) == false) {
+        unset($_POST[xos_session_name()]);
+
+        $sane_session_id = false;
+      }
+    } elseif (isset($_COOKIE[xos_session_name()])) {
+      if (preg_match('/^[a-zA-Z0-9,-]+$/', $_COOKIE[xos_session_name()]) == false) {
+        $session_data = session_get_cookie_params();
+
+        setcookie(xos_session_name(), '', time()-42000, $session_data['path'], $session_data['domain']);
+        unset($_COOKIE[xos_session_name()]);        
+
+        $sane_session_id = false;
+      }
+    }
+
+    if ($sane_session_id == false) {
+      xos_redirect(xos_href_link(FILENAME_DEFAULT, '', 'SSL', false));
+    }
+    
+    register_shutdown_function('session_write_close');
+
     return session_start();
   }
 
