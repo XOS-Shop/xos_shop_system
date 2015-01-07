@@ -30,6 +30,27 @@
 <!-- product_listing_b -->
 <script type="text/javascript">
 /* <![CDATA[ */
+  $(function(){
+    $("input[name='products_quantity']").before('<a class="btn-plus">+</a>').after('<a class="btn-minus">&ndash;</a>');
+    $(".btn-plus, .btn-minus").click(function() {
+      var oldValue = parseInt($(this).parent().find("input[name='products_quantity']").val());
+      if ($(this).hasClass("btn-plus")) {
+        if (oldValue > 0) {
+          newVal = oldValue + 1;
+        } else {
+          newVal = 1;
+        }
+      } else {
+        // Don't allow decrementing below 1
+        if (oldValue > 1) {
+          newVal = oldValue - 1;
+        } else {
+          newVal = 1;
+        }
+      }
+    $(this).parent().find("input[name='products_quantity']").val(newVal);
+    });
+  });
   if(document.getElementById("advanced-search-and-results-heading") != null) {
     document.getElementById("advanced-search-and-results-heading").style.display = "block";
   }

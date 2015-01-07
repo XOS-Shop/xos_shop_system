@@ -31,6 +31,33 @@
           <div class="page-heading" style="line-height: [@{#page_heading_height#}@]px;">[@{#heading_title#}@]</div>
           <div style="height: 10px; font-size: 0;">&nbsp;</div>  
     [@{if $products_in_cart}@]
+    
+<script type="text/javascript">
+/* <![CDATA[ */
+  $(function(){
+    $("input[name='cart_quantity[]']").before('<a class="btn-plus" title=" [@{#text_update_product#}@] ">+</a>').after('<a class="btn-minus" title=" [@{#text_update_product#}@] ">&ndash;</a>');
+    $(".btn-plus, .btn-minus").click(function() {
+      var oldValue = parseInt($(this).parent().find("input[name='cart_quantity[]']").val());
+      if ($(this).hasClass("btn-plus")) {
+        if (oldValue > 0) {
+          newVal = oldValue + 1;
+        } else {
+          newVal = 1;
+        }
+      } else {
+        // Don't allow decrementing below 1
+        if (oldValue > 1) {
+          newVal = oldValue - 1;
+        } else {
+          newVal = 1;
+        }
+      }
+    $(this).parent().find("input[name='cart_quantity[]']").val(newVal);
+    cart_quantity.submit();
+    });
+  });
+/* ]]> */  
+</script>      
     [@{$form_begin}@]
           <table border="0" width="100%" cellspacing="0" cellpadding="2" class="product-listing-cart">
             <tr>

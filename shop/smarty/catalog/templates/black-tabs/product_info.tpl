@@ -297,18 +297,18 @@ $(".lightbox-img").fancybox({
                       /* <![CDATA[ */
                         $(function(){
                           $("input[name='products_quantity']").before('<a id="inc" class="btn-plus">+</a>').after('<a id="dec" class="btn-minus">&ndash;</a>');
-                          $("#inc, #dec").click(function() {
+                          $(".btn-plus, .btn-minus").click(function() {
                             var oldValue = parseInt($(this).parent().find("input[name='products_quantity']").val());
-                            if ($(this).attr("id") == "inc") {
+                            if ($(this).hasClass("btn-plus")) {
                               if (oldValue > 0) {
-                                var newVal = oldValue + 1;
+                                newVal = oldValue + 1;
                               } else {
                                 newVal = 1;
                               }
                             } else {
                               // Don't allow decrementing below 1
                               if (oldValue > 1) {
-                                var newVal = oldValue - 1;
+                                newVal = oldValue - 1;
                               } else {
                                 newVal = 1;
                               }
