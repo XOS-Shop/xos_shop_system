@@ -23,7 +23,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 require('includes/application_top.php');
-if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_OFFLINE) == 'overwrite_all')) : 
+if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_OFFLINE) == 'overwrite_all')) :
+
+  header('HTTP/1.1 503 Service Temporarily Unavailable');
+  header('Status: 503 Service Temporarily Unavailable'); 
+ 
   $_SESSION['navigation']->remove_current_page();
 
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_OFFLINE);
