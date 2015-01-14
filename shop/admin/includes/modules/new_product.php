@@ -40,6 +40,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                         'products_url' => '',
                         'products_id' => '',
                         'products_quantity' => '',
+                        'products_delivery_time_id' => '',
                         'products_sort_order' => '',
                         'products_model' => '',
                         'products_image' => '',
@@ -56,7 +57,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
     $pInfo = new objectInfo($parameters);
 
     if (isset($_GET['pID'])) {
-      $product_query = xos_db_query("select p.products_id, p.products_quantity, p.products_model, p.products_image, p.products_price, p.products_sort_order, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '" . DATE_FORMAT_SHORT . "') as products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id, p.attributes_quantity, p.attributes_not_updated from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . (int)$_GET['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['used_lng_id'] . "'");
+      $product_query = xos_db_query("select p.products_id, p.products_quantity, p.products_delivery_time_id, p.products_model, p.products_image, p.products_price, p.products_sort_order, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '" . DATE_FORMAT_SHORT . "') as products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id, p.attributes_quantity, p.attributes_not_updated from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . (int)$_GET['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['used_lng_id'] . "'");
       $product = xos_db_fetch_array($product_query);
 
       $pInfo->objectInfo($product);
@@ -70,6 +71,13 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       $manufacturers_array[] = array('id' => $manufacturers['manufacturers_id'],
                                      'text' => $manufacturers['manufacturers_name']);
     }
+    
+    $delivery_times_array = array(array('id' => '', 'text' => TEXT_NONE));
+    $delivery_times_query = xos_db_query("select delivery_times_id, delivery_times_text from " . TABLE_DELIVERY_TIMES . " where language_id = '" . (int)$_SESSION['used_lng_id'] . "' order by delivery_times_id");
+    while ($delivery_times = xos_db_fetch_array($delivery_times_query)) {
+      $delivery_times_array[] = array('id' => $delivery_times['delivery_times_id'],
+                                      'text' => $delivery_times['delivery_times_text']);
+    }    
 
     $tax_class_array = array(array('id' => '0', 'text' => TEXT_NONE));
     $tax_class_query = xos_db_query("select distinct tc.tax_class_id, tc.tax_class_title from " . TABLE_TAX_CLASS . " tc, " . TABLE_TAX_RATES . " tr where tc.tax_class_id = tr.tax_class_id order by tc.tax_class_title");
@@ -462,6 +470,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                           'radio_products_status_1' => xos_draw_radio_field('products_status', '1', $in_status),   
                           'radio_products_status_0' => xos_draw_radio_field('products_status', '0', $out_status),
                           'pull_down_manufacturers' => xos_draw_pull_down_menu('manufacturers_id', $manufacturers_array, $pInfo->manufacturers_id),
+                          'pull_down_delivery_times' => xos_draw_pull_down_menu('products_delivery_time_id', $delivery_times_array, $pInfo->products_delivery_time_id == '' ? DEFAULT_DELIVERY_TIMES_ID : $pInfo->products_delivery_time_id),
                           'pull_down_products_tax_class' => xos_draw_pull_down_menu('products_tax_class_id', $tax_class_array, $pInfo->products_tax_class_id),
                           'pull_down_tax_rates' => xos_draw_pull_down_menu('tax_rates_final_id', $tax_rates_final_array, '', 'onchange="updatePrices(false, true)"'),
                           'update_prices' => 'updatePrices(true, true)',

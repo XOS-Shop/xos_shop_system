@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : dark-tabs
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
 * descrip    : xos-shop extra template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                     
 * filename   : html_header.tpl
@@ -48,7 +48,7 @@
       	
 -->
 
-<meta name="generator" content="XOS-Shop version 1.0 rc7u, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0 rc7v, open source e-commerce system" />
 <title>[@{$html_header_page_title}@][@{$html_header_add_page_title}@]</title>
 <base href="[@{$base_href}@]" />
 <link rel="canonical" href="[@{$html_header_link_canonical}@]" />

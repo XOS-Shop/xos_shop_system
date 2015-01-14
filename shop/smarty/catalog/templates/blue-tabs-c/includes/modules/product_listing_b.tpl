@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : blue-tabs-c
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
 * descrip    : xos-shop default template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                     
 * filename   : product_listing_b.tpl
@@ -182,6 +182,11 @@
                                 [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
                               [@{/if}@] 
                             </div>
+                            [@{if $data.link_filename_popup_content_products_delivery_time && $data.products_delivery_time}@]
+                            <div class="price-label small-text" style="padding: 2px; text-align: right; white-space: nowrap;"><b>[@{#text_delivery_time#}@]</b>&nbsp;<a href="[@{$data.link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$data.products_delivery_time}@]</span></a></div>
+                            [@{elseif $data.products_delivery_time}@]
+                            <div class="price-label small-text" style="padding: 2px; text-align: right; white-space: nowrap;"><b>[@{#text_delivery_time#}@]</b>&nbsp;[@{$data.products_delivery_time}@]</div>        
+                            [@{/if}@]                               
                           </div>                                         
                         </td>
                       </tr>
@@ -219,6 +224,11 @@
                         [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
                       [@{/if}@] 
                     </div>
+                    [@{if $data.link_filename_popup_content_products_delivery_time && $data.products_delivery_time}@]
+                    <div class="price-label small-text" style="padding: 2px; text-align: right; white-space: nowrap;"><b>[@{#text_delivery_time#}@]</b>&nbsp;<a href="[@{$data.link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$data.products_delivery_time}@]</span></a></div>
+                    [@{elseif $data.products_delivery_time}@]
+                    <div class="price-label small-text" style="padding: 2px; text-align: right; white-space: nowrap;"><b>[@{#text_delivery_time#}@]</b>&nbsp;[@{$data.products_delivery_time}@]</div>        
+                    [@{/if}@]                     
                   </div>
                   <div style="height: 0; font-size: 0;">&nbsp;</div> 
                   <div class="clear">&nbsp;</div>

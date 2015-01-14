@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : orange-tabs
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
 * descrip    : xos-shop default template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                    
 * filename   : product_info.tpl
@@ -156,7 +156,12 @@ $(".lightbox-img").fancybox({
                   <div class="main">[@{if $products_model}@]<b>[@{#text_model#}@]</b><br />[@{$products_model}@][@{/if}@]</div>
                   <div class="main">[@{if $products_weight}@]<b>[@{#text_weight#}@]</b><br />[@{$products_weight}@]kg[@{/if}@]</div>
                   <div class="main">[@{if $products_p_unit}@]<b>[@{#text_packing_unit#}@]</b><br />[@{$products_p_unit}@][@{/if}@]</div>
-                  <div class="main" >[@{if $products_quantity}@]<b>[@{#text_quantity#}@]</b><br />[@{$products_quantity}@][@{/if}@]</div>                                                                                
+                  <div class="main" >[@{if $products_quantity}@]<b>[@{#text_quantity#}@]</b><br />[@{$products_quantity}@][@{/if}@]</div> 
+                  [@{if $link_filename_popup_content_products_delivery_time && $products_delivery_time}@]
+                  <div class="main" ><b>[@{#text_delivery_time#}@]</b><br /><a href="[@{$link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$products_delivery_time}@]</span></a></div>
+                  [@{elseif $products_delivery_time}@]
+                  <div class="main" ><b>[@{#text_delivery_time#}@]</b><br />[@{$products_delivery_time}@]</div>
+                  [@{/if}@]                                                                                                       
                 </div>                  
                 <div style="text-align: right; float: right;">                  
                   <table border="0" cellspacing="0" cellpadding="0"> 
@@ -196,7 +201,7 @@ $(".lightbox-img").fancybox({
                           </noscript>
                           [@{else}@]
                             [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
-                          [@{/if}@]
+                          [@{/if}@]                        
                         </div>                                                      
                         [@{else}@]
                         <div class="price-label main" style="padding: 2px 2px 0 2px; text-align: right; white-space: nowrap;"><b>[@{if $products_price_special}@]<span class="text-deco-line-through">[@{$products_price}@]</span> <span class="product-special-price">[@{$products_price_special}@]</span>[@{else}@][@{$products_price}@][@{/if}@]</b></div>
@@ -213,7 +218,7 @@ $(".lightbox-img").fancybox({
                           </noscript>
                           [@{else}@]
                             [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
-                          [@{/if}@] 
+                          [@{/if}@]                         
                         </div>      
                         [@{/if}@]                   
                       </td>

@@ -24,6 +24,9 @@
 
 require('includes/application_top.php');
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_TEST) == 'overwrite_all')) :
+
+  usleep(1000000);
+  
   $_SESSION['navigation']->remove_current_page();
   $_SESSION['javascript_enabled'] = true;
 endif;  

@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : black-tabs
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
 * descrip    : xos-shop default template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                    
 * filename   : product_info.tpl
@@ -191,9 +191,9 @@ $(".lightbox-img").fancybox({
                             [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
                           [@{/if}@]
                           [@{if $link_filename_popup_content_products_delivery_time && $products_delivery_time}@]
-                            &nbsp;<br /><span class="price-label main"><b>[@{*#text_plus#*}@]Lieferzeit:</b>&nbsp;<a href="[@{$link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$products_delivery_time}@]</span></a><br /></span>
+                            &nbsp;<br /><span class="price-label main"><b>[@{#text_delivery_time#}@]</b>&nbsp;<a href="[@{$link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$products_delivery_time}@]</span></a><br /></span>
                           [@{elseif $products_delivery_time}@]
-                            &nbsp;<br /><span class="price-label main"><b>[@{*#text_plus#*}@]Lieferzeit:</b>&nbsp;[@{$products_delivery_time}@]<br /></span>
+                            &nbsp;<br /><span class="price-label main"><b>[@{#text_delivery_time#}@]</b>&nbsp;[@{$products_delivery_time}@]<br /></span>
                           [@{/if}@] 
                         </div>                                                      
                         [@{else}@]
@@ -206,9 +206,9 @@ $(".lightbox-img").fancybox({
                             [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
                           [@{/if}@]
                           [@{if $link_filename_popup_content_products_delivery_time && $products_delivery_time}@]
-                            &nbsp;<br /><span class="price-label main"><b>[@{*#text_plus#*}@]Lieferzeit:</b>&nbsp;<a href="[@{$link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$products_delivery_time}@]</span></a><br /></span>
+                            &nbsp;<br /><span class="price-label main"><b>[@{#text_delivery_time#}@]</b>&nbsp;<a href="[@{$link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$products_delivery_time}@]</span></a><br /></span>
                           [@{elseif $products_delivery_time}@]
-                            &nbsp;<br /><span class="price-label main"><b>[@{*#text_plus#*}@]Lieferzeit:</b>&nbsp;[@{$products_delivery_time}@]<br /></span>
+                            &nbsp;<br /><span class="price-label main"><b>[@{#text_delivery_time#}@]</b>&nbsp;[@{$products_delivery_time}@]<br /></span>
                           [@{/if}@] 
                         </div>      
                         [@{/if}@]                   

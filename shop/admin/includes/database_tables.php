@@ -59,7 +59,8 @@
   define('TABLE_CUSTOMERS', 'customers');
   define('TABLE_CUSTOMERS_BASKET', 'customers_basket');
   define('TABLE_CUSTOMERS_GROUPS', 'customers_groups');  
-  define('TABLE_CUSTOMERS_INFO', 'customers_info'); 
+  define('TABLE_CUSTOMERS_INFO', 'customers_info');
+  define('TABLE_DELIVERY_TIMES', 'delivery_times');   
   define('TABLE_GEO_ZONES', 'geo_zones');  
   define('TABLE_LANGUAGES', 'languages');
   define('TABLE_MANUFACTURERS', 'manufacturers');

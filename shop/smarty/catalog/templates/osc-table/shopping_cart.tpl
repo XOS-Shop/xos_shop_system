@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : osc-table
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
 * descrip    : oscommerce default template with css-buttons and tables for layout                                                                     
 * filename   : shopping_cart.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
@@ -74,7 +74,20 @@
                   <tr>
                     <td class="productListing-data" align="center" nowrap="nowrap"><a href="[@{$product.link_filename_product_info}@]">[@{$product.products_image}@]</a></td>
                     <td class="productListing-data" nowrap="nowrap">&nbsp;</td>              
-                    <td class="productListing-data" nowrap="nowrap" valign="top"><a href="[@{$product.link_filename_product_info}@]"><b>[@{$product.products_name}@] [@{$product.stock_check}@]</b></a>[@{foreach name=inner item=product_attribute from=$product.products_attributes}@]<br />[@{$product_attribute.products_options_name}@]: [@{$product_attribute.products_options_values_name}@][@{$product_attribute.hidden_field}@][@{/foreach}@][@{if $product.products_packaging_unit}@]<br /><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="4" /><br />[@{#text_packaging_unit#}@]<br />-&nbsp;[@{$product.products_packaging_unit}@][@{/if}@]</td>                                       
+                    <td class="productListing-data" nowrap="nowrap" valign="top">
+                      <a href="[@{$product.link_filename_product_info}@]"><b>[@{$product.products_name}@] [@{$product.stock_check}@]</b></a>
+                    [@{foreach name=inner item=product_attribute from=$product.products_attributes}@]
+                      <br />[@{$product_attribute.products_options_name}@]: [@{$product_attribute.products_options_values_name}@][@{$product_attribute.hidden_field}@]
+                    [@{/foreach}@]
+                    [@{if $product.products_packaging_unit}@]
+                      <br /><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="4" /><br />[@{#text_packaging_unit#}@]<br />[@{$product.products_packaging_unit}@]
+                    [@{/if}@]                  
+                    [@{if $product.link_filename_popup_content_products_delivery_time && $product.products_delivery_time}@]
+                      <br /><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="4" /><br /><b>[@{#text_delivery_time#}@]</b>&nbsp;<a href="[@{$product.link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$product.products_delivery_time}@]</span></a>
+                    [@{elseif $product.products_delivery_time}@]
+                      <br /><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="4" /><br /><b>[@{#text_delivery_time#}@]</b>&nbsp;[@{$product.products_delivery_time}@]
+                    [@{/if}@]                                       
+                    </td>                                       
                   </tr>
                 </table>                 
               </td>              

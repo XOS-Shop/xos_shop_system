@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : orange-tabs-table
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
 * descrip    : xos-shop default template with tabs navigation
 *              and css-buttons and tables for layout                                                                    
 * filename   : product_info.tpl
@@ -277,14 +277,28 @@ $(".lightbox-img").fancybox({
                                 </noscript>
                               [@{else}@]
                                 [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
-                              [@{/if}@]
+                              [@{/if}@]                              
                               <img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="2" /><br />
                             </td>
                             <td></td>
                           </tr>            
                         </table></td> 
                       </tr>            
-                    </table></td>                                                                                                                             
+                    </table>
+                    [@{if $link_filename_popup_content_products_delivery_time && $products_delivery_time}@]
+                      <img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="16" /><br />
+                      <span class="main"><b>[@{#text_delivery_time#}@]
+                        </b>&nbsp;<a href="[@{$link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$products_delivery_time}@]</span></a>
+                      </span><br />
+                      <img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="10" />
+                    [@{elseif $products_delivery_time}@]
+                      <img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="16" /><br />
+                      <span class="main"><b>[@{#text_delivery_time#}@]
+                        </b>&nbsp;[@{$products_delivery_time}@]                          
+                      </span><br />
+                      <img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="10" />
+                    [@{/if}@]                     
+                    </td>                                                                                                                             
                   </tr>
                 </table></td>                 
               </tr>            

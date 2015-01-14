@@ -51,7 +51,7 @@
   
     if (!$product_check['total'] < 1) {
     
-      $product_info_query = xos_db_query("select p.products_id, pd.products_name, pd.products_p_unit, pd.products_description_tab_label, pd.products_description, pd.products_url, p.products_model, p.products_quantity, p.products_image, p.products_price, p.products_tax_class_id, p.products_date_added, p.products_date_available, p.products_weight, p.manufacturers_id, p.attributes_quantity, p.attributes_combinations, p.attributes_not_updated from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$_GET['p'] . "' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
+      $product_info_query = xos_db_query("select p.products_id, p.products_delivery_time_id, pd.products_name, pd.products_p_unit, pd.products_description_tab_label, pd.products_description, pd.products_url, p.products_model, p.products_quantity, p.products_image, p.products_price, p.products_tax_class_id, p.products_date_added, p.products_date_available, p.products_weight, p.manufacturers_id, p.attributes_quantity, p.attributes_combinations, p.attributes_not_updated from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$_GET['p'] . "' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
       $product_info = xos_db_fetch_array($product_info_query);
     
       $products_prices = xos_get_product_prices($product_info['products_price']);
@@ -93,11 +93,15 @@
       for ($i=0, $n=sizeof($tab_label); $i<$n; $i++) { 
         $products_description_array[] = array('tab_label' => trim($tab_label[$i]),
                                               'description' => $description[$i]);
-      } 
+      }
+      
+      $popup_content_id = xos_get_delivery_times_values($product_info['products_delivery_time_id'], 'popup_content_id');       
     
       $smarty->assign(array('product_check' => true,
                             'products_name' => $product_info['products_name'],
                             'products_p_unit' => $product_info['products_p_unit'],
+                            'products_delivery_time' => xos_get_delivery_times_values($product_info['products_delivery_time_id']),
+                            'link_filename_popup_content_products_delivery_time' => $popup_content_id > 0 ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=' . $popup_content_id . '&p=' . $product_info['products_id'], $request_type) : '',                            
                             'products_model' => $product_info['products_model'],
                             'products_weight' => $product_info['products_weight'],
                             'products_quantity' => STOCK_CHECK == 'true' ? ($product_info['products_quantity'] > 0 ? $product_info['products_quantity'] : '<span class="red-mark">' . $product_info['products_quantity'] . '</span>') : '',

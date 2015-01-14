@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : dark-tabs
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
 * descrip    : xos-shop extra template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                     
 * filename   : order_status_email_text.tpl

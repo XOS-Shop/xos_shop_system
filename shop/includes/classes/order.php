@@ -322,6 +322,7 @@
                                         'model' => $products[$i]['model'],        
                                         'name' => $products[$i]['name'],
                                         'packaging_unit' => $products[$i]['packaging_unit'],
+                                        'delivery_time_id' => $products[$i]['delivery_time_id'],
                                         'tax' => xos_get_tax_rate($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
                                         'tax_description' => xos_get_tax_description($products[$i]['tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']),
                                         'price' => $products[$i]['price'],

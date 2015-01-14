@@ -49,6 +49,7 @@
   define('FILENAME_CUSTOMERS_GROUPS', 'customers_groups.php');  
   define('FILENAME_DEFAULT', 'index.php');
   define('FILENAME_DEFINE_LANGUAGE', 'define_language.php');
+  define('FILENAME_DELIVERY_TIMES', 'delivery_times.php');  
   define('FILENAME_FILE_MANAGER', 'file_manager.php');
   define('FILENAME_GEO_ZONES', 'geo_zones.php');  
   define('FILENAME_GV_MAIL', 'gv_mail.php');

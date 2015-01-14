@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : orange-table
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
 * descrip    : xos-shop default template with css-buttons and tables for layout                                                                     
 * filename   : create_account_success.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>

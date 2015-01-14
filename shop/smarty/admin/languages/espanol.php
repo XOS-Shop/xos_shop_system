@@ -166,6 +166,7 @@ define('BOX_MODULES_SHIPPING', 'Envío');
 define('BOX_HEADING_CATALOG', 'Catálogo');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS', 'Categorias/Productos');
 define('BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES', 'Atributos');
+define('BOX_CATALOG_DELIVERY_TIMES', 'Plazos de entrega');
 define('BOX_CATALOG_MANUFACTURERS', 'Fabricantes');
 define('BOX_CATALOG_REVIEWS', 'Comentarios');
 define('BOX_CATALOG_SPECIALS', 'Ofertas');
@@ -425,6 +426,7 @@ define('TEXT_DISPLAY_NUMBER_OF_COUNTRIES', 'Viendo del <b>%d</b> al <b>%d</b> (d
 define('TEXT_DISPLAY_NUMBER_OF_COUPONS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> Cupones)');
 define('TEXT_DISPLAY_NUMBER_OF_CUSTOMERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> clientes)');
 define('TEXT_DISPLAY_NUMBER_OF_CURRENCIES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> monedas)');
+define('TEXT_DISPLAY_NUMBER_OF_DELIVERY_TIMES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> tiempos de entrega)');
 define('TEXT_DISPLAY_NUMBER_OF_ENTRIES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> entradas)');
 define('TEXT_DISPLAY_NUMBER_OF_GIFT_VOUCHERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> Bouchers regalados)');
 define('TEXT_DISPLAY_NUMBER_OF_LANGUAGES', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> idiomas)');

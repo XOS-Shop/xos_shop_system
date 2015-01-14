@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : dark-standard
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
 * descrip    : xos-shop extra template with popup windows as lightboxes 
 *              and div/css layout                                                                     
 * filename   : best_sellers.tpl

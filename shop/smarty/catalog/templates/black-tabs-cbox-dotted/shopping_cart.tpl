@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : black-tabs-cbox-dotted
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
 * descrip    : xos-shop default template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                     
 * filename   : shopping_cart.tpl
@@ -97,7 +97,17 @@
                     </td>
                   </tr>                  
                   <tr>            
-                    <td colspan="3" class="product-listing-cart-data" nowrap="nowrap">[@{if $product.products_packaging_unit}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="4" /><br />&nbsp; &nbsp;[@{#text_packaging_unit#}@]&nbsp;[@{$product.products_packaging_unit}@]<br />[@{/if}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="4" /></td>                                        
+                    <td colspan="3" class="product-listing-cart-data" nowrap="nowrap">
+                    [@{if $product.products_packaging_unit}@]
+                      <img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="4" /><br />&nbsp; &nbsp;[@{#text_packaging_unit#}@]&nbsp;[@{$product.products_packaging_unit}@]<br />
+                    [@{/if}@]
+                    [@{if $product.link_filename_popup_content_products_delivery_time && $product.products_delivery_time}@]
+                      <img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="4" /><br />&nbsp; &nbsp;<b>[@{#text_delivery_time#}@]</b>&nbsp;<a href="[@{$product.link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$product.products_delivery_time}@]</span></a><br />
+                    [@{elseif $product.products_delivery_time}@]
+                      <img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="4" /><br />&nbsp; &nbsp;<b>[@{#text_delivery_time#}@]</b>&nbsp;[@{$product.products_delivery_time}@]<br />
+                    [@{/if}@]
+                      <img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="4" />
+                    </td>                                         
                   </tr>                                                    
                 </table>                 
               </td>                                                                   

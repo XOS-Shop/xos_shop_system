@@ -418,7 +418,7 @@
       $products_array = array();
       reset($this->contents);
       while (list($products_id, ) = each($this->contents)) {
-        $products_query = xos_db_query("select p.products_id, pd.products_name, pd.products_p_unit, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_tax_class_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . (int)$products_id . "' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
+        $products_query = xos_db_query("select p.products_id, p.products_delivery_time_id, pd.products_name, pd.products_p_unit, p.products_model, p.products_image, p.products_price, p.products_weight, p.products_tax_class_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . (int)$products_id . "' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
         if ($products = xos_db_fetch_array($products_query)) {
           $prid = $products['products_id'];
           $products_tax = xos_get_tax_rate($products['products_tax_class_id'], $tax_address['entry_country_id'], $tax_address['entry_zone_id']);
@@ -451,6 +451,7 @@
           }       
 
           $products_array[] = array('id' => $products_id,
+                                    'delivery_time_id' => $products['products_delivery_time_id'],
                                     'name' => $products['products_name'],
                                     'packaging_unit' => $products['products_p_unit'],
                                     'model' => $products['products_model'],

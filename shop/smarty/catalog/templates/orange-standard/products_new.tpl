@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : orange-standard
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
 * descrip    : xos-shop default template with div/css layout                                                                     
 * filename   : products_new.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
@@ -47,7 +47,14 @@
               <b>[@{#text_date_added#}@]</b> [@{$product_new.date_added}@]<br />
               <img src="[@{$images_path}@]pixel_trans.gif" alt="" width="10%" height="5" /><br />
               [@{if $product_new.manufacturer}@]<b>[@{#text_manufacturer#}@]</b> [@{$product_new.manufacturer}@]<br />
-              <img src="[@{$images_path}@]pixel_trans.gif" alt="" width="10%" height="5" /><br />[@{/if}@]                                                             
+              <img src="[@{$images_path}@]pixel_trans.gif" alt="" width="10%" height="5" /><br />[@{/if}@]
+              [@{if $product_new.link_filename_popup_content_products_delivery_time && $product_new.products_delivery_time}@]
+              <b>[@{#text_delivery_time#}@]</b>&nbsp;<a href="[@{$product_new.link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$product_new.products_delivery_time}@]</span></a><br />
+              <img src="[@{$images_path}@]pixel_trans.gif" alt="" width="10%" height="5" /><br />
+              [@{elseif $product_new.products_delivery_time}@]
+              <b>[@{#text_delivery_time#}@]</b>&nbsp;[@{$product_new.products_delivery_time}@]<br />
+              <img src="[@{$images_path}@]pixel_trans.gif" alt="" width="10%" height="5" /><br />        
+              [@{/if}@]                                                                            
             </div>
             <div class="main" style="padding: 4px 4px 4px 0; float: right;">              
               <table border="0" cellspacing="0" cellpadding="0"> 
@@ -88,7 +95,7 @@
                       [@{else}@]
                         [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
                       [@{/if}@]
-                    </div>                                                  
+                    </div>                                                                        
                     [@{else}@]
                     <div style="width: 100%;">
                       <div class="price-label main" style="padding: 2px; text-align: right; white-space: nowrap;"><b>[@{if $product_new.price_special}@]<span class="text-deco-line-through">[@{$product_new.price}@]</span> <span class="product-special-price">[@{$product_new.price_special}@]</span>[@{else}@][@{$product_new.price}@][@{/if}@]</b></div>
@@ -106,7 +113,7 @@
                         [@{else}@]
                           [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
                         [@{/if}@] 
-                      </div>
+                      </div>                     
                       <div style="height: 0; font-size: 0;">&nbsp;</div> 
                       <div class="clear">&nbsp;</div>
                       <div style="height: 0; font-size: 0;">&nbsp;</div>

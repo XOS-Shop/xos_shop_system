@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : xs_admin
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
 * descrip    : xos-shop default template for admin with css-buttons
 *              and tables for layout                                                                     
 * filename   : new_product.tpl
@@ -56,7 +56,9 @@
               </tr>        
               <tr>
                 <td class="main">[@{#text_products_status#}@]</td>
-                <td class="main" colspan="3"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />&nbsp;<span style="background: green;">[@{$radio_products_status_1}@]</span>&nbsp;[@{#text_product_available#}@]&nbsp;&nbsp;&nbsp;<span style="background: red;">[@{$radio_products_status_0}@]</span>&nbsp;[@{#text_product_not_available#}@]</td>              
+                <td class="main"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />&nbsp;<span style="background: green;">[@{$radio_products_status_1}@]</span>&nbsp;[@{#text_product_available#}@]&nbsp;&nbsp;&nbsp;<span style="background: red;">[@{$radio_products_status_0}@]</span>&nbsp;[@{#text_product_not_available#}@]</td>              
+                <td class="main">[@{#text_products_delivery_time#}@]</td>
+                <td class="main">&nbsp;[@{$pull_down_delivery_times}@]</td>
               </tr>
               <tr>             
                 <td colspan="4"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="1" /></td>

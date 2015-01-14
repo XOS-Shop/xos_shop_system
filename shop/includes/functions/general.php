@@ -1407,6 +1407,15 @@
     return $product_info['products_info']; 
   }
   
+  function xos_get_delivery_times_values($delivery_times_id, $column = 'delivery_times_text', $language_id = '') {
+
+    if ($language_id == '') $language_id = $_SESSION['languages_id'];
+    $delivery_times_query = xos_db_query("select delivery_times_text, popup_content_id from " . TABLE_DELIVERY_TIMES . " where delivery_times_id = '" . (int)$delivery_times_id . "' and language_id = '" . (int)$language_id . "'");
+    $delivery_times = xos_db_fetch_array($delivery_times_query);
+
+    return $column == 'delivery_times_text' ? $delivery_times['delivery_times_text'] : $delivery_times['popup_content_id'];
+  }  
+  
 ////  
 // Return unserialize image/images_array 
   function xos_get_product_images(&$serialize_images_array, $first = 'first') {

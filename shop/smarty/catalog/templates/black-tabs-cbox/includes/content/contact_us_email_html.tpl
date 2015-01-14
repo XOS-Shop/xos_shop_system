@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : black-tabs-cbox
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
 * descrip    : xos-shop default template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                     
 * filename   : contact_us_email_html.tpl
@@ -33,7 +33,7 @@
 <meta http-equiv="content-type" content="text/html; charset=[@{$charset}@]" />
 <meta http-equiv="content-language" content="[@{$xhtml_lang}@]" />
 <meta http-equiv="content-style-type" content="text/css" />
-<meta name="generator" content="XOS-Shop version 1.0 rc7u, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0 rc7v, open source e-commerce system" />
 <title></title>
 </head>
 <body>

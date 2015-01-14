@@ -3,7 +3,7 @@
 //              http://www.xos-shop.com
 //
 // template   : orange-standard
-// version    : 1.0.7 for XOS-Shop version 1.0 rc7u
+// version    : 1.0.7 for XOS-Shop version 1.0 rc7v
 // descrip    : xos-shop default template with div/css layout                                                                     
 // filename   : quick_search_suggest.js
 // author     : Hanspeter Zeller <hpz@xos-shop.com>

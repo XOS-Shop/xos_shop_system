@@ -323,7 +323,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                                   'products_weight' => (float)xos_db_prepare_input($_POST['products_weight']),
                                   'products_status' => (int)xos_db_prepare_input($_POST['products_status']),
                                   'products_tax_class_id' => (int)xos_db_prepare_input($_POST['products_tax_class_id']),
-                                  'manufacturers_id' => (int)xos_db_prepare_input($_POST['manufacturers_id']));
+                                  'manufacturers_id' => (int)xos_db_prepare_input($_POST['manufacturers_id']),
+                                  'products_delivery_time_id' => (int)xos_db_prepare_input($_POST['products_delivery_time_id']));
                                   
           if ($action == 'insert_product') {
             $insert_sql_data = array('products_date_added' => 'now()');

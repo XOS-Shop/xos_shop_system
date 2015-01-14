@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : black-tabs-cbox-dotted
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7u
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
 * descrip    : xos-shop default template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                    
 * filename   : product_info.tpl
@@ -190,6 +190,11 @@ $(".lightbox-img").colorbox({
                           [@{else}@]
                             [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
                           [@{/if}@]
+                          [@{if $link_filename_popup_content_products_delivery_time && $products_delivery_time}@]
+                            &nbsp;<br /><span class="price-label main"><b>[@{#text_delivery_time#}@]</b>&nbsp;<a href="[@{$link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$products_delivery_time}@]</span></a><br /></span>
+                          [@{elseif $products_delivery_time}@]
+                            &nbsp;<br /><span class="price-label main"><b>[@{#text_delivery_time#}@]</b>&nbsp;[@{$products_delivery_time}@]<br /></span>
+                          [@{/if}@]                           
                         </div>                                                      
                         [@{else}@]
                         <div class="price-label main" style="padding: 2px 2px 0 2px; text-align: right; white-space: nowrap;"><b>[@{if $products_price_special}@]<span class="text-deco-line-through">[@{$products_price}@]</span> <span class="product-special-price">[@{$products_price_special}@]</span>[@{else}@][@{$products_price}@][@{/if}@]</b></div>
@@ -206,7 +211,12 @@ $(".lightbox-img").colorbox({
                           </noscript>
                           [@{else}@]
                             [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
-                          [@{/if}@] 
+                          [@{/if}@]
+                          [@{if $link_filename_popup_content_products_delivery_time && $products_delivery_time}@]
+                            &nbsp;<br /><span class="price-label main"><b>[@{#text_delivery_time#}@]</b>&nbsp;<a href="[@{$link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$products_delivery_time}@]</span></a><br /></span>
+                          [@{elseif $products_delivery_time}@]
+                            &nbsp;<br /><span class="price-label main"><b>[@{#text_delivery_time#}@]</b>&nbsp;[@{$products_delivery_time}@]<br /></span>
+                          [@{/if}@]                            
                         </div>      
                         [@{/if}@]                   
                       </td>

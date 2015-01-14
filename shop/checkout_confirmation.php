@@ -159,11 +159,14 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     }
     
     $tax_rate = xos_display_tax_value($order->products[$i]['tax']);
+    $popup_content_id = xos_get_delivery_times_values($order->products[$i]['delivery_time_id'], 'popup_content_id');
      
     $order_products_array[]=array('qty' => $order->products[$i]['qty'],
                                   'model' => $order->products[$i]['model'],    
                                   'name' => $order->products[$i]['name'],
                                   'packaging_unit' => $order->products[$i]['packaging_unit'],
+                                  'delivery_time' => xos_get_delivery_times_values($order->products[$i]['delivery_time_id']),
+                                  'link_filename_popup_content_delivery_time' => $popup_content_id > 0 ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=' . $popup_content_id . '&p=' . $order->products[$i]['id'], $request_type) : '',                                  
                                   'tax' => $tax_rate,                                
                                   'price' => $order->products[$i]['price_formated'],
                                   'final_single_price' => $order->products[$i]['final_price_formated'],

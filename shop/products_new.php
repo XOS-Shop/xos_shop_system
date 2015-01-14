@@ -52,7 +52,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
  
   if(!$smarty->isCached(SELECTED_TPL . '/products_new.tpl', $cache_id)){
 
-    $products_new_query_raw = "select distinct p.products_id, pd.products_name, pd.products_p_unit, pd.products_info, p.products_model, p.products_quantity, p.products_image, p.products_price, p.products_tax_class_id, p.products_date_added, mi.manufacturers_name from " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "'), " . TABLE_PRODUCTS_DESCRIPTION . " pd where c.categories_or_pages_status = '1' and p.products_id = p2c.products_id and c.categories_or_pages_id = p2c.categories_or_pages_id and p.products_status = '1' and now() < date_add(p.products_date_added,interval " . INTERVAL_DAYS_BACK . " day) and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' order by p.products_date_added DESC, pd.products_name";
+    $products_new_query_raw = "select distinct p.products_id, p.products_delivery_time_id, pd.products_name, pd.products_p_unit, pd.products_info, p.products_model, p.products_quantity, p.products_image, p.products_price, p.products_tax_class_id, p.products_date_added, mi.manufacturers_name from " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "'), " . TABLE_PRODUCTS_DESCRIPTION . " pd where c.categories_or_pages_status = '1' and p.products_id = p2c.products_id and c.categories_or_pages_id = p2c.categories_or_pages_id and p.products_status = '1' and now() < date_add(p.products_date_added,interval " . INTERVAL_DAYS_BACK . " day) and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' order by p.products_date_added DESC, pd.products_name";
     $products_new_split = new splitPageResults($products_new_query_raw, MAX_DISPLAY_PRODUCTS_NEW, 'p.products_id');
 
     if ($products_new_split->number_of_rows > 0) {   
@@ -92,7 +92,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           } 
         }
         
-        $product_image = xos_get_product_images($products_new['products_image']); 
+        $product_image = xos_get_product_images($products_new['products_image']);
+        $popup_content_id = xos_get_delivery_times_values($products_new['products_delivery_time_id'], 'popup_content_id'); 
 
         $products_new_array[]=array('link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $products_new['products_id']),
                                     'href_buy_now' => xos_href_link(FILENAME_PRODUCTS_NEW, xos_get_all_get_params(array('action')) . 'action=buy_now&p=' . $products_new['products_id']),
@@ -100,7 +101,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                                     'image' => xos_image(DIR_WS_IMAGES . 'products/small/' . rawurlencode($product_image['name']), $products_new['products_name']),
                                     'td_width_img' => SMALL_PRODUCT_IMAGE_MAX_WIDTH + 10,
                                     'manufacturer' => $products_new['manufacturers_name'],
-                                    'tax_description' => xos_get_products_tax_description($products_new['products_tax_class_id'], $products_tax_rate),                                 
+                                    'tax_description' => xos_get_products_tax_description($products_new['products_tax_class_id'], $products_tax_rate),
+                                    'products_delivery_time' => xos_get_delivery_times_values($products_new['products_delivery_time_id']),
+                                    'link_filename_popup_content_products_delivery_time' => $popup_content_id > 0 ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=' . $popup_content_id . '&p=' . $products_new['products_id'], $request_type) : '',                                                                     
                                     'price' => $product_price,
                                     'price_special' => $product_price_special,
                                     'price_breaks' => $price_breaks_array,

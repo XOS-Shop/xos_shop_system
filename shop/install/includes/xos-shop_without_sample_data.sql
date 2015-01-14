@@ -386,6 +386,16 @@ CREATE TABLE customers_info (
   PRIMARY KEY (customers_info_id)
 );
 
+DROP TABLE IF EXISTS delivery_times;
+CREATE TABLE delivery_times (
+   delivery_times_id int DEFAULT '0' NOT NULL,
+   language_id int DEFAULT '1' NOT NULL,
+   delivery_times_text varchar(32) NOT NULL,
+   popup_content_id int DEFAULT '0' NOT NULL,  
+   PRIMARY KEY (delivery_times_id, language_id),
+   KEY IDX_DELIVERY_TIMES_TEXT (delivery_times_text)
+);
+
 DROP TABLE IF EXISTS geo_zones;
 CREATE TABLE geo_zones (
   geo_zone_id int NOT NULL auto_increment,
@@ -597,6 +607,7 @@ DROP TABLE IF EXISTS products;
 CREATE TABLE products (
   products_id int NOT NULL auto_increment,
   products_quantity int(7) NOT NULL,
+  products_delivery_time_id int(7) NOT NULL,
   products_model varchar(32),
   products_image text,
   products_price text,
@@ -865,40 +876,41 @@ INSERT INTO admin_files VALUES ('16', 'BOX_CONTENT_MANAGER_INFO_PAGES', 'info_pa
 INSERT INTO admin_files VALUES ('17', 'BOX_CATALOG_CATEGORIES_PRODUCTS', 'categories.php', '0', '5', '1');
 INSERT INTO admin_files VALUES ('18', 'BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES', 'products_attributes.php', '0', '5', '1');
 INSERT INTO admin_files VALUES ('19', 'BOX_CATALOG_MANUFACTURERS', 'manufacturers.php', '0', '5', '1');
-INSERT INTO admin_files VALUES ('20', 'BOX_CATALOG_REVIEWS', 'reviews.php', '0', '5', '1');
-INSERT INTO admin_files VALUES ('21', 'BOX_CATALOG_UPDATE_PRODUCTS_PRICES', 'update_products_prices.php', '0', '5', '1');
-INSERT INTO admin_files VALUES ('22', 'BOX_CATALOG_XSELL_PRODUCTS', 'xsell.php', '0', '5', '1');
-INSERT INTO admin_files VALUES ('23', 'BOX_CATALOG_PRODUCTS_EXPECTED', 'products_expected.php', '0', '5', '1'); 
-INSERT INTO admin_files VALUES ('24', 'BOX_CUSTOMERS_CUSTOMERS', 'customers.php', '0', '6', '1');
-INSERT INTO admin_files VALUES ('25', 'BOX_CUSTOMERS_ORDERS', 'orders.php', '0', '6', '1');
-INSERT INTO admin_files VALUES ('26', 'BOX_CUSTOMERS_GROUPS', 'customers_groups.php', '0', '6', '1');
-# INSERT INTO admin_files VALUES ('27', 'BOX_COUPON_ADMIN', 'coupon_admin.php', '0', '7', '1');
-# INSERT INTO admin_files VALUES ('28', 'BOX_GV_ADMIN_QUEUE', 'gv_queue.php', '0', '7', '1');
-# INSERT INTO admin_files VALUES ('29', 'BOX_GV_ADMIN_MAIL', 'gv_mail.php', '0', '7', '1');
-# INSERT INTO admin_files VALUES ('30', 'BOX_GV_ADMIN_SENT', 'gv_sent.php', '0', '7', '1');
-INSERT INTO admin_files VALUES ('31', 'BOX_TAXES_COUNTRIES', 'countries.php', '0', '8', '1');
-INSERT INTO admin_files VALUES ('32', 'BOX_TAXES_ZONES', 'zones.php', '0', '8', '1');
-INSERT INTO admin_files VALUES ('33', 'BOX_TAXES_GEO_ZONES', 'geo_zones.php', '0', '8', '1');
-INSERT INTO admin_files VALUES ('34', 'BOX_TAXES_TAX_CLASSES', 'tax_classes.php', '0', '8', '1');
-INSERT INTO admin_files VALUES ('35', 'BOX_TAXES_TAX_RATES', 'tax_rates.php', '0', '8', '1');
-INSERT INTO admin_files VALUES ('36', 'BOX_LOCALIZATION_CURRENCIES', 'currencies.php', '0', '9', '1');
-INSERT INTO admin_files VALUES ('37', 'BOX_LOCALIZATION_LANGUAGES', 'languages.php', '0', '9', '1');
-INSERT INTO admin_files VALUES ('38', 'BOX_LOCALIZATION_ORDERS_STATUS', 'orders_status.php', '0', '9', '1');
-INSERT INTO admin_files VALUES ('39', 'BOX_REPORTS_PRODUCTS_VIEWED', 'stats_products_viewed.php', '0', '10', '1');
-INSERT INTO admin_files VALUES ('40', 'BOX_REPORTS_PRODUCTS_PURCHASED', 'stats_products_purchased.php', '0', '10', '1');
-INSERT INTO admin_files VALUES ('41', 'BOX_REPORTS_ORDERS_TOTAL', 'stats_customers.php', '0', '10', '1');
-INSERT INTO admin_files VALUES ('42', 'BOX_REPORTS_CREDITS', 'stats_credits.php', '0', '10', '1');
-INSERT INTO admin_files VALUES ('43', 'BOX_TOOLS_ACTION_RECORDER', 'action_recorder.php', '0', '11', '1');
-INSERT INTO admin_files VALUES ('44', 'BOX_TOOLS_BACKUP', 'backup.php', '0', '11', '1');
-INSERT INTO admin_files VALUES ('45', 'BOX_TOOLS_IMAGE_PROCESSING', 'image_processing.php', '0', '11', '1');
-INSERT INTO admin_files VALUES ('46', 'BOX_TOOLS_BANNER_MANAGER', 'banner_manager.php', '0', '11', '1');
-INSERT INTO admin_files VALUES ('47', 'BOX_TOOLS_SMARTY_CACHE', 'cache.php', '0', '11', '1');
-INSERT INTO admin_files VALUES ('48', 'BOX_TOOLS_DEFINE_LANGUAGE', 'define_language.php', '0', '11', '1');
-INSERT INTO admin_files VALUES ('49', 'BOX_TOOLS_FILE_MANAGER', 'file_manager.php', '0', '11', '1');
-INSERT INTO admin_files VALUES ('50', 'BOX_TOOLS_MAIL', 'mail.php', '0', '11', '1');
-INSERT INTO admin_files VALUES ('51', 'BOX_TOOLS_NEWSLETTER_MANAGER', 'newsletters.php', '0', '11', '1');
-INSERT INTO admin_files VALUES ('52', 'BOX_TOOLS_SERVER_INFO', 'server_info.php', '0', '11', '1');
-INSERT INTO admin_files VALUES ('53', 'BOX_TOOLS_WHOS_ONLINE', 'whos_online.php', '0', '11', '1');
+INSERT INTO admin_files VALUES ('20', 'BOX_CATALOG_DELIVERY_TIMES', 'delivery_times.php', '0', '5', '1');
+INSERT INTO admin_files VALUES ('21', 'BOX_CATALOG_REVIEWS', 'reviews.php', '0', '5', '1');
+INSERT INTO admin_files VALUES ('22', 'BOX_CATALOG_UPDATE_PRODUCTS_PRICES', 'update_products_prices.php', '0', '5', '1');
+INSERT INTO admin_files VALUES ('23', 'BOX_CATALOG_XSELL_PRODUCTS', 'xsell.php', '0', '5', '1');
+INSERT INTO admin_files VALUES ('24', 'BOX_CATALOG_PRODUCTS_EXPECTED', 'products_expected.php', '0', '5', '1'); 
+INSERT INTO admin_files VALUES ('25', 'BOX_CUSTOMERS_CUSTOMERS', 'customers.php', '0', '6', '1');
+INSERT INTO admin_files VALUES ('26', 'BOX_CUSTOMERS_ORDERS', 'orders.php', '0', '6', '1');
+INSERT INTO admin_files VALUES ('27', 'BOX_CUSTOMERS_GROUPS', 'customers_groups.php', '0', '6', '1');
+# INSERT INTO admin_files VALUES ('28', 'BOX_COUPON_ADMIN', 'coupon_admin.php', '0', '7', '1');
+# INSERT INTO admin_files VALUES ('29', 'BOX_GV_ADMIN_QUEUE', 'gv_queue.php', '0', '7', '1');
+# INSERT INTO admin_files VALUES ('30', 'BOX_GV_ADMIN_MAIL', 'gv_mail.php', '0', '7', '1');
+# INSERT INTO admin_files VALUES ('31', 'BOX_GV_ADMIN_SENT', 'gv_sent.php', '0', '7', '1');
+INSERT INTO admin_files VALUES ('32', 'BOX_TAXES_COUNTRIES', 'countries.php', '0', '8', '1');
+INSERT INTO admin_files VALUES ('33', 'BOX_TAXES_ZONES', 'zones.php', '0', '8', '1');
+INSERT INTO admin_files VALUES ('34', 'BOX_TAXES_GEO_ZONES', 'geo_zones.php', '0', '8', '1');
+INSERT INTO admin_files VALUES ('35', 'BOX_TAXES_TAX_CLASSES', 'tax_classes.php', '0', '8', '1');
+INSERT INTO admin_files VALUES ('36', 'BOX_TAXES_TAX_RATES', 'tax_rates.php', '0', '8', '1');
+INSERT INTO admin_files VALUES ('37', 'BOX_LOCALIZATION_CURRENCIES', 'currencies.php', '0', '9', '1');
+INSERT INTO admin_files VALUES ('38', 'BOX_LOCALIZATION_LANGUAGES', 'languages.php', '0', '9', '1');
+INSERT INTO admin_files VALUES ('39', 'BOX_LOCALIZATION_ORDERS_STATUS', 'orders_status.php', '0', '9', '1');
+INSERT INTO admin_files VALUES ('40', 'BOX_REPORTS_PRODUCTS_VIEWED', 'stats_products_viewed.php', '0', '10', '1');
+INSERT INTO admin_files VALUES ('41', 'BOX_REPORTS_PRODUCTS_PURCHASED', 'stats_products_purchased.php', '0', '10', '1');
+INSERT INTO admin_files VALUES ('42', 'BOX_REPORTS_ORDERS_TOTAL', 'stats_customers.php', '0', '10', '1');
+INSERT INTO admin_files VALUES ('43', 'BOX_REPORTS_CREDITS', 'stats_credits.php', '0', '10', '1');
+INSERT INTO admin_files VALUES ('44', 'BOX_TOOLS_ACTION_RECORDER', 'action_recorder.php', '0', '11', '1');
+INSERT INTO admin_files VALUES ('45', 'BOX_TOOLS_BACKUP', 'backup.php', '0', '11', '1');
+INSERT INTO admin_files VALUES ('46', 'BOX_TOOLS_IMAGE_PROCESSING', 'image_processing.php', '0', '11', '1');
+INSERT INTO admin_files VALUES ('47', 'BOX_TOOLS_BANNER_MANAGER', 'banner_manager.php', '0', '11', '1');
+INSERT INTO admin_files VALUES ('48', 'BOX_TOOLS_SMARTY_CACHE', 'cache.php', '0', '11', '1');
+INSERT INTO admin_files VALUES ('49', 'BOX_TOOLS_DEFINE_LANGUAGE', 'define_language.php', '0', '11', '1');
+INSERT INTO admin_files VALUES ('50', 'BOX_TOOLS_FILE_MANAGER', 'file_manager.php', '0', '11', '1');
+INSERT INTO admin_files VALUES ('51', 'BOX_TOOLS_MAIL', 'mail.php', '0', '11', '1');
+INSERT INTO admin_files VALUES ('52', 'BOX_TOOLS_NEWSLETTER_MANAGER', 'newsletters.php', '0', '11', '1');
+INSERT INTO admin_files VALUES ('53', 'BOX_TOOLS_SERVER_INFO', 'server_info.php', '0', '11', '1');
+INSERT INTO admin_files VALUES ('54', 'BOX_TOOLS_WHOS_ONLINE', 'whos_online.php', '0', '11', '1');
 
 INSERT INTO admin_groups VALUES (1, 'Top Administrator');
 INSERT INTO admin_groups VALUES (2, 'Customer Relations');
@@ -1025,6 +1037,7 @@ INSERT INTO configuration (configuration_key, configuration_value, configuration
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('DEFAULT_CURRENCY', 'CHF', '6', '0', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('DEFAULT_LANGUAGE', 'de', '6', '0', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('DEFAULT_ORDERS_STATUS_ID', '1', '6', '0', now());
+INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('DEFAULT_DELIVERY_TIMES_ID', '1', '6', '0', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_SHIPPING_STATUS', 'true', '6', '1','xos_cfg_select_option(array(\'true\', \'false\'), ', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER', '8', '6', '2', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING', 'false', '6', '3', 'xos_cfg_select_option(array(\'true\', \'false\'), ', now());
@@ -1936,6 +1949,16 @@ INSERT INTO currencies VALUES ('2', '1', 'Euro', 'EUR', '', '€', '.', ',', '2'
 INSERT INTO currencies VALUES ('2', '3', 'Euro', 'EUR', '', '€', '.', ',', '2', '0.62760597', now());
 
 INSERT INTO customers_groups VALUES ('0','Retail','','1','0','','');
+
+INSERT INTO delivery_times VALUES ( '1', '1', '2-3 Days', '0');
+INSERT INTO delivery_times VALUES ( '1', '2', '2-3 Tage', '0');
+INSERT INTO delivery_times VALUES ( '1', '3', '2-3 Días', '0');
+INSERT INTO delivery_times VALUES ( '2', '1', '3-4 Days', '0');
+INSERT INTO delivery_times VALUES ( '2', '2', '3-4 Tage', '0');
+INSERT INTO delivery_times VALUES ( '2', '3', '3-4 Días', '0');
+INSERT INTO delivery_times VALUES ( '3', '1', '1 Week', '0');
+INSERT INTO delivery_times VALUES ( '3', '2', '1 Woche', '0');
+INSERT INTO delivery_times VALUES ( '3', '3', '1 Semana', '0');
 
 INSERT INTO languages VALUES ('1', '3', '1', 'English','en','icon.gif','english',2);
 INSERT INTO languages VALUES ('2', '3', '1', 'Deutsch','de','icon.gif','german',1);

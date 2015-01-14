@@ -195,10 +195,13 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
                                        'manufacturers_name' => $listing['manufacturers_name'],
                                        'manufacturers_link' => xos_href_link(FILENAME_DEFAULT, 'm=' . $listing['manufacturers_id']));
             break;
-          case 'PRODUCT_LIST_PRICE':
+          case 'PRODUCT_LIST_PRICE': 
+            $popup_content_id = xos_get_delivery_times_values($listing['products_delivery_time_id'], 'popup_content_id');          
             $table_inner_array[]=array('case' => 'price',
                                        'price_breaks' => $price_breaks,
                                        'products_id' => $listing['products_id'],
+                                       'products_delivery_time' => xos_get_delivery_times_values($listing['products_delivery_time_id']),
+                                       'link_filename_popup_content_products_delivery_time' => $popup_content_id > 0 ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=' . $popup_content_id . '&p=' . $listing['products_id'], $request_type) : '',
                                        'tax_description' => xos_get_products_tax_description($listing['products_tax_class_id'], $products_tax_rate),
                                        'price' => $product_price,
                                        'price_special' => $product_price_special,

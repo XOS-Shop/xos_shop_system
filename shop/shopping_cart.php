@@ -101,6 +101,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       
       $tax_rate = xos_display_tax_value($products_tax_rate);
       $product_image = xos_get_product_images($products[$i]['image']);
+      $popup_content_id = xos_get_delivery_times_values($products[$i]['delivery_time_id'], 'popup_content_id');
                        
       $products_array[]=array('checkbox_cart_delete' => xos_draw_checkbox_field('cart_delete[]', $products[$i]['id'], false, 'id="cart_delete_' . ($i + 1) . '"'),
                               'link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . urlencode($products[$i]['id'])),
@@ -108,6 +109,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                               'products_image' => xos_image(DIR_WS_IMAGES . 'products/small/' . rawurlencode($product_image['name']), $products[$i]['name']),
                               'products_name' => $products[$i]['name'],
                               'products_packaging_unit' => $products[$i]['packaging_unit'],
+                              'products_delivery_time' => xos_get_delivery_times_values($products[$i]['delivery_time_id']),
+                              'link_filename_popup_content_products_delivery_time' => $popup_content_id > 0 ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=' . $popup_content_id . '&p=' . $products[$i]['id'], $request_type) : '',                              
                               'products_model' => $products[$i]['model'],
                               'stock_check' => $stock_check,
                               'input_and_hidden_fields_quantity' => xos_draw_input_field('cart_quantity[]', $products[$i]['quantity'], 'id="cart_quantity_' . ($i + 1) . '" size="2"') . xos_draw_hidden_field('p[]', $products[$i]['id']),
