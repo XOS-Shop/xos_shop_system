@@ -1,6 +1,12 @@
 
 ##ChangeLog
 
+# XOS-Shop v1.0_rc7v (Release 01/14/2015)
+
+- feature: delivery time
+- update:  Smarty Version-3.1.19 auf Smarty Version-3.1.21
+- update:  CKEditor Version-4.4.4 auf CKEditor Version-4.4.6
+
 # XOS-Shop v1.0_rc7u (Release 09/09/2014)
 
 - feature: SEF URL's hinzugefügt
