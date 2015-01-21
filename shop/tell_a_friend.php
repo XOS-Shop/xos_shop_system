@@ -213,8 +213,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                         'input_field_to_name' => xos_draw_input_field('to_name', '', 'id="tell_a_friend_to_name"'),
                         'input_field_to_email_address' => xos_draw_input_field('to_email_address', (($to_email_address) ? '' : $_GET['to_email_address']), 'id="tell_a_friend_to_email_address"'),
                         'input_security_code' => xos_draw_input_field('security_code', '', 'id="tell_a_friend_security_code" maxlength="8" autocomplete="off"', 'text', false),
-                        'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " style="cursor:pointer;" onclick="javascript:this.src=\'' . xos_href_link(FILENAME_CAPTCHA, '', $request_type) . (SID ? '&amp;' : '?') . '\'+Math.random();" />',
-//                        'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " />',                          
+//                        'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " style="cursor:pointer;" onclick="javascript:this.src=\'' . xos_href_link(FILENAME_CAPTCHA, '', $request_type) . (SID ? '&amp;' : '?') . '\'+Math.random();" />',
+                        'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " />',                          
                         'textarea_field_message' => xos_draw_textarea_field('message', '40', '8', '', 'id="tell_a_friend_message"'),
                         'link_back' => $back_link,
                         'form_end' => '</form>'));
