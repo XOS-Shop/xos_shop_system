@@ -138,12 +138,15 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   } else {
     $back_link = 'javascript:history.go(-1)';
   }
+  
+  define('LOAD_CAPTCHA_BASE64', 'true');
+  include(DIR_FS_DOCUMENT_ROOT . FILENAME_CAPTCHA);  
 
   $smarty->assign(array('form_begin' => xos_draw_form('password_forgotten', xos_href_link(FILENAME_PASSWORD_FORGOTTEN, 'action=process', 'SSL'), 'post', '', true),
                         'input_field_email_address' => xos_draw_input_field('email_address', '', 'id="password_forgotten_email_address"'),
                         'input_security_code' => xos_draw_input_field('security_code', '', 'id="password_forgotten_security_code" maxlength="8" autocomplete="off"', 'text', false),
-//                        'captcha_img' => '<img src="' . xos_href_link(FILENAME_CAPTCHA, '', 'SSL') . '" alt="captcha" title=" captcha " style="cursor:pointer;" onclick="javascript:this.src=\'' . xos_href_link(FILENAME_CAPTCHA, '', 'SSL') . (SID ? '&amp;' : '?') . '\'+Math.random();" />',
-                        'captcha_img' => '<img src="' . xos_href_link(FILENAME_CAPTCHA, '', 'SSL') . '" alt="captcha" title=" captcha " />',                        
+//                        'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " style="cursor:pointer;" onclick="javascript:this.src=\'' . xos_href_link(FILENAME_CAPTCHA, '', $request_type) . (SID ? '&amp;' : '?') . '\'+Math.random();" />',
+                        'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " />',                        
                         'link_back' => $back_link,
                         'form_end' => '</form>'));
 

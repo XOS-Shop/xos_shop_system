@@ -22,7 +22,7 @@
 //              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.   
 ////////////////////////////////////////////////////////////////////////////////
 
-require('includes/application_top.php');
+if (!defined('LOAD_CAPTCHA_BASE64')) require('includes/application_top.php');
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_CAPTCHA) == 'overwrite_all')) : 
   $_SESSION['navigation']->remove_current_page();
   
@@ -40,15 +40,18 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
 
   $text = randomString(5);
   $_SESSION['captcha_spam'] = $text; 
+
+  if (!defined('LOAD_CAPTCHA_BASE64')) {  
+    ob_end_clean();        
+    header_remove();
+    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); 
+    header('Cache-Control: no-store, no-cache, must-revalidate');
+    header('Cache-Control: post-check=0, pre-check=0', false);
+    header('Pragma: no-cache');            
+    header('Content-type: image/png');
+  }
   
-  ob_end_clean();        
-  header_remove();
-  header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-  header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); 
-  header('Cache-Control: no-store, no-cache, must-revalidate');
-  header('Cache-Control: post-check=0, pre-check=0', false);
-  header('Pragma: no-cache');            
-  header('Content-type: image/png');
   $img = ImageCreateFromPNG(DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/includes/captcha/captcha' . rand(1,6) . '.png'); 
   $color = ImageColorAllocate($img, 0, 0, 0);
   $background = ImageColorAllocate ($img, 255, 255, 255);
@@ -95,9 +98,16 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
     }
     
   }  
-  
-  imagepng($img); 
-  imagedestroy($img);
-  usleep(1000000); 
+
+  if (!defined('LOAD_CAPTCHA_BASE64')) {
+    imagepng($img); 
+    imagedestroy($img);
+  } else {
+    imagepng($img, DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png');
+    imagedestroy($img);  
+    $img_data = base64_encode(file_get_contents(DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png'));
+    $src_captcha_base64 = 'data:image/png;base64,' . $img_data;   
+    @unlink(DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png');   
+  }
 endif;
 ?> 

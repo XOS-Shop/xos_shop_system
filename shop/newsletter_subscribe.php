@@ -183,13 +183,16 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
       $smarty->assign('pull_down_menu_languages', xos_draw_pull_down_menu('languages', $lang_array, $languages_selected, 'id="newsletter_subscribe_languages"'));
     }
 
+    define('LOAD_CAPTCHA_BASE64', 'true');
+    include(DIR_FS_DOCUMENT_ROOT . FILENAME_CAPTCHA);
+
     $smarty->assign(array('form_begin' => xos_draw_form('newsletter_subscribe', xos_href_link(FILENAME_NEWSLETTER_SUBSCRIBE, 'action=process', 'SSL'), 'post', '', true),
                           'isset_customer_id' => isset($_SESSION['customer_id']) ? true : false,
                           'link_filename_default' => xos_href_link(FILENAME_DEFAULT),
                           'input_field_email_address' => xos_draw_input_field('subscriber_email_address', (($subscriber_email_address) ? '' : $_GET['subscriber_email_address']), 'id="newsletter_subscribe_email_address"'),
                           'input_security_code' => xos_draw_input_field('security_code', '', 'id="newsletter_subscribe_security_code" maxlength="8" autocomplete="off"', 'text', false),
-//                          'captcha_img' => '<img src="' . xos_href_link(FILENAME_CAPTCHA, '', 'SSL') . '" alt="captcha" title=" captcha " style="cursor:pointer;" onclick="javascript:this.src=\'' . xos_href_link(FILENAME_CAPTCHA, '', 'SSL') . (SID ? '&amp;' : '?') . '\'+Math.random();" />',
-                          'captcha_img' => '<img src="' . xos_href_link(FILENAME_CAPTCHA, '', 'SSL') . '" alt="captcha" title=" captcha " />',                           
+//                          'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " style="cursor:pointer;" onclick="javascript:this.src=\'' . xos_href_link(FILENAME_CAPTCHA, '', $request_type) . (SID ? '&amp;' : '?') . '\'+Math.random();" />',
+                          'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " />',                           
                           'form_end' => '</form>'));
                         
   }                      

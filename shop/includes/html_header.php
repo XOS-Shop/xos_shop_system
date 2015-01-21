@@ -28,7 +28,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   $add_header .= "\n" .
                  '<script type="text/javascript">' . "\n" .
                  '/* <![CDATA[ */' . "\n" .                                 
-                 '  $(document).ready(function() {if ($(this).find("img[alt=\'captcha\']").attr("alt") === undefined) {$.ajax({url: "' . xos_href_link(FILENAME_TEST, '', $request_type) . '"});}});' . "\n" .               
+                 '  $(document).ready(function() {$.ajax({url: "' . xos_href_link(FILENAME_TEST, '', $request_type) . '"});});' . "\n" .             
                  '/* ]]> */' . "\n" .
                  '</script> ' . "\n";
                  
