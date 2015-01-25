@@ -57,6 +57,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     xos_redirect(xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . (int)$_GET['p']), false);
   }
 
+  require(DIR_FS_DOCUMENT_ROOT . FILENAME_CAPTCHA);
+
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_TELL_A_FRIEND);
 
   if (isset($_GET['action']) && ($_GET['action'] == 'process') && isset($_POST['formid']) && ($_POST['formid'] == $_SESSION['sessiontoken'])) {
@@ -101,13 +103,11 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     }
     
     if (!isset($_SESSION['customer_id'])) {
-      if (!isset($_SESSION['captcha_spam']) || $_POST['security_code'] != $_SESSION['captcha_spam']) {
+      if (!isset($_POST['process_id']) || $_POST['security_code'] != str_decrypt($_POST['process_id'])) {
         $error = true;
 
         $messageStack->add('friend', ERROR_SECURITY_CODE);    
       }
-        
-      unset($_SESSION['captcha_spam']);
     }
 
     $actionRecorder = new actionRecorder('ar_tell_a_friend', (isset($_SESSION['customer_id']) ? $_SESSION['customer_id'] : null), $from_name);
@@ -200,12 +200,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $back_link = xos_href_link($_SESSION['navigation']->path[$back]['page'], xos_array_to_query_string($get_params_array, array('action', xos_session_name())), $_SESSION['navigation']->path[$back]['mode']);
   } else {
     $back_link = 'javascript:history.go(-1)';
-  }
-  
-  define('LOAD_CAPTCHA_BASE64', 'true');
-  include(DIR_FS_DOCUMENT_ROOT . FILENAME_CAPTCHA);  
+  } 
  
-  $smarty->assign(array('form_begin' => xos_draw_form('email_friend', xos_href_link(FILENAME_TELL_A_FRIEND, 'action=process&p=' . (int)$_GET['p'], 'SSL'), 'post', '', true),
+  $smarty->assign(array('form_begin' => xos_draw_form('email_friend', xos_href_link(FILENAME_TELL_A_FRIEND, 'action=process&p=' . (int)$_GET['p'], 'SSL'), 'post', '', true) . xos_draw_hidden_field('process_id', str_encrypt($captcha_text)),
                         'isset_customer_id' => isset($_SESSION['customer_id']) ? true : false,
                         'products_name' => $product_info['products_name'],
                         'input_field_from_name' => xos_draw_input_field('from_name', '', (ALLOW_GUEST_TO_TELL_A_FRIEND == 'false' ? 'id="tell_a_friend_from_name" readonly="readonly"' : 'id="tell_a_friend_from_name"')),
@@ -213,7 +210,6 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                         'input_field_to_name' => xos_draw_input_field('to_name', '', 'id="tell_a_friend_to_name"'),
                         'input_field_to_email_address' => xos_draw_input_field('to_email_address', (($to_email_address) ? '' : $_GET['to_email_address']), 'id="tell_a_friend_to_email_address"'),
                         'input_security_code' => xos_draw_input_field('security_code', '', 'id="tell_a_friend_security_code" maxlength="8" autocomplete="off"', 'text', false),
-//                        'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " style="cursor:pointer;" onclick="javascript:this.src=\'' . xos_href_link(FILENAME_CAPTCHA, '', $request_type) . (SID ? '&amp;' : '?') . '\'+Math.random();" />',
                         'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " />',                          
                         'textarea_field_message' => xos_draw_textarea_field('message', '40', '8', '', 'id="tell_a_friend_message"'),
                         'link_back' => $back_link,

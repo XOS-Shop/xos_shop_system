@@ -42,19 +42,20 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   if ($session_started == false) {
     xos_redirect(xos_href_link(FILENAME_COOKIE_USAGE));
   }
-
+  
+  require(DIR_FS_DOCUMENT_ROOT . FILENAME_CAPTCHA);  
+  
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_PASSWORD_FORGOTTEN);
 
   if (isset($_GET['action']) && ($_GET['action'] == 'process') && isset($_POST['formid']) && ($_POST['formid'] == $_SESSION['sessiontoken'])) {
     $email_address = xos_db_prepare_input($_POST['email_address']);
     $error = false;
     
-    if (!isset($_SESSION['captcha_spam']) || $_POST['security_code'] != $_SESSION['captcha_spam']) {
+    if (!isset($_POST['process_id']) || $_POST['security_code'] != str_decrypt($_POST['process_id'])) {
       $error = true;
 
       $messageStack->add('password_forgotten', TEXT_SECURITY_CODE_ERROR);    
     }
-    unset($_SESSION['captcha_spam']); 
     
     $actionRecorder = new actionRecorder('ar_reset_password', null, $email_address);
     if (!$actionRecorder->canPerform() && $actionRecorder->check()) {
@@ -138,14 +139,10 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   } else {
     $back_link = 'javascript:history.go(-1)';
   }
-  
-  define('LOAD_CAPTCHA_BASE64', 'true');
-  include(DIR_FS_DOCUMENT_ROOT . FILENAME_CAPTCHA);  
 
-  $smarty->assign(array('form_begin' => xos_draw_form('password_forgotten', xos_href_link(FILENAME_PASSWORD_FORGOTTEN, 'action=process', 'SSL'), 'post', '', true),
+  $smarty->assign(array('form_begin' => xos_draw_form('password_forgotten', xos_href_link(FILENAME_PASSWORD_FORGOTTEN, 'action=process', 'SSL'), 'post', '', true) . xos_draw_hidden_field('process_id', str_encrypt($captcha_text)),
                         'input_field_email_address' => xos_draw_input_field('email_address', '', 'id="password_forgotten_email_address"'),
                         'input_security_code' => xos_draw_input_field('security_code', '', 'id="password_forgotten_security_code" maxlength="8" autocomplete="off"', 'text', false),
-//                        'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " style="cursor:pointer;" onclick="javascript:this.src=\'' . xos_href_link(FILENAME_CAPTCHA, '', $request_type) . (SID ? '&amp;' : '?') . '\'+Math.random();" />',
                         'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " />',                        
                         'link_back' => $back_link,
                         'form_end' => '</form>'));

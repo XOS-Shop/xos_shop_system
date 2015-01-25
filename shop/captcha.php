@@ -22,13 +22,49 @@
 //              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.   
 ////////////////////////////////////////////////////////////////////////////////
 
-if (!defined('LOAD_CAPTCHA_BASE64')) require('includes/application_top.php');
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_CAPTCHA) == 'overwrite_all')) : 
-  $_SESSION['navigation']->remove_current_page();
-  
-  unset($_SESSION['captcha_spam']); 
 
-  function randomString($len) { 
+  define('KEY_FOR_RC4', 'adadaNchsadagadgakk342eiejfiejifje4234MnUUK25fjiNNBZBZNAkdaasd8sadhHZKZJnGREQhhsdjdksdsde');
+  
+  function RC4($str, $key) {
+	$s = array();
+	for ($i = 0; $i < 256; $i++) {
+		$s[$i] = $i;
+	}
+	$j = 0;
+	for ($i = 0; $i < 256; $i++) {
+		$j = ($j + $s[$i] + ord($key[$i % strlen($key)])) % 256;
+		$x = $s[$i];
+		$s[$i] = $s[$j];
+		$s[$j] = $x;
+	}
+	$i = 0;
+	$j = 0;
+	$res = '';
+	for ($y = 0; $y < strlen($str); $y++) {
+		$i = ($i + 1) % 256;
+		$j = ($j + $s[$i]) % 256;
+		$x = $s[$i];
+		$s[$i] = $s[$j];
+		$s[$j] = $x;
+		$res .= $str[$y] ^ chr($s[($s[$i] + $s[$j]) % 256]);
+	}
+	return $res;
+  }
+
+  function str_encrypt($str) { 
+	$mystr = RC4($str, KEY_FOR_RC4);
+        $mystr = rawurlencode(base64_encode($mystr));
+	return $mystr;
+  }
+
+  function str_decrypt($str) { 
+	$mystr = base64_decode(rawurldecode($str));	
+	$mystr =  RC4($mystr, KEY_FOR_RC4);
+	return $mystr;
+  }
+
+  function random_string($len) { 
     $possible="0123456789"; 
     $str=""; 
     while(strlen($str)<$len) { 
@@ -38,25 +74,13 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
     return($str); 
   } 
 
-  $text = randomString(5);
-  $_SESSION['captcha_spam'] = $text; 
-
-  if (!defined('LOAD_CAPTCHA_BASE64')) {  
-    ob_end_clean();        
-    header_remove();
-    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-    header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); 
-    header('Cache-Control: no-store, no-cache, must-revalidate');
-    header('Cache-Control: post-check=0, pre-check=0', false);
-    header('Pragma: no-cache');            
-    header('Content-type: image/png');
-  }
+  $captcha_text = random_string(5);
   
   $img = ImageCreateFromPNG(DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/includes/captcha/captcha' . rand(1,6) . '.png'); 
   $color = ImageColorAllocate($img, 0, 0, 0);
   $background = ImageColorAllocate ($img, 255, 255, 255);
   $possible_angle = array('-20', '-19', '-18', '-17', '-16', '-15', '20', '19', '18', '17', '16', '15');  
-  $strlen = strlen($text);  
+  $strlen = strlen($captcha_text);  
   $t_x = -16;
 
   if (function_exists('imagettftext')) { // This function requires both the GD library and the FreeType library.
@@ -67,7 +91,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
       $angle = $possible_angle[rand(0, count($possible_angle) - 1)];  
       $t_x = $t_x + rand(24, 27);
       $t_y = rand(33, 28);                 
-      $char = substr($text, $i, 1);
+      $char = substr($captcha_text, $i, 1);
       imagettftext($img, $ttfsize, $angle, $t_x, $t_y, $color, $ttf, $char);
     }
         
@@ -79,7 +103,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
       $angle = $possible_angle[rand(0, count($possible_angle) - 1)];  
       $t_x = $t_x + rand(24, 27);
       $t_y = rand(33, 28);                 
-      $char = substr($text, $i, 1);
+      $char = substr($captcha_text, $i, 1);
       imagepstext ( $img, $char, $pfb, $pfbsize, $color, $background, $t_x, $t_y, 0, 0, $angle);
     } 
           
@@ -93,21 +117,17 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
       $pfb = 5;
       $t_x = $t_x + (imagefontwidth($pfb) * 3);
       $t_y = 12;     
-      $char = substr($text, $i, 1);
+      $char = substr($captcha_text, $i, 1);
       imagestring($img, $pfb, $t_x, $t_y, $char, $color);
     }
     
   }  
 
-  if (!defined('LOAD_CAPTCHA_BASE64')) {
-    imagepng($img); 
-    imagedestroy($img);
-  } else {
-    imagepng($img, DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png');
-    imagedestroy($img);  
-    $img_data = base64_encode(file_get_contents(DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png'));
-    $src_captcha_base64 = 'data:image/png;base64,' . $img_data;   
-    @unlink(DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png');   
-  }
+
+  imagepng($img, DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png');
+  imagedestroy($img);  
+  $img_data = base64_encode(file_get_contents(DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png'));
+  $src_captcha_base64 = 'data:image/png;base64,' . $img_data;   
+  @unlink(DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png');   
 endif;
-?> 
+?>

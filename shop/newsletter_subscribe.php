@@ -28,14 +28,15 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
     xos_redirect(xos_href_link(FILENAME_DEFAULT));
   }
 
+  require(DIR_FS_DOCUMENT_ROOT . FILENAME_CAPTCHA);
+
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_NEWSLETTER_SUBSCRIBE);
 
   switch ($_GET['action']) {
     case 'process':
       if (isset($_POST['formid']) && ($_POST['formid'] == $_SESSION['sessiontoken'])) {      
         $scy_code = false;
-        if (isset($_SESSION['captcha_spam']) && $_POST['security_code'] == $_SESSION['captcha_spam']) $scy_code = true;    
-        unset($_SESSION['captcha_spam']);
+        if (isset($_POST['process_id']) && $_POST['security_code'] == str_decrypt($_POST['process_id'])) $scy_code = true;    
         $subscriber_email_address = xos_db_prepare_input($_POST['subscriber_email_address']);
         if (isset($_POST['languages'])) { 
           $language_id = xos_db_prepare_input($_POST['languages']);
@@ -183,15 +184,11 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
       $smarty->assign('pull_down_menu_languages', xos_draw_pull_down_menu('languages', $lang_array, $languages_selected, 'id="newsletter_subscribe_languages"'));
     }
 
-    define('LOAD_CAPTCHA_BASE64', 'true');
-    include(DIR_FS_DOCUMENT_ROOT . FILENAME_CAPTCHA);
-
-    $smarty->assign(array('form_begin' => xos_draw_form('newsletter_subscribe', xos_href_link(FILENAME_NEWSLETTER_SUBSCRIBE, 'action=process', 'SSL'), 'post', '', true),
+    $smarty->assign(array('form_begin' => xos_draw_form('newsletter_subscribe', xos_href_link(FILENAME_NEWSLETTER_SUBSCRIBE, 'action=process', 'SSL'), 'post', '', true) . xos_draw_hidden_field('process_id', str_encrypt($captcha_text)),
                           'isset_customer_id' => isset($_SESSION['customer_id']) ? true : false,
                           'link_filename_default' => xos_href_link(FILENAME_DEFAULT),
                           'input_field_email_address' => xos_draw_input_field('subscriber_email_address', (($subscriber_email_address) ? '' : $_GET['subscriber_email_address']), 'id="newsletter_subscribe_email_address"'),
                           'input_security_code' => xos_draw_input_field('security_code', '', 'id="newsletter_subscribe_security_code" maxlength="8" autocomplete="off"', 'text', false),
-//                          'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " style="cursor:pointer;" onclick="javascript:this.src=\'' . xos_href_link(FILENAME_CAPTCHA, '', $request_type) . (SID ? '&amp;' : '?') . '\'+Math.random();" />',
                           'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " />',                           
                           'form_end' => '</form>'));
                         

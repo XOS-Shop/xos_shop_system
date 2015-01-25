@@ -688,6 +688,8 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
     xos_redirect(xos_href_link(FILENAME_COOKIE_USAGE));
   }
 
+  require(DIR_FS_DOCUMENT_ROOT . FILENAME_CAPTCHA);
+
   if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'send\')) {
     $name = xos_db_prepare_input($_POST[\'name\']);
     $email_address = xos_db_prepare_input($_POST[\'email_address\']);
@@ -696,13 +698,11 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
     $error = false;
 
     if (!isset($_SESSION[\'customer_id\'])) {
-      if (!isset($_SESSION[\'captcha_spam\']) || $_POST[\'security_code\'] != $_SESSION[\'captcha_spam\']) {
+      if (!isset($_POST[\'process_id\']) || $_POST[\'security_code\'] != str_decrypt($_POST[\'process_id\'])) {
         $error = true;
 
         $messageStack->add(\'contact\', CONTACT_US_TEXT_SECURITY_CODE_ERROR);    
       }
-        
-      unset($_SESSION[\'captcha_spam\']);
     }
     
     if (!xos_validate_email($email_address)) {
@@ -763,15 +763,11 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
     $smarty->assign(\'sent\', true);
   }
 
-  define(\'LOAD_CAPTCHA_BASE64\', \'true\');
-  include(DIR_FS_DOCUMENT_ROOT . FILENAME_CAPTCHA);  
-
-  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')),
+  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')) . xos_draw_hidden_field(\'process_id\', str_encrypt($captcha_text)),
                         \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
                         \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'id=\"contact_us_name\"\'),
                         \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'id=\"contact_us_email_address\"\'),
                         \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
-/*                        \'captcha_img\' => \'<img src=\"\' . $src_captcha_base64 . \'\" alt=\"captcha\" title=\" captcha \" style=\"cursor:pointer;\" onclick=\"javascript:this.src=\\\'\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . (SID ? \'&amp;\' : \'?\') . \'\\\'+Math.random();\" />\', */
                         \'captcha_img\' => \'<img src=\"\' . $src_captcha_base64 . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
                         \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id, \'SSL\')),
                         \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'id=\"contact_us_enquiry\"\'),
@@ -863,6 +859,8 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
     if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die(\'We have detected that your browser does not support cookies, or has set cookies to be disabled.<br />To continue shopping online, we encourage you to enable cookies on your browser.\');
     xos_redirect(xos_href_link(FILENAME_COOKIE_USAGE));
   }
+  
+  require(DIR_FS_DOCUMENT_ROOT . FILENAME_CAPTCHA);  
 
   if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'send\')) {
     $name = xos_db_prepare_input($_POST[\'name\']);
@@ -872,13 +870,11 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
     $error = false;
 
     if (!isset($_SESSION[\'customer_id\'])) {
-      if (!isset($_SESSION[\'captcha_spam\']) || $_POST[\'security_code\'] != $_SESSION[\'captcha_spam\']) {
+      if (!isset($_POST[\'process_id\']) || $_POST[\'security_code\'] != str_decrypt($_POST[\'process_id\'])) {
         $error = true;
 
         $messageStack->add(\'contact\', CONTACT_US_TEXT_SECURITY_CODE_ERROR);    
       }
-        
-      unset($_SESSION[\'captcha_spam\']);
     }
     
     if (!xos_validate_email($email_address)) {
@@ -937,17 +933,13 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
 
   if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'success\')) {
     $smarty->assign(\'sent\', true);
-  }
+  } 
 
-  define(\'LOAD_CAPTCHA_BASE64\', \'true\');
-  include(DIR_FS_DOCUMENT_ROOT . FILENAME_CAPTCHA);  
-
-  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')),
+  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')) . xos_draw_hidden_field(\'process_id\', str_encrypt($captcha_text)),
                         \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
                         \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'id=\"contact_us_name\"\'),
                         \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'id=\"contact_us_email_address\"\'),
                         \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
-/*                        \'captcha_img\' => \'<img src=\"\' . $src_captcha_base64 . \'\" alt=\"captcha\" title=\" captcha \" style=\"cursor:pointer;\" onclick=\"javascript:this.src=\\\'\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . (SID ? \'&amp;\' : \'?\') . \'\\\'+Math.random();\" />\', */
                         \'captcha_img\' => \'<img src=\"\' . $src_captcha_base64 . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
                         \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id, \'SSL\')),
                         \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'id=\"contact_us_enquiry\"\'),
@@ -1039,6 +1031,8 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
     if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die(\'We have detected that your browser does not support cookies, or has set cookies to be disabled.<br />To continue shopping online, we encourage you to enable cookies on your browser.\');
     xos_redirect(xos_href_link(FILENAME_COOKIE_USAGE));
   }
+  
+  require(DIR_FS_DOCUMENT_ROOT . FILENAME_CAPTCHA);  
 
   if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'send\')) {
     $name = xos_db_prepare_input($_POST[\'name\']);
@@ -1048,13 +1042,11 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
     $error = false;
 
     if (!isset($_SESSION[\'customer_id\'])) {
-      if (!isset($_SESSION[\'captcha_spam\']) || $_POST[\'security_code\'] != $_SESSION[\'captcha_spam\']) {
+      if (!isset($_POST[\'process_id\']) || $_POST[\'security_code\'] != str_decrypt($_POST[\'process_id\'])) {
         $error = true;
 
         $messageStack->add(\'contact\', CONTACT_US_TEXT_SECURITY_CODE_ERROR);    
       }
-        
-      unset($_SESSION[\'captcha_spam\']);
     }
     
     if (!xos_validate_email($email_address)) {
@@ -1113,17 +1105,13 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
 
   if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'success\')) {
     $smarty->assign(\'sent\', true);
-  }
+  } 
 
-  define(\'LOAD_CAPTCHA_BASE64\', \'true\');
-  include(DIR_FS_DOCUMENT_ROOT . FILENAME_CAPTCHA);  
-
-  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')),
+  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')) . xos_draw_hidden_field(\'process_id\', str_encrypt($captcha_text)),
                         \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
                         \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'id=\"contact_us_name\"\'),
                         \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'id=\"contact_us_email_address\"\'),
                         \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
-/*                        \'captcha_img\' => \'<img src=\"\' . $src_captcha_base64 . \'\" alt=\"captcha\" title=\" captcha \" style=\"cursor:pointer;\" onclick=\"javascript:this.src=\\\'\' . xos_href_link(FILENAME_CAPTCHA, \'\', $request_type) . (SID ? \'&amp;\' : \'?\') . \'\\\'+Math.random();\" />\', */
                         \'captcha_img\' => \'<img src=\"\' . $src_captcha_base64 . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
                         \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id, \'SSL\')),
                         \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'id=\"contact_us_enquiry\"\'),
