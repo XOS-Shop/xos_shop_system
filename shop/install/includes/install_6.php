@@ -210,6 +210,8 @@
                      '' . "\n" .
                      '  define(\'ADMIN_DIR_NAME\', \'' . ($admin_dir_name === 'admin' ? 'default_dir_name' : $admin_dir_name) . '\');' . "\n" .
                      '' . "\n" .
+                     '  define(\'KEY\', \'' . generator(60) . '\');' . "\n" .
+                     '' . "\n" .                     
                      '// define our database connection' . "\n" .
                      '  define(\'DB_SERVER\', \'' . $_POST['DB_SERVER'] . '\'); // eg, localhost - should not be empty for productive servers' . "\n" .
                      '  define(\'DB_SERVER_USERNAME\', \'' . $_POST['DB_SERVER_USERNAME'] . '\');' . "\n" .

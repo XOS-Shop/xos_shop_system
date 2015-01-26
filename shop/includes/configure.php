@@ -55,6 +55,8 @@
   define('DIR_FS_SMARTY', DIR_FS_CATALOG . 'smarty/');
 
   define('ADMIN_DIR_NAME', 'default_dir_name');
+  
+  define('KEY', '');  
 
 // Define our database connection
   define('DB_SERVER', ''); // eg, localhost - should not be empty for productive servers

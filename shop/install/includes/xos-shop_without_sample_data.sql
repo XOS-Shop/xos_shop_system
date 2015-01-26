@@ -744,7 +744,7 @@ CREATE TABLE reviews_description (
 
 DROP TABLE IF EXISTS sessions;
 CREATE TABLE sessions (
-  sesskey varchar(32) NOT NULL,
+  sesskey varchar(64) NOT NULL,
   expiry int(11) unsigned NOT NULL,
   value text NOT NULL,
   PRIMARY KEY (sesskey)

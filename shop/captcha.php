@@ -22,55 +22,52 @@
 //              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.   
 ////////////////////////////////////////////////////////////////////////////////
 
-if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_CAPTCHA) == 'overwrite_all')) : 
-
-  define('KEY_FOR_RC4', 'adadaNchsadagadgakk342eiejfiejifje4234MnUUK25fjiNNBZBZNAkdaasd8sadhHZKZJnGREQhhsdjdksdsde');
+if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_CAPTCHA) == 'overwrite_all')) :
   
   function RC4($str, $key) {
-	$s = array();
-	for ($i = 0; $i < 256; $i++) {
-		$s[$i] = $i;
-	}
-	$j = 0;
-	for ($i = 0; $i < 256; $i++) {
-		$j = ($j + $s[$i] + ord($key[$i % strlen($key)])) % 256;
-		$x = $s[$i];
-		$s[$i] = $s[$j];
-		$s[$j] = $x;
-	}
-	$i = 0;
-	$j = 0;
-	$res = '';
-	for ($y = 0; $y < strlen($str); $y++) {
-		$i = ($i + 1) % 256;
-		$j = ($j + $s[$i]) % 256;
-		$x = $s[$i];
-		$s[$i] = $s[$j];
-		$s[$j] = $x;
-		$res .= $str[$y] ^ chr($s[($s[$i] + $s[$j]) % 256]);
-	}
-	return $res;
+    $s = array();
+    for ($i = 0; $i < 256; $i++) {
+      $s[$i] = $i;
+    }
+    $j = 0;
+    for ($i = 0; $i < 256; $i++) {
+      $j = ($j + $s[$i] + ord($key[$i % strlen($key)])) % 256;
+      $x = $s[$i];
+      $s[$i] = $s[$j];
+      $s[$j] = $x;
+    }
+    $i = 0;
+    $j = 0;
+    $res = '';
+    for ($y = 0; $y < strlen($str); $y++) {
+      $i = ($i + 1) % 256;
+      $j = ($j + $s[$i]) % 256;
+      $x = $s[$i];
+      $s[$i] = $s[$j];
+      $s[$j] = $x;
+      $res .= chr(ord($str[$y]) ^ $s[($s[$i] + $s[$j]) % 256]);
+    }
+    return $res;
   }
 
   function str_encrypt($str) { 
-	$mystr = RC4($str, KEY_FOR_RC4);
-        $mystr = rawurlencode(base64_encode($mystr));
-	return $mystr;
+    $str = RC4($str, KEY);
+    $str = rawurlencode(base64_encode($str));
+    return $str;
   }
 
   function str_decrypt($str) { 
-	$mystr = base64_decode(rawurldecode($str));	
-	$mystr =  RC4($mystr, KEY_FOR_RC4);
-	return $mystr;
+    $str = base64_decode(rawurldecode($str));	
+    $str = RC4($str, KEY);
+    return $str;
   }
 
-  function random_string($len) { 
-    $possible="0123456789"; 
-    $str=""; 
-    while(strlen($str)<$len) { 
-      $str.=substr($possible,(rand()%(strlen($possible))),1); 
-    } 
-    
+  function random_string($len = 1) { 
+    $possible = '0123456789'; 
+    $str = ''; 
+    while(strlen($str) < $len) {
+      $str .= $possible[mt_rand(0, strlen($possible) - 1)]; 
+    }    
     return($str); 
   } 
 

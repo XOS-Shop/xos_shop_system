@@ -43,4 +43,13 @@
       set_time_limit($limit);
     }
   }
+  
+  function generator($len = 1) { 
+    $possible = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ()!.:=';
+    $str = ''; 
+    while(strlen($str) < $len) {
+      $str .= $possible[mt_rand(0, strlen($possible) - 1)]; 
+    }    
+    return($str); 
+  }  
 ?>

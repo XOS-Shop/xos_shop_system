@@ -2490,7 +2490,7 @@ insert into reviews_description (reviews_id, languages_id, reviews_text) values 
 
 drop table if exists sessions;
 create table sessions (
-  sesskey varchar(32) not null ,
+  sesskey varchar(64) not null ,
   expiry int(11) unsigned default '0' not null ,
   value text not null ,
   PRIMARY KEY (sesskey)
