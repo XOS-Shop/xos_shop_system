@@ -58,7 +58,7 @@
             $pass = false; break;
         }
 
-        if ( ($pass == true) && ( ($order->info['subtotal']) >= $currencies->currencies[$_SESSION['currency']]['value'] * MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
+        if ( ($pass == true) && $_SESSION['cart']->get_content_type() != 'virtual' && ( ($order->info['subtotal']) >= $currencies->currencies[$_SESSION['currency']]['value'] * MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER) ) {
           $order->info['shipping_method'] = FREE_SHIPPING_TITLE;
 //          $order->info['total'] -= $order->info['shipping_cost'];
           $order->info['shipping_cost'] = 0;

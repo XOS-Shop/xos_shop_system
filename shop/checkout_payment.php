@@ -47,7 +47,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   }
 
 // if no shipping method has been selected, redirect the customer to the shipping method selection page
-  if (!isset($_SESSION['shipping'])) {
+  if (!$_SESSION['shipping'] && $_SESSION['cart']->get_content_type() != 'virtual') {
     xos_redirect(xos_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
   }
 

@@ -38,11 +38,11 @@
   define('MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER_TITLE', 'Anzeigereihenfolge');
   define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_TITLE', 'Versandkostenfrei anwenden');
   define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER_TITLE', 'Versandkostenfrei für Bestellungen über');
-  define('MODULE_ORDER_TOTAL_SHIPPING_DESTINATION_TITLE', 'Zuschlag nach Region anwenden');
+  define('MODULE_ORDER_TOTAL_SHIPPING_DESTINATION_TITLE', 'Versandkostenfrei nach Region anwenden');
   
   define('MODULE_ORDER_TOTAL_SHIPPING_STATUS_DESCRIPTION', 'Wollen Sie die Versandkosten anzeigen?');
   define('MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER_DESCRIPTION', 'Reihenfolge der Anzeige im Shop.<br /><i>Kleinste Zahl wird zuerst angezeigt</i>.');
   define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_DESCRIPTION', 'Wollen Sie Versandkostenfrei anwenden?');
   define('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER_DESCRIPTION', 'Versandkostenfrei für Bestellungen über folgendem Betrag.');
-  define('MODULE_ORDER_TOTAL_SHIPPING_DESTINATION_DESCRIPTION', 'Den Zuschlag für folgende Region anwenden.');
+  define('MODULE_ORDER_TOTAL_SHIPPING_DESTINATION_DESCRIPTION', 'Versandkostenfrei für folgende Region anwenden.');
 ?>
