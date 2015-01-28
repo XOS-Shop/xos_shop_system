@@ -122,7 +122,7 @@
             '  var error = 0;' . "\n" .
             '  var error_message = "' . JS_ERROR . '";' . "\n";
              
-      if (is_array($this->modules)) {              
+      if ($this->selection()) {              
         $js .= '  var payment_value = null;' . "\n\n" .
                '  if (document.checkout_payment.payment.length) {' . "\n" .
                '    for (var i=0; i<document.checkout_payment.payment.length; i++) {' . "\n" .
