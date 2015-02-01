@@ -67,13 +67,13 @@
                 </tr>                              
                
                 [@{foreach name=outer item=product from=$products}@]                  
-                <tr class="dataTableRow" onmouseover="cOn(this);" onmouseout="cOut(this);">
+                <tr class="dataTableRow" onmouseover="cOn(this); this.style.cursor='pointer'; this.style.cursor='pointer';" onclick="document.location.href='[@{$product.link_to_edit_related_product}@]'" onmouseout="cOut(this);">
                   <td class="dataTableContent" valign="top" nowrap="nowrap">[@{$product.products_id}@]&nbsp;</td>
                   <td class="dataTableContent" valign="top" nowrap="nowrap">[@{$product.products_model}@]&nbsp;</td>
                   <td class="dataTableContent" valign="top" nowrap="nowrap">&nbsp;[@{$product.products_status_image}@]&nbsp;[@{$product.products_name}@]&nbsp;</td>                                                     
                   <td class="dataTableContent" nowrap="nowrap"><table class="dataTableContent" border="0" width="100%" cellspacing="0" cellpadding="2">                                 
                   [@{foreach name=inner item=products_prices from=$product.products_prices}@]                                   
-                    <tr onmouseover="this.style.cursor='pointer'; this.style.cursor='pointer';" onclick="document.location.href='[@{$product.link_to_edit_related_product}@]'">
+                    <tr>
                       <td valign="top" nowrap="nowrap">[@{$products_prices.name}@]<br /><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="70" height="1" /></td>
                       <td colspan="4"><table class="dataTableContent" border="0" width="100%" cellspacing="0" cellpadding="2">
                         <tr>                  
@@ -129,22 +129,50 @@
                           </td>
                         </tr>               
                       </table></td>                
-                    </tr>                                                                                   
+                    </tr>                                                                                                                                                                   
                     [@{if !$smarty.foreach.inner.last}@]
                     <tr>
                       <td colspan="5"><img src="[@{$images_path}@]pixel_black.gif" alt="" width="100%" height="1" /></td>
                     </tr> 
-                    [@{else}@]
+                    [@{else}@]                                      
+                    [@{foreach name=inner_inner1 item=attributes_value from=$product.attributes_values}@]
+                    [@{if $smarty.foreach.inner_inner1.first}@]
+                    <tr>
+                      <td colspan="5">[@{$hidden_attributes_price_array}@]<img src="[@{$images_path}@]pixel_black.gif" alt="" width="100%" height="1" /></td>
+                    </tr>
+                    <tr>
+                      <td valign="top" nowrap="nowrap">[@{#text_attributes#}@]<br /><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="70" height="1" /></td>
+                      <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                        <tr>                  
+                          <td width="5%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="4" height="5" />&nbsp;[@{#text_attributes_opt_name#}@]</td>
+                          <td width="5%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="5" />[@{#text_attributes_opt_value#}@]</td>
+                          <td width="5%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="5" />[@{#text_attributes_opt_price_prefix#}@]</td>
+                          <td width="5%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="5" />[@{#text_attributes_opt_price_net#}@]</td>
+                          <td width="85%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="5" />[@{#text_attributes_opt_price_gross#}@]</td>
+                        </tr>
+                    [@{/if}@]                        
+                        <tr style="font-weight: normal;">
+                          <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="4" height="15" />&nbsp;[@{$attributes_value.option_name}@]</td>
+                          <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{$attributes_value.value_name}@]</td>
+                          <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{$attributes_value.input_price_prefix}@]</td>
+                          <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{$attributes_value.input_value_price}@]</td>
+                          <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{$attributes_value.input_value_price_gross}@]</td>
+                        </tr>
+                    [@{if $smarty.foreach.inner_inner1.last}@]                                           
+                      </table></td>                
+                    </tr>                                                                     
+                    [@{/if}@]
+                    [@{/foreach}@]                                         
                     <tr>
                       <td class="dataTableContent" align="right" valign="top" nowrap="nowrap" colspan="5" onmouseover="this.style.cursor='pointer'; this.style.cursor='pointer';" onclick="document.location.href='[@{$product.link_to_edit_related_product}@]'"><a href="[@{$product.link_to_edit_related_product}@]"><img src="[@{$images_path}@]icon_edit.gif" alt="[@{#text_edit#}@]" title=" [@{#text_edit#}@] " width="16" height="16" />[@{#text_edit#}@]&nbsp;</a></td>
                     </tr>                                            
                     [@{/if}@]
-                  [@{/foreach}@]              
+                  [@{/foreach}@]
                   </table></td>                        
                 </tr>     
                 [@{/foreach}@]     
               </table>              
-              [@{$form_end}@]                              
+[@{$form_end}@]                              
               <table width="100%" border="0" cellspacing="1" cellpadding="2" bgcolor="#ff7c2a">
                 <tr class="dataTableSplitPageRow"> 
                   <td>
@@ -254,7 +282,38 @@
                       <td colspan="5"><img src="[@{$images_path}@]pixel_black.gif" alt="" width="100%" height="1" /></td>
                     </tr>                             
                     [@{/if}@]
-                  [@{/foreach}@]              
+                  [@{/foreach}@] 
+                  [@{foreach name=outer1 item=attributes_value from=$attributes_values}@]
+                  [@{if $smarty.foreach.outer1.first}@]
+                  <tr>
+                    <td colspan="5">[@{$hidden_attributes_price_array}@]<img src="[@{$images_path}@]pixel_black.gif" alt="" width="100%" height="1" /></td>
+                  </tr>
+                  <tr>
+                    <td valign="top" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="21" height="17" />&nbsp;[@{#text_attributes#}@]&nbsp;</td>
+                    <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                      <tr>                  
+                        <td width="5%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{#text_attributes_opt_name#}@]</td>
+                        <td width="5%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{#text_attributes_opt_value#}@]</td>
+                        <td width="5%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{#text_attributes_opt_price_prefix#}@]</td>
+                        <td width="5%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{#text_attributes_opt_price_net#}@]</td>
+                        <td width="85%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{#text_attributes_opt_price_gross#}@]</td>
+                      </tr>
+                  [@{/if}@]                        
+                      <tr style="font-weight: normal;">
+                        <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{$attributes_value.option_name}@]</td>
+                        <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{$attributes_value.value_name}@]</td>
+                        <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{$attributes_value.input_price_prefix}@]</td>
+                        <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{$attributes_value.input_value_price}@]</td>
+                        <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{$attributes_value.input_value_price_gross}@]</td>
+                      </tr>
+                  [@{if $smarty.foreach.outer1.last}@]                                           
+                    </table></td>                
+                  </tr>                                         
+                  <tr>
+                    <td colspan="5"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="1" /></td>
+                  </tr>                             
+                  [@{/if}@]
+                  [@{/foreach}@]                                
                   </table></td>                    
                 </tr>                  
                 <tr style="display: none;">

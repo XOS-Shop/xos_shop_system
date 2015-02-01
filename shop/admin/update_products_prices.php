@@ -143,6 +143,16 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       }                            
              
     }
+    
+    if (isset($_POST['attributes_price_array'])) {
+      $attributes_price_array = unserialize(stripslashes($_POST['attributes_price_array']));  
+      foreach($attributes_price_array as $key => $value) {   
+        if ($_POST['value_price_' . $key] != $key[$value['value_price']] || $_POST['price_prefix_' . $key] != $key[$value['price_prefix']]) {
+          $_POST['price_prefix_' . $key] = ($_POST['price_prefix_' . $key] == '-' && $_POST['value_price_' . $key] > 0) ? '-' : '+'; 
+          xos_db_query("update " . TABLE_PRODUCTS_ATTRIBUTES . " set options_values_price = '" . (float)$_POST['value_price_' . $key] . "', price_prefix = '" . xos_db_input($_POST['price_prefix_' . $key]) . "' where products_attributes_id = '" . (int)$key . "'");
+        }
+      }
+    }       
                     
     $sql_data_array = array('products_price' => serialize($prices_array));                     
     xos_db_perform(TABLE_PRODUCTS, $sql_data_array, 'update', "products_id = '" . (int)$products_id . "'");
@@ -352,6 +362,33 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         } else {
           $products_status_image = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red.gif', ICON_TITLE_STATUS_RED, 10, 10);
         }
+
+        $has_product_attributes = xos_has_product_attributes($products['products_id']); 
+        if ($has_product_attributes) {
+          $attributes = xos_db_query("select distinct pa.*, po.products_options_name, pov.products_options_values_name from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id ='" . (int)$products['products_id'] . "' and pa.options_id = po.products_options_id and pa.options_values_id = pov.products_options_values_id and po.language_id = pov.language_id and po.language_id = '" . (int)$_SESSION['used_lng_id'] . "' order by pa.options_sort_order, po.products_options_id, pa.options_values_sort_order, pov.products_options_values_name");
+      
+          $attributes_values_array = array();
+          while ($attributes_values = xos_db_fetch_array($attributes)) {
+            if ($attributes_values['options_values_price'] > 0) {      
+              if ($attributes_values['options_id'] != $options_id) {
+                $options_id = $attributes_values['options_id'];
+                $options_name = $attributes_values['products_options_name'];
+              } else {
+                $options_name = '';
+              }
+                                     
+              $attributes_values_array[]=array('option_name' => $options_name,
+                                               'value_name' => $attributes_values['products_options_values_name'],
+                                               'input_value_price' => xos_draw_input_field('value_price_' . $attributes_values['products_attributes_id'], $attributes_values['options_values_price'], 'style="background: #fffffe;" size ="11"  readonly="readonly"'),                                                         
+                                               'input_value_price_gross' => xos_draw_input_field('value_price_gross_' . $attributes_values['products_attributes_id'], $attributes_values['options_values_price'], 'style="background: #fffffe;" size ="11" readonly="readonly"'),
+                                               'input_price_prefix' => xos_draw_input_field('price_prefix_' . $attributes_values['products_attributes_id'], $attributes_values['price_prefix'], 'style="background: #fffffe; text-align:center;" size ="1" readonly="readonly"')); 
+                              
+              $update_gross_string .= 'updateGross(\'value_price_' . $attributes_values['products_attributes_id'] . '\', \'value_price_gross_' . $attributes_values['products_attributes_id'] . '\');' . "\n";
+                              
+              $update_net_string .= 'updateNet(\'value_price_gross_' . $attributes_values['products_attributes_id'] . '\', \'value_price_' . $attributes_values['products_attributes_id'] . '\');' . "\n";
+            }
+          }    
+        }
         
         $products_array[]=array('products_id' => $products['products_id'],
                                 'products_model' => $products['products_model'],
@@ -359,7 +396,10 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                                 'products_name' => $products['products_name'],
                                 'products_tax_class' => $tax_class_array[$products['products_tax_class_id']]['text'],
                                 'link_to_edit_related_product' => xos_href_link(FILENAME_UPDATE_PRODUCTS_PRICES, 'product_ID=' . $products['products_id'] . '&categories_or_pages_id=' . $categories_or_pages_id . '&manufacturers_id=' . $manufacturers_id . '&max_rows=' . $_GET['max_rows'] . '&page=' . $_GET['page'] . ($_GET['specials_only'] ? '&specials_only=' . $_GET['specials_only'] : '')),
-                                'products_prices' => $customers_groups_array);      
+                                'products_prices' => $customers_groups_array,
+                                'attributes_values' => $attributes_values_array); 
+                                
+        unset($attributes_values_array);                              
       }
             
       $javascript = '<script type="text/javascript">' . "\n" .
@@ -543,7 +583,37 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                      '  });' . "\n" .
                      '});' . "\n";                                                                                  
     }
+//////////////////////////////////////// 
+    $has_product_attributes = xos_has_product_attributes($_GET['product_ID']); 
+    if ($has_product_attributes) {
+      $attributes = xos_db_query("select distinct pa.*, po.products_options_name, pov.products_options_values_name from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id ='" . (int)$_GET['product_ID'] . "' and pa.options_id = po.products_options_id and pa.options_values_id = pov.products_options_values_id and po.language_id = pov.language_id and po.language_id = '" . (int)$_SESSION['used_lng_id'] . "' order by pa.options_sort_order, po.products_options_id, pa.options_values_sort_order, pov.products_options_values_name");
+      
+      $current_attributes_values_array = array();
+      $attributes_values_array = array();
+      while ($attributes_values = xos_db_fetch_array($attributes)) {
+    
+        if ($attributes_values['options_id'] != $options_id) {
+          $options_id = $attributes_values['options_id'];
+          $options_name = $attributes_values['products_options_name'];
+        } else {
+          $options_name = '';
+        }       
 
+        $current_attributes_values_array[$attributes_values['products_attributes_id']]=array('value_price' => $attributes_values['options_values_price'],                                                         
+                                                                                             'price_prefix' => $attributes_values['price_prefix']);                       
+   
+        $attributes_values_array[]=array('option_name' => $options_name,
+                                         'value_name' => $attributes_values['products_options_values_name'],
+                                         'input_value_price' => xos_draw_input_field('value_price_' . $attributes_values['products_attributes_id'], $attributes_values['options_values_price'], 'style="background: #fffffe;" size ="11" onkeyup="updateGross(\'value_price_' . $attributes_values['products_attributes_id'] . '\', \'value_price_gross_' . $attributes_values['products_attributes_id'] . '\')"'),                                                         
+                                         'input_value_price_gross' => xos_draw_input_field('value_price_gross_' . $attributes_values['products_attributes_id'], $attributes_values['options_values_price'], 'style="background: #fffffe;" size ="11" onkeyup="updateNet(\'value_price_gross_' . $attributes_values['products_attributes_id'] . '\', \'value_price_' . $attributes_values['products_attributes_id'] . '\')"'),
+                                         'input_price_prefix' => xos_draw_input_field('price_prefix_' . $attributes_values['products_attributes_id'], $attributes_values['price_prefix'], 'style="background: #fffffe; text-align:center;" size ="1"'));                       
+                              
+        $update_gross_string .= 'updateGross(\'value_price_' . $attributes_values['products_attributes_id'] . '\', \'value_price_gross_' . $attributes_values['products_attributes_id'] . '\');' . "\n";
+                              
+        $update_net_string .= 'updateNet(\'value_price_gross_' . $attributes_values['products_attributes_id'] . '\', \'value_price_' . $attributes_values['products_attributes_id'] . '\');' . "\n";
+      }    
+    }
+///////////////////////////////////////
     $javascript .= "\n" .'function toggle(targetId, iState) {' . "\n" .
                    '  var obj = document.getElementById(targetId).style;' . "\n" .
                    '  if (obj.display == "none" && iState != 0 && iState != 1){' . "\n" .
@@ -650,7 +720,9 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                           'update_prices' => 'updatePrices(true, true)',
                           'update_checked_string' => $update_checked_string,
                           'customers_groups' => $customers_groups_array,
+                          'attributes_values' => $attributes_values_array, 
                           'hidden_price_array' => xos_draw_hidden_field('price_array', $product['products_price']),
+                          'hidden_attributes_price_array' => xos_draw_hidden_field('attributes_price_array', serialize($current_attributes_values_array)),
                           'link_filename_update_products_prices' => xos_href_link(FILENAME_UPDATE_PRODUCTS_PRICES, 'categories_or_pages_id=' . $categories_or_pages_id . '&manufacturers_id=' . $manufacturers_id . '&max_rows=' . $_GET['max_rows'] . '&page=' . $_GET['page'] . ($_GET['specials_only'] ? '&specials_only=' . $_GET['specials_only'] : ''))));
     
   }

@@ -54,16 +54,18 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                         'manufacturers_id' => '',
                         'attributes_quantity' => '');
 
-    $pInfo = new objectInfo($parameters);
+    $pInfo = new objectInfo($parameters);   
 
     if (isset($_GET['pID'])) {
-      $product_query = xos_db_query("select p.products_id, p.products_quantity, p.products_delivery_time_id, p.products_model, p.products_image, p.products_price, p.products_sort_order, p.products_weight, p.products_date_added, p.products_last_modified, date_format(p.products_date_available, '" . DATE_FORMAT_SHORT . "') as products_date_available, p.products_status, p.products_tax_class_id, p.manufacturers_id, p.attributes_quantity, p.attributes_not_updated from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id = '" . (int)$_GET['pID'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['used_lng_id'] . "'");
+      $product_query = xos_db_query("select products_id, products_quantity, products_delivery_time_id, products_model, products_image, products_price, products_sort_order, products_weight, products_date_added, products_last_modified, date_format(products_date_available, '" . DATE_FORMAT_SHORT . "') as products_date_available, products_status, products_tax_class_id, manufacturers_id, attributes_quantity, attributes_not_updated from " . TABLE_PRODUCTS . " where products_id = '" . (int)$_GET['pID'] . "'");
       $product = xos_db_fetch_array($product_query);
 
-      $pInfo->objectInfo($product);
+      $pInfo->objectInfo($product);    
     }
    
     $products_image = xos_get_product_images($pInfo->products_image, 'all');
+    
+    $has_product_attributes = xos_has_product_attributes($pInfo->products_id);
 
     $manufacturers_array = array(array('id' => '', 'text' => TEXT_NONE));
     $manufacturers_query = xos_db_query("select manufacturers_id, manufacturers_name from " . TABLE_MANUFACTURERS_INFO . " where languages_id = '" . (int)$_SESSION['used_lng_id'] . "' order by manufacturers_name");
@@ -202,7 +204,36 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                      '  });' . "\n" .
                      '});' . "\n";                                                                                  
     }
-       
+    
+    if (isset($_GET['pID']) && $has_product_attributes) {
+      $attributes = xos_db_query("select distinct pa.*, po.products_options_name, pov.products_options_values_name from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id ='" . (int)$_GET['pID'] . "' and pa.options_id = po.products_options_id and pa.options_values_id = pov.products_options_values_id and po.language_id = pov.language_id and po.language_id = '" . (int)$_SESSION['used_lng_id'] . "' order by pa.options_sort_order, po.products_options_id, pa.options_values_sort_order, pov.products_options_values_name");
+      
+      $current_attributes_values_array = array();
+      $attributes_values_array = array();
+      while ($attributes_values = xos_db_fetch_array($attributes)) {
+    
+        if ($attributes_values['options_id'] != $options_id) {
+          $options_id = $attributes_values['options_id'];
+          $options_name = $attributes_values['products_options_name'];
+        } else {
+          $options_name = '';
+        }       
+
+        $current_attributes_values_array[$attributes_values['products_attributes_id']]=array('value_price' => $attributes_values['options_values_price'],                                                         
+                                                                                             'price_prefix' => $attributes_values['price_prefix']);                       
+   
+        $attributes_values_array[]=array('option_name' => $options_name,
+                                         'value_name' => $attributes_values['products_options_values_name'],
+                                         'input_value_price' => xos_draw_input_field('value_price_' . $attributes_values['products_attributes_id'], $attributes_values['options_values_price'], 'style="background: #fffffe;" size ="11" onkeyup="updateGross(\'value_price_' . $attributes_values['products_attributes_id'] . '\', \'value_price_gross_' . $attributes_values['products_attributes_id'] . '\')"'),                                                         
+                                         'input_value_price_gross' => xos_draw_input_field('value_price_gross_' . $attributes_values['products_attributes_id'], $attributes_values['options_values_price'], 'style="background: #fffffe;" size ="11" onkeyup="updateNet(\'value_price_gross_' . $attributes_values['products_attributes_id'] . '\', \'value_price_' . $attributes_values['products_attributes_id'] . '\')"'),
+                                         'input_price_prefix' => xos_draw_input_field('price_prefix_' . $attributes_values['products_attributes_id'], $attributes_values['price_prefix'], 'style="background: #fffffe; text-align:center;" size ="1"'));                       
+                              
+        $update_gross_string .= 'updateGross(\'value_price_' . $attributes_values['products_attributes_id'] . '\', \'value_price_gross_' . $attributes_values['products_attributes_id'] . '\');' . "\n";
+                              
+        $update_net_string .= 'updateNet(\'value_price_gross_' . $attributes_values['products_attributes_id'] . '\', \'value_price_' . $attributes_values['products_attributes_id'] . '\');' . "\n";
+      }    
+    }
+        
     $javascript .= "\n" . 'function toggle(targetId, iState) {' . "\n" .
                    '  var obj = document.getElementById(targetId).style;' . "\n" .
                    '  if (obj.display == "none" && iState != 0 && iState != 1){' . "\n" .
@@ -453,8 +484,6 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                               'input_url' => xos_draw_input_field('products_url[' . $languages[$i]['id'] . ']', (isset($products_url[$languages[$i]['id']]) ? stripslashes($products_url[$languages[$i]['id']]) : xos_get_products_url($pInfo->products_id, $languages[$i]['id']))));    
         
     }        
-    
-    $has_product_attributes = xos_has_product_attributes($pInfo->products_id);
    
     if (isset($_GET['pID'])) {
       $smarty->assign('update', true);
@@ -476,12 +505,14 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                           'update_prices' => 'updatePrices(true, true)',
                           'update_checked_string' => $update_checked_string,
                           'customers_groups' => $customers_groups_array,
+                          'attributes_values' => $attributes_values_array,                          
                           'input_products_date_available' => xos_draw_input_field('products_date_available', $pInfo->products_date_available, 'id="products_date_available" style="background: #ebebff; color : red;" size ="10"'),
                           'input_products_quantity' => STOCK_CHECK == 'true' ? ($has_product_attributes ? '<span id="total_qty">' . $pInfo->products_quantity . '</span>&nbsp;<a href="" onclick="get_attributes_qty_list(\'' . xos_href_link(FILENAME_ATTRIBUTES_QTY_LIST, 'products_id=' . $pInfo->products_id) . '\'); return false">' . xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_arrow_down.gif', '', 24, 15) . '</a>' . xos_draw_hidden_field('products_quantity', $pInfo->products_quantity): xos_draw_input_field('products_quantity', $pInfo->products_quantity, 'size ="8"')) : $pInfo->products_quantity,
                           'input_products_sort_order' => xos_draw_input_field('products_sort_order', $pInfo->products_sort_order, 'size ="8"'),
                           'input_products_model' => xos_draw_input_field('products_model', $pInfo->products_model),
                           'hidden_image_array' => xos_draw_hidden_field('image_array', $pInfo->products_image),
                           'hidden_price_array' => xos_draw_hidden_field('price_array', $pInfo->products_price),
+                          'hidden_attributes_price_array' => xos_draw_hidden_field('attributes_price_array', serialize($current_attributes_values_array)),
                           'has_attributes_quantities' => STOCK_CHECK == 'true' && $has_product_attributes ? true : false,
                           'product_images' => $product_images,
                           'more_images' => $more_images,

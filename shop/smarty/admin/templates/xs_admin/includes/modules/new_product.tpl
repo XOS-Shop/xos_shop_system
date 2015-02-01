@@ -187,7 +187,38 @@
                 <td colspan="5"><img src="[@{$images_path}@]pixel_black.gif" alt="" width="100%" height="1" /></td>
               </tr>                              
               [@{/if}@]
-              [@{/foreach}@]              
+              [@{/foreach}@]
+              [@{foreach name=outer1 item=attributes_value from=$attributes_values}@]
+              [@{if $smarty.foreach.outer1.first}@]
+              <tr>
+                <td colspan="5">[@{$hidden_attributes_price_array}@]<img src="[@{$images_path}@]pixel_black.gif" alt="" width="100%" height="1" /></td>
+              </tr>
+              <tr>
+                <td class="main" valign="top" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="21" height="17" />&nbsp;[@{#text_attributes#}@]&nbsp;</td>
+                <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                  <tr>                  
+                    <td class="main" width="5%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{#text_attributes_opt_name#}@]</td>
+                    <td class="main" width="5%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{#text_attributes_opt_value#}@]</td>
+                    <td class="main" width="5%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{#text_attributes_opt_price_prefix#}@]</td>
+                    <td class="main" width="5%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{#text_attributes_opt_price_net#}@]</td>
+                    <td class="main" width="85%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{#text_attributes_opt_price_gross#}@]</td>
+                  </tr>
+              [@{/if}@]                        
+                  <tr>
+                    <td class="smallText" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{$attributes_value.option_name}@]</td>
+                    <td class="smallText" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{$attributes_value.value_name}@]</td>
+                    <td class="smallText" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{$attributes_value.input_price_prefix}@]</td>
+                    <td class="smallText" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{$attributes_value.input_value_price}@]</td>
+                    <td class="smallText" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{$attributes_value.input_value_price_gross}@]</td>
+                  </tr>
+              [@{if $smarty.foreach.outer1.last}@]                                           
+                </table></td>                
+              </tr>                                         
+              <tr>
+                <td colspan="5"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="1" /></td>
+              </tr>                             
+              [@{/if}@]
+              [@{/foreach}@]                             
             </table></td>
           </tr>                    
           <tr style="display: none; background: #ccffcc">

@@ -543,6 +543,16 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
               }                            
             }              
           }
+          
+          if ($action == 'update_product' && isset($_POST['attributes_price_array'])) {
+            $attributes_price_array = unserialize(stripslashes($_POST['attributes_price_array']));  
+            foreach($attributes_price_array as $key => $value) {   
+              if ($_POST['value_price_' . $key] != $key[$value['value_price']] || $_POST['price_prefix_' . $key] != $key[$value['price_prefix']]) {
+                $_POST['price_prefix_' . $key] = ($_POST['price_prefix_' . $key] == '-' && $_POST['value_price_' . $key] > 0) ? '-' : '+'; 
+                xos_db_query("update " . TABLE_PRODUCTS_ATTRIBUTES . " set options_values_price = '" . (float)$_POST['value_price_' . $key] . "', price_prefix = '" . xos_db_input($_POST['price_prefix_' . $key]) . "' where products_attributes_id = '" . (int)$key . "'");
+              }
+            }
+          }           
                     
           $sql_data_array = array('products_image' => serialize($image_array),                                 
                                   'products_price' => serialize($prices_array));                     
