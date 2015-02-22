@@ -36,7 +36,11 @@ if (!$is_shop) :
 elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_SEARCH_RESULT) == 'overwrite_all')) :
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_SEARCH_RESULT);
    
-  if (isset($_POST['keywords'])) $_GET['keywords'] = $_POST['keywords'];
+  if (isset($_POST['keywords'])) {
+    $_GET['keywords'] = $_POST['keywords'];
+    $_SESSION['navigation']->remove_current_page();
+    $_SESSION['navigation']->add_current_page();
+  }  
   
   $_GET['keywords'] = xos_sanitize_string($_GET['keywords']);
   

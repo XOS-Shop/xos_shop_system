@@ -54,7 +54,10 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   $error = false;
 
   if ($action) {
-
+  
+  $_SESSION['navigation']->remove_current_page();
+  $_SESSION['navigation']->add_current_page();
+  
   $_GET['keywords'] = xos_sanitize_string($_GET['keywords']);
   
   if ( (isset($_GET['keywords']) && empty($_GET['keywords'])) &&
@@ -528,6 +531,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                  '    $( "#id_dfrom, #id_dto" ).datepicker( "destroy" );' . "\n" .               
                  '    RemoveFormatString(document.advanced_search_and_results.dfrom, "' . AS_FORMAT_STRING . '");' . "\n" .
                  '    RemoveFormatString(document.advanced_search_and_results.dto, "' . AS_FORMAT_STRING . '");' . "\n" .
+                 '    $( "#id_dfrom, #id_dto" ).blur();' . "\n" .
                  '    return true;' . "\n" .
                  '  }' . "\n" .
                  '}' . "\n" .
