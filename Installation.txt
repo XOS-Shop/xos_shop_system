@@ -14,7 +14,6 @@ Ordner "shop" mit hilfe eines FTP Client-Programms auf den Webserver ins Webroot
 Auch leere Verzeichnisse müssen übertragen werden.
 
 danch Rechte setzen:
-/shop/admin/includes/configure.php = chmod 777 
 /shop/includes/configure.php = chmod 777
 
 --------------------------------------------------------------------------------
@@ -31,7 +30,6 @@ NACH INSTALLATION
 Verzeichnis /shop/install löschen.
 
 danach Rechte setzen:
-/shop/admin/includes/configure.php = chmod 444 
 /shop/includes/configure.php = chmod 444
 
 --------------------------------------------------------------------------------
