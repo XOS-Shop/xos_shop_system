@@ -138,7 +138,7 @@ define('TITLE', STORE_NAME);
 define('PAGE_TITLE_TRAIL_SEPARATOR', ' » ');
 
 // separator for breadcrumb trail
-define('BREADCRUMB_TRAIL_SEPARATOR', ' » ');
+define('BREADCRUMB_TRAIL_SEPARATOR', ' / ');
 
 // text for downloads in includes/modules/downloads.php
 define('HEADER_TITLE_MY_ACCOUNT', 'Mi Cuenta');
@@ -173,8 +173,8 @@ define('JS_ERROR_CONDITIONS_NOT_ACCEPTED', '* Por favor, confirme las Condicione
 define('JS_ERROR_SUBMITTED', 'Ya ha enviado el formulario. Pulse Aceptar y espere a que termine el proceso.');
 define('JS_ERROR_KEYWORD_FIELD_EMPTY', 'El campo de búsqueda no debe ser vacío.');
 
-define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Por favor, seleccione un método de pago para su pedido.');
-define('ERROR_CONDITIONS_NOT_ACCEPTED', 'Por favor, confirme las Condiciones General de Negocios.');
+define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Por favor, seleccione un método de pago para su pedido');
+define('ERROR_CONDITIONS_NOT_ACCEPTED', 'Por favor, confirme las Condiciones General de Negocios');
 
 define('ENTRY_COMPANY_TEXT', '');
 define('ENTRY_COMPANY_TAX_ID_ERROR', '');

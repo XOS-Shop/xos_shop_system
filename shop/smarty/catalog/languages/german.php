@@ -138,7 +138,7 @@ define('TITLE', STORE_NAME);
 define('PAGE_TITLE_TRAIL_SEPARATOR', ' » ');
 
 // separator for breadcrumb trail
-define('BREADCRUMB_TRAIL_SEPARATOR', ' » ');
+define('BREADCRUMB_TRAIL_SEPARATOR', ' / ');
 
 // text for downloads in includes/modules/downloads.php
 define('HEADER_TITLE_MY_ACCOUNT', 'Ihr Konto');
@@ -174,7 +174,7 @@ define('JS_ERROR_SUBMITTED', 'Diese Seite wurde bereits bestätigt. Betätigen S
 define('JS_ERROR_KEYWORD_FIELD_EMPTY', 'Das Suchfeld darf nicht leer sein.');
 
 define('ERROR_NO_PAYMENT_MODULE_SELECTED', 'Bitte wählen Sie eine Zahlungsweise für Ihre Bestellung');
-define('ERROR_CONDITIONS_NOT_ACCEPTED', 'Bitte bestätigen Sie die Allgemeinen Geschäftsbedingungen.');
+define('ERROR_CONDITIONS_NOT_ACCEPTED', 'Bitte bestätigen Sie die Allgemeinen Geschäftsbedingungen');
 
 define('ENTRY_COMPANY_TEXT', '');
 define('ENTRY_COMPANY_TAX_ID_ERROR', '');
