@@ -129,6 +129,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   if ($messageStack->size('password_forgotten') > 0) {
     $smarty->assign('message_stack', $messageStack->output('password_forgotten'));
+    $smarty->assign('message_stack_error', $messageStack->output('password_forgotten', 'error'));
+    $smarty->assign('message_stack_warning', $messageStack->output('password_forgotten', 'warning')); 
+    $smarty->assign('message_stack_success', $messageStack->output('password_forgotten', 'success'));      
   }
 
   $back = sizeof($_SESSION['navigation']->path)-2;

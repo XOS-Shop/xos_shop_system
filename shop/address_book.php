@@ -82,6 +82,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   if ($messageStack->size('addressbook') > 0) {
     $smarty->assign('message_stack', $messageStack->output('addressbook'));
+    $smarty->assign('message_stack_error', $messageStack->output('addressbook', 'error'));
+    $smarty->assign('message_stack_warning', $messageStack->output('addressbook', 'warning')); 
+    $smarty->assign('message_stack_success', $messageStack->output('addressbook', 'success'));
   } 
   
   $smarty->assign(array('addresses' => $addresses_array,

@@ -141,6 +141,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   
   if ($messageStack->size('login') > 0) {
     $smarty->assign('message_stack', $messageStack->output('login'));
+    $smarty->assign('message_stack_error', $messageStack->output('login', 'error'));
+    $smarty->assign('message_stack_warning', $messageStack->output('login', 'warning')); 
+    $smarty->assign('message_stack_success', $messageStack->output('login', 'success'));      
   }
 
   if ($_SESSION['cart']->count_contents() > 0) {

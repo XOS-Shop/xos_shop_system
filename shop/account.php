@@ -92,6 +92,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   if ($messageStack->size('account') > 0) {
     $smarty->assign('message_stack', $messageStack->output('account'));
+    $smarty->assign('message_stack_error', $messageStack->output('account', 'error'));
+    $smarty->assign('message_stack_warning', $messageStack->output('account', 'warning')); 
+    $smarty->assign('message_stack_success', $messageStack->output('account', 'success'));     
   } 
   
   $smarty->assign(array('orders' => $orders_array,

@@ -93,6 +93,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   if ($messageStack->size('account_password') > 0) {
     $smarty->assign('message_stack', $messageStack->output('account_password'));
+    $smarty->assign('message_stack_error', $messageStack->output('account_password', 'error'));
+    $smarty->assign('message_stack_warning', $messageStack->output('account_password', 'warning')); 
+    $smarty->assign('message_stack_success', $messageStack->output('account_password', 'success'));    
   }
   
   $smarty->assign(array('form_begin' => xos_draw_form('account_password', xos_href_link(FILENAME_ACCOUNT_PASSWORD, '', 'SSL'), 'post', 'onsubmit="return check_form(account_password);"', true),

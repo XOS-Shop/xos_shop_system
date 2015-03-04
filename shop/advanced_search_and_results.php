@@ -547,6 +547,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   if ($messageStack->size('search') > 0) {
     $smarty->assign('message_stack', $messageStack->output('search'));
+    $smarty->assign('message_stack_error', $messageStack->output('search', 'error'));
+    $smarty->assign('message_stack_warning', $messageStack->output('search', 'warning')); 
+    $smarty->assign('message_stack_success', $messageStack->output('search', 'success'));     
   }
   
   $popup_status_query = xos_db_query("select status from " . TABLE_CONTENTS . "  where type = 'system_popup' and status = '1' and content_id = '9' LIMIT 1");

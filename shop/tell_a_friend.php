@@ -191,6 +191,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   if ($messageStack->size('friend') > 0) {
     $smarty->assign('message_stack', $messageStack->output('friend'));
+    $smarty->assign('message_stack_error', $messageStack->output('friend', 'error'));
+    $smarty->assign('message_stack_warning', $messageStack->output('friend', 'warning')); 
+    $smarty->assign('message_stack_success', $messageStack->output('friend', 'success'));      
   }
 
   $back = sizeof($_SESSION['navigation']->path)-2;

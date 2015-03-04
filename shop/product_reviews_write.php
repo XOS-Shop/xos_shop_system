@@ -155,6 +155,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   if ($messageStack->size('review') > 0) {
     $smarty->assign('message_stack', $messageStack->output('review'));
+    $smarty->assign('message_stack_error', $messageStack->output('review', 'error'));
+    $smarty->assign('message_stack_warning', $messageStack->output('review', 'warning')); 
+    $smarty->assign('message_stack_success', $messageStack->output('review', 'success'));      
   }
 
   if (xos_not_null($products_image_name)) {

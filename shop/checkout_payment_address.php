@@ -274,6 +274,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   if ($messageStack->size('checkout_address') > 0) {  
     $smarty->assign('message_stack', $messageStack->output('checkout_address'));
+    $smarty->assign('message_stack_error', $messageStack->output('checkout_address', 'error'));
+    $smarty->assign('message_stack_warning', $messageStack->output('checkout_address', 'warning')); 
+    $smarty->assign('message_stack_success', $messageStack->output('checkout_address', 'success'));    
   }
 
   if ($process == false) {  

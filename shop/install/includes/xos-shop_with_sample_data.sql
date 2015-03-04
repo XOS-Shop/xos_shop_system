@@ -757,6 +757,9 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
 
   if ($messageStack->size(\'contact\') > 0) {
     $smarty->assign(\'message_stack\', $messageStack->output(\'contact\'));
+    $smarty->assign(\'message_stack_error\', $messageStack->output(\'contact\', \'error\'));
+    $smarty->assign(\'message_stack_warning\', $messageStack->output(\'contact\', \'warning\')); 
+    $smarty->assign(\'message_stack_success\', $messageStack->output(\'contact\', \'success\'));
   }
 
   if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'success\')) {
@@ -777,6 +780,9 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
   $content[\'content\'] .= $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us.tpl\');
   
   $smarty->clearAssign(array(\'message_stack\',
+                             \'message_stack_error\',
+                             \'message_stack_warning\',
+                             \'message_stack_success\',
                              \'sent\',
                              \'form_begin\',
                              \'isset_customer_id\',
@@ -786,7 +792,7 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
                              \'captcha_img\',                          
                              \'link_filename_default\',
                              \'textarea\',
-                             \'form_end\'));
+                             \'form_end\'));  
                                
 endif;
 ?>');
@@ -929,6 +935,9 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
 
   if ($messageStack->size(\'contact\') > 0) {
     $smarty->assign(\'message_stack\', $messageStack->output(\'contact\'));
+    $smarty->assign(\'message_stack_error\', $messageStack->output(\'contact\', \'error\'));
+    $smarty->assign(\'message_stack_warning\', $messageStack->output(\'contact\', \'warning\')); 
+    $smarty->assign(\'message_stack_success\', $messageStack->output(\'contact\', \'success\'));
   }
 
   if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'success\')) {
@@ -949,6 +958,9 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
   $content[\'content\'] .= $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us.tpl\');
   
   $smarty->clearAssign(array(\'message_stack\',
+                             \'message_stack_error\',
+                             \'message_stack_warning\',
+                             \'message_stack_success\',
                              \'sent\',
                              \'form_begin\',
                              \'isset_customer_id\',
@@ -958,7 +970,7 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
                              \'captcha_img\',                          
                              \'link_filename_default\',
                              \'textarea\',
-                             \'form_end\'));
+                             \'form_end\'));  
                                
 endif;
 ?>');
@@ -1101,6 +1113,9 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
 
   if ($messageStack->size(\'contact\') > 0) {
     $smarty->assign(\'message_stack\', $messageStack->output(\'contact\'));
+    $smarty->assign(\'message_stack_error\', $messageStack->output(\'contact\', \'error\'));
+    $smarty->assign(\'message_stack_warning\', $messageStack->output(\'contact\', \'warning\')); 
+    $smarty->assign(\'message_stack_success\', $messageStack->output(\'contact\', \'success\'));
   }
 
   if (isset($_GET[\'action\']) && ($_GET[\'action\'] == \'success\')) {
@@ -1121,6 +1136,9 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
   $content[\'content\'] .= $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us.tpl\');
   
   $smarty->clearAssign(array(\'message_stack\',
+                             \'message_stack_error\',
+                             \'message_stack_warning\',
+                             \'message_stack_success\',
                              \'sent\',
                              \'form_begin\',
                              \'isset_customer_id\',
@@ -1130,7 +1148,7 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
                              \'captcha_img\',                          
                              \'link_filename_default\',
                              \'textarea\',
-                             \'form_end\'));
+                             \'form_end\'));  
                                
 endif;
 ?>');

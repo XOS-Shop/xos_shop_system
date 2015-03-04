@@ -372,6 +372,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   if ($messageStack->size('create_account') > 0) {
     $smarty->assign('message_stack', $messageStack->output('create_account'));
+    $smarty->assign('message_stack_error', $messageStack->output('create_account', 'error'));
+    $smarty->assign('message_stack_warning', $messageStack->output('create_account', 'warning')); 
+    $smarty->assign('message_stack_success', $messageStack->output('create_account', 'success'));    
   }
   
   if (ACCOUNT_GENDER == 'true') {

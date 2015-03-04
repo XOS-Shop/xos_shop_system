@@ -157,6 +157,9 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
     if ($messageStack->size('newsletter_subscribe') > 0) {
       if (!isset($_GET['action'])) $smarty->assign('newsletter_conf_email_sent', true); 
       $smarty->assign('message_stack', $messageStack->output('newsletter_subscribe'));
+      $smarty->assign('message_stack_error', $messageStack->output('newsletter_subscribe', 'error'));
+      $smarty->assign('message_stack_warning', $messageStack->output('newsletter_subscribe', 'warning')); 
+      $smarty->assign('message_stack_success', $messageStack->output('newsletter_subscribe', 'success'));      
     }
 
     if (!isset($lng) || (isset($lng) && !is_object($lng))) {

@@ -70,6 +70,9 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
   
   if ($messageStack->size('offline') > 0) {
     $smarty->assign('message_stack', $messageStack->output('offline'));
+    $smarty->assign('message_stack_error', $messageStack->output('offline', 'error'));
+    $smarty->assign('message_stack_warning', $messageStack->output('offline', 'warning')); 
+    $smarty->assign('message_stack_success', $messageStack->output('offline', 'success'));    
   }
 
   if (!isset($lng) || (isset($lng) && !is_object($lng))) {

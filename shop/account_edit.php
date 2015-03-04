@@ -163,6 +163,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   if ($messageStack->size('account_edit') > 0) {
     $smarty->assign('message_stack', $messageStack->output('account_edit'));
+    $smarty->assign('message_stack_error', $messageStack->output('account_edit', 'error'));
+    $smarty->assign('message_stack_warning', $messageStack->output('account_edit', 'warning')); 
+    $smarty->assign('message_stack_success', $messageStack->output('account_edit', 'success'));     
   }
   
   if (ACCOUNT_GENDER == 'true') {
