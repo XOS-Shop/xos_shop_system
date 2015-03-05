@@ -768,12 +768,12 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
 
   $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')) . xos_draw_hidden_field(\'process_id\', str_encrypt($captcha_text)),
                         \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
-                        \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'id=\"contact_us_name\"\'),
-                        \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'id=\"contact_us_email_address\"\'),
-                        \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
+                        \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'class=\"form-control\" id=\"contact_us_name\"\'),
+                        \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'class=\"form-control\" id=\"contact_us_email_address\"\'),
+                        \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'class=\"form-control\" id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
                         \'captcha_img\' => \'<img src=\"\' . $src_captcha_base64 . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
                         \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id, \'SSL\')),
-                        \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'id=\"contact_us_enquiry\"\'),
+                        \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'class=\"form-control\" id=\"contact_us_enquiry\"\'),
                         \'form_end\' => \'</form>\'));
 
   $smarty->configLoad(\'languages/\' . $_SESSION[\'language\'] . \'.conf\', \'contact_us\');
@@ -946,12 +946,12 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
 
   $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')) . xos_draw_hidden_field(\'process_id\', str_encrypt($captcha_text)),
                         \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
-                        \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'id=\"contact_us_name\"\'),
-                        \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'id=\"contact_us_email_address\"\'),
-                        \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
+                        \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'class=\"form-control\" id=\"contact_us_name\"\'),
+                        \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'class=\"form-control\" id=\"contact_us_email_address\"\'),
+                        \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'class=\"form-control\" id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
                         \'captcha_img\' => \'<img src=\"\' . $src_captcha_base64 . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
                         \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id, \'SSL\')),
-                        \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'id=\"contact_us_enquiry\"\'),
+                        \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'class=\"form-control\" id=\"contact_us_enquiry\"\'),
                         \'form_end\' => \'</form>\'));
 
   $smarty->configLoad(\'languages/\' . $_SESSION[\'language\'] . \'.conf\', \'contact_us\');
@@ -1124,12 +1124,12 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
 
   $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')) . xos_draw_hidden_field(\'process_id\', str_encrypt($captcha_text)),
                         \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
-                        \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'id=\"contact_us_name\"\'),
-                        \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'id=\"contact_us_email_address\"\'),
-                        \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
+                        \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'class=\"form-control\" id=\"contact_us_name\"\'),
+                        \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'class=\"form-control\" id=\"contact_us_email_address\"\'),
+                        \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'class=\"form-control\" id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
                         \'captcha_img\' => \'<img src=\"\' . $src_captcha_base64 . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
                         \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id, \'SSL\')),
-                        \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'id=\"contact_us_enquiry\"\'),
+                        \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'class=\"form-control\" id=\"contact_us_enquiry\"\'),
                         \'form_end\' => \'</form>\'));
 
   $smarty->configLoad(\'languages/\' . $_SESSION[\'language\'] . \'.conf\', \'contact_us\');

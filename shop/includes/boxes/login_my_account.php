@@ -61,8 +61,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
                           'box_login_my_account_link_filename_logoff' => xos_href_link(FILENAME_LOGOFF, '', 'SSL'),
                           'box_login_my_account_display_box_my_account' => isset($_SESSION['customer_id']) ? true : false,
                           'box_login_my_account_welcome_string' => $box_welcome_string,
-                          'box_login_my_account_input_field_email_address' => xos_draw_input_field('email_address', '', 'id="box_login_email_address" size="10" maxlength="40" style="width: 130px"'),
-                          'box_login_my_account_input_field_password' => xos_draw_password_field('password', '', 'id="box_login_password" size="10" style="width: 130px"'),
+                          'box_login_my_account_input_field_email_address' => xos_draw_input_field('email_address', '', 'class="form-control input-sm" id="box_login_email_address" size="10" maxlength="40" style="width: 130px"'),
+                          'box_login_my_account_input_field_password' => xos_draw_password_field('password', '', 'class="form-control input-sm" id="box_login_password" size="10" style="width: 130px"'),
                           'box_login_my_account_form_begin' => xos_draw_form('box_login', xos_href_link(FILENAME_LOGIN, 'action=process', 'SSL'), 'post', '', true),
                           'box_login_my_account_form_end' => '</form>'));
   }

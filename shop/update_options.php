@@ -99,7 +99,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           
       if (xos_not_null($products_options_array)) {
         $product_options_array[]=array('products_options_name' => $products_options_name['products_options_name'],
-                                       'products_options_pull_down' => xos_draw_pull_down_menu('id[' . $products_options_name['products_options_id'] . ']', $products_options_array, $selected_attribute, 'onchange="updateOptions(\'' . xos_href_link(FILENAME_UPDATE_OPTIONS, 'p=' . xos_get_prid($_GET['p']), 'NONSSL', true, false) . '\')"')); 
+                                       'products_options_id' => $products_options_name['products_options_id'],
+                                       'products_options_pull_down' => xos_draw_pull_down_menu('id[' . $products_options_name['products_options_id'] . ']', $products_options_array, $selected_attribute, 'class="form-control" id="option_' . $products_options_name['products_options_id'] . '" onchange="updateOptions(\'' . xos_href_link(FILENAME_UPDATE_OPTIONS, 'p=' . xos_get_prid($_GET['p']), 'NONSSL', true, false) . '\')"')); 
       }                                             
     }
 

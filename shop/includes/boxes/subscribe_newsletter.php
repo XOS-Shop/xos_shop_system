@@ -51,7 +51,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       $hidden_get_variables .= xos_draw_hidden_field('tpl', $_GET['tpl']);
     }       
                                 
-    $smarty->assign(array('box_subscribe_newsletter_input_field_subscriber_email_address' => xos_draw_input_field('subscriber_email_address', '', 'id="box_subscriber_email_address" size="10" maxlength="50" style="width: 80%"'),
+    $smarty->assign(array('box_subscribe_newsletter_input_field_subscriber_email_address' => xos_draw_input_field('subscriber_email_address', '', 'class="form-control" id="box_subscriber_email_address" maxlength="50" style="width: 80%"'),
                           'box_subscribe_newsletter_input_hide_session' => xos_hide_session_id(),
                           'box_subscribe_newsletter_link_filename_newsletter_subscribe' => xos_href_link(FILENAME_NEWSLETTER_SUBSCRIBE, '', 'SSL'),
                           'box_subscribe_newsletter_form_begin' => xos_draw_form('subscribe_newsletter', xos_href_link(FILENAME_NEWSLETTER_SUBSCRIBE, '', 'SSL', false), 'get') . $hidden_get_variables,

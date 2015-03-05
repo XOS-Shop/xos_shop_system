@@ -246,8 +246,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $max_display_search_results_array[] = array('id' => xos_href_link(FILENAME_SEARCH_RESULT, xos_get_all_get_params(array('mdsr', 'page')) . 'mdsr=' . MAX_DISPLAY_SEARCH_RESULTS, 'NONSSL', true, true, false, false, false), 'text' => MAX_DISPLAY_SEARCH_RESULTS . TEXT_MAX_PRODUCTS);
       $max_display_search_results_array_noscript[] = array('id' => MAX_DISPLAY_SEARCH_RESULTS, 'text' => MAX_DISPLAY_SEARCH_RESULTS . TEXT_MAX_PRODUCTS);
     }      
-    $pull_down_menu_display_search_results .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array, xos_href_link(FILENAME_SEARCH_RESULT, xos_get_all_get_params(array('mdsr', 'page')) . 'mdsr=' . (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'NONSSL', true, true, false, false, false), 'id="mdsr" onchange="location = form.mdsr.options[form.mdsr.selectedIndex].value;"') . '</form>';
-    $pull_down_menu_display_search_results_noscript .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array_noscript, (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'id="mdsr"');    
+    $pull_down_menu_display_search_results .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array, xos_href_link(FILENAME_SEARCH_RESULT, xos_get_all_get_params(array('mdsr', 'page')) . 'mdsr=' . (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'NONSSL', true, true, false, false, false), 'class="form-control" id="mdsr" onchange="location = form.mdsr.options[form.mdsr.selectedIndex].value;"') . '</form>';
+    $pull_down_menu_display_search_results_noscript .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array_noscript, (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'class="form-control" id="mdsr"');    
 
     $link_switch_search_results_view = xos_href_link(FILENAME_SEARCH_RESULT, xos_get_all_get_params(array('srv', 'sort', 'page')) . 'srv=' . ($product_list_b ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
   }

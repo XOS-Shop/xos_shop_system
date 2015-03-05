@@ -240,8 +240,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           $options[] = array('id' =>  xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('filter', 'page')) . 'filter=' . $filterlist['id'], 'NONSSL', true, true, false, false, false), 'text' => $filterlist['name']);
           $options_noscript[] = array('id' => $filterlist['id'], 'text' => $filterlist['name']);
         }
-        $pull_down_menu .= xos_draw_pull_down_menu('filter', $options, xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('filter', 'page')) . 'filter=' . (isset($_GET['filter']) ? $_GET['filter'] : ''), 'NONSSL', true, true, false, false, false), 'id="filter" onchange="location = form.filter.options[form.filter.selectedIndex].value;"') . '</form>';
-        $pull_down_menu_noscript .= xos_draw_pull_down_menu('filter', $options_noscript, (isset($_GET['filter']) ? $_GET['filter'] : ''), 'id="filter"'); 
+        $pull_down_menu .= xos_draw_pull_down_menu('filter', $options, xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('filter', 'page')) . 'filter=' . (isset($_GET['filter']) ? $_GET['filter'] : ''), 'NONSSL', true, true, false, false, false), 'class="form-control" id="filter" onchange="location = form.filter.options[form.filter.selectedIndex].value;"') . '</form>';
+        $pull_down_menu_noscript .= xos_draw_pull_down_menu('filter', $options_noscript, (isset($_GET['filter']) ? $_GET['filter'] : ''), 'class="form-control" id="filter"'); 
       }
     }
     
@@ -267,8 +267,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         $max_display_special_products_array[] = array('id' => xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('mdsp', 'page')) . 'mdsp=' . MAX_DISPLAY_SPECIAL_PRODUCTS, 'NONSSL', true, true, false, false, false), 'text' => MAX_DISPLAY_SPECIAL_PRODUCTS . TEXT_MAX_PRODUCTS);
         $max_display_special_products_array_noscript[] = array('id' => MAX_DISPLAY_SPECIAL_PRODUCTS, 'text' => MAX_DISPLAY_SPECIAL_PRODUCTS . TEXT_MAX_PRODUCTS);
       }      
-      $pull_down_menu_display_special_products .= xos_draw_pull_down_menu('mdsp', $max_display_special_products_array, xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('mdsp', 'page')) . 'mdsp=' . (isset($_SESSION['mdsp']) ? $_SESSION['mdsp'] : MAX_DISPLAY_SPECIAL_PRODUCTS), 'NONSSL', true, true, false, false, false), 'id="mdsp" onchange="location = form.mdsp.options[form.mdsp.selectedIndex].value;"') . '</form>';
-      $pull_down_menu_display_special_products_noscript .= xos_draw_pull_down_menu('mdsp', $max_display_special_products_array_noscript, (isset($_SESSION['mdsp']) ? $_SESSION['mdsp'] : MAX_DISPLAY_SPECIAL_PRODUCTS), 'id="mdsp"');
+      $pull_down_menu_display_special_products .= xos_draw_pull_down_menu('mdsp', $max_display_special_products_array, xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('mdsp', 'page')) . 'mdsp=' . (isset($_SESSION['mdsp']) ? $_SESSION['mdsp'] : MAX_DISPLAY_SPECIAL_PRODUCTS), 'NONSSL', true, true, false, false, false), 'class="form-control" id="mdsp" onchange="location = form.mdsp.options[form.mdsp.selectedIndex].value;"') . '</form>';
+      $pull_down_menu_display_special_products_noscript .= xos_draw_pull_down_menu('mdsp', $max_display_special_products_array_noscript, (isset($_SESSION['mdsp']) ? $_SESSION['mdsp'] : MAX_DISPLAY_SPECIAL_PRODUCTS), 'class="form-control" id="mdsp"');
       
       $link_switch_special_view = xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('sv', 'sort', 'page')) . 'sv=' . ($product_list_b ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
     }

@@ -556,16 +556,16 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   $smarty->assign(array('form_begin' => xos_draw_form('advanced_search_and_results', xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, '', 'NONSSL', false), 'post', 'onsubmit="return check_form(this);"'), 
                         'hide_session_id' => xos_hide_session_id(),
-                        'input_field_keywords' => xos_draw_input_field('keywords', stripslashes($_GET['keywords']), 'id="keywords"'),
+                        'input_field_keywords' => xos_draw_input_field('keywords', stripslashes($_GET['keywords']), 'class="form-control" id="keywords"'),
                         'checkbox_search_in_description' => xos_draw_checkbox_field('sid', '1', ($action && !isset($_GET['sid']) ? false : true), 'id="search_in_description"'),
                         'link_filename_advanced_search_and_results' => xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS),
                         'link_filename_popup_content_9' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=9', $request_type) : '',
-                        'categories_pull_down_menu' => xos_draw_pull_down_menu('copid', $categories_array, $_GET['copid'], 'id="categories_or_pages_id" onchange="UpdateManufacturers();"'),                        
-                        'manufacturers_pull_down_menu' => xos_draw_pull_down_menu('_m', xos_get_manufacturers(array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS))), $_GET['_m'], 'id="manufacturers_id"'),
-                        'input_field_pfrom' => xos_draw_input_field('pfrom', $_GET['pfrom'], 'id="pfrom"'),
-                        'input_field_pto' => xos_draw_input_field('pto', $_GET['pto'], 'id="pto"'),
-                        'input_field_dfrom' => xos_draw_input_field('dfrom', (($_GET['dfrom']) ? $_GET['dfrom'] : AS_FORMAT_STRING), 'id="id_dfrom"'),
-                        'input_field_dto' => xos_draw_input_field('dto', (($_GET['dto']) ? $_GET['dto'] : AS_FORMAT_STRING), 'id="id_dto"'),
+                        'categories_pull_down_menu' => xos_draw_pull_down_menu('copid', $categories_array, $_GET['copid'], 'class="form-control" id="categories_or_pages_id" onchange="UpdateManufacturers();"'),                        
+                        'manufacturers_pull_down_menu' => xos_draw_pull_down_menu('_m', xos_get_manufacturers(array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS))), $_GET['_m'], 'class="form-control" id="manufacturers_id"'),
+                        'input_field_pfrom' => xos_draw_input_field('pfrom', $_GET['pfrom'], 'class="form-control" id="pfrom"'),
+                        'input_field_pto' => xos_draw_input_field('pto', $_GET['pto'], 'class="form-control" id="pto"'),
+                        'input_field_dfrom' => xos_draw_input_field('dfrom', (($_GET['dfrom']) ? $_GET['dfrom'] : AS_FORMAT_STRING), 'class="form-control" id="id_dfrom"'),
+                        'input_field_dto' => xos_draw_input_field('dto', (($_GET['dto']) ? $_GET['dto'] : AS_FORMAT_STRING), 'class="form-control" id="id_dto"'),
                         'body_tag_params' => 'onload="UpdateManufacturers();"',                        
                         'form_end' => '</form>'));
 ///////////////////////////////////////////////////////////
@@ -819,8 +819,8 @@ if ($action && !$error) {
       $max_display_search_results_array[] = array('id' => xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, xos_get_all_get_params(array('mdsr', 'page')) . 'mdsr=' . MAX_DISPLAY_SEARCH_RESULTS, 'NONSSL', true, true, false, false, false), 'text' => MAX_DISPLAY_SEARCH_RESULTS . TEXT_MAX_PRODUCTS);
       $max_display_search_results_array_noscript[] = array('id' => MAX_DISPLAY_SEARCH_RESULTS, 'text' => MAX_DISPLAY_SEARCH_RESULTS . TEXT_MAX_PRODUCTS);
     }      
-    $pull_down_menu_display_search_results .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array, xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, xos_get_all_get_params(array('mdsr', 'page')) . 'mdsr=' . (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'NONSSL', true, true, false, false, false), 'id="mdsr" onchange="location = form.mdsr.options[form.mdsr.selectedIndex].value;"') . '</form>';
-    $pull_down_menu_display_search_results_noscript .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array_noscript, (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'id="mdsr"');    
+    $pull_down_menu_display_search_results .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array, xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, xos_get_all_get_params(array('mdsr', 'page')) . 'mdsr=' . (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'NONSSL', true, true, false, false, false), 'class="form-control" id="mdsr" onchange="location = form.mdsr.options[form.mdsr.selectedIndex].value;"') . '</form>';
+    $pull_down_menu_display_search_results_noscript .= xos_draw_pull_down_menu('mdsr', $max_display_search_results_array_noscript, (isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS), 'class="form-control" id="mdsr"');    
 
     $link_switch_search_results_view = xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, xos_get_all_get_params(array('srv', 'sort', 'page')) . 'srv=' . ($product_list_b ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
   }

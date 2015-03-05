@@ -105,8 +105,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
           $max_display_products_in_category_array[] = array('id' => xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('mdpc', 'page')) . 'mdpc=' . MAX_DISPLAY_PRODUCTS_IN_CATEGORY, 'NONSSL', true, true, false, false, false), 'text' => MAX_DISPLAY_PRODUCTS_IN_CATEGORY . TEXT_MAX_PRODUCTS);
           $max_display_products_in_category_array_noscript[] = array('id' => MAX_DISPLAY_PRODUCTS_IN_CATEGORY, 'text' => MAX_DISPLAY_PRODUCTS_IN_CATEGORY . TEXT_MAX_PRODUCTS);
         }      
-        $pull_down_menu_display_products_in_category .= xos_draw_pull_down_menu('mdpc', $max_display_products_in_category_array, xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('mdpc', 'page')) . 'mdpc=' . (isset($_SESSION['mdpc']) ? $_SESSION['mdpc'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'NONSSL', true, true, false, false, false), 'id="mdpc" onchange="location = form.mdpc.options[form.mdpc.selectedIndex].value;"') . '</form>';
-        $pull_down_menu_display_products_in_category_noscript .= xos_draw_pull_down_menu('mdpc', $max_display_products_in_category_array_noscript, (isset($_SESSION['mdpc']) ? $_SESSION['mdpc'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'id="mdpc"');    
+        $pull_down_menu_display_products_in_category .= xos_draw_pull_down_menu('mdpc', $max_display_products_in_category_array, xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('mdpc', 'page')) . 'mdpc=' . (isset($_SESSION['mdpc']) ? $_SESSION['mdpc'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'NONSSL', true, true, false, false, false), 'class="form-control" id="mdpc" onchange="location = form.mdpc.options[form.mdpc.selectedIndex].value;"') . '</form>';
+        $pull_down_menu_display_products_in_category_noscript .= xos_draw_pull_down_menu('mdpc', $max_display_products_in_category_array_noscript, (isset($_SESSION['mdpc']) ? $_SESSION['mdpc'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'class="form-control" id="mdpc"');    
 
         $link_switch_products_in_c_view = xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('pcv', 'sort', 'page')) . 'pcv=' . ((($category['product_list_b'] == 1 && $_SESSION['pcv'] != 'list') || (!isset($_GET['m']) && $_SESSION['pcv'] == 'grid')) ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
       }
@@ -364,8 +364,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
               $options[] = array('id' =>  xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('filter', 'page')) . 'filter=' . $filterlist['id'], 'NONSSL', true, true, false, false, false), 'text' => $filterlist['name']);
               $options_noscript[] = array('id' => $filterlist['id'], 'text' => $filterlist['name']);
             }
-            $pull_down_menu .= xos_draw_pull_down_menu('filter', $options, xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('filter', 'page')) . 'filter=' . (isset($_GET['filter']) ? $_GET['filter'] : ''), 'NONSSL', true, true, false, false, false), 'id="filter" onchange="location = form.filter.options[form.filter.selectedIndex].value;"') . '</form>';
-            $pull_down_menu_noscript .= xos_draw_pull_down_menu('filter', $options_noscript, (isset($_GET['filter']) ? $_GET['filter'] : ''), 'id="filter"'); 
+            $pull_down_menu .= xos_draw_pull_down_menu('filter', $options, xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('filter', 'page')) . 'filter=' . (isset($_GET['filter']) ? $_GET['filter'] : ''), 'NONSSL', true, true, false, false, false), 'class="form-control" id="filter" onchange="location = form.filter.options[form.filter.selectedIndex].value;"') . '</form>';
+            $pull_down_menu_noscript .= xos_draw_pull_down_menu('filter', $options_noscript, (isset($_GET['filter']) ? $_GET['filter'] : ''), 'class="form-control" id="filter"'); 
           }
         }
 
@@ -430,8 +430,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
           $max_display_products_of_manufacturer_array[] = array('id' => xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('mdpm', 'page')) . 'mdpm=' . MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER, 'NONSSL', true, true, false, false, false), 'text' => MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER . TEXT_MAX_PRODUCTS);
           $max_display_products_of_manufacturer_array_noscript[] = array('id' => MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER, 'text' => MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER . TEXT_MAX_PRODUCTS);
         }
-        $pull_down_menu_display_products_of_manufacturer .= xos_draw_pull_down_menu('mdpm', $max_display_products_of_manufacturer_array, xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('mdpm', 'page')) . 'mdpm=' . (isset($_SESSION['mdpm']) ? $_SESSION['mdpm'] : MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER), 'NONSSL', true, true, false, false, false), 'id="mdpm" onchange="location = form.mdpm.options[form.mdpm.selectedIndex].value;"') . '</form>';
-        $pull_down_menu_display_products_of_manufacturer_noscript .= xos_draw_pull_down_menu('mdpm', $max_display_products_of_manufacturer_array_noscript, (isset($_SESSION['mdpm']) ? $_SESSION['mdpm'] : MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER), 'id="mdpm"');    
+        $pull_down_menu_display_products_of_manufacturer .= xos_draw_pull_down_menu('mdpm', $max_display_products_of_manufacturer_array, xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('mdpm', 'page')) . 'mdpm=' . (isset($_SESSION['mdpm']) ? $_SESSION['mdpm'] : MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER), 'NONSSL', true, true, false, false, false), 'class="form-control" id="mdpm" onchange="location = form.mdpm.options[form.mdpm.selectedIndex].value;"') . '</form>';
+        $pull_down_menu_display_products_of_manufacturer_noscript .= xos_draw_pull_down_menu('mdpm', $max_display_products_of_manufacturer_array_noscript, (isset($_SESSION['mdpm']) ? $_SESSION['mdpm'] : MAX_DISPLAY_PRODUCTS_OF_MANUFACTURER), 'class="form-control" id="mdpm"');    
 
         $link_switch_products_of_m_view = xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('pmv', 'sort', 'page')) . 'pmv=' . (((isset($_GET['m']) && $_SESSION['pmv'] != 'list' && PRODUCT_LISTS_FOR_MANUFACTURERS == 'B') || (isset($_GET['m']) && $_SESSION['pmv'] == 'grid')) ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
       }
@@ -488,8 +488,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
           $max_display_products_in_category_array[] = array('id' => xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('mdpc', 'page')) . 'mdpc=' . MAX_DISPLAY_PRODUCTS_IN_CATEGORY, 'NONSSL', true, true, false, false, false), 'text' => MAX_DISPLAY_PRODUCTS_IN_CATEGORY . TEXT_MAX_PRODUCTS);
           $max_display_products_in_category_array_noscript[] = array('id' => MAX_DISPLAY_PRODUCTS_IN_CATEGORY, 'text' => MAX_DISPLAY_PRODUCTS_IN_CATEGORY . TEXT_MAX_PRODUCTS);
         }      
-        $pull_down_menu_display_products_in_category .= xos_draw_pull_down_menu('mdpc', $max_display_products_in_category_array, xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('mdpc', 'page')) . 'mdpc=' . (isset($_SESSION['mdpc']) ? $_SESSION['mdpc'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'NONSSL', true, true, false, false, false), 'id="mdpc" onchange="location = form.mdpc.options[form.mdpc.selectedIndex].value;"') . '</form>';
-        $pull_down_menu_display_products_in_category_noscript .= xos_draw_pull_down_menu('mdpc', $max_display_products_in_category_array_noscript, (isset($_SESSION['mdpc']) ? $_SESSION['mdpc'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'id="mdpc"');    
+        $pull_down_menu_display_products_in_category .= xos_draw_pull_down_menu('mdpc', $max_display_products_in_category_array, xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('mdpc', 'page')) . 'mdpc=' . (isset($_SESSION['mdpc']) ? $_SESSION['mdpc'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'NONSSL', true, true, false, false, false), 'class="form-control" id="mdpc" onchange="location = form.mdpc.options[form.mdpc.selectedIndex].value;"') . '</form>';
+        $pull_down_menu_display_products_in_category_noscript .= xos_draw_pull_down_menu('mdpc', $max_display_products_in_category_array_noscript, (isset($_SESSION['mdpc']) ? $_SESSION['mdpc'] : MAX_DISPLAY_PRODUCTS_IN_CATEGORY), 'class="form-control" id="mdpc"');    
 
         $link_switch_products_in_c_view = xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('pcv', 'sort', 'page')) . 'pcv=' . ((($category['product_list_b'] == 1 && $_SESSION['pcv'] != 'list') || (!isset($_GET['m']) && $_SESSION['pcv'] == 'grid')) ? 'list' : 'grid'), 'NONSSL', true, true, false, false, false);
       }      
@@ -724,8 +724,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
             $options[] = array('id' =>  xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('filter', 'page')) . 'filter=' . $filterlist['id'], 'NONSSL', true, true, false, false, false), 'text' => $filterlist['name']);
             $options_noscript[] = array('id' => $filterlist['id'], 'text' => $filterlist['name']);
           }
-          $pull_down_menu .= xos_draw_pull_down_menu('filter', $options, xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('filter', 'page')) . 'filter=' . (isset($_GET['filter']) ? $_GET['filter'] : ''), 'NONSSL', true, true, false, false, false), 'id="filter" onchange="location = form.filter.options[form.filter.selectedIndex].value;"') . '</form>';
-          $pull_down_menu_noscript .= xos_draw_pull_down_menu('filter', $options_noscript, (isset($_GET['filter']) ? $_GET['filter'] : ''), 'id="filter"'); 
+          $pull_down_menu .= xos_draw_pull_down_menu('filter', $options, xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('filter', 'page')) . 'filter=' . (isset($_GET['filter']) ? $_GET['filter'] : ''), 'NONSSL', true, true, false, false, false), 'class="form-control" id="filter" onchange="location = form.filter.options[form.filter.selectedIndex].value;"') . '</form>';
+          $pull_down_menu_noscript .= xos_draw_pull_down_menu('filter', $options_noscript, (isset($_GET['filter']) ? $_GET['filter'] : ''), 'class="form-control" id="filter"'); 
         }        
       }
 

@@ -37,18 +37,24 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   }
 
   $languages_string = '';
-  $languages_string_no_image = '';
+  $languages_list = '';
   reset($lng->catalog_languages);
   
   if (sizeof($lng->catalog_languages) > 1) { 
   
     while (list($key, $value) = each($lng->catalog_languages)) {
       $languages_string .= ' <a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('language', 'currency', 'tpl', 'dfrom', 'dto')) . 'language=' . $key, $request_type, true, ($value['id'] == $_SESSION['languages_id'] ? true : false), false) . '">' . xos_image(DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $value['directory'] . '/' . $value['image'], $value['name']) . '</a> ';
-      $languages_string_no_image .= ' <a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('language', 'currency', 'tpl', 'dfrom', 'dto')) . 'language=' . $key, $request_type, true, ($value['id'] == $_SESSION['languages_id'] ? true : false), false) . '">' . $value['name'] . '</a> ';
+      
+      if ($value['id'] == $_SESSION['languages_id']) {
+        $language_used .= '<span>' . xos_image(DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $value['directory'] . '/' . $value['image'], $value['name']) . '</span>';
+      } else {
+        $languages_list .= '<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('language', 'currency', 'tpl', 'dfrom', 'dto')) . 'language=' . $key, $request_type, true, false, false) . '">' . xos_image(DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $value['directory'] . '/' . $value['image'], $value['name']) . '</a>';
+      }
     }
 
-    $smarty->assign(array('box_languages_languages_string' => $languages_string,
-                          'box_languages_languages_string_no_image' => $languages_string_no_image));
+    $smarty->assign(array('box_languages_language_used' => $language_used,
+                          'box_languages_languages_string' => $languages_string,
+                          'box_languages_languages_list' => $languages_list));
                           
     $output_languages = $smarty->fetch(SELECTED_TPL . '/includes/boxes/languages.tpl');
   

@@ -184,14 +184,14 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
         }                            
       }
 
-      $smarty->assign('pull_down_menu_languages', xos_draw_pull_down_menu('languages', $lang_array, $languages_selected, 'id="newsletter_subscribe_languages"'));
+      $smarty->assign('pull_down_menu_languages', xos_draw_pull_down_menu('languages', $lang_array, $languages_selected, 'class="form-control" id="newsletter_subscribe_languages"'));
     }
 
     $smarty->assign(array('form_begin' => xos_draw_form('newsletter_subscribe', xos_href_link(FILENAME_NEWSLETTER_SUBSCRIBE, 'action=process', 'SSL'), 'post', '', true) . xos_draw_hidden_field('process_id', str_encrypt($captcha_text)),
                           'isset_customer_id' => isset($_SESSION['customer_id']) ? true : false,
                           'link_filename_default' => xos_href_link(FILENAME_DEFAULT),
-                          'input_field_email_address' => xos_draw_input_field('subscriber_email_address', (($subscriber_email_address) ? '' : $_GET['subscriber_email_address']), 'id="newsletter_subscribe_email_address"'),
-                          'input_security_code' => xos_draw_input_field('security_code', '', 'id="newsletter_subscribe_security_code" maxlength="8" autocomplete="off"', 'text', false),
+                          'input_field_email_address' => xos_draw_input_field('subscriber_email_address', (($subscriber_email_address) ? '' : $_GET['subscriber_email_address']), 'class="form-control" id="newsletter_subscribe_email_address"'),
+                          'input_security_code' => xos_draw_input_field('security_code', '', 'class="form-control" id="newsletter_subscribe_security_code" maxlength="8" autocomplete="off"', 'text', false),
                           'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " />',                           
                           'form_end' => '</form>'));
                         

@@ -61,7 +61,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     $smarty->assign(array('box_search_link_filename_advanced_search_and_results' => xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS),
                           'box_search_js_check_keywords' => $js_check_keywords_string,
                           'box_search_link_quick_search_suggest' => str_replace('&amp;', '&', substr(xos_href_link(FILENAME_QUICK_SEARCH_SUGGEST, '', $request_type, true, false), -4) == '.php' ? xos_href_link(FILENAME_QUICK_SEARCH_SUGGEST, '', $request_type, true, false) . '?keywords=' : xos_href_link(FILENAME_QUICK_SEARCH_SUGGEST, '', $request_type, true, false) . '&keywords='),                           
-                          'box_search_imput_field' => xos_draw_input_field('keywords', '', 'id="box_search_keywords" size="10" maxlength="30" style="width: 118px"', 'text', false),
+                          'box_search_imput_field' => xos_draw_input_field('keywords', '', 'class="form-control" id="box_search_keywords" autocomplete="off" style="width: 118px" maxlength="30"', 'text', false),
                           'box_search_form_begin' => xos_draw_form('quick_find', xos_href_link(FILENAME_SEARCH_RESULT, '', $request_type, false), 'post', 'onsubmit="return check_keywords(this);"') . xos_hide_session_id(),
                           'box_search_form_end' => '</form>'));
   }

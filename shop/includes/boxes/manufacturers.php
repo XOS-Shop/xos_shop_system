@@ -53,7 +53,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     $manufacturers_content_noscript = substr($manufacturers_content_noscript, 0, -6);   
 
     $manufacturers_content = xos_draw_form('manufacturers', xos_href_link(FILENAME_DEFAULT, '', $request_type, false, true, false, false, false), 'get');
-    $manufacturers_content .= xos_draw_pull_down_menu('m', $manufacturers_array, (isset($_GET['m']) ? xos_href_link(FILENAME_DEFAULT, 'm=' . $_GET['m']) : ''), 'onchange="if (form.m.selectedIndex != 0) location = form.m.options[form.m.selectedIndex].value;" size="' . MAX_MANUFACTURERS_LIST . '" style="width: 95%"');
+    $manufacturers_content .= xos_draw_pull_down_menu('m', $manufacturers_array, (isset($_GET['m']) ? xos_href_link(FILENAME_DEFAULT, 'm=' . $_GET['m']) : ''), 'class="form-control" onchange="if (form.m.selectedIndex != 0) location = form.m.options[form.m.selectedIndex].value;" size="' . MAX_MANUFACTURERS_LIST . '"');
     $manufacturers_content .= '</form>';
                                    
 

@@ -38,6 +38,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
                             'box_shopping_cart_total_discount' => $currencies->format($_SESSION['cart']->show_discount($currencies->currencies[$_SESSION['currency']]['value']))));
     }    
     $smarty->assign('box_shopping_cart_total_price', $currencies->format($_SESSION['cart']->show_total($currencies->currencies[$_SESSION['currency']]['value'])));
+    
+    $products_quantity_total = 0;
     $cart_products_array = array();
     for ($i=0, $n=sizeof($products); $i<$n; $i++) {
       if ((isset($_SESSION['new_products_id_in_cart'])) && ($_SESSION['new_products_id_in_cart'] == $products[$i]['id'])) {
@@ -45,16 +47,19 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
         unset($_SESSION['new_products_id_in_cart']);        
       } else {
         $new_product_in_cart = false;
-      }      
+      }
+      $products_quantity_total += $products[$i]['quantity'];      
       $cart_products_array[]=array('quantity' => $products[$i]['quantity'],
                                    'link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . urlencode($products[$i]['id'])),
                                    'name' => $products[$i]['name'],
                                    'new_product_in_cart' => $new_product_in_cart);      
     }
     
+    $smarty->assign('products_quantity_total', $products_quantity_total);
     $smarty->assign('shopping_cart_will_not_display', FILENAME_SHOPPING_CART == basename($_SERVER['PHP_SELF']) ? false : true);
-  } else {
-    $smarty->assign('box_shopping_cart_cart_empty', true);
+  } else { 
+    $smarty->assign('box_shopping_cart_cart_empty', true);  
+    $smarty->assign('products_quantity_total', 0);
   }
   
     $smarty->assign(array('box_shopping_cart_link_filename_shopping_cart' => xos_href_link(FILENAME_SHOPPING_CART),
