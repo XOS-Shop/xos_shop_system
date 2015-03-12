@@ -74,41 +74,49 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $error = true;
 
       $messageStack->add('friend', ERROR_FROM_NAME);
+      $smarty->assign('error_from_name', true);
     }
 
     if (strlen($from_email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
       $error = true;
 
       $messageStack->add('friend', ERROR_FROM_ADDRESS_MIN_LENGTH);
+      $smarty->assign('error_from_address', true);
     } elseif (!xos_validate_email($from_email_address)) {
       $error = true;
 
       $messageStack->add('friend', ERROR_FROM_ADDRESS);
+      $smarty->assign('error_from_address', true);
     }
 
     if (empty($to_name)) {
       $error = true;
 
       $messageStack->add('friend', ERROR_TO_NAME);
+      $smarty->assign('error_to_name', true);
     }
 
     if (strlen($to_email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
       $error = true;
 
       $messageStack->add('friend', ERROR_TO_ADDRESS_MIN_LENGTH);
+      $smarty->assign('error_to_address', true);
     } elseif (!xos_validate_email($to_email_address)) {
       $error = true;
 
       $messageStack->add('friend', ERROR_TO_ADDRESS);
+      $smarty->assign('error_to_address', true);
     }
     
     if (!isset($_SESSION['customer_id'])) {
       if (!isset($_POST['process_id']) || $_POST['security_code'] != str_decrypt($_POST['process_id'])) {
         $error = true;
 
-        $messageStack->add('friend', ERROR_SECURITY_CODE);    
+        $messageStack->add('friend', ERROR_SECURITY_CODE);   
       }
     }
+    
+    if ($error == true) $smarty->assign('error_security_code', true);
 
     $actionRecorder = new actionRecorder('ar_tell_a_friend', (isset($_SESSION['customer_id']) ? $_SESSION['customer_id'] : null), $from_name);
     if (!$actionRecorder->canPerform() && $actionRecorder->check()) {
@@ -208,13 +216,13 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   $smarty->assign(array('form_begin' => xos_draw_form('email_friend', xos_href_link(FILENAME_TELL_A_FRIEND, 'action=process&p=' . (int)$_GET['p'], 'SSL'), 'post', '', true) . xos_draw_hidden_field('process_id', str_encrypt($captcha_text)),
                         'isset_customer_id' => isset($_SESSION['customer_id']) ? true : false,
                         'products_name' => $product_info['products_name'],
-                        'input_field_from_name' => xos_draw_input_field('from_name', '', (ALLOW_GUEST_TO_TELL_A_FRIEND == 'false' ? 'id="tell_a_friend_from_name" readonly="readonly"' : 'id="tell_a_friend_from_name"')),
-                        'input_field_from_email_address' => xos_draw_input_field('from_email_address', '', (ALLOW_GUEST_TO_TELL_A_FRIEND == 'false' ? 'id="tell_a_friend_from_email_address" readonly="readonly"' : 'id="tell_a_friend_from_email_address"')),
-                        'input_field_to_name' => xos_draw_input_field('to_name', '', 'id="tell_a_friend_to_name"'),
-                        'input_field_to_email_address' => xos_draw_input_field('to_email_address', (($to_email_address) ? '' : $_GET['to_email_address']), 'id="tell_a_friend_to_email_address"'),
-                        'input_security_code' => xos_draw_input_field('security_code', '', 'id="tell_a_friend_security_code" maxlength="8" autocomplete="off"', 'text', false),
+                        'input_field_from_name' => xos_draw_input_field('from_name', '', (ALLOW_GUEST_TO_TELL_A_FRIEND == 'false' ? 'class="form-control" id="tell_a_friend_from_name" readonly="readonly"' : 'class="form-control" id="tell_a_friend_from_name"')),
+                        'input_field_from_email_address' => xos_draw_input_field('from_email_address', '', (ALLOW_GUEST_TO_TELL_A_FRIEND == 'false' ? 'class="form-control" id="tell_a_friend_from_email_address" readonly="readonly"' : 'class="form-control" id="tell_a_friend_from_email_address"')),
+                        'input_field_to_name' => xos_draw_input_field('to_name', '', 'class="form-control" id="tell_a_friend_to_name"'),
+                        'input_field_to_email_address' => xos_draw_input_field('to_email_address', (($to_email_address) ? '' : $_GET['to_email_address']), 'class="form-control" id="tell_a_friend_to_email_address"'),
+                        'input_security_code' => xos_draw_input_field('security_code', '', 'class="form-control" id="tell_a_friend_security_code" maxlength="8" autocomplete="off"', 'text', false),
                         'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " />',                          
-                        'textarea_field_message' => xos_draw_textarea_field('message', '40', '8', '', 'id="tell_a_friend_message"'),
+                        'textarea_field_message' => xos_draw_textarea_field('message', '40', '8', '', 'class="form-control" id="tell_a_friend_message"'),
                         'link_back' => $back_link,
                         'form_end' => '</form>'));
 

@@ -709,7 +709,10 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
       $error = true;
       
       $messageStack->add(\'contact\', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
+      $smarty->assign(\'error_email_address\', true);
     }
+    
+    if ($error == true) $smarty->assign(\'error_security_code\', true);
     
     $actionRecorder = new actionRecorder(\'ar_contact_us\', (isset($_SESSION[\'customer_id\']) ? $_SESSION[\'customer_id\'] : null), $name);
     if (!$actionRecorder->canPerform() && $actionRecorder->check()) {
@@ -887,7 +890,10 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
       $error = true;
       
       $messageStack->add(\'contact\', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
+      $smarty->assign(\'error_email_address\', true);
     }
+    
+    if ($error == true) $smarty->assign(\'error_security_code\', true);
     
     $actionRecorder = new actionRecorder(\'ar_contact_us\', (isset($_SESSION[\'customer_id\']) ? $_SESSION[\'customer_id\'] : null), $name);
     if (!$actionRecorder->canPerform() && $actionRecorder->check()) {
@@ -1065,7 +1071,10 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
       $error = true;
       
       $messageStack->add(\'contact\', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
+      $smarty->assign(\'error_email_address\', true);
     }
+    
+    if ($error == true) $smarty->assign(\'error_security_code\', true);
     
     $actionRecorder = new actionRecorder(\'ar_contact_us\', (isset($_SESSION[\'customer_id\']) ? $_SESSION[\'customer_id\'] : null), $name);
     if (!$actionRecorder->canPerform() && $actionRecorder->check()) {

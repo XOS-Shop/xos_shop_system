@@ -226,11 +226,11 @@ define('PASSWORD_HIDDEN', '--HIDDEN--');
 // constants for use in xos_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Result Pages:');
 define('TEXT_RESULT_PAGE_IN_PULL_DOWN_MENU', 'Page %s of %d');
-define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> products)');
-define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> orders)');
-define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> reviews)');
-define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> new products)');
-define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> specials)');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Displaying <b>%d</b>&nbsp;to&nbsp;<b>%d</b>&nbsp;(of&nbsp;<b>%d</b>&nbsp;products)');
+define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Displaying <b>%d</b>&nbsp;to&nbsp;<b>%d</b>&nbsp;(of&nbsp;<b>%d</b>&nbsp;orders)');
+define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Displaying <b>%d</b>&nbsp;to&nbsp;<b>%d</b>&nbsp;(of&nbsp;<b>%d</b>&nbsp;reviews)');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'Displaying <b>%d</b>&nbsp;to&nbsp;<b>%d</b>&nbsp;(of&nbsp;<b>%d</b>&nbsp;new&nbsp;products)');
+define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Displaying <b>%d</b>&nbsp;to&nbsp;<b>%d</b>&nbsp;(of&nbsp;<b>%d</b>&nbsp;specials)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'First Page');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Previous Page');

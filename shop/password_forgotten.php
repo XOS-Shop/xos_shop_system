@@ -113,8 +113,11 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $_SESSION['navigation']->remove_current_page();
       xos_redirect(xos_href_link(FILENAME_LOGIN, '', 'SSL'));
     } elseif (!xos_db_num_rows($check_customer_query)) {
-      $messageStack->add('password_forgotten', TEXT_NO_EMAIL_ADDRESS_FOUND);      
-    }   
+      $messageStack->add('password_forgotten', TEXT_NO_EMAIL_ADDRESS_FOUND);
+      $smarty->assign('error_email_address', true);      
+    }
+    
+    if ($error == true) $smarty->assign('error_security_code', true);       
   }
 
   $site_trail->add(NAVBAR_TITLE_1, xos_href_link(FILENAME_LOGIN, '', 'SSL'));
@@ -144,8 +147,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   }
 
   $smarty->assign(array('form_begin' => xos_draw_form('password_forgotten', xos_href_link(FILENAME_PASSWORD_FORGOTTEN, 'action=process', 'SSL'), 'post', '', true) . xos_draw_hidden_field('process_id', str_encrypt($captcha_text)),
-                        'input_field_email_address' => xos_draw_input_field('email_address', '', 'id="password_forgotten_email_address"'),
-                        'input_security_code' => xos_draw_input_field('security_code', '', 'id="password_forgotten_security_code" maxlength="8" autocomplete="off"', 'text', false),
+                        'input_field_email_address' => xos_draw_input_field('email_address', '', 'class="form-control" id="password_forgotten_email_address"'),
+                        'input_security_code' => xos_draw_input_field('security_code', '', 'class="form-control" id="password_forgotten_security_code" maxlength="8" autocomplete="off"', 'text', false),
                         'captcha_img' => '<img src="' . $src_captcha_base64 . '" alt="captcha" title=" captcha " />',                        
                         'link_back' => $back_link,
                         'form_end' => '</form>'));

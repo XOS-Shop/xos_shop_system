@@ -42,17 +42,17 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       $female = false;
     }      
     $smarty->assign(array('account_gender' => true,
-                          'input_gender' => xos_draw_radio_field('gender', 'm', $male, 'id="gender_m"') . '<label for="gender_m">&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;</label>' . xos_draw_radio_field('gender', 'f', $female, 'id="gender_f"') . '<label for="gender_f">&nbsp;&nbsp;' . FEMALE . '&nbsp;</label>' . (xos_not_null(ENTRY_GENDER_TEXT) ? '<span class="input-requirement">' . ENTRY_GENDER_TEXT . '</span>': '')));
+                          'input_gender' => xos_draw_radio_field('gender', 'm', $male, 'id="gender_m"') . '<label class="control-label" for="gender_m">&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;</label>' . xos_draw_radio_field('gender', 'f', $female, 'id="gender_f"') . '<label class="control-label" for="gender_f">&nbsp;&nbsp;' . FEMALE . '&nbsp;</label>' . (xos_not_null(ENTRY_GENDER_TEXT) ? '<span class="input-requirement">' . ENTRY_GENDER_TEXT . '</span>': '')));
   }
   
   if (ACCOUNT_COMPANY == 'true') {
     $smarty->assign(array('account_company' => true,
-                          'input_company' => xos_draw_input_field('company', '', 'id="company"') . '&nbsp;' . (xos_not_null(ENTRY_COMPANY_TEXT) ? '<span class="input-requirement">' . ENTRY_COMPANY_TEXT . '</span>': '')));
+                          'input_company' => xos_draw_input_field('company', '', 'class="form-control" id="company"') . '&nbsp;' . (xos_not_null(ENTRY_COMPANY_TEXT) ? '<span class="input-requirement">' . ENTRY_COMPANY_TEXT . '</span>': '')));
   }
   
   if (ACCOUNT_SUBURB == 'true') {
     $smarty->assign(array('account_suburb' => true,
-                          'input_suburb' => xos_draw_input_field('suburb', '', 'id="suburb"') . '&nbsp;' . (xos_not_null(ENTRY_SUBURB_TEXT) ? '<span class="input-requirement">' . ENTRY_SUBURB_TEXT . '</span>': '')));
+                          'input_suburb' => xos_draw_input_field('suburb', '', 'class="form-control" id="suburb"') . '&nbsp;' . (xos_not_null(ENTRY_SUBURB_TEXT) ? '<span class="input-requirement">' . ENTRY_SUBURB_TEXT . '</span>': '')));
   }
   
   if (ACCOUNT_STATE == 'true') {
@@ -64,21 +64,21 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
         while ($zones_values = xos_db_fetch_array($zones_query)) {
           $zones_array[] = array('id' => $zones_values['zone_name'], 'text' => $zones_values['zone_name']);
         }
-        $smarty->assign('input_state', xos_draw_pull_down_menu('state', $zones_array, '', 'id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
+        $smarty->assign('input_state', xos_draw_pull_down_menu('state', $zones_array, '', 'class="form-control" id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
       } else {
-        $smarty->assign('input_state', xos_draw_input_field('state', '', 'id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
+        $smarty->assign('input_state', xos_draw_input_field('state', '', 'class="form-control" id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
       }
     } else {
-      $smarty->assign('input_state', xos_draw_input_field('state', '', 'id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
+      $smarty->assign('input_state', xos_draw_input_field('state', '', 'class="form-control" id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
     }   
   }                  
 
-  $smarty->assign(array('input_firstname' => xos_draw_input_field('firstname', '', 'id="firstname"') . '&nbsp;' . (xos_not_null(ENTRY_FIRST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_FIRST_NAME_TEXT . '</span>': ''),
-                        'input_lastname' => xos_draw_input_field('lastname', '', 'id="lastname"') . '&nbsp;' . (xos_not_null(ENTRY_LAST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_LAST_NAME_TEXT . '</span>': ''),
-                        'input_street_address' => xos_draw_input_field('street_address', '', 'id="street_address"') . '&nbsp;' . (xos_not_null(ENTRY_STREET_ADDRESS_TEXT) ? '<span class="input-requirement">' . ENTRY_STREET_ADDRESS_TEXT . '</span>': ''),
-                        'input_postcode' => xos_draw_input_field('postcode', '', 'id="postcode"') . '&nbsp;' . (xos_not_null(ENTRY_POST_CODE_TEXT) ? '<span class="input-requirement">' . ENTRY_POST_CODE_TEXT . '</span>': ''),
-                        'input_city' => xos_draw_input_field('city', '', 'id="city"') . '&nbsp;' . (xos_not_null(ENTRY_CITY_TEXT) ? '<span class="input-requirement">' . ENTRY_CITY_TEXT . '</span>': ''),
-                        'input_country' => xos_get_country_list('country', '', 'id="country"') . '&nbsp;' . (xos_not_null(ENTRY_COUNTRY_TEXT) ? '<span class="input-requirement">' . ENTRY_COUNTRY_TEXT . '</span>': '')));
+  $smarty->assign(array('input_firstname' => xos_draw_input_field('firstname', '', 'class="form-control" id="firstname"') . '&nbsp;' . (xos_not_null(ENTRY_FIRST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_FIRST_NAME_TEXT . '</span>': ''),
+                        'input_lastname' => xos_draw_input_field('lastname', '', 'class="form-control" id="lastname"') . '&nbsp;' . (xos_not_null(ENTRY_LAST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_LAST_NAME_TEXT . '</span>': ''),
+                        'input_street_address' => xos_draw_input_field('street_address', '', 'class="form-control" id="street_address"') . '&nbsp;' . (xos_not_null(ENTRY_STREET_ADDRESS_TEXT) ? '<span class="input-requirement">' . ENTRY_STREET_ADDRESS_TEXT . '</span>': ''),
+                        'input_postcode' => xos_draw_input_field('postcode', '', 'class="form-control" id="postcode"') . '&nbsp;' . (xos_not_null(ENTRY_POST_CODE_TEXT) ? '<span class="input-requirement">' . ENTRY_POST_CODE_TEXT . '</span>': ''),
+                        'input_city' => xos_draw_input_field('city', '', 'class="form-control" id="city"') . '&nbsp;' . (xos_not_null(ENTRY_CITY_TEXT) ? '<span class="input-requirement">' . ENTRY_CITY_TEXT . '</span>': ''),
+                        'input_country' => xos_get_country_list('country', '', 'class="form-control" id="country"') . '&nbsp;' . (xos_not_null(ENTRY_COUNTRY_TEXT) ? '<span class="input-requirement">' . ENTRY_COUNTRY_TEXT . '</span>': '')));
 
   $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'checkout_new_address');
   $output_checkout_new_address = $smarty->fetch(SELECTED_TPL . '/includes/modules/checkout_new_address.tpl');

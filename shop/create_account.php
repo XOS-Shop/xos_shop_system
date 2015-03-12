@@ -100,6 +100,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         $error = true;
 
         $messageStack->add('create_account', ENTRY_GENDER_ERROR);
+        $smarty->assign('gender_error', true);
       }
     } 
 
@@ -107,12 +108,14 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $error = true;
 
       $messageStack->add('create_account', ENTRY_FIRST_NAME_ERROR);
+      $smarty->assign('first_name_error', true);
     }
 
     if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
       $error = true;
 
       $messageStack->add('create_account', ENTRY_LAST_NAME_ERROR);
+      $smarty->assign('last_name_error', true);
     }
 
     if (ACCOUNT_DOB == 'true') {
@@ -120,6 +123,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         $error = true;
 
         $messageStack->add('create_account', ENTRY_DATE_OF_BIRTH_ERROR);
+        $smarty->assign('date_of_birth_error', true);
       }
     }
 
@@ -127,10 +131,12 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $error = true;
 
       $messageStack->add('create_account', ENTRY_EMAIL_ADDRESS_ERROR);
+      $smarty->assign('email_address_error', true);
     } elseif (xos_validate_email($email_address) == false) {
       $error = true;
 
       $messageStack->add('create_account', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
+      $smarty->assign('email_address_error', true);
     } else {
       $check_email_query = xos_db_query("select count(*) as total from " . TABLE_CUSTOMERS . " where customers_email_address = '" . xos_db_input($email_address) . "'");
       $check_email = xos_db_fetch_array($check_email_query);
@@ -138,6 +144,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         $error = true;
 
         $messageStack->add('create_account', ENTRY_EMAIL_ADDRESS_ERROR_EXISTS);
+        $smarty->assign('email_address_error', true);
       }
     }
 
@@ -145,24 +152,28 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $error = true;
 
       $messageStack->add('create_account', ENTRY_STREET_ADDRESS_ERROR);
+      $smarty->assign('street_address_error', true);
     }
 
     if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
       $error = true;
 
       $messageStack->add('create_account', ENTRY_POST_CODE_ERROR);
+      $smarty->assign('post_code_error', true);
     }
 
     if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
       $error = true;
 
       $messageStack->add('create_account', ENTRY_CITY_ERROR);
+      $smarty->assign('city_error', true);
     }
 
     if (is_numeric($country) == false) {
       $error = true;
 
       $messageStack->add('create_account', ENTRY_COUNTRY_ERROR);
+      $smarty->assign('country_error', true);
     }
 
     if (ACCOUNT_STATE == 'true') {
@@ -179,12 +190,14 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           $error = true;
 
           $messageStack->add('create_account', ENTRY_STATE_ERROR_SELECT);
+          $smarty->assign('state_error', true);
         }
       } else {
         if (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
           $error = true;
 
           $messageStack->add('create_account', ENTRY_STATE_ERROR);
+          $smarty->assign('state_error', true);
         }
       }
     }
@@ -193,6 +206,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $error = true;
 
       $messageStack->add('create_account', ENTRY_TELEPHONE_NUMBER_ERROR);
+      $smarty->assign('telephone_number_error', true);
     }
 
 
@@ -205,6 +219,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
       $messageStack->add('create_account', ENTRY_PASSWORD_ERROR_NOT_MATCHING);
     }
+    
+    if ($error == true) $smarty->assign('password_error', true);
 
     if ($error == false) {
       $sql_data_array = array('customers_firstname' => $firstname,
@@ -363,7 +379,53 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL')); 
 
   $add_header = '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>' . "\n";
-  require(DIR_WS_INCLUDES . 'form_check.js.php');
+  $add_header .= '<script type="text/javascript">' . "\n" .
+                 '/* <![CDATA[ */' . "\n" .
+                 'var form = "";' . "\n" .
+                 'var submitted = false;' . "\n" .
+                 'var error_dob = false;' . "\n" .                 
+                 'var error = false;' . "\n" .
+                 'var error_message = "";' . "\n\n" .
+
+                 'function check_password(field_name_1, field_name_2, field_size, message_1, message_2) {' . "\n" .
+                 '  if (form.elements[field_name_1] && (form.elements[field_name_1].type != "hidden")) {' . "\n" .
+                 '    var password = form.elements[field_name_1].value;' . "\n" .
+                 '    var confirmation = form.elements[field_name_2].value;' . "\n\n" .
+
+                 '    if (password == "" || password.length < field_size) {' . "\n" .
+                 '      error_message = error_message + "* " + message_1 + "\n";' . "\n" .
+                 '      error = true;' . "\n" .
+                 '    } else if (password != confirmation) {' . "\n" .
+                 '      error_message = error_message + "* " + message_2 + "\n";' . "\n" .
+                 '      error = true;' . "\n" .
+                 '    }' . "\n" .
+                 '  }' . "\n" .
+                 '}' . "\n\n" .
+        
+                 'function check_form_password(form_name) {' . "\n" .
+                 '  if (submitted == true) {' . "\n" .
+                 '    alert("' . JS_ERROR_SUBMITTED . '");' . "\n" .
+                 '    return false;' . "\n" .
+                 '  }' . "\n\n" .
+                 
+                 '  error_dob = false;' . "\n" . 
+                 '  error = false;' . "\n" .
+                 '  form = form_name;' . "\n" .
+                 '  error_message = "' . JS_ERROR . '";' . "\n\n" .
+                 
+                 '  check_password("password", "confirmation", ' . ENTRY_PASSWORD_MIN_LENGTH . ', "' . ENTRY_PASSWORD_ERROR . '", "' . ENTRY_PASSWORD_ERROR_NOT_MATCHING . '");' . "\n" .
+                 '  check_password("password_new", "password_confirmation", ' . ENTRY_PASSWORD_MIN_LENGTH . ', "' . ENTRY_PASSWORD_NEW_ERROR . '", "' . ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING . '");' . "\n\n" .
+
+                 '  if (error == true) {' . "\n" .
+                 '    alert(error_message);' . "\n" .
+                 '    return false;' . "\n" .
+                 '  } else {' . "\n" .
+                 '    submitted = true;' . "\n" .
+                 '    return true;' . "\n" .
+                 '  }' . "\n" .
+                 '}' . "\n" .
+                 '/* ]]> */' . "\n" .
+                 '</script> ' . "\n";
 
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');
@@ -379,7 +441,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   
   if (ACCOUNT_GENDER == 'true') {
     $smarty->assign(array('account_gender' => true,
-                          'input_gender' => xos_draw_radio_field('gender', 'm', '', 'id="gender_m"') . '<label for="gender_m">&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;</label>' . xos_draw_radio_field('gender', 'f', '', 'id="gender_f"') . '<label for="gender_f">&nbsp;&nbsp;' . FEMALE . '&nbsp;</label>' . (xos_not_null(ENTRY_GENDER_TEXT) ? '<span class="input-requirement">' . ENTRY_GENDER_TEXT . '</span>': '')));
+                          'input_gender' => xos_draw_radio_field('gender', 'm', '', 'id="gender_m"') . '<label class="control-label" for="gender_m">&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;</label>' . xos_draw_radio_field('gender', 'f', '', 'id="gender_f"') . '<label class="control-label" for="gender_f">&nbsp;&nbsp;' . FEMALE . '&nbsp;</label>' . (xos_not_null(ENTRY_GENDER_TEXT) ? '<span class="input-requirement">' . ENTRY_GENDER_TEXT . '</span>': '')));
   } 
   
   if (ACCOUNT_DOB == 'true') {
@@ -423,13 +485,13 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $c = substr($field_order, $i, 1);
       switch ($c) {
         case 'D':
-          $pull_down_menu_field .= xos_draw_pull_down_menu('dob_day', $days_array, (int)$_POST['dob_day'], ($i == 0 ? 'id="dob_first"' : ''));
+          $pull_down_menu_field .= xos_draw_pull_down_menu('dob_day', $days_array, (int)$_POST['dob_day'], ($i == 0 ? 'class="form-control" id="dob_first"' : 'class="form-control"'));
           break;
         case 'M':
-          $pull_down_menu_field .= xos_draw_pull_down_menu('dob_month', $months_array, (int)$_POST['dob_month'], ($i == 0 ? 'id="dob_first"' : ''));
+          $pull_down_menu_field .= xos_draw_pull_down_menu('dob_month', $months_array, (int)$_POST['dob_month'], ($i == 0 ? 'class="form-control" id="dob_first"' : 'class="form-control"'));
           break;
         case 'Y':
-          $pull_down_menu_field .= xos_draw_pull_down_menu('dob_year', $years_array, (int)$_POST['dob_year'], ($i == 0 ? 'id="dob_first"' : ''));
+          $pull_down_menu_field .= xos_draw_pull_down_menu('dob_year', $years_array, (int)$_POST['dob_year'], ($i == 0 ? 'class="form-control" id="dob_first"' : 'class="form-control"'));
           break;
       } 
 
@@ -445,13 +507,13 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   
   if (ACCOUNT_COMPANY == 'true') {
     $smarty->assign(array('account_company' => true,
-                          'input_company' => xos_draw_input_field('company', '', 'id="company"') . '&nbsp;' . (xos_not_null(ENTRY_COMPANY_TEXT) ? '<span class="input-requirement">' . ENTRY_COMPANY_TEXT . '</span>': ''),
-                          'input_company_tax_id' => xos_draw_input_field('company_tax_id', '', 'id="company_tax_id"') . '&nbsp;' . (xos_not_null(ENTRY_COMPANY_TAX_ID_TEXT) ? '<span class="input-requirement">' . ENTRY_COMPANY_TAX_ID_TEXT . '</span>': '')));
+                          'input_company' => xos_draw_input_field('company', '', 'class="form-control" id="company"') . '&nbsp;' . (xos_not_null(ENTRY_COMPANY_TEXT) ? '<span class="input-requirement">' . ENTRY_COMPANY_TEXT . '</span>': ''),
+                          'input_company_tax_id' => xos_draw_input_field('company_tax_id', '', 'class="form-control" id="company_tax_id"') . '&nbsp;' . (xos_not_null(ENTRY_COMPANY_TAX_ID_TEXT) ? '<span class="input-requirement">' . ENTRY_COMPANY_TAX_ID_TEXT . '</span>': '')));
   }
   
   if (ACCOUNT_SUBURB == 'true') {
     $smarty->assign(array('account_suburb' => true,
-                          'input_suburb' => xos_draw_input_field('suburb', '', 'id="suburb"') . '&nbsp;' . (xos_not_null(ENTRY_SUBURB_TEXT) ? '<span class="input-requirement">' . ENTRY_SUBURB_TEXT . '</span>': '')));
+                          'input_suburb' => xos_draw_input_field('suburb', '', 'class="form-control" id="suburb"') . '&nbsp;' . (xos_not_null(ENTRY_SUBURB_TEXT) ? '<span class="input-requirement">' . ENTRY_SUBURB_TEXT . '</span>': '')));
   }
   
   if (ACCOUNT_STATE == 'true') {
@@ -463,12 +525,12 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         while ($zones_values = xos_db_fetch_array($zones_query)) {
           $zones_array[] = array('id' => $zones_values['zone_name'], 'text' => $zones_values['zone_name']);
         }
-        $smarty->assign('input_state', xos_draw_pull_down_menu('state', $zones_array, '', 'id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
+        $smarty->assign('input_state', xos_draw_pull_down_menu('state', $zones_array, '', 'class="form-control" id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
       } else {
-        $smarty->assign('input_state', xos_draw_input_field('state', '', 'id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
+        $smarty->assign('input_state', xos_draw_input_field('state', '', 'class="form-control" id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
       }
     } else {
-      $smarty->assign('input_state', xos_draw_input_field('state', '', 'id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
+      $smarty->assign('input_state', xos_draw_input_field('state', '', 'class="form-control" id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
     }   
   }               
 
@@ -494,7 +556,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       }                            
     }
     $smarty->assign(array('languages' => true,
-                          'pull_down_menu_languages' => xos_draw_pull_down_menu('languages', $lang_array, $languages_selected, 'id="languages"')));
+                          'pull_down_menu_languages' => xos_draw_pull_down_menu('languages', $lang_array, $languages_selected, 'class="form-control" id="languages"')));
   }
 
   $popup_status_query = xos_db_query("select status from " . TABLE_CONTENTS . "  where type = 'system_popup' and status = '1' and content_id = '7' LIMIT 1");
@@ -508,22 +570,22 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $back_link = 'javascript:history.go(-1)';
   }
 
-  $smarty->assign(array('form_begin' => xos_draw_form('create_account', xos_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL'), 'post', 'onsubmit="return check_form(create_account);"', true),
+  $smarty->assign(array('form_begin' => xos_draw_form('create_account', xos_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL'), 'post', 'onsubmit="return check_form_password(create_account);"', true),
                         'hidden_field' => xos_draw_hidden_field('action', 'process'),
                         'link_filename_login' => xos_href_link(FILENAME_LOGIN, xos_get_all_get_params(), 'SSL'),
                         'link_filename_popup_content_7' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=7', $request_type) : '',
-                        'input_firstname' => xos_draw_input_field('firstname', '', 'id="firstname"') . '&nbsp;' . (xos_not_null(ENTRY_FIRST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_FIRST_NAME_TEXT . '</span>': ''),
-                        'input_lastname' => xos_draw_input_field('lastname', '', 'id="lastname"') . '&nbsp;' . (xos_not_null(ENTRY_LAST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_LAST_NAME_TEXT . '</span>': ''),
-                        'input_email_address' => xos_draw_input_field('email_address', '', 'id="email_address"') . '&nbsp;' . (xos_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="input-requirement">' . ENTRY_EMAIL_ADDRESS_TEXT . '</span>': ''),
-                        'input_street_address' => xos_draw_input_field('street_address', '', 'id="street_address"') . '&nbsp;' . (xos_not_null(ENTRY_STREET_ADDRESS_TEXT) ? '<span class="input-requirement">' . ENTRY_STREET_ADDRESS_TEXT . '</span>': ''),
-                        'input_postcode' => xos_draw_input_field('postcode', '', 'id="postcode"') . '&nbsp;' . (xos_not_null(ENTRY_POST_CODE_TEXT) ? '<span class="input-requirement">' . ENTRY_POST_CODE_TEXT . '</span>': ''),
-                        'input_city' => xos_draw_input_field('city', '', 'id="city"') . '&nbsp;' . (xos_not_null(ENTRY_CITY_TEXT) ? '<span class="input-requirement">' . ENTRY_CITY_TEXT . '</span>': ''),
-                        'input_country' => xos_get_country_list('country', '', 'id="country"') . '&nbsp;' . (xos_not_null(ENTRY_COUNTRY_TEXT) ? '<span class="input-requirement">' . ENTRY_COUNTRY_TEXT . '</span>': ''),
-                        'input_telephone' => xos_draw_input_field('telephone', '', 'id="telephone"') . '&nbsp;' . (xos_not_null(ENTRY_TELEPHONE_NUMBER_TEXT) ? '<span class="input-requirement">' . ENTRY_TELEPHONE_NUMBER_TEXT . '</span>': ''),
-                        'input_fax' => xos_draw_input_field('fax', '', 'id="fax"') . '&nbsp;' . (xos_not_null(ENTRY_FAX_NUMBER_TEXT) ? '<span class="input-requirement">' . ENTRY_FAX_NUMBER_TEXT . '</span>': ''),
+                        'input_firstname' => xos_draw_input_field('firstname', '', 'class="form-control" id="firstname"') . '&nbsp;' . (xos_not_null(ENTRY_FIRST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_FIRST_NAME_TEXT . '</span>': ''),
+                        'input_lastname' => xos_draw_input_field('lastname', '', 'class="form-control" id="lastname"') . '&nbsp;' . (xos_not_null(ENTRY_LAST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_LAST_NAME_TEXT . '</span>': ''),
+                        'input_email_address' => xos_draw_input_field('email_address', '', 'class="form-control" id="email_address"') . '&nbsp;' . (xos_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="input-requirement">' . ENTRY_EMAIL_ADDRESS_TEXT . '</span>': ''),
+                        'input_street_address' => xos_draw_input_field('street_address', '', 'class="form-control" id="street_address"') . '&nbsp;' . (xos_not_null(ENTRY_STREET_ADDRESS_TEXT) ? '<span class="input-requirement">' . ENTRY_STREET_ADDRESS_TEXT . '</span>': ''),
+                        'input_postcode' => xos_draw_input_field('postcode', '', 'class="form-control" id="postcode"') . '&nbsp;' . (xos_not_null(ENTRY_POST_CODE_TEXT) ? '<span class="input-requirement">' . ENTRY_POST_CODE_TEXT . '</span>': ''),
+                        'input_city' => xos_draw_input_field('city', '', 'class="form-control" id="city"') . '&nbsp;' . (xos_not_null(ENTRY_CITY_TEXT) ? '<span class="input-requirement">' . ENTRY_CITY_TEXT . '</span>': ''),
+                        'input_country' => xos_get_country_list('country', '', 'class="form-control" id="country"') . '&nbsp;' . (xos_not_null(ENTRY_COUNTRY_TEXT) ? '<span class="input-requirement">' . ENTRY_COUNTRY_TEXT . '</span>': ''),
+                        'input_telephone' => xos_draw_input_field('telephone', '', 'class="form-control" id="telephone"') . '&nbsp;' . (xos_not_null(ENTRY_TELEPHONE_NUMBER_TEXT) ? '<span class="input-requirement">' . ENTRY_TELEPHONE_NUMBER_TEXT . '</span>': ''),
+                        'input_fax' => xos_draw_input_field('fax', '', 'class="form-control" id="fax"') . '&nbsp;' . (xos_not_null(ENTRY_FAX_NUMBER_TEXT) ? '<span class="input-requirement">' . ENTRY_FAX_NUMBER_TEXT . '</span>': ''),
                         'input_newsletter' => (NEWSLETTER_ENABLED == 'true') ? xos_draw_checkbox_field('newsletter', '1', '', 'id="newsletter"') . '&nbsp;' . (xos_not_null(ENTRY_NEWSLETTER_TEXT) ? '<span class="input-requirement">' . ENTRY_NEWSLETTER_TEXT . '</span>': '') : '',
-                        'input_password' => xos_draw_password_field('password', '', 'id="password"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_TEXT . '</span>': ''),
-                        'input_confirmation' => xos_draw_password_field('confirmation', '', 'id="confirmation"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_CONFIRMATION_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_CONFIRMATION_TEXT . '</span>': ''),
+                        'input_password' => xos_draw_password_field('password', '', 'class="form-control" id="password"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_TEXT . '</span>': ''),
+                        'input_confirmation' => xos_draw_password_field('confirmation', '', 'class="form-control" id="confirmation"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_CONFIRMATION_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_CONFIRMATION_TEXT . '</span>': ''),
                         'link_back' => $back_link,
                         'form_end' => '</form>'));
 

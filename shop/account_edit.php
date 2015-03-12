@@ -154,7 +154,6 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   $site_trail->add(NAVBAR_TITLE_2, xos_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'));
   
   $add_header = '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>' . "\n";
-  require(DIR_WS_INCLUDES . 'form_check.js.php');
 
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');
@@ -177,12 +176,12 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $female = !$male;
       
     $smarty->assign(array('account_gender' => true,
-                          'input_gender' => xos_draw_radio_field('gender', 'm', $male, 'id="gender_m"') . '<label for="gender_m">&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;</label>' . xos_draw_radio_field('gender', 'f', $female, 'id="gender_f"') . '<label for="gender_f">&nbsp;&nbsp;' . FEMALE . '&nbsp;</label>' . (xos_not_null(ENTRY_GENDER_TEXT) ? '<span class="input-requirement">' . ENTRY_GENDER_TEXT . '</span>': '')));
+                          'input_gender' => xos_draw_radio_field('gender', 'm', $male, 'id="gender_m"') . '<label class="control-label" for="gender_m">&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;</label>' . xos_draw_radio_field('gender', 'f', $female, 'id="gender_f"') . '<label class="control-label" for="gender_f">&nbsp;&nbsp;' . FEMALE . '&nbsp;</label>' . (xos_not_null(ENTRY_GENDER_TEXT) ? '<span class="input-requirement">' . ENTRY_GENDER_TEXT . '</span>': '')));
   } 
   
   if (ACCOUNT_DOB == 'true') {
     $smarty->assign(array('account_dob' => true,
-                          'input_dob' => xos_draw_input_field('dob', xos_date_short($account['customers_dob']), 'id="dob"') . '&nbsp;' . (xos_not_null(ENTRY_DATE_OF_BIRTH_TEXT) ? '<span class="input-requirement">' . ENTRY_DATE_OF_BIRTH_TEXT . '</span>': '')));
+                          'input_dob' => xos_draw_input_field('dob', xos_date_short($account['customers_dob']), 'class="form-control" id="dob"') . '&nbsp;' . (xos_not_null(ENTRY_DATE_OF_BIRTH_TEXT) ? '<span class="input-requirement">' . ENTRY_DATE_OF_BIRTH_TEXT . '</span>': '')));
   }
 
   if (!isset($lng) || (isset($lng) && !is_object($lng))) {
@@ -207,21 +206,21 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       }                            
     }
     $smarty->assign(array('languages' => true,
-                          'pull_down_menu_languages' => xos_draw_pull_down_menu('languages', $lang_array, $languages_selected, 'id="languages"')));
+                          'pull_down_menu_languages' => xos_draw_pull_down_menu('languages', $lang_array, $languages_selected, 'class="form-control" id="languages"')));
   } else {
     $smarty->assign('hidden_field_languages', xos_draw_hidden_field('languages', $account['customers_language_id']));
   }  
   
   
-  $smarty->assign(array('form_begin' => xos_draw_form('account_edit', xos_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'), 'post', 'onsubmit="return check_form(account_edit);"', true),
+  $smarty->assign(array('form_begin' => xos_draw_form('account_edit', xos_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'), 'post', 'onsubmit="return true;"', true),
                         'hidden_field' => xos_draw_hidden_field('action', 'process'),
                         'link_filename_account' => xos_href_link(FILENAME_ACCOUNT, '', 'SSL'),
                         'c_id' => $account['customers_c_id'],
-                        'input_firstname' => xos_draw_input_field('firstname', $account['customers_firstname'], 'id="firstname"') . '&nbsp;' . (xos_not_null(ENTRY_FIRST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_FIRST_NAME_TEXT . '</span>': ''),
-                        'input_lastname' => xos_draw_input_field('lastname', $account['customers_lastname'], 'id="lastname"') . '&nbsp;' . (xos_not_null(ENTRY_LAST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_LAST_NAME_TEXT . '</span>': ''),
-                        'input_email_address' => xos_draw_input_field('email_address', $account['customers_email_address'], 'id="email_address"') . '&nbsp;' . (xos_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="input-requirement">' . ENTRY_EMAIL_ADDRESS_TEXT . '</span>': ''),
-                        'input_telephone' => xos_draw_input_field('telephone', $account['customers_telephone'], 'id="telephone"') . '&nbsp;' . (xos_not_null(ENTRY_TELEPHONE_NUMBER_TEXT) ? '<span class="input-requirement">' . ENTRY_TELEPHONE_NUMBER_TEXT . '</span>': ''),
-                        'input_fax' => xos_draw_input_field('fax', $account['customers_fax'], 'id="fax"') . '&nbsp;' . (xos_not_null(ENTRY_FAX_NUMBER_TEXT) ? '<span class="input-requirement">' . ENTRY_FAX_NUMBER_TEXT . '</span>': ''),
+                        'input_firstname' => xos_draw_input_field('firstname', $account['customers_firstname'], 'class="form-control" id="firstname"') . '&nbsp;' . (xos_not_null(ENTRY_FIRST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_FIRST_NAME_TEXT . '</span>': ''),
+                        'input_lastname' => xos_draw_input_field('lastname', $account['customers_lastname'], 'class="form-control" id="lastname"') . '&nbsp;' . (xos_not_null(ENTRY_LAST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_LAST_NAME_TEXT . '</span>': ''),
+                        'input_email_address' => xos_draw_input_field('email_address', $account['customers_email_address'], 'class="form-control" id="email_address"') . '&nbsp;' . (xos_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="input-requirement">' . ENTRY_EMAIL_ADDRESS_TEXT . '</span>': ''),
+                        'input_telephone' => xos_draw_input_field('telephone', $account['customers_telephone'], 'class="form-control" id="telephone"') . '&nbsp;' . (xos_not_null(ENTRY_TELEPHONE_NUMBER_TEXT) ? '<span class="input-requirement">' . ENTRY_TELEPHONE_NUMBER_TEXT . '</span>': ''),
+                        'input_fax' => xos_draw_input_field('fax', $account['customers_fax'], 'class="form-control" id="fax"') . '&nbsp;' . (xos_not_null(ENTRY_FAX_NUMBER_TEXT) ? '<span class="input-requirement">' . ENTRY_FAX_NUMBER_TEXT . '</span>': ''),
                         'form_end' => '</form>'));
 
   $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'account_edit');

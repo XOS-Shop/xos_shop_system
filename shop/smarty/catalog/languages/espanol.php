@@ -226,11 +226,11 @@ define('PASSWORD_HIDDEN', '--OCULTO--');
 // constants for use in xos_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Páginas de Resultados:');
 define('TEXT_RESULT_PAGE_IN_PULL_DOWN_MENU', 'Página %s de %d');
-define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos)');
-define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> pedidos)');
-define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> comentarios)');
-define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'Viendo del <b>%d</b> al <b>%d</b> (de <b>%d</b> productos nuevos)');
-define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Viendo del<b>%d</b> al <b>%d</b> (de <b>%d</b> ofertas)');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'Viendo&nbsp;del <b>%d</b>&nbsp;al&nbsp;<b>%d</b>&nbsp;(de&nbsp;<b>%d</b>&nbsp;productos)');
+define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'Viendo&nbsp;del <b>%d</b>&nbsp;al&nbsp;<b>%d</b>&nbsp;(de&nbsp;<b>%d</b>&nbsp;pedidos)');
+define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'Viendo&nbsp;del <b>%d</b>&nbsp;al&nbsp;<b>%d</b>&nbsp;(de&nbsp;<b>%d</b>&nbsp;comentarios)');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'Viendo&nbsp;del <b>%d</b>&nbsp;al&nbsp;<b>%d</b>&nbsp;(de&nbsp;<b>%d</b>&nbsp;productos&nbsp;nuevos)');
+define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'Viendo&nbsp;del <b>%d</b>&nbsp;al&nbsp;<b>%d</b>&nbsp;(de&nbsp;<b>%d</b>&nbsp;ofertas)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'Principio');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'Anterior');

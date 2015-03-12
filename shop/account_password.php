@@ -78,13 +78,14 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         $messageStack->add('account_password', ERROR_CURRENT_PASSWORD_NOT_MATCHING);
       }
     }
+    
+    if ($error == true) $smarty->assign('password_error', true);
   }
 
   $site_trail->add(NAVBAR_TITLE_1, xos_href_link(FILENAME_ACCOUNT, '', 'SSL'));
   $site_trail->add(NAVBAR_TITLE_2, xos_href_link(FILENAME_ACCOUNT_PASSWORD, '', 'SSL'));
   
   $add_header = '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>' . "\n";
-  require(DIR_WS_INCLUDES . 'form_check.js.php');
 
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');
@@ -98,11 +99,11 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $smarty->assign('message_stack_success', $messageStack->output('account_password', 'success'));    
   }
   
-  $smarty->assign(array('form_begin' => xos_draw_form('account_password', xos_href_link(FILENAME_ACCOUNT_PASSWORD, '', 'SSL'), 'post', 'onsubmit="return check_form(account_password);"', true),
+  $smarty->assign(array('form_begin' => xos_draw_form('account_password', xos_href_link(FILENAME_ACCOUNT_PASSWORD, '', 'SSL'), 'post', 'onsubmit="return true;"', true),
                         'hidden_field' => xos_draw_hidden_field('action', 'process'),
-                        'input_password_current' => xos_draw_password_field('password_current','', 'id="password_current"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_CURRENT_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_CURRENT_TEXT . '</span>': ''),
-                        'input_password_new' => xos_draw_password_field('password_new','', 'id="password_new"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_NEW_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_NEW_TEXT . '</span>': ''),
-                        'input_password_confirmation' => xos_draw_password_field('password_confirmation','', 'id="password_confirmation"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_CONFIRMATION_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_CONFIRMATION_TEXT . '</span>': ''),
+                        'input_password_current' => xos_draw_password_field('password_current','', 'class="form-control" id="password_current"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_CURRENT_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_CURRENT_TEXT . '</span>': ''),
+                        'input_password_new' => xos_draw_password_field('password_new','', 'class="form-control" id="password_new"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_NEW_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_NEW_TEXT . '</span>': ''),
+                        'input_password_confirmation' => xos_draw_password_field('password_confirmation','', 'class="form-control" id="password_confirmation"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_CONFIRMATION_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_CONFIRMATION_TEXT . '</span>': ''),
                         'link_filename_account' => xos_href_link(FILENAME_ACCOUNT, '', 'SSL'),
                         'form_end' => '</form>'));
 

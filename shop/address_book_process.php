@@ -84,6 +84,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         $error = true;
 
         $messageStack->add('addressbook', ENTRY_GENDER_ERROR);
+        $smarty->assign('gender_error', true);
       }
     }
 
@@ -91,36 +92,42 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $error = true;
 
       $messageStack->add('addressbook', ENTRY_FIRST_NAME_ERROR);
+      $smarty->assign('first_name_error', true);
     }
 
     if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
       $error = true;
 
       $messageStack->add('addressbook', ENTRY_LAST_NAME_ERROR);
+      $smarty->assign('last_name_error', true);
     }
 
     if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
       $error = true;
 
       $messageStack->add('addressbook', ENTRY_STREET_ADDRESS_ERROR);
+      $smarty->assign('street_address_error', true);
     }
 
     if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
       $error = true;
 
       $messageStack->add('addressbook', ENTRY_POST_CODE_ERROR);
+      $smarty->assign('post_code_error', true);
     }
 
     if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
       $error = true;
 
       $messageStack->add('addressbook', ENTRY_CITY_ERROR);
+      $smarty->assign('city_error', true);
     }
 
     if (!is_numeric($country)) {
       $error = true;
 
       $messageStack->add('addressbook', ENTRY_COUNTRY_ERROR);
+      $smarty->assign('country_error', true);
     }
 
     if (ACCOUNT_STATE == 'true') {
@@ -137,12 +144,14 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           $error = true;
 
           $messageStack->add('addressbook', ENTRY_STATE_ERROR_SELECT);
+          $smarty->assign('state_error', true);
         }
       } else {
         if (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
           $error = true;
 
           $messageStack->add('addressbook', ENTRY_STATE_ERROR);
+          $smarty->assign('state_error', true);
         }
       }
     }
@@ -303,10 +312,6 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   
   $add_header = '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>' . "\n";
   
-  if (!isset($_GET['delete'])) {
-    require(DIR_WS_INCLUDES . 'form_check.js.php');
-  }  
-  
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');
   require(DIR_WS_INCLUDES . 'header.php');
@@ -329,7 +334,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   } elseif (isset($_GET['edit']) && is_numeric($_GET['edit'])) {  
   
     $smarty->assign(array('edit_address' => true,
-                          'form_begin' => xos_draw_form('addressbook', xos_href_link(FILENAME_ADDRESS_BOOK_PROCESS, (isset($_GET['edit']) ? 'edit=' . $_GET['edit'] : ''), 'SSL'), 'post', 'onsubmit="return check_form(addressbook);"', true),
+                          'form_begin' => xos_draw_form('addressbook', xos_href_link(FILENAME_ADDRESS_BOOK_PROCESS, (isset($_GET['edit']) ? 'edit=' . $_GET['edit'] : ''), 'SSL'), 'post', 'onsubmit="return true;"', true),
                           'link_filename_address_book' => xos_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'),
                           'hidden_field_update' => xos_draw_hidden_field('action', 'update'),
                           'hidden_field_edit' => xos_draw_hidden_field('edit', $_GET['edit']),
@@ -343,7 +348,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $back_link = xos_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL');
     }  
     
-    $smarty->assign(array('form_begin' => xos_draw_form('addressbook', xos_href_link(FILENAME_ADDRESS_BOOK_PROCESS, (isset($_GET['edit']) ? 'edit=' . $_GET['edit'] : ''), 'SSL'), 'post', 'onsubmit="return check_form(addressbook);"', true),
+    $smarty->assign(array('form_begin' => xos_draw_form('addressbook', xos_href_link(FILENAME_ADDRESS_BOOK_PROCESS, (isset($_GET['edit']) ? 'edit=' . $_GET['edit'] : ''), 'SSL'), 'post', 'onsubmit="return true;"', true),
                           'link_back' => $back_link,
                           'hidden_field_process' => xos_draw_hidden_field('action', 'process'),
                           'form_end' => '</form>'));

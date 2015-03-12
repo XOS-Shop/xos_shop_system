@@ -226,11 +226,11 @@ define('PASSWORD_HIDDEN', '--VERSTECKT--');
 // constants for use in xos_prev_next_display function
 define('TEXT_RESULT_PAGE', 'Seiten:');
 define('TEXT_RESULT_PAGE_IN_PULL_DOWN_MENU', 'Seite %s von %d');
-define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'angezeigte Produkte: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');
-define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'angezeigte Bestellungen: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');
-define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'angezeigte Meinungen: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');
-define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'angezeigte neue Produkte: <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');
-define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'angezeigte Angebote <b>%d</b> bis <b>%d</b> (von <b>%d</b> insgesamt)');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS', 'angezeigte&nbsp;Produkte: <b>%d</b>&nbsp;bis&nbsp;<b>%d</b>&nbsp;(von&nbsp;<b>%d</b>&nbsp;insgesamt)');
+define('TEXT_DISPLAY_NUMBER_OF_ORDERS', 'angezeigte&nbsp;Bestellungen: <b>%d</b>&nbsp;bis&nbsp;<b>%d</b>&nbsp;(von&nbsp;<b>%d</b>&nbsp;insgesamt)');
+define('TEXT_DISPLAY_NUMBER_OF_REVIEWS', 'angezeigte&nbsp;Meinungen: <b>%d</b>&nbsp;bis&nbsp;<b>%d</b>&nbsp;(von&nbsp;<b>%d</b>&nbsp;insgesamt)');
+define('TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW', 'angezeigte&nbsp;neue&nbsp;Produkte: <b>%d</b>&nbsp;bis&nbsp;<b>%d</b>&nbsp;(von&nbsp;<b>%d</b>&nbsp;insgesamt)');
+define('TEXT_DISPLAY_NUMBER_OF_SPECIALS', 'angezeigte&nbsp;Angebote <b>%d</b>&nbsp;bis&nbsp;<b>%d</b>&nbsp;(von&nbsp;<b>%d</b>&nbsp;insgesamt)');
 
 define('PREVNEXT_TITLE_FIRST_PAGE', 'erste Seite');
 define('PREVNEXT_TITLE_PREVIOUS_PAGE', 'vorherige Seite');

@@ -79,6 +79,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           $error = true;
 
           $messageStack->add('checkout_address', ENTRY_GENDER_ERROR);
+          $smarty->assign('gender_error', true);
         }
       }
 
@@ -86,30 +87,35 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         $error = true;
 
         $messageStack->add('checkout_address', ENTRY_FIRST_NAME_ERROR);
+        $smarty->assign('first_name_error', true);
       }
 
       if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
         $error = true;
 
         $messageStack->add('checkout_address', ENTRY_LAST_NAME_ERROR);
+        $smarty->assign('last_name_error', true);
       }
 
       if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
         $error = true;
 
         $messageStack->add('checkout_address', ENTRY_STREET_ADDRESS_ERROR);
+        $smarty->assign('street_address_error', true);
       }
 
       if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
         $error = true;
 
         $messageStack->add('checkout_address', ENTRY_POST_CODE_ERROR);
+        $smarty->assign('post_code_error', true);
       }
 
       if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
         $error = true;
 
         $messageStack->add('checkout_address', ENTRY_CITY_ERROR);
+        $smarty->assign('city_error', true);
       }
 
       if (ACCOUNT_STATE == 'true') {
@@ -126,12 +132,14 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
             $error = true;
 
             $messageStack->add('checkout_address', ENTRY_STATE_ERROR_SELECT);
+            $smarty->assign('state_error', true);
           }
         } else {
           if (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
             $error = true;
 
             $messageStack->add('checkout_address', ENTRY_STATE_ERROR);
+            $smarty->assign('state_error', true);
           }
         }
       }
@@ -140,6 +148,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         $error = true;
 
         $messageStack->add('checkout_address', ENTRY_COUNTRY_ERROR);
+        $smarty->assign('country_error', true);
       }
 
       if ($error == false) {
@@ -246,26 +255,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                 '  if (object.className == "module-row-over") object.className = "module-row";' . "\n" .
                 '}' . "\n\n" . 
                 
-                'function check_form_optional(form_name) {' . "\n" .
-                 
-                (($addresses_count < MAX_ADDRESS_BOOK_ENTRIES) ? "\n" : "\n" . '  return true;' . "\n\n") .
-                
-                '  var form = form_name;' . "\n\n" .
-
-                '  var firstname = form.elements[\'firstname\'].value;' . "\n" .
-                '  var lastname = form.elements[\'lastname\'].value;' . "\n" .
-                '  var street_address = form.elements[\'street_address\'].value;' . "\n\n" .
-
-                '  if (firstname == "" && lastname == "" && street_address == "") {' . "\n" .
-                '    return true;' . "\n" .
-                '  } else {' . "\n" .
-                '    return check_form(form_name);' . "\n" .
-                '  }' . "\n" .
-                '}' . "\n" .
                 '/* ]]> */' . "\n" .                                
                 '</script> ' . "\n";  
   
-  require(DIR_WS_INCLUDES . 'form_check.js.php');
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');
   require(DIR_WS_INCLUDES . 'header.php');
@@ -311,7 +303,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                           'link_filename_checkout_payment_address' => xos_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', 'SSL')));
   }
 
-  $smarty->assign(array('form_begin' => xos_draw_form('checkout_address', xos_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', 'SSL'), 'post', 'onsubmit="return check_form_optional(checkout_address);"', true),
+  $smarty->assign(array('form_begin' => xos_draw_form('checkout_address', xos_href_link(FILENAME_CHECKOUT_PAYMENT_ADDRESS, '', 'SSL'), 'post', 'onsubmit="return true;"', true),
                         'form_end' => '</form>',
                         'hidden_field_submit' => xos_draw_hidden_field('action', 'submit'),
                         'link_filename_checkout_shipping' => xos_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL')));

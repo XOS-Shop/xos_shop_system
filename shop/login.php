@@ -74,7 +74,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           }
           
           $smarty->assign(array('sppc_toggle_login' => true,
-                                'customers_groups_pull_down_menu' => xos_draw_pull_down_menu('new_customers_group_id', $existing_customers_array, $check_customer['customers_group_id'], 'id="new_customers_group_id"'),
+                                'customers_groups_pull_down_menu' => xos_draw_pull_down_menu('new_customers_group_id', $existing_customers_array, $check_customer['customers_group_id'], 'class="form-control" id="new_customers_group_id"'),
                                 'hidden_field_email_address' => xos_draw_hidden_field('email_address', $_POST['email_address']),
                                 'hidden_field_password' => xos_draw_hidden_field('password', $_POST['password'])));
         } else {
@@ -173,8 +173,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   
   $smarty->assign(array('link_filename_create_account' => xos_href_link(FILENAME_CREATE_ACCOUNT, 'rmp=0', 'SSL'),
                         'link_back' => $back_link,
-                        'input_field_email_address' => xos_draw_input_field('email_address', '', 'id="email_address"'),
-                        'input_field_password' => xos_draw_password_field('password', '', 'id="password"'),
+                        'input_field_email_address' => xos_draw_input_field('email_address', '', 'class="form-control" id="email_address"'),
+                        'input_field_password' => xos_draw_password_field('password', '', 'class="form-control" id="password"'),
                         'link_filename_popup_content_10' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=10', $request_type) : '',
                         'store_name' => STORE_NAME,
                         'form_end' => '</form>'));   
