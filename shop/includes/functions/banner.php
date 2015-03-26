@@ -101,7 +101,7 @@
     }
     
     $banner_array = array();
-    $banner_array['banner_string'] = ($banner['banners_image'] ? $banner['banners_url'] != '' ? '<a href="' . xos_href_link(FILENAME_REDIRECT, 'action=banner&goto=' . $banner['banners_id']) . '" target="_blank">' . xos_image(DIR_WS_IMAGES . 'banners/' . rawurlencode($banner['banners_image']), $banner['banners_title']) . '</a>' : xos_image(DIR_WS_IMAGES . 'banners/' . rawurlencode($banner['banners_image']), $banner['banners_title']) : '') . $banner['banners_html_text'];
+    $banner_array['banner_string'] = ($banner['banners_image'] ? $banner['banners_url'] != '' ? '<a href="' . xos_href_link(FILENAME_REDIRECT, 'action=banner&goto=' . $banner['banners_id']) . '" target="_blank">' . xos_image(DIR_WS_IMAGES . 'banners/' . rawurlencode($banner['banners_image']), $banner['banners_title'], '', '', 'class="img-responsive center-block"') . '</a>' : xos_image(DIR_WS_IMAGES . 'banners/' . rawurlencode($banner['banners_image']), $banner['banners_title'], '', '', 'class="img-responsive center-block"') : '') . $banner['banners_html_text'];
     $banner_array['banner_php_source'] = $banner['banners_php_source'];
     if (!empty($banner_array['banner_string']) || !empty($banner_array['banner_php_source'])) xos_update_banner_display_count($banner['banners_id']);
 

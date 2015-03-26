@@ -40,9 +40,9 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
 
     if (isset($_SESSION['customer_first_name']) && isset($_SESSION['customer_id'])) {
       if (ACCOUNT_GENDER == 'true' && isset($_SESSION['customer_gender']) && $_SESSION['customer_gender'] != '') {
-        $box_welcome_string = sprintf(BOX_TEXT_GREETING_PERSONAL, ($_SESSION['customer_gender'] == 'm' ? MALE_ADDRESS : FEMALE_ADDRESS) . '<br />' . xos_output_string_protected($_SESSION['customer_first_name']) . '&nbsp;' . xos_output_string_protected($_SESSION['customer_lastname']));
+        $box_welcome_string = sprintf(BOX_TEXT_GREETING_PERSONAL, ($_SESSION['customer_gender'] == 'm' ? MALE_ADDRESS : FEMALE_ADDRESS) . '<br />' . xos_output_string_protected($_SESSION['customer_first_name']) . ' ' . xos_output_string_protected($_SESSION['customer_lastname']));
       } else {
-        $box_welcome_string = sprintf(BOX_TEXT_GREETING_PERSONAL, xos_output_string_protected($_SESSION['customer_first_name']) . '&nbsp;' . xos_output_string_protected($_SESSION['customer_lastname'])); 
+        $box_welcome_string = sprintf(BOX_TEXT_GREETING_PERSONAL, xos_output_string_protected($_SESSION['customer_first_name']) . ' ' . xos_output_string_protected($_SESSION['customer_lastname'])); 
       }
     } else {
       $box_welcome_string = BOX_TEXT_GREETING_GUEST;

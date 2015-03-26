@@ -60,7 +60,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   }
   
   $smarty->assign(array('link_continue' => $origin_href,
-                        'link_filename_contact_us' => xos_href_link(FILENAME_CONTACT_US)));    
+                        'link_filename_contact_us' => xos_href_link(FILENAME_CONTENT, 'co=4')));    
 
   $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'create_account_success');
   $output_create_account_success = $smarty->fetch(SELECTED_TPL . '/create_account_success.tpl');

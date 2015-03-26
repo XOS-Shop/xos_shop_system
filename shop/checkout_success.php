@@ -98,7 +98,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                         'products_notify' => $products_notify_array,
                         'link_filename_account' => xos_href_link(FILENAME_ACCOUNT, '', 'SSL'),
                         'link_filename_account_history' => xos_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL'),
-                        'link_filename_contact_us' => xos_href_link(FILENAME_CONTACT_US)));
+                        'link_filename_contact_us' => xos_href_link(FILENAME_CONTENT, 'co=4')));
  
   $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'checkout_success');
   

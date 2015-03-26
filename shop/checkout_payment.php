@@ -204,7 +204,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                         'link_filename_checkout_shipping' => xos_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'),
                         'address_label' => xos_address_label($_SESSION['customer_id'], $_SESSION['billto'], true, ' ', '<br />'),
                         'payment_modules' => $payment_modules_array,
-                        'textarea' => xos_draw_textarea_field('comments', '60', '5', $_SESSION['comments'], 'id="checkout_payment_comments"')));
+                        'textarea' => xos_draw_textarea_field('comments', '60', '5', $_SESSION['comments'], 'class="form-control" id="checkout_payment_comments"')));
   
   $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'checkout_payment');
   $output_checkout_payment = $smarty->fetch(SELECTED_TPL . '/checkout_payment.tpl');

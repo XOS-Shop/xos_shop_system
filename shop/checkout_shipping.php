@@ -285,7 +285,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                         'form_end' => '</form>',
                         'link_filename_checkout_shipping_address' => MAX_ADDRESS_BOOK_ENTRIES > 1 ? xos_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL') : xos_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'),
                         'address_label' => xos_address_label($_SESSION['customer_id'], $_SESSION['sendto'], true, ' ', '<br />'),
-                        'textarea' => xos_draw_textarea_field('comments', '60', '5', $_SESSION['comments'], 'id="checkout_shipping_comments"')));
+                        'textarea' => xos_draw_textarea_field('comments', '60', '5', $_SESSION['comments'], 'class="form-control" id="checkout_shipping_comments"')));
   
   $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'checkout_shipping');
   $output_checkout_shipping = $smarty->fetch(SELECTED_TPL . '/checkout_shipping.tpl');
