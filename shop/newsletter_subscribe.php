@@ -34,7 +34,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
 
   switch ($_GET['action']) {
     case 'process':
-      if (isset($_POST['formid']) && ($_POST['formid'] == $_SESSION['sessiontoken'])) {      
+      if (isset($_POST['formid']) && ($_POST['formid'] == $_SESSION['sessiontoken'])) {
+        $error = false;      
         $scy_code = false;
         if (isset($_POST['process_id']) && $_POST['security_code'] == str_decrypt($_POST['process_id'])) $scy_code = true;    
         $subscriber_email_address = xos_db_prepare_input($_POST['subscriber_email_address']);
@@ -44,9 +45,13 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
           $language_id = $_SESSION['languages_id'];
         }   
         if (strlen($subscriber_email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
-          $messageStack->add('newsletter_subscribe', ENTRY_EMAIL_ADDRESS_ERROR);      
+          $error = true;
+          $messageStack->add('newsletter_subscribe', ENTRY_EMAIL_ADDRESS_ERROR);
+          $smarty->assign('error_email_address', true);      
         } elseif (!xos_validate_email($subscriber_email_address)) {
-          $messageStack->add('newsletter_subscribe', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);      
+          $error = true;
+          $messageStack->add('newsletter_subscribe', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
+          $smarty->assign('error_email_address', true);      
         } elseif ($scy_code || isset($_SESSION['customer_id'])) { 
           $check_subscriber_query = xos_db_query("select subscriber_id, customers_id, subscriber_identity_code from " . TABLE_NEWSLETTER_SUBSCRIBERS . " where subscriber_email_address = '" . xos_db_input($subscriber_email_address) . "'");
           if (xos_db_num_rows($check_subscriber_query)) {
@@ -101,7 +106,12 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
           xos_redirect(xos_href_link(FILENAME_NEWSLETTER_SUBSCRIBE, '', 'SSL'));
         }
       
-        if (!$scy_code && !isset($_SESSION['customer_id'])) $messageStack->add('newsletter_subscribe', TEXT_SECURITY_CODE_ERROR);                  
+        if (!$scy_code && !isset($_SESSION['customer_id'])) {
+          $error = true;
+          $messageStack->add('newsletter_subscribe', TEXT_SECURITY_CODE_ERROR);
+        }
+        
+        if ($error == true) $smarty->assign('error_security_code', true);                    
       }
       break;
     case 'subscribe':
