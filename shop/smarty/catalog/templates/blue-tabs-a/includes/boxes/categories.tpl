@@ -33,14 +33,16 @@
           <div class="info-box-contents" style="padding: 4px 0 4px 0;">
             <ul class="ul-cat-outer">
             [@{foreach name=outer item=category from=$boxes_categories_tabs_full_categories_tree}@]
-              [@{if $category.level_will_change == '+1'}@]
+              [@{if $category.level_will_change == 1}@]
               <li class="[@{$category.class_name}@]" style="position: relative; z-index: [@{1300 - $smarty.foreach.outer.iteration}@];"><a href="[@{$category.href_link}@]">[@{$category.name}@][@{if $category.count_products}@]&nbsp;([@{$category.count_products}@])[@{/if}@]</a><div class="clear">&nbsp;</div><ul class="ul-cat-inner">
-              [@{elseif $category.level_will_change == '-1'}@]
+              [@{elseif $category.level_will_change == -1}@]
               <li class="[@{$category.class_name}@]"><a href="[@{$category.href_link}@]">[@{$category.name}@][@{if $category.count_products}@]&nbsp;([@{$category.count_products}@])[@{/if}@]</a></li></ul></li>                    
-              [@{elseif $category.level_will_change == '-2'}@]
+              [@{elseif $category.level_will_change == -2}@]
               <li class="[@{$category.class_name}@]"><a href="[@{$category.href_link}@]">[@{$category.name}@][@{if $category.count_products}@]&nbsp;([@{$category.count_products}@])[@{/if}@]</a></li></ul></li></ul></li>                    
-              [@{elseif $category.level_will_change == '-3'}@]
+              [@{elseif $category.level_will_change == -3}@]
               <li class="[@{$category.class_name}@]"><a href="[@{$category.href_link}@]">[@{$category.name}@][@{if $category.count_products}@]&nbsp;([@{$category.count_products}@])[@{/if}@]</a></li></ul></li></ul></li></ul></li>                                                             
+              [@{elseif $category.level_will_change == -4}@]
+              <li class="[@{$category.class_name}@]"><a href="[@{$category.href_link}@]">[@{$category.name}@][@{if $category.count_products}@]&nbsp;([@{$category.count_products}@])[@{/if}@]</a></li></ul></li></ul></li></ul></li></ul></li> 
               [@{else}@]                                        
               <li class="[@{$category.class_name}@]"><a href="[@{$category.href_link}@]">[@{$category.name}@][@{if $category.count_products}@]&nbsp;([@{$category.count_products}@])[@{/if}@]</a></li>  
               [@{/if}@]  
@@ -49,6 +51,6 @@
             [@{/foreach}@]  
             </ul>              
           </div>           
-          <div class="clear">&nbsp;</div>                                  
+          <div class="clear">&nbsp;</div>                            
 [@{/if}@]      
 <!-- categories_eof -->

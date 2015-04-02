@@ -31,19 +31,21 @@
   <div class="tab-nav">
     <ul class="ul-tab-outer">
     [@{foreach name=outer item=tab_cat from=$boxes_categories_tabs_full_tabs}@]
-      [@{if $tab_cat.level_will_change == '+1'}@]
-      <li class="tab-[@{$tab_cat.class_name}@]" style="position: relative; z-index: [@{1700 - $smarty.foreach.outer.iteration}@];"><a href="[@{$tab_cat.href_link}@]">[@{$tab_cat.name}@][@{if $tab_cat.count_products}@]&nbsp;([@{$tab_cat.count_products}@])[@{/if}@]</a><div class="clear">&nbsp;</div><ul class="ul-tab-inner">
-      [@{elseif $tab_cat.level_will_change == '-1'}@]
+      [@{if $tab_cat.level_will_change == 1}@]
+      <li class="tab-[@{$tab_cat.class_name}@]" style="position: relative; z-index: [@{1700 - $smarty.foreach.outer.iteration}@];"><a href="[@{$tab_cat.href_link}@]">[@{$tab_cat.name}@][@{if $tab_cat.count_products}@]&nbsp;([@{$tab_cat.count_products}@])[@{/if}@]</a><span class="tab-sub-cat-touchpad"><b></b></span><div class="clear">&nbsp;</div><ul class="ul-tab-inner">
+      [@{elseif $tab_cat.level_will_change == -1}@]
       <li class="tab-[@{$tab_cat.class_name}@]"><a href="[@{$tab_cat.href_link}@]">[@{$tab_cat.name}@][@{if $tab_cat.count_products}@]&nbsp;([@{$tab_cat.count_products}@])[@{/if}@]</a></li></ul></li>                    
-      [@{elseif $tab_cat.level_will_change == '-2'}@]
+      [@{elseif $tab_cat.level_will_change == -2}@]
       <li class="tab-[@{$tab_cat.class_name}@]"><a href="[@{$tab_cat.href_link}@]">[@{$tab_cat.name}@][@{if $tab_cat.count_products}@]&nbsp;([@{$tab_cat.count_products}@])[@{/if}@]</a></li></ul></li></ul></li>                    
-      [@{elseif $tab_cat.level_will_change == '-3'}@]
+      [@{elseif $tab_cat.level_will_change == -3}@]
       <li class="tab-[@{$tab_cat.class_name}@]"><a href="[@{$tab_cat.href_link}@]">[@{$tab_cat.name}@][@{if $tab_cat.count_products}@]&nbsp;([@{$tab_cat.count_products}@])[@{/if}@]</a></li></ul></li></ul></li></ul></li>                                                             
+      [@{elseif $tab_cat.level_will_change == -4}@]
+      <li class="tab-[@{$tab_cat.class_name}@]"><a href="[@{$tab_cat.href_link}@]">[@{$tab_cat.name}@][@{if $tab_cat.count_products}@]&nbsp;([@{$tab_cat.count_products}@])[@{/if}@]</a></li></ul></li></ul></li></ul></li></ul></li> 
       [@{else}@]                                        
       <li class="tab-[@{$tab_cat.class_name}@]">[@{if $tab_cat.href_link}@]<a href="[@{$tab_cat.href_link}@]">[@{else}@]<a>[@{/if}@][@{$tab_cat.name|replace:'SMARTY_SHOP_HOME':#box_text_shop_home#}@][@{if $tab_cat.count_products}@]&nbsp;([@{$tab_cat.count_products}@])[@{/if}@]</a></li>  
       [@{/if}@]  
     [@{/foreach}@]
     </ul>              
   </div>
-  <div class="clear">&nbsp;</div>      
+  <div class="clear">&nbsp;</div>     
 <!-- tabs_eof -->
