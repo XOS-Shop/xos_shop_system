@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : dark-tabs
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7w
 * descrip    : xos-shop extra template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                     
 * filename   : options_window.tpl

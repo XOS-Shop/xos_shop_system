@@ -69,7 +69,7 @@
   }
 
 // define the project version
-  define('PROJECT_VERSION', 'XOS-Shop version 1.0 rc7v');
+  define('PROJECT_VERSION', 'XOS-Shop version 1.0 rc7w');
 
 // set the type of request (secure or not)
   $request_type = (getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';

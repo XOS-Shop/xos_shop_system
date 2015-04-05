@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : xs_admin
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7w
 * descrip    : xos-shop default template for admin with css-buttons
 *              and tables for layout                                                                     
 * filename   : header.tpl

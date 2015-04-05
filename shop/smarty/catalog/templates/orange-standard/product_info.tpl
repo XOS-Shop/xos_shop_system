@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : orange-standard
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7v
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7w
 * descrip    : xos-shop default template with div/css layout                                                                    
 * filename   : product_info.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
