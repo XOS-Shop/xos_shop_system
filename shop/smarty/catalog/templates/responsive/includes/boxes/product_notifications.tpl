@@ -31,10 +31,10 @@
             <div class="panel-heading"><h3 class="panel-title"><a href="[@{$box_product_notifications_link_filename_account_notifications}@]">[@{#box_heading_notifications#}@]&nbsp;<span style="vertical-align: text-top;">»</span></a></h3></div>         
             <div class="panel-body text-center">
             [@{if $box_product_notifications_notification_exists}@]
-              <div><a href="[@{$box_product_notifications_link_notify_notify_remove}@]">[@{$box_product_notifications_image}@]</a></div>
+              <div><a href="[@{$box_product_notifications_link_notify_notify_remove}@]"><span class="text-primary glyphicon glyphicon-list-alt" style="font-size: 40px; line-height: 55px;"></span></a></div>
               <div><a href="[@{$box_product_notifications_link_notify_notify_remove}@]">[@{eval var = #box_notifications_notify_remove#}@]</a></div>    
             [@{else}@]
-              <div><a href="[@{$box_product_notifications_link_notify_notify_remove}@]">[@{$box_product_notifications_image}@]</a></div>
+              <div><a href="[@{$box_product_notifications_link_notify_notify_remove}@]"><span class="text-primary glyphicon glyphicon-list-alt" style="font-size: 40px; line-height: 55px;"></span></a></div>
               <div><a href="[@{$box_product_notifications_link_notify_notify_remove}@]">[@{eval var = #box_notifications_notify#}@]</a></div>
             [@{/if}@]
             </div>

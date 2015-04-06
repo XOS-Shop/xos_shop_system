@@ -30,8 +30,8 @@
           <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title"><label class="label-for-box-subscriber" for="box_subscriber_email_address">[@{#box_heading_subscribe_newsletter#}@]</label></h3></div>
             <div class="panel-body form-inline">
-              [@{$box_subscribe_newsletter_form_begin}@][@{$box_subscribe_newsletter_input_field_subscriber_email_address}@]&nbsp;
-              <input type="image" src="[@{$images_path}@]button_subscribe_newsletter.gif" alt="[@{#button_title_subscribe_newsletter#}@]" title=" [@{#button_title_subscribe_newsletter#}@] " />
+              [@{$box_subscribe_newsletter_form_begin}@][@{$box_subscribe_newsletter_input_field_subscriber_email_address}@]
+              <button type="submit" class="btn btn-link" title=" [@{#button_title_subscribe_newsletter#}@] "><span class="text-primary glyphicon glyphicon-envelope"></span></button>
               [@{$box_subscribe_newsletter_input_hide_session}@][@{$box_subscribe_newsletter_form_end}@]<br />
               <a href="[@{$box_subscribe_newsletter_link_filename_newsletter_subscribe}@]">[@{#box_subscribe_newsletter_text#}@]</a>
             </div>

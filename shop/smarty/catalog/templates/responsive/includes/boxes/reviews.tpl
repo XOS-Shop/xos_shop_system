@@ -36,9 +36,8 @@
                 <div>[@{$box_reviews_stars_image}@]</div>
               </div>
             [@{elseif $box_reviews_link_filename_product_reviews_write}@]
-              <div class="panel-body clearfix">
-                <div class="pull-left"><a href="[@{$box_reviews_link_filename_product_reviews_write}@]">[@{$box_reviews_write_review_image}@]</a></div>
-                <div><a href="[@{$box_reviews_link_filename_product_reviews_write}@]">[@{#box_reviews_write_review#}@]</a></div>
+              <div class="panel-body text-center clearfix">
+                <div><a href="[@{$box_reviews_link_filename_product_reviews_write}@]">[@{#box_reviews_write_review#}@]</a></div><div><a href="[@{$box_reviews_link_filename_product_reviews_write}@]"><span class="text-primary glyphicon glyphicon-pencil" style="font-size: 32px; line-height: 55px;"></span></a></div>
               </div>
             [@{else}@]
               <div class="panel-body">[@{#box_reviews_no_reviews#}@]</div>
