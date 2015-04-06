@@ -32,24 +32,6 @@
               Released under the GNU General Public License 
 ----------------------------------------------------------------------------- */
 
-.account-personal-gif {
-  background-image : url("account_personal.gif"); 
-  background-repeat : no-repeat; 
-  background-position : center;
-}
-
-.account-orders-gif {
-  background-image : url("account_orders.gif"); 
-  background-repeat : no-repeat; 
-  background-position : center;
-}
-
-.account-notifications-gif {
-  background-image : url("account_notifications.gif"); 
-  background-repeat : no-repeat; 
-  background-position : center;
-}
-
 .stock-warning { 
   color : #cc0033; 
 } 
@@ -77,8 +59,6 @@ a:hover {
   color : #ff7c2a; 
   font-weight : bold; 
 } 
-
-/* bis hierhin von Altlasten bereinigt 26.3.2015 */
 
 .info-box { 
   background : #e8e8e8; 
@@ -119,20 +99,6 @@ a.page-results {
 a.page-results:hover { 
   color : #0000ff; 
   background : #ffff33; 
-} 
-
-.field-key { 
-  font-weight : bold;
-  line-height: 20px;
-  padding: 2px 0 2px 4px; 
-  width: 180px; 
-  float: left; 
-  display: block;   
-} 
-
-.field-value { 
-  padding: 2px 0 2px 0; 
-  float: left;   
 }
 
 span.new-item-in-cart {  
@@ -355,27 +321,6 @@ body > .message-stack-success {
 
 #thumb0 { 
   border-color : red; 
-}
-
-/* form elements */
-
-input, select { 
-}
-
-input[type="text"], input[type="password"], select {
-  background-color: #ffffff;
-  border: solid 1px #b6b7cb;
-  padding: 2px;  
-}
-
-textarea {  
-  background-color: #ffffff;
-  border: solid 1px #b6b7cb;
-  width : 99.5%;
-}
-
-.wrapper-advanced-search-keywords input {
-  width: 99%;
 }
 
 .popup-image-thumb-active {
@@ -634,14 +579,6 @@ div.div-spacer-h4 {
 .label-for-box-subscriber {
   font-weight : normal;
 }
-
-/* weiteres neues */  
-
-
-
-
-
-
 
 /* weiteres neues ueberarbeitet */
 

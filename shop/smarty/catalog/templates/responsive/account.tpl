@@ -75,14 +75,13 @@
           <div class="panel panel-default clearfix">           
             <div class="panel-body">
             <div class="row">                      
-              <div class="col-sm-2 hidden-xs account-personal-gif">
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>             
+              <div class="col-sm-2 text-center hidden-xs">
+                <span class="text-primary glyphicon glyphicon-folder-open" style="font-size: 30px; line-height: 70px;"></span>            
               </div>
               <div class="col-sm-10">
-                <p><img src="[@{$images_path}@]arrow_violet.gif" alt="" /> <a href="[@{$link_filename_account_edit}@]">[@{#my_account_information#}@]</a></p>
-                <p><img src="[@{$images_path}@]arrow_violet.gif" alt="" /> <a href="[@{$link_filename_address_book}@]">[@{#my_account_address_book#}@]</a></p>
-                <div><img src="[@{$images_path}@]arrow_violet.gif" alt="" /> <a href="[@{$link_filename_account_password}@]">[@{#my_account_password#}@]</a></div>             
+                <p><span class="text-primary glyphicon glyphicon-hand-right"></span> <a href="[@{$link_filename_account_edit}@]">[@{#my_account_information#}@]</a></p>
+                <p><span class="text-primary glyphicon glyphicon-hand-right"></span> <a href="[@{$link_filename_address_book}@]">[@{#my_account_address_book#}@]</a></p>
+                <div><span class="text-primary glyphicon glyphicon-hand-right"></span> <a href="[@{$link_filename_account_password}@]">[@{#my_account_password#}@]</a></div>             
               </div>
             </div>         
             </div>               
@@ -91,12 +90,11 @@
           <div class="panel panel-default clearfix">           
             <div class="panel-body"> 
             <div class="row">                     
-              <div class="col-sm-2 hidden-xs account-orders-gif">
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>             
+              <div class="col-sm-2 text-center hidden-xs">
+                <span class="text-primary glyphicon glyphicon-list-alt" style="font-size: 32px; line-height: 55px;"></span>            
               </div>
               <div class="col-sm-10">
-                <div><img src="[@{$images_path}@]arrow_violet.gif" alt="" /> <a href="[@{$link_filename_account_history}@]">[@{#my_orders_view#}@]</a></div>             
+                <div><span class="text-primary glyphicon glyphicon-hand-right"></span> <a href="[@{$link_filename_account_history}@]">[@{#my_orders_view#}@]</a></div>             
               </div>
             </div>         
             </div>               
@@ -106,16 +104,15 @@
           <div class="panel panel-default clearfix">           
             <div class="panel-body">
             <div class="row">                      
-              <div class="col-sm-2 hidden-xs account-notifications-gif">
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>            
+              <div class="col-sm-2 text-center hidden-xs">
+                <span class="text-primary glyphicon glyphicon-envelope" style="font-size: 32px; line-height: 55px;"></span>            
               </div>
               <div class="col-sm-10">
               [@{if $link_filename_account_newsletters}@]
-                <p><img src="[@{$images_path}@]arrow_violet.gif" alt="" /> <a href="[@{$link_filename_account_newsletters}@]">[@{#email_notifications_newsletters#}@]</a></p>
+                <p><span class="text-primary glyphicon glyphicon-hand-right"></span> <a href="[@{$link_filename_account_newsletters}@]">[@{#email_notifications_newsletters#}@]</a></p>
               [@{/if}@]
               [@{if $link_filename_account_notifications}@]
-                <div><img src="[@{$images_path}@]arrow_violet.gif" alt="" /> <a href="[@{$link_filename_account_notifications}@]">[@{#email_notifications_products#}@]</a></div>
+                <div><span class="text-primary glyphicon glyphicon-hand-right"></span> <a href="[@{$link_filename_account_notifications}@]">[@{#email_notifications_products#}@]</a></div>
               [@{/if}@]          
               </div>
             </div>         
