@@ -197,7 +197,7 @@ insert into banners (banners_id, banners_group, expires_impressions, expires_dat
 insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('2', 'header', '0', NULL, NULL, date_sub(now(),interval 1 day), NULL, '1');
 insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('3', 'column_1', '0', NULL, NULL, date_sub(now(),interval 1 day), NULL, '0');
 insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('4', 'column_2', '0', NULL, NULL, date_sub(now(),interval 1 day), NULL, '1');
-insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('5', 'column_1', '0', NULL, NULL, date_sub(now(),interval 1 day), NULL, '1');
+insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('5', 'column_1', '0', NULL, NULL, date_sub(now(),interval 1 day), NULL, '0');
 
 drop table if exists banners_content;
 create table banners_content (
