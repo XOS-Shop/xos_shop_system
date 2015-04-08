@@ -59,21 +59,44 @@ function changeImg(no, qty) {
   $('#thumb' + no).css({'borderColor' : 'red'});                                                                                                  
 }
 </script>               
-                <div id="info-images-header">[@{#text_products_image#}@]</div>                          
+                [@{*<div id="info-images-header">[@{#text_products_image#}@]</div>*}@]                          
                 <div id="info-images">
                          [@{foreach name=images item=product_image from=$products_images}@]
                            [@{if $smarty.foreach.images.total > 1}@]                        
                             <script type="text/javascript">
                               document.write('<span class="info"><img class="info-img" id="info[@{$product_image.i}@]" src="[@{$product_image.src_product_img_medium}@]" data-zoom-image="[@{$product_image.href_to_product_img_large}@]" /></span><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.href_to_product_img_large}@]" rel="images_group" target="_blank"><img style="float: right;" src="[@{$images_path}@]magnifying_glass.gif" alt="[@{#text_click_to_enlarge#}@]" title=" [@{#text_click_to_enlarge#}@] " /></a>')                          
-                              $(document).ready(function () {
-                                $("#info[@{$product_image.i}@]").elevateZoom({
-                                  zoomType: "inner",
-                                  cursor: "crosshair",
-                                  zoomWindowFadeIn: 500,
-                                  zoomWindowFadeOut: 750,                                
-                                  easing: true                         
-                                });
-                              }); 
+                              $(document).ready(function () {                            
+                                                               
+                                  if ($(window).width() >= 480 && $(window).width() <= 550) { 
+                                    zWindowWidth = 220;
+                                    zWindowHeight = 220;
+                                    zWindowOffetx = 30;
+                                    zWindowOffety = 0;                                             
+                                  } else if ($(window).width() > 550) {          
+                                    zWindowWidth = 300;
+                                    zWindowHeight = 300;
+                                    zWindowOffetx = 30;
+                                    zWindowOffety = 0;                  
+                                  } else {
+                                    zWindowWidth = 220;
+                                    zWindowHeight = 220;
+                                    zWindowOffetx = -130;
+                                    zWindowOffety = 95;  
+                                  }
+
+                                  $("#info[@{$product_image.i}@]").elevateZoom({
+                                    zoomType: "window",                              
+                                    zoomWindowWidth: zWindowWidth,
+                                    zoomWindowHeight: zWindowHeight,
+                                    cursor: "crosshair",
+                                    borderSize: "1",
+                                    borderColour: "#b6b7cb",
+                                    zoomWindowOffetx: zWindowOffetx,
+                                    zoomWindowOffety: zWindowOffety,    
+                                    easing: true                        
+                                  });
+                                 
+                              });                              
                             </script>
                             <noscript>
                               <a id="info[@{$product_image.i}@]" class="info" href="[@{$product_image.link_product_img_noscript}@]" target="_blank"><img class="info-img" src="[@{$product_image.src_product_img_medium}@]" title=" [@{$products_name}@] " alt="[@{$products_name}@]" /></a><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.link_product_img_noscript}@]" target="_blank"><img style="float: right;" src="[@{$images_path}@]magnifying_glass.gif" alt="[@{#text_click_to_enlarge#}@]" title=" [@{#text_click_to_enlarge#}@] " /></a>
@@ -81,15 +104,38 @@ function changeImg(no, qty) {
                            [@{elseif $smarty.foreach.images.total == 1}@]
                             <script type="text/javascript">
                               document.write('<span class="info"><img class="info-img" id="info[@{$product_image.i}@]" src="[@{$product_image.src_product_img_medium}@]" data-zoom-image="[@{$product_image.href_to_product_img_large}@]" /></span><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.href_to_product_img_large}@]" rel="images_group" target="_blank"><img style="float: right;" src="[@{$images_path}@]magnifying_glass.gif" alt="[@{#text_click_to_enlarge#}@]" title=" [@{#text_click_to_enlarge#}@] " /></a>')
-                              $(document).ready(function () {
-                                $("#info[@{$product_image.i}@]").elevateZoom({
-                                  zoomType: "inner",
-                                  cursor: "crosshair",
-                                  zoomWindowFadeIn: 500,
-                                  zoomWindowFadeOut: 750,                                
-                                  easing: true                               
-                                });
-                              }); 
+                              $(document).ready(function () { 
+                              
+                                  if ($(window).width() >= 480 && $(window).width() <= 550) { 
+                                    zWindowWidth = 220;
+                                    zWindowHeight = 220;
+                                    zWindowOffetx = 30;
+                                    zWindowOffety = 0;                                             
+                                  } else if ($(window).width() > 550) {          
+                                    zWindowWidth = 300;
+                                    zWindowHeight = 300;
+                                    zWindowOffetx = 30;
+                                    zWindowOffety = 0;                  
+                                  } else {
+                                    zWindowWidth = 220;
+                                    zWindowHeight = 220;
+                                    zWindowOffetx = -130;
+                                    zWindowOffety = 95;  
+                                  }
+
+                                  $("#info[@{$product_image.i}@]").elevateZoom({
+                                    zoomType: "window",                              
+                                    zoomWindowWidth: zWindowWidth,
+                                    zoomWindowHeight: zWindowHeight,
+                                    cursor: "crosshair",
+                                    borderSize: "1",
+                                    borderColour: "#b6b7cb",
+                                    zoomWindowOffetx: zWindowOffetx,
+                                    zoomWindowOffety: zWindowOffety,    
+                                    easing: true                        
+                                  });
+                                 
+                              });  
                             </script>
                             <noscript>
                               <a id="info[@{$product_image.i}@]" class="info" href="[@{$product_image.link_product_img_noscript}@]" target="_blank"><img class="info-img" src="[@{$product_image.src_product_img_medium}@]" title=" [@{$products_name}@] " alt="[@{$products_name}@]" /></a><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.link_product_img_noscript}@]" target="_blank"><img style="float: right;" src="[@{$images_path}@]magnifying_glass.gif" alt="[@{#text_click_to_enlarge#}@]" title=" [@{#text_click_to_enlarge#}@] " /></a>
@@ -101,7 +147,7 @@ function changeImg(no, qty) {
                          [@{if $smarty.foreach.images.total > 1}@]                          
                            [@{foreach name=thumbs item=product_image from=$products_images}@]
                             <script type="text/javascript">
-                              document.write('<a href="" id="thumb[@{$product_image.i}@]" class="thumb" onclick="changeImg([@{$product_image.i}@], [@{$smarty.foreach.thumbs.total}@]);return false">[@{$product_image.product_img_extra_small}@]</a>')                            
+                              document.write('<a href="" id="thumb[@{$product_image.i}@]" class="thumb" onclick="changeImg([@{$product_image.i}@], [@{$smarty.foreach.thumbs.total}@]);return false">[@{$product_image.product_img_medium}@]</a>')                            
                             </script>                                                                                                
                            [@{/foreach}@]
                          [@{/if}@]
@@ -134,9 +180,9 @@ $(document).ready(function () {
                     <tr>
                       <td style="text-align: right;">                                                                   
                         [@{if $products_price_breaks}@]                 
-                        <div class="price-label main" style="padding: 2px 2px 0 2px; text-align: right; white-space: nowrap;"><b>[@{if $products_price_special}@]<span class="text-deco-line-through">[@{$products_price}@]</span> <span class="product-special-price">[@{$products_price_special}@]</span>[@{else}@][@{$products_price}@][@{/if}@]</b></div>
-                        <div class="price-label main" style="padding: 0 2px 0 2px;">
-                          <table class="price-label table-border-cellspacing cellpadding-0px" style="float: right;">                     
+                        <div class="main" style="padding: 2px 2px 0 2px; text-align: right; white-space: nowrap;"><b>[@{if $products_price_special}@]<span class="text-deco-line-through">[@{$products_price}@]</span> <span class="product-special-price">[@{$products_price_special}@]</span>[@{else}@][@{$products_price}@][@{/if}@]</b></div>
+                        <div class="main" style="padding: 0 2px 0 2px;">
+                          <table class="table-border-cellspacing cellpadding-0px" style="float: right;">                     
                             [@{foreach name=price_breaks item=product_price_break from=$products_price_breaks}@]                        
                             [@{if $smarty.foreach.price_breaks.first}@]
                             <tr>                       
@@ -155,7 +201,7 @@ $(document).ready(function () {
                           </table>                 
                         </div>
                         <div class="clearfix invisible"></div>
-                        <div class="price-label small-text" style="padding: 2px; text-align: right; white-space: nowrap;">                         
+                        <div class="small-text" style="padding: 2px; text-align: right; white-space: nowrap;">                         
                           [@{$products_tax_description|replace:'SMARTY_TAX_WITHOUT_VAT':#text_tax_without_vat#|replace:'SMARTY_TAX_NO_VAT':#text_tax_no_vat#|replace:'SMARTY_TAX_INC_VAT':#text_tax_inc_vat#|replace:'SMARTY_TAX_PLUS_VAT':#text_tax_plus_vat#}@]<br />                                                                                     
                           [@{if $link_filename_popup_content_6}@]                 
                             [@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_6}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />
@@ -163,14 +209,14 @@ $(document).ready(function () {
                             [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
                           [@{/if}@]
                           [@{if $link_filename_popup_content_products_delivery_time && $products_delivery_time}@]
-                            &nbsp;<br /><span class="price-label main"><b>[@{#text_delivery_time#}@]</b>&nbsp;<a href="[@{$link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$products_delivery_time}@]</span></a><br /></span>
+                            &nbsp;<br /><span class="main"><b>[@{#text_delivery_time#}@]</b>&nbsp;<a href="[@{$link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$products_delivery_time}@]</span></a><br /></span>
                           [@{elseif $products_delivery_time}@]
-                            &nbsp;<br /><span class="price-label main"><b>[@{#text_delivery_time#}@]</b>&nbsp;[@{$products_delivery_time}@]<br /></span>
+                            &nbsp;<br /><span class="main"><b>[@{#text_delivery_time#}@]</b>&nbsp;[@{$products_delivery_time}@]<br /></span>
                           [@{/if}@]                           
                         </div>                                                      
                         [@{else}@]
-                        <div class="price-label main" style="padding: 2px 2px 0 2px; text-align: right; white-space: nowrap;"><b>[@{if $products_price_special}@]<span class="text-deco-line-through">[@{$products_price}@]</span> <span class="product-special-price">[@{$products_price_special}@]</span>[@{else}@][@{$products_price}@][@{/if}@]</b></div>
-                        <div class="price-label small-text" style="padding: 2px; text-align: right; white-space: nowrap;">
+                        <div class="main" style="padding: 2px 2px 0 2px; text-align: right; white-space: nowrap;"><b>[@{if $products_price_special}@]<span class="text-deco-line-through">[@{$products_price}@]</span> <span class="product-special-price">[@{$products_price_special}@]</span>[@{else}@][@{$products_price}@][@{/if}@]</b></div>
+                        <div class="small-text" style="padding: 2px; text-align: right; white-space: nowrap;">
                           [@{$products_tax_description|replace:'SMARTY_TAX_WITHOUT_VAT':#text_tax_without_vat#|replace:'SMARTY_TAX_NO_VAT':#text_tax_no_vat#|replace:'SMARTY_TAX_INC_VAT':#text_tax_inc_vat#|replace:'SMARTY_TAX_PLUS_VAT':#text_tax_plus_vat#}@]<br />              
                           [@{if $link_filename_popup_content_6}@]                 
                             [@{#text_plus#}@]&nbsp;<a href="[@{$link_filename_popup_content_6}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_shipping#}@]</span></a><br />
@@ -178,9 +224,9 @@ $(document).ready(function () {
                             [@{#text_plus#}@]&nbsp;[@{#text_shipping#}@]<br />
                           [@{/if}@]
                           [@{if $link_filename_popup_content_products_delivery_time && $products_delivery_time}@]
-                            &nbsp;<br /><span class="price-label main"><b>[@{#text_delivery_time#}@]</b>&nbsp;<a href="[@{$link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$products_delivery_time}@]</span></a><br /></span>
+                            &nbsp;<br /><span class="main"><b>[@{#text_delivery_time#}@]</b>&nbsp;<a href="[@{$link_filename_popup_content_products_delivery_time}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{$products_delivery_time}@]</span></a><br /></span>
                           [@{elseif $products_delivery_time}@]
-                            &nbsp;<br /><span class="price-label main"><b>[@{#text_delivery_time#}@]</b>&nbsp;[@{$products_delivery_time}@]<br /></span>
+                            &nbsp;<br /><span class="main"><b>[@{#text_delivery_time#}@]</b>&nbsp;[@{$products_delivery_time}@]<br /></span>
                           [@{/if}@]                            
                         </div>      
                         [@{/if}@]                   

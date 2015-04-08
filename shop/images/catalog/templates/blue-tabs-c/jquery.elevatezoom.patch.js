@@ -26,7 +26,7 @@
  
  /* Bug Fixes: 
  *  1. bug fix on line 267  (02/20/2014 Hanspeter Zeller)
- *  2. bug fix on line 648  (02/24/2014 Hanspeter Zeller)  
+ *  2. bug fix on line 648  (04/08/2015 Hanspeter Zeller)  
  *  3. bug fix on line 1007 (02/23/2014 Hanspeter Zeller) 
  *  4. bug fix on line 1013 (02/23/2014 Hanspeter Zeller) 
  */
@@ -645,7 +645,7 @@ if ( typeof Object.create !== 'function' ) {
 
 				//container fix
 				// self.zoomContainer.css({ top: self.nzOffset.top});
-        self.zoomContainer.css({ top: self.nzOffset.top == 0 && self.nzOffset.left == 0 ? -10000 : self.nzOffset.top}); // fixed
+        self.zoomContainer.css({ top: self.nzOffset.top == 0 || self.nzOffset.left == 0 ? -10000 : self.nzOffset.top}); // fixed
 				self.zoomContainer.css({ left: self.nzOffset.left});
 				self.mouseLeft = parseInt(e.pageX - self.nzOffset.left);
 				self.mouseTop = parseInt(e.pageY - self.nzOffset.top);

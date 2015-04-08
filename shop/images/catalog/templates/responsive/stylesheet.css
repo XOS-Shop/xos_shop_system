@@ -241,7 +241,7 @@ body > .message-stack-success {
   top : 0; 
   left : 0; 
   width : 195px; 
-  height : 214px; 
+  height : 258px; 
 /*  border-left : 1px solid #b6b7cb; */
 /*  border-right : 1px solid #b6b7cb; */
 /*  border-top : 1px solid #b6b7cb; */
@@ -277,7 +277,7 @@ body > .message-stack-success {
   text-align : center; 
   visibility : hidden; 
   position : absolute; 
-  top : 192px; 
+  top : 210px; 
   left : 0; 
   width : 193px; 
   max-height : 22px; 
@@ -298,7 +298,7 @@ body > .message-stack-success {
 /*  border-left : 1px solid #b6b7cb; */
 /*  border-right : 1px solid #b6b7cb; */
 /*  border-bottom : 1px solid #b6b7cb; */
-  padding-bottom : 2px;
+  padding-bottom : 20px;
 }
         
 .thumb {
@@ -306,18 +306,23 @@ body > .message-stack-success {
   text-decoration : none; 
   background-color : white; 
   text-align : center; 
-  margin-top : 3px; 
-  margin-left : 2px; 
+  margin-top : 4px; 
+  margin-left : 4px; 
   position : relative; 
   top : 0; 
   left : 0; 
-  width : 28px; 
-  height : 28px; 
+  width : 60px; 
+  height : 60px; 
   float : left; 
   overflow : hidden; 
   border : 1px solid #94a6b5; 
   cursor : pointer; 
-} 
+}
+
+.thumb > img {
+  max-width : 60px; 
+  max-height : 60px; 
+}  
 
 #thumb0 { 
   border-color : red; 

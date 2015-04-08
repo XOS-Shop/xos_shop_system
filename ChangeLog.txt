@@ -1,6 +1,24 @@
 
 ##ChangeLog
 
+# XOS-Shop v1.0_rc7w (Release 04/08/2015)
+
+- bugfix:  Fehler in 'advanced_search_and_results.php' und 'search_result.php' behoben
+- bugfix:  Fehler in 'german' Sprachdatei behoben
+- bugfix:  Kurzanleitung "Installation" korrigiert
+- bugfix:  Fehler in der Kategorien-Navigation (vierte Ebene) behoben
+- feature: Diverse Skripte angepasst, damit 'Responsive Webdesign' möglich wird
+- feature: Neues Template 'responsive' hinzugefügt
+- update:  Meldungen (message-stack) für 'Responsive Webdesign' erweitert
+- update:  Sprachdateien angepasst
+- update:  Preise der Optionen können nun zusammen mit den Artikelpreisen geändert werden
+- update:  Das Captcha wird nun direkt mit dem HTML-Code an den Browser ausgeliefert
+- update:  Der Sicherheitscode wird jetzt verschlüsselt mit dem HTML-Code an den Browser ausgeliefert 
+- update:  CKEditor Version-4.4.6 auf CKEditor Version-4.4.7
+- update:  In Datenbank das Feld 'sesskey' in der Tabelle 'session' von 32 auf 64 Zeichen erweitert
+- update:  Icon validieren ersetzt
+- update:  Social media Icons ersetzt
+
 # XOS-Shop v1.0_rc7v (Release 01/14/2015)
 
 - bugfix:  Captcha

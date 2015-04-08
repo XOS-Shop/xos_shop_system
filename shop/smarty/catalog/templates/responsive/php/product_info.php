@@ -139,7 +139,7 @@
                                          'link_product_img_noscript' => xos_href_link(FILENAME_IMAGES_WINDOW, 'pID=' . $product_info['products_id'], 'NONSSL', true, false, false, false, false),
                                          'href_to_product_img_large' => xos_href_link(DIR_WS_IMAGES . 'products/large/' . rawurlencode($products_img_name['name']), '', 'NONSSL', false, false, false, false, false),
                                          'src_product_img_medium' => xos_href_link(DIR_WS_IMAGES . 'products/medium/' . rawurlencode($products_img_name['name']), '', 'NONSSL', false, false, false, false, false),
-                                         'product_img_extra_small' => xos_image(DIR_WS_IMAGES . 'products/medium/' . rawurlencode($products_img_name['name']), addslashes($product_info['products_name']), '', '', 'class="img-responsive"'),
+                                         'product_img_medium' => xos_image(DIR_WS_IMAGES . 'products/medium/' . rawurlencode($products_img_name['name']), addslashes($product_info['products_name']), '0', '0'),
                                          'i' => $i);                              
           $i++;                                                                                                                   
         }
