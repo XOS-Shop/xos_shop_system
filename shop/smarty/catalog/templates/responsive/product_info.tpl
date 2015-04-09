@@ -58,6 +58,17 @@ function changeImg(no, qty) {
   $('#glass' + no).css({'visibility' : 'visible'});
   $('#thumb' + no).css({'borderColor' : 'red'});                                                                                                  
 }
+
+$(window).resize(function() {
+  if(this.resizeTO) clearTimeout(this.resizeTO);
+  this.resizeTO = setTimeout(function() {
+    $(this).trigger('resizeEnd');
+  }, 500);
+});
+    
+$(window).bind('resizeEnd', function() {                            
+  $(".zoomContainer").remove(); 
+});    
 </script>               
                 [@{*<div id="info-images-header">[@{#text_products_image#}@]</div>*}@]                          
                 <div id="info-images">
@@ -65,8 +76,10 @@ function changeImg(no, qty) {
                            [@{if $smarty.foreach.images.total > 1}@]                        
                             <script type="text/javascript">
                               document.write('<span class="info"><img class="info-img" id="info[@{$product_image.i}@]" src="[@{$product_image.src_product_img_medium}@]" data-zoom-image="[@{$product_image.href_to_product_img_large}@]" /></span><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.href_to_product_img_large}@]" rel="images_group" target="_blank"><img style="float: right;" src="[@{$images_path}@]magnifying_glass.gif" alt="[@{#text_click_to_enlarge#}@]" title=" [@{#text_click_to_enlarge#}@] " /></a>')                          
-                              $(document).ready(function () {                            
-                                                               
+                              $(window).bind('ready resizeEnd', function () {                             
+
+                                  $("#info[@{$product_image.i}@]").removeData('elevateZoom');
+                               
                                   if ($(window).width() >= 480 && $(window).width() <= 550) { 
                                     zWindowWidth = 220;
                                     zWindowHeight = 220;
@@ -95,7 +108,7 @@ function changeImg(no, qty) {
                                     zoomWindowOffety: zWindowOffety,    
                                     easing: true                        
                                   });
-                                 
+  
                               });                              
                             </script>
                             <noscript>
@@ -104,8 +117,10 @@ function changeImg(no, qty) {
                            [@{elseif $smarty.foreach.images.total == 1}@]
                             <script type="text/javascript">
                               document.write('<span class="info"><img class="info-img" id="info[@{$product_image.i}@]" src="[@{$product_image.src_product_img_medium}@]" data-zoom-image="[@{$product_image.href_to_product_img_large}@]" /></span><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.href_to_product_img_large}@]" rel="images_group" target="_blank"><img style="float: right;" src="[@{$images_path}@]magnifying_glass.gif" alt="[@{#text_click_to_enlarge#}@]" title=" [@{#text_click_to_enlarge#}@] " /></a>')
-                              $(document).ready(function () { 
-                              
+                              $(window).bind('ready resizeEnd', function () {                             
+
+                                  $("#info[@{$product_image.i}@]").removeData('elevateZoom');
+                               
                                   if ($(window).width() >= 480 && $(window).width() <= 550) { 
                                     zWindowWidth = 220;
                                     zWindowHeight = 220;
@@ -134,7 +149,7 @@ function changeImg(no, qty) {
                                     zoomWindowOffety: zWindowOffety,    
                                     easing: true                        
                                   });
-                                 
+  
                               });  
                             </script>
                             <noscript>
