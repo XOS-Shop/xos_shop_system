@@ -445,7 +445,7 @@
         $smarty->assign('link_filename_product_reviews', xos_href_link(FILENAME_PRODUCT_REVIEWS, xos_get_all_get_params(array('language', 'currency', 'tpl'))));
       }       
     
-      $smarty->assign(array('input_products_quantity' => xos_draw_input_field('products_quantity', '1','id="products_quantity" style="width:50px;" class="form-control" maxlength="5"'),
+      $smarty->assign(array('input_products_quantity' => xos_draw_input_field('products_quantity', '1','id="products_quantity" style="width: 60px; padding-left: 12px; padding-right: 0px" class="form-control" maxlength="5"'),
                             'hidden_field_products_id' => xos_draw_hidden_field('p', $product_info['products_id']),
                             'javascript' => $jscript_op,
                             'form_begin' => xos_draw_form('cart_quantity', xos_href_link(FILENAME_PRODUCT_INFO, xos_get_all_get_params(array('action')) . 'action=add_product')),

@@ -155,7 +155,6 @@ body > .message-stack-success {
 .module-row-over { 
   background-color : #d3d3d3;
   cursor : pointer; 
-  cursor : pointer; 
 } 
 
 .module-row-selected { 
@@ -705,7 +704,9 @@ a.header-navi:hover {
 }
 
 .cart-input-quantity {
-  width: 40px !important;
+    padding-left: 2px;
+    padding-right: 0;
+    width: 50px !important;
 }
 
 #box_search_keywords {

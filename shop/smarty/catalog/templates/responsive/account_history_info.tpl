@@ -67,7 +67,7 @@
                         <table class="table-border-cellspacing cellpadding-0px"> 
                           <tr>          
                             <td>
-                              <a href="[@{$product.link_filename_product_info}@]"><b>[@{$order_product.name}@]</b></a>
+                              <b>[@{$order_product.name}@]</b>
                             </td> 
                             <td class="text-nowrap">&nbsp;</td>                           
                             <td class="text-nowrap text-right" style="vertical-align: bottom;">

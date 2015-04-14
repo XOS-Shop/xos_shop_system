@@ -530,6 +530,10 @@
   #cssmenu ul ul li > a:hover::after {
     border-color: #ffffff;
   }
+  
+  .ul-cat-outer {
+    display: block !important;
+  }    
 } /* end @media (max-width: 767px) */ 
 
 @media (min-width: 768px) and (max-width: 880px) {

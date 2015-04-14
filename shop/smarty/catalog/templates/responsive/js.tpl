@@ -53,17 +53,17 @@ jQuery(document).ready(function($) {
 	  }	
 	});
  
-              
+              $('.cat-tree-title').find('ul').css('display','none');
               $('.cat-tree-title').mouseenter(function(){
                 if ($(window).width() > 767) { 
 //                  $(".holder").remove();
                   $(this).find('li').removeClass('open');
-                  $(this).find('ul').css('display','none');               
+//                  $(this).find('ul').css('display','none');               
                   $(this).children('ul').fadeIn();
                 }   
               }).mouseleave(function(){
                 if ($(window).width() > 767) {
-//                  $(this).children('ul').css('display','none');
+                  $(this).children('ul').css('display','none');
                 }  
               });              
               
