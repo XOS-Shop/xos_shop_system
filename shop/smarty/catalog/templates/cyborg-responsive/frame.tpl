@@ -3,9 +3,9 @@
 * project    : XOS-Shop, open source e-commerce system
 *              http://www.xos-shop.com
 *
-* template   : hero-responsive
+* template   : cyborg-responsive
 * version    : 1.0.7 for XOS-Shop version 1.0 rc7w
-* descrip    : xos-shop template built with Bootstrap3 and theme superhero                                                                    
+* descrip    : xos-shop template built with Bootstrap3 and theme cyborg                                                                    
 * filename   : frame.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
 * copyright  : Copyright (c) 2007 Hanspeter Zeller
@@ -37,13 +37,11 @@
 <!-- central_contents --> 
 <div class="row">
 <div class="col-sm-12">
-[@{if $header_breadcrumb}@]
 <div class="breadcrumb">
 [@{$header_breadcrumb}@]  
-</div>
-[@{/if}@]    
+</div>    
 </div>  
-</div>
+</div> 
 [@{if $header_error_message}@]
 <div class="row">
 <div class="col-sm-12">

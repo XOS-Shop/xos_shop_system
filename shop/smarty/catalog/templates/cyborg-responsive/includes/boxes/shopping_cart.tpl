@@ -3,9 +3,9 @@
 * project    : XOS-Shop, open source e-commerce system
 *              http://www.xos-shop.com
 *
-* template   : hero-responsive
+* template   : cyborg-responsive
 * version    : 1.0.7 for XOS-Shop version 1.0 rc7w
-* descrip    : xos-shop template built with Bootstrap3 and theme superhero                                                                    
+* descrip    : xos-shop template built with Bootstrap3 and theme cyborg                                                                    
 * filename   : shopping_cart.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
 * copyright  : Copyright (c) 2007 Hanspeter Zeller
@@ -39,7 +39,7 @@
                   [@{if $products_quantity_total == 0}@]
                     <div style="width:120px; padding: 11px 3px 11px 3px; float: right; background-color: #222222;">[@{#box_shopping_cart_empty#}@]</div>
                   [@{else}@]
-                    <div id="shopping_cart_box_content" style="width: 200px; padding: 11px 3px 3px 3px; text-align: left; float: right; background-color: #222222;">
+                    <div id="shopping_cart_box_content" style="width: 220px; padding: 11px 3px 3px 3px; text-align: left; float: right; background-color: #222222;">
                     <div id="shopping_cart_box_title" style="text-align: left; vertical-align: top; display:none;"><b>[@{#box_product_has_been_added#}@]<br />&nbsp;</b></div>
                       <table class="table-border-cellspacing cellpadding-0px">
                       [@{foreach item=product from=$box_shopping_cart_cart_products}@]

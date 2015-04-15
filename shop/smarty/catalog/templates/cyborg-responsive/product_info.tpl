@@ -3,9 +3,9 @@
 * project    : XOS-Shop, open source e-commerce system
 *              http://www.xos-shop.com
 *
-* template   : hero-responsive
+* template   : cyborg-responsive
 * version    : 1.0.7 for XOS-Shop version 1.0 rc7w
-* descrip    : xos-shop template built with Bootstrap3 and theme superhero                                                                   
+* descrip    : xos-shop template built with Bootstrap3 and theme cyborg                                                                   
 * filename   : product_info.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
 * copyright  : Copyright (c) 2007 Hanspeter Zeller
@@ -75,7 +75,7 @@ $(window).bind('resizeEnd', function() {
                          [@{foreach name=images item=product_image from=$products_images}@]
                            [@{if $smarty.foreach.images.total > 1}@]                        
                             <script type="text/javascript">
-                              document.write('<span class="info"><img class="info-img" id="info[@{$product_image.i}@]" src="[@{$product_image.src_product_img_medium}@]" data-zoom-image="[@{$product_image.href_to_product_img_large}@]" /></span><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.href_to_product_img_large}@]" rel="images_group" target="_blank"><span class="text-info glyphicon glyphicon glyphicon-plus pull-right" style="font-size: 14px; line-height: 18px;" title=" [@{#text_click_to_enlarge#}@] "></span></a>')                          
+                              document.write('<span class="info"><img class="info-img" id="info[@{$product_image.i}@]" src="[@{$product_image.src_product_img_medium}@]" data-zoom-image="[@{$product_image.href_to_product_img_large}@]" /></span><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.href_to_product_img_large}@]" rel="images_group" target="_blank"><span class="text-info glyphicon glyphicon-plus pull-right" style="font-size: 14px; line-height: 18px;" title=" [@{#text_click_to_enlarge#}@] "></span></a>')                          
                               $(window).bind('ready resizeEnd', function () {                             
 
                                   $("#info[@{$product_image.i}@]").removeData('elevateZoom');
@@ -112,11 +112,11 @@ $(window).bind('resizeEnd', function() {
                               });                              
                             </script>
                             <noscript>
-                              <a id="info[@{$product_image.i}@]" class="info" href="[@{$product_image.link_product_img_noscript}@]" target="_blank"><img class="info-img" src="[@{$product_image.src_product_img_medium}@]" title=" [@{$products_name}@] " alt="[@{$products_name}@]" /></a><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.link_product_img_noscript}@]" target="_blank"><span class="text-info glyphicon glyphicon glyphicon-plus pull-right" style="font-size: 14px; line-height: 18px;" title=" [@{#text_click_to_enlarge#}@] "></span></a>
+                              <a id="info[@{$product_image.i}@]" class="info" href="[@{$product_image.link_product_img_noscript}@]" target="_blank"><img class="info-img" src="[@{$product_image.src_product_img_medium}@]" title=" [@{$products_name}@] " alt="[@{$products_name}@]" /></a><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.link_product_img_noscript}@]" target="_blank"><span class="text-info glyphicon glyphicon-plus pull-right" style="font-size: 14px; line-height: 18px;" title=" [@{#text_click_to_enlarge#}@] "></span></a>
                             </noscript>                      
                            [@{elseif $smarty.foreach.images.total == 1}@]
                             <script type="text/javascript">
-                              document.write('<span class="info"><img class="info-img" id="info[@{$product_image.i}@]" src="[@{$product_image.src_product_img_medium}@]" data-zoom-image="[@{$product_image.href_to_product_img_large}@]" /></span><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.href_to_product_img_large}@]" rel="images_group" target="_blank"><span class="text-info glyphicon glyphicon glyphicon-plus pull-right" style="font-size: 14px; line-height: 18px;" title=" [@{#text_click_to_enlarge#}@] "></span></a>')
+                              document.write('<span class="info"><img class="info-img" id="info[@{$product_image.i}@]" src="[@{$product_image.src_product_img_medium}@]" data-zoom-image="[@{$product_image.href_to_product_img_large}@]" /></span><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.href_to_product_img_large}@]" rel="images_group" target="_blank"><span class="text-info glyphicon glyphicon-plus pull-right" style="font-size: 14px; line-height: 18px;" title=" [@{#text_click_to_enlarge#}@] "></span></a>')
                               $(window).bind('ready resizeEnd', function () {                             
 
                                   $("#info[@{$product_image.i}@]").removeData('elevateZoom');
@@ -153,7 +153,7 @@ $(window).bind('resizeEnd', function() {
                               });  
                             </script>
                             <noscript>
-                              <a id="info[@{$product_image.i}@]" class="info" href="[@{$product_image.link_product_img_noscript}@]" target="_blank"><img class="info-img" src="[@{$product_image.src_product_img_medium}@]" title=" [@{$products_name}@] " alt="[@{$products_name}@]" /></a><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.link_product_img_noscript}@]" target="_blank"><span class="text-info glyphicon glyphicon glyphicon-plus pull-right" style="font-size: 14px; line-height: 18px;" title=" [@{#text_click_to_enlarge#}@] "></span></a>
+                              <a id="info[@{$product_image.i}@]" class="info" href="[@{$product_image.link_product_img_noscript}@]" target="_blank"><img class="info-img" src="[@{$product_image.src_product_img_medium}@]" title=" [@{$products_name}@] " alt="[@{$products_name}@]" /></a><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.link_product_img_noscript}@]" target="_blank"><span class="text-info glyphicon glyphicon-plus pull-right" style="font-size: 14px; line-height: 18px;" title=" [@{#text_click_to_enlarge#}@] "></span></a>
                             </noscript>                      
                            [@{/if}@]                 
                          [@{/foreach}@]
