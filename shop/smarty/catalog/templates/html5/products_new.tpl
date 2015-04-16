@@ -130,7 +130,7 @@
             </div>
             <div class="clear">&nbsp;</div>                       
             <div class="main" style="padding: 0 4px 4px 4px; float: right;">                
-              <a href="[@{$product_new.href_buy_now}@]" class="button-add-to-cart" style="float: right" title=" [@{#button_title_in_cart#}@] "><span>[@{#button_text_in_cart#}@]</span></a>                
+              [@{*<a href="[@{$product_new.href_buy_now}@]" class="button-add-to-cart" style="float: right" title=" [@{#button_title_in_cart#}@] "><span>[@{#button_text_in_cart#}@]</span></a>*}@]                
             </div>
             <div class="clear">&nbsp;</div>                        
           </div>               

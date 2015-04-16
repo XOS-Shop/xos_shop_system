@@ -125,7 +125,7 @@
                   </table>                                    
                   </div>            
                 </td>
-                <td nowrap="nowrap" align="right" valign="bottom" class="main"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="10" height="10" /><a href="[@{$product_new.href_buy_now}@]" class="button-add-to-cart" style="float: right" title=" [@{#button_title_in_cart#}@] "><span>[@{#button_text_in_cart#}@]</span></a></td>
+                <td nowrap="nowrap" align="right" valign="bottom" class="main"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="10" height="10" />[@{*<a href="[@{$product_new.href_buy_now}@]" class="button-add-to-cart" style="float: right" title=" [@{#button_title_in_cart#}@] "><span>[@{#button_text_in_cart#}@]</span></a>*}@]</td>
               </tr>          
             </table></td>
           </tr>                        

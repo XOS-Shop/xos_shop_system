@@ -112,7 +112,7 @@
                 </table>                               
               </div>
               <div class="clearfix invisible"></div>                       
-              <a href="[@{$product_new.href_buy_now}@]" class="btn btn-success pull-right" title=" [@{#button_title_in_cart#}@] ">[@{#button_text_in_cart#}@]</a>                
+              [@{*<a href="[@{$product_new.href_buy_now}@]" class="btn btn-success pull-right" title=" [@{#button_title_in_cart#}@] ">[@{#button_text_in_cart#}@]</a>*}@]                
             </div>                        
           </div>                      
           [@{/foreach}@]          
