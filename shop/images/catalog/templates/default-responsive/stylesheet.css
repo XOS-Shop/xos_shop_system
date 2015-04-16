@@ -2,7 +2,7 @@
  project    : XOS-Shop, open source e-commerce system
               http://www.xos-shop.com
                                                                      
- template   : responsive
+ template   : default-responsive
  version    : 1.0.7 for XOS-Shop version 1.0 rc7w
  descrip    : xos-shop default template built with Bootstrap3                                                                    
  filename   : stylesheet.css
@@ -87,7 +87,7 @@ table.product-listing, div.product-listing {
   border-collapse : initial; 
   border : 1px; 
   border-style : solid; 
-  border-color : #b6b7cb; 
+  border-color : #dddddd; 
   border-spacing : 0;
   border-radius: 4px; 
 }
@@ -203,7 +203,7 @@ body > .message-stack-success {
   list-style: none; 
   border-style: solid; 
   border-width: 1px; 
-  border-color: #b6b7cb;
+  border-color: #cccccc;
   white-space: nowrap;
 }
 
@@ -653,7 +653,7 @@ div.div-spacer-h4 {
   white-space: nowrap;
   position: absolute;
   left: 0px;
-  top: 0px;
+  top: 7px;
   visibility: hidden;
   display: block;
 }

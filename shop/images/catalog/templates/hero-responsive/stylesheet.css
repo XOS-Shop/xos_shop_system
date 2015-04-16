@@ -242,7 +242,7 @@ body > .message-stack-success {
 .info-img { 
   max-width : 193px;
   max-height : 188px; 
-  border-radius: 4px;   
+/*  border-radius: 4px; */   
 } 
 
 #info0 { 
@@ -431,11 +431,11 @@ a.options-list {
 /* jQuery elevateZoom  */
 
 .zoomLens {
-  border-radius: 4px;  
+/*  border-radius: 4px; */  
 }
 
 .zoomWindow {
-  border-radius: 4px;
+/*  border-radius: 4px; */
   box-shadow:3px 3px 7px #333333;  
 }
 

@@ -41,7 +41,7 @@
 <div class="breadcrumb">
 [@{$header_breadcrumb}@]  
 </div>
-[@{/if}@]    
+[@{/if}@]  
 </div>  
 </div> 
 [@{if $header_error_message}@]

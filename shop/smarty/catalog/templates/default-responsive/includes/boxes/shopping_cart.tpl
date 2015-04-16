@@ -3,7 +3,7 @@
 * project    : XOS-Shop, open source e-commerce system
 *              http://www.xos-shop.com
 *
-* template   : responsive
+* template   : default-responsive
 * version    : 1.0.7 for XOS-Shop version 1.0 rc7w
 * descrip    : xos-shop default template built with Bootstrap3                                                                    
 * filename   : shopping_cart.tpl
@@ -56,7 +56,7 @@
                                   inline: true,
                                   onLoad:function() { $("#shopping_cart_box_title").css({'display':'block'}); $("#shopping_cart_box_content").css({'width':'280px', 'float':'left'}); },
                                   onCleanup:function() { $("#shopping_cart_box_title").css({'display':'none'}); $("#shopping_cart_box_content").css({'visibility':'hidden'});},
-                                  onClosed:function() { $("#shopping_cart_box_content").css({'visibility':'visible', 'width':'200px', 'float':'right'}); },    
+                                  onClosed:function() { $("#shopping_cart_box_content").css({'visibility':'visible', 'width':'220px', 'float':'right'}); },    
                                   href:'#shopping_cart_box_content'                          
                                 });
                               });                                                

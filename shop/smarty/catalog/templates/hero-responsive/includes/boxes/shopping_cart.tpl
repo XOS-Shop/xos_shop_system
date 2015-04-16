@@ -56,7 +56,7 @@
                                   inline: true,
                                   onLoad:function() { $("#shopping_cart_box_title").css({'display':'block'}); $("#shopping_cart_box_content").css({'width':'280px', 'float':'left'}); },
                                   onCleanup:function() { $("#shopping_cart_box_title").css({'display':'none'}); $("#shopping_cart_box_content").css({'visibility':'hidden'});},
-                                  onClosed:function() { $("#shopping_cart_box_content").css({'visibility':'visible', 'width':'200px', 'float':'right'}); },    
+                                  onClosed:function() { $("#shopping_cart_box_content").css({'visibility':'visible', 'width':'220px', 'float':'right'}); },    
                                   href:'#shopping_cart_box_content'                          
                                 });
                               });                                                

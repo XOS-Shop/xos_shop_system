@@ -59,7 +59,7 @@
             [@{if $link_switch_view}@]          
             <div style="float: left; padding: 3px;">                       
               &nbsp;     
-              <div style="padding: 2px 20px 0 0; white-space: nowrap;">
+              <div style="padding: 1px 20px 0 0; white-space: nowrap;">
                 <a href="[@{$link_switch_view}@]" class="btn btn-default" style="float: left" title=" [@{#button_title_switch_view#}@] "><span class="glyphicon glyphicon-align-justify glyphicon-th"  style="color:#fb716d;"></span> <span class="glyphicon glyphicon-th"  style="color:#808080;"></span> [@{#button_text_switch_view#}@]</a>                       
               </div>                                   
             </div> 
@@ -95,13 +95,13 @@
               <div style="padding: 2px 20px 0 0;"> 
                 <div id="sort_box">
                   [@{if $selected_none}@]
-                  <ul style="padding: 3px; border-radius: 4px;">
+                  <ul style="padding: 3px;">
                     <li><img src="[@{$images_path}@]arrow_asc_desc_alternate.gif" alt="" />[@{#text_please_select#}@]&nbsp;</li>
                   </ul>
                   [@{else}@]
                   [@{foreach item=heading_top from=$table_heading_alt}@]
                   [@{if $heading_top.selected}@]
-                  <ul style="padding: 3px; border-radius: 4px;">
+                  <ul style="padding: 3px;">
                     <li>[@{$heading_top.text}@]&nbsp;</li>
                   </ul>
                   [@{/if}@]

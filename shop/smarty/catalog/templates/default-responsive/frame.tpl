@@ -3,7 +3,7 @@
 * project    : XOS-Shop, open source e-commerce system
 *              http://www.xos-shop.com
 *
-* template   : responsive
+* template   : default-responsive
 * version    : 1.0.7 for XOS-Shop version 1.0 rc7w
 * descrip    : xos-shop default template built with Bootstrap3                                                                    
 * filename   : frame.tpl
@@ -41,7 +41,7 @@
 <div class="breadcrumb">
 [@{$header_breadcrumb}@]  
 </div>
-[@{/if}@]    
+[@{/if}@]   
 </div>  
 </div> 
 [@{if $header_error_message}@]

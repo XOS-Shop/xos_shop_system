@@ -3,7 +3,7 @@
 * project    : XOS-Shop, open source e-commerce system
 *              http://www.xos-shop.com
 *
-* template   : responsive
+* template   : default-responsive
 * version    : 1.0.7 for XOS-Shop version 1.0 rc7w
 * descrip    : xos-shop default template built with Bootstrap3                                                                    
 * filename   : categories.tpl
@@ -27,7 +27,6 @@
 *}@]
 
 <!-- categories --> 
-          [@{if $boxes_categories_tabs_full_categories_tree}@]
           <div id="cssmenu" class="nav navbar-nav navbar-left cat-tree-title">
             <a class="navbar-brand hidden-xs" style="cursor: pointer;">[@{#box_heading_page_tree#}@]</a>                 
             <ul class="ul-cat-outer"  role="menu">
@@ -49,6 +48,5 @@
               <li></li>  
             [@{/foreach}@]              
             </ul>              
-          </div>
-          [@{/if}@]                                              
+          </div>                                              
 <!-- categories_eof -->

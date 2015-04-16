@@ -37,9 +37,11 @@
 <!-- central_contents --> 
 <div class="row">
 <div class="col-sm-12">
+[@{if $header_breadcrumb}@]
 <div class="breadcrumb">
 [@{$header_breadcrumb}@]  
-</div>    
+</div>
+[@{/if}@]   
 </div>  
 </div> 
 [@{if $header_error_message}@]

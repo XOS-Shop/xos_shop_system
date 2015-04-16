@@ -621,7 +621,7 @@ div.div-spacer-h4 {
   white-space: nowrap;
   position: absolute;
   left: 0px;
-  top: 0px;
+  top: 4px;
   visibility: hidden;
   display: block;
 }
