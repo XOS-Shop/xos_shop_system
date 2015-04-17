@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : hero-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7w
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7x
 * descrip    : xos-shop template built with Bootstrap3 and theme superhero                                                                    
 * filename   : login.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>

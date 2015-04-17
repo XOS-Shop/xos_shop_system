@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : hero-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7w
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7x
 * descrip    : xos-shop template built with Bootstrap3 and theme superhero                                                                    
 * filename   : html_header.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
@@ -44,7 +44,7 @@
 -->
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="generator" content="XOS-Shop version 1.0 rc7w, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0 rc7x, open source e-commerce system" />
 <title>[@{$html_header_page_title}@][@{$html_header_add_page_title}@]</title>
 <base href="[@{$base_href}@]" />
 <link rel="canonical" href="[@{$html_header_link_canonical}@]" />

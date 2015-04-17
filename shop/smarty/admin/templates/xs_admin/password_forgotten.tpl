@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : xs_admin
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7w
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7x
 * descrip    : xos-shop default template for admin with css-buttons
 *              and tables for layout                                                                     
 * filename   : password_forgotten.tpl

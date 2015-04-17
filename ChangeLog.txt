@@ -1,6 +1,11 @@
 
 ##ChangeLog
 
+# XOS-Shop v1.0_rc7x (Release 04/17/2015)
+
+- feature: Neue Templates 'responsive' hinzugefügt
+- update:  Alte Templates entfernt
+
 # XOS-Shop v1.0_rc7w (Release 04/08/2015)
 
 - bugfix:  Fehler in 'advanced_search_and_results.php' und 'search_result.php' behoben
