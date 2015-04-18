@@ -256,7 +256,7 @@
                                        'form_name' => 'cart_quantity_' . $rows,
                                        'form_end' => '</form>',
                                        'label_for_products_input_quantity' => 'products_quantity_' . $listing['products_id'],
-                                       'products_input_quantity' => xos_draw_input_field('products_quantity', '1','id="products_quantity_' . $listing['products_id'] . '" style="width: 46px; padding-left: 2px; padding-right: 0px;" class="form-control" maxlength="5"'),
+                                       'products_input_quantity' => xos_draw_input_field('products_quantity', '1','id="products_quantity_' . $listing['products_id'] . '" class="form-control input-quantity" maxlength="5"'),
                                        'products_hidden_field' => xos_draw_hidden_field('p', $listing['products_id'])); 
             break;
         }                                            

@@ -58,7 +58,7 @@ jQuery(document).ready(function($) {
                 if ($(window).width() > 767) { 
 //                  $(".holder").remove();
                   $(this).find('li').removeClass('open');
-//                  $(this).find('ul').css('display','none');               
+                  $(this).find('ul').css('display','none');               
                   $(this).children('ul').fadeIn();
                 }   
               }).mouseleave(function(){

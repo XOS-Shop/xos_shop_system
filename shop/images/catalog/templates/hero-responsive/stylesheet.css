@@ -731,3 +731,15 @@ a.header-navi:hover {
 .product-listing-b-item-data {
   margin: 0 0 10px;
 } 
+
+.input-quantity {
+  width: 46px !important;
+  padding-left: 2px;
+  padding-right: 0px;
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .input-quantity {
+    width: 30px !important;
+  }
+}

@@ -312,3 +312,9 @@ padding: 8px 2px 10px 0;
 .sub-cat-level4 .sub-cat-touchpad {
   display: inline-block; 
 } 
+
+.input-quantity {
+  width: 37px !important;
+  padding-left: 2px;
+  padding-right: 0px;
+}

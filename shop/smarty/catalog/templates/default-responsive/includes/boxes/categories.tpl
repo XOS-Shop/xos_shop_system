@@ -27,6 +27,7 @@
 *}@]
 
 <!-- categories --> 
+          [@{if $boxes_categories_tabs_full_categories_tree}@]
           <div id="cssmenu" class="nav navbar-nav navbar-left cat-tree-title">
             <a class="navbar-brand hidden-xs" style="cursor: pointer;">[@{#box_heading_page_tree#}@]</a>                 
             <ul class="ul-cat-outer"  role="menu">
@@ -48,5 +49,6 @@
               <li></li>  
             [@{/foreach}@]              
             </ul>              
-          </div>                                              
+          </div>
+          [@{/if}@]                                                        
 <!-- categories_eof -->
