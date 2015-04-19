@@ -49,7 +49,6 @@
 <base href="[@{$base_href}@]" />
 <link rel="shortcut icon" type="image/x-icon" href="[@{$images_path}@]favicon.ico" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="[@{$images_path}@]bootstrap-theme.min.css" />
 <!--
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]grid.css" /> 
 -->

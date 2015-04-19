@@ -773,6 +773,6 @@ a.header-navi:hover {
 
 @media (min-width: 992px) and (max-width: 1199px) {
   .input-quantity {
-    width: 37px !important;
+    width: 27px !important;
   }
 }
