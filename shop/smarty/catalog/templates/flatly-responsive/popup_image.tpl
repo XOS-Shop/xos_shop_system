@@ -49,9 +49,6 @@
 <base href="[@{$base_href}@]" />
 <link rel="shortcut icon" type="image/x-icon" href="[@{$images_path}@]favicon.ico" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]bootstrap.min.css" />
-<!--
-<link rel="stylesheet" type="text/css" href="[@{$images_path}@]grid.css" /> 
--->
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]nav.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]stylesheet.css" />
 <link rel="stylesheet" type="text/css" href="[@{$link_to_dynamic_css}@]" />
