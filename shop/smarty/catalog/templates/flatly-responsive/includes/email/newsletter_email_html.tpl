@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : flatly-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7x
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7y
 * descrip    : xos-shop template built with Bootstrap3 and theme flatly                                                                    
 * filename   : newsletter_email_html.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
@@ -32,7 +32,7 @@
 <meta http-equiv="content-type" content="text/html; charset=[@{$charset}@]" />
 <meta http-equiv="content-language" content="[@{$xhtml_lang}@]" />
 <meta http-equiv="content-style-type" content="text/css" />
-<meta name="generator" content="XOS-Shop version 1.0 rc7x, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0 rc7y, open source e-commerce system" />
 <base href="[@{$base_href}@]" />
 <title></title>
 </head>

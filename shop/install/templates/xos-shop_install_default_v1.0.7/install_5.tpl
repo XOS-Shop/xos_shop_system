@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : xos-shop_install_default_v1.0.7
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7x                                                                     
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7y                                                                     
 * filename   : install_5.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
 * copyright  : Copyright (c) 2007 Hanspeter Zeller
