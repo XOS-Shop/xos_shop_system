@@ -28,6 +28,13 @@
 jQuery("body").attr("class","jq-no-conflict-with-colorbox");
 jQuery(document).ready(function($) {
 
+      function getWindowWidth() {
+        $('body, html').css('overflow', 'hidden');
+        var wW = $(window).width();
+        $('body, html').css('overflow', 'auto');
+        return wW;     
+      }
+
       if (document.all && !document.addEventListener) { // is IE8 or older
     
         $('#cssmenu > a').removeClass('hidden-xs');
@@ -35,7 +42,7 @@ jQuery(document).ready(function($) {
       } else {
 
         $('#cssmenu li.has-sub>span.holder').on('click', function(e){
-          if ($(window).width() < 768) {
+          if (getWindowWidth() < 768) {
 		var element = $(this).parent('li');
 		if (element.hasClass('open')) {
 			element.removeClass('open');
@@ -55,94 +62,94 @@ jQuery(document).ready(function($) {
  
               $('.cat-tree-title').find('ul').css('display','none');
               $('.cat-tree-title').mouseenter(function(){
-                if ($(window).width() > 767) { 
+                if (getWindowWidth() > 767) { 
 //                  $(".holder").remove();
                   $(this).find('li').removeClass('open');
                   $(this).find('ul').css('display','none');               
                   $(this).children('ul').fadeIn();
                 }   
               }).mouseleave(function(){
-                if ($(window).width() > 767) {
+                if (getWindowWidth() > 767) {
                   $(this).children('ul').css('display','none');
                 }  
               });              
               
               $('.main-cat').mouseenter(function(){
-                if ($(window).width() > 767) {               
+                if (getWindowWidth() > 767) {               
                   $(this).children('ul').fadeIn();
                 }
               }).mouseleave(function(){
-                if ($(window).width() > 767) {
+                if (getWindowWidth() > 767) {
                   $(this).children('ul').css('display','none');
                 } 
               });
               
               $('.main-cat-selected').mouseenter(function(){
-                if ($(window).width() > 767) {              
+                if (getWindowWidth() > 767) {              
                   $(this).children('ul').fadeIn();
                 }
               }).mouseleave(function(){
-                if ($(window).width() > 767) {
+                if (getWindowWidth() > 767) {
                   $(this).children('ul').css('display','none');
                 } 
               });              
                                        
               $('.sub-cat-level1').mouseenter(function(){
-                if ($(window).width() > 767) {              
+                if (getWindowWidth() > 767) {              
                   $(this).children('ul').fadeIn();
                 }
               }).mouseleave(function(){
-                if ($(window).width() > 767) {
+                if (getWindowWidth() > 767) {
                   $(this).children('ul').css('display','none');
                 } 
               });
               
               $('.sub-cat-level1-selected').mouseenter(function(){
-                if ($(window).width() > 767) {               
+                if (getWindowWidth() > 767) {               
                   $(this).children('ul').fadeIn();
                 }
               }).mouseleave(function(){
-                if ($(window).width() > 767) {
+                if (getWindowWidth() > 767) {
                   $(this).children('ul').css('display','none');
                 } 
               });              
                                                                                                         
               $('.sub-cat-level2').mouseenter(function(){
-                if ($(window).width() > 767) {             
+                if (getWindowWidth() > 767) {             
                   $(this).children('ul').fadeIn();
                 }
               }).mouseleave(function(){
-                if ($(window).width() > 767) {
+                if (getWindowWidth() > 767) {
                   $(this).children('ul').css('display','none');
                 } 
               });
               
               $('.sub-cat-level2-selected').mouseenter(function(){
-                if ($(window).width() > 767) {             
+                if (getWindowWidth() > 767) {             
                   $(this).children('ul').fadeIn();
                 }
               }).mouseleave(function(){
-                if ($(window).width() > 767) {
+                if (getWindowWidth() > 767) {
                   $(this).children('ul').css('display','none');
                 } 
               });              
               
               $('.sub-cat-level3').mouseenter(function(){
-                if ($(window).width() > 767) {               
+                if (getWindowWidth() > 767) {               
                   $(this).children('ul').fadeIn();
                 }
               }).mouseleave(function(){
-                if ($(window).width() > 767) {
+                if (getWindowWidth() > 767) {
                   $(this).children('ul').css('display','none');
                 } 
               });
               
               $('.sub-cat-level3-selected').mouseenter(function(){
-                if ($(window).width() > 767) {        
+                if (getWindowWidth() > 767) {        
                   $(this).children('ul').fadeIn();
                 }
               }).mouseleave(function(){
-                if ($(window).width() > 767) {
+                if (getWindowWidth() > 767) {
                   $(this).children('ul').css('display','none');
                 } 
               });                              
@@ -162,7 +169,7 @@ jQuery(document).ready(function($) {
            height = $(this).attr("class").toLowerCase().slice($(this).attr("class").toLowerCase().indexOf("height")).split(" ")[0].replace("height=","").replace("height","").replace("px","").replace("p","%");
           
        if(isNaN(width.replace("%","")) || width.replace("%","").length < 1){
-         if ($(window).width() < 768) {
+         if (getWindowWidth() < 768) {
            width = '90%';
          } else {
            width = 700;
