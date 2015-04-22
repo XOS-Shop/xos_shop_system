@@ -1,6 +1,10 @@
 
 ##ChangeLog
 
+# XOS-Shop v1.0_rc7y (Release 04/22/2015)
+
+- feature: Weiter neue Templates 'responsive' hinzugefügt
+
 # XOS-Shop v1.0_rc7x (Release 04/17/2015)
 
 - feature: Neue Templates 'responsive' hinzugefügt
