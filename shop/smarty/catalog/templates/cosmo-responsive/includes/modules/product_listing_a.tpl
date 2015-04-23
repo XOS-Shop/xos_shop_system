@@ -50,8 +50,14 @@
     });
   });
   if(document.getElementById("advanced-search-and-results-heading") != null) {
-    document.getElementById("advanced-search-and-results-heading").style.display = "block";
-  }
+    $('#advanced-search-and-results-heading').css('display','block');
+    $('#advanced-search-and-results-forms').css('display','none');
+    $('#toggle_forms').css('display','block');
+  } 
+  $('#toggle_forms').click(function() {
+    $('#advanced-search-and-results-forms').toggle(600);
+    return false;
+  });  
 </script> 
           [@{if $listing}@]
           <div class="clearfix invisible"></div> 
