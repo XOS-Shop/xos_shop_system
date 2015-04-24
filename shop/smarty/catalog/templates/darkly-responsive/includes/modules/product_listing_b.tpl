@@ -55,7 +55,7 @@
     $('#toggle_forms').css('display','block');
   } 
   $('#toggle_forms').click(function() {
-    $('#advanced-search-and-results-forms').toggle(600);
+    $('#advanced-search-and-results-forms').slideToggle(600);
     return false;
   }); 
 </script> 
