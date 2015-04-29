@@ -24,14 +24,8 @@
 #  </IfDefine>
 #</IfModule>
 
-# If Search Engine Friendly URLs do not work, try enabling the
-# following Apache configuration parameter
-#
-# AcceptPathInfo On
-
 # Fix certain PHP values
-# (commented out by default to prevent errors occuring on certain
-# servers)
+# (commented out by default to prevent errors occuring on certain servers)
 #
 #  php_value session.use_trans_sid 0
 #  php_value register_globals 0
@@ -39,6 +33,37 @@
 <IfModule mod_rewrite.c>
   AcceptPathInfo On
   RewriteEngine On
+
+#########################
+# redirect http to https
+#########################
+#
+# RewriteCond %{HTTPS} off
+# RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+#########################
+# redirect no-www to www
+#########################
+#
+# RewriteCond %{HTTPS} off
+# RewriteCond %{HTTP_HOST} ^(?!www\.)(.+)$ [NC]
+# RewriteRule ^ http://www\.%1%{REQUEST_URI} [L,R=301]
+# RewriteCond %{HTTPS} on
+# RewriteCond %{HTTP_HOST} ^(?!www\.)(.+)$ [NC]
+# RewriteRule ^ https://www\.%1%{REQUEST_URI} [L,R=301]
+
+
+#########################
+# redirect www to no-www
+#########################
+#
+# RewriteCond %{HTTPS} off
+# RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+# RewriteRule ^ http://%1%{REQUEST_URI} [L,R=301]
+# RewriteCond %{HTTPS} on
+# RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+# RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301] 
+
    
 # RewriteBase instructions
 # Change RewriteBase dependent on how your shop is accessed as below.
