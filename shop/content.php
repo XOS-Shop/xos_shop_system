@@ -31,7 +31,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
   $content_query = xos_db_query("select c.content_id, c.link_request_type, c.type, cd.name, cd.heading_title, cd.content, cd.php_source from " . TABLE_CONTENTS . " c, " . TABLE_CONTENTS_DATA . " cd where c.status = '1' and c.content_id = '" . (int)$content_id . "' and c.content_id = cd.content_id and language_id = '" . (int)$_SESSION['languages_id'] . "'");
   $content = xos_db_fetch_array($content_query);
   eval(' ?>' . $content['php_source'] . '<?php ');
-  if ($content['type'] == 'info') $site_trail->add($content['name'], xos_href_link(FILENAME_CONTENT,'co=' . $content['content_id'], (!empty($content['link_request_type']) ? $content['link_request_type'] : 'NONSSL')));
+  if (in_array($content['type'], array('info', 'not_in_menu'))) $site_trail->add($content['name'], xos_href_link(FILENAME_CONTENT,'co=' . $content['content_id'], (!empty($content['link_request_type']) ? $content['link_request_type'] : 'NONSSL')));
  
   $add_header = '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>';
   
