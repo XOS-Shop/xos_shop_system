@@ -149,7 +149,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
 
     $smarty->assign(array('action' => 'confirm_recreate',
-                          'BODY_TAG_PARAMS' => 'onload="confirm_recreate(\'image_processing.php?action=' . ($action == 'confirm_recreate_product_images' ? 'recreate_product_images_now' : 'recreate_category_images_now' ) . '&amp;' .session_name() . '=' .  session_id() . '\')"'));
+                          'BODY_TAG_PARAMS' => 'onload="confirm_recreate(\'' . DIR_WS_ADMIN . 'image_processing.php?action=' . ($action == 'confirm_recreate_product_images' ? 'recreate_product_images_now' : 'recreate_category_images_now' ) . '&amp;' .session_name() . '=' .  session_id() . '\')"'));
     
   } else {
     
