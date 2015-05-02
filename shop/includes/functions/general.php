@@ -1418,7 +1418,7 @@
   
 ////  
 // Return unserialize image/images_array 
-  function xos_get_product_images(&$serialize_images_array, $first = 'first') {
+  function xos_get_product_images($serialize_images_array, $first = 'first') {
     
     $images_array = unserialize($serialize_images_array);
     if (!is_array($images_array)) $images_array = array();
@@ -1430,7 +1430,7 @@
   
 ////  
 // Return unserialize prices_array  
-  function xos_get_product_prices(&$serialize_prices_array) {   
+  function xos_get_product_prices($serialize_prices_array) {   
     $prices_array = unserialize($serialize_prices_array);
     if (!is_array($prices_array)) $prices_array = array();
     return $prices_array;  
@@ -1438,7 +1438,7 @@
   
 ////  
 // Return unserialize attributes_quantity_array  
-  function xos_get_attributes_quantity(&$serialize_attributes_quantity_array) {   
+  function xos_get_attributes_quantity($serialize_attributes_quantity_array) {   
     $attributes_quantity_array = unserialize($serialize_attributes_quantity_array);
     if (!is_array($attributes_quantity_array)) $attributes_quantity_array = array();
     return $attributes_quantity_array;  
