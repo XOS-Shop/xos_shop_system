@@ -371,7 +371,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     }  
 
     $smarty->assign(array('action' => 'confirm_send',
-                          'BODY_TAG_PARAMS' => 'onload="confirmSent(\'' . DIR_WS_ADMIN . 'newsletters.php?page=' . $_GET['page'] . '&amp;nID=' . $_GET['nID'] . '&amp;customers_chosen=' . $customers_chosen . '&amp;action=send_now&amp;' .session_name() . '=' .  session_id() . '\')"'));
+                          'BODY_TAG_PARAMS' => 'onload="confirmSent(\'' . DIR_WS_ADMIN . FILENAME_NEWSLETTERS . '?page=' . $_GET['page'] . '&amp;nID=' . $_GET['nID'] . '&amp;customers_chosen=' . $customers_chosen . '&amp;action=send_now&amp;' .session_name() . '=' .  session_id() . '\')"'));
     
   } else {
 
