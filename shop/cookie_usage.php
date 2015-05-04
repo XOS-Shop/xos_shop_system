@@ -36,8 +36,6 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
 
   $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_COOKIE_USAGE));
   
-  $add_header = '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>';
-  
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');
   require(DIR_WS_INCLUDES . 'header.php');

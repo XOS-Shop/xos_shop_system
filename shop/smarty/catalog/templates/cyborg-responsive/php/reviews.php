@@ -58,8 +58,6 @@
 
   $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_REVIEWS, xos_get_all_get_params(array('language', 'currency', 'tpl', 'x', 'y'))));
   
-  $add_header = '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>';
-  
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');
   require(DIR_WS_INCLUDES . 'header.php');

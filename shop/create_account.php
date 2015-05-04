@@ -378,54 +378,53 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL')); 
 
-  $add_header = '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>' . "\n";
-  $add_header .= '<script type="text/javascript">' . "\n" .
-                 '/* <![CDATA[ */' . "\n" .
-                 'var form = "";' . "\n" .
-                 'var submitted = false;' . "\n" .
-                 'var error_dob = false;' . "\n" .                 
-                 'var error = false;' . "\n" .
-                 'var error_message = "";' . "\n\n" .
+  $add_header = '<script type="text/javascript">' . "\n" .
+                '/* <![CDATA[ */' . "\n" .
+                'var form = "";' . "\n" .
+                'var submitted = false;' . "\n" .
+                'var error_dob = false;' . "\n" .                 
+                'var error = false;' . "\n" .
+                'var error_message = "";' . "\n\n" .
 
-                 'function check_password(field_name_1, field_name_2, field_size, message_1, message_2) {' . "\n" .
-                 '  if (form.elements[field_name_1] && (form.elements[field_name_1].type != "hidden")) {' . "\n" .
-                 '    var password = form.elements[field_name_1].value;' . "\n" .
-                 '    var confirmation = form.elements[field_name_2].value;' . "\n\n" .
+                'function check_password(field_name_1, field_name_2, field_size, message_1, message_2) {' . "\n" .
+                '  if (form.elements[field_name_1] && (form.elements[field_name_1].type != "hidden")) {' . "\n" .
+                '    var password = form.elements[field_name_1].value;' . "\n" .
+                '    var confirmation = form.elements[field_name_2].value;' . "\n\n" .
 
-                 '    if (password == "" || password.length < field_size) {' . "\n" .
-                 '      error_message = error_message + "* " + message_1 + "\n";' . "\n" .
-                 '      error = true;' . "\n" .
-                 '    } else if (password != confirmation) {' . "\n" .
-                 '      error_message = error_message + "* " + message_2 + "\n";' . "\n" .
-                 '      error = true;' . "\n" .
-                 '    }' . "\n" .
-                 '  }' . "\n" .
-                 '}' . "\n\n" .
+                '    if (password == "" || password.length < field_size) {' . "\n" .
+                '      error_message = error_message + "* " + message_1 + "\n";' . "\n" .
+                '      error = true;' . "\n" .
+                '    } else if (password != confirmation) {' . "\n" .
+                '      error_message = error_message + "* " + message_2 + "\n";' . "\n" .
+                '      error = true;' . "\n" .
+                '    }' . "\n" .
+                '  }' . "\n" .
+                '}' . "\n\n" .
         
-                 'function check_form_password(form_name) {' . "\n" .
-                 '  if (submitted == true) {' . "\n" .
-                 '    alert("' . JS_ERROR_SUBMITTED . '");' . "\n" .
-                 '    return false;' . "\n" .
-                 '  }' . "\n\n" .
+                'function check_form_password(form_name) {' . "\n" .
+                '  if (submitted == true) {' . "\n" .
+                '    alert("' . JS_ERROR_SUBMITTED . '");' . "\n" .
+                '    return false;' . "\n" .
+                '  }' . "\n\n" .
                  
-                 '  error_dob = false;' . "\n" . 
-                 '  error = false;' . "\n" .
-                 '  form = form_name;' . "\n" .
-                 '  error_message = "' . JS_ERROR . '";' . "\n\n" .
+                '  error_dob = false;' . "\n" . 
+                '  error = false;' . "\n" .
+                '  form = form_name;' . "\n" .
+                '  error_message = "' . JS_ERROR . '";' . "\n\n" .
                  
-                 '  check_password("password", "confirmation", ' . ENTRY_PASSWORD_MIN_LENGTH . ', "' . ENTRY_PASSWORD_ERROR . '", "' . ENTRY_PASSWORD_ERROR_NOT_MATCHING . '");' . "\n" .
-                 '  check_password("password_new", "password_confirmation", ' . ENTRY_PASSWORD_MIN_LENGTH . ', "' . ENTRY_PASSWORD_NEW_ERROR . '", "' . ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING . '");' . "\n\n" .
+                '  check_password("password", "confirmation", ' . ENTRY_PASSWORD_MIN_LENGTH . ', "' . ENTRY_PASSWORD_ERROR . '", "' . ENTRY_PASSWORD_ERROR_NOT_MATCHING . '");' . "\n" .
+                '  check_password("password_new", "password_confirmation", ' . ENTRY_PASSWORD_MIN_LENGTH . ', "' . ENTRY_PASSWORD_NEW_ERROR . '", "' . ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING . '");' . "\n\n" .
 
-                 '  if (error == true) {' . "\n" .
-                 '    alert(error_message);' . "\n" .
-                 '    return false;' . "\n" .
-                 '  } else {' . "\n" .
-                 '    submitted = true;' . "\n" .
-                 '    return true;' . "\n" .
-                 '  }' . "\n" .
-                 '}' . "\n" .
-                 '/* ]]> */' . "\n" .
-                 '</script> ' . "\n";
+                '  if (error == true) {' . "\n" .
+                '    alert(error_message);' . "\n" .
+                '    return false;' . "\n" .
+                '  } else {' . "\n" .
+                '    submitted = true;' . "\n" .
+                '    return true;' . "\n" .
+                '  }' . "\n" .
+                '}' . "\n" .
+                '/* ]]> */' . "\n" .
+                '</script> ' . "\n";
 
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');

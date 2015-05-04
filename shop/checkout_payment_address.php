@@ -221,8 +221,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   $addresses_count = xos_count_customer_address_book_entries();
 
-  $add_header = '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>' . "\n" .
-                '<script type="text/javascript">' . "\n" .
+  $add_header = '<script type="text/javascript">' . "\n" .
                 '/* <![CDATA[ */' . "\n" .
                 'var selected;' . "\n\n" .
 

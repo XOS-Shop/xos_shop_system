@@ -100,8 +100,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   $site_trail->add(NAVBAR_TITLE_1, xos_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL'));
   $site_trail->add(NAVBAR_TITLE_2, xos_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL')); 
   
-  $add_header = '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>' . "\n" .
-                '<script type="text/javascript">' . "\n" .
+  $add_header = '<script type="text/javascript">' . "\n" .
                 '/* <![CDATA[ */' . "\n" .
                 'var selected;' . "\n\n" .
 

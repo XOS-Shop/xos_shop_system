@@ -32,8 +32,6 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
   $content = xos_db_fetch_array($content_query);
   eval(' ?>' . $content['php_source'] . '<?php ');
   if (in_array($content['type'], array('info', 'not_in_menu'))) $site_trail->add($content['name'], xos_href_link(FILENAME_CONTENT,'co=' . $content['content_id'], (!empty($content['link_request_type']) ? $content['link_request_type'] : 'NONSSL')));
- 
-  $add_header = '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>';
   
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');

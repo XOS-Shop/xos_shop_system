@@ -37,8 +37,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_PRODUCT_INFO);
   
   $add_header = '<link rel="stylesheet" type="text/css" href="' . DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/jquery.jqzoom.css" />' . "\n" .
-                '<script type="text/javascript" src="' . DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/jquery.jqzoom-core-pack.js"></script>' . "\n" .
-                '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>' . "\n\n" .
+                '<script type="text/javascript" src="' . DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/jquery.jqzoom-core-pack.js"></script>' . "\n\n" .
   
                 '<script type="text/javascript">' . "\n" .
                 '/* <![CDATA[ */' . "\n\n" .

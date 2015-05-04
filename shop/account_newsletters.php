@@ -69,8 +69,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   $site_trail->add(NAVBAR_TITLE_1, xos_href_link(FILENAME_ACCOUNT, '', 'SSL'));
   $site_trail->add(NAVBAR_TITLE_2, xos_href_link(FILENAME_ACCOUNT_NEWSLETTERS, '', 'SSL'));
 
-  $add_header = '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>' . "\n" .
-                '<script type="text/javascript">' . "\n" .
+  $add_header = '<script type="text/javascript">' . "\n" .
                 '/* <![CDATA[ */' . "\n" .
                 'function rowOverEffect(object) {' . "\n" .
                 '  if (object.className == "module-row") object.className = "module-row-over";' . "\n" .

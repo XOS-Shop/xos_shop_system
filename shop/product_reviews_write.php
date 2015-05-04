@@ -87,8 +87,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_PRODUCT_REVIEWS, xos_get_all_get_params()));
   
-  $add_header = '<script type="text/javascript" src="' . DIR_WS_CATALOG . 'includes/general.js"></script>' . "\n" .
-                '<script type="text/javascript">' . "\n" .
+  $add_header = '<script type="text/javascript">' . "\n" .
                 '/* <![CDATA[ */' . "\n" .
                 'function checkForm() {' . "\n" .
                 '  var error = 0;' . "\n" .
