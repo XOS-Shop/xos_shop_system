@@ -33,7 +33,25 @@
 <IfModule mod_rewrite.c>
   AcceptPathInfo On
   RewriteEngine On
+  
+#########################  
+# RewriteBase instructions
+#########################
+# Change RewriteBase dependent on how your shop is accessed as below.
+# http://www.mysite.com = RewriteBase /
+# http://www.mysite.com/catalog/ = RewriteBase /catalog/
+# http://www.mysite.com/catalog/shop/ = RewriteBase /catalog/shop/
+# Change the following line using the instructions above 
+#  RewriteBase / 
 
+#########################   
+# gzip for '.js', '.css', '.svg' and '.ttf' files 
+#########################
+# RewriteRule ^(.*\.js) gzip.php?type=js&file=$1
+# RewriteRule ^(.*\.css) gzip.php?type=css&file=$1
+# RewriteRule ^(.*\.svg) gzip.php?type=svg&file=$1
+# RewriteRule ^(.*\.ttf) gzip.php?type=ttf&file=$1 
+    
 #########################
 # redirect http to https
 #########################
@@ -63,16 +81,6 @@
 # RewriteCond %{HTTPS} on
 # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 # RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301] 
-
-   
-# RewriteBase instructions
-# Change RewriteBase dependent on how your shop is accessed as below.
-# http://www.mysite.com = RewriteBase /
-# http://www.mysite.com/catalog/ = RewriteBase /catalog/
-# http://www.mysite.com/catalog/shop/ = RewriteBase /catalog/shop/
-# Change the following line using the instructions above
- 
-#  RewriteBase / 
 
   RewriteRule ^(.*)\.html/a(.*)$ index.php/$2 [L]  
   RewriteRule ^(.*)\.html/b(.*)$ product_info.php/$2 [L]
