@@ -63,6 +63,7 @@
 </div>  
 [@{/if}@]  
 [@{$central_contents}@]
+<div class="clearfix invisible"></div>
 <!-- central_contents_eof -->
 </div>
 <div class="col-sm-3 col-sm-pull-9">
