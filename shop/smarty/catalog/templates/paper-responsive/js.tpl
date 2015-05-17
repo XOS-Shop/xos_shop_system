@@ -29,9 +29,9 @@ jQuery("body").attr("class","jq-no-conflict-with-colorbox");
 jQuery(document).ready(function($) {
 
       function getWindowWidth() {
-        $('body, html').css('overflow', 'hidden');
+        $('body').css('overflow', 'hidden');
         var wW = $(window).width();
-        $('body, html').css('overflow', 'auto');
+        $('body').css('overflow', 'auto');
         return wW;     
       }
 
