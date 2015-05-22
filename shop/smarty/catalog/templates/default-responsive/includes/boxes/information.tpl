@@ -26,6 +26,7 @@
 ********************************************************************************
 *}@]
 
+[@{if $box_information_has_content}@]
 <!-- information --> 
           <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title">[@{#box_heading_information#}@]</h3></div>
@@ -37,3 +38,4 @@
             </div>
           </div>          
 <!-- information_eof -->
+[@{/if}@]

@@ -27,6 +27,7 @@
 ********************************************************************************
 *}@]
 
+[@{if $box_information_has_content}@]
 <!-- information -->
           <div class="info-box-heading">[@{#box_heading_information#}@]</div>
           <div class="info-box-contents" style="padding: 11px 3px 11px 3px;">
@@ -36,3 +37,4 @@
               <div style="padding: 1px;"><a href="[@{$box_information_link_filename_contact_us}@]">[@{#box_information_contact#}@]</a></div>
           </div>
 <!-- information_eof -->
+[@{/if}@]

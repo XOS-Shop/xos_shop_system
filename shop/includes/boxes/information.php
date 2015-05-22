@@ -47,7 +47,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
                               'name' => $contents['name']);
     }
     
-    $smarty->assign('box_information_contents', $contents_array);
+    $smarty->assign(array('box_information_has_content' => !empty($contents_array),
+                          'box_information_contents' => $contents_array));    
   }  
   
   $output_information = $smarty->fetch(SELECTED_TPL . '/includes/boxes/information.tpl', $cache_id);
