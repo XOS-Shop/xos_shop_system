@@ -47,7 +47,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
       if (isset($_GET['goto']) && xos_not_null($_GET['goto'])) {
         $check_query = xos_db_query("select products_url from " . TABLE_PRODUCTS_DESCRIPTION . " where products_url = '" . xos_db_input(xos_db_prepare_input($_GET['goto'])) . "' limit 1");
         if (xos_db_num_rows($check_query)) {
-          xos_redirect('http://' . $_GET['goto']);
+          $url = xos_db_fetch_array($check_query);
+          xos_redirect(parse_url($url['products_url'], PHP_URL_SCHEME) ? $url['products_url'] : 'http://' . $url['products_url']);
         }
       }
       break;
@@ -62,7 +63,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
           if (xos_not_null($manufacturer['manufacturers_url'])) {
             xos_db_query("update " . TABLE_MANUFACTURERS_INFO . " set url_clicked = url_clicked+1, date_last_click = now() where manufacturers_id = '" . (int)$_GET['m'] . "' and languages_id = '" . (int)$_SESSION['languages_id'] . "'");
 
-            xos_redirect($manufacturer['manufacturers_url']);
+            xos_redirect(parse_url($manufacturer['manufacturers_url'], PHP_URL_SCHEME) ? $manufacturer['manufacturers_url'] : 'http://' . $manufacturer['manufacturers_url']);
           }
         } else {
 // no url exists for the selected language, lets use the default language then

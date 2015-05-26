@@ -45,7 +45,7 @@ define('TEXT_EDIT_INTRO', 'Haga los cambios necesarios');
 define('TEXT_MANUFACTURERS_NAME', 'Nombre del Fabricante:');
 define('TEXT_DELETE', 'Delete:');
 define('TEXT_MANUFACTURERS_IMAGE', 'Imagen del Fabricante:');
-define('TEXT_MANUFACTURERS_URL', 'URL del Fabricante: (http://example.com)');
+define('TEXT_MANUFACTURERS_URL', 'URL del Fabricante:');
 
 define('TEXT_DELETE_INTRO', 'Seguro que desea eliminar este fabricante?');
 define('TEXT_DELETE_IMAGE', 'Eliminar imagen del fabricante?');

@@ -243,7 +243,7 @@
               <tr>
                 <td class="main">[@{if $smarty.foreach.name_url.first}@][@{#text_products_name#}@][@{/if}@]</td>
                 <td class="main">[@{$product_value.languages_image}@]&nbsp;[@{$product_value.input_name}@]</td>              
-                <td class="main">[@{if $smarty.foreach.name_url.first}@][@{#text_products_url#}@]<br /><small>[@{#text_products_url_without_http#}@]</small>[@{/if}@]</td>
+                <td class="main">[@{if $smarty.foreach.name_url.first}@][@{#text_products_url#}@][@{/if}@]</td>
                 <td class="main">[@{$product_value.languages_image}@]&nbsp;[@{$product_value.input_url}@]</td>          
               </tr>
               [@{/foreach}@]           

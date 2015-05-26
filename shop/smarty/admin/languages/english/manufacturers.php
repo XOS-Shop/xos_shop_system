@@ -45,7 +45,7 @@ define('TEXT_EDIT_INTRO', 'Please make any necessary changes');
 define('TEXT_MANUFACTURERS_NAME', 'Manufacturers Name:');
 define('TEXT_DELETE', 'Delete:');
 define('TEXT_MANUFACTURERS_IMAGE', 'Manufacturers Image:');
-define('TEXT_MANUFACTURERS_URL', 'Manufacturers URL: (http://example.com)');
+define('TEXT_MANUFACTURERS_URL', 'Manufacturers URL:');
 
 define('TEXT_DELETE_INTRO', 'Are you sure you want to delete this manufacturer?');
 define('TEXT_DELETE_IMAGE', 'Delete manufacturers image?');
