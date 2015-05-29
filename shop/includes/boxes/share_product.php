@@ -69,7 +69,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
         }
       }                                          
                                    
-      $smarty->assign('box_share_product_social_bookmarks', implode(' ', $social_bookmarks));
+      $smarty->assign('box_share_product_social_bookmarks', implode('', $social_bookmarks));
     }
   }
     

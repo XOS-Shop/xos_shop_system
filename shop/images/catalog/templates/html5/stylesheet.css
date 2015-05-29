@@ -1063,4 +1063,8 @@ html>body #currencies_list_noscript { /* IE 6 ignoriert nachfolgende Deklaration
 .zoomWindow {
   border-radius: 10px;
   box-shadow:3px 3px 7px #333333;  
+}
+
+.icon-social-bookmarks {
+  margin: 2px;
 }    

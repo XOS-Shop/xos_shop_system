@@ -735,6 +735,10 @@ a.header-navi:hover {
   padding-right: 0px;
 }
 
+.icon-social-bookmarks {
+  margin: 2px;
+}
+
 @media (min-width: 992px) and (max-width: 1199px) {
   .input-quantity {
     width: 40px !important;

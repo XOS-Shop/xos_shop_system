@@ -318,6 +318,12 @@ $(document).ready(function () {
                 [@{/strip}@]               
                 </script>                                             
                 [@{/if}@]
+                <div class="panel panel-default visible-xs-block">
+                  <div class="panel-heading"><h3 class="panel-title">[@{#box_heading_share_product#}@]</h3></div>
+                  <div class="panel-body text-center">
+                    [@{$box_share_product_social_bookmarks}@]         
+                  </div>
+                </div>                
                 <div class="panel panel-default clearfix">           
                   <div class="panel-body">                                                             
                     <div class="form-inline wrapper-for-input-qty">                      

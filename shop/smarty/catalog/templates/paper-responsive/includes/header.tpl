@@ -26,10 +26,10 @@
 ********************************************************************************
 *}@]
 [@{$header_message_stack_output}@]
-<nav class="navbar navbar-default navbar-static-top" style="z-index: 1001;">
+<nav class="navbar navbar-default navbar-fixed-top" style="z-index: 1001;">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
         <span class="sr-only">Navigation ein-/ausblenden</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -39,7 +39,7 @@
         <span class="glyphicon glyphicon-home" title=" [@{$header_store_name}@] [@{$smarty.const.HEADER_TITLE_HOME}@]"></span>
       </a>      
     </div>       
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">      
       [@{$box_categories}@] 
       [@{$box_search}@] 
 <!-- logoff -->     

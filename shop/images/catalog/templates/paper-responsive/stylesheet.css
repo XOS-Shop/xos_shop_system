@@ -777,13 +777,17 @@ a.header-navi:hover {
   text-align: center; 
 }
 
+textarea {
+  background-color: #fafafa !important;
+  padding: 5px 10px !important;
+}
+
+.icon-social-bookmarks {
+  margin: 2px;
+}
+
 @media (min-width: 992px) and (max-width: 1199px) {
   .input-quantity {
     width: 27px !important;
   }
-}
-
-textarea {
-  background-color: #fafafa !important;
-  padding: 5px 10px !important;
 }

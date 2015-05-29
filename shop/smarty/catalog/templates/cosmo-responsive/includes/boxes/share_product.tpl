@@ -28,7 +28,7 @@
 
 [@{if $box_share_product_social_bookmarks}@]
 <!-- share_product -->
-          <div class="panel panel-default">
+          <div class="panel panel-default hidden-xs">
             <div class="panel-heading"><h3 class="panel-title">[@{#box_heading_share_product#}@]</h3></div>
             <div class="panel-body text-center">
               [@{$box_share_product_social_bookmarks}@]         

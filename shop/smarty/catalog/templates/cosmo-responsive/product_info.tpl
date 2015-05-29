@@ -320,6 +320,12 @@ $(document).ready(function () {
                 $('#box_products_options_overview').css({'box-shadow' : '3px 3px 7px #333333', '-moz-box-shadow' : '3px 3px 7px #333333', '-webkit-box-shadow' : '3px 3px 7px #333333'});                
                 </script>                                             
                 [@{/if}@]
+                <div class="panel panel-default visible-xs-block">
+                  <div class="panel-heading"><h3 class="panel-title">[@{#box_heading_share_product#}@]</h3></div>
+                  <div class="panel-body text-center">
+                    [@{$box_share_product_social_bookmarks}@]         
+                  </div>
+                </div>                 
                 <div class="panel panel-default clearfix">           
                   <div class="panel-body">                                                             
                     <div class="form-inline wrapper-for-input-qty">                      
