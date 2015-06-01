@@ -49,7 +49,7 @@
               <a href="[@{$box_search_link_filename_advanced_search_and_results}@]">[@{#box_search_advanced_search#}@]</a> 
             </li>                      
             <li id="search_box" class="dropdown hidden-xs">
-              <a class="dropdown-toggle navbar-brand" role="button" aria-expanded="false"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
+              <a class="dropdown-toggle" role="button" aria-expanded="false" style="margin-left: -15px;"><span class="glyphicon glyphicon-triangle-bottom"></span></a>
               <ul id="search_contents" class="dropdown-menu" role="menu">
                 <li>
                   <div class="box-search">                 

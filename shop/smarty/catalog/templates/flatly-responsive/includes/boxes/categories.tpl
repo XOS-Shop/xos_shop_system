@@ -29,7 +29,7 @@
 <!-- categories --> 
           [@{if $boxes_categories_tabs_full_categories_tree}@]
           <div id="cssmenu" class="nav navbar-nav navbar-left cat-tree-title">
-            <a class="navbar-brand hidden-xs" style="cursor: pointer;">[@{#box_heading_page_tree#}@]</a>                 
+            <a class="navbar-brand hidden-xs" style="font-size: 18px; cursor: pointer;">[@{#box_heading_page_tree#}@]</a>                 
             <ul class="ul-cat-outer"  role="menu">
             [@{foreach name=outer item=category from=$boxes_categories_tabs_full_categories_tree}@]
               [@{if $category.level_will_change == 1}@]
