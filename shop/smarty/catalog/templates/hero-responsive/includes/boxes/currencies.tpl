@@ -33,7 +33,8 @@
           </div>                       
           <ul class="nav navbar-nav navbar-right hidden-xs">          
             <li id="currencies_box" class="dropdown">
-              <a class="dropdown-toggle" role="button" aria-expanded="false">[@{#box_heading_currencies#}@]</a>
+              <a class="dropdown-toggle hidden-sm" role="button" aria-expanded="false">[@{#box_heading_currencies#}@]</a>
+              <a class="dropdown-toggle visible-sm" style="font-size: 38px; font-weight: bold;" role="button" aria-expanded="false"[@{* title=" [@{#box_heading_currencies#}@] "*}@]>¤</a>
               <ul id="currencies_list" class="dropdown-menu" role="menu">
                 <li>        
                   <div class="box-currencies">            
