@@ -2112,7 +2112,8 @@ create table products (
   attributes_combinations text ,
   attributes_not_updated text ,
   PRIMARY KEY (products_id, products_status),
-  KEY IDX_MANUFACTURERS_ID (manufacturers_id)
+  KEY IDX_MANUFACTURERS_ID (manufacturers_id),
+  KEY IDX_PRODUCTS_DATE_ADDED (products_date_added)
 );
 
 insert into products (products_id, products_quantity, products_delivery_time_id, products_model, products_image, products_price, products_sort_order, products_date_added, products_last_modified, products_date_available, products_weight, products_status, products_tax_class_id, manufacturers_id, products_ordered, attributes_quantity, attributes_combinations, attributes_not_updated) values ('1', '40', '1', 'MG200MMS', 'a:1:{i:0;a:3:{s:4:\"name\";s:16:\"1_0_mg200mms.jpg\";s:21:\"large_image_max_width\";s:7:\"default\";s:22:\"large_image_max_height\";s:7:\"default\";}}', 'a:1:{i:0;a:2:{i:0;a:1:{s:7:\"regular\";s:8:\"299.2565\";}s:14:\"special_status\";i:0;}}', '20', date_sub(now(),interval 10 day), now(), NULL, '23.00', '1', '1', '1', '1', 'a:5:{s:7:\"3,6_4,3\";i:7;s:7:\"3,6_4,1\";i:5;s:7:\"3,6_4,2\";i:10;s:7:\"3,5_4,1\";i:10;s:7:\"3,5_4,2\";i:8;}', '3,6_4,3|3,6_4,1|3,6_4,2|3,5_4,1|3,5_4,2|', NULL);

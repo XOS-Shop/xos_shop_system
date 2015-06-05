@@ -31,7 +31,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/boxes/whats_new.php') == 'overwrite_all')) : 
-  if ($random_product = xos_random_select("select distinct p.products_id, p.products_image, p.products_tax_class_id, p.products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c where p.products_status=1 and p.products_id = p2c.products_id and c.categories_or_pages_id = p2c.categories_or_pages_id and c.categories_or_pages_status = '1' and now() < date_add(p.products_date_added,interval " . INTERVAL_DAYS_BACK . " day) order by p.products_date_added desc limit " . MAX_RANDOM_SELECT_NEW)) {
+  if ($random_product = xos_random_select("select distinct p.products_id, p.products_image, p.products_tax_class_id, p.products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c where p.products_status=1 and p.products_id = p2c.products_id and c.categories_or_pages_id = p2c.categories_or_pages_id and c.categories_or_pages_status = '1' and p.products_date_added > '".date("Y-m-d", mktime(1, 1, 1, date("m"), date("d") - INTERVAL_DAYS_BACK, date("Y")))."' order by p.products_date_added desc limit " . MAX_RANDOM_SELECT_NEW)) {
 
     $products_prices = xos_get_product_prices($random_product['products_price']);
     $products_tax_rate = xos_get_tax_rate($random_product['products_tax_class_id']); 

@@ -624,7 +624,8 @@ CREATE TABLE products (
   attributes_combinations text,
   attributes_not_updated text,  
   PRIMARY KEY (products_id, products_status),
-  KEY IDX_MANUFACTURERS_ID (manufacturers_id)
+  KEY IDX_MANUFACTURERS_ID (manufacturers_id),
+  KEY IDX_PRODUCTS_DATE_ADDED (products_date_added)
 );
 
 DROP TABLE IF EXISTS products_attributes;
