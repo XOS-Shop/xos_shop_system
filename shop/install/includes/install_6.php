@@ -207,6 +207,7 @@
                      '  define(\'DIR_FS_DOWNLOAD\', DIR_FS_CATALOG . \'download/\');' . "\n" .
                      '  define(\'DIR_FS_DOWNLOAD_PUBLIC\', DIR_FS_CATALOG . \'pub/\');' . "\n" .
                      '  define(\'DIR_FS_SMARTY\', DIR_FS_CATALOG . \'smarty/\');' . "\n" .
+                     '  define(\'DIR_FS_TMP\', DIR_FS_ADMIN . \'tmp/\');' . "\n" . 
                      '' . "\n" .
                      '  define(\'ADMIN_DIR_NAME\', \'' . ($admin_dir_name === 'admin' ? 'default_dir_name' : $admin_dir_name) . '\');' . "\n" .
                      '' . "\n" .

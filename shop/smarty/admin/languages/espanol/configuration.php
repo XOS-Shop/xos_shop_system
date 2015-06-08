@@ -419,7 +419,7 @@ define('SESSION_CHECK_IP_ADDRESS_TITLE', 'Check IP Address');
 define('SESSION_BLOCK_SPIDERS_TITLE', 'Prevent Spider Sessions');
 define('SESSION_RECREATE_TITLE', 'Recreate Session');
 
-define('SESSION_WRITE_DIRECTORY_DESCRIPTION', 'If sessions are file based, store them in this directory.');
+define('SESSION_WRITE_DIRECTORY_DESCRIPTION', 'If sessions are file based, store them in this directory.<br /><br /><b>Note:</b><br />Leave this field empty to store file based sessions in the default directory.<br /><br /><b>Example:</b> /var/www/sess/');
 define('SESSION_FORCE_COOKIE_USE_DESCRIPTION', 'Force the use of sessions when cookies are only enabled.');
 define('SESSION_CHECK_SSL_SESSION_ID_DESCRIPTION', 'Validate the SSL_SESSION_ID on every secure HTTPS page request.');
 define('SESSION_CHECK_USER_AGENT_DESCRIPTION', 'Validate the clients browser user agent on every page request.');

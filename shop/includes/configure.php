@@ -53,6 +53,7 @@
   define('DIR_FS_DOWNLOAD', DIR_FS_CATALOG . 'download/');
   define('DIR_FS_DOWNLOAD_PUBLIC', DIR_FS_CATALOG . 'pub/');   
   define('DIR_FS_SMARTY', DIR_FS_CATALOG . 'smarty/');
+  define('DIR_FS_TMP', DIR_FS_ADMIN . 'tmp/');  
 
   define('ADMIN_DIR_NAME', 'default_dir_name');
   
@@ -64,5 +65,5 @@
   define('DB_SERVER_PASSWORD', '');
   define('DB_DATABASE', 'xos_shop');
   define('USE_PCONNECT', 'false'); // use persisstent connections?
-  define('STORE_SESSIONS', 'mysql'); // leave empty '' for default handler or set to 'mysql'
+  define('STORE_SESSIONS', ''); // leave empty '' for default handler or set to 'mysql'
 ?>

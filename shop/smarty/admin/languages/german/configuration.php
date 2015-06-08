@@ -419,7 +419,7 @@ define('SESSION_CHECK_IP_ADDRESS_TITLE', 'IP-Adresse überprüfen');
 define('SESSION_BLOCK_SPIDERS_TITLE', 'Spider-Sessions verhindern');
 define('SESSION_RECREATE_TITLE', 'Session erneuern');
 
-define('SESSION_WRITE_DIRECTORY_DESCRIPTION', 'Die Sessions werden in dem angegebenen Verzeichnis gespeichert, sofern die Sessions dateibasiert laufen.');
+define('SESSION_WRITE_DIRECTORY_DESCRIPTION', 'Die Sessions werden in dem angegebenen Verzeichnis gespeichert, sofern die Sessions dateibasiert laufen.<br /><br /><b>Hinweis:</b><br />Lassen Sie dieses Feld leer um dateibasierte Sessions im Standard-Verzeichnis zu speichern.<br /><br /><b>Beispiel:</b> /var/www/sess/');
 define('SESSION_FORCE_COOKIE_USE_DESCRIPTION', 'Erzwingt die Benutzung von Cookies zum Speichern der Session-ID.');
 define('SESSION_CHECK_SSL_SESSION_ID_DESCRIPTION', 'Überprüft bei jedem HTTPS-Seitenaufruf die Korrektheit der SSL-Session-ID.');
 define('SESSION_CHECK_USER_AGENT_DESCRIPTION', 'Bei jedem Seitenaufruf den Browser-User-Agent überprüfen.');

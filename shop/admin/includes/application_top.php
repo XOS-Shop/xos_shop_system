@@ -168,7 +168,7 @@
 
 // set the session name and save path
   xos_session_name('XOSsidAdmin');
-  xos_session_save_path(SESSION_WRITE_DIRECTORY);
+  xos_session_save_path(SESSION_WRITE_DIRECTORY != '' ? SESSION_WRITE_DIRECTORY : DIR_FS_TMP);
 
 // set the session cookie parameters
   ini_set('session.cookie_lifetime', '0');

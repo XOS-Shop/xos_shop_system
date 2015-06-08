@@ -51,8 +51,8 @@
                         'password_field' => xos_draw_password_field('DB_SERVER_PASSWORD'),
                         'input_field_database' => xos_draw_input_field('DB_DATABASE'),
                         'checkbox_field_pconnect' => xos_draw_checkbox_field('USE_PCONNECT', 'true'),
-                        'radio_field_store_sessions_files' => xos_draw_radio_field('STORE_SESSIONS', 'files'),
-                        'radio_field_store_sessions_mysql' => xos_draw_radio_field('STORE_SESSIONS', 'mysql', (isset($_POST['STORE_SESSIONS']) ? '' : true)),
+                        'radio_field_store_sessions_files' => xos_draw_radio_field('STORE_SESSIONS', 'files', (isset($_POST['STORE_SESSIONS']) ? '' : true)),
+                        'radio_field_store_sessions_mysql' => xos_draw_radio_field('STORE_SESSIONS', 'mysql'),
                         'href_link_index' => 'index.php?lang=' . $_POST['language_code'],
                         'hidden_fields' => $hidden_fields));
 

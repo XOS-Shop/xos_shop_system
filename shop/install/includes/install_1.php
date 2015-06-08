@@ -46,6 +46,7 @@
 
   $directories_array = array($admin_dir_name . '/backups',
                              $admin_dir_name . '/images/graphs',
+                             $admin_dir_name . '/tmp',
                              'contents',
                              'contents/file',
                              'contents/flash',

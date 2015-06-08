@@ -22,11 +22,9 @@
 //              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.   
 ////////////////////////////////////////////////////////////////////////////////
 
+usleep(500000);
 require('includes/application_top.php');
-if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_TEST) == 'overwrite_all')) :
-
-  usleep(500000);
-  
+if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_TEST) == 'overwrite_all')) : 
   $_SESSION['navigation']->remove_current_page();
   $_SESSION['javascript_enabled'] = true;
 endif;  

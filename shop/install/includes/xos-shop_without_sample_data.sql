@@ -625,7 +625,7 @@ CREATE TABLE products (
   attributes_not_updated text,  
   PRIMARY KEY (products_id, products_status),
   KEY IDX_MANUFACTURERS_ID (manufacturers_id),
-  KEY IDX_PRODUCTS_DATE_ADDED (products_date_added)
+  KEY IDX_PRODUCTS_DATE_ADDED (products_date_added)  
 );
 
 DROP TABLE IF EXISTS products_attributes;
@@ -1130,7 +1130,7 @@ INSERT INTO configuration (configuration_key, configuration_value, configuration
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('GZIP_COMPRESSION', 'false', '15', '1', 'xos_cfg_select_option(array(\'true\', \'false\'), ', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('GZIP_LEVEL', '5', '15', '2', now());
 
-INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('SESSION_WRITE_DIRECTORY', '/tmp', '16', '1', now());
+INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('SESSION_WRITE_DIRECTORY', '', '16', '1', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('SESSION_FORCE_COOKIE_USE', 'false', '16', '2', 'xos_cfg_select_option(array(\'true\', \'false\'), ', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('SESSION_CHECK_SSL_SESSION_ID', 'false', '16', '3', 'xos_cfg_select_option(array(\'true\', \'false\'), ', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('SESSION_CHECK_USER_AGENT', 'false', '16', '4', 'xos_cfg_select_option(array(\'true\', \'false\'), ', now());

@@ -163,7 +163,7 @@
 
 // set the session name and save path
   xos_session_name('XOSsid');
-  xos_session_save_path(SESSION_WRITE_DIRECTORY);
+  xos_session_save_path(SESSION_WRITE_DIRECTORY != '' ? SESSION_WRITE_DIRECTORY : DIR_FS_TMP);
 
 // set the session cookie parameters
   ini_set('session.cookie_lifetime', '0');
@@ -596,7 +596,7 @@
   $smarty->caching = 0;
   $smarty->cache_lifetime = -1;
   $smarty->compile_check = constant(COMPILE_CHECK);
-  $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'general');     
+  $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'general');    
   $smarty->configLoad('templates/' . SELECTED_TPL . '/includes/configuration/config.conf');
   $smarty->loadFilter('output','set_internal_link');    
 //  $smarty->loadFilter('output','trimwhitespace');

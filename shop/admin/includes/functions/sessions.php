@@ -30,6 +30,10 @@
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
 
+  @ini_set("session.gc_maxlifetime", 1440);
+  @ini_set("session.gc_probability", 30);
+  @ini_set("session.gc_divisor", 100);
+
   if (STORE_SESSIONS == 'mysql') {
     if (!$SESS_LIFE = get_cfg_var('session.gc_maxlifetime')) {
       $SESS_LIFE = 1440;
