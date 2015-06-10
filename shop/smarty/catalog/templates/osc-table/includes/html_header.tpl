@@ -57,7 +57,7 @@
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]buttons.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]stylesheet.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]jquery.fancybox-1.3.4.css" />
-<link rel="stylesheet" type="text/css" href="[@{$link_to_dynamic_css}@]" />
+[@{*<link rel="stylesheet" type="text/css" href="[@{$link_to_dynamic_css}@]" />*}@]
 
 <!--[if lte IE 6]>
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]stylesheet_lte_ie6.css" />
@@ -68,7 +68,8 @@
 <script type="text/javascript" src="[@{$images_path}@]quick_search_suggest.js"></script>
 <script type="text/javascript" src="[@{$images_path}@]jquery.mousewheel.js"></script>  
 <script type="text/javascript" src="[@{$images_path}@]jquery.fancybox-1.3.4.patch.pack.js"></script>
-<script type="text/javascript" src="[@{$link_to_dynamic_js}@]"></script>
+<script type="text/javascript" src="[@{$images_path}@]general.js"></script>
+[@{*<script type="text/javascript" src="[@{$link_to_dynamic_js}@]"></script>*}@]
 
 [@{$add_headTag_elements}@]
 </head>

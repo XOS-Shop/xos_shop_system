@@ -52,7 +52,7 @@
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]bootstrap-theme.min.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]nav.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]stylesheet.css" />
-<link rel="stylesheet" type="text/css" href="[@{$link_to_dynamic_css}@]" />
+[@{*<link rel="stylesheet" type="text/css" href="[@{$link_to_dynamic_css}@]" />*}@]
 </head>
 <body>
           <div style="height: [@{$blind_image_height}@]px; padding-bottom: 10px;"><div style="padding-top: [@{$image_padding_top}@]px;">[@{$popup_image}@]</div></div>

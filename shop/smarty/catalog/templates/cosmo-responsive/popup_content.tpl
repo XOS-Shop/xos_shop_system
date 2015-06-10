@@ -53,7 +53,7 @@
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]nav.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]stylesheet.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]colorbox.css" />
-<link rel="stylesheet" type="text/css" href="[@{$link_to_dynamic_css}@]" />
+[@{*<link rel="stylesheet" type="text/css" href="[@{$link_to_dynamic_css}@]" />*}@]
 
 <script type="text/javascript" src="[@{$images_path}@]jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="[@{$images_path}@]jquery-ui-1.10.3.custom.min.js"></script>
@@ -61,7 +61,8 @@
 <script type="text/javascript" src="[@{$images_path}@]jquery.colorbox-min.js"></script>
 <script type="text/javascript" src="[@{$languages_path}@]jquery.colorbox-language.js"></script>
 <script type="text/javascript" src="[@{$images_path}@]bootstrap.min.js"></script>
-<script type="text/javascript" src="[@{$link_to_dynamic_js}@]"></script>
+<script type="text/javascript" src="[@{$images_path}@]general.js"></script>
+[@{*<script type="text/javascript" src="[@{$link_to_dynamic_js}@]"></script>*}@]
 <!--[if lt IE 9]>
 <script type="text/javascript" src="[@{$images_path}@]respond.min.js"></script> 
 <![endif]-->

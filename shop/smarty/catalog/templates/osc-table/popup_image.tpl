@@ -55,7 +55,7 @@
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]buttons.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]stylesheet.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]jquery.fancybox-1.3.4.css" />
-<link rel="stylesheet" type="text/css" href="[@{$link_to_dynamic_css}@]" />
+[@{*<link rel="stylesheet" type="text/css" href="[@{$link_to_dynamic_css}@]" />*}@]
 
 <!--[if lte IE 6]>
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]stylesheet_lte_ie6.css" />

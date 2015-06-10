@@ -53,14 +53,15 @@
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]buttons.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]stylesheet.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]colorbox.css" />
-<link rel="stylesheet" type="text/css" href="[@{$link_to_dynamic_css}@]" />
+[@{*<link rel="stylesheet" type="text/css" href="[@{$link_to_dynamic_css}@]" />*}@]
 
 <script type="text/javascript" src="[@{$images_path}@]jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="[@{$images_path}@]jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript" src="[@{$images_path}@]quick_search_suggest.js"></script>
 <script type="text/javascript" src="[@{$images_path}@]jquery.colorbox-min.js"></script>
 <script type="text/javascript" src="[@{$languages_path}@]jquery.colorbox-language.js"></script>
-<script type="text/javascript" src="[@{$link_to_dynamic_js}@]"></script>
+<script type="text/javascript" src="[@{$images_path}@]general.js"></script>
+[@{*<script type="text/javascript" src="[@{$link_to_dynamic_js}@]"></script>*}@]
 </head>
 <body style="text-align : left;">
           <div style="margin: 0 6px 0 6px; min-width : 450px; text-align : left;">
