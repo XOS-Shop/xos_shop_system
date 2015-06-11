@@ -34,7 +34,8 @@
             [@{$box_search_form_begin}@]     
               <div class="form-group has-feedback">
                 [@{$box_search_imput_field|replace:'<input':"<input placeholder=\"`$smarty.config.button_title_quick_find`\" title=\" `$smarty.config.button_title_quick_find` \""}@]
-                <img id="input-quick-find-quick-find-gif" class="form-control-feedback" src="[@{$images_path}@]button_quick_find.gif" alt="[@{#button_title_quick_find#}@]" title=" [@{#button_title_quick_find#}@] " />         
+                [@{*<span class="text-default glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>*}@]
+                <button type="submit" class="btn btn-link form-control-feedback" style="pointer-events: auto;"><span class="text-default glyphicon glyphicon-search form-control-feedback" style="color: #000;" aria-hidden="true"></span></button>         
               </div>              
             [@{$box_search_form_end}@]       
             <div id="list-quick-search-suggest-wrapper">
