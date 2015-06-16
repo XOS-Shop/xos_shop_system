@@ -119,8 +119,6 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           }                                           
         } 
       }    
-    
-      xos_db_query("update " . TABLE_PRODUCTS_DESCRIPTION . " set products_viewed = products_viewed+1 where products_id = '" . (int)$_GET['p'] . "' and language_id = '" . (int)$_SESSION['languages_id'] . "'");
       
       $products_description_array = array();
       $description = preg_split("#<div[^>]*page-break-after[^>]*>.*?</div>#is" , stripslashes($product_info['products_description']));

@@ -40,7 +40,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
   require(DIR_WS_INCLUDES . 'footer.php');  
 
   (isset($_GET['page']) && ($_GET['page'] > 1)) ? $rows = $_GET['page'] * MAX_DISPLAY_RESULTS - MAX_DISPLAY_RESULTS : $rows = 0;
-  $products_query_raw = "select p.products_id, pd.products_name, pd.products_viewed, l.name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_LANGUAGES . " l where p.products_id = pd.products_id and l.languages_id = pd.language_id order by pd.products_viewed DESC";
+  $products_query_raw = "select p.products_id, pd.products_name, ps.products_viewed, l.name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_STATS . " ps, " . TABLE_LANGUAGES . " l where p.products_id = pd.products_id and p.products_id = ps.products_id and l.languages_id = pd.language_id and l.languages_id = ps.language_id order by ps.products_viewed DESC";
   $products_split = new splitPageResults($_GET['page'], MAX_DISPLAY_RESULTS, $products_query_raw, $products_query_numrows);
   $products_query = xos_db_query($products_query_raw);
   $products_array = array();

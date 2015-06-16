@@ -471,6 +471,9 @@
     }
   }
 
+// update stats products_viewed
+  if (basename($_SERVER['PHP_SELF']) == FILENAME_PRODUCT_INFO) xos_db_query("insert into " . TABLE_PRODUCTS_STATS . " (products_id, language_id, products_viewed) values('" . (int)$_GET['p'] . "', '" . (int)$_SESSION['languages_id'] . "', '1') on duplicate key update products_viewed = products_viewed+1");
+
 // include the who's online functions
   if (!(in_array(basename($_SERVER['PHP_SELF']), array(FILENAME_CSS, FILENAME_JS, FILENAME_TEST)))) {
     require(DIR_WS_FUNCTIONS . 'whos_online.php');

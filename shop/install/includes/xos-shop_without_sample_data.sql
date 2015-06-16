@@ -661,7 +661,6 @@ CREATE TABLE products_description (
   products_description_tab_label varchar(512) default NULL,
   products_description text,
   products_url varchar(255) default NULL,
-  products_viewed int(5) default '0',
   PRIMARY KEY  (products_id,language_id),
   KEY IDX_PRODUCTS_NAME (products_name)
 );
@@ -703,6 +702,15 @@ CREATE TABLE products_prices (
   customers_group_price decimal(15,4) NOT NULL default '0.0000',
   products_id int(11) NOT NULL default '0',
   PRIMARY KEY  (customers_group_id, products_id)
+);
+
+DROP TABLE IF EXISTS products_stats;
+CREATE TABLE products_stats (
+  products_id int NOT NULL,
+  language_id int NOT NULL default '1',
+  products_viewed int(5) default '0',  
+  PRIMARY KEY  (products_id,language_id),
+  KEY IDX_PRODUCTS_VIEWED (products_viewed)
 );
 
 DROP TABLE IF EXISTS products_to_categories;

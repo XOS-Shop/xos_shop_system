@@ -82,7 +82,8 @@
   define('TABLE_PRODUCTS_OPTIONS', 'products_options');
   define('TABLE_PRODUCTS_OPTIONS_VALUES', 'products_options_values');
   define('TABLE_PRODUCTS_OPTIONS_VALUES_TO_PRODUCTS_OPTIONS', 'products_options_values_to_products_options');  
-  define('TABLE_PRODUCTS_PRICES', 'products_prices');  
+  define('TABLE_PRODUCTS_PRICES', 'products_prices');
+  define('TABLE_PRODUCTS_STATS', 'products_stats');    
   define('TABLE_PRODUCTS_TO_CATEGORIES', 'products_to_categories');
   define('TABLE_PRODUCTS_XSELL', 'products_xsell');  
   define('TABLE_REVIEWS', 'reviews');
