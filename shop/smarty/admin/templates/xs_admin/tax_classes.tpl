@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : xs_admin
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7y
+* version    : 1.0.7 for XOS-Shop version 1.0 rc7z
 * descrip    : xos-shop default template for admin with css-buttons
 *              and tables for layout                                                                     
 * filename   : tax_classes.tpl
