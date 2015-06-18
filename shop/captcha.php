@@ -123,7 +123,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
 
   imagepng($img, DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png');
   imagedestroy($img);  
-  $img_data = base64_encode(file_get_contents(DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png'));
+  $img_data = base64_encode(@file_get_contents(DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png'));
   $src_captcha_base64 = 'data:image/png;base64,' . $img_data;   
   @unlink(DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png');   
 endif;
