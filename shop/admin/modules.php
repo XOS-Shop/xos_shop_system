@@ -32,9 +32,6 @@
 
 require('includes/application_top.php');
 if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILENAME_MODULES) == 'overwrite_all')) :  
-// initialize configuration modules
-  require(DIR_WS_CLASSES . 'cfg_modules.php');
-  $cfgModules = new cfg_modules();  
 
   $set = (isset($_GET['set']) ? $_GET['set'] : '');
 

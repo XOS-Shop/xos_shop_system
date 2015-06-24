@@ -222,6 +222,10 @@
   require(DIR_WS_CLASSES . 'message_stack.php');
   $messageStack = new messageStack;
 
+// initialize configuration modules
+  require(DIR_WS_CLASSES . 'cfg_modules.php');
+  $cfgModules = new cfg_modules();
+
 // split-page-results
   require(DIR_WS_CLASSES . 'split_page_results.php');
 
