@@ -22,6 +22,8 @@
 //              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.   
 ////////////////////////////////////////////////////////////////////////////////
 
+if (!defined('FILENAME_CAPTCHA')) die();
+
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_CAPTCHA) == 'overwrite_all')) :
   
   function RC4($str, $key) {
@@ -121,10 +123,10 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
   }  
 
 
-  imagepng($img, DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png');
+  imagepng($img, DIR_FS_TMP . $captcha_text . 'captcha_tmp.png');
   imagedestroy($img);  
-  $img_data = base64_encode(@file_get_contents(DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png'));
+  $img_data = base64_encode(@file_get_contents(DIR_FS_TMP . $captcha_text . 'captcha_tmp.png'));
   $src_captcha_base64 = 'data:image/png;base64,' . $img_data;   
-  @unlink(DIR_FS_DOWNLOAD_PUBLIC . 'captcha_tmp.png');   
+  @unlink(DIR_FS_TMP . $captcha_text . 'captcha_tmp.png');   
 endif;
 ?>
