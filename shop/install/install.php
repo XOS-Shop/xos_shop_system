@@ -32,7 +32,8 @@
 
   if (basename(dirname(getenv('SCRIPT_FILENAME'))) !== 'install') {
     header("HTTP/1.1 404 Not Found");
-    die('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8" /><title>404 Not Found</title></head><body><h1>Not Found</h1>The requested document was not found on this server.<p></p><hr /><address>Web Server at ' . getenv('SERVER_NAME') . '</address></body></html>');    
+    header("Status: 404 Not Found");
+    die('<!DOCTYPE html><html><head><title>404 Not Found</title></head><body><h1>Not Found</h1>The requested document was not found on this server.<p></p><hr /><address>Web Server at ' . getenv('SERVER_NAME') . '</address></body></html>');     
   }
 
   error_reporting(E_ALL & ~E_NOTICE);
