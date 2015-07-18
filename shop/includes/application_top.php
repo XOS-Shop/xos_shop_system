@@ -54,7 +54,7 @@
 
 //  
   header('Content-Type: text/html; charset=utf-8');
-  header('X-UA-Compatible: IE=edge,chrome=1');  
+  if (isset($_SERVER['HTTP_USER_AGENT']) && (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false)) header('X-UA-Compatible: IE=edge,chrome=1');  
 
 // Set the local configuration parameters - mainly for developers
   if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
