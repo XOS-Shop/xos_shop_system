@@ -64,7 +64,7 @@
 <script type="text/javascript" src="[@{$images_path}@]general.js"></script>
 [@{*<script type="text/javascript" src="[@{$link_to_dynamic_js}@]"></script>*}@]
 </head>
-<body style="text-align : left;">
+<body style="text-align : left; padding-top : 0px !important;">
           <div style="margin: 0 6px 0 6px; min-width : 250px; text-align : left;">
             <h1 class="text-orange">[@{$heading_title}@]</h1>        
             <div class="div-spacer-h10"></div>          
