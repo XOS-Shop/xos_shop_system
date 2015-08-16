@@ -60,6 +60,13 @@
 # RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 #########################
+# redirect https to http
+#########################
+#
+# RewriteCond %{HTTPS} on
+# RewriteRule (.*) http://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+#########################
 # redirect no-www to www
 #########################
 #
