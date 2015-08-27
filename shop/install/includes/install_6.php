@@ -146,6 +146,7 @@
 
     $https_server = $enable_ssl == 'true' ? str_replace('http://', 'https://', $http_server) : '';
     $https_cookie_domain = $enable_ssl == 'true' ? $http_cookie_domain : '';
+    $https_cookie_path = $enable_ssl == 'true' ? $http_cookie_path : '';
 
     if (substr($http_catalog, -1) != '/') {
       $http_catalog .= '/';
@@ -184,7 +185,8 @@
                      '  define(\'ENABLE_SSL\', \'' . $enable_ssl . '\'); // secure webserver' . "\n" .
                      '  define(\'HTTP_COOKIE_DOMAIN\', \'' . $http_cookie_domain . '\');' . "\n" .
                      '  define(\'HTTPS_COOKIE_DOMAIN\', \'' . $https_cookie_domain . '\');' . "\n" .
-                     '  define(\'COOKIE_PATH\', \'' . $http_cookie_path . '\');' . "\n" .
+                     '  define(\'HTTP_COOKIE_PATH\', \'' . $http_cookie_path . '\');' . "\n" .
+                     '  define(\'HTTPS_COOKIE_PATH\', \'' . $https_cookie_path . '\');' . "\n" .                     
                      '' . "\n" .
                      '  define(\'DIR_WS_CATALOG\', \'' . $http_catalog . '\');' . "\n" .
                      '  define(\'DIR_WS_ADMIN\', DIR_WS_CATALOG . \'' . $admin_dir_name . '/\');' . "\n" .

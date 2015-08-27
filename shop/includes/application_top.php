@@ -145,6 +145,9 @@
 // set the cookie domain
   $cookie_domain = (($request_type == 'NONSSL') ? HTTP_COOKIE_DOMAIN : HTTPS_COOKIE_DOMAIN);
   
+// set the cookie path
+  $cookie_path = (($request_type == 'NONSSL') ? HTTP_COOKIE_PATH : HTTPS_COOKIE_PATH);  
+  
 // define general functions used application-wide
   require(DIR_WS_FUNCTIONS . 'general.php');
   require(DIR_WS_FUNCTIONS . 'html_output.php');
@@ -167,7 +170,7 @@
 
 // set the session cookie parameters
   ini_set('session.cookie_lifetime', '0');
-  ini_set('session.cookie_path', COOKIE_PATH);
+  ini_set('session.cookie_path', $cookie_path);
   ini_set('session.cookie_domain', $cookie_domain);
   ini_set('session.use_only_cookies', (SESSION_FORCE_COOKIE_USE == 'true') ? 1 : 0);  
 
@@ -184,9 +187,9 @@
   $session_started = false;
   if (SESSION_FORCE_COOKIE_USE == 'true') {
     if (!isset($_COOKIE['cookie_test'])) {  
-      setcookie('cookie_test', 'please_accept_for_session', 0, COOKIE_PATH, $cookie_domain);
+      setcookie('cookie_test', 'please_accept_for_session', 0, $cookie_path, $cookie_domain);
     } else {
-      if (!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) setcookie(session_name(), $_GET[session_name()], 0, COOKIE_PATH, $cookie_domain);
+      if (!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) setcookie(session_name(), $_GET[session_name()], 0, $cookie_path, $cookie_domain);
       xos_session_start();
       $session_started = true;
     }
@@ -208,7 +211,7 @@
     }
 
     if ($spider_flag == false) {
-      if ((!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) || (isset($_COOKIE[session_name()]) && isset($_GET[session_name()]) && $request_type == 'SSL' && ENABLE_SSL == 'true' && $_COOKIE[session_name()] != $_GET[session_name()] && HTTP_COOKIE_DOMAIN != HTTPS_COOKIE_DOMAIN)) setcookie(session_name(), $_GET[session_name()], 0, COOKIE_PATH, $cookie_domain);
+      if ((!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) || (isset($_COOKIE[session_name()]) && isset($_GET[session_name()]) && $request_type == 'SSL' && ENABLE_SSL == 'true' && $_COOKIE[session_name()] != $_GET[session_name()] && HTTP_COOKIE_DOMAIN != HTTPS_COOKIE_DOMAIN)) setcookie(session_name(), $_GET[session_name()], 0, $cookie_path, $cookie_domain);
       xos_session_start();
       $session_started = true;
     } else {
@@ -219,7 +222,7 @@
       }
     }
   } else {
-    if ((!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) || (isset($_COOKIE[session_name()]) && isset($_GET[session_name()]) && $request_type == 'SSL' && ENABLE_SSL == 'true' && $_COOKIE[session_name()] != $_GET[session_name()] && HTTP_COOKIE_DOMAIN != HTTPS_COOKIE_DOMAIN)) setcookie(session_name(), $_GET[session_name()], 0, COOKIE_PATH, $cookie_domain);
+    if ((!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) || (isset($_COOKIE[session_name()]) && isset($_GET[session_name()]) && $request_type == 'SSL' && ENABLE_SSL == 'true' && $_COOKIE[session_name()] != $_GET[session_name()] && HTTP_COOKIE_DOMAIN != HTTPS_COOKIE_DOMAIN)) setcookie(session_name(), $_GET[session_name()], 0, $cookie_path, $cookie_domain);
     xos_session_start();
     $session_started = true;
   }
@@ -240,7 +243,7 @@
     }
 
     if ($_SESSION['SESSION_SSL_ID'] != $ssl_session_id) {
-      setcookie(session_name(), '', time()-42000, COOKIE_PATH, $cookie_domain);
+      setcookie(session_name(), '', time()-42000, $cookie_path, $cookie_domain);
       session_destroy();
       xos_redirect(xos_href_link(FILENAME_SSL_CHECK, '', 'NONSSL', false));
     }
@@ -254,7 +257,7 @@
     }
 
     if ($_SESSION['SESSION_USER_AGENT'] != $http_user_agent) {
-      setcookie(session_name(), '', time()-42000, COOKIE_PATH, $cookie_domain);
+      setcookie(session_name(), '', time()-42000, $cookie_path, $cookie_domain);
       xos_redirect(xos_href_link(FILENAME_DEFAULT, '', 'NONSSL', false));
     }
   }
@@ -267,7 +270,7 @@
     }
 
     if ($_SESSION['SESSION_IP_ADDRESS'] != $ip_address) {
-      setcookie(session_name(), '', time()-42000, COOKIE_PATH, $cookie_domain);
+      setcookie(session_name(), '', time()-42000, $cookie_path, $cookie_domain);
       xos_redirect(xos_href_link(FILENAME_DEFAULT, '', 'NONSSL', false));
     }
   }

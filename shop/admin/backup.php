@@ -63,7 +63,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                   '#     HTTPS Server: ' . HTTPS_SERVER . "\n" .
                   '#     HTTP Cookie Domain: ' . HTTP_COOKIE_DOMAIN . "\n" .
                   '#     HTTPS Cookie Domain: ' . HTTPS_COOKIE_DOMAIN . "\n" .
-                  '#     HTTP Cookie Path: ' . COOKIE_PATH . "\n" .
+                  '#     HTTP Cookie Path: ' . HTTP_COOKIE_PATH . "\n" .
+                  '#     HTTPS Cookie Path: ' . HTTPS_COOKIE_PATH . "\n" .                  
                   '#     HTTP Catalog Directory: ' . DIR_WS_CATALOG . "\n" .
                   '#     Webserver Root Directory: ' . DIR_FS_DOCUMENT_ROOT . "\n" .                                    
                   '#' . "\n" .

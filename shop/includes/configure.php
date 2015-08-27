@@ -30,7 +30,8 @@
   define('ENABLE_SSL', 'false'); // secure webserver
   define('HTTP_COOKIE_DOMAIN', '');
   define('HTTPS_COOKIE_DOMAIN', '');
-  define('COOKIE_PATH', '');
+  define('HTTP_COOKIE_PATH', '');
+  define('HTTPS_COOKIE_PATH', '');  
 
   define('DIR_WS_CATALOG', '');  
   define('DIR_WS_ADMIN', DIR_WS_CATALOG . '');  

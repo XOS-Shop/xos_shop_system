@@ -149,6 +149,9 @@
 
 // set the cookie domain
   $cookie_domain = (($request_type == 'NONSSL') ? HTTP_COOKIE_DOMAIN : HTTPS_COOKIE_DOMAIN);
+  
+// set the cookie path
+  $cookie_path = (($request_type == 'NONSSL') ? HTTP_COOKIE_PATH : HTTPS_COOKIE_PATH);  
 
 // define our general functions used application-wide
   require(DIR_WS_FUNCTIONS . 'general.php');
@@ -172,12 +175,12 @@
 
 // set the session cookie parameters
   ini_set('session.cookie_lifetime', '0');
-  ini_set('session.cookie_path', COOKIE_PATH);
+  ini_set('session.cookie_path', $cookie_path);
   ini_set('session.cookie_domain', $cookie_domain);
   ini_set('session.use_only_cookies', (SESSION_FORCE_COOKIE_USE == 'true') ? 1 : 0);        
 
 // start the session
-  if (!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) setcookie(session_name(), $_GET[session_name()], 0, COOKIE_PATH, $cookie_domain);
+  if (!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) setcookie(session_name(), $_GET[session_name()], 0, $cookie_path, $cookie_domain);
   xos_session_start();
 
 //  if (!preg_match('/^(?:(?:[a-zA-Z0-9,-]{26})|(?:[a-zA-Z0-9,-]{32}))$/i', session_id())) session_regenerate_id(true);
