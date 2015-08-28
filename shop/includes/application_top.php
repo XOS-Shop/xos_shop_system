@@ -72,7 +72,15 @@
   define('PROJECT_VERSION', 'XOS-Shop version 1.0 rc7z');
 
 // set the type of request (secure or not)
-  $request_type = (getenv('HTTPS') == 'on') ? 'SSL' : 'NONSSL';
+  $request_type = (((isset($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1'))) ||
+                    (isset($_SERVER['HTTP_X_FORWARDED_BY']) && strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_BY']), 'SSL') !== false) ||
+                    (isset($_SERVER['HTTP_X_FORWARDED_HOST']) && strpos(strtoupper($_SERVER['HTTP_X_FORWARDED_HOST']), 'SSL') !== false) ||
+                    (isset($_SERVER['HTTP_X_FORWARDED_HTTPS']) && ($_SERVER['HTTP_X_FORWARDED_HTTPS'] == 'on' || strtolower($_SERVER['HTTP_X_FORWARDED_HTTPS']) == '1')) ||                 
+                    (isset($_SERVER['HTTP_X_FORWARDED_SSL']) && ($_SERVER['HTTP_X_FORWARDED_SSL'] == 'on' || strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) == '1')) ||
+                    (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && (strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'ssl' || strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https')) ||
+                    (isset($_SERVER['HTTP_SSLSESSIONID']) && $_SERVER['HTTP_SSLSESSIONID'] != '') ||
+                    (isset($_SERVER['SCRIPT_URI']) && strtolower(substr($_SERVER['SCRIPT_URI'], 0, 6)) == 'https:') ||                    
+                    (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443')) ? 'SSL' : 'NONSSL';
 
 // include the list of project filenames
   require(DIR_WS_INCLUDES . 'filenames.php');

@@ -115,7 +115,7 @@ function xos_selected_file($filename) {
     }
     
     $url = str_replace('&amp;', '&', $url);
-    
+    header_remove();    
     header('Location: ' . $url);
 
     if (STORE_PAGE_PARSE_TIME == 'true') {

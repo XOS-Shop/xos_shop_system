@@ -220,7 +220,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                         BOX_ENTRY_REVIEWS . ' ' . $reviews['count'];
 
 
-  if (getenv('HTTPS') == 'on') {
+  if ($request_type == 'SSL') {
     $size = ((getenv('SSL_CIPHER_ALGKEYSIZE')) ? getenv('SSL_CIPHER_ALGKEYSIZE') . '-bit' : '<i>' . BOX_CONNECTION_UNKNOWN . '</i>');
     $content_ssl = '<a href="' . xos_href_link(FILENAME_DEFAULT, 'ssl=disable') . '">' . xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icons/locked.gif', ICON_TITLE_LOCKED_CLICK_TO_UNLOCK, '', '', 'align="right"') . '</a>' . sprintf(BOX_CONNECTION_PROTECTED, $size);
   } elseif ($_SESSION['disable_ssl']) {

@@ -33,18 +33,20 @@
 ////
 // Redirect to another page or site
   function xos_redirect($url, $change_connection = true) {
+    global $request_type;  
+  
     if ( (strstr($url, "\n") != false) || (strstr($url, "\r") != false) ) { 
       xos_redirect(xos_href_link(FILENAME_DEFAULT, '', 'NONSSL', false));
     }
 
-    if ( (ENABLE_SSL == 'true') && (getenv('HTTPS') == 'on') && ($change_connection == true)) { // We are loading an SSL page
+    if ( (ENABLE_SSL == 'true') && ($request_type == 'SSL') && ($change_connection == true)) { // We are loading an SSL page
       if (substr($url, 0, strlen(HTTP_SERVER)) == HTTP_SERVER) { // NONSSL url
         $url = HTTPS_SERVER . substr($url, strlen(HTTP_SERVER)); // Change it to SSL
       }
     }
 
     $url = str_replace('&amp;', '&', $url);
-
+    header_remove();
     header('Location: ' . $url);
 
     exit();
