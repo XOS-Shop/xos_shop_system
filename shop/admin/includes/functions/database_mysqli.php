@@ -123,7 +123,7 @@
   }
 
   function xos_db_fetch_array($db_query) {
-    return mysqli_fetch_array($db_query, MYSQL_ASSOC);
+    return mysqli_fetch_array($db_query, MYSQLI_ASSOC);
   }
 
   function xos_db_num_rows($db_query) {
