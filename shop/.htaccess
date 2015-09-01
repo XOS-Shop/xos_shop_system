@@ -56,24 +56,24 @@
 # redirect http to https
 #########################
 #
-# RewriteCond %{HTTPS} off
+# RewriteCond %{HTTPS} !=on
 # RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 #########################
 # redirect https to http
 #########################
 #
-# RewriteCond %{HTTPS} on
+# RewriteCond %{HTTPS} =on
 # RewriteRule (.*) http://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 #########################
 # redirect no-www to www
 #########################
 #
-# RewriteCond %{HTTPS} off
+# RewriteCond %{HTTPS} !=on
 # RewriteCond %{HTTP_HOST} ^(?!www\.)(.+)$ [NC]
 # RewriteRule ^ http://www\.%1%{REQUEST_URI} [L,R=301]
-# RewriteCond %{HTTPS} on
+# RewriteCond %{HTTPS} =on
 # RewriteCond %{HTTP_HOST} ^(?!www\.)(.+)$ [NC]
 # RewriteRule ^ https://www\.%1%{REQUEST_URI} [L,R=301]
 
@@ -82,10 +82,10 @@
 # redirect www to no-www
 #########################
 #
-# RewriteCond %{HTTPS} off
+# RewriteCond %{HTTPS} !=on
 # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 # RewriteRule ^ http://%1%{REQUEST_URI} [L,R=301]
-# RewriteCond %{HTTPS} on
+# RewriteCond %{HTTPS} =on
 # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 # RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301] 
 
