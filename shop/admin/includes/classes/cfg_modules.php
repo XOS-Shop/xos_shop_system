@@ -33,7 +33,7 @@
   class cfg_modules {
     var $_modules = array();
 
-    function cfg_modules() {
+    function __construct() {
 
       $file_extension = substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.'));
       $directory = DIR_WS_MODULES . 'cfg_modules';

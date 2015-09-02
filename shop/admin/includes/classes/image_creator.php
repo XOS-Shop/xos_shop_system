@@ -33,7 +33,7 @@ class image_create {
     var $opacity       = 45;
     var $jpeg_quality  = 75;     
 
-    function image_create($file, $new_file, $max_width = 0, $max_height = 0, $jpeg_quality = 75, $water_mark = "") {
+    function __construct($file, $new_file, $max_width = 0, $max_height = 0, $jpeg_quality = 75, $water_mark = "") {
     
         if ($water_mark != "") {
     

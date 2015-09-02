@@ -283,8 +283,6 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                         'expires_impressions' => '',
                         'date_status_change' => '');
 
-    $bInfo = new objectInfo($parameters);
-
     if (isset($_GET['bID'])) {
       $form_action = 'update';
 
@@ -294,9 +292,11 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                                            
       $banner = xos_db_fetch_array($banner_query);
 
-      $bInfo->objectInfo($banner);
+      $bInfo = new objectInfo($banner);
     } elseif (xos_not_null($_POST)) {
-      $bInfo->objectInfo($_POST);
+      $bInfo = new objectInfo($_POST);
+    } else {
+      $bInfo = new objectInfo($parameters);
     }
 
     $groups_array = array();

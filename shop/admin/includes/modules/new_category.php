@@ -37,8 +37,6 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                         'product_list_b' => '',
                         'sort_order' => '',                        
                         'categories_or_pages_status' => '');
-
-    $cInfo = new objectInfo($parameters);
     
     if (isset($_GET['cpID']) && $reload != true) {
     
@@ -46,9 +44,12 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
              
       $category_query = xos_db_query("select c.categories_or_pages_id, cpd.categories_or_pages_name as category_name, c.categories_image, c.product_list_b, c.sort_order, c.categories_or_pages_status from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = '" . (int)$cpID . "' and c.categories_or_pages_id = cpd.categories_or_pages_id and cpd.language_id = '" . (int)$_SESSION['used_lng_id'] . "'");    
       $category = xos_db_fetch_array($category_query);
-      $cInfo->objectInfo($category);      
+
+      $cInfo = new objectInfo($category);      
     } elseif (xos_not_null($_POST)) {
-      $cInfo->objectInfo($_POST);   
+      $cInfo = new objectInfo($_POST);   
+    } else {
+      $cInfo = new objectInfo($parameters);
     }        
 
     if (WYSIWYG_FOR_CATEGORY == 'true') {

@@ -227,8 +227,6 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                         'page_not_in_menu' => '',
                         'sort_order' => '',                        
                         'categories_or_pages_status' => '');
-
-    $cInfo = new objectInfo($parameters);
     
     if (isset($_GET['cpID']) && $reload != true) {
     
@@ -236,9 +234,12 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
              
       $page_query = xos_db_query("select c.categories_or_pages_id, c.link_request_type, cpd.categories_or_pages_name as page_name, c.page_not_in_menu, c.sort_order, c.categories_or_pages_status from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = '" . (int)$cpID . "' and c.categories_or_pages_id = cpd.categories_or_pages_id and cpd.language_id = '" . (int)$_SESSION['used_lng_id'] . "'");    
       $page = xos_db_fetch_array($page_query);
-      $cInfo->objectInfo($page);      
+
+      $cInfo = new objectInfo($page);      
     } elseif (xos_not_null($_POST)) {
-      $cInfo->objectInfo($_POST);   
+      $cInfo = new objectInfo($_POST);   
+    } else {
+      $cInfo = new objectInfo($parameters);    
     }        
 
     if (WYSIWYG_FOR_PAGES == 'true') {

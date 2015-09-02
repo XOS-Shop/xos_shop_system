@@ -229,8 +229,6 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                         'content_text_htlm' => '',                        
                         'module' => '');
 
-    $nInfo = new objectInfo($parameters);
-
     if (isset($_GET['nID'])) {
       $form_action = 'update';
 
@@ -239,9 +237,11 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       $newsletter_query = xos_db_query("select title, language_id, content_text_plain, content_text_htlm, module from " . TABLE_NEWSLETTERS . " where newsletters_id = '" . (int)$nID . "'");
       $newsletter = xos_db_fetch_array($newsletter_query);
 
-      $nInfo->objectInfo($newsletter);
+      $nInfo = new objectInfo($newsletter);      
     } elseif ($_POST) {
-      $nInfo->objectInfo($_POST);
+      $nInfo = new objectInfo($_POST);      
+    } else {
+      $nInfo = new objectInfo($parameters);
     }
 
     $file_extension = substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.'));

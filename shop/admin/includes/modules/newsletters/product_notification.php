@@ -34,7 +34,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
   class product_notification {
     var $show_choose_audience, $title, $language_id, $content_text_plain, $content_text_htlm, $language_code, $language_directory;
 
-    function product_notification($title, $language_id, $content_text_plain, $content_text_htlm, $language_code, $language_directory) {
+    function __construct($title, $language_id, $content_text_plain, $content_text_htlm, $language_code, $language_directory) {
       $this->show_choose_audience = true;
       $this->title = $title;
       $this->language_id = $language_id;

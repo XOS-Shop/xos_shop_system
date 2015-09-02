@@ -33,7 +33,7 @@
   class messageStack {
 
 // class constructor
-    function messageStack() {
+    function __construct() {
 
       $this->messages = array();
 

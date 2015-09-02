@@ -32,7 +32,7 @@
     public $Mailer   = 'smtp';
     public $WordWrap = 100;
 
-    public function mailer($to_name = '', $to_email_address = '', $email_subject = '', $body_html = '', $body_plain = '', $from_email_name = '', $from_email_address = '', $embedded_shop_logo = '', $attachments = '')
+    public function __construct($to_name = '', $to_email_address = '', $email_subject = '', $body_html = '', $body_plain = '', $from_email_name = '', $from_email_address = '', $embedded_shop_logo = '', $attachments = '')
     {  
        
       $this->setLanguage($_SESSION['language'], DIR_FS_SMARTY . 'admin/languages/' . $_SESSION['language'] . '/');

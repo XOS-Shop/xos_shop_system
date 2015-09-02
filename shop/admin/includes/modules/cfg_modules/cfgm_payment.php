@@ -38,7 +38,7 @@
     var $title;
     var $template_integration = false;
 
-    function cfgm_payment() {
+    function __construct() {
       $this->directory = DIR_FS_CATALOG_MODULES . 'payment/';
       $this->title = MODULE_CFG_MODULE_PAYMENT_TITLE;
       $this->box_name = MODULE_CFG_MODULE_PAYMENT_BOX_NAME;

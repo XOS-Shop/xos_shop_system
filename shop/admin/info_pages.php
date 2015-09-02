@@ -146,8 +146,6 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                         'status' => '',
                         'sort_order' => '');
 
-    $cInfo = new objectInfo($parameters);
-
     if (isset($_GET['cID'])) {
       $form_action = 'update';
             
@@ -156,12 +154,15 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       if (!$reload == true) {
         $contents_query =  xos_db_query("select content_id, type, link_request_type, status, sort_order   from " . TABLE_CONTENTS . " where content_id = '" . (int)$cID . "'");
         $contents = xos_db_fetch_array($contents_query);
-        $cInfo->objectInfo($contents);
+
+        $cInfo = new objectInfo($contents);        
       } elseif (xos_not_null($_POST)) {
-        $cInfo->objectInfo($_POST);
+        $cInfo = new objectInfo($_POST);        
       }
     } elseif (xos_not_null($_POST)) {
-      $cInfo->objectInfo($_POST);   
+      $cInfo = new objectInfo($_POST);   
+    } else {
+      $cInfo = new objectInfo($parameters);
     }
 
     $smarty->assign(array('action' => 'new',

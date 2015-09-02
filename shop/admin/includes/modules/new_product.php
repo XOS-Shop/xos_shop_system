@@ -52,15 +52,15 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                         'products_status' => '',
                         'products_tax_class_id' => '',
                         'manufacturers_id' => '',
-                        'attributes_quantity' => '');
-
-    $pInfo = new objectInfo($parameters);   
+                        'attributes_quantity' => '');       
 
     if (isset($_GET['pID'])) {
       $product_query = xos_db_query("select products_id, products_quantity, products_delivery_time_id, products_model, products_image, products_price, products_sort_order, products_weight, products_date_added, products_last_modified, date_format(products_date_available, '" . DATE_FORMAT_SHORT . "') as products_date_available, products_status, products_tax_class_id, manufacturers_id, attributes_quantity, attributes_not_updated from " . TABLE_PRODUCTS . " where products_id = '" . (int)$_GET['pID'] . "'");
       $product = xos_db_fetch_array($product_query);
 
-      $pInfo->objectInfo($product);    
+      $pInfo = new objectInfo($product);    
+    } else {
+      $pInfo = new objectInfo($parameters);
     }
    
     $products_image = xos_get_product_images($pInfo->products_image, 'all');
