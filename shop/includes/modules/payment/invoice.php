@@ -34,7 +34,7 @@
     var $code, $title, $description, $enabled;
 
 // class constructor
-    function invoice() {
+    function __construct() {
       global $order, $bt_array;
 
       $this->code = 'invoice';

@@ -33,7 +33,7 @@
   class site_trail {
     var $_trail;
 
-    function site_trail() {
+    function __construct() {
       $this->reset();
     }
 

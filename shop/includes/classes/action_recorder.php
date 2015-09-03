@@ -35,7 +35,7 @@
     var $_user_id;
     var $_user_name;
 
-    function actionRecorder($module, $user_id = null, $user_name = null) {
+    function __construct($module, $user_id = null, $user_name = null) {
 
       $module = xos_sanitize_string(str_replace(' ', '', $module));
 

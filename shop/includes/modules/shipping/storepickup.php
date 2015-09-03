@@ -34,7 +34,7 @@
     var $code, $title, $description, $icon, $enabled;
 
 // class constructor
-    function storepickup() {
+    function __construct() {
       global $order;
 
       $this->code = 'storepickup';

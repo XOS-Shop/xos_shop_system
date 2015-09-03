@@ -34,7 +34,7 @@
     var $code, $title, $description, $enabled;
 
 // class constructor
-    function secpay() {
+    function __construct() {
       global $order;
 
       $this->code = 'secpay';

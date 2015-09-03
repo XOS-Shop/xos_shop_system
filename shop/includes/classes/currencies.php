@@ -37,7 +37,7 @@
     var $currencies;
 
 // class constructor
-    function currencies() {
+    function __construct() {
       $this->currencies = array();
       $currencies_query = xos_db_query("select code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES. " where language_id = '" . (int)$_SESSION['languages_id'] . "'");
       while ($currencies = xos_db_fetch_array($currencies_query)) {

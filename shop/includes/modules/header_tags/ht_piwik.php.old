@@ -39,7 +39,7 @@
     var $sort_order;
     var $enabled = false;
 
-    function ht_piwik() {
+    function __construct() {
       $this->title = MODULE_HEADER_TAGS_PIWIK_TITLE;
       $this->description = MODULE_HEADER_TAGS_PIWIK_DESCRIPTION;
 

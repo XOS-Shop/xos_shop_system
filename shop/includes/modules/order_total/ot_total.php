@@ -33,7 +33,7 @@
   class ot_total {
     var $title, $output;
 
-    function ot_total() {
+    function __construct() {
       $this->code = 'ot_total';
       $this->title = MODULE_ORDER_TOTAL_TOTAL_TITLE;
       $this->title_rounding_difference = MODULE_ORDER_TOTAL_TOTAL_TITLE_ROUNDING_DIFFERENCE;

@@ -34,7 +34,7 @@
     var $code, $title, $description, $enabled;
 
 // class constructor
-    function cc() {
+    function __construct() {
       global $order;
 
       $this->code = 'cc';

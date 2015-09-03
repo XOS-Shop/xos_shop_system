@@ -14,7 +14,7 @@
     var $code, $title, $description, $enabled;
 
 // class constructor
-    function paypal_direct() {
+    function __construct() {
       global $order;
 
       $this->signature = 'paypal|paypal_direct|1.0|2.2';

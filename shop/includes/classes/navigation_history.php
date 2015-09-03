@@ -33,7 +33,7 @@
   class navigationHistory {
     var $path, $snapshot;
 
-    function navigationHistory() {
+    function __construct() {
       $this->reset();
     }
 

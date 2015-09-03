@@ -34,7 +34,7 @@
     var $modules;
 
 // class constructor
-    function shipping($module = '') {
+    function __construct($module = '') {
       global $customer_group_id;
 
       if (defined('MODULE_SHIPPING_INSTALLED') && xos_not_null(MODULE_SHIPPING_INSTALLED)) {

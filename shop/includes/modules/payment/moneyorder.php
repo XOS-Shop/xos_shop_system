@@ -34,7 +34,7 @@
     var $code, $title, $description, $enabled;
 
 // class constructor
-    function moneyorder() {
+    function __construct() {
       global $order;
 
       $this->code = 'moneyorder';

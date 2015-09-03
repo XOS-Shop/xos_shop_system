@@ -34,7 +34,7 @@
     var $modules, $selected_module;
 
 // class constructor
-    function payment($module = '') {
+    function __construct($module = '') {
       global $customer_group_id;
 
       if (defined('MODULE_PAYMENT_INSTALLED') && xos_not_null(MODULE_PAYMENT_INSTALLED)) {
