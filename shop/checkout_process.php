@@ -86,7 +86,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   $payment_modules->update_status(); 
 
-  if ( ($payment_modules->selected_module != $_SESSION['payment']) || ( is_array($payment_modules->modules) && (sizeof($payment_modules->modules) > 1) && !is_object($$_SESSION['payment']) ) || (is_object($$_SESSION['payment']) && ($$_SESSION['payment']->enabled == false)) ) { 
+  if ( ($payment_modules->selected_module != $_SESSION['payment']) || ( is_array($payment_modules->modules) && (sizeof($payment_modules->modules) > 1) && !is_object(${$_SESSION['payment']}) ) || (is_object(${$_SESSION['payment']}) && (${$_SESSION['payment']}->enabled == false)) ) { 
     xos_redirect(xos_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(ERROR_NO_PAYMENT_MODULE_SELECTED), 'SSL')); 
   }   
 
@@ -340,8 +340,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $smarty->assign('delivery_address', xos_address_label($_SESSION['customer_id'], $_SESSION['sendto'], 0, '', "\n"));
     } 
   
-    if (is_object($$_SESSION['payment'])) {
-      $payment_class = $$_SESSION['payment'];
+    if (is_object(${$_SESSION['payment']})) {
+      $payment_class = ${$_SESSION['payment']};
       $smarty->assign('payment_method', $order->info['payment_method']);
       if ($payment_class->email_footer) {
         $smarty->assign('payment_email_footer', $payment_class->email_footer); 

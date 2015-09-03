@@ -70,7 +70,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   $payment_modules->update_status();
 
-  if ( ($payment_modules->selected_module != $_SESSION['payment']) || ( is_array($payment_modules->modules) && (sizeof($payment_modules->modules) > 1) && !is_object($$_SESSION['payment']) ) || (is_object($$_SESSION['payment']) && ($$_SESSION['payment']->enabled == false)) ) {
+  if ( ($payment_modules->selected_module != $_SESSION['payment']) || ( is_array($payment_modules->modules) && (sizeof($payment_modules->modules) > 1) && !is_object(${$_SESSION['payment']}) ) || (is_object(${$_SESSION['payment']}) && (${$_SESSION['payment']}->enabled == false)) ) {
     xos_redirect(xos_href_link(FILENAME_CHECKOUT_PAYMENT, 'error_message=' . urlencode(ERROR_NO_PAYMENT_MODULE_SELECTED), 'SSL'));
   }
   
@@ -209,8 +209,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                          'hidden_field_comments' => xos_draw_hidden_field('comments', $order->info['comments'])));  
   }
 
-  if (isset($$_SESSION['payment']->form_action_url)) {
-    $form_action_url = $$_SESSION['payment']->form_action_url;
+  if (isset(${$_SESSION['payment']}->form_action_url)) {
+    $form_action_url = ${$_SESSION['payment']}->form_action_url;
   } else {
     $form_action_url = xos_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL');
   }

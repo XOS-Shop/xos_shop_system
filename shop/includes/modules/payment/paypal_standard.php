@@ -412,7 +412,7 @@
     }
 
     function before_process() {
-      global $order, $order_totals, $currencies, $smarty, $messageStack, $$_SESSION['payment'];
+      global $order, $order_totals, $currencies, $smarty, $messageStack, ${$_SESSION['payment']};
 
       $order_id = substr($_SESSION['cart_PayPal_Standard_ID'], strpos($_SESSION['cart_PayPal_Standard_ID'], '-')+1);
   
@@ -561,8 +561,8 @@
           $smarty->assign('delivery_address', xos_address_label($_SESSION['customer_id'], $_SESSION['sendto'], 0, '', "\n"));
         } 
   
-        if (is_object($$_SESSION['payment'])) {
-          $payment_class = $$_SESSION['payment'];
+        if (is_object(${$_SESSION['payment']})) {
+          $payment_class = ${$_SESSION['payment']};
           $smarty->assign('payment_method', $order->info['payment_method']);
           if ($payment_class->email_footer) {
             $smarty->assign('payment_email_footer', $payment_class->email_footer); 
