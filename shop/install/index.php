@@ -105,7 +105,7 @@
                           'extension_gd_loaded' => $gd_ver ? $gd_ver >= 2 ? '2' : '1' : 'not_loaded',
                           'extension_openssl_loaded' => extension_loaded('openssl') ? 'loaded' : 'not_loaded',
                           'extension_curl_loaded' => extension_loaded('curl') ? 'loaded' : 'not_loaded',
-                          'extension_mysql_loaded' => extension_loaded('mysql') ? 'loaded' : 'not_loaded'));   
+                          'extension_mysql_loaded' => class_exists('mysql') || (class_exists('mysqli') && version_compare(PHP_VERSION, '5.3.0', '>=')) ? 'loaded' : 'not_loaded'));   
   }
   
   $smarty->assign(array('form_begin' => '<form name="install" action="install.php" method="post">',
