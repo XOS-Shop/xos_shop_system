@@ -34,10 +34,10 @@ require('includes/application_top.php');
 if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILENAME_DEFAULT) == 'overwrite_all')) :  
   if ($_GET['ssl'] == 'disable') {
     $_SESSION['disable_ssl'] = true;
-    xos_redirect(xos_href_link(FILENAME_DEFAULT, (!SID) ? xos_session_name() . '=' . xos_session_id() : ''));
+    xos_redirect(xos_href_link(FILENAME_DEFAULT, (!SESSID) ? xos_session_name() . '=' . xos_session_id() : ''));
   } elseif ($_GET['ssl'] == 'enable') {
     unset($_SESSION['disable_ssl']);
-    xos_redirect(xos_href_link(FILENAME_DEFAULT, (!SID) ? xos_session_name() . '=' . xos_session_id() : ''));
+    xos_redirect(xos_href_link(FILENAME_DEFAULT, (!SESSID) ? xos_session_name() . '=' . xos_session_id() : ''));
   } 
 
   $javascript = '<script type="text/javascript">' . "\n" .   
@@ -229,7 +229,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     $content_ssl = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icons/unlocked.gif', ICON_TITLE_UNLOCKED, '', '', 'align="right"') . BOX_CONNECTION_UNPROTECTED;
   }
 
-  if (SID) {
+  if (SESSID) {
     $smarty->assign('hidden_field_session', xos_draw_hidden_field(xos_session_name(), xos_session_id()));
   }
     

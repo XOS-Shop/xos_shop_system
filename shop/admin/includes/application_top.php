@@ -191,6 +191,9 @@
   if (!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) setcookie(session_name(), $_GET[session_name()], 0, $cookie_path, $cookie_domain);
   xos_session_start();
 
+// Define the SESSID 
+  define('SESSID', empty($_COOKIE[session_name()]) ? xos_session_name() . '=' . xos_session_id() : '');
+
 //  if (!preg_match('/^(?:(?:[a-zA-Z0-9,-]{26})|(?:[a-zA-Z0-9,-]{32}))$/i', session_id())) session_regenerate_id(true);
   if (!preg_match('/^[a-zA-Z0-9,-]{22,40}$/i', session_id())) session_regenerate_id(true);  
 

@@ -86,7 +86,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                         'hidden_field_page' => xos_draw_hidden_field('page', $_GET['page']),
                         'hidden_field_bid' => xos_draw_hidden_field('bID', $_GET['bID'])));
   
-  if (SID) {
+  if (SESSID) {
     $smarty->assign('hidden_field_session', xos_draw_hidden_field(xos_session_name(), xos_session_id()));
   }  
     

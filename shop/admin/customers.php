@@ -767,7 +767,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                           'text_id_sort_desc' => ICON_TITLE_IC_DOWN_TEXT_SORT . ' ' . TABLE_HEADING_ACCOUNT_CREATED . ' ' . ICON_TITLE_IC_DOWN_TEXT_FROM_TOP_ZYX,
                           'text_ra_sort_desc' => ICON_TITLE_IC_DOWN_TEXT_SORT . ' ' . TABLE_HEADING_REQUEST_AUTHENTICATION . ' ' . ICON_TITLE_IC_DOWN_TEXT_FROM_TOP_ZYX));
 
-    if (SID) {
+    if (SESSID) {
       $smarty->assign('hidden_field_session', xos_draw_hidden_field(xos_session_name(), xos_session_id()));
     }
         

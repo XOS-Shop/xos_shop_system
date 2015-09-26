@@ -265,7 +265,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                           'pull_down_menu_manufacturers_id' => xos_draw_pull_down_menu('manufacturers_id', $manufacturers_array, $manufacturers_id),
                           'pull_down_menu_max_rows' => xos_draw_pull_down_menu('max_rows', $max_display_update_prices_results_array, $_GET['max_rows'], 'style="width: 75px;"'),                          
                           'checkbox_specials_only' => xos_draw_checkbox_field('specials_only', '', $_GET['specials_only'])));
-    if (SID) {
+    if (SESSID) {
       $smarty->assign('hidden_field_session', xos_draw_hidden_field(xos_session_name(), xos_session_id()));
     }
   }

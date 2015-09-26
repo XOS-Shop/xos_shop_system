@@ -235,10 +235,10 @@
       $add_parameter = true;     
     }    
 
-// Add the session ID when moving from different HTTP and HTTPS servers, or when SID is defined
+// Add the session ID when moving from different HTTP and HTTPS servers, or when SESSID is not empty
     if ( ($add_session_id == true) && ($session_started == true) && (SESSION_FORCE_COOKIE_USE == 'false') ) {
-      if (SID) {
-        $_sid = SID;
+      if (SESSID) {
+        $_sid = SESSID;
       } elseif ( ( ( ($request_type == 'NONSSL') && ($connection == 'SSL') && (ENABLE_SSL == 'true') ) || ( ($request_type == 'SSL') && ($connection == 'NONSSL') && (ENABLE_SSL == 'true') ) ) && HTTP_COOKIE_DOMAIN != HTTPS_COOKIE_DOMAIN ) {
         $_sid = xos_session_name() . '=' . xos_session_id();
       }
@@ -476,7 +476,7 @@
   function xos_hide_session_id() {
     global $session_started;
 
-    if ($session_started == true && SID) {
+    if ($session_started == true && SESSID) {
       return xos_draw_hidden_field(xos_session_name(), xos_session_id());
     }
   }

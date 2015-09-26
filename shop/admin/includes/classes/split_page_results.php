@@ -102,7 +102,7 @@
           }
         }
 
-        if (SID) $display_links .= xos_draw_hidden_field(xos_session_name(), xos_session_id());
+        if (SESSID) $display_links .= xos_draw_hidden_field(xos_session_name(), xos_session_id());
 
         $display_links .= '</form>';
       } else {

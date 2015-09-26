@@ -49,9 +49,9 @@
       die('</td></tr></table></td></tr></table><br /><br /><font color="#ff0000"><b>Error!</b></font><br /><br /><b>Unable to determine connection method on a link!<br /><br />Known methods: NONSSL SSL<br /><br />Function used:<br /><br />xos_href_link(\'' . $page . '\', \'' . $parameters . '\', \'' . $connection . '\')</b>');
     }
     if ($parameters == '') {
-      $link = $link . $page . '?' . SID;
+      $link = $link . $page . '?' . SESSID;
     } else {
-      $link = $link . $page . '?' . $parameters . '&' . SID;
+      $link = $link . $page . '?' . $parameters . '&' . SESSID;
     }
 
 

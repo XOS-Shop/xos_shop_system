@@ -324,7 +324,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     require(DIR_WS_BOXES . 'infobox_popup_file_manager.php');
   }
 
-  if (SID) {
+  if (SESSID) {
     $smarty->assign('hidden_field_session', xos_draw_hidden_field(xos_session_name(), xos_session_id()));
   }
   

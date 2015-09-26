@@ -129,7 +129,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                             'link_filename_categories_action_new_product' => xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&action=new_product')));
     } 
 
-    if (SID) {
+    if (SESSID) {
       $smarty->assign('hidden_field_session', xos_draw_hidden_field(xos_session_name(), xos_session_id()));
     }
     

@@ -325,7 +325,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                  '}' . "\n\n" .
                  
                  'function update_action(product_id, option_id, action) {' . "\n" .                                
-                 '  document.forms["attribute"].action="' . xos_href_link(FILENAME_PRODUCTS_ATTRIBUTES) . (SID ? '&' : '?') . 'action=" + action + "&products_id=" + product_id + "&options_id=" + option_id + "&' . $parameter_string . '";' . "\n" .                 
+                 '  document.forms["attribute"].action="' . xos_href_link(FILENAME_PRODUCTS_ATTRIBUTES) . (SESSID ? '&' : '?') . 'action=" + action + "&products_id=" + product_id + "&options_id=" + option_id + "&' . $parameter_string . '";' . "\n" .                 
                  '}' . "\n\n" .                                  
 
                    'function get_attribute_lists(url, box_id_combs) {' . "\n\n" .
@@ -377,7 +377,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                   
   $smarty->assign(array('form_begin_tax_rates' => xos_draw_form('tax_rates', FILENAME_PRODUCTS_ATTRIBUTES, '', 'get'),  
                         'pull_down_tax_rates' => xos_draw_pull_down_menu('selected_tax_rate_id', $tax_rates_final_array, $_GET['selected_tax_rate_id'], 'id="tax_rates_final_id" class="smallText" onchange="this.form.submit();"'),
-                        'hidden_fields' =>  xos_draw_hidden_field('pID', $pID) . xos_draw_hidden_field('cPath', $cPath) . xos_draw_hidden_field('categories_or_pages_id', $categories_or_pages_id) . xos_draw_hidden_field('manufacturers_id', $manufacturers_id) . xos_draw_hidden_field('max_rows', $_GET['max_rows']) . xos_draw_hidden_field('max_products_in_pullwown', $_GET['max_products_in_pullwown']) . xos_draw_hidden_field('option_page', $_GET['option_page']) . xos_draw_hidden_field('value_page', $_GET['value_page']) . xos_draw_hidden_field('attribute_page', $_GET['attribute_page']) . ((SID) ? xos_draw_hidden_field(xos_session_name(), xos_session_id()) : ''),
+                        'hidden_fields' =>  xos_draw_hidden_field('pID', $pID) . xos_draw_hidden_field('cPath', $cPath) . xos_draw_hidden_field('categories_or_pages_id', $categories_or_pages_id) . xos_draw_hidden_field('manufacturers_id', $manufacturers_id) . xos_draw_hidden_field('max_rows', $_GET['max_rows']) . xos_draw_hidden_field('max_products_in_pullwown', $_GET['max_products_in_pullwown']) . xos_draw_hidden_field('option_page', $_GET['option_page']) . xos_draw_hidden_field('value_page', $_GET['value_page']) . xos_draw_hidden_field('attribute_page', $_GET['attribute_page']) . ((SESSID) ? xos_draw_hidden_field(xos_session_name(), xos_session_id()) : ''),
                         'form_begin_attributes' => '<form name="attribute" action="' . xos_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'action=' . $form_action . '&' . $parameter_string) . '" method="post">',                        
                         'previous_product_the_same' => $previous_product_is_the_same,
                         'next_product_the_same' => $next_product_is_the_same,
