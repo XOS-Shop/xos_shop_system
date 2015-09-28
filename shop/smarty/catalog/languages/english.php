@@ -187,7 +187,7 @@ define('ENTRY_LAST_NAME_ERROR', 'Your Last Name must contain a minimum of ' . EN
 define('ENTRY_LAST_NAME_TEXT', '*');
 define('ENTRY_DATE_OF_BIRTH_ERROR', 'Your Date of Birth must be in this format: MM/DD/YYYY (eg 05/21/1970)');
 define('ENTRY_DATE_OF_BIRTH_TEXT', 'MM/DD/YYYY (eg. 05/21/1970) *');
-define('ENTRY_DATE_OF_BIRTH_TEXT_1', '(MM/DD/YYYY) *');
+define('ENTRY_DATE_OF_BIRTH_TEXT_1', '<span style="color: #03A31B;">(MM/DD/YYYY)</span> *');
 define('ENTRY_EMAIL_ADDRESS_ERROR', 'Your E-Mail Address must contain a minimum of ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' characters.');
 define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'Your E-Mail Address does not appear to be valid - please make any necessary corrections.');
 define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'Your E-Mail Address already exists in our records - please log in with the e-mail address or create an account with a different address.');

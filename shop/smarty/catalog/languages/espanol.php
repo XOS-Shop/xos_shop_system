@@ -187,7 +187,7 @@ define('ENTRY_LAST_NAME_ERROR', 'Sus apellidos deben tener al menos ' . ENTRY_LA
 define('ENTRY_LAST_NAME_TEXT', '*');
 define('ENTRY_DATE_OF_BIRTH_ERROR', 'Su fecha de nacimiento debe tener este formato: DD/MM/AAAA (p.ej. 21/05/1970)');
 define('ENTRY_DATE_OF_BIRTH_TEXT', 'DD/MM/AAAA (p.ej. 21/05/1970) *');
-define('ENTRY_DATE_OF_BIRTH_TEXT_1', '(DD/MM/AAAA) *');
+define('ENTRY_DATE_OF_BIRTH_TEXT_1', '<span style="color: #03A31B;">(DD/MM/AAAA)</span> *');
 define('ENTRY_EMAIL_ADDRESS_ERROR', 'Su dirección de E-Mail debe tener al menos ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' letras.');
 define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'Su dirección de E-Mail no parece válida - por favor haga los cambios necesarios.');
 define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'Su dirección de E-Mail ya figura entre nuestros clientes - puede entrar a su cuenta con esta dirección o crear una cuenta nueva con una dirección diferente.');

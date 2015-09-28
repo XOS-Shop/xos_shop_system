@@ -36,7 +36,9 @@
 <meta http-equiv="content-style-type" content="text/css" />
 <meta name="generator" content="XOS-Shop version 1.0 rc7z, open source e-commerce system" />
 <title>[@{$project_title}@][@{$add_title}@]</title>
+[@{if $base_href}@]
 <base href="[@{$base_href}@]" />
+[@{/if}@]
 <link rel="shortcut icon" type="image/x-icon" href="[@{$images_path}@]favicon.ico" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]jquery-ui-1.10.3.custom.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]style.css" />

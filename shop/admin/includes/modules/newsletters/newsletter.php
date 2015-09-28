@@ -261,7 +261,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                                          'html_params' => HTML_PARAMS,
                                          'xhtml_lang' => !empty($this->language_code) ? $this->language_code : DEFAULT_LANGUAGE,
                                          'charset' => CHARSET,
-                                         'base_href' => HTTP_SERVER,
+                                         'base_href' => substr(HTTP_SERVER, -1) == '/' ? HTTP_SERVER : '',
                                          'content_text_htlm' => $this->content_text_htlm,
                                          'content_text_plain' => $this->content_text_plain));
         

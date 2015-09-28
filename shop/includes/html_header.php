@@ -34,7 +34,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
                  
   $add_header .= $templateIntegration->getBlocks('header_tags');                
 
-  $smarty->assign(array('base_href' => ENABLE_SSL == 'true' ? ($request_type == 'SSL' ? HTTPS_SERVER : HTTP_SERVER) : HTTP_SERVER,
+  $smarty->assign(array('base_href' => substr(HTTP_SERVER, -1) == '/' ? ENABLE_SSL == 'true' ? ($request_type == 'SSL' ? HTTPS_SERVER : HTTP_SERVER) : HTTP_SERVER : '',
                         'html_header_html_params' => HTML_PARAMS,
                         'html_header_xhtml_lang' => XHTML_LANG,
                         'html_header_charset' => CHARSET,

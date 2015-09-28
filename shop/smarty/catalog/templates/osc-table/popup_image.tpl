@@ -49,7 +49,9 @@
 
 <meta name="generator" content="XOS-Shop version 1.0 rc7z, open source e-commerce system" />
 <title>[@{$html_header_page_title}@][@{$html_header_add_page_title}@]</title>
+[@{if $base_href}@]
 <base href="[@{$base_href}@]" />
+[@{/if}@]
 <link rel="shortcut icon" type="image/x-icon" href="[@{$images_path}@]favicon.ico" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]nav.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]buttons.css" />

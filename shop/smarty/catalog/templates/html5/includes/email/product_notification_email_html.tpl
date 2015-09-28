@@ -34,7 +34,9 @@
 <meta http-equiv="content-language" content="[@{$xhtml_lang}@]" />
 <meta http-equiv="content-style-type" content="text/css" />
 <meta name="generator" content="XOS-Shop version 1.0 rc7z, open source e-commerce system" />
+[@{if $base_href}@]
 <base href="[@{$base_href}@]" />
+[@{/if}@]
 <title></title>
 </head>
 <body>

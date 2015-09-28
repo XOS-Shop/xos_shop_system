@@ -187,7 +187,7 @@ define('ENTRY_LAST_NAME_ERROR', 'Der Nachname sollte mindestens ' . ENTRY_LAST_N
 define('ENTRY_LAST_NAME_TEXT', '*');
 define('ENTRY_DATE_OF_BIRTH_ERROR', 'Bitte geben Sie Ihr Geburtsdatum in folgendem Format ein: TT.MM.JJJJ (z.B. 21.05.1970)');
 define('ENTRY_DATE_OF_BIRTH_TEXT', 'TT.MM.JJJJ (z.B. 21.05.1970) *');
-define('ENTRY_DATE_OF_BIRTH_TEXT_1', '(TT.MM.JJJJ) *');
+define('ENTRY_DATE_OF_BIRTH_TEXT_1', '<span style="color: #03A31B;">(TT.MM.JJJJ)</span> *');
 define('ENTRY_EMAIL_ADDRESS_ERROR', 'Die eMail Adresse sollte mindestens ' . ENTRY_EMAIL_ADDRESS_MIN_LENGTH . ' Zeichen enthalten.');
 define('ENTRY_EMAIL_ADDRESS_CHECK_ERROR', 'Die eMail Adresse scheint nicht gültig zu sein - bitte korrigieren.');
 define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'Die eMail Adresse ist bereits gespeichert - bitte melden Sie sich mit dieser Adresse an oder eröffnen Sie ein neues Konto mit einer anderen Adresse.');
