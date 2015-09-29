@@ -47,7 +47,11 @@
         }
       }
     $(this).parent().find("input[name='products_quantity']").val(newVal);
-    });
+    });    
+    $("img.lazy").show().lazyload({
+      effect : "fadeIn",
+      placeholder: '[@{$images_path}@]pixel_trans.gif'
+    });    
   });
   if(document.getElementById("advanced-search-and-results-heading") != null) {
     $('#advanced-search-and-results-heading').css('display','block');

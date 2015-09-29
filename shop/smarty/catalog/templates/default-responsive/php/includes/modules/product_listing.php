@@ -1,4 +1,47 @@
 <?php
+////
+// The HTML lazy image wrapper function
+  function xos_lazy_image($src, $alt = '', $width = '', $height = '', $parameters = '') {
+    if ( (empty($src) || ($src == DIR_WS_IMAGES)) && (IMAGE_REQUIRED == 'false') ) {
+      return false;
+    }
+
+// alt is added to the img tag even if it is null to prevent browsers from outputting
+// the image filename as default
+    $image = '<img data-original="' . DIR_WS_CATALOG . xos_output_string($src) . '" alt="' . xos_output_string($alt) . '"';
+
+    if (xos_not_null($alt)) {
+      $image .= ' title=" ' . xos_output_string($alt) . ' "';
+    }
+
+    if ( (CONFIG_CALCULATE_IMAGE_SIZE == 'true') && (empty($width) || empty($height)) ) {
+      if ($image_size = @getimagesize(rawurldecode($src))) {
+        if (empty($width) && xos_not_null($height)) {
+          $ratio = $height / $image_size[1];
+          $width = intval($image_size[0] * $ratio);
+        } elseif (xos_not_null($width) && empty($height)) {
+          $ratio = $width / $image_size[0];
+          $height = intval($image_size[1] * $ratio);
+        } elseif (empty($width) && empty($height)) {
+          $width = $image_size[0];
+          $height = $image_size[1];
+        }
+      } elseif (IMAGE_REQUIRED == 'false') {
+        return false;
+      }
+    }
+
+    if (xos_not_null($width) && xos_not_null($height)) {
+      $image .= ' width="' . xos_output_string($width) . '" height="' . xos_output_string($height) . '"';
+    }
+
+    if (xos_not_null($parameters)) $image .= ' ' . $parameters;
+
+    $image .= ' />';
+
+    return $image;
+  }
+
   class splitPageResultsBootstrap extends splitPageResults {
 
 /* class function display_links for Bootstrap pagination */
@@ -239,13 +282,13 @@
             $products_image_name = xos_get_product_images($listing['products_image']);
             if (!empty($_GET['m'])) {
               $table_inner_array[]=array('case' => 'image',
-                                         'products_image_small' => xos_image(DIR_WS_IMAGES . 'products/small/' . rawurlencode($products_image_name['name']), $listing['products_name'], '', '', 'class="img-responsive"'),
-                                         'products_image_medium' => xos_image(DIR_WS_IMAGES . 'products/medium/' . rawurlencode($products_image_name['name']), $listing['products_name'], '', '', 'class="img-responsive center-block"'),
+                                         'products_image_small' => xos_lazy_image(DIR_WS_IMAGES . 'products/small/' . rawurlencode($products_image_name['name']), $listing['products_name'], '', '', 'class="img-responsive center-block lazy" style="display: none;"') . '<noscript>' . xos_image(DIR_WS_IMAGES . 'products/small/' . rawurlencode($products_image_name['name']), $listing['products_name'], '', '', 'class="img-responsive center-block"') . '</noscript>',
+                                         'products_image_medium' => xos_lazy_image(DIR_WS_IMAGES . 'products/medium/' . rawurlencode($products_image_name['name']), $listing['products_name'], '', '', 'class="img-responsive center-block lazy" style="display: none;"') . '<noscript>' . xos_image(DIR_WS_IMAGES . 'products/medium/' . rawurlencode($products_image_name['name']), $listing['products_name'], '', '', 'class="img-responsive center-block"') . '</noscript>',
                                          'products_link_image' => xos_href_link(FILENAME_PRODUCT_INFO, 'm=' . $_GET['m'] . '&p=' . $listing['products_id']));
             } else {
               $table_inner_array[]=array('case' => 'image',
-                                         'products_image_small' => xos_image(DIR_WS_IMAGES . 'products/small/' . rawurlencode($products_image_name['name']), $listing['products_name'], '', '', 'class="img-responsive"'),
-                                         'products_image_medium' => xos_image(DIR_WS_IMAGES . 'products/medium/' . rawurlencode($products_image_name['name']), $listing['products_name'], '', '', 'class="img-responsive center-block"'),
+                                         'products_image_small' => xos_lazy_image(DIR_WS_IMAGES . 'products/small/' . rawurlencode($products_image_name['name']), $listing['products_name'], '', '', 'class="img-responsive center-block lazy" style="display: none;"') . '<noscript>' . xos_image(DIR_WS_IMAGES . 'products/small/' . rawurlencode($products_image_name['name']), $listing['products_name'], '', '', 'class="img-responsive center-block"') . '</noscript>',
+                                         'products_image_medium' => xos_lazy_image(DIR_WS_IMAGES . 'products/medium/' . rawurlencode($products_image_name['name']), $listing['products_name'], '', '', 'class="img-responsive center-block lazy" style="display: none;"') . '<noscript>' . xos_image(DIR_WS_IMAGES . 'products/medium/' . rawurlencode($products_image_name['name']), $listing['products_name'], '', '', 'class="img-responsive center-block"') . '</noscript>',
                                          'products_link_image' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $listing['products_id']));
             }
             $smarty->assign('product_image', true);
