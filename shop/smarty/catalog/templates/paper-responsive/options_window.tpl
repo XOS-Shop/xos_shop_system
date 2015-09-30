@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : paper-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7z
+* version    : 1.0.7 for XOS-Shop version 1.0 rc8
 * descrip    : xos-shop template built with Bootstrap3 and theme paper                                                                   
 * filename   : options_window.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>

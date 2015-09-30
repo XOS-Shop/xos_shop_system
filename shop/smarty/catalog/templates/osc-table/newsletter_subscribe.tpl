@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : osc-table
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7z
+* version    : 1.0.7 for XOS-Shop version 1.0 rc8
 * descrip    : oscommerce default template with css-buttons and tables for layout                                                                     
 * filename   : newsletter_subscribe.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>

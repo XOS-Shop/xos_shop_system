@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : cyborg-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7z
+* version    : 1.0.7 for XOS-Shop version 1.0 rc8
 * descrip    : xos-shop template built with Bootstrap3 and theme cyborg                                                                    
 * filename   : create_account_email_text.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>

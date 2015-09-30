@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : html5
-* version    : 1.0.7 for XOS-Shop version 1.0 rc7z
+* version    : 1.0.7 for XOS-Shop version 1.0 rc8
 * descrip    : xos-shop default template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                     
 * filename   : product_notifications.tpl
