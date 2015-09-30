@@ -316,11 +316,12 @@
     define('SELECTED_TPL', DEFAULT_TPL);
   }
 
+// require the language class and create an instance
+  include(DIR_WS_CLASSES . 'language.php');
+  $lng = new language();
+
 // set the language
   if (!isset($_SESSION['language']) || isset($_GET['language'])) {
-
-    include(DIR_WS_CLASSES . 'language.php');
-    $lng = new language();
 
     if (isset($_GET['language']) && xos_not_null($_GET['language'])) {
       $lng->set_language($_GET['language']);
@@ -330,6 +331,7 @@
 
     $_SESSION['language'] = $lng->language['directory'];
     $_SESSION['languages_id'] = $lng->language['id'];
+    $_SESSION['languages_code'] = $lng->language['code'];
   }
   
 // create the shopping cart & fix the cart if necesary

@@ -170,11 +170,6 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
       $smarty->assign('message_stack_success', $messageStack->output('newsletter_subscribe', 'success'));      
     }
 
-    if (!isset($lng) || (isset($lng) && !is_object($lng))) {
-      include(DIR_WS_CLASSES . 'language.php');
-      $lng = new language;
-    }
-
     reset($lng->catalog_languages);
   
     if (sizeof($lng->catalog_languages) > 1) {

@@ -84,6 +84,7 @@
         $this->catalog_languages[$languages['code']] = array('id' => $languages['languages_id'],
                                                              'use_in_id' => $languages['use_in_id'],
                                                              'name' => $languages['name'],
+                                                             'code' => $languages['code'],
                                                              'image' => $languages['image'],
                                                              'directory' => $languages['directory']);
       }

@@ -197,11 +197,12 @@
 //  if ($session_started && !preg_match('/^(?:(?:[a-zA-Z0-9,-]{26})|(?:[a-zA-Z0-9,-]{32}))$/i', session_id())) session_regenerate_id(true);
   if ($session_started && !preg_match('/^[a-zA-Z0-9,-]{22,40}$/i', session_id())) session_regenerate_id(true);  
 
+// require the language class and create an instance
+  include(DIR_WS_CLASSES . 'language.php');
+  $lng = new language();
+
 // set the language
   if (!isset($_SESSION['language']) || isset($_GET['language'])) {
-
-    include(DIR_WS_CLASSES . 'language.php');
-    $lng = new language();
 
     if (isset($_GET['language']) && xos_not_null($_GET['language'])) {
       $lng->set_language($_GET['language']);
@@ -211,6 +212,7 @@
 
     $_SESSION['language'] = $lng->language['directory'];
     $_SESSION['languages_id'] = $lng->language['id'];
+    $_SESSION['languages_code'] = $lng->language['code'];
     
     if ($lng->language['use_in_id'] == 1) {  
       $_SESSION['used_lng_id'] = xos_get_languages_id(DEFAULT_LANGUAGE);

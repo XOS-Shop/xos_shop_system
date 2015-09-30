@@ -30,11 +30,7 @@
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
 
-if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/boxes/languages.php') == 'overwrite_all')) : 
-  if (!isset($lng) || (isset($lng) && !is_object($lng))) {
-    include(DIR_WS_CLASSES . 'language.php');
-    $lng = new language;
-  }
+if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/boxes/languages.php') == 'overwrite_all')) :
 
   $languages_string = '';
   $languages_list = '';

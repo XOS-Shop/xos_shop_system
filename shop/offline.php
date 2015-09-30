@@ -73,11 +73,6 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
     $smarty->assign('message_stack_success', $messageStack->output('offline', 'success'));    
   }
 
-  if (!isset($lng) || (isset($lng) && !is_object($lng))) {
-    include(DIR_WS_CLASSES . 'language.php');
-    $lng = new language;
-  }
-
   $language_string = '';
   reset($lng->catalog_languages);
   

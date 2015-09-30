@@ -182,11 +182,6 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                           'input_dob' => xos_draw_input_field('dob', xos_date_short($account['customers_dob']), 'class="form-control" id="dob"') . '&nbsp;' . (xos_not_null(ENTRY_DATE_OF_BIRTH_TEXT) ? '<span class="input-requirement">' . ENTRY_DATE_OF_BIRTH_TEXT . '</span>': '')));
   }
 
-  if (!isset($lng) || (isset($lng) && !is_object($lng))) {
-    include(DIR_WS_CLASSES . 'language.php');
-    $lng = new language;
-  }
-
   reset($lng->catalog_languages);
   
   if (sizeof($lng->catalog_languages) > 1) {

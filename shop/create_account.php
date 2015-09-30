@@ -531,11 +531,6 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     } else {
       $smarty->assign('input_state', xos_draw_input_field('state', '', 'class="form-control" id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
     }   
-  }               
-
-  if (!isset($lng) || (isset($lng) && !is_object($lng))) {
-    include(DIR_WS_CLASSES . 'language.php');
-    $lng = new language;
   }
 
   reset($lng->catalog_languages);
