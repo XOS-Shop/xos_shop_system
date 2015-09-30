@@ -194,8 +194,8 @@
 // Define the SESSID 
   define('SESSID', empty($_COOKIE[session_name()]) ? xos_session_name() . '=' . xos_session_id() : '');
 
-//  if (!preg_match('/^(?:(?:[a-zA-Z0-9,-]{26})|(?:[a-zA-Z0-9,-]{32}))$/i', session_id())) session_regenerate_id(true);
-  if (!preg_match('/^[a-zA-Z0-9,-]{22,40}$/i', session_id())) session_regenerate_id(true);  
+//  if ($session_started && !preg_match('/^(?:(?:[a-zA-Z0-9,-]{26})|(?:[a-zA-Z0-9,-]{32}))$/i', session_id())) session_regenerate_id(true);
+  if ($session_started && !preg_match('/^[a-zA-Z0-9,-]{22,40}$/i', session_id())) session_regenerate_id(true);  
 
 // set the language
   if (!isset($_SESSION['language']) || isset($_GET['language'])) {

@@ -151,11 +151,10 @@
   }
 
   function xos_session_recreate() {
-
-      $old_id = session_id();
-      
-      session_regenerate_id(true);
-      
-      xos_whos_online_update_session_id($old_id, session_id());  
+    if ($session_started) {
+      $old_id = session_id();      
+      session_regenerate_id(true);      
+      xos_whos_online_update_session_id($old_id, session_id());
+    }    
   }
 ?>
