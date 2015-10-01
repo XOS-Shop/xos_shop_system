@@ -168,7 +168,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 //    xos_redirect(xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, xos_get_all_get_params()));
 //  }
 
-  $site_trail->add(NAVBAR_TITLE_2, xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, xos_get_all_get_params(array('language', 'currency', 'tpl', 'x', 'y'))));
+  $site_trail->add(NAVBAR_TITLE_2, xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, xos_get_all_get_params(array('lnc', 'currency', 'tpl', 'x', 'y'))));
   
   
   }

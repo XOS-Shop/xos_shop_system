@@ -36,7 +36,7 @@ if (!$is_shop) :
 elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_SPECIALS) == 'overwrite_all')) :
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_SPECIALS);
 
-  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('language', 'currency', 'tpl', 'x', 'y'))));
+  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('lnc', 'currency', 'tpl', 'x', 'y'))));
     
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');
@@ -53,7 +53,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
    
   if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
     $smarty->caching = 1;
-    $cache_id = 'L3|cc_specials|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['sort'] . '-' . $_GET['page'] . '-' . $_GET['filter'] . '-' . $_SESSION['mdsp'] . '-' . $_SESSION['sv'];
+    $cache_id = 'L3|cc_specials|' . $_SESSION['language'] . '-' . $_GET['lnc'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['sort'] . '-' . $_GET['page'] . '-' . $_GET['filter'] . '-' . $_SESSION['mdsp'] . '-' . $_SESSION['sv'];
   }  
  
   if(!$smarty->isCached(SELECTED_TPL . '/specials.tpl', $cache_id)){ 
@@ -219,8 +219,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           $hidden_get_variables .= xos_draw_hidden_field('currency', $_GET['currency']);
         }  
 
-        if (!$session_started && xos_not_null($_GET['language'])) {
-          $hidden_get_variables .= xos_draw_hidden_field('language', $_GET['language']);
+        if (!$session_started && xos_not_null($_GET['lnc'])) {
+          $hidden_get_variables .= xos_draw_hidden_field('lnc', $_GET['lnc']);
         }          
 
         if (!$session_started && xos_not_null($_GET['tpl'])) {

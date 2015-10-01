@@ -45,11 +45,11 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
 
       if ($notification_exists == true) {
         $smarty->assign(array('box_product_notifications_notification_exists' => true,
-                              'box_product_notifications_link_notify_notify_remove' => xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('action', 'language', 'currency', 'tpl')) . 'action=notify_remove', $request_type),
+                              'box_product_notifications_link_notify_notify_remove' => xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('action', 'lnc', 'currency', 'tpl')) . 'action=notify_remove', $request_type),
                               'box_product_notifications_image' => xos_image(DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/box_products_notifications_remove.gif', IMAGE_BUTTON_REMOVE_NOTIFICATIONS)));
       } else {
         $smarty->assign(array('box_product_notifications_notification_exists' => false,
-                              'box_product_notifications_link_notify_notify_remove' => xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('action', 'language', 'currency', 'tpl')) . 'action=notify', $request_type),
+                              'box_product_notifications_link_notify_notify_remove' => xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('action', 'lnc', 'currency', 'tpl')) . 'action=notify', $request_type),
                               'box_product_notifications_image' => xos_image(DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/box_products_notifications.gif', IMAGE_BUTTON_NOTIFICATIONS)));
       }
       

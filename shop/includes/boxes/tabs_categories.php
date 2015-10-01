@@ -33,8 +33,8 @@
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/boxes/tabs_categories.php') == 'overwrite_all')) :                
   if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
     $smarty->caching = 1;
-    $cat_cache_id = 'L3|box_categories|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $cPath . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'];
-    $tab_cache_id = 'L3|box_tabs|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $cPath . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . basename($_SERVER['PHP_SELF']) . '-' . $_GET['m'] . '-' . $_GET['co'];
+    $cat_cache_id = 'L3|box_categories|' . $_SESSION['language'] . '-' . $_GET['lnc'] . '-' . $cPath . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'];
+    $tab_cache_id = 'L3|box_tabs|' . $_SESSION['language'] . '-' . $_GET['lnc'] . '-' . $cPath . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . basename($_SERVER['PHP_SELF']) . '-' . $_GET['m'] . '-' . $_GET['co'];
   }
   
   if(!$smarty->isCached(SELECTED_TPL . '/includes/boxes/categories.tpl', $cat_cache_id) || !$smarty->isCached(SELECTED_TPL . '/includes/boxes/tabs.tpl', $tab_cache_id)){

@@ -80,12 +80,12 @@
       }
              
       parse_str($parameters, $param_array);
-      
-      if (sizeof($lng->catalog_languages) > 1 && !empty($_SESSION['languages_code'])) {
-        $lng_code = $_SESSION['languages_code'] . '/';
-      } else {
-        $lng_code = '';
-      }      
+       
+      $lng_code = '';
+      // enable this lines if language code is needed
+      // if (sizeof($lng->catalog_languages) > 1 && !empty($_SESSION['languages_code'])) {
+      //   $lng_code = $_SESSION['languages_code'] . '/';
+      // }     
       
       switch ($page) {
         case FILENAME_DEFAULT:                 
@@ -230,8 +230,8 @@
       $separator = '&';
     }  
 
-    if (!$session_started && xos_not_null($_GET['language']) && $add_get_language == true) {
-      $link .= $separator . xos_output_string('language=' . $_GET['language']);
+    if (!$session_started && xos_not_null($_GET['lnc']) && $add_get_language == true) {
+      $link .= $separator . xos_output_string('lnc=' . $_GET['lnc']);
       $add_parameter = true;
       $separator = '&';      
     }

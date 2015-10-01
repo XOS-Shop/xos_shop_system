@@ -150,7 +150,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                             'from_name' => $from_name,
                             'products_name' => $product_info['products_name'],
                             'link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . (int)$_GET['p'], 'NONSSL', false, false)));
-//      $smarty->assign('link_filename_product_info', xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . (int)$_GET['p'] . '&language=' . $customer_lng['code'], 'NONSSL', false, false));
+//      $smarty->assign('link_filename_product_info', xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . (int)$_GET['p'] . '&lnc=' . $customer_lng['code'], 'NONSSL', false, false));
       
       $smarty->configLoad('languages/' . $_SESSION['language'] . '_email.conf', 'tell_a_friend_email_html');
       $output_tell_a_friend_email_html = $smarty->fetch(SELECTED_TPL . '/includes/email/tell_a_friend_email_html.tpl');

@@ -321,10 +321,10 @@
   $lng = new language();
 
 // set the language
-  if (!isset($_SESSION['language']) || isset($_GET['language'])) {
+  if (!isset($_SESSION['language']) || isset($_GET['lnc'])) {
 
-    if (isset($_GET['language']) && xos_not_null($_GET['language'])) {
-      $lng->set_language($_GET['language']);
+    if (isset($_GET['lnc']) && xos_not_null($_GET['lnc'])) {
+      $lng->set_language($_GET['lnc']);
     } else {
       $lng->get_browser_language();
     }
@@ -553,7 +553,7 @@
       $categories_query = xos_db_query("select c.link_request_type, c.is_page, cpd.categories_or_pages_name from " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd left join " . TABLE_CATEGORIES_OR_PAGES . " c on cpd.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and cpd.categories_or_pages_id = '" . (int)$cPath_array[$i] . "' and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'");    
       if (xos_db_num_rows($categories_query) > 0) {
         $categories = xos_db_fetch_array($categories_query);
-        $site_trail->add($categories['categories_or_pages_name'], xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('p', 'c', 'language', 'currency', 'tpl', 'x', 'y')) . 'c=' . implode('_', array_slice($cPath_array, 0, ($i+1))), (!empty($categories['link_request_type']) ? $categories['link_request_type'] : 'NONSSL')));
+        $site_trail->add($categories['categories_or_pages_name'], xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('p', 'c', 'lnc', 'currency', 'tpl', 'x', 'y')) . 'c=' . implode('_', array_slice($cPath_array, 0, ($i+1))), (!empty($categories['link_request_type']) ? $categories['link_request_type'] : 'NONSSL')));
         $page_info = $categories['is_page'];
       } else {
         break;
@@ -563,7 +563,7 @@
     $manufacturers_query = xos_db_query("select manufacturers_name from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . (int)$_GET['m'] . "' and languages_id = '" . (int)$_SESSION['languages_id'] . "'");
     if (xos_db_num_rows($manufacturers_query)) {
       $manufacturers = xos_db_fetch_array($manufacturers_query);
-      $site_trail->add($manufacturers['manufacturers_name'], xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('p', 'm', 'language', 'currency', 'tpl', 'x', 'y')) . 'm=' . $_GET['m']));
+      $site_trail->add($manufacturers['manufacturers_name'], xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('p', 'm', 'lnc', 'currency', 'tpl', 'x', 'y')) . 'm=' . $_GET['m']));
       $page_info = 'false';
     }
   } 

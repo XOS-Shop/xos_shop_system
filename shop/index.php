@@ -74,7 +74,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
         
     if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
       $smarty->caching = 1;
-      $cache_id = 'L3|cc_index_categories|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['c'] . '-' . $_GET['sort'] . '-' . $_GET['page'] . '-' . $_GET['filter'] . '-' . $current_category_id . '-' . $_SESSION['mdpc'] . '-' . $_SESSION['pcv'];
+      $cache_id = 'L3|cc_index_categories|' . $_SESSION['language'] . '-' . $_GET['lnc'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['c'] . '-' . $_GET['sort'] . '-' . $_GET['page'] . '-' . $_GET['filter'] . '-' . $current_category_id . '-' . $_SESSION['mdpc'] . '-' . $_SESSION['pcv'];
     }    
     
     $category_query = xos_db_query("select cpd.categories_or_pages_name, cpd.categories_or_pages_heading_title, cpd.categories_or_pages_content, c.categories_image, c.product_list_b from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = '" . (int)$current_category_id . "' and cpd.categories_or_pages_id = '" . (int)$current_category_id . "' and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
@@ -343,8 +343,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
               $hidden_get_variables .= xos_draw_hidden_field('currency', $_GET['currency']);
             }  
 
-            if (!$session_started && xos_not_null($_GET['language'])) {
-              $hidden_get_variables .= xos_draw_hidden_field('language', $_GET['language']);
+            if (!$session_started && xos_not_null($_GET['lnc'])) {
+              $hidden_get_variables .= xos_draw_hidden_field('lnc', $_GET['lnc']);
             }          
 
             if (!$session_started && xos_not_null($_GET['tpl'])) {
@@ -400,7 +400,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
     
       if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
         $smarty->caching = 1;
-        $cache_id = 'L3|cc_index_manufacturers|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['m'] . '-' . $_GET['sort'] . '-' . $_GET['page'] . '-' . $_GET['filter'] . '-' . $_SESSION['mdpm'] . '-' . $_SESSION['pmv'];
+        $cache_id = 'L3|cc_index_manufacturers|' . $_SESSION['language'] . '-' . $_GET['lnc'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['m'] . '-' . $_GET['sort'] . '-' . $_GET['page'] . '-' . $_GET['filter'] . '-' . $_SESSION['mdpm'] . '-' . $_SESSION['pmv'];
       }    
         
       $manufacturer_query = xos_db_query("select m.manufacturers_image, mi.manufacturers_name from " . TABLE_MANUFACTURERS . " m, " . TABLE_MANUFACTURERS_INFO . " mi where m.manufacturers_id = mi.manufacturers_id and m.manufacturers_id = '" . (int)$_GET['m'] . "' and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "'");
@@ -457,7 +457,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
         
       if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
         $smarty->caching = 1;
-        $cache_id = 'L3|cc_index_products|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['c'] . '-' . $_GET['sort'] . '-' . $_GET['page'] . '-' . $_GET['filter'] . '-' . $current_category_id . '-' . $_SESSION['mdpc'] . '-' . $_SESSION['pcv'];
+        $cache_id = 'L3|cc_index_products|' . $_SESSION['language'] . '-' . $_GET['lnc'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['c'] . '-' . $_GET['sort'] . '-' . $_GET['page'] . '-' . $_GET['filter'] . '-' . $current_category_id . '-' . $_SESSION['mdpc'] . '-' . $_SESSION['pcv'];
       }    
     
       $category_query = xos_db_query("select cpd.categories_or_pages_name, cpd.categories_or_pages_heading_title, cpd.categories_or_pages_content, cpd.categories_or_pages_php_source, c.categories_image, c.product_list_b from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = '" . (int)$current_category_id . "' and cpd.categories_or_pages_id = '" . (int)$current_category_id . "' and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'");      
@@ -694,8 +694,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
             $hidden_get_variables .= xos_draw_hidden_field('currency', $_GET['currency']);
           }  
 
-          if (!$session_started && xos_not_null($_GET['language'])) {
-            $hidden_get_variables .= xos_draw_hidden_field('language', $_GET['language']);
+          if (!$session_started && xos_not_null($_GET['lnc'])) {
+            $hidden_get_variables .= xos_draw_hidden_field('lnc', $_GET['lnc']);
           }          
 
           if (!$session_started && xos_not_null($_GET['tpl'])) {
@@ -746,7 +746,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
     
     if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
       $smarty->caching = 1;
-      $cache_id = 'L3|cc_index_default|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_SESSION['customer_id'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $new_products_category_id . '-' . $current_category_id;
+      $cache_id = 'L3|cc_index_default|' . $_SESSION['language'] . '-' . $_GET['lnc'] . '-' . $_SESSION['customer_id'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $new_products_category_id . '-' . $current_category_id;
     }
     
     if(!$smarty->isCached(SELECTED_TPL . '/index.tpl', $cache_id)){  

@@ -61,7 +61,7 @@
 
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_PRODUCT_REVIEWS);
 
-  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_PRODUCT_REVIEWS, xos_get_all_get_params(array('language', 'currency', 'tpl', 'x', 'y'))));
+  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_PRODUCT_REVIEWS, xos_get_all_get_params(array('lnc', 'currency', 'tpl', 'x', 'y'))));
 
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');
@@ -70,7 +70,7 @@
 
   if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
     $smarty->caching = 1;
-    $cache_id = 'L3|cc_product_reviews|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['c'] . '-' . $_GET['m'] . '-' . $_GET['p'];
+    $cache_id = 'L3|cc_product_reviews|' . $_SESSION['language'] . '-' . $_GET['lnc'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['c'] . '-' . $_GET['m'] . '-' . $_GET['p'];
   }
      
   if(!$smarty->isCached(SELECTED_TPL . '/product_reviews.tpl', $cache_id)) {
@@ -86,7 +86,7 @@
       $product_reviews_array = array();
       while ($reviews = xos_db_fetch_array($reviews_query)) {
             
-        $product_reviews_array[]=array('link_filename_product_reviews_info' => xos_href_link(FILENAME_PRODUCT_REVIEWS_INFO, xos_get_all_get_params(array('language', 'currency', 'tpl')) . 'r=' . $reviews['reviews_id']),
+        $product_reviews_array[]=array('link_filename_product_reviews_info' => xos_href_link(FILENAME_PRODUCT_REVIEWS_INFO, xos_get_all_get_params(array('lnc', 'currency', 'tpl')) . 'r=' . $reviews['reviews_id']),
                                        'date_added' => xos_date_long($reviews['date_added']),
                                        'reviews_rating' => $reviews['reviews_rating'],
                                        'review_text' => xos_break_string(xos_output_string_protected($reviews['reviews_text']), 60, '-<br />'),
@@ -115,9 +115,9 @@
 
     $smarty->assign(array('products_name' => $product_info['products_name'], 
                           'products_model' => $product_info['products_model'],
-                          'link_filename_product_reviews_write' => xos_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, xos_get_all_get_params(array('language', 'currency', 'tpl', 'rmp')), 'SSL'),
+                          'link_filename_product_reviews_write' => xos_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, xos_get_all_get_params(array('lnc', 'currency', 'tpl', 'rmp')), 'SSL'),
                           'nav_bar_number' => $reviews_split->display_count(TEXT_DISPLAY_NUMBER_OF_REVIEWS),
-                          'nav_bar_result' => '<nav><ul class="pagination">' . $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'language', 'currency', 'tpl', 'x', 'y'))) . '</ul></nav>'));
+                          'nav_bar_result' => '<nav><ul class="pagination">' . $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'lnc', 'currency', 'tpl', 'x', 'y'))) . '</ul></nav>'));
                         
     $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'product_reviews');
   }

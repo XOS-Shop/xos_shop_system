@@ -52,7 +52,7 @@
 
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_PRODUCTS_NEW);
 
-  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_PRODUCTS_NEW, xos_get_all_get_params(array('language', 'currency', 'tpl', 'x', 'y'))));
+  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_PRODUCTS_NEW, xos_get_all_get_params(array('lnc', 'currency', 'tpl', 'x', 'y'))));
  
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');
@@ -61,7 +61,7 @@
 
   if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
     $smarty->caching = 1;
-    $cache_id = 'L3|cc_products_new|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['page'];
+    $cache_id = 'L3|cc_products_new|' . $_SESSION['language'] . '-' . $_GET['lnc'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['page'];
   }  
  
   if(!$smarty->isCached(SELECTED_TPL . '/products_new.tpl', $cache_id)){
@@ -141,7 +141,7 @@
     }
 
     $smarty->assign(array('nav_bar_number' => $products_new_split->display_count(TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW),
-                          'nav_bar_result' => '<nav><ul class="pagination">' . $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'language', 'currency', 'tpl', 'x', 'y'))) . '</ul></nav>',
+                          'nav_bar_result' => '<nav><ul class="pagination">' . $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'lnc', 'currency', 'tpl', 'x', 'y'))) . '</ul></nav>',
                           'interval_days_back' => INTERVAL_DAYS_BACK,
                           'products_new' => $products_new_array));
                         

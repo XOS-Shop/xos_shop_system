@@ -33,7 +33,7 @@
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/boxes/subscribe_newsletter.php') == 'overwrite_all')) : 
   if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
     $smarty->caching = 1;
-    $cache_id = 'L2|box_subscribe_newsletter|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'];
+    $cache_id = 'L2|box_subscribe_newsletter|' . $_SESSION['language'] . '-' . $_GET['lnc'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'];
   }
 
   if(!$smarty->isCached(SELECTED_TPL . '/includes/boxes/subscribe_newsletter.tpl', $cache_id)){
@@ -43,8 +43,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       $hidden_get_variables .= xos_draw_hidden_field('currency', $_GET['currency']);
     }  
 
-    if (!$session_started && xos_not_null($_GET['language'])) {
-      $hidden_get_variables .= xos_draw_hidden_field('language', $_GET['language']);
+    if (!$session_started && xos_not_null($_GET['lnc'])) {
+      $hidden_get_variables .= xos_draw_hidden_field('lnc', $_GET['lnc']);
     }
     
     if (!$session_started && xos_not_null($_GET['tpl'])) {

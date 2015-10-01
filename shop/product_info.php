@@ -76,7 +76,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true') && !isset($_GET['noscript'])){
     $smarty->caching = 1;
-    $cache_id = 'L3|cc_product_info|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['c'] . '-' . $_GET['m'] . '-' . $_GET['p'] . '-' . @implode('_', $_POST['id']);
+    $cache_id = 'L3|cc_product_info|' . $_SESSION['language'] . '-' . $_GET['lnc'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'] . '-' . $_SESSION['sppc_customer_group_id'] . '-' . $_SESSION['sppc_customer_group_show_tax'] . '-' . $_SESSION['sppc_customer_group_tax_exempt'] . '-' . $_GET['c'] . '-' . $_GET['m'] . '-' . $_GET['p'] . '-' . @implode('_', $_POST['id']);
   }
      
   if(!$smarty->isCached(SELECTED_TPL . '/product_info.tpl', $cache_id)) {
@@ -474,7 +474,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       }
       
       if (PRODUCT_REVIEWS_ENABLED == 'true') {    
-        $smarty->assign('link_filename_product_reviews', xos_href_link(FILENAME_PRODUCT_REVIEWS, xos_get_all_get_params(array('language', 'currency', 'tpl'))));
+        $smarty->assign('link_filename_product_reviews', xos_href_link(FILENAME_PRODUCT_REVIEWS, xos_get_all_get_params(array('lnc', 'currency', 'tpl'))));
       }       
     
       $smarty->assign(array('input_products_quantity' => xos_draw_input_field('products_quantity', '1','id="products_quantity" size="3"'),

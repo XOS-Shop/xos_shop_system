@@ -229,8 +229,8 @@
     fclose($fp);    
     @chmod($dir_fs_document_root . 'includes/configure.php', 0644);
 
-    $smarty->assign(array('href_link_catalog' => $http_server . $http_catalog . 'index.php?language=' . $_POST['language_code'],
-                          'href_link_admin' => $http_server . $http_catalog . $admin_dir_name . '/index.php?language=' . $_POST['language_code']));
+    $smarty->assign(array('href_link_catalog' => $http_server . $http_catalog . 'index.php?lnc=' . $_POST['language_code'],
+                          'href_link_admin' => $http_server . $http_catalog . $admin_dir_name . '/index.php?lnc=' . $_POST['language_code']));
                           
   }
 

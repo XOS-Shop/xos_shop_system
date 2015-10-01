@@ -198,7 +198,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $back_link = 'javascript:history.go(-1)';
   }
 
-  $smarty->assign(array('form_begin' => xos_draw_form('product_reviews_write', xos_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, xos_get_all_get_params(array('language', 'currency', 'tpl', 'action')) .'action=process', 'SSL'), 'post', 'onsubmit="return checkForm();"', true),
+  $smarty->assign(array('form_begin' => xos_draw_form('product_reviews_write', xos_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, xos_get_all_get_params(array('lnc', 'currency', 'tpl', 'action')) .'action=process', 'SSL'), 'post', 'onsubmit="return checkForm();"', true),
                         'form_end' => '</form>',
                         'radio_fields' => xos_draw_radio_field('rating', '1') . ' ' . xos_draw_radio_field('rating', '2') . ' ' . xos_draw_radio_field('rating', '3') . ' ' . xos_draw_radio_field('rating', '4') . ' ' . xos_draw_radio_field('rating', '5'),
                         'textarea_field' => xos_draw_textarea_field('review', '60', '15'),

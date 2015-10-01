@@ -184,8 +184,8 @@
           $hidden_get_variables .= xos_draw_hidden_field('currency', $_GET['currency']);
         }  
 
-        if (!$session_started && xos_not_null($_GET['language'])) {
-          $hidden_get_variables .= xos_draw_hidden_field('language', $_GET['language']);
+        if (!$session_started && xos_not_null($_GET['lnc'])) {
+          $hidden_get_variables .= xos_draw_hidden_field('lnc', $_GET['lnc']);
          }
     
         if (!$session_started && xos_not_null($_GET['tpl'])) {

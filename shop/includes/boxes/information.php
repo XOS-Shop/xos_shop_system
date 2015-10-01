@@ -33,7 +33,7 @@
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/boxes/information.php') == 'overwrite_all')) : 
   if (CACHE_LEVEL > 1 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
     $smarty->caching = 1;
-    $cache_id = 'L2|box_information|' . $_SESSION['language'] . '-' . $_GET['language'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'];
+    $cache_id = 'L2|box_information|' . $_SESSION['language'] . '-' . $_GET['lnc'] . '-' . $_GET[session_name()] . '-' . $session_started . '-' . SELECTED_TPL . '-' . $_SESSION['currency'];
   }
   
   if(!$smarty->isCached(SELECTED_TPL . '/includes/boxes/information.tpl', $cache_id)){
