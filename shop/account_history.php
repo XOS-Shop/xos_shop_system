@@ -86,8 +86,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     
     $smarty->assign(array('orders' => true,
                           'nav_bar_number' => $history_split->display_count(TEXT_DISPLAY_NUMBER_OF_ORDERS),
-                          'nav_bar_result' => TEXT_RESULT_PAGE . ' ' . $history_split->display_links(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'lnc', 'currency', 'tpl', 'x', 'y'))),
-                          'nav_bar_result_in_pull_down_menu' => $history_split->display_links_in_pull_down_menu(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'lnc', 'currency', 'tpl', 'x', 'y')))));
+                          'nav_bar_result' => TEXT_RESULT_PAGE . ' ' . $history_split->display_links(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'lnc', 'cur', 'tpl', 'x', 'y'))),
+                          'nav_bar_result_in_pull_down_menu' => $history_split->display_links_in_pull_down_menu(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'lnc', 'cur', 'tpl', 'x', 'y')))));
   }
 
   $smarty->assign(array('orders_array' => $orders_array,

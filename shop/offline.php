@@ -79,7 +79,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
   if (sizeof($lng->catalog_languages) > 1) { 
   
     while (list($key, $value) = each($lng->catalog_languages)) {
-      $language_str .= ' <a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('lnc', 'currency', 'tpl', 'dfrom', 'dto')) . 'lnc=' . $key, $request_type) . '">' . xos_image(DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $value['directory'] . '/' . $value['image'], $value['name']) . '</a> ';
+      $language_str .= ' <a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('lnc', 'cur', 'tpl', 'dfrom', 'dto')) . 'lnc=' . $key, $request_type) . '">' . xos_image(DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $value['directory'] . '/' . $value['image'], $value['name']) . '</a> ';
     }
 
     $smarty->assign('language_str', $language_str);

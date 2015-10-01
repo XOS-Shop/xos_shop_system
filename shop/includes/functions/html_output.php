@@ -224,8 +224,8 @@
 
     while ( (substr($link, -1) == '&') || (substr($link, -1) == '?') ) $link = substr($link, 0, -1);
 
-    if (!$session_started && xos_not_null($_GET['currency']) && $add_get_currency == true) {
-      $link .= $separator . xos_output_string('currency=' . $_GET['currency']);
+    if (!$session_started && xos_not_null($_GET['cur']) && $add_get_currency == true) {
+      $link .= $separator . xos_output_string('cur=' . $_GET['cur']);
       $add_parameter = true;
       $separator = '&';
     }  

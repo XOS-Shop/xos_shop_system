@@ -137,7 +137,7 @@
                                xos_draw_hidden_field('ship_state', $order->delivery['state']) .
                                xos_draw_hidden_field('ship_post_code', $order->delivery['postcode']) .
                                xos_draw_hidden_field('ship_country', $order->delivery['country']['title']) .
-                               xos_draw_hidden_field('currency', $sec_currency) .
+                               xos_draw_hidden_field('cur', $sec_currency) .
                                xos_draw_hidden_field('callback', xos_href_link(FILENAME_CHECKOUT_PROCESS, '', 'SSL', false) . ';' . xos_href_link(FILENAME_CHECKOUT_PAYMENT, 'payment_error=' . $this->code, 'SSL', false)) .
                                xos_draw_hidden_field(xos_session_name(), xos_session_id()) .
                                xos_draw_hidden_field('options', 'test_status=' . $test_status . ',dups=false,cb_post=true,cb_flds=' . xos_session_name());

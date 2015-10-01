@@ -39,8 +39,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   if(!$smarty->isCached(SELECTED_TPL . '/includes/boxes/subscribe_newsletter.tpl', $cache_id)){
  
     $hidden_get_variables = '';
-    if (!$session_started && xos_not_null($_GET['currency'])) {
-      $hidden_get_variables .= xos_draw_hidden_field('currency', $_GET['currency']);
+    if (!$session_started && xos_not_null($_GET['cur'])) {
+      $hidden_get_variables .= xos_draw_hidden_field('cur', $_GET['cur']);
     }  
 
     if (!$session_started && xos_not_null($_GET['lnc'])) {

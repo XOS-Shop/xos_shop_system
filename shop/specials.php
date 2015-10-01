@@ -36,7 +36,7 @@ if (!$is_shop) :
 elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_SPECIALS) == 'overwrite_all')) :
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_SPECIALS);
 
-  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('lnc', 'currency', 'tpl', 'x', 'y'))));
+  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('lnc', 'cur', 'tpl', 'x', 'y'))));
     
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');
@@ -215,8 +215,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       if (xos_db_num_rows($filterlist_query) > 1) {
         
         $hidden_get_variables = '';
-        if (!$session_started && xos_not_null($_GET['currency'])) {
-          $hidden_get_variables .= xos_draw_hidden_field('currency', $_GET['currency']);
+        if (!$session_started && xos_not_null($_GET['cur'])) {
+          $hidden_get_variables .= xos_draw_hidden_field('cur', $_GET['cur']);
         }  
 
         if (!$session_started && xos_not_null($_GET['lnc'])) {

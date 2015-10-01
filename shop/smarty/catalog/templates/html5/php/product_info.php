@@ -442,7 +442,7 @@
       }
       
       if (PRODUCT_REVIEWS_ENABLED == 'true') {    
-        $smarty->assign('link_filename_product_reviews', xos_href_link(FILENAME_PRODUCT_REVIEWS, xos_get_all_get_params(array('lnc', 'currency', 'tpl'))));
+        $smarty->assign('link_filename_product_reviews', xos_href_link(FILENAME_PRODUCT_REVIEWS, xos_get_all_get_params(array('lnc', 'cur', 'tpl'))));
       }       
     
       $smarty->assign(array('input_products_quantity' => xos_draw_input_field('products_quantity', '1','id="products_quantity" size="3"'),

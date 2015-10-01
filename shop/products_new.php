@@ -36,7 +36,7 @@ if (!$is_shop) :
 elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_PRODUCTS_NEW) == 'overwrite_all')) :
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_PRODUCTS_NEW);
 
-  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_PRODUCTS_NEW, xos_get_all_get_params(array('lnc', 'currency', 'tpl', 'x', 'y'))));
+  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_PRODUCTS_NEW, xos_get_all_get_params(array('lnc', 'cur', 'tpl', 'x', 'y'))));
   
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');
@@ -125,8 +125,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     }
 
     $smarty->assign(array('nav_bar_number' => $products_new_split->display_count(TEXT_DISPLAY_NUMBER_OF_PRODUCTS_NEW),
-                          'nav_bar_result' => TEXT_RESULT_PAGE . ' ' . $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'lnc', 'currency', 'tpl', 'x', 'y'))),
-                          'nav_bar_result_in_pull_down_menu' => $products_new_split->display_links_in_pull_down_menu(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'lnc', 'currency', 'tpl', 'x', 'y'))),
+                          'nav_bar_result' => TEXT_RESULT_PAGE . ' ' . $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'lnc', 'cur', 'tpl', 'x', 'y'))),
+                          'nav_bar_result_in_pull_down_menu' => $products_new_split->display_links_in_pull_down_menu(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'lnc', 'cur', 'tpl', 'x', 'y'))),
                           'interval_days_back' => INTERVAL_DAYS_BACK,
                           'products_new' => $products_new_array));
                         

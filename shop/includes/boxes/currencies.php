@@ -42,19 +42,19 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     
       $currencies_array = array();
       while (list($key, $value) = each($currencies->currencies)) {
-        $currencies_array[] = array('id' => xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('currency')) . 'currency=' . $key, $request_type, true, true, false, false, false), 'text' => $value['title']);
+        $currencies_array[] = array('id' => xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('cur')) . 'cur=' . $key, $request_type, true, true, false, false, false), 'text' => $value['title']);
         if ($_SESSION['currency'] == $key) {
           $currencies_content_string .= '<span><b>' . $value['title'] .'</b></span>';
-          $currencies_content_noscript .= '<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('currency')) . 'currency=' . $key, $request_type, true, true, false, false, false) . '">' . '&nbsp; <b>' . $value['title'] . '</b></a><br />';
+          $currencies_content_noscript .= '<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('cur')) . 'cur=' . $key, $request_type, true, true, false, false, false) . '">' . '&nbsp; <b>' . $value['title'] . '</b></a><br />';
         } else {  
-          $currencies_content_string .= '<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('currency')) . 'currency=' . $key, $request_type, true, true, false, false, false) . '">' . $value['title'] . '</a>';
-          $currencies_content_noscript .= '<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('currency')) . 'currency=' . $key, $request_type, true, true, false, false, false) . '">' . '&nbsp; ' . $value['title'] . '</a><br />';       
+          $currencies_content_string .= '<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('cur')) . 'cur=' . $key, $request_type, true, true, false, false, false) . '">' . $value['title'] . '</a>';
+          $currencies_content_noscript .= '<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('cur')) . 'cur=' . $key, $request_type, true, true, false, false, false) . '">' . '&nbsp; ' . $value['title'] . '</a><br />';       
         }
       }
       $currencies_content_noscript = substr($currencies_content_noscript, 0, -6);
                              
       $currencies_content = xos_draw_form('currencies', xos_href_link(basename($_SERVER['PHP_SELF']), '', $request_type, false, true, false, false, false), 'get');
-      $currencies_content .= xos_draw_pull_down_menu('currency', $currencies_array, xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('currency')) . 'currency=' . $_SESSION['currency'], $request_type, true, true, false, false, false), 'class="form-control input-sm" onchange="location = form.currency.options[form.currency.selectedIndex].value;"');
+      $currencies_content .= xos_draw_pull_down_menu('cur', $currencies_array, xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('cur')) . 'cur=' . $_SESSION['currency'], $request_type, true, true, false, false, false), 'class="form-control input-sm" onchange="location = form.cur.options[form.cur.selectedIndex].value;"');
       $currencies_content .= '</form>';
     
       $smarty->assign(array('box_currencies_currencies' => $currencies_content,

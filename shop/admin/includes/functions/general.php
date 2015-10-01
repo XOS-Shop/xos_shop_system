@@ -490,7 +490,7 @@ function xos_selected_file($filename) {
         parse_str(htmlspecialchars_decode($p_url['query']), $get_params);
       }
    
-      $query_return = xos_array_to_query_string($get_params, array('action', 'currency', 'lnc', 'tpl', 'rmp', 'XOSsid')); 
+      $query_return = xos_array_to_query_string($get_params, array('action', 'cur', 'lnc', 'tpl', 'rmp', 'XOSsid')); 
   
       $replacement = str_replace($match[1], '[@{link xos_href_link(\''.$filename.'\', \''.$query_return.'\', \''.($linkable_files[$filename] == 'REQUEST_TYPE' ? $linkable_files[$filename] : (stripos($match[2], HTTP_SERVER)!== false ? 'NONSSL' : (stripos($match[2], HTTPS_SERVER)!== false ? 'SSL' : $linkable_files[$filename]))).'\')}@]', $match[0]);  
     } else {

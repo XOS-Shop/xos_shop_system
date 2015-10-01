@@ -102,7 +102,7 @@
     
     $smarty->assign(array('orders' => true,
                           'nav_bar_number' => $history_split->display_count(TEXT_DISPLAY_NUMBER_OF_ORDERS),
-                          'nav_bar_result' => '<nav><ul class="pagination">' . $history_split->display_links(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'lnc', 'currency', 'tpl', 'x', 'y'))) . '</ul></nav>'));
+                          'nav_bar_result' => '<nav><ul class="pagination">' . $history_split->display_links(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'lnc', 'cur', 'tpl', 'x', 'y'))) . '</ul></nav>'));
   }
 
   $smarty->assign(array('orders_array' => $orders_array,

@@ -51,7 +51,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_PRODUCT_REVIEWS_INFO);
 
-  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_PRODUCT_REVIEWS_INFO, xos_get_all_get_params(array('lnc', 'currency', 'tpl', 'x', 'y'))));
+  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_PRODUCT_REVIEWS_INFO, xos_get_all_get_params(array('lnc', 'cur', 'tpl', 'x', 'y'))));
 
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');
@@ -145,7 +145,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                           'products_price_breaks' => $price_breaks_array,
                           'products_tax_description' => xos_get_products_tax_description($review['products_tax_class_id'], $products_tax_rate),
                           'td_width_img' => MEDIUM_PRODUCT_IMAGE_MAX_WIDTH + 10,
-                          'link_filename_product_reviews_write' => xos_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, xos_get_all_get_params(array('lnc', 'currency', 'tpl', 'rmp')), 'SSL'),
+                          'link_filename_product_reviews_write' => xos_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, xos_get_all_get_params(array('lnc', 'cur', 'tpl', 'rmp')), 'SSL'),
                           'link_buy_now' => xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('action')) . 'action=buy_now')));
                         
     $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'product_reviews_info');
