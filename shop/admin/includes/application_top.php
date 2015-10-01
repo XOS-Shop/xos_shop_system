@@ -197,15 +197,14 @@
 //  if ($session_started && !preg_match('/^(?:(?:[a-zA-Z0-9,-]{26})|(?:[a-zA-Z0-9,-]{32}))$/i', session_id())) session_regenerate_id(true);
   if ($session_started && !preg_match('/^[a-zA-Z0-9,-]{22,40}$/i', session_id())) session_regenerate_id(true);  
 
-// require the language class and create an instance
-  include(DIR_WS_CLASSES . 'language.php');
-  $lng = new language();
-
 // set the language
-  if (!isset($_SESSION['language']) || isset($_GET['language'])) {
+  if (!isset($_SESSION['language']) || isset($_GET['lnc'])) {
+  
+    include(DIR_WS_CLASSES . 'language.php');
+    $lng = new language();  
 
-    if (isset($_GET['language']) && xos_not_null($_GET['language'])) {
-      $lng->set_language($_GET['language']);
+    if (isset($_GET['lnc']) && xos_not_null($_GET['lnc'])) {
+      $lng->set_language($_GET['lnc']);
     } else {
       $lng->get_browser_language();
     }

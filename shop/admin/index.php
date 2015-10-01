@@ -240,7 +240,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                         'box_statistics_content' => $statistics_content,
                         'box_ssl_content' => $content_ssl,
                         'form_languages_begin' => xos_draw_form('languages', 'index.php', '', 'get'),
-                        'pull_down_menu_language' => (sizeof($lang_array) > 1) ? xos_draw_pull_down_menu('language', $lang_array, $languages_selected, 'onchange="this.form.submit();"') : '',
+                        'pull_down_menu_language' => (sizeof($lang_array) > 1) ? xos_draw_pull_down_menu('lnc', $lang_array, $languages_selected, 'onchange="this.form.submit();"') : '',
                         'form_end' => '</form>',
                         'categories' => array_filter($cat))); 
   
