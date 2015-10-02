@@ -33,7 +33,7 @@
 ////
 // The HTML href link wrapper function
   function xos_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true, $add_get_language = true, $add_get_currency = true, $add_get_tpl = true) {
-    global $session_started, $request_type, $cats, $mans, $cots, $lng;
+    global $session_started, $request_type, $cats, $mans, $cots, $lng, $lang_code;
     
     $add_parameter = false;
     
@@ -83,8 +83,12 @@
        
       $lng_code = '';
       // enable this lines if language code is needed
-      // if (sizeof($lng->catalog_languages) > 1 && !empty($_SESSION['languages_code'])) {
-      //   $lng_code = $_SESSION['languages_code'] . '/';
+      // if (sizeof($lng->catalog_languages) > 1) {
+      //   if (!empty($lang_code)) {       
+      //     $lng_code = $lang_code . '/';
+      //   } else if (!empty($_SESSION['languages_code'])) {
+      //     $lng_code = $_SESSION['languages_code'] . '/';
+      //   }             
       // }     
       
       switch ($page) {

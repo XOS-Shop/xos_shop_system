@@ -38,13 +38,13 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   
   if (sizeof($lng->catalog_languages) > 1) { 
   
-    while (list($key, $value) = each($lng->catalog_languages)) {
-      $languages_string .= ' <a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('lnc', 'cur', 'tpl', 'dfrom', 'dto')) . 'lnc=' . $key, $request_type, true, ($value['id'] == $_SESSION['languages_id'] ? true : false), false) . '">' . xos_image(DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $value['directory'] . '/' . $value['image'], $value['name']) . '</a> ';
+    while (list($lang_code, $value) = each($lng->catalog_languages)) {
+      $languages_string .= ' <a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('lnc', 'dfrom', 'dto')) . 'lnc=' . $lang_code, $request_type, true, true, false, false, false) . '">' . xos_image(DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $value['directory'] . '/' . $value['image'], $value['name']) . '</a> ';
       
       if ($value['id'] == $_SESSION['languages_id']) {
         $language_used .= '<span>' . xos_image(DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $value['directory'] . '/' . $value['image'], $value['name']) . '</span>';
       } else {
-        $languages_list .= '<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('lnc', 'cur', 'tpl', 'dfrom', 'dto')) . 'lnc=' . $key, $request_type, true, false, false) . '">' . xos_image(DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $value['directory'] . '/' . $value['image'], $value['name']) . '</a>';
+        $languages_list .= '<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('lnc', 'dfrom', 'dto')) . 'lnc=' . $lang_code, $request_type, true, true, false, false, false) . '">' . xos_image(DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $value['directory'] . '/' . $value['image'], $value['name']) . '</a>';
       }
     }
 
