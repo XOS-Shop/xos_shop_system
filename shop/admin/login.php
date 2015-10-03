@@ -96,7 +96,13 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                 '  var height = document.getElementById("text").offsetHeight;' . "\n" .
                 '  var marg = (height / 2);' . "\n" .
                 '  document.getElementById("spacer").style.margin = "-" + marg + "px" + " 0px" + " 0px" + " 0px";' . "\n" .
-                '}' . "\n" .                   
+                '}' . "\n\n" .
+                
+                '$(function(){' . "\n" .
+                '  if (document.cookie.indexOf("' . xos_session_name() . '=' . xos_session_id() . '") != -1) {' . "\n" .
+                '    $("#cookie_error").css("visibility", "hidden");' . "\n" .
+                '  }' . "\n" .
+                '});' . "\n" .                   
                 '/* ]]> */' . "\n" .
                 '</script>' . "\n";                                  
 

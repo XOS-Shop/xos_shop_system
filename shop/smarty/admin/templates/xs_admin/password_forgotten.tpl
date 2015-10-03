@@ -86,7 +86,7 @@
                               [@{else}@]                                                             
                                 [@{if $cookie_not_accepted}@]
                               <tr>
-                                <td colspan="2" class="smallText" align="center">[@{#text_cookie_error#}@]</td>
+                                <td colspan="2" id="cookie_error" class="smallText" align="center">[@{#text_cookie_error#}@]</td>
                               </tr>                                
                                 [@{elseif $login_fail}@]
                               <tr>
@@ -94,7 +94,7 @@
                               </tr>
                                 [@{else}@]
                               <tr>
-                                <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="12" />[@{$hidden_field_log_times_0}@]</td>
+                                <td colspan="2" class="smallText" align="center">&nbsp;[@{$hidden_field_log_times_0}@]</td>
                               </tr>
                                 [@{/if}@]
                               <tr>
