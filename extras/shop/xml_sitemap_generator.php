@@ -230,12 +230,12 @@
     if (xos_db_num_rows($content_result) > 0) {
       while($content_data = xos_db_fetch_array($content_result)) {
     
-        $lang_param = (sizeof($lng->catalog_languages) > 1) ? '&language='.$lng_code : '';
+        $lang_param = (sizeof($lng->catalog_languages) > 1) ? '&lnc='.$lng_code : '';
         $date = ($content_data['last_modified'] != NULL) ? $content_data['last_modified'] : $content_data['date_added'];
 
         reset($currencies->currencies);
         while (list($key) = each($currencies->currencies)) {
-          $curr_param = (sizeof($currencies->currencies) > 1) ? '&currency=' . $key : '';
+          $curr_param = (sizeof($currencies->currencies) > 1) ? '&cur=' . $key : '';
       
           $string = sprintf(SITEMAP_ENTRY, xos_href_link('content.php', 'co='.$content_data['content_id'].$lang_param.$curr_param, 'NONSSL', false) , PRIORITY_CONTENTS, iso8601_date($date), CHANGEFREQ_CONTENTS);
       
@@ -291,12 +291,12 @@
     foreach($cat_array as $lang_array) {
       foreach($lang_array as $cat_id => $cat_data) {
     
-        $lang_param = (sizeof($lng->catalog_languages) > 1) ? '&language='.$lng_code : '';
+        $lang_param = (sizeof($lng->catalog_languages) > 1) ? '&lnc='.$lng_code : '';
         $date = ($cat_data['last_modified'] != NULL) ? $cat_data['last_modified'] : $cat_data['date_added'];
 
         reset($currencies->currencies);
         while (list($key) = each($currencies->currencies)) {
-          $curr_param = (sizeof($currencies->currencies) > 1) ? '&currency=' . $key : '';
+          $curr_param = (sizeof($currencies->currencies) > 1) ? '&cur=' . $key : '';
          
           $string = sprintf(SITEMAP_ENTRY, xos_href_link('index.php', rv_get_path($cat_data['categories_or_pages_id'], $lng_code).$lang_param.$curr_param, 'NONSSL', false) ,PRIORITY_CATEGORIES, iso8601_date($date), CHANGEFREQ_CATEGORIES);
       
@@ -345,12 +345,12 @@
     if (xos_db_num_rows($product_result) > 0) {
       while($product_data = xos_db_fetch_array($product_result)) {
     
-        $lang_param = (sizeof($lng->catalog_languages) > 1) ? '&language='.$lng_code : '';
+        $lang_param = (sizeof($lng->catalog_languages) > 1) ? '&lnc='.$lng_code : '';
         $date = ($product_data['products_last_modified'] != NULL) ? $product_data['products_last_modified'] : $product_data['products_date_added'];
       
         reset($currencies->currencies);
         while (list($key) = each($currencies->currencies)) {
-          $curr_param = (sizeof($currencies->currencies) > 1) ? '&currency=' . $key : '';
+          $curr_param = (sizeof($currencies->currencies) > 1) ? '&cur=' . $key : '';
       
           $string = sprintf(SITEMAP_ENTRY, xos_href_link('product_info.php', 'p='.$product_data['products_id'].$lang_param.$curr_param, 'NONSSL', false) , PRIORITY_PRODUCTS, iso8601_date($date), CHANGEFREQ_PRODUCTS);
       
