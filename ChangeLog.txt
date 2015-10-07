@@ -1,6 +1,21 @@
 
 ##ChangeLog
 
+# XOS-Shop v1.0_rc8 (Release 10/07/2015)
+
+- update:  Smarty Version-3.1.25 auf Smarty Version-3.1.27
+- update:  CKEditor Version-4.4.7 auf CKEditor Version-4.5.4
+- update:  captcha
+- update:  xml_sitemap_generator
+- update:  base href
+- update:  Konstante für PHP7 von SID zu SESSID geändert
+- update:  Konstante COOKIE_PATH aufgeteilt in HTTP_COOKIE_PATH und HTTPS_COOKIE_PATH
+- update:  Klassenkonstruktoren für PHP7 angepasst
+- bugfix:  temp file in captcha.php
+- bugfix:  In mysqli_fetch_array resulttype korrigiert
+- bugfix:  Fehler SEF URL's in shop/.htaccess korrigiert
+- bugfix:  Cookie check jetzt per JavaScript 
+
 # XOS-Shop v1.0_rc7z (Release 06/16/2015)
 
 - update:  Smarty Version-3.1.21 auf Smarty Version-3.1.25
