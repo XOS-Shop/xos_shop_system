@@ -37,10 +37,10 @@ define('TEXT_INFO_PASSWORD_HIDDEN', '-Versteckt-');
 define('TEXT_INFO_HEADING_DEFAULT', 'Konto bearbeiten ');
 define('TEXT_INFO_HEADING_CONFIRM_PASSWORD', 'Kennwort-Bestätigung ');
 define('TEXT_INFO_INTRO_CONFIRM_PASSWORD', 'Kennwort:');
-define('TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR', '<font color="red"><b>FEHLER:</b> falsches Kennwort!</font>');
+define('TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR', '<span style="color: #ff0000;"><b>FEHLER:</b> falsches Kennwort!</span>');
 define('TEXT_INFO_INTRO_DEFAULT', 'Klicken Sie auf <b><i>Bearbeiten</i></b>, um Ihre Kontoinformationen zu ändern.');
 define('TEXT_INFO_INTRO_DEFAULT_FIRST_TIME', '<br /><b>Warnung:</b><br />Hallo <b>%s</b>, Dies ist Ihr erster Besuch, wir empfehlen dringend eine Änderung des Kennworts!');
-define('TEXT_INFO_INTRO_DEFAULT_FIRST', '<br /><b>WARNUNG:</b><br />Hallo <b>%s</b>, Wir empfehlen eine Änderung Ihrer Email von <font color="red">admin@localhost</font> und Ihres Kennworts!');
+define('TEXT_INFO_INTRO_DEFAULT_FIRST', '<br /><b>WARNUNG:</b><br />Hallo <b>%s</b>, Wir empfehlen eine Änderung Ihrer Email von <span style="color: #ff0000;">admin@localhost</span> und Ihres Kennworts!');
 define('TEXT_INFO_INTRO_EDIT_PROCESS', 'Alle Felder müssen ausgefüllt werden.');
 
 define('JS_ALERT_FIRSTNAME',        '- Erforderlich: Vorname \n');

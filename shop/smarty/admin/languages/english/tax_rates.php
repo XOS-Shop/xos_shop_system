@@ -44,10 +44,10 @@ define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this tax rate?
 define('TEXT_INFO_HEADING_NEW_TAX_RATE', 'New Tax Rate');
 define('TEXT_INFO_HEADING_EDIT_TAX_RATE', 'Edit Tax Rate');
 define('TEXT_INFO_HEADING_DELETE_TAX_RATE', 'Delete Tax Rate');
-define('TEXT_INFO_NO_TAX_CLASS_AND_OR_NO_TAX_ZONE_DEFINED', '<font color="red"><b>Es wurde noch keine Steuerzone und/oder keine Steuerklasse definiert.</b></font>');
-define('TEXT_INFO_DELETE_NOT_ALLOWED', '<font color="red"><b>Dieser Steuersatz kann nicht gelöscht werden.</b><br /><br />Dieser Steuersatz verwendet eine Steuerklasse der Produkte zugeordnet sind.</font>');
-define('TEXT_INFO_DESCRIPTION_ERROR', '<font color="red"><b>[%s]</b> existiert bereits, bitte wählen Sie eine andere Beschreibung für den Steuersatz.</font>');
-define('TEXT_INFO_DESCRIPTION_ERROR_EMPTY', '<font color="red"><b>[%s]</b> Die Beschreibung für den Steuersatz darf nicht leer sein.</font>');
+define('TEXT_INFO_NO_TAX_CLASS_AND_OR_NO_TAX_ZONE_DEFINED', '<span style="color: #ff0000;"><b>Es wurde noch keine Steuerzone und/oder keine Steuerklasse definiert.</b></span>');
+define('TEXT_INFO_DELETE_NOT_ALLOWED', '<span style="color: #ff0000;"><b>Dieser Steuersatz kann nicht gelöscht werden.</b><br /><br />Dieser Steuersatz verwendet eine Steuerklasse der Produkte zugeordnet sind.</span>');
+define('TEXT_INFO_DESCRIPTION_ERROR', '<span style="color: #ff0000;"><b>[%s]</b> existiert bereits, bitte wählen Sie eine andere Beschreibung für den Steuersatz.</span>');
+define('TEXT_INFO_DESCRIPTION_ERROR_EMPTY', '<span style="color: #ff0000;"><b>[%s]</b> Die Beschreibung für den Steuersatz darf nicht leer sein.</span>');
 define('TEXT_INFO_DESCRIPTION_ERROR_MARK', '**');
 define('TEXT_INFO_DESCRIPTION_ERROR_EMPTY_MARK', '*');
 ?>

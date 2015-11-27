@@ -4,71 +4,71 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
 // Register a templates definition set named "default".
-CKEDITOR.addTemplates( 'english_default',
+CKEDITOR.addTemplates( 'espanol_default',
 {
 	// The name of sub folder which hold the shortcut preview images of the
 	// templates.
-	imagesPath : CKEDITOR.getUrl( '../ckconfig/tpl_images/' ),
+	imagesPath : CKEDITOR.getUrl( '../ckconfig/templates/tpl_images/' ),
 
 	// The templates definitions.
 	templates :
 		[
 			{
-				title: 'Image and Title',
+				title: 'Imagen y Título',
 				image: 'template1.gif',
-				description: 'One main image with a title and text that surround the image.',
+				description: 'Una imagen principal con un título y el texto que rodean la imagen',
 				html:
 					'<h3>' +
 						'<img style="width: 100px; height: 100px; margin-right: 10px; float: left;" alt=""/>' +
-						'Type the title here'+
+						'Escriba el título aquí'+
 					'</h3>' +
 					'<p>' +
-						'Type the text here' +
+						'Escriba el texto aquí' +
 					'</p>' +
 					'<div class="clear">&nbsp;</div>'
 			},
 			{
-				title: 'Strange Template',
+				title: 'Las columnas de plantilla',
 				image: 'template2.gif',
-				description: 'A template that defines two colums, each one with a title, and some text.',
+				description: 'Una plantilla que define dos columnas, cada una con un título, y algo de texto.',
 				html:
 					'<table style="width:100%">' +
 						'<tr>' +
 							'<td style="width:50%">' +
-								'<h3>Title 1</h3>' +
+								'<h3>Título 1</h3>' +
 							'</td>' +
 							'<td></td>' +
 							'<td style="width:50%">' +
-								'<h3>Title 2</h3>' +
+								'<h3>Título 2</h3>' +
 							'</td>' +
 						'</tr>' +
 						'<tr>' +
 							'<td>' +
-								'Text 1' +
+								'Texto 1' +
 							'</td>' +
 							'<td></td>' +
 							'<td>' +
-								'Text 2' +
+								'Texto 1' +
 							'</td>' +
 						'</tr>' +
 					'</table>' +
 					'<p>' +
-						'More text goes here.' +
+						'Más de texto va aquí.' +
 					'</p>' +
 					'<div class="clear">&nbsp;</div>'
 			},
 			{
-				title: 'Text and Table',
+				title: 'Texto en tabla',
 				image: 'template3.gif',
-				description: 'A title with some text and a table.',
+				description: 'Un libro con texto y una tabla.',
 				html:
 					'<div style="width: 80%">' +
 						'<h3>' +
-							'Title goes here' +
+							'Aquí va el título' +
 						'</h3>' +
 						'<table style="width:150px;float: right" border="1">' +
 							'<caption style="border:solid 1px black">' +
-								'<strong>Table title</strong>' +
+								'<strong>Tabla título</strong>' +
 							'</caption>' +
 							'</tr>' +
 							'<tr>' +
@@ -88,7 +88,7 @@ CKEDITOR.addTemplates( 'english_default',
 							'</tr>' +
 						'</table>' +
 						'<p>' +
-							'Type the text here' +
+							'Escriba el texto aquí' +
 						'</p>' +
 					'</div>' +
 					'<div class="clear">&nbsp;</div>'

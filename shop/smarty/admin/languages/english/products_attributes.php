@@ -34,10 +34,10 @@ define('TEXT_NEW_PRODUCT_1', 'New product');
 define('TEXT_NEW_PRODUCT_2', 'Product');
 define('TEXT_NEW_PRODUCT_3', '%s edit in "%s"');
 
-define('TEXT_OPTION_NAME_ERROR', '<font color="red"><b>[%s]</b> existiert bereits, bitte wählen Sie einen anderen Optionsnamen.</font>');
-define('TEXT_OPTION_NAME_ERROR_EMPTY', '<font color="red"><b>[%s]</b> Das Feld für den Optionsnamen darf nicht leer sein.</font>');
-define('TEXT_OPTION_VALUE_NAME_ERROR', '<font color="red"><b>[%s]</b> existiert bereits, bitte wählen Sie einen anderen Optionswert.</font>');
-define('TEXT_OPTION_VALUE_NAME_ERROR_EMPTY', '<font color="red"><b>[%s]</b> Das Feld für den Optionswert darf nicht leer sein.</font>');
+define('TEXT_OPTION_NAME_ERROR', '<span style="color: #ff0000;"><b>[%s]</b> existiert bereits, bitte wählen Sie einen anderen Optionsnamen.</span>');
+define('TEXT_OPTION_NAME_ERROR_EMPTY', '<span style="color: #ff0000;"><b>[%s]</b> Das Feld für den Optionsnamen darf nicht leer sein.</span>');
+define('TEXT_OPTION_VALUE_NAME_ERROR', '<span style="color: #ff0000;"><b>[%s]</b> existiert bereits, bitte wählen Sie einen anderen Optionswert.</span>');
+define('TEXT_OPTION_VALUE_NAME_ERROR_EMPTY', '<span style="color: #ff0000;"><b>[%s]</b> Das Feld für den Optionswert darf nicht leer sein.</span>');
 define('TEXT_OPTION_ERROR_MARK', '**');
 define('TEXT_OPTION_ERROR_EMPTY_MARK', '*');
 ?>

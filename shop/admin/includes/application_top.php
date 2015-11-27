@@ -30,6 +30,9 @@
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
 
+// Define the admin template
+  define('ADMIN_TPL', 'xs_admin');
+
 // Start the clock for the page parse time log
   define('PAGE_PARSE_START_TIME', microtime());
 
@@ -46,6 +49,11 @@
 
 // Set the local configuration parameters - mainly for developers
   if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
+  
+// Include application configuration parameters
+  require('../includes/configure.php');  
+  
+  @include(DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/configuration/config.php');  
 
 // set the type of request (secure or not)
   $request_type = (((isset($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1'))) ||
@@ -57,9 +65,6 @@
                     (isset($_SERVER['HTTP_SSLSESSIONID']) && $_SERVER['HTTP_SSLSESSIONID'] != '') ||
                     (isset($_SERVER['SCRIPT_URI']) && strtolower(substr($_SERVER['SCRIPT_URI'], 0, 6)) == 'https:') ||                    
                     (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == '443')) ? 'SSL' : 'NONSSL';
-
-// Include application configuration parameters
-  require('../includes/configure.php');
 
 // Define the absulute maximum size for large product images
   define('ABSULUTE_MAXIMUM_WIDTH_FOR_LARGE_PRODUCT_IMAGES', '1200');
@@ -73,14 +78,14 @@
 
 // Define the project logo
   define('PROJECT_LOGO', 'xos-shop_project_logo.gif');
-
-  define('EXPAND_MENUBOX_ADMINISTRATOR', 'false');
-  define('EXPAND_MENUBOX_CONFIGURATION', 'false');
-  define('EXPAND_MENUBOX_MODULES', 'false');  
+ 
+  define('EXPAND_MENUBOX_ADMINISTRATOR', 'true');
+  define('EXPAND_MENUBOX_CONFIGURATION', 'true');
+  define('EXPAND_MENUBOX_MODULES', 'true');  
   define('EXPAND_MENUBOX_CONTENT_MANAGER', 'true');  
   define('EXPAND_MENUBOX_CATALOG', 'true');   
   define('EXPAND_MENUBOX_CUSTOMERS', 'true');
-  define('EXPAND_MENUBOX_GV_ADMIN', 'false');    
+  define('EXPAND_MENUBOX_GV_ADMIN', 'true');    
   define('EXPAND_MENUBOX_TAXES', 'true');
   define('EXPAND_MENUBOX_LOCALIZATION', 'true');      
   define('EXPAND_MENUBOX_REPORTS', 'true');  
@@ -127,9 +132,6 @@
       define($configuration['cfgKey'], $configuration['cfgValue']);
     }     
   }
-
-// Define the admin template
-  define('ADMIN_TPL', 'xs_admin');
     
 // require the smarty class and create an instance
   require(DIR_FS_SMARTY . 'Smarty-3.1.27/Smarty.class.php');  
@@ -161,8 +163,11 @@
 // set the cookie path
   $cookie_path = (($request_type == 'NONSSL') ? HTTP_COOKIE_PATH : HTTPS_COOKIE_PATH);  
 
-// define our general functions used application-wide
-  require(DIR_WS_FUNCTIONS . 'general.php');
+// define our general functions used application-wide 
+  if (!(@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/functions/general.php')) {
+    require(DIR_WS_FUNCTIONS . 'general.php');
+  }
+    
   require(DIR_WS_FUNCTIONS . 'html_output.php');
   require(DIR_WS_FUNCTIONS . 'password_funcs.php'); 
 // initialize the logger class
@@ -234,7 +239,9 @@
   require(DIR_WS_FUNCTIONS . 'validations.php');
 
 // initialize the message stack for output messages
-  require(DIR_WS_CLASSES . 'message_stack.php');
+  if (!(@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/classes/message_stack.php')) {
+    require(DIR_WS_CLASSES . 'message_stack.php');
+  }
   $messageStack = new messageStack;
 
 // initialize configuration modules

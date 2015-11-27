@@ -316,7 +316,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                             'link_filename_popup_file_manager_link_selection' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents')),
                             'link_filename_popup_file_manager_image' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=no_link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents/image')),
                             'link_filename_popup_file_manager_flash' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=no_link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents/flash')),
-                            'banner_manager_config' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/banner_manager_config.js',                            
+                            'banner_manager_config' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/ckconfig/banner_manager_config.js',                            
                             'banner_manager_base_href' => ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER, 
                             'lang_code' => xos_get_languages_code()));
 
@@ -338,7 +338,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                                      'selection_field_delete_banners_image' => xos_draw_selection_field('delete_banners_image[' . $languages[$i]['id'] . ']', 'checkbox', 'true'),                                      
                                      'hidden_field_current_banners_image' => xos_draw_hidden_field('current_banners_image[' . $languages[$i]['id'] . ']', isset($bInfo->banners_image[$languages[$i]['id']]) ? stripslashes($bInfo->banners_image[$languages[$i]['id']]) : $banners_content['banners_image']),                                    
                                      'banners_html_text_name' => 'banners_html_text[' . $languages[$i]['id'] . ']',
-                                     'banner_manager_template_file' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/templates/' . $languages[$i]['directory'] . '/banner_manager_template.js',
+                                     'banner_manager_template_file' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/templates/' . $languages[$i]['directory'] . '/banner_manager_template.js',
                                      'banner_manager_template_lang' => $languages[$i]['directory'] . '_default',                                    
                                      'textarea_banners_html_text' => xos_draw_textarea_field('banners_html_text[' . $languages[$i]['id'] . ']', '110', '18', isset($bInfo->banners_html_text[$languages[$i]['id']]) ? stripslashes($bInfo->banners_html_text[$languages[$i]['id']]) : $banners_content['banners_html_text']),
                                      'textarea_banners_php_source' => xos_draw_textarea_field('banners_php_source[' . $languages[$i]['id'] . ']', '110', '18', (isset($bInfo->banners_php_source[$languages[$i]['id']]) ? stripslashes($bInfo->banners_php_source[$languages[$i]['id']]) : $banners_content['banners_php_source']), 'class="textarea-php-code" readonly="readonly"'));      
@@ -395,10 +395,10 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                              'group' => $banners['banners_group'],
                              'shown' => $banners_shown,
                              'clicked' => $banners_clicked,
-                             'icon_status_green' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green.gif', ICON_TITLE_STATUS_GREEN, 10, 10),
-                             'icon_status_red' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red.gif', ICON_TITLE_STATUS_RED, 10, 10),
-                             'icon_status_green_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green_light.gif', ICON_TITLE_STATUS_GREEN_LIGHT, 10, 10),
-                             'icon_status_red_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red_light.gif', ICON_TITLE_STATUS_RED_LIGHT, 10, 10),
+                             'icon_status_green' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green.gif', ICON_TITLE_STATUS_GREEN),
+                             'icon_status_red' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red.gif', ICON_TITLE_STATUS_RED),
+                             'icon_status_green_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green_light.gif', ICON_TITLE_STATUS_GREEN_LIGHT),
+                             'icon_status_red_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red_light.gif', ICON_TITLE_STATUS_RED_LIGHT),
                              'link_filename_banner_manager_action_setflag_0' => xos_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $banners['banners_id'] . '&action=setflag&flag=0'),
                              'link_filename_banner_manager_action_setflag_1' => xos_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $banners['banners_id'] . '&action=setflag&flag=1'),                              
                              'link_filename_banner_manager' => xos_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $banners['banners_id']),

@@ -47,7 +47,7 @@ define('BOX_ENTRY_PRODUCTS', 'Productos:');
 define('BOX_ENTRY_REVIEWS', 'Comentarios:');
 
 define('BOX_CONNECTION_PROTECTED', 'Esta protegido por una conexión SSL %s.');
-define('BOX_CONNECTION_UNPROTECTED', '<font color="#ff0000">No</font> esta protegido por una conexión segura SSL.');
+define('BOX_CONNECTION_UNPROTECTED', '<span style="color: #ff0000;">No</span> esta protegido por una conexión segura SSL.');
 define('BOX_CONNECTION_UNKNOWN', 'desconocido');
 
 define('CATALOG_CONTENTS', 'Contenido');

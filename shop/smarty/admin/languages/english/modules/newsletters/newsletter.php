@@ -30,7 +30,7 @@
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
 
-define('TEXT_COUNT_CUSTOMERS', 'Customers receiving newsletter: <font color="#ff0000">%s</font>');
+define('TEXT_COUNT_CUSTOMERS', 'Customers receiving newsletter: <span style="color: #ff0000;">%s</span>');
 define('TEXT_CUSTOMERS', 'Customers');
 define('TEXT_SELECTED_CUSTOMERS', 'Selected Customers');
 

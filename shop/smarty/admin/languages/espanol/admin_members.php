@@ -71,8 +71,8 @@ define('TEXT_INFO_MODIFIED', 'Cuenta Modificada: ');
 define('TEXT_INFO_LOGDATE', 'Ultimo Acceso: ');
 define('TEXT_INFO_LOGNUM', 'Log Numero: ');
 define('TEXT_INFO_GROUP', 'Nivel Grupo: ');
-define('TEXT_INFO_ERROR_EMAIL_USED', '<font color="red">Direccion Email ya utilizado!</font>');
-define('TEXT_INFO_ERROR_EMAIL_NOT_VALID', '<font color="red">Dirección de E-Mail no parece válida - por favor haga los cambios necesarios.</font>');
+define('TEXT_INFO_ERROR_EMAIL_USED', '<span style="color: #ff0000;">Direccion Email ya utilizado!</span>');
+define('TEXT_INFO_ERROR_EMAIL_NOT_VALID', '<span style="color: #ff0000;">Dirección de E-Mail no parece válida - por favor haga los cambios necesarios.</span>');
 
 define('JS_ALERT_FIRSTNAME', '- Obligatorio: Nombre \n');
 define('JS_ALERT_LASTNAME', '- Obligatorio: Apellido \n');
@@ -99,8 +99,8 @@ define('TEXT_INFO_EDIT_GROUPS_INTRO', 'Elijes un nombre de grupo univoco. Click 
 define('TEXT_INFO_HEADING_EDIT_GROUP', 'Grupo Admin');
 define('TEXT_INFO_HEADING_GROUPS', 'Nuevo Grupo');
 define('TEXT_INFO_GROUPS_NAME', ' <b>Nombre Grupo:</b><br />Elijes un nombre de grupo univoco. Pues, click <b>sigue</b> para enviar.<br />');
-define('TEXT_INFO_GROUPS_NAME_FALSE', '<font color="red"><b>ERROR:</b> El nombre de grupo tienes que ser mas largo que 5 caracteros!</font>');
-define('TEXT_INFO_GROUPS_NAME_USED', '<font color="red"><b>ERROR:</b> Nombre Grupo ya utilizado!</font>');
+define('TEXT_INFO_GROUPS_NAME_FALSE', '<span style="color: #ff0000;"><b>ERROR:</b> El nombre de grupo tienes que ser mas largo que 5 caracteros!</span>');
+define('TEXT_INFO_GROUPS_NAME_USED', '<span style="color: #ff0000;"><b>ERROR:</b> Nombre Grupo ya utilizado!</span>');
 define('TEXT_INFO_GROUPS_LEVEL', 'Nivel Grupo: ');
 define('TEXT_INFO_GROUPS_BOXES', '<b>Permiso  Boxes:</b><br />Das acceso al box seleccionado.');
 define('TEXT_INFO_GROUPS_BOXES_INCLUDE', 'Incluye file guardados en: ');

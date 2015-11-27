@@ -8,7 +8,7 @@ CKEDITOR.addTemplates( 'german_default',
 {
 	// The name of sub folder which hold the shortcut preview images of the
 	// templates.
-	imagesPath : CKEDITOR.getUrl( '../ckconfig/tpl_images/' ),
+	imagesPath : CKEDITOR.getUrl( '../ckconfig/templates/tpl_images/' ),
 
 	// The templates definitions.
 	templates :
@@ -24,8 +24,7 @@ CKEDITOR.addTemplates( 'german_default',
 					'</h3>' +
 					'<p>' +
 						'Text hier eingeben' +
-					'</p>' +
-					'<div class="clear">&nbsp;</div>'
+					'</p>'
 			},
 			{
 				title: 'Spalten Vorlage',
@@ -54,8 +53,7 @@ CKEDITOR.addTemplates( 'german_default',
 					'</table>' +
 					'<p>' +
 						'Mehr Text hier einfügen.' +
-					'</p>' +
-					'<div class="clear">&nbsp;</div>'
+					'</p>'
 			},
 			{
 				title: 'Text mit Tabelle',
@@ -90,8 +88,7 @@ CKEDITOR.addTemplates( 'german_default',
 						'<p>' +
 							'Hier den Text eingeben' +
 						'</p>' +
-					'</div>' +
-					'<div class="clear">&nbsp;</div>'
+					'</div>'
 			}
 		]
 });

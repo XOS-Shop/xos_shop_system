@@ -37,10 +37,10 @@ define('TEXT_INFO_PASSWORD_HIDDEN', '-Ocultado-');
 define('TEXT_INFO_HEADING_DEFAULT', 'Cambia Cuenta ');
 define('TEXT_INFO_HEADING_CONFIRM_PASSWORD', 'Confirma Contraseña ');
 define('TEXT_INFO_INTRO_CONFIRM_PASSWORD', 'Contraseña:');
-define('TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR', '<font color="red"><b>ERROR:</b> Contraseña invalida!</font>');
+define('TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR', '<span style="color: #ff0000;"><b>ERROR:</b> Contraseña invalida!</span>');
 define('TEXT_INFO_INTRO_DEFAULT', 'Click <b>editar</b> para cambiar tu cuenta.');
 define('TEXT_INFO_INTRO_DEFAULT_FIRST_TIME', '<br /><b>WARNING:</b><br />Hola <b>%s</b>, you just come here for the first time. We recommend you to change your contraseña!');
-define('TEXT_INFO_INTRO_DEFAULT_FIRST', '<br /><b>WARNING:</b><br />Hola <b>%s</b>, we recommend you to change your email (<font color="red">admin@localhost</font>) and contraseña!');
+define('TEXT_INFO_INTRO_DEFAULT_FIRST', '<br /><b>WARNING:</b><br />Hola <b>%s</b>, we recommend you to change your email (<span style="color: #ff0000;">admin@localhost</span>) and contraseña!');
 define('TEXT_INFO_INTRO_EDIT_PROCESS', 'Todos los campos son obligatorios. Click <b>grabar</b> para guardar tus cambios.');
 
 define('JS_ALERT_FIRSTNAME',        '- Obligatorio: Nombre \n');

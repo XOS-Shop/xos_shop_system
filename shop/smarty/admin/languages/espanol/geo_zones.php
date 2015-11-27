@@ -59,7 +59,7 @@ define('TYPE_BELOW', 'Todas las zonas');
 define('PLEASE_SELECT', 'Todas las zonas');
 define('TEXT_ALL_COUNTRIES', 'Todos los paises');
 
-define('TEXT_INFO_DELETE_NOT_ALLOWED', '<font color="red"><b>Diese Steuerzone kann nicht gelöscht werden.</b><br /><br />Dieser Steuerzone ist ein Steuersatz zugeordnet.</font>');
-define('TEXT_INFO_TAX_ZONE_NAME_ERROR', '<font color="red"><b>[%s]</b> existiert bereits, bitte wählen Sie einen anderen Namen für die Steuerzone.</font>');
-define('TEXT_INFO_TAX_ZONE_NAME_ERROR_EMPTY', '<font color="red">Der Name für die Steuerzone darf nicht leer sein.</font>');
+define('TEXT_INFO_DELETE_NOT_ALLOWED', '<span style="color: #ff0000;"><b>Diese Steuerzone kann nicht gelöscht werden.</b><br /><br />Dieser Steuerzone ist ein Steuersatz zugeordnet.</span>');
+define('TEXT_INFO_TAX_ZONE_NAME_ERROR', '<span style="color: #ff0000;"><b>[%s]</b> existiert bereits, bitte wählen Sie einen anderen Namen für die Steuerzone.</span>');
+define('TEXT_INFO_TAX_ZONE_NAME_ERROR_EMPTY', '<span style="color: #ff0000;">Der Name für die Steuerzone darf nicht leer sein.</span>');
 ?>

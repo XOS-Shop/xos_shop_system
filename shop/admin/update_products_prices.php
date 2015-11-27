@@ -328,11 +328,11 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
             $is_special = true;
             
             if ($products_prices[$customers_group['customers_group_id']]['special_status'] == 1 && $specials['error'] == '0') {
-              $special_status_image = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green.gif', ICON_TITLE_STATUS_GREEN, 10, 10);
+              $special_status_image = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green.gif', ICON_TITLE_STATUS_GREEN);
             } else if ($products_prices[$customers_group['customers_group_id']]['special_status'] == 0 && $specials['error'] == '0') {
-              $special_status_image = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red.gif', ICON_TITLE_STATUS_RED, 10, 10);
+              $special_status_image = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red.gif', ICON_TITLE_STATUS_RED);
             } else {
-              $special_status_image = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/pixel_trans.gif', ICON_TITLE_STATUS_RED, 10, 10);
+              $special_status_image = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/pixel_trans.gif', ICON_TITLE_STATUS_RED);
               $is_special = false;
             }
        
@@ -358,9 +358,9 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         } 
                          
         if ($products['products_status'] == '1') {
-          $products_status_image = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green.gif', ICON_TITLE_STATUS_GREEN, 10, 10);
+          $products_status_image = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green.gif', ICON_TITLE_STATUS_GREEN);
         } else {
-          $products_status_image = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red.gif', ICON_TITLE_STATUS_RED, 10, 10);
+          $products_status_image = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red.gif', ICON_TITLE_STATUS_RED);
         }
 
         $has_product_attributes = xos_has_product_attributes($products['products_id']); 
@@ -694,9 +694,9 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                    '</script>' . "\n";
 
     if ($product['products_status'] == '1') {
-      $products_status_image = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green.gif', ICON_TITLE_STATUS_GREEN, 10, 10);
+      $products_status_image = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green.gif', ICON_TITLE_STATUS_GREEN);
     } else {
-      $products_status_image = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red.gif', ICON_TITLE_STATUS_RED, 10, 10);
+      $products_status_image = xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red.gif', ICON_TITLE_STATUS_RED);
     }
 
     

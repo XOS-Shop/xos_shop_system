@@ -37,10 +37,10 @@ define('TEXT_INFO_PASSWORD_HIDDEN', '-Hidden-');
 define('TEXT_INFO_HEADING_DEFAULT', 'Edit Account ');
 define('TEXT_INFO_HEADING_CONFIRM_PASSWORD', 'Password Confirmation ');
 define('TEXT_INFO_INTRO_CONFIRM_PASSWORD', 'Password:');
-define('TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR', '<font color="red"><b>ERROR:</b> wrong password!</font>');
+define('TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR', '<span style="color: #ff0000;"><b>ERROR:</b> wrong password!</span>');
 define('TEXT_INFO_INTRO_DEFAULT', 'Click <b>edit button</b> below to change your account.');
 define('TEXT_INFO_INTRO_DEFAULT_FIRST_TIME', '<br /><b>WARNING:</b><br />Hello <b>%s</b>, you just come here for the first time. We recommend you to change your password!');
-define('TEXT_INFO_INTRO_DEFAULT_FIRST', '<br /><b>WARNING:</b><br />Hello <b>%s</b>, we recommend you to change your email (<font color="red">admin@localhost</font>) and password!');
+define('TEXT_INFO_INTRO_DEFAULT_FIRST', '<br /><b>WARNING:</b><br />Hello <b>%s</b>, we recommend you to change your email (<span style="color: #ff0000;">admin@localhost</span>) and password!');
 define('TEXT_INFO_INTRO_EDIT_PROCESS', 'All fields are required. Click save to submit.');
 
 define('JS_ALERT_FIRSTNAME',        '- Required: Firstname \n');

@@ -71,8 +71,8 @@ define('TEXT_INFO_MODIFIED', 'Account Modified: ');
 define('TEXT_INFO_LOGDATE', 'Last Access: ');
 define('TEXT_INFO_LOGNUM', 'Log Number: ');
 define('TEXT_INFO_GROUP', 'Group Level: ');
-define('TEXT_INFO_ERROR_EMAIL_USED', '<font color="red">E-Mail Address has already been used! Please try again.</font>');
-define('TEXT_INFO_ERROR_EMAIL_NOT_VALID', '<font color="red">E-Mail Address does not appear to be valid - please make any necessary corrections.</font>');
+define('TEXT_INFO_ERROR_EMAIL_USED', '<span style="color: #ff0000;">E-Mail Address has already been used! Please try again.</span>');
+define('TEXT_INFO_ERROR_EMAIL_NOT_VALID', '<span style="color: #ff0000;">E-Mail Address does not appear to be valid - please make any necessary corrections.</span>');
     
 define('JS_ALERT_FIRSTNAME', '- Required: Firstname \n');
 define('JS_ALERT_LASTNAME', '- Required: Lastname \n');
@@ -99,8 +99,8 @@ define('TEXT_INFO_EDIT_GROUPS_INTRO', 'Give an unique group name. Click next to 
 define('TEXT_INFO_HEADING_EDIT_GROUP', 'Admin Group');
 define('TEXT_INFO_HEADING_GROUPS', 'New Group');
 define('TEXT_INFO_GROUPS_NAME', ' <b>Group Name:</b><br />Give an unique group name. Then, click next to submit.<br />');
-define('TEXT_INFO_GROUPS_NAME_FALSE', '<font color="red"><b>ERROR:</b> At least the group name must have more than 5 character!</font>');
-define('TEXT_INFO_GROUPS_NAME_USED', '<font color="red"><b>ERROR:</b> Group name has already been used!</font>');
+define('TEXT_INFO_GROUPS_NAME_FALSE', '<span style="color: #ff0000;"><b>ERROR:</b> At least the group name must have more than 5 character!</span>');
+define('TEXT_INFO_GROUPS_NAME_USED', '<span style="color: #ff0000;"><b>ERROR:</b> Group name has already been used!</span>');
 define('TEXT_INFO_GROUPS_LEVEL', 'Group Level: ');
 define('TEXT_INFO_GROUPS_BOXES', '<b>Boxes Permission:</b><br />Give access to selected boxes.');
 define('TEXT_INFO_GROUPS_BOXES_INCLUDE', 'Include files stored in: ');

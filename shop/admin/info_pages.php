@@ -199,7 +199,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                             'link_filename_popup_file_manager_link_selection' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents')),
                             'link_filename_popup_file_manager_image' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=no_link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents/image')),
                             'link_filename_popup_file_manager_flash' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=no_link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents/flash')),
-                            'info_pages_config' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/info_pages_config.js',
+                            'info_pages_config' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/ckconfig/info_pages_config.js',
                             'info_pages_base_href' => ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER, 
                             'lang_code' => xos_get_languages_code()));
     }
@@ -215,7 +215,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                                    'input_name' => xos_draw_input_field('name[' . $languages[$i]['id'] . ']', (isset($cInfo->name[$languages[$i]['id']]) ? stripslashes(htmlspecialchars($cInfo->name[$languages[$i]['id']])) : htmlspecialchars($contents_data['name'])), 'maxlength="64" size="30"', true),
                                    'input_heading_title' => xos_draw_input_field('heading_title[' . $languages[$i]['id'] . ']', (isset($cInfo->heading_title[$languages[$i]['id']]) ? stripslashes($cInfo->heading_title[$languages[$i]['id']]) : $contents_data['heading_title']), 'maxlength="255" size="80"'),
                                    'content_name' => 'content[' . $languages[$i]['id'] . ']',
-                                   'info_pages_template_file' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/templates/' . $languages[$i]['directory'] . '/info_pages_template.js',
+                                   'info_pages_template_file' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/templates/' . $languages[$i]['directory'] . '/info_pages_template.js',
                                    'info_pages_template_lang' => $languages[$i]['directory'] . '_default',
                                    'textarea_content' => xos_draw_textarea_field('content[' . $languages[$i]['id'] . ']', '130', '25', (isset($cInfo->content[$languages[$i]['id']]) ? stripslashes($cInfo->content[$languages[$i]['id']]) : $contents_data['content'])),
                                    'textarea_php_source' => xos_draw_textarea_field('php_source[' . $languages[$i]['id'] . ']', '130', '25', (isset($cInfo->php_source[$languages[$i]['id']]) ? stripslashes($cInfo->php_source[$languages[$i]['id']]) : $contents_data['php_source']), 'class="textarea-php-code" readonly="readonly"'));
@@ -273,10 +273,10 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                               'status' => (($contents['status'] == '1') ? true : false),
                               'sort_order' => $contents['sort_order'],
                               'name' => htmlspecialchars($contents['name']),
-                              'icon_status_green' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green.gif', ICON_TITLE_STATUS_GREEN, 10, 10),
-                              'icon_status_red' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red.gif', ICON_TITLE_STATUS_RED, 10, 10),
-                              'icon_status_green_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green_light.gif', ICON_TITLE_STATUS_GREEN_LIGHT, 10, 10),
-                              'icon_status_red_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red_light.gif', ICON_TITLE_STATUS_RED_LIGHT, 10, 10),
+                              'icon_status_green' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green.gif', ICON_TITLE_STATUS_GREEN),
+                              'icon_status_red' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red.gif', ICON_TITLE_STATUS_RED),
+                              'icon_status_green_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green_light.gif', ICON_TITLE_STATUS_GREEN_LIGHT),
+                              'icon_status_red_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red_light.gif', ICON_TITLE_STATUS_RED_LIGHT),
                               'link_filename_info_pages_action_setflag_0' => xos_href_link(FILENAME_INFO_PAGES, 'page=' . $_GET['page'] . '&cID=' . $contents['content_id'] . '&type=' . $contents['type'] . '&action=setflag&flag=0'),
                               'link_filename_info_pages_action_setflag_1' => xos_href_link(FILENAME_INFO_PAGES, 'page=' . $_GET['page'] . '&cID=' . $contents['content_id'] . '&type=' . $contents['type'] . '&action=setflag&flag=1'),
                               'link_filename_info_pages_preview' => xos_href_link(FILENAME_INFO_PAGES, 'page=' . $_GET['page'] . '&cID=' . $contents['content_id'] . '&action=preview'));                              

@@ -159,8 +159,9 @@
 
 ////
 // Output a form password field
-  function xos_draw_password_field($name, $value = '', $required = false) {
-    $field = xos_draw_input_field($name, $value, 'maxlength="40"', $required, 'password', false);
+  function xos_draw_password_field($name, $value = '', $required = false, $parameters = '') {
+    $parameters .= ' maxlength="40"';
+    $field = xos_draw_input_field($name, $value, trim($parameters), $required, 'password', false);
 
     return $field;
   }

@@ -405,12 +405,12 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       $smarty->assign('account_gender', true);            
       if ($error == true) {
         if ($entry_gender_error == true) {
-          $smarty->assign('gender_in_out_values', xos_draw_radio_field('customers_gender', 'm', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . xos_draw_radio_field('customers_gender', 'f', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR);
+          $smarty->assign('gender_in_out_values', '<span class="radio-wrapper-in-form-horizontal-first">' . xos_draw_radio_field('customers_gender', 'm', false, $cInfo->customers_gender) . '</span>&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;<span class="radio-wrapper-in-form-horizontal-not-first">' . xos_draw_radio_field('customers_gender', 'f', false, $cInfo->customers_gender) . '</span>&nbsp;&nbsp;' . FEMALE . '&nbsp;' . ENTRY_GENDER_ERROR);
         } else {
           $smarty->assign('gender_in_out_values', (($cInfo->customers_gender == 'm') ? MALE : FEMALE) . xos_draw_hidden_field('customers_gender'));
         }
       } else {
-        $smarty->assign('gender_in_out_values', xos_draw_radio_field('customers_gender', 'm', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . xos_draw_radio_field('customers_gender', 'f', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . FEMALE);
+        $smarty->assign('gender_in_out_values', '<span class="radio-wrapper-in-form-horizontal-first">' . xos_draw_radio_field('customers_gender', 'm', false, $cInfo->customers_gender) . '</span>&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;<span class="radio-wrapper-in-form-horizontal-not-first">' . xos_draw_radio_field('customers_gender', 'f', false, $cInfo->customers_gender) . '</span>&nbsp;&nbsp;' . FEMALE);
       }
     }
     
@@ -517,12 +517,12 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       
       if ($error == true) {
         if ($customers_group_ra_error == true) {
-          $smarty->assign('customers_group_ra_in_out_values', xos_draw_radio_field('customers_group_ra', '0', false, $cInfo->customers_group_ra) . '&nbsp;&nbsp;' . ENTRY_CUSTOMERS_GROUP_RA_NO . '&nbsp;&nbsp;' . xos_draw_radio_field('customers_group_ra', '1', false, $cInfo->customers_group_ra) . '&nbsp;&nbsp;' . ENTRY_CUSTOMERS_GROUP_RA_YES . '&nbsp;' . ENTRY_CUSTOMERS_GROUP_RA_ERROR);
+          $smarty->assign('customers_group_ra_in_out_values', '<span class="radio-wrapper-in-form-horizontal-first">' . xos_draw_radio_field('customers_group_ra', '0', false, $cInfo->customers_group_ra) . '</span>&nbsp;&nbsp;' . ENTRY_CUSTOMERS_GROUP_RA_NO . '&nbsp;&nbsp;<span class="radio-wrapper-in-form-horizontal-not-first">' . xos_draw_radio_field('customers_group_ra', '1', false, $cInfo->customers_group_ra) . '</span>&nbsp;&nbsp;' . ENTRY_CUSTOMERS_GROUP_RA_YES . '&nbsp;' . ENTRY_CUSTOMERS_GROUP_RA_ERROR);
         } else {
           $smarty->assign('customers_group_ra_in_out_values', ($cInfo->customers_group_ra == '' ? '' : (($cInfo->customers_group_ra == '0') ? ENTRY_CUSTOMERS_GROUP_RA_NO : ENTRY_CUSTOMERS_GROUP_RA_YES)) . xos_draw_hidden_field('customers_group_ra'));
         }
       } else {
-        $smarty->assign('customers_group_ra_in_out_values', xos_draw_radio_field('customers_group_ra', '0', false, $cInfo->customers_group_ra) . '&nbsp;&nbsp;' . ENTRY_CUSTOMERS_GROUP_RA_NO . '&nbsp;&nbsp;' . xos_draw_radio_field('customers_group_ra', '1', false, $cInfo->customers_group_ra) . '&nbsp;&nbsp;' . ENTRY_CUSTOMERS_GROUP_RA_YES);
+        $smarty->assign('customers_group_ra_in_out_values', '<span class="radio-wrapper-in-form-horizontal-first">' . xos_draw_radio_field('customers_group_ra', '0', false, $cInfo->customers_group_ra) . '</span>&nbsp;&nbsp;' . ENTRY_CUSTOMERS_GROUP_RA_NO . '&nbsp;&nbsp;<span class="radio-wrapper-in-form-horizontal-not-first">' . xos_draw_radio_field('customers_group_ra', '1', false, $cInfo->customers_group_ra) . '</span>&nbsp;&nbsp;' . ENTRY_CUSTOMERS_GROUP_RA_YES);
       }                    
     }
 
@@ -739,7 +739,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                                'firstname' => (strlen($customers['customers_firstname']) > 15 ) ? "<acronym title=\"".$customers['customers_firstname']."\">".substr($customers['customers_firstname'], 0, 15)."&nbsp;</acronym>" : $customers['customers_firstname'],
                                'group_name' => (strlen($customers['customers_group_name']) > 17 ) ? "<acronym title=\"".$customers['customers_group_name']."\"> ".substr($customers['customers_group_name'], 0, 17)."&nbsp;</acronym>" : $customers['customers_group_name'],
                                'date_account_created' => xos_date_short($info['date_account_created']),
-                               'group_ra_status_image' => ($customers['customers_group_ra'] == '1') ? xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red.gif', ICON_TITLE_STATUS_GREEN, 10, 10) : xos_draw_separator('pixel_trans.gif', '10', '10'));
+                               'group_ra_status_image' => ($customers['customers_group_ra'] == '1') ? xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red.gif', ICON_TITLE_STATUS_GREEN) : xos_draw_separator('pixel_trans.gif', '10', '10'));
     } 
     
     $smarty->assign(array('link_self_company_sort_asc' => xos_href_link(FILENAME_CUSTOMERS, 'listing=company'),

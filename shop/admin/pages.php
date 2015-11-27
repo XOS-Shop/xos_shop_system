@@ -247,7 +247,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                             'link_filename_popup_file_manager_link_selection' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents')),
                             'link_filename_popup_file_manager_image' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=no_link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents/image')),
                             'link_filename_popup_file_manager_flash' => str_replace('&amp;', '&', xos_href_link(FILENAME_POPUP_FILE_MANAGER, 'action=no_link_entrence&goto=' . DIR_FS_DOCUMENT_ROOT . 'contents/flash')),
-                            'page_config' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/page_config.js',
+                            'page_config' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/ckconfig/page_config.js',
                             'page_base_href' => ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER,
                             'lang_code' => xos_get_languages_code()));
     }
@@ -264,7 +264,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                                 'input_name' => xos_draw_input_field('categories_or_pages_name[' . $languages[$i]['id'] . ']', (isset($cInfo->categories_or_pages_name[$languages[$i]['id']]) ? stripslashes(htmlspecialchars($cInfo->categories_or_pages_name[$languages[$i]['id']])) : htmlspecialchars($page_data['categories_or_pages_name'])), 'maxlength="64" size="30"', true),
                                 'input_heading_title' => xos_draw_input_field('categories_or_pages_heading_title[' . $languages[$i]['id'] . ']', (isset($cInfo->categories_or_pages_heading_title[$languages[$i]['id']]) ? stripslashes($cInfo->categories_or_pages_heading_title[$languages[$i]['id']]) : $page_data['categories_or_pages_heading_title']), 'maxlength="255" size="80"'),
                                 'page_description' => 'categories_or_pages_content[' . $languages[$i]['id'] . ']',
-                                'page_template_file' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/' .ADMIN_TPL . '/templates/' . $languages[$i]['directory'] . '/page_template.js',
+                                'page_template_file' => (ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER) . DIR_WS_ADMIN . 'includes/ckconfig/templates/' . $languages[$i]['directory'] . '/page_template.js',
                                 'page_template_lang' => $languages[$i]['directory'] . '_default',
                                 'page_textarea' => xos_draw_textarea_field('categories_or_pages_content[' . $languages[$i]['id'] . ']', '130', '25', (isset($cInfo->categories_or_pages_content[$languages[$i]['id']]) ? stripslashes($cInfo->categories_or_pages_content[$languages[$i]['id']]) : $page_data['categories_or_pages_content'])),
                                 'page_textarea_php_source' => xos_draw_textarea_field('categories_or_pages_php_source[' . $languages[$i]['id'] . ']', '130', '25', (isset($cInfo->categories_or_pages_php_source[$languages[$i]['id']]) ? stripslashes($cInfo->categories_or_pages_php_source[$languages[$i]['id']]) : $page_data['categories_or_pages_php_source']), 'class="textarea-php-code" readonly="readonly"'));      
@@ -316,15 +316,15 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                            'page_not_in_menu' => ($pages['page_not_in_menu'] == '1' ? true : false),                                
                            'name' => htmlspecialchars($pages['categories_or_pages_name']),
                            'sort_order' => $pages['sort_order'],                              
-                           'icon_status_green' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green.gif', ICON_TITLE_STATUS_GREEN, 10, 10),
-                           'icon_status_red' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red.gif', ICON_TITLE_STATUS_RED, 10, 10),
-                           'icon_status_green_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green_light.gif', ICON_TITLE_STATUS_GREEN_LIGHT, 10, 10),
-                           'icon_status_red_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red_light.gif', ICON_TITLE_STATUS_RED_LIGHT, 10, 10),
+                           'icon_status_green' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green.gif', ICON_TITLE_STATUS_GREEN),
+                           'icon_status_red' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red.gif', ICON_TITLE_STATUS_RED),
+                           'icon_status_green_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_green_light.gif', ICON_TITLE_STATUS_GREEN_LIGHT),
+                           'icon_status_red_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_status_red_light.gif', ICON_TITLE_STATUS_RED_LIGHT),
                           
-                           'icon_not_in_menu_green' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_not_in_menu_green.gif', ICON_TITLE_STATUS_GREEN, 10, 10),
-                           'icon_not_in_menu_red' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_not_in_menu_red.gif', ICON_TITLE_STATUS_RED, 10, 10),
-                           'icon_not_in_menu_green_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_not_in_menu_green_light.gif', ICON_TITLE_STATUS_GREEN_LIGHT, 10, 10),
-                           'icon_not_in_menu_red_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_not_in_menu_red_light.gif', ICON_TITLE_STATUS_RED_LIGHT, 10, 10),
+                           'icon_not_in_menu_green' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_not_in_menu_green.gif', ICON_TITLE_STATUS_GREEN),
+                           'icon_not_in_menu_red' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_not_in_menu_red.gif', ICON_TITLE_STATUS_RED),
+                           'icon_not_in_menu_green_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_not_in_menu_green_light.gif', ICON_TITLE_STATUS_GREEN_LIGHT),
+                           'icon_not_in_menu_red_light' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icon_not_in_menu_red_light.gif', ICON_TITLE_STATUS_RED_LIGHT),
                                                       
                            'link_filename_pages_flag_status_0' => xos_href_link(FILENAME_PAGES, 'action=setflag_status&flag_status=0&cpID=' . $pages['categories_or_pages_id'] . '&cPath=' . $cPath),
                            'link_filename_pages_flag_status_1' => xos_href_link(FILENAME_PAGES, 'action=setflag_status&flag_status=1&cpID=' . $pages['categories_or_pages_id'] . '&cPath=' . $cPath),                                                              

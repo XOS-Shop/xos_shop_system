@@ -239,6 +239,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     }
     
     $boxes_array[]=array('checkbox' => xos_draw_checkbox_field('groups_to_boxes[]', $group_boxes['admin_boxes_id'], $checked, '', 'id="groups_' . $boxe_id_number . '_' . $i . '" onclick="checkGroups(this)"'),
+                         'checkbox_id' => 'groups_' . $boxe_id_number . '_' . $i,
                          'box_name' => constant($group_boxes['admin_boxes_languages_key']),
                          'hidden_checked' => xos_draw_hidden_field('checked_' . $group_boxes['admin_boxes_id'], $checkedBox),
                          'hidden_unchecked' => xos_draw_hidden_field('unchecked_' . $group_boxes['admin_boxes_id'], $uncheckedBox));    
@@ -267,6 +268,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       }
 
       $files_to_boxes_array[]=array('checkbox' => xos_draw_checkbox_field('groups_to_boxes[]', $group_boxes_files['admin_files_id'], $checked, '', 'id="subgroups_' . $boxe_id_number . '_' . $i . $j . '" onclick="checkSub(this)"'),
+                                    'checkbox_id' => 'subgroups_' . $boxe_id_number . '_' . $i . $j,
                                     'file_name' => constant($group_boxes_files['admin_files_languages_key']),
                                     'hidden_checked' => xos_draw_hidden_field('checked_' . $group_boxes_files['admin_files_id'], $checkedBox),
                                     'hidden_unchecked' => xos_draw_hidden_field('unchecked_' . $group_boxes_files['admin_files_id'], $uncheckedBox));

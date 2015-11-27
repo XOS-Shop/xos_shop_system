@@ -42,7 +42,7 @@ define('TEXT_INFO_HEADING_NEW_COUNTRY_FROM_LIST', 'Neues Land aus Liste');
 define('TEXT_INFO_HEADING_EDIT_COUNTRY', 'Land bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_COUNTRY', 'Land löschen');
 
-define('TEXT_INFO_DELETE_NOT_ALLOWED', '<font color="red"><b>Dieses Land kann nicht gelöscht werden.</b><br /><br />Diesem Land ist mindestens ein Kunde und/oder eine Steuerzone und/oder der Shop-Standort zugeordnet.</font>');
-define('TEXT_INFO_COUNTRY_NAME_ERROR', '<font color="red"><b>[%s]</b> existiert bereits, bitte wählen Sie einen anderen Namen für das Land.</font>');
-define('TEXT_INFO_COUNTRY_NAME_ERROR_EMPTY', '<font color="red">Der Name für das Land darf nicht leer sein.</font>');
+define('TEXT_INFO_DELETE_NOT_ALLOWED', '<span style="color: #ff0000;"><b>Dieses Land kann nicht gelöscht werden.</b><br /><br />Diesem Land ist mindestens ein Kunde und/oder eine Steuerzone und/oder der Shop-Standort zugeordnet.</span>');
+define('TEXT_INFO_COUNTRY_NAME_ERROR', '<span style="color: #ff0000;"><b>[%s]</b> existiert bereits, bitte wählen Sie einen anderen Namen für das Land.</span>');
+define('TEXT_INFO_COUNTRY_NAME_ERROR_EMPTY', '<span style="color: #ff0000;">Der Name für das Land darf nicht leer sein.</span>');
 ?>

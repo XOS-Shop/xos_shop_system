@@ -40,7 +40,7 @@ define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Steuerklasse l
 define('TEXT_INFO_HEADING_NEW_TAX_CLASS', 'neue Steuerklasse');
 define('TEXT_INFO_HEADING_EDIT_TAX_CLASS', 'Steuerklasse bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_TAX_CLASS', 'Steuerklasse löschen');
-define('TEXT_INFO_DELETE_NOT_ALLOWED', '<font color="red"><b>Diese Steuerklasse kann nicht gelöscht werden.</b><br /><br />Dieser Steuerklasse ist ein Steuersatz zugeordnet.</font>');
-define('TEXT_INFO_TAX_CLASS_TITLE_ERROR', '<font color="red"><b>[%s]</b> existiert bereits, bitte wählen Sie einen anderen Namen für die Steuerklasse.</font>');
-define('TEXT_INFO_TAX_CLASS_TITLE_ERROR_EMPTY', '<font color="red">Der Name für die Steuerklasse darf nicht leer sein.</font>');
+define('TEXT_INFO_DELETE_NOT_ALLOWED', '<span style="color: #ff0000;"><b>Diese Steuerklasse kann nicht gelöscht werden.</b><br /><br />Dieser Steuerklasse ist ein Steuersatz zugeordnet.</span>');
+define('TEXT_INFO_TAX_CLASS_TITLE_ERROR', '<span style="color: #ff0000;"><b>[%s]</b> existiert bereits, bitte wählen Sie einen anderen Namen für die Steuerklasse.</span>');
+define('TEXT_INFO_TAX_CLASS_TITLE_ERROR_EMPTY', '<span style="color: #ff0000;">Der Name für die Steuerklasse darf nicht leer sein.</span>');
 ?>

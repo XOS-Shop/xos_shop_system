@@ -30,7 +30,7 @@
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
 
-define('TEXT_COUNT_CUSTOMERS', 'Anzahl der Kunden, welche das Rundschreiben erhalten: <font color="#ff0000">%s</font>');
+define('TEXT_COUNT_CUSTOMERS', 'Anzahl der Kunden, welche das Rundschreiben erhalten: <span style="color: #ff0000;">%s</span>');
 define('TEXT_CUSTOMERS', 'Kunden');
 define('TEXT_SELECTED_CUSTOMERS', 'ausgewählte Kunden');
 
