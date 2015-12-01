@@ -78,7 +78,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                                'ip_address' => $whos_online['ip_address'],
                                'time_entry' => date('H:i:s', $whos_online['time_entry']),
                                'time_last_click' => date('H:i:s', $whos_online['time_last_click']),
-                               'last_page_url' => (strlen($last_page_url) > 50) ? "<acronym title=\"" . htmlspecialchars($last_page_url) . "\">".substr(htmlspecialchars($last_page_url), 0, 50)."&nbsp;</acronym>" : htmlspecialchars($last_page_url));
+                               'last_page_url' => (strlen($last_page_url) > 50) ? "<abbr title=\"" . htmlspecialchars($last_page_url) . "\">".substr(htmlspecialchars($last_page_url), 0, 50)."&nbsp;</abbr>" : htmlspecialchars($last_page_url));
   }
   
   $smarty->assign(array('whos_online' => $whos_online_array,
