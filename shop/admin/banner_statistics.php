@@ -119,7 +119,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                       '  document.images.banner_monthly.src="' . DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_monthly-' . $banner_id . '.' . $banner_extension . '?" + new Date().getTime();' . "\n" .                   
                       '/* ]]> */' . "\n" .
                       '</script>' . "\n";
-        $smarty->assign(array('banner_graph' => xos_image(DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_monthly-' . $banner_id . '.' . $banner_extension, '', '', '', 'name="banner_monthly"'),
+        $smarty->assign(array('banner_graph' => xos_image(DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_monthly-' . $banner_id . '.' . $banner_extension, '', '', '', 'id="banner_monthly"'),
                               'javascript' => $javascript));         
         break;
       default:
@@ -130,7 +130,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                       '  document.images.banner_daily.src="' . DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_daily-' . $banner_id . '.' . $banner_extension . '?" + new Date().getTime();' . "\n" .                   
                       '/* ]]> */' . "\n" .
                       '</script>' . "\n";
-        $smarty->assign(array('banner_graph' => xos_image(DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_daily-' . $banner_id . '.' . $banner_extension, '', '', '', 'name="banner_daily"'),
+        $smarty->assign(array('banner_graph' => xos_image(DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_daily-' . $banner_id . '.' . $banner_extension, '', '', '', 'id="banner_daily"'),
                               'javascript' => $javascript)); 
         break;
     }

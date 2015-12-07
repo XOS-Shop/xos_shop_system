@@ -130,7 +130,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
             
       $smarty->assign(array('form_begin_save' => xos_draw_form('define_lng', FILENAME_DEFINE_LANGUAGE, 'lngdir=' . $_GET['lngdir'] . '&filename=' . $_GET['filename'] . '&subdir=' . $_GET['subdir'] . '&action=save'),
                             'filename' => $_GET['filename'],
-                            'textarea_file_contents' => xos_draw_textarea_field('file_contents', '110', '25', $contents, 'style="width: 99%; height: 500px;"' . (($file_writeable) ? '' : 'readonly="readonly"'))));
+                            'textarea_file_contents' => xos_draw_textarea_field('file_contents', '110', '25', $contents, 'style="width: 99%; height: 500px;"' . (($file_writeable) ? '' : ' readonly="readonly"'))));
  
       if ($file_writeable == true) {       
         $smarty->assign('file_writeable', true);

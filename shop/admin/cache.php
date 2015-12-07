@@ -72,7 +72,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       $file = explode('^', $files[$i], 3);
       if (($file[0] != $files[$i]) && ($prev_file[1] != $file[1])) {       
         $cache_blocks_array[]=array('title' => $file[0] . ' | ' . $file[1],
-                                    'link_filename_cache_reset_block' => xos_href_link(FILENAME_CACHE, 'reset=' . $file[0] . '|' . $file[1]));                                         
+                                    'link_filename_cache_reset_block' => xos_href_link(FILENAME_CACHE, 'reset=' . $file[0] . urlencode('|') . $file[1]));                                         
       }
     }
   

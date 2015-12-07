@@ -175,7 +175,7 @@
             <td><img src="[@{$images_path}@]pixel_black.gif" alt="" width="100%" height="1" /></td>
           </tr>            
           <tr>
-            [@{$content_text_plain}@]
+            <td class="main"><pre>[@{$content_text_plain}@]</pre></td>
           </tr>
           <tr>
             <td><img src="[@{$images_path}@]pixel_black.gif" alt="" width="100%" height="1" /></td>
@@ -191,7 +191,7 @@
             <td><img src="[@{$images_path}@]pixel_black.gif" alt="" width="100%" height="1" /></td>
           </tr>              
           <tr>
-            [@{$content_text_htlm}@]
+            <td>[@{$content_text_htlm}@]</td>
           </tr>
           <tr>
             <td><img src="[@{$images_path}@]pixel_black.gif" alt="" width="100%" height="1" /></td>

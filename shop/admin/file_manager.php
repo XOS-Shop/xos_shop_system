@@ -32,8 +32,10 @@
 
 require('includes/application_top.php');
 if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILENAME_FILE_MANAGER) == 'overwrite_all')) :
+  $dir_fs_document_root = rtrim(DIR_FS_DOCUMENT_ROOT, '/');
+
   if (!isset($_SESSION['current_path'])) { 
-    $_SESSION['current_path'] = DIR_FS_DOCUMENT_ROOT;
+    $_SESSION['current_path'] = $dir_fs_document_root;
   }
 
   if (isset($_GET['goto'])) {
@@ -41,18 +43,16 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     unset($_GET['goto']); 
   }
 
-  if (strstr($_SESSION['current_path'], '..')) $_SESSION['current_path'] = DIR_FS_DOCUMENT_ROOT;
+  if (strstr($_SESSION['current_path'], '..')) $_SESSION['current_path'] = $dir_fs_document_root;
 
-  if (!is_dir($_SESSION['current_path'])) $_SESSION['current_path'] = DIR_FS_DOCUMENT_ROOT;
-
-  if (!preg_match('!^' . DIR_FS_DOCUMENT_ROOT . '!', $_SESSION['current_path'])) $_SESSION['current_path'] = DIR_FS_DOCUMENT_ROOT;
+  if (!is_dir($_SESSION['current_path'])) $_SESSION['current_path'] = $dir_fs_document_root;
 
   $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
   if (xos_not_null($action)) {
     switch ($action) {
       case 'reset':
-        $_SESSION['current_path'] = DIR_FS_DOCUMENT_ROOT;
+        $_SESSION['current_path'] = $dir_fs_document_root;
         break;
       case 'deleteconfirm':
         if (strstr($_GET['info'], '..')) xos_redirect(xos_href_link(FILENAME_FILE_MANAGER));
@@ -133,8 +133,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
   }
 
   $current_path_array = explode('/', $_SESSION['current_path']);
-  $document_root_array = explode('/', DIR_FS_DOCUMENT_ROOT);
-  $goto_array = array(array('id' => DIR_FS_DOCUMENT_ROOT, 'text' => '/'));
+  $document_root_array = explode('/', $dir_fs_document_root);
+  $goto_array = array(array('id' => $dir_fs_document_root, 'text' => '/'));
   for ($i=0, $n=sizeof($current_path_array); $i<$n; $i++) {
     if ((isset($document_root_array[$i]) && ($current_path_array[$i] != $document_root_array[$i])) || !isset($document_root_array[$i])) {
       $goto_array[] = array('id' => implode('/', array_slice($current_path_array, 0, $i+1)), 'text' => $current_path_array[$i]);
@@ -175,7 +175,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                           
   } elseif ($action == 'view') {
     
-    $ws_path = str_replace(DIR_FS_DOCUMENT_ROOT, DIR_WS_CATALOG, $_SESSION['current_path']);
+    $ws_path = str_replace($dir_fs_document_root, DIR_WS_CATALOG, $_SESSION['current_path']);
     $ws_path .= (substr($ws_path, -1) != '/') ? '/' : '';  
           
     $smarty->assign(array('image_view' => true,
@@ -189,7 +189,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     $contents = array();
     $dir = dir($_SESSION['current_path']);
     while ($file = $dir->read()) {
-      if ( ($file != '.') && ($file != 'CVS') && ( ($file != '..') || ($_SESSION['current_path'] != DIR_FS_DOCUMENT_ROOT) ) ) {
+      if ( ($file != '.') && ($file != 'CVS') && ( ($file != '..') || ($_SESSION['current_path'] != $dir_fs_document_root) ) ) {
       
         $file_size = number_format(filesize($_SESSION['current_path'] . '/' . $file)) . ' bytes';
 
@@ -230,7 +230,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       if ($contents[$i]['name'] == '..') {
         $goto_link = substr($_SESSION['current_path'], 0, strrpos($_SESSION['current_path'], '/'));
       } else {
-        $goto_link = (DIR_FS_DOCUMENT_ROOT == $_SESSION['current_path']) ? $_SESSION['current_path'] . $contents[$i]['name'] : $_SESSION['current_path'] . '/' . $contents[$i]['name'];
+        $goto_link = $_SESSION['current_path'] . '/' . $contents[$i]['name'];
       }
     
       $selected = false;

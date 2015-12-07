@@ -318,10 +318,10 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     $nInfo = new objectInfo($newsletter);
 
     if (($nInfo->content_text_htlm != '') && (EMAIL_USE_HTML == 'true')) {
-      $smarty->assign(array('content_text_plain' => '<td class="main"><pre>' . wordwrap($nInfo->content_text_plain, 100) . '</pre></td>',
-                            'content_text_htlm' => '<td>' . $nInfo->content_text_htlm . '</td>'));  
+      $smarty->assign(array('content_text_plain' => wordwrap($nInfo->content_text_plain, 100),
+                            'content_text_htlm' => $nInfo->content_text_htlm));  
     } else {
-      $smarty->assign('content_text_plain', '<td class="main"><pre>' . wordwrap($nInfo->content_text_plain, 100) . '</pre></td>');
+      $smarty->assign('content_text_plain', wordwrap($nInfo->content_text_plain, 100));
     }      
 
     $smarty->assign(array('action' => 'preview',
