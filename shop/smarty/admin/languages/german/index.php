@@ -40,7 +40,7 @@ define('BOX_ENTRY_MAILING_LISTS', 'Mailing Listen');
 define('BOX_ENTRY_BUG_REPORTS', 'Fehler Reporte');
 define('BOX_ENTRY_FAQ', 'Fragen und Antworten');
 define('BOX_ENTRY_LIVE_DISCUSSIONS', 'Live Diskussionen');
-define('BOX_ENTRY_CVS_REPOSITORY', 'CVS Repository');
+define('BOX_ENTRY_CVS_REPOSITORY', 'Repository');
 define('BOX_ENTRY_INFORMATION_PORTAL', 'Informations Portal');
 
 define('BOX_ENTRY_CUSTOMERS', 'Kunden:');

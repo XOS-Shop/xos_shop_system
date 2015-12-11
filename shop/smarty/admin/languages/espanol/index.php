@@ -39,7 +39,7 @@ define('BOX_ENTRY_MAILING_LISTS', 'Listas de Correo');
 define('BOX_ENTRY_BUG_REPORTS', 'Notificar Fallos');
 define('BOX_ENTRY_FAQ', 'PUF (FAQ)');
 define('BOX_ENTRY_LIVE_DISCUSSIONS', 'Discusiones');
-define('BOX_ENTRY_CVS_REPOSITORY', 'Repositorio CVS');
+define('BOX_ENTRY_CVS_REPOSITORY', 'Repositorio');
 define('BOX_ENTRY_INFORMATION_PORTAL', 'Portal');
 
 define('BOX_ENTRY_CUSTOMERS', 'Clientes:');
