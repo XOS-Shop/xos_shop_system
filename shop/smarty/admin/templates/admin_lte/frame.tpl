@@ -28,6 +28,7 @@
 *}@]
 [@{$html_header}@]
 [@{*<body class="hold-transition skin-purple sidebar-mini" [@{$BODY_TAG_PARAMS}@]>*}@]
+[@{*<body class="hold-transition skin-purple sidebar-mini sidebar-collapse" [@{$BODY_TAG_PARAMS}@]>*}@]
 <body class="hold-transition skin-purple sidebar-mini sidebar-collapse fixed" [@{$BODY_TAG_PARAMS}@]>
     <div class="wrapper">
       [@{$header}@]
