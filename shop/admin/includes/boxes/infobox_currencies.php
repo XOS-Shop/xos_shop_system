@@ -42,18 +42,18 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       $languages = xos_get_languages();
       for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {             
         $contents[] = array('text' => '<br />&nbsp;<br />' . xos_image(DIR_WS_CATALOG_IMAGES . 'catalog/templates/' . DEFAULT_TPL . '/' . $languages[$i]['directory'] . '/' . $languages[$i]['image'], $languages[$i]['name']));
-        $contents[] = array('text' => TEXT_INFO_CURRENCY_TITLE . '<br />' . xos_draw_input_field('title[' . $languages[$i]['id'] . ']'));
-        $contents[] = array('text' => TEXT_INFO_CURRENCY_SYMBOL_LEFT . '<br />' . xos_draw_input_field('symbol_left[' . $languages[$i]['id'] . ']'));
-        $contents[] = array('text' => TEXT_INFO_CURRENCY_SYMBOL_RIGHT . '<br />' . xos_draw_input_field('symbol_right[' . $languages[$i]['id'] . ']'));
-        $contents[] = array('text' => TEXT_INFO_CURRENCY_DECIMAL_POINT . '<br />' . xos_draw_input_field('decimal_point[' . $languages[$i]['id'] . ']'));
-        $contents[] = array('text' => TEXT_INFO_CURRENCY_THOUSANDS_POINT . '<br />' . xos_draw_input_field('thousands_point[' . $languages[$i]['id'] . ']'));     
+        $contents[] = array('text' => TEXT_INFO_CURRENCY_TITLE . '<br /><div class="form-group">' . xos_draw_input_field('title[' . $languages[$i]['id'] . ']', '', 'class="form-control"') . '</div>');
+        $contents[] = array('text' => TEXT_INFO_CURRENCY_SYMBOL_LEFT . '<br /><div class="form-group">' . xos_draw_input_field('symbol_left[' . $languages[$i]['id'] . ']', '', 'class="form-control"') . '</div>');
+        $contents[] = array('text' => TEXT_INFO_CURRENCY_SYMBOL_RIGHT . '<br /><div class="form-group">' . xos_draw_input_field('symbol_right[' . $languages[$i]['id'] . ']', '', 'class="form-control"') . '</div>');
+        $contents[] = array('text' => TEXT_INFO_CURRENCY_DECIMAL_POINT . '<br /><div class="form-group">' . xos_draw_input_field('decimal_point[' . $languages[$i]['id'] . ']', '', 'class="form-control"') . '</div>');
+        $contents[] = array('text' => TEXT_INFO_CURRENCY_THOUSANDS_POINT . '<br /><div class="form-group">' . xos_draw_input_field('thousands_point[' . $languages[$i]['id'] . ']', '', 'class="form-control"') . '</div>');     
       }
 
-      $contents[] = array('text' => '<br />&nbsp;<br />&nbsp;<br />' . TEXT_INFO_CURRENCY_CODE . '<br />' . xos_draw_input_field('code'));
-      $contents[] = array('text' => TEXT_INFO_CURRENCY_DECIMAL_PLACES . '<br />' . xos_draw_input_field('decimal_places'));
-      $contents[] = array('text' => TEXT_INFO_CURRENCY_VALUE . '<br />' . xos_draw_input_field('value'));
-      $contents[] = array('text' => xos_draw_checkbox_field('default') . ' ' . TEXT_INFO_SET_AS_DEFAULT);
-      $contents[] = array('text' => '<br /><a href="" onclick="currencies.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_INSERT . ' "><span>' . BUTTON_TEXT_INSERT . '</span></a><a href="' . xos_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page'] . '&cID=' . $_GET['cID']) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+      $contents[] = array('text' => '<br />&nbsp;<br />&nbsp;<br />' . TEXT_INFO_CURRENCY_CODE . '<br /><div class="form-group">' . xos_draw_input_field('code', '', 'class="form-control"') . '</div>');
+      $contents[] = array('text' => TEXT_INFO_CURRENCY_DECIMAL_PLACES . '<br /><div class="form-group">' . xos_draw_input_field('decimal_places', '', 'class="form-control"') . '</div>');
+      $contents[] = array('text' => TEXT_INFO_CURRENCY_VALUE . '<br /><div class="form-group">' . xos_draw_input_field('value', '', 'class="form-control"') . '</div>');
+      $contents[] = array('text' => '<div class="checkbox"><label>' . xos_draw_checkbox_field('default') . ' ' . TEXT_INFO_SET_AS_DEFAULT . '</label></div>');
+      $contents[] = array('text' => '<br /><a href="" onclick="currencies.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_INSERT . ' ">' . BUTTON_TEXT_INSERT . '</a><a href="' . xos_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page'] . '&cID=' . $_GET['cID']) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       break;
     case 'edit':
       $heading_title = '<b>' . TEXT_INFO_HEADING_EDIT_CURRENCY . '</b>';
@@ -66,31 +66,31 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         $currency_query = xos_db_query("select title, symbol_left, symbol_right, decimal_point, thousands_point from " . TABLE_CURRENCIES . " where currencies_id = '" . $cInfo->currencies_id . "' and language_id = '" . (int)$languages[$i]['id'] . "'");
         $currency = xos_db_fetch_array($currency_query);
         $contents[] = array('text' => '<br />&nbsp;<br />' . xos_image(DIR_WS_CATALOG_IMAGES . 'catalog/templates/' . DEFAULT_TPL . '/' . $languages[$i]['directory'] . '/' . $languages[$i]['image'], $languages[$i]['name']));      
-        $contents[] = array('text' => TEXT_INFO_CURRENCY_TITLE . '<br />' . xos_draw_input_field('title[' . $languages[$i]['id'] . ']', $currency['title']));
-        $contents[] = array('text' => TEXT_INFO_CURRENCY_SYMBOL_LEFT . '<br />' . xos_draw_input_field('symbol_left[' . $languages[$i]['id'] . ']', $currency['symbol_left']));
-        $contents[] = array('text' => TEXT_INFO_CURRENCY_SYMBOL_RIGHT . '<br />' . xos_draw_input_field('symbol_right[' . $languages[$i]['id'] . ']', $currency['symbol_right']));
-        $contents[] = array('text' => TEXT_INFO_CURRENCY_DECIMAL_POINT . '<br />' . xos_draw_input_field('decimal_point[' . $languages[$i]['id'] . ']', $currency['decimal_point']));
-        $contents[] = array('text' => TEXT_INFO_CURRENCY_THOUSANDS_POINT . '<br />' . xos_draw_input_field('thousands_point[' . $languages[$i]['id'] . ']', $currency['thousands_point']));        
+        $contents[] = array('text' => TEXT_INFO_CURRENCY_TITLE . '<br /><div class="form-group">' . xos_draw_input_field('title[' . $languages[$i]['id'] . ']', $currency['title'], 'class="form-control"') . '</div>');
+        $contents[] = array('text' => TEXT_INFO_CURRENCY_SYMBOL_LEFT . '<br /><div class="form-group">' . xos_draw_input_field('symbol_left[' . $languages[$i]['id'] . ']', $currency['symbol_left'], 'class="form-control"') . '</div>');
+        $contents[] = array('text' => TEXT_INFO_CURRENCY_SYMBOL_RIGHT . '<br /><div class="form-group">' . xos_draw_input_field('symbol_right[' . $languages[$i]['id'] . ']', $currency['symbol_right'], 'class="form-control"') . '</div>');
+        $contents[] = array('text' => TEXT_INFO_CURRENCY_DECIMAL_POINT . '<br /><div class="form-group">' . xos_draw_input_field('decimal_point[' . $languages[$i]['id'] . ']', $currency['decimal_point'], 'class="form-control"') . '</div>');
+        $contents[] = array('text' => TEXT_INFO_CURRENCY_THOUSANDS_POINT . '<br /><div class="form-group">' . xos_draw_input_field('thousands_point[' . $languages[$i]['id'] . ']', $currency['thousands_point'], 'class="form-control"') . '</div>');        
       }
       
-      $contents[] = array('text' => '<br />&nbsp;<br />&nbsp;<br />' . TEXT_INFO_CURRENCY_CODE . '<br />' . xos_draw_input_field('code', $cInfo->code));
-      $contents[] = array('text' => TEXT_INFO_CURRENCY_DECIMAL_PLACES . '<br />' . xos_draw_input_field('decimal_places', $cInfo->decimal_places));      
-      $contents[] = array('text' => TEXT_INFO_CURRENCY_VALUE . '<br />' . xos_draw_input_field('value', $cInfo->value));
-      if (DEFAULT_CURRENCY != $cInfo->code) $contents[] = array('text' => xos_draw_checkbox_field('default') . ' ' . TEXT_INFO_SET_AS_DEFAULT);
-      $contents[] = array('text' => '<br /><a href="" onclick="currencies.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_UPDATE . ' "><span>' . BUTTON_TEXT_UPDATE . '</span></a><a href="' . xos_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+      $contents[] = array('text' => '<br />&nbsp;<br />&nbsp;<br />' . TEXT_INFO_CURRENCY_CODE . '<br /><div class="form-group">' . xos_draw_input_field('code', $cInfo->code, 'class="form-control"') . '</div>');
+      $contents[] = array('text' => TEXT_INFO_CURRENCY_DECIMAL_PLACES . '<br /><div class="form-group">' . xos_draw_input_field('decimal_places', $cInfo->decimal_places, 'class="form-control"') . '</div>');      
+      $contents[] = array('text' => TEXT_INFO_CURRENCY_VALUE . '<br /><div class="form-group">' . xos_draw_input_field('value', $cInfo->value, 'class="form-control"') . '</div>');
+      if (DEFAULT_CURRENCY != $cInfo->code) $contents[] = array('text' => '<div class="checkbox"><label>' . xos_draw_checkbox_field('default') . ' ' . TEXT_INFO_SET_AS_DEFAULT . '</label></div>');
+      $contents[] = array('text' => '<br /><a href="" onclick="currencies.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_UPDATE . ' ">' . BUTTON_TEXT_UPDATE . '</a><a href="' . xos_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       break;
     case 'delete':
       $heading_title = '<b>' . TEXT_INFO_HEADING_DELETE_CURRENCY . '</b>';
 
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $cInfo->title . '</b>');
-      $contents[] = array('text' => '<br />' . (($remove_currency) ? '<a href="' . xos_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=deleteconfirm') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a>' : '') . '<a href="' . xos_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+      $contents[] = array('text' => '<br />' . '<a href="' . xos_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a>' . (($remove_currency) ? '<a href="' . xos_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=deleteconfirm') . '" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a>' : '') . '<br />&nbsp;');
       break;
     default:
       if (is_object($cInfo)) {
         $heading_title = '<b>' . $cInfo->title . '</b>';
 
-        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=edit') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_EDIT . ' "><span>' . BUTTON_TEXT_EDIT . '</span></a><a href="' . xos_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=delete') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a>');
+        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=edit') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_EDIT . ' ">' . BUTTON_TEXT_EDIT . '</a><a href="' . xos_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page'] . '&cID=' . $cInfo->currencies_id . '&action=delete') . '" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a>');
         
         $languages = xos_get_languages();
         for ($i = 0, $n = sizeof($languages); $i < $n; $i++) {

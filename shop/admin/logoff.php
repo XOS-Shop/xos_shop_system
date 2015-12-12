@@ -36,19 +36,9 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
   unset($_SESSION['login_id']);
   unset($_SESSION['login_firstname']);
   unset($_SESSION['login_groups_id']);
-  unset($_SESSION['selected_box']);
+  unset($_SESSION['selected_box']);                                 
 
-  $javascript = '<script type="text/javascript">' . "\n" .   
-                '/* <![CDATA[ */' . "\n" .
-                'function center() {' . "\n" .
-                '  var height = document.getElementById("text").offsetHeight;' . "\n" .
-                '  var marg = (height / 2);' . "\n" .
-                '  document.getElementById("spacer").style.margin = "-" + marg + "px" + " 0px" + " 0px" + " 0px";' . "\n" .
-                '}' . "\n" .                   
-                '/* ]]> */' . "\n" .
-                '</script>' . "\n";                                  
-
-  require(DIR_WS_INCLUDES . 'html_header_with_special_stylesheet.php'); 
+  require(DIR_WS_INCLUDES . 'html_header.php'); 
   require(DIR_WS_INCLUDES . 'footer.php');
 
   $smarty->assign(array('link_filename_default' => xos_href_link(FILENAME_DEFAULT),

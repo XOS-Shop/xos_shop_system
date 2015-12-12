@@ -39,24 +39,22 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       $form_tag = xos_draw_form('banners', FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $bInfo->banners_id . '&action=deleteconfirm');
       $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $bInfo->banners_title . '</b>');
-      $contents[] = array('text' => '<br /><a href="" onclick="banners.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a><a href="' . xos_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $_GET['bID']) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+      $contents[] = array('text' => '<br /><a href="" onclick="banners.submit(); return false" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a><a href="' . xos_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $_GET['bID']) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       break;
     default:
       if (is_object($bInfo)) {
         $heading_title = '<b>' . $bInfo->banners_title . '</b>';
 
-        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $bInfo->banners_id . '&action=new') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_EDIT . ' "><span>' . BUTTON_TEXT_EDIT . '</span></a><a href="' . xos_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $bInfo->banners_id . '&action=delete') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a>');
+        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $bInfo->banners_id . '&action=new') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_EDIT . ' ">' . BUTTON_TEXT_EDIT . '</a><a href="' . xos_href_link(FILENAME_BANNER_MANAGER, 'page=' . $_GET['page'] . '&bID=' . $bInfo->banners_id . '&action=delete') . '" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_BANNERS_DATE_ADDED . ' ' . xos_date_short($bInfo->date_added));
 
         if ( (function_exists('imagecreate')) && ($dir_ok) && ($banner_extension) ) {
           $banner_id = $bInfo->banners_id;
           $days = '3';
           include(DIR_WS_INCLUDES . 'graphs/banner_infobox.php');          
-          $contents[] = array('text' => '<br />' . xos_image(DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banner_id . '.' . $banner_extension, '', '', '', 'name="banner_infobox"') . "\n" .
-                                        '<script type="text/javascript">' . "\n" .
-                                        '/* <![CDATA[ */' . "\n" .               
-                                        '  document.images.banner_infobox.src="' . DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banner_id . '.' . $banner_extension . '?" + new Date().getTime();' . "\n" .                   
-                                        '/* ]]> */' . "\n" .
+          $contents[] = array('text' => '<br />' . xos_image(DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banner_id . '.' . $banner_extension, '', '', '', 'id="banner_infobox"') . "\n" .
+                                        '<script>' . "\n" .              
+                                        '  document.images.banner_infobox.src="' . DIR_WS_ADMIN . DIR_WS_IMAGES . 'graphs/banner_infobox-' . $banner_id . '.' . $banner_extension . '?" + new Date().getTime();' . "\n" . 
                                         '</script>' . "\n");          
         } else {
           include(DIR_WS_FUNCTIONS . 'html_graphs.php');

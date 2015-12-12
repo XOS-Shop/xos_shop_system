@@ -32,16 +32,18 @@
 
 require('includes/application_top.php');
 if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILENAME_SERVER_INFO) == 'overwrite_all')) :  
-  $style = '<style type="text/css">' . "\n" .
-           '/* <![CDATA[ */' . "\n" .
-           '.center {font-family: sans-serif; font-size: 10px;}' . "\n" .                
+  $style = '<style>' . "\n" .
+           '.box-body td {padding: 2px;}' . "\n" .  
+           '.center {width: 100%; max-width: 1200px; margin: 0 auto;}' . "\n" .
+           '.center table {width: 100%; border-collapse: separate; border-spacing: 2px 2px;}' . "\n" .
+           '.center td, .center th {vertical-align: top; padding: 2px 4px;}' . "\n" . 
+           '.center img {display: block; margin-top: 4px;}' . "\n" .                
            '.p {text-align: left;}' . "\n" .
-           '.e {background-color: #ccccff; font-weight: bold;}' . "\n" .
+           '.e {width: 30%; background-color: #ccccff; font-weight: bold;}' . "\n" .
            '.h {background-color: #9999cc; font-weight: bold;}' . "\n" .
            '.v {background-color: #cccccc;}' . "\n" .
            'i {color: #666666;}' . "\n" .
-           'hr {display: none;}' . "\n" .
-           '/* ]]> */' . "\n" .
+           'hr {height: 1px; border: 0; background-color: #9999cc;}' . "\n" .
            '</style>' . "\n";
 
   $javascript = '';

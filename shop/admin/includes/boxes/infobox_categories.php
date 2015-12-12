@@ -34,12 +34,12 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
      function xos_get_category_tree_for_movings($parent_id = '0', $spacing = '', $category_tree_array = '', $move_product = false) {
 
       if (!is_array($category_tree_array)) $category_tree_array = array();
-      if (sizeof($category_tree_array) < 1) $category_tree_array[] = $move_product ? array('id' => '0', 'text' => TEXT_TOP, 'params' => 'style="color: grey;" disabled="disabled"') : array('id' => '0', 'text' => TEXT_TOP);
+      if (sizeof($category_tree_array) < 1) $category_tree_array[] = $move_product ? array('id' => '0', 'text' => TEXT_TOP, 'params' => 'style="color: #b0b0b0;" disabled="disabled"') : array('id' => '0', 'text' => TEXT_TOP);
 
       $categories_query = xos_db_query("select c.categories_or_pages_id, cpd.categories_or_pages_name, c.parent_id, c.categories_or_pages_status from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = cpd.categories_or_pages_id and c.is_page = 'false' and cpd.language_id = '" . (int)$_SESSION['used_lng_id'] . "' and c.parent_id = '" . (int)$parent_id . "' order by c.sort_order, cpd.categories_or_pages_name");
       while ($categories = xos_db_fetch_array($categories_query)) {
         if ((xos_children_in_category_count($categories['categories_or_pages_id']) > 0 && $move_product) || (xos_children_in_category_count($categories['categories_or_pages_id']) == 0 && xos_products_in_category_count($categories['categories_or_pages_id'], true) > 0 && !$move_product)) {
-          $category_tree_array[] = array('id' => $categories['categories_or_pages_id'], 'text' => $spacing . $categories['categories_or_pages_name'], 'params' => 'style="color: grey;" disabled="disabled"');
+          $category_tree_array[] = array('id' => $categories['categories_or_pages_id'], 'text' => $spacing . $categories['categories_or_pages_name'], 'params' => 'style="color: #b0b0b0;" disabled="disabled"');
         } else {
           $category_tree_array[] = array('id' => $categories['categories_or_pages_id'], 'text' => $spacing . $categories['categories_or_pages_name'], 'params' => (($categories['categories_or_pages_status'] == 0) ? 'style="color: red;"' : ''));
         }
@@ -59,15 +59,15 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         $contents[] = array('text' => '<br /><b>' . $cInfo->categories_or_pages_name . '</b>');
         if ($cInfo->children_count > 0) $contents[] = array('text' => '<br />' . sprintf(TEXT_DELETE_WARNING_CHILDREN, $cInfo->children_count));
         if ($cInfo->products_count > 0) $contents[] = array('text' => '<br />' . sprintf(TEXT_DELETE_WARNING_PRODUCTS, $cInfo->products_count));
-        $contents[] = array('text' => '<br /><a href="" onclick="categories.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cpID=' . $cInfo->categories_or_pages_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br /><a href="" onclick="categories.submit(); return false" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cpID=' . $cInfo->categories_or_pages_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
         break;
       case 'move_category':
         $heading_title = '<b>' . TEXT_INFO_HEADING_MOVE_CATEGORY . '</b>';
 
         $form_tag = xos_draw_form('categories', FILENAME_CATEGORIES, 'action=move_category_confirm&cPath=' . $cPath) . xos_draw_hidden_field('categories_or_pages_id', $cInfo->categories_or_pages_id);
         $contents[] = array('text' => sprintf(TEXT_MOVE_CATEGORIES_INTRO, $cInfo->categories_or_pages_name));
-        $contents[] = array('text' => '<br />' . sprintf(TEXT_MOVE, $cInfo->categories_or_pages_name) . '<br />' . xos_draw_pull_down_menu('move_to_category_id', xos_get_category_tree_for_movings(), $current_category_id));
-        $contents[] = array('text' => '<br /><a href="" onclick="categories.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_MOVE . ' "><span>' . BUTTON_TEXT_MOVE . '</span></a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cpID=' . $cInfo->categories_or_pages_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br />' . sprintf(TEXT_MOVE, $cInfo->categories_or_pages_name) . '<br /><div class="form-group">' . xos_draw_pull_down_menu('move_to_category_id', xos_get_category_tree_for_movings(), $current_category_id, 'class="form-control"') . '</div>');
+        $contents[] = array('text' => '<br /><a href="" onclick="categories.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_MOVE . ' ">' . BUTTON_TEXT_MOVE . '</a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&cpID=' . $cInfo->categories_or_pages_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
         break;
       case 'delete_product':
         $heading_title = '<b>' . TEXT_INFO_HEADING_DELETE_PRODUCT . '</b>';
@@ -84,12 +84,12 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
             $category_path .= $product_categories[$i][$j]['text'] . '&nbsp;&gt;&nbsp;';
           }
           $category_path = substr($category_path, 0, -16);
-          $product_categories_string .= xos_draw_checkbox_field('product_categories[]', $product_categories[$i][sizeof($product_categories[$i])-1]['id'], true) . '&nbsp;' . $category_path . '<br />';
+          $product_categories_string .=  '<div class="checkbox"><label>' . xos_draw_checkbox_field('product_categories[]', $product_categories[$i][sizeof($product_categories[$i])-1]['id'], true) . '&nbsp;' . $category_path . '</label></div>';
         }
-        $product_categories_string = substr($product_categories_string, 0, -6);
+        $product_categories_string = '<div class="form-group">' . $product_categories_string . '</div>';
 
-        $contents[] = array('text' => '<br />' . $product_categories_string);
-        $contents[] = array('text' => '<br /><a href="" onclick="products.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => $product_categories_string);
+        $contents[] = array('text' => '<br /><a href="" onclick="products.submit(); return false" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
         break;
       case 'move_product':
         $heading_title = '<b>' . TEXT_INFO_HEADING_MOVE_PRODUCT . '</b>';
@@ -97,8 +97,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         $form_tag = xos_draw_form('products', FILENAME_CATEGORIES, 'action=move_product_confirm&cPath=' . $cPath) . xos_draw_hidden_field('products_id', $pInfo->products_id);
         $contents[] = array('text' => sprintf(TEXT_MOVE_PRODUCTS_INTRO, $pInfo->products_name));
         $contents[] = array('text' => '<br />' . TEXT_INFO_CURRENT_CATEGORIES . '<br /><b>' . xos_output_generated_category_path($pInfo->products_id, 'product') . '</b>');
-        $contents[] = array('text' => '<br />' . sprintf(TEXT_MOVE, $pInfo->products_name) . '<br />' . xos_draw_pull_down_menu('move_to_category_id', xos_get_category_tree_for_movings(0, '', '', true), $current_category_id));
-        $contents[] = array('text' => '<br /><a href="" onclick="products.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_MOVE . ' "><span>' . BUTTON_TEXT_MOVE . '</span></a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br />' . sprintf(TEXT_MOVE, $pInfo->products_name) . '<br /><div class="form-group">' . xos_draw_pull_down_menu('move_to_category_id', xos_get_category_tree_for_movings(0, '', '', true), $current_category_id, 'class="form-control"') . '</div>');
+        $contents[] = array('text' => '<br /><a href="" onclick="products.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_MOVE . ' ">' . BUTTON_TEXT_MOVE . '</a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
         break;
       case 'copy_to':
         $heading_title = '<b>' . TEXT_INFO_HEADING_COPY_TO . '</b>';
@@ -106,9 +106,9 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         $form_tag = xos_draw_form('copy_to', FILENAME_CATEGORIES, 'action=copy_to_confirm&cPath=' . $cPath) . xos_draw_hidden_field('products_id', $pInfo->products_id);
         $contents[] = array('text' => TEXT_INFO_COPY_TO_INTRO);
         $contents[] = array('text' => '<br />' . TEXT_INFO_CURRENT_CATEGORIES . '<br /><b>' . xos_output_generated_category_path($pInfo->products_id, 'product') . '</b>');
-        $contents[] = array('text' => '<br />' . TEXT_CATEGORIES . '<br />' . xos_draw_pull_down_menu('categories_or_pages_id', xos_get_category_tree_for_movings(0, '', '', true), $current_category_id));
-        $contents[] = array('text' => '<br />' . TEXT_HOW_TO_COPY . '<br />' . xos_draw_radio_field('copy_as', 'link', true) . ' ' . TEXT_COPY_AS_LINK . '<br />' . xos_draw_radio_field('copy_as', 'duplicate') . ' ' . TEXT_COPY_AS_DUPLICATE);
-        $contents[] = array('text' => '<br /><a href="" onclick="copy_to.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_COPY . ' "><span>' . BUTTON_TEXT_COPY . '</span></a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br />' . TEXT_CATEGORIES . '<br /><div class="form-group">' . xos_draw_pull_down_menu('categories_or_pages_id', xos_get_category_tree_for_movings(0, '', '', true), $current_category_id, 'class="form-control"') . '</div>');
+        $contents[] = array('text' => '<br />' . TEXT_HOW_TO_COPY . '<br /><div class="form-group"><div class="radio"><label>' . xos_draw_radio_field('copy_as', 'link', true) . ' ' . TEXT_COPY_AS_LINK . '</label></div><div class="radio"><label>' . xos_draw_radio_field('copy_as', 'duplicate') . ' ' . TEXT_COPY_AS_DUPLICATE . '</label></div></div>');
+        $contents[] = array('text' => '<br /><a href="" onclick="copy_to.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_COPY . ' ">' . BUTTON_TEXT_COPY . '</a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
         break;
       default:
         if ($rows > 0) {
@@ -122,7 +122,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
           
             $heading_title = '<b>' . $cInfo->categories_or_pages_name . '</b>';
             
-            $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $category_path_string . '&cpID=' . $cInfo->categories_or_pages_id . '&action=new_category') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_EDIT . ' "><span>' . BUTTON_TEXT_EDIT . '</span></a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $category_path_string . '&cpID=' . $cInfo->categories_or_pages_id . '&action=delete_category') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $category_path_string . '&cpID=' . $cInfo->categories_or_pages_id . '&action=move_category') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_MOVE . ' "><span>' . BUTTON_TEXT_MOVE . '</span></a>');
+            $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $category_path_string . '&cpID=' . $cInfo->categories_or_pages_id . '&action=new_category') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_EDIT . ' ">' . BUTTON_TEXT_EDIT . '</a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $category_path_string . '&cpID=' . $cInfo->categories_or_pages_id . '&action=delete_category') . '" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $category_path_string . '&cpID=' . $cInfo->categories_or_pages_id . '&action=move_category') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_MOVE . ' ">' . BUTTON_TEXT_MOVE . '</a>');
             $contents[] = array('text' => '<br />' . TEXT_DATE_ADDED . ' ' . xos_date_short($cInfo->date_added));
             if (xos_not_null($cInfo->last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . xos_date_short($cInfo->last_modified));
             $contents[] = array('text' => '<br />' . xos_info_image('categories/small/' . $cInfo->categories_image, $cInfo->categories_or_pages_name) . '<br />' . $cInfo->categories_image);
@@ -140,7 +140,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
          
             $heading_title = '<b>' . xos_get_products_name($pInfo->products_id, $_SESSION['used_lng_id']) . '</b>';
 
-            $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $category_path_string . '&pID=' . $pInfo->products_id . '&action=new_product') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_EDIT . ' "><span>' . BUTTON_TEXT_EDIT . '</span></a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $category_path_string . '&pID=' . $pInfo->products_id . '&action=delete_product') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $category_path_string . '&pID=' . $pInfo->products_id . '&action=move_product') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_MOVE . ' "><span>' . BUTTON_TEXT_MOVE . '</span></a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $category_path_string . '&pID=' . $pInfo->products_id . '&action=copy_to') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_COPY_TO . ' "><span>' . BUTTON_TEXT_COPY_TO . '</span></a><a href="' . xos_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'cPath=' . $category_path_string . '&pID=' . $pInfo->products_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_PRODUCTS_ATTRIBUTES . ' "><span>' . BUTTON_TEXT_PRODUCTS_ATTRIBUTES . '</span></a>');
+            $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $category_path_string . '&pID=' . $pInfo->products_id . '&action=new_product') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_EDIT . ' ">' . BUTTON_TEXT_EDIT . '</a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $category_path_string . '&pID=' . $pInfo->products_id . '&action=delete_product') . '" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $category_path_string . '&pID=' . $pInfo->products_id . '&action=move_product') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_MOVE . ' ">' . BUTTON_TEXT_MOVE . '</a><a href="' . xos_href_link(FILENAME_CATEGORIES, 'cPath=' . $category_path_string . '&pID=' . $pInfo->products_id . '&action=copy_to') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_COPY_TO . ' ">' . BUTTON_TEXT_COPY_TO . '</a><a href="' . xos_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'cPath=' . $category_path_string . '&pID=' . $pInfo->products_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_PRODUCTS_ATTRIBUTES . ' ">' . BUTTON_TEXT_PRODUCTS_ATTRIBUTES . '</a>');
             $contents[] = array('text' => '<br />' . TEXT_DATE_ADDED . ' ' . xos_date_short($pInfo->products_date_added));
             if (xos_not_null($pInfo->products_last_modified)) $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . xos_date_short($pInfo->products_last_modified));
             if (date('Y-m-d') < $pInfo->products_date_available) $contents[] = array('text' => TEXT_DATE_AVAILABLE . ' ' . xos_date_short($pInfo->products_date_available));

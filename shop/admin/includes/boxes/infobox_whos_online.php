@@ -104,7 +104,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         }
 
         if (sizeof($products) > 0) {
-          $contents[] = array('text' => xos_draw_separator('pixel_black.gif', '100%', '1'));
+          $contents[] = array('text' => '<img src="'. DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/pixel_black.gif" alt="" style="width: 100%; height: 1px" />');
           $contents[] = array('text'  => '<div style="float: right">' . TEXT_SHOPPING_CART_SUBTOTAL . ' ' . $currencies->format($_SESSION['cart']->show_total($currencies->currencies[$_SESSION['currency']]['value']), 1, $_SESSION['currency']). '</div>');
         } else {
           $contents[] = array('text' => '&nbsp;');

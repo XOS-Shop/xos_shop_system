@@ -32,7 +32,7 @@
 
 if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/boxes/menubox_tools.php') == 'overwrite_all')) :
   $menu_box_contents = array();
-  if ($_SESSION['selected_box'] == 'tools' || EXPAND_MENUBOX_TOOLS == 'true') {
+
     if (xos_admin_check_files(FILENAME_ACTION_RECORDER)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_ACTION_RECORDER, 'selected_box=tools'), 'selected' => $_SESSION['selected_box'] == 'tools' && FILENAME_ACTION_RECORDER == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_TOOLS_ACTION_RECORDER);
     if (xos_admin_check_files(FILENAME_BACKUP)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_BACKUP, 'selected_box=tools'), 'selected' => $_SESSION['selected_box'] == 'tools' && FILENAME_BACKUP == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_TOOLS_BACKUP);
     if (xos_admin_check_files(FILENAME_IMAGE_PROCESSING)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_IMAGE_PROCESSING, 'selected_box=tools'), 'selected' => $_SESSION['selected_box'] == 'tools' && FILENAME_IMAGE_PROCESSING == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_TOOLS_IMAGE_PROCESSING);                                   
@@ -46,7 +46,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
     if (xos_admin_check_files(FILENAME_WHOS_ONLINE)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_WHOS_ONLINE, 'selected_box=tools'), 'selected' => $_SESSION['selected_box'] == 'tools' && FILENAME_WHOS_ONLINE == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_TOOLS_WHOS_ONLINE);
     
     $smarty->assign('menu_box_contents', $menu_box_contents);                                                                     
-  }
+
 
   $smarty->assign(array('menu_box_heading_link' => xos_href_link(FILENAME_ACTION_RECORDER, 'selected_box=tools'),
                         'menu_box_selected' => $_SESSION['selected_box'] == 'tools' ? true : false,  

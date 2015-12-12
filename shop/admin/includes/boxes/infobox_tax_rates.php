@@ -36,12 +36,12 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
     case 'new':
       $heading_title = '<b>' . TEXT_INFO_HEADING_NEW_TAX_RATE . '</b>'; 
       
-      if (($tax_classes_pull_down = xos_tax_classes_pull_down('name="tax_class_id" style="font-size:10px"', $_GET['tax_class_id'])) && ($geo_zones_pull_down = xos_geo_zones_pull_down('name="tax_zone_id" style="font-size:10px"', $_GET['tax_zone_id']))) {
+      if (($tax_classes_pull_down = xos_tax_classes_pull_down('name="tax_class_id" class="form-control"', $_GET['tax_class_id'])) && ($geo_zones_pull_down = xos_geo_zones_pull_down('name="tax_zone_id" class="form-control"', $_GET['tax_zone_id']))) {
         $form_tag = xos_draw_form('rates', FILENAME_TAX_RATES, 'page=' . $_GET['page'] . '&tID=' . $_GET['tID'] . '&action=insert');
         $contents[] = array('text' => TEXT_INFO_INSERT_INTRO);
-        $contents[] = array('text' => '<br />' . TEXT_INFO_CLASS_TITLE . '<br />' . $tax_classes_pull_down);
-        $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br />' . $geo_zones_pull_down);
-        $contents[] = array('text' => '<br />' . TEXT_INFO_TAX_RATE . '<br />' . xos_draw_input_field('tax_rate', $_GET['tax_rate']));
+        $contents[] = array('text' => '<br />' . TEXT_INFO_CLASS_TITLE . '<br /><div class="form-group">' . $tax_classes_pull_down . '</div>');
+        $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br /><div class="form-group">' . $geo_zones_pull_down . '</div>');
+        $contents[] = array('text' => '<br />' . TEXT_INFO_TAX_RATE . '<br /><div class="form-group">' . xos_draw_input_field('tax_rate', $_GET['tax_rate'], 'class="form-control"') . '</div>');
         $tax_description_error_array = unserialize(stripslashes(urldecode($_GET['error_description'])));
         $tax_description_array = unserialize(stripslashes(urldecode($_GET['tax_description'])));       
         $tax_description_inputs_string = '';
@@ -58,14 +58,14 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
               $set_not_empty = true;
             }  
           }    
-          $tax_description_inputs_string .= '<br />' . xos_image(DIR_WS_CATALOG_IMAGES . 'catalog/templates/' . DEFAULT_TPL . '/' . $languages[$i]['directory'] . '/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . xos_draw_input_field('tax_description[' . $languages[$i]['id'] . ']', $tax_description_array[$languages[$i]['id']]) . (isset($tax_description_error_array[$languages[$i]['id']]) ? (empty($tax_description_error_array[$languages[$i]['id']]) ? '<font color="red">&nbsp;' . TEXT_INFO_DESCRIPTION_ERROR_EMPTY_MARK . '</font>' : '<font color="red">&nbsp;' . TEXT_INFO_DESCRIPTION_ERROR_MARK . '</font>') : '');
+          $tax_description_inputs_string .= '<br /><div class="input-group"><span class="input-group-addon">' . xos_image(DIR_WS_CATALOG_IMAGES . 'catalog/templates/' . DEFAULT_TPL . '/' . $languages[$i]['directory'] . '/' . $languages[$i]['image'], $languages[$i]['name']) . '</span>' . xos_draw_input_field('tax_description[' . $languages[$i]['id'] . ']', $tax_description_array[$languages[$i]['id']], 'class="form-control" style="width: 95%"') . (isset($tax_description_error_array[$languages[$i]['id']]) ? (empty($tax_description_error_array[$languages[$i]['id']]) ? '<span style="color: #ff0000;">&nbsp;' . TEXT_INFO_DESCRIPTION_ERROR_EMPTY_MARK . '</span>' : '<span style="color: #ff0000;">&nbsp;' . TEXT_INFO_DESCRIPTION_ERROR_MARK . '</span>') : '') . '</div>';
         }         
-        $contents[] = array('text' => '<br />' . TEXT_INFO_RATE_DESCRIPTION . $tax_description_inputs_string);  
-        $contents[] = array('text' => '<br />' . TEXT_INFO_TAX_RATE_PRIORITY . '<br />' . xos_draw_input_field('tax_priority', $_GET['tax_priority']));
-        $contents[] = array('text' => '<br /><a href="" onclick="rates.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_INSERT . ' "><span>' . BUTTON_TEXT_INSERT . '</span></a><a href="' . xos_href_link(FILENAME_TAX_RATES, 'page=' . $_GET['page'] . '&tID=' . $_GET['tID']) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br /><div class="text-nowrap">' . TEXT_INFO_RATE_DESCRIPTION  . $tax_description_inputs_string . '</div>');  
+        $contents[] = array('text' => '<br />' . TEXT_INFO_TAX_RATE_PRIORITY . '<br /><div class="form-group">' . xos_draw_input_field('tax_priority', $_GET['tax_priority'], 'class="form-control"') . '</div>');
+        $contents[] = array('text' => '<br /><a href="" onclick="rates.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_INSERT . ' ">' . BUTTON_TEXT_INSERT . '</a><a href="' . xos_href_link(FILENAME_TAX_RATES, 'page=' . $_GET['page'] . '&tID=' . $_GET['tID']) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       } else {
         $contents[] = array('text' => TEXT_INFO_NO_TAX_CLASS_AND_OR_NO_TAX_ZONE_DEFINED . '<br /><br />');
-        $contents[] = array('text' => '<br /><a href="' . xos_href_link(FILENAME_TAX_RATES, xos_get_all_get_params(array('tID', 'action'))) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_BACK . ' "><span>' . BUTTON_TEXT_BACK . '</span></a><br />&nbsp;');     
+        $contents[] = array('text' => '<br /><a href="' . xos_href_link(FILENAME_TAX_RATES, xos_get_all_get_params(array('tID', 'action'))) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_BACK . ' ">' . BUTTON_TEXT_BACK . '</a><br />&nbsp;');     
       }
       break;
     case 'edit':
@@ -75,12 +75,12 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       $form_tag = xos_draw_form('rates', FILENAME_TAX_RATES, 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id  . '&action=save');
       $contents[] = array('text' => TEXT_INFO_EDIT_INTRO);
       if (xos_db_num_rows($check_query) != 1) {
-        $contents[] = array('text' => '<br />' . TEXT_INFO_CLASS_TITLE . '<br />' . xos_tax_classes_pull_down('name="tax_class_id" style="font-size:10px"', (isset($_GET['tax_class_id']) ? $_GET['tax_class_id'] : $trInfo->tax_class_id)));
+        $contents[] = array('text' => '<br />' . TEXT_INFO_CLASS_TITLE . '<br /><div class="form-group">' . xos_tax_classes_pull_down('name="tax_class_id" class="form-control"', (isset($_GET['tax_class_id']) ? $_GET['tax_class_id'] : $trInfo->tax_class_id)) . '</div>');
       } else {
         $contents[] = array('text' => '<br />' . TEXT_INFO_CLASS_TITLE . '<br /><b>' . $trInfo->tax_class_title . '</b>' . xos_draw_hidden_field('tax_class_id', $trInfo->tax_class_id));
       }
-      $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br />' . xos_geo_zones_pull_down('name="tax_zone_id" style="font-size:10px"', (isset($_GET['tax_zone_id']) ? $_GET['tax_zone_id'] : $trInfo->geo_zone_id)));
-      $contents[] = array('text' => '<br />' . TEXT_INFO_TAX_RATE . '<br />' . xos_draw_input_field('tax_rate', (isset($_GET['tax_rate']) ? $_GET['tax_rate'] : $trInfo->tax_rate)));
+      $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br /><div class="form-group">' . xos_geo_zones_pull_down('name="tax_zone_id" class="form-control"', (isset($_GET['tax_zone_id']) ? $_GET['tax_zone_id'] : $trInfo->geo_zone_id)) . '</div>');
+      $contents[] = array('text' => '<br />' . TEXT_INFO_TAX_RATE . '<br /><div class="form-group">' . xos_draw_input_field('tax_rate', (isset($_GET['tax_rate']) ? $_GET['tax_rate'] : $trInfo->tax_rate), 'class="form-control"') . '</div>');
       $tax_description_error_array = unserialize(stripslashes(urldecode($_GET['error_description'])));
       $tax_description_array = unserialize(stripslashes(urldecode($_GET['tax_description'])));       
       $tax_description_inputs_string = '';
@@ -98,11 +98,11 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
           }  
         }
         $tax_description = xos_get_tax_rates_description($trInfo->tax_rates_id, $languages[$i]['id']);
-        $tax_description_inputs_string .= '<br />' . xos_image(DIR_WS_CATALOG_IMAGES . 'catalog/templates/' . DEFAULT_TPL . '/' . $languages[$i]['directory'] . '/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . xos_draw_input_field('tax_description[' . $languages[$i]['id'] . ']', (isset($tax_description_array[$languages[$i]['id']]) ? $tax_description_array[$languages[$i]['id']] : $tax_description)) . xos_draw_hidden_field('actual_tax_description[' . $languages[$i]['id'] . ']', $tax_description) . (isset($tax_description_error_array[$languages[$i]['id']]) ? (empty($tax_description_error_array[$languages[$i]['id']]) ? '<font color="red">&nbsp;' . TEXT_INFO_DESCRIPTION_ERROR_EMPTY_MARK . '</font>' : '<font color="red">&nbsp;' . TEXT_INFO_DESCRIPTION_ERROR_MARK . '</font>') : '');
+        $tax_description_inputs_string .= '<br /><div class="input-group"><span class="input-group-addon">' . xos_image(DIR_WS_CATALOG_IMAGES . 'catalog/templates/' . DEFAULT_TPL . '/' . $languages[$i]['directory'] . '/' . $languages[$i]['image'], $languages[$i]['name']) . '</span>' . xos_draw_input_field('tax_description[' . $languages[$i]['id'] . ']', (isset($tax_description_array[$languages[$i]['id']]) ? $tax_description_array[$languages[$i]['id']] : $tax_description), 'class="form-control" style="width: 95%"') . xos_draw_hidden_field('actual_tax_description[' . $languages[$i]['id'] . ']', $tax_description) . (isset($tax_description_error_array[$languages[$i]['id']]) ? (empty($tax_description_error_array[$languages[$i]['id']]) ? '<span style="color: #ff0000;">&nbsp;' . TEXT_INFO_DESCRIPTION_ERROR_EMPTY_MARK . '</span>' : '<span style="color: #ff0000;">&nbsp;' . TEXT_INFO_DESCRIPTION_ERROR_MARK . '</span>') : '') . '</div>';
       }       
-      $contents[] = array('text' => '<br />' . TEXT_INFO_RATE_DESCRIPTION  . $tax_description_inputs_string);
-      $contents[] = array('text' => '<br />' . TEXT_INFO_TAX_RATE_PRIORITY . '<br />' . xos_draw_input_field('tax_priority', (isset($_GET['tax_priority']) ? $_GET['tax_priority'] : $trInfo->tax_priority)));
-      $contents[] = array('text' => '<br /><a href="" onclick="rates.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_UPDATE . ' "><span>' . BUTTON_TEXT_UPDATE . '</span></a><a href="' . xos_href_link(FILENAME_TAX_RATES, 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+      $contents[] = array('text' => '<br /><div class="text-nowrap">' . TEXT_INFO_RATE_DESCRIPTION  . $tax_description_inputs_string . '</div>');
+      $contents[] = array('text' => '<br />' . TEXT_INFO_TAX_RATE_PRIORITY . '<br /><div class="form-group">' . xos_draw_input_field('tax_priority', (isset($_GET['tax_priority']) ? $_GET['tax_priority'] : $trInfo->tax_priority), 'class="form-control"') . '</div>');
+      $contents[] = array('text' => '<br /><a href="" onclick="rates.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_UPDATE . ' ">' . BUTTON_TEXT_UPDATE . '</a><a href="' . xos_href_link(FILENAME_TAX_RATES, 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       break;
     case 'delete':
       $check_query = xos_db_query("select tr.tax_class_id from " . TABLE_TAX_RATES . " tr left join " . TABLE_PRODUCTS . " p on tr.tax_class_id = p.products_tax_class_id where products_tax_class_id = '" . $trInfo->tax_class_id . "' group by tr.tax_rates_id");     
@@ -112,17 +112,17 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         $form_tag = xos_draw_form('rates', FILENAME_TAX_RATES, 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id  . '&action=deleteconfirm');
         $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
         $contents[] = array('text' => '<br /><b>' . $trInfo->tax_class_title . ' ' . number_format($trInfo->tax_rate, TAX_DECIMAL_PLACES) . '%</b>');
-        $contents[] = array('text' => '<br /><a href="" onclick="rates.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a><a href="' . xos_href_link(FILENAME_TAX_RATES, 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br /><a href="" onclick="rates.submit(); return false" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a><a href="' . xos_href_link(FILENAME_TAX_RATES, 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       } else {
         $contents[] = array('text' => TEXT_INFO_DELETE_NOT_ALLOWED . '<br /><br />');
-        $contents[] = array('text' => '<br /><a href="' . xos_href_link(FILENAME_TAX_RATES, xos_get_all_get_params(array('action'))) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_BACK . ' "><span>' . BUTTON_TEXT_BACK . '</span></a><br />&nbsp;');      
+        $contents[] = array('text' => '<br /><a href="' . xos_href_link(FILENAME_TAX_RATES, xos_get_all_get_params(array('action'))) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_BACK . ' ">' . BUTTON_TEXT_BACK . '</a><br />&nbsp;');      
       }
       break;
     default:
       if (is_object($trInfo)) {
         $heading_title = '<b>' . $trInfo->tax_class_title . '</b>';
         
-        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_TAX_RATES, 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id . '&action=edit') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_EDIT . ' "><span>' . BUTTON_TEXT_EDIT . '</span></a><a href="' . xos_href_link(FILENAME_TAX_RATES, 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id . '&action=delete') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a>');
+        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_TAX_RATES, 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id . '&action=edit') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_EDIT . ' ">' . BUTTON_TEXT_EDIT . '</a><a href="' . xos_href_link(FILENAME_TAX_RATES, 'page=' . $_GET['page'] . '&tID=' . $trInfo->tax_rates_id . '&action=delete') . '" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a>');
         $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . xos_date_short($trInfo->date_added));
         $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . xos_date_short($trInfo->last_modified));
         $tax_description_inputs_string = '';

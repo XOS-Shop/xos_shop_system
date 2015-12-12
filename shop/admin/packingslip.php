@@ -47,7 +47,12 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                 '/* ]]> */'."\n".
                 '</script>'."\n";  
   
-  require(DIR_WS_INCLUDES . 'html_header.php');  
+  $smarty->assign(array('base_href' => substr(HTTP_SERVER, -1) == '/' ? ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER : '',
+                        'html_params' => HTML_PARAMS,
+                        'xhtml_lang' => XHTML_LANG,
+                        'charset' => CHARSET,
+                        'style' => $style,
+                        'javascript' => $javascript));  
 
   $order_products_array = array();
   for ($i=0, $n=sizeof($order->products); $i<$n; $i++) {

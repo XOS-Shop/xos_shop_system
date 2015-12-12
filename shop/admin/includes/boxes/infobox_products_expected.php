@@ -35,7 +35,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
   if (isset($pInfo) && is_object($pInfo)) {
     $heading_title = '<b>' . $pInfo->products_name . '</b>';
 
-    $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_CATEGORIES, 'pID=' . $pInfo->products_id . '&action=new_product') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_EDIT . ' "><span>' . BUTTON_TEXT_EDIT . '</span></a>');
+    $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_CATEGORIES, 'pID=' . $pInfo->products_id . '&action=new_product') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_EDIT . ' ">' . BUTTON_TEXT_EDIT . '</a>');
     $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_EXPECTED . ' ' . xos_date_short($pInfo->products_date_available));
   }
 

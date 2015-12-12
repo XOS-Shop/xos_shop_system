@@ -32,7 +32,7 @@
 
 if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/boxes/menubox_configuration.php') == 'overwrite_all')) :
   $menu_box_contents = array();  
-  if ($_SESSION['selected_box'] == 'configuration' || EXPAND_MENUBOX_CONFIGURATION == 'true') {    
+  
     for ($i=1;$i<=17;$i++) {
       if ($i != 6) {
         $menu_box_contents[] = array('link' => xos_href_link(FILENAME_CONFIGURATION, 'gID=' . $i . '&selected_box=configuration'),
@@ -42,7 +42,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
     }
     
     $smarty->assign('menu_box_contents', $menu_box_contents);
-  }
+
 
   $smarty->assign(array('menu_box_heading_link' => xos_href_link(FILENAME_CONFIGURATION, 'gID=1&selected_box=configuration'),
                         'menu_box_selected' => $_SESSION['selected_box'] == 'configuration' ? true : false,

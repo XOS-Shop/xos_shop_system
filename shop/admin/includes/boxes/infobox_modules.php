@@ -33,7 +33,7 @@
 if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/boxes/infobox_modules.php') == 'overwrite_all')) :
   $contents = array();
   switch ($action) {
-    case 'edit':
+    case 'edit':      
       $keys = '';
       reset($mInfo->keys);
       while (list($key, $value) = each($mInfo->keys)) {
@@ -42,7 +42,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         if ($value['set_function']) {
           eval('$keys .= ' . $value['set_function'] . "'" . $value['value'] . "', '" . $key . "');");
         } else {
-          $keys .= xos_draw_input_field('configuration[' . $key . ']', $value['value']);
+          $keys .= '<div class="form-group">' . xos_draw_input_field('configuration[' . $key . ']', $value['value'], 'class="form-control"') . '</div>';
         }
         $keys .= '<br /><br />';
       }
@@ -52,7 +52,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
 
       $form_tag = xos_draw_form('modules', FILENAME_MODULES, 'set=' . $set . '&module=' . $_GET['module'] . '&action=save');
       $contents[] = array('text' => $keys);
-      $contents[] = array('text' => '<br /><a href="" onclick="modules.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_UPDATE . ' "><span>' . BUTTON_TEXT_UPDATE . '</span></a><a href="' . xos_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $_GET['module']) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+      $contents[] = array('text' => '<br /><a href="" onclick="modules.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_UPDATE . ' ">' . BUTTON_TEXT_UPDATE . '</a><a href="' . xos_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $_GET['module']) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       break;
     default:
       $heading_title = '<b>' . $mInfo->title . '</b>';
@@ -81,11 +81,11 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         }
         $keys = substr($keys, 0, strrpos($keys, '<br /><br />'));
 
-        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $mInfo->code . '&action=remove') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_MODULE_REMOVE . ' "><span>' . BUTTON_TEXT_MODULE_REMOVE . '</span></a><a href="' . xos_href_link(FILENAME_MODULES, 'set=' . $set . (isset($_GET['module']) ? '&module=' . $_GET['module'] : '') . '&action=edit') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_EDIT . ' "><span>' . BUTTON_TEXT_EDIT . '</span></a>');
+        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_MODULES, 'set=' . $set . (isset($_GET['module']) ? '&module=' . $_GET['module'] : '') . '&action=edit') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_EDIT . ' ">' . BUTTON_TEXT_EDIT . '</a><a href="' . xos_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $mInfo->code . '&action=remove') . '" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_MODULE_REMOVE . ' ">' . BUTTON_TEXT_MODULE_REMOVE . '</a>');
         $contents[] = array('text' => '<br />' . $mInfo->description);
         $contents[] = array('text' => '<br />' . $keys);
       } else {
-        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $mInfo->code . '&action=install') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_MODULE_INSTALL . ' "><span>' . BUTTON_TEXT_MODULE_INSTALL . '</span></a>');
+        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_MODULES, 'set=' . $set . '&module=' . $mInfo->code . '&action=install') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_MODULE_INSTALL . ' ">' . BUTTON_TEXT_MODULE_INSTALL . '</a>');
         $contents[] = array('text' => '<br />' . $mInfo->description);
       }
       break;

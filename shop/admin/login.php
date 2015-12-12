@@ -90,23 +90,15 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     } 
   }
 
-  $javascript = '<script type="text/javascript">' . "\n" .   
-                '/* <![CDATA[ */' . "\n" .
-                'function center() {' . "\n" .
-                '  var height = document.getElementById("text").offsetHeight;' . "\n" .
-                '  var marg = (height / 2);' . "\n" .
-                '  document.getElementById("spacer").style.margin = "-" + marg + "px" + " 0px" + " 0px" + " 0px";' . "\n" .
-                '}' . "\n\n" .
-                
+  $javascript = '<script>' . "\n" .   
                 '$(function(){' . "\n" .
                 '  if (document.cookie.indexOf("' . xos_session_name() . '=' . xos_session_id() . '") != -1) {' . "\n" .
-                '    $("#cookie_error").css("visibility", "hidden");' . "\n" .
+                '    $("#cookie_error").css("display", "none");' . "\n" .
                 '  }' . "\n" .
                 '});' . "\n" .                   
-                '/* ]]> */' . "\n" .
                 '</script>' . "\n";                                  
 
-  require(DIR_WS_INCLUDES . 'html_header_with_special_stylesheet.php');  
+  require(DIR_WS_INCLUDES . 'html_header.php');  
   require(DIR_WS_INCLUDES . 'footer.php');
 
   if (SESSION_FORCE_COOKIE_USE == 'true' && !isset($_COOKIE[session_name()])) {

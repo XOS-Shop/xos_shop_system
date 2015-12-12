@@ -1,0 +1,72 @@
+/* -----------------------------------------------------------------------------
+ project    : XOS-Shop, open source e-commerce system
+              http://www.xos-shop.com
+                                                                     
+ template   : admin_lte
+ version    : 1.0 for XOS-Shop version 1.0 rc9
+ descrip    : xos-shop template for admin based on
+              AdminLTE https://github.com/almasaeed2010/AdminLTE                                                                    
+ filename   : style.css
+ author     : Hanspeter Zeller <hpz@xos-shop.com>
+ copyright  : Copyright (c) 2007 Hanspeter Zeller
+ license    : This file is part of XOS-Shop.
+
+              XOS-Shop is free software: you can redistribute it and/or modify
+              it under the terms of the GNU General Public License as published
+              by the Free Software Foundation, either version 3 of the License,
+              or (at your option) any later version.
+
+              XOS-Shop is distributed in the hope that it will be useful,
+              but WITHOUT ANY WARRANTY; without even the implied warranty of
+              MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+              GNU General Public License for more details.
+
+              You should have received a copy of the GNU General Public License
+              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>.    
+--------------------------------------------------------------------------------
+ this file is based on: 
+              osCommerce, Open Source E-Commerce Solutions
+              http://www.oscommerce.com
+              Copyright (c) 2003 osCommerce
+              filename: stylesheet.css                      
+
+              Released under the GNU General Public License 
+----------------------------------------------------------------------------- */
+
+.infobox-wrapper { padding-left: 1px; }
+.btn-margin-infobox { margin: 3px; }
+.btn-margin-attributes { margin: 0 1px; }
+.btn-margin-attribut_list { margin: 4px 0 0 4px; }
+.btn-margin-after-pagination { margin: 10px; }
+.data-table-wrapper { padding-right: 1px; }
+.data-table-heading-row:hover { background-color: #ffffff !important; }
+.data-table-row { cursor: pointer; }
+.data-table-rows-elected { background-color: #e8e8e8; cursor: pointer; }
+.pagination-wrapper { margin: 10px; }
+.form-lng-flag { margin: 5px 0 10px 12px; }
+.radio-wrapper-in-form-horizontal-first { margin-left: 20px; }
+.radio-wrapper-in-form-horizontal-not-first { margin-left: 30px; }
+.text-embed-php-code-wrapper { margin-top: 30px; padding: 20px 0 20px 0; border-top: 1px solid #d2d6de; }
+.icon-arrow-down { cursor: pointer; }
+.ui-datepicker{ z-index: 99 !important; }
+.price-table td { white-space: nowrap; padding: 0 10px 0 0; }
+.price-table input { display: inline-block; margin: 1px; }
+.input-price { width: 85px; }
+.price-break-input-quantity { width: 40px; }
+.attributes-value-input-price-prefix { width: 30px; }
+.table td { white-space: normal !important; }
+.table th { white-space: nowrap !important; }
+.attribute_lists td, .attributes_qty_list td { padding: 2px 0; white-space: nowrap !important; }
+.rating-text-bad { color: red; font-weight: bold; font-size: 85%; vertical-align: text-top; }
+.rating-text-good { color: green; font-weight: bold; font-size: 85%; vertical-align: text-top; }
+.rating-text input { margin: 0 10px 0 10px }
+.table-order { width: 100%; }
+.table-order-products { width: 100%; }
+.table-order td, .table-order th { vertical-align: top; white-space: nowrap; }
+.table-define-language { width: 100%; }
+.table-define-language td { padding: 0 10px 0 0; }
+.fa-chevron-up.active, .fa-chevron-down.active { color: red; }
+.fieldRequired, .errorText { color: #ff0000; font-size: 12px; }
+.form-element-required { display: inline-block; }
+.in-out-value { line-height: 34px; }
+.old-select-in-it select { font-size: 12px !important; width: 100% !important; min-width: 250px !important; }

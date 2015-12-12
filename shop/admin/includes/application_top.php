@@ -31,7 +31,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // Define the admin template
-  define('ADMIN_TPL', 'xs_admin');
+  define('ADMIN_TPL', 'admin_lte');
 
 // Start the clock for the page parse time log
   define('PAGE_PARSE_START_TIME', microtime());
@@ -78,18 +78,6 @@
 
 // Define the project logo
   define('PROJECT_LOGO', 'xos-shop_project_logo.gif');
- 
-  define('EXPAND_MENUBOX_ADMINISTRATOR', 'true');
-  define('EXPAND_MENUBOX_CONFIGURATION', 'true');
-  define('EXPAND_MENUBOX_MODULES', 'true');  
-  define('EXPAND_MENUBOX_CONTENT_MANAGER', 'true');  
-  define('EXPAND_MENUBOX_CATALOG', 'true');   
-  define('EXPAND_MENUBOX_CUSTOMERS', 'true');
-  define('EXPAND_MENUBOX_GV_ADMIN', 'true');    
-  define('EXPAND_MENUBOX_TAXES', 'true');
-  define('EXPAND_MENUBOX_LOCALIZATION', 'true');      
-  define('EXPAND_MENUBOX_REPORTS', 'true');  
-  define('EXPAND_MENUBOX_TOOLS', 'true');
   
   define('WYSIWYG_FOR_PAGES', 'true');
   define('WYSIWYG_FOR_INFO_PAGES', 'true');

@@ -42,9 +42,9 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       } elseif ($_GET['error'] == 'email_not_valid') {
         $contents[] = array('text' => TEXT_INFO_ERROR_EMAIL_NOT_VALID);
       } 
-      $contents[] = array('text' => '<br />' . TEXT_INFO_FIRSTNAME . '<br />' . xos_draw_input_field('admin_firstname'));
-      $contents[] = array('text' => '<br />' . TEXT_INFO_LASTNAME . '<br />' . xos_draw_input_field('admin_lastname'));
-      $contents[] = array('text' => '<br />' . TEXT_INFO_EMAIL . '<br />' . xos_draw_input_field('admin_email_address'));
+      $contents[] = array('text' => '<br />' . TEXT_INFO_FIRSTNAME . '<br /><div class="form-group">' . xos_draw_input_field('admin_firstname', '', 'class="form-control"') . '</div>');
+      $contents[] = array('text' => '<br />' . TEXT_INFO_LASTNAME . '<br /><div class="form-group">' . xos_draw_input_field('admin_lastname', '', 'class="form-control"') . '</div>');
+      $contents[] = array('text' => '<br />' . TEXT_INFO_EMAIL . '<br /><div class="form-group">' . xos_draw_input_field('admin_email_address', '', 'class="form-control"') . '</div>');
 
       $groups_array = array(array('id' => '0', 'text' => TEXT_NONE));
       $groups_query = xos_db_query("select admin_groups_id, admin_groups_name from " . TABLE_ADMIN_GROUPS);
@@ -52,8 +52,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         $groups_array[] = array('id' => $groups['admin_groups_id'],
                                 'text' => $groups['admin_groups_name']);
       }
-      $contents[] = array('text' => '<br />' . TEXT_INFO_GROUP . '<br />' . xos_draw_pull_down_menu('admin_groups_id', $groups_array, '0'));
-      $contents[] = array('text' => '<br /><a href="" onclick="validateForm(); if(document.returnValue)newmember.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_INSERT . ' "><span>' . BUTTON_TEXT_INSERT . '</span></a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+      $contents[] = array('text' => '<br />' . TEXT_INFO_GROUP . '<br /><div class="form-group">' . xos_draw_pull_down_menu('admin_groups_id', $groups_array, '0', 'class="form-control"') . '</div>');
+      $contents[] = array('text' => '<br /><a href="" onclick="validateForm(); if(document.returnValue)newmember.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_INSERT . ' ">' . BUTTON_TEXT_INSERT . '</a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       break;
     case 'edit_member':
       $heading_title = '<b>' . TEXT_INFO_HEADING_NEW . '</b>';
@@ -65,12 +65,12 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         $contents[] = array('text' => TEXT_INFO_ERROR_EMAIL_NOT_VALID);
       } 
       $contents[] = array('text' => xos_draw_hidden_field('admin_id', $mInfo->admin_id));
-      $contents[] = array('text' => '<br />' . TEXT_INFO_FIRSTNAME . '<br />' . xos_draw_input_field('admin_firstname', $mInfo->admin_firstname));
-      $contents[] = array('text' => '<br />' . TEXT_INFO_LASTNAME . '<br />' . xos_draw_input_field('admin_lastname', $mInfo->admin_lastname));
+      $contents[] = array('text' => '<br />' . TEXT_INFO_FIRSTNAME . '<br /><div class="form-group">' . xos_draw_input_field('admin_firstname', $mInfo->admin_firstname, 'class="form-control"') . '</div>');
+      $contents[] = array('text' => '<br />' . TEXT_INFO_LASTNAME . '<br /><div class="form-group">' . xos_draw_input_field('admin_lastname', $mInfo->admin_lastname, 'class="form-control"') . '</div>');
       if (isset($_GET['error'])) {
-        $contents[] = array('text' => '<br />' . TEXT_INFO_EMAIL . '<br />' . xos_draw_input_field('admin_email_address'));
+        $contents[] = array('text' => '<br />' . TEXT_INFO_EMAIL . '<br /><div class="form-group">' . xos_draw_input_field('admin_email_address', '', 'class="form-control"') . '</div>');
       } else {
-        $contents[] = array('text' => '<br />' . TEXT_INFO_EMAIL . '<br />' . xos_draw_input_field('admin_email_address', $mInfo->admin_email_address));
+        $contents[] = array('text' => '<br />' . TEXT_INFO_EMAIL . '<br /><div class="form-group">' . xos_draw_input_field('admin_email_address', $mInfo->admin_email_address, 'class="form-control"') . '</div>');
       }
       if ($mInfo->admin_id == 1) {
         $contents[] = array('text' => xos_draw_hidden_field('admin_groups_id', $mInfo->admin_groups_id));
@@ -81,19 +81,19 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
           $groups_array[] = array('id' => $groups['admin_groups_id'],
                                   'text' => $groups['admin_groups_name']);
         }
-        $contents[] = array('text' => '<br />' . TEXT_INFO_GROUP . '<br />' . xos_draw_pull_down_menu('admin_groups_id', $groups_array, $mInfo->admin_groups_id));
+        $contents[] = array('text' => '<br />' . TEXT_INFO_GROUP . '<br /><div class="form-group">' . xos_draw_pull_down_menu('admin_groups_id', $groups_array, $mInfo->admin_groups_id, 'class="form-control"') . '</div>');
       }
-      $contents[] = array('text' => '<br /><a href="" onclick="validateForm(); if(document.returnValue)newmember.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_UPDATE . ' "><span>' . BUTTON_TEXT_UPDATE . '</span></a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+      $contents[] = array('text' => '<br /><a href="" onclick="validateForm(); if(document.returnValue)newmember.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_UPDATE . ' ">' . BUTTON_TEXT_UPDATE . '</a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       break;
     case 'del_member':
       $heading_title = '<b>' . TEXT_INFO_HEADING_DELETE . '</b>';
       if ($mInfo->admin_id == 1 || $mInfo->admin_email_address == STORE_OWNER_EMAIL_ADDRESS) {
-        $contents[] = array('text' => '<br /><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_BACK . ' "><span>' . BUTTON_TEXT_BACK . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br /><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_BACK . ' ">' . BUTTON_TEXT_BACK . '</a><br />&nbsp;');
       } else {
         $form_tag = xos_draw_form('edit', FILENAME_ADMIN_MEMBERS, 'action=member_delete&page=' . $_GET['page'] . '&mID=' . $admin['admin_id'], 'post', 'enctype="multipart/form-data"');
         $contents[] = array('text' => xos_draw_hidden_field('admin_id', $mInfo->admin_id));
         $contents[] = array('text' => sprintf(TEXT_INFO_DELETE_INTRO, $mInfo->admin_firstname . ' ' . $mInfo->admin_lastname));
-        $contents[] = array('text' => '<br /><a href="" onclick="edit.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br /><a href="" onclick="edit.submit(); return false" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&mID=' . $_GET['mID']) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       }
       break;
     case 'new_group':
@@ -106,9 +106,9 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         $contents[] = array('text' => TEXT_INFO_GROUPS_NAME_USED . '<br />&nbsp;');
       }
       $contents[] = array('text' => xos_draw_hidden_field('set_groups_id', substr($add_groups_prepare, 4)) );
-      $contents[] = array('text' => TEXT_INFO_GROUPS_NAME . '<br />');
-      $contents[] = array('text' => xos_draw_input_field('admin_groups_name'));
-      $contents[] = array('text' => '<br /><a href="" onclick="new_group.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_INSERT . ' "><span>' . BUTTON_TEXT_INSERT . '</span></a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+      $contents[] = array('text' => TEXT_INFO_GROUPS_NAME);
+      $contents[] = array('text' => '<div class="form-group">' . xos_draw_input_field('admin_groups_name', '', 'class="form-control"') . '</div>');
+      $contents[] = array('text' => '<br /><a href="" onclick="new_group.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_INSERT . ' ">' . BUTTON_TEXT_INSERT . '</a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       break;
     case 'edit_group':
       $heading_title = '<b>' . TEXT_INFO_HEADING_EDIT_GROUP . '</b>';
@@ -119,8 +119,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       } elseif ($_GET['gName'] == 'used') {
         $contents[] = array('text' => TEXT_INFO_GROUPS_NAME_USED . '<br />&nbsp;');
       }
-      $contents[] = array('text' => TEXT_INFO_EDIT_GROUPS_INTRO . '<br />&nbsp;<br />' . xos_draw_input_field('admin_groups_name', $gInfo->admin_groups_name));
-      $contents[] = array('text' => '<br /><a href="" onclick="edit_group.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_UPDATE . ' "><span>' . BUTTON_TEXT_UPDATE . '</span></a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+      $contents[] = array('text' => TEXT_INFO_EDIT_GROUPS_INTRO . '<div class="form-group">' . xos_draw_input_field('admin_groups_name', $gInfo->admin_groups_name, 'class="form-control"') . '</div>');
+      $contents[] = array('text' => '<br /><a href="" onclick="edit_group.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_UPDATE . ' ">' . BUTTON_TEXT_UPDATE . '</a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       break;
     case 'del_group':
       $heading_title = '<b>' . TEXT_INFO_HEADING_DELETE_GROUPS . '</b>';
@@ -128,11 +128,11 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       $form_tag = xos_draw_form('delete_group', FILENAME_ADMIN_MEMBERS, 'action=group_delete&gID=' . $gInfo->admin_groups_id, 'post', 'enctype="multipart/form-data"');
       if ($gInfo->admin_groups_id == 1) {
         $contents[] = array('text' => sprintf(TEXT_INFO_DELETE_GROUPS_INTRO_NOT, $gInfo->admin_groups_name));
-        $contents[] = array('text' => '<br /><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $_GET['gID']) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_BACK . ' "><span>' . BUTTON_TEXT_BACK . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br /><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $_GET['gID']) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_BACK . ' ">' . BUTTON_TEXT_BACK . '</a><br />&nbsp;');
       } else {
         $contents[] = array('text' => xos_draw_hidden_field('set_groups_id', substr($del_groups_prepare, 4)) );
         $contents[] = array('text' => sprintf(TEXT_INFO_DELETE_GROUPS_INTRO, $gInfo->admin_groups_name));
-        $contents[] = array('text' => '<br /><a href="" onclick="delete_group.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $_GET['gID']) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br /><a href="" onclick="delete_group.submit(); return false" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $_GET['gID']) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       }
       break;
     case 'define_group':
@@ -140,13 +140,13 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
 
       $contents[] = array('text' => sprintf(TEXT_INFO_DEFINE_INTRO, $group_name['admin_groups_name']));
       if ($_GET['gPath'] == 1) {
-        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $_GET['gPath']) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_BACK . ' "><span>' . BUTTON_TEXT_BACK . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $_GET['gPath']) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_BACK . ' ">' . BUTTON_TEXT_BACK . '</a><br />&nbsp;');
       }
       break;
     default:
       if (is_object($mInfo)) {
         $heading_title = '<b>' . TEXT_INFO_HEADING_DEFAULT . '</b>';
-        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id . '&action=edit_member') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_EDIT . ' "><span>' . BUTTON_TEXT_EDIT . '</span></a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id . '&action=del_member') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id . '&action=edit_member') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_EDIT . ' ">' . BUTTON_TEXT_EDIT . '</a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&mID=' . $mInfo->admin_id . '&action=del_member') . '" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a><br />&nbsp;');
         $contents[] = array('text' => '<b>' . TEXT_INFO_FULLNAME . '</b><br />' . $mInfo->admin_firstname . ' ' . $mInfo->admin_lastname);
         $contents[] = array('text' => '<b>' . TEXT_INFO_EMAIL . '</b><br />' . $mInfo->admin_email_address);
         $contents[] = array('text' => '<b>' . TEXT_INFO_GROUP . '</b><br />' . $mInfo->admin_groups_name);
@@ -157,7 +157,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       } elseif (is_object($gInfo)) {
         $heading_title = '<b>' . TEXT_INFO_HEADING_DEFAULT_GROUPS . '</b>';
 
-        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gPath=' . $gInfo->admin_groups_id . '&action=define_group') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_FILE_PERMISSION . ' "><span>' . BUTTON_TEXT_FILE_PERMISSION . '</span></a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id . '&action=edit_group') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_EDIT . ' "><span>' . BUTTON_TEXT_EDIT . '</span></a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id . '&action=del_group') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gPath=' . $gInfo->admin_groups_id . '&action=define_group') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_FILE_PERMISSION . ' ">' . BUTTON_TEXT_FILE_PERMISSION . '</a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id . '&action=edit_group') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_EDIT . ' ">' . BUTTON_TEXT_EDIT . '</a><a href="' . xos_href_link(FILENAME_ADMIN_MEMBERS, 'gID=' . $gInfo->admin_groups_id . '&action=del_group') . '" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a><br />&nbsp;');
         $contents[] = array('text' => TEXT_INFO_DEFAULT_GROUPS_INTRO . '<br />&nbsp;');
       }
   }

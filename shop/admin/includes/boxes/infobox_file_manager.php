@@ -39,7 +39,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         $form_tag = xos_draw_form('file', FILENAME_FILE_MANAGER, 'info=' . urlencode($fInfo->name) . '&action=deleteconfirm');
         $contents[] = array('text' => TEXT_DELETE_INTRO);
         $contents[] = array('text' => '<br /><b>' . $fInfo->name . '</b>');
-        $contents[] = array('text' => '<br /><a href="" onclick="file.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a><a href="' . xos_href_link(FILENAME_FILE_MANAGER, (xos_not_null($fInfo->name) ? 'info=' . urlencode($fInfo->name) : '')) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br /><a href="" onclick="file.submit(); return false" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a><a href="' . xos_href_link(FILENAME_FILE_MANAGER, (xos_not_null($fInfo->name) ? 'info=' . urlencode($fInfo->name) : '')) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
         break;
       case 'new_folder':
         $heading_title = '<b>' . TEXT_NEW_FOLDER . '</b>';
@@ -47,7 +47,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         $form_tag = xos_draw_form('folder', FILENAME_FILE_MANAGER, 'action=insert');
         $contents[] = array('text' => TEXT_NEW_FOLDER_INTRO);
         $contents[] = array('text' => '<br />' . TEXT_FILE_NAME . '<br />' . xos_draw_input_field('folder_name'));
-        $contents[] = array('text' => '<br />' . (($directory_writeable == true) ? '<a href="" onclick="folder.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_SAVE . ' "><span>' . BUTTON_TEXT_SAVE . '</span></a>' : '') . '<a href="' . xos_href_link(FILENAME_FILE_MANAGER, (isset($_GET['info']) ? 'info=' . urlencode($_GET['info']) : '')) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br />' . (($directory_writeable == true) ? '<a href="" onclick="folder.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_SAVE . ' ">' . BUTTON_TEXT_SAVE . '</a>' : '') . '<a href="' . xos_href_link(FILENAME_FILE_MANAGER, (isset($_GET['info']) ? 'info=' . urlencode($_GET['info']) : '')) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
         break;
       case 'upload':
         $heading_title = '<b>' . TEXT_INFO_HEADING_UPLOAD . '</b>';
@@ -59,7 +59,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         for ($i=1; $i<6; $i++) $file_upload .= xos_draw_file_field('file_' . $i) . '<br />';
 
         $contents[] = array('text' => '<br />' . $file_upload);
-        $contents[] = array('text' => '<br />' . (($directory_writeable == true) ? '<a href="" onclick="file.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_UPLOAD . ' "><span>' . BUTTON_TEXT_UPLOAD . '</span></a>' : '') . '<a href="' . xos_href_link(FILENAME_FILE_MANAGER, (isset($_GET['info']) ? 'info=' . urlencode($_GET['info']) : '')) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br />' . (($directory_writeable == true) ? '<a href="" onclick="file.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_UPLOAD . ' ">' . BUTTON_TEXT_UPLOAD . '</a>' : '') . '<a href="' . xos_href_link(FILENAME_FILE_MANAGER, (isset($_GET['info']) ? 'info=' . urlencode($_GET['info']) : '')) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
         break;
       default:
         if (isset($fInfo) && is_object($fInfo)) {
@@ -69,10 +69,10 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
           if (substr($ws_path, -1) != '/') $ws_path = $ws_path . '/';
 
           if (!($fInfo->is_dir || $fInfo->is_image)) {
-            $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($fInfo->name) . '&action=edit') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_EDIT . ' "><span>' . BUTTON_TEXT_EDIT . '</span></a>');
+            $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($fInfo->name) . '&action=edit') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_EDIT . ' ">' . BUTTON_TEXT_EDIT . '</a>');
           }
           if ($fInfo->is_image) {
-            $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($fInfo->name) . '&action=view') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_REAL_IMAGE . ' "><span>' . BUTTON_TEXT_REAL_IMAGE . '</span></a>');
+            $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode($fInfo->name) . '&action=view') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_REAL_IMAGE . ' ">' . BUTTON_TEXT_REAL_IMAGE . '</a>');
             $contents[] = array('text' => '<br />' . xos_image($ws_path . rawurlencode($fInfo->name), $fInfo->name, '', '', 'style="max-width: 250px; max-height: 250px;"'));
           }
           $contents[] = array('text' => '<br />' . TEXT_FILE_NAME . ' <b>' . $fInfo->name . '</b>');

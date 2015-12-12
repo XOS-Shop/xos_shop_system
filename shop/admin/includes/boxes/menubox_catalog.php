@@ -32,7 +32,7 @@
 
 if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/boxes/menubox_catalog.php') == 'overwrite_all')) :
   $menu_box_contents = array();
-  if ($_SESSION['selected_box'] == 'catalog' || EXPAND_MENUBOX_CATALOG == 'true') {
+
     if (xos_admin_check_files(FILENAME_CATEGORIES)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_CATEGORIES, 'selected_box=catalog'), 'selected' => $_SESSION['selected_box'] == 'catalog' && FILENAME_CATEGORIES == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_CATALOG_CATEGORIES_PRODUCTS);
     if (xos_admin_check_files(FILENAME_PRODUCTS_ATTRIBUTES)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_PRODUCTS_ATTRIBUTES, 'selected_box=catalog&first_entrance=1'), 'selected' => $_SESSION['selected_box'] == 'catalog' && FILENAME_PRODUCTS_ATTRIBUTES == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES);
     if (xos_admin_check_files(FILENAME_MANUFACTURERS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_MANUFACTURERS, 'selected_box=catalog'), 'selected' => $_SESSION['selected_box'] == 'catalog' && FILENAME_MANUFACTURERS == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_CATALOG_MANUFACTURERS);
@@ -43,7 +43,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
     if (xos_admin_check_files(FILENAME_PRODUCTS_EXPECTED)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_PRODUCTS_EXPECTED, 'selected_box=catalog'), 'selected' => $_SESSION['selected_box'] == 'catalog' && FILENAME_PRODUCTS_EXPECTED == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_CATALOG_PRODUCTS_EXPECTED);
     
     $smarty->assign('menu_box_contents', $menu_box_contents);                                                                             
-  }
+
 
   $smarty->assign(array('menu_box_heading_link' => xos_href_link(FILENAME_CATEGORIES, 'selected_box=catalog'),
                         'menu_box_selected' => $_SESSION['selected_box'] == 'catalog' ? true : false,  

@@ -175,9 +175,12 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'footer.php');
   
-  if ($messageStack->size('header') > 0) {
-    $smarty->assign('message_stack_output', $messageStack->output('header'));
-  }  
+  if ($messageStack->size('header') > 0) {    
+    $smarty->assign('message_stack_header', $messageStack->output('header'));
+    $smarty->assign('message_stack_header_error', $messageStack->output('header', 'error'));
+    $smarty->assign('message_stack_header_warning', $messageStack->output('header', 'warning')); 
+    $smarty->assign('message_stack_header_success', $messageStack->output('header', 'success'));    
+  } 
 
   if ($action == 'link_entrence') {
 

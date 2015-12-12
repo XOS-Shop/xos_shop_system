@@ -42,13 +42,13 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       $delivery_times_inputs_string = '';
       $languages = xos_get_languages();
       for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
-        $delivery_times_inputs_string .= '<br />' . xos_image(DIR_WS_CATALOG_IMAGES . 'catalog/templates/' . DEFAULT_TPL . '/' . $languages[$i]['directory'] . '/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . xos_draw_input_field('delivery_times_text[' . $languages[$i]['id'] . ']');
+        $delivery_times_inputs_string .= '<br /><div class="input-group"><span class="input-group-addon">' . xos_image(DIR_WS_CATALOG_IMAGES . 'catalog/templates/' . DEFAULT_TPL . '/' . $languages[$i]['directory'] . '/' . $languages[$i]['image'], $languages[$i]['name']) . '</span>' . xos_draw_input_field('delivery_times_text[' . $languages[$i]['id'] . ']', '', 'class="form-control"') . '</div>';
       }
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_DELIVERY_TIMES_TEXT . $delivery_times_inputs_string);
-      $contents[] = array('text' => '<br />' . TEXT_INFO_POPUP_CONTENT_ID . '<br />' . xos_draw_input_field('popup_content_id'));        
-      $contents[] = array('text' => '<br />' . xos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('text' => '<br /><a href="" onclick="delivery_time.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_INSERT . ' "><span>' . BUTTON_TEXT_INSERT . '</span></a><a href="' . xos_href_link(FILENAME_DELIVERY_TIMES, 'page=' . $_GET['page']) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+      $contents[] = array('text' => '<br />' . TEXT_INFO_POPUP_CONTENT_ID . '<br /><div class="form-group">' . xos_draw_input_field('popup_content_id', '', 'class="form-control"') . '</div>');        
+      $contents[] = array('text' => '<div class="checkbox"><label>' . xos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT . '</label></div>');
+      $contents[] = array('text' => '<br /><a href="" onclick="delivery_time.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_INSERT . ' ">' . BUTTON_TEXT_INSERT . '</a><a href="' . xos_href_link(FILENAME_DELIVERY_TIMES, 'page=' . $_GET['page']) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       break;
     case 'edit':
       $heading_title = '<b>' . TEXT_INFO_HEADING_EDIT_DELIVERY_TIME . '</b>';
@@ -59,13 +59,13 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       $delivery_times_inputs_string = '';
       $languages = xos_get_languages();
       for ($i=0, $n=sizeof($languages); $i<$n; $i++) {
-        $delivery_times_inputs_string .= '<br />' . xos_image(DIR_WS_CATALOG_IMAGES . 'catalog/templates/' . DEFAULT_TPL . '/' . $languages[$i]['directory'] . '/' . $languages[$i]['image'], $languages[$i]['name']) . '&nbsp;' . xos_draw_input_field('delivery_times_text[' . $languages[$i]['id'] . ']', xos_get_delivery_times_values($dInfo->delivery_times_id, 'delivery_times_text', $languages[$i]['id']));
+        $delivery_times_inputs_string .= '<br /><div class="input-group"><span class="input-group-addon">' . xos_image(DIR_WS_CATALOG_IMAGES . 'catalog/templates/' . DEFAULT_TPL . '/' . $languages[$i]['directory'] . '/' . $languages[$i]['image'], $languages[$i]['name']) . '</span>' . xos_draw_input_field('delivery_times_text[' . $languages[$i]['id'] . ']', xos_get_delivery_times_values($dInfo->delivery_times_id, 'delivery_times_text', $languages[$i]['id']), 'class="form-control"') . '</div>';
       }
 
       $contents[] = array('text' => '<br />' . TEXT_INFO_DELIVERY_TIMES_TEXT . $delivery_times_inputs_string);
-      $contents[] = array('text' => '<br />' . TEXT_INFO_POPUP_CONTENT_ID . '<br />' . xos_draw_input_field('popup_content_id', ($dInfo->popup_content_id > 0) ? $dInfo->popup_content_id : ''));     
-      if (DEFAULT_DELIVERY_TIMES_ID != $dInfo->delivery_times_id) $contents[] = array('text' => '<br />' . xos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      $contents[] = array('text' => '<br /><a href="" onclick="delivery_time.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_UPDATE . ' "><span>' . BUTTON_TEXT_UPDATE . '</span></a><a href="' . xos_href_link(FILENAME_DELIVERY_TIMES, 'page=' . $_GET['page'] . '&dID=' . $dInfo->delivery_times_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+      $contents[] = array('text' => '<br />' . TEXT_INFO_POPUP_CONTENT_ID . '<br /><div class="form-group">' . xos_draw_input_field('popup_content_id', (($dInfo->popup_content_id > 0) ? $dInfo->popup_content_id : ''), 'class="form-control"') . '</div>');     
+      if (DEFAULT_DELIVERY_TIMES_ID != $dInfo->delivery_times_id) $contents[] = array('text' => '<div class="checkbox"><label>' . xos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT . '</label></div>');
+      $contents[] = array('text' => '<br /><a href="" onclick="delivery_time.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_UPDATE . ' ">' . BUTTON_TEXT_UPDATE . '</a><a href="' . xos_href_link(FILENAME_DELIVERY_TIMES, 'page=' . $_GET['page'] . '&dID=' . $dInfo->delivery_times_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       break;
     case 'delete':
       $heading_title = '<b>' . TEXT_INFO_HEADING_DELETE_DELIVERY_TIME . '</b>';
@@ -73,13 +73,13 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       $form_tag = xos_draw_form('delivery_time', FILENAME_DELIVERY_TIMES, 'page=' . $_GET['page'] . '&dID=' . $dInfo->delivery_times_id  . '&action=deleteconfirm');
       if ($remove_delivery_time) $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);
       $contents[] = array('text' => '<br /><b>' . $dInfo->delivery_times_text . '</b>');
-      $contents[] = array('text' => '<br />' . (($remove_delivery_time) ? '<a href="" onclick="delivery_time.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a>' : '') . '<a href="' . xos_href_link(FILENAME_DELIVERY_TIMES, 'page=' . $_GET['page'] . '&dID=' . $dInfo->delivery_times_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+      $contents[] = array('text' => '<br /><a href="' . xos_href_link(FILENAME_DELIVERY_TIMES, 'page=' . $_GET['page'] . '&dID=' . $dInfo->delivery_times_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a>' . (($remove_delivery_time) ? '<a href="" onclick="delivery_time.submit(); return false" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a>' : '') . '<br />&nbsp;');
       break;
     default:
       if (isset($dInfo) && is_object($dInfo)) {
         $heading_title = '<b>' . $dInfo->delivery_times_text . '</b>';
 
-        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_DELIVERY_TIMES, 'page=' . $_GET['page'] . '&dID=' . $dInfo->delivery_times_id . '&action=edit') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_EDIT . ' "><span>' . BUTTON_TEXT_EDIT . '</span></a><a href="' . xos_href_link(FILENAME_DELIVERY_TIMES, 'page=' . $_GET['page'] . '&dID=' . $dInfo->delivery_times_id . '&action=delete') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a>');
+        $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_DELIVERY_TIMES, 'page=' . $_GET['page'] . '&dID=' . $dInfo->delivery_times_id . '&action=edit') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_EDIT . ' ">' . BUTTON_TEXT_EDIT . '</a><a href="' . xos_href_link(FILENAME_DELIVERY_TIMES, 'page=' . $_GET['page'] . '&dID=' . $dInfo->delivery_times_id . '&action=delete') . '" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a>');
 
         $delivery_times_inputs_string = '';
         $languages = xos_get_languages();

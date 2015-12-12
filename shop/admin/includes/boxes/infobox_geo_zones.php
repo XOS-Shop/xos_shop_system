@@ -39,18 +39,18 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
 
         $form_tag = xos_draw_form('zones', FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&' . (isset($_GET['sID']) ? 'sID=' . $_GET['sID'] . '&' : '') . 'saction=insert_sub');
         $contents[] = array('text' => TEXT_INFO_NEW_SUB_ZONE_INTRO);
-        $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY . '<br />' . xos_draw_pull_down_menu('zone_country_id', xos_get_countries(TEXT_ALL_COUNTRIES), '', 'style="font-size:9px" onchange="update_zone(this.form);"'));
-        $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY_ZONE . '<br />' . xos_draw_pull_down_menu('zone_id', xos_prepare_country_zones_pull_down(), '', 'style="font-size:9px"'));
-        $contents[] = array('text' => '<br /><a href="" onclick="zones.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_INSERT . ' "><span>' . BUTTON_TEXT_INSERT . '</span></a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&' . (isset($_GET['sID']) ? 'sID=' . $_GET['sID'] : '')) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY . '<br /><div class="form-group">' . xos_draw_pull_down_menu('zone_country_id', xos_get_countries(TEXT_ALL_COUNTRIES), '', 'class="form-control" onchange="update_zone(this.form);"') . '</div>');
+        $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY_ZONE . '<br /><div class="form-group">' . xos_draw_pull_down_menu('zone_id', xos_prepare_country_zones_pull_down(), '', 'class="form-control"') . '</div>');
+        $contents[] = array('text' => '<br /><a href="" onclick="zones.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_INSERT . ' ">' . BUTTON_TEXT_INSERT . '</a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&' . (isset($_GET['sID']) ? 'sID=' . $_GET['sID'] : '')) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
         break;
       case 'edit':
         $heading_title = '<b>' . TEXT_INFO_HEADING_EDIT_SUB_ZONE . '</b>';
 
         $form_tag = xos_draw_form('zones', FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id . '&saction=save_sub');
         $contents[] = array('text' => TEXT_INFO_EDIT_SUB_ZONE_INTRO);
-        $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY . '<br />' . xos_draw_pull_down_menu('zone_country_id', xos_get_countries(TEXT_ALL_COUNTRIES), $sInfo->zone_country_id, 'style="font-size:9px" onchange="update_zone(this.form);"'));
-        $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY_ZONE . '<br />' . xos_draw_pull_down_menu('zone_id', xos_prepare_country_zones_pull_down($sInfo->zone_country_id), $sInfo->zone_id, 'style="font-size:9px"'));
-        $contents[] = array('text' => '<br /><a href="" onclick="zones.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_UPDATE . ' "><span>' . BUTTON_TEXT_UPDATE . '</span></a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY . '<br /><div class="form-group">' . xos_draw_pull_down_menu('zone_country_id', xos_get_countries(TEXT_ALL_COUNTRIES), $sInfo->zone_country_id, 'class="form-control" onchange="update_zone(this.form);"') . '</div>');
+        $contents[] = array('text' => '<br />' . TEXT_INFO_COUNTRY_ZONE . '<br /><div class="form-group">' . xos_draw_pull_down_menu('zone_id', xos_prepare_country_zones_pull_down($sInfo->zone_country_id), $sInfo->zone_id, 'class="form-control"') . '</div>');
+        $contents[] = array('text' => '<br /><a href="" onclick="zones.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_UPDATE . ' ">' . BUTTON_TEXT_UPDATE . '</a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
         break;
       case 'delete':
         $heading_title = '<b>' . TEXT_INFO_HEADING_DELETE_SUB_ZONE . '</b>';
@@ -58,13 +58,13 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         $form_tag = xos_draw_form('zones', FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id . '&saction=deleteconfirm_sub');
         $contents[] = array('text' => TEXT_INFO_DELETE_SUB_ZONE_INTRO);
         $contents[] = array('text' => '<br /><b>' . $sInfo->countries_name . '</b>');
-        $contents[] = array('text' => '<br /><a href="" onclick="zones.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br /><a href="" onclick="zones.submit(); return false" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
         break;
       default:
         if (isset($sInfo) && is_object($sInfo)) {
           $heading_title = '<b>' . $sInfo->countries_name . '</b>';
 
-          $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id . '&saction=edit') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_EDIT . ' "><span>' . BUTTON_TEXT_EDIT . '</span></a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id . '&saction=delete') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a>');
+          $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id . '&saction=edit') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_EDIT . ' ">' . BUTTON_TEXT_EDIT . '</a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $_GET['spage'] . '&sID=' . $sInfo->association_id . '&saction=delete') . '" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a>');
           $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . xos_date_short($sInfo->date_added));
           if (xos_not_null($sInfo->last_modified)) $contents[] = array('text' => TEXT_INFO_LAST_MODIFIED . ' ' . xos_date_short($sInfo->last_modified));
         }
@@ -84,9 +84,9 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
             $contents[] = array('text' => '<br />' . sprintf(TEXT_INFO_TAX_ZONE_NAME_ERROR, $_GET['error_name']) . '<br />');
           }  
         }        
-        $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br />' . xos_draw_input_field('geo_zone_name', $_GET['geo_zone_name']));
-        $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_DESCRIPTION . '<br />' . xos_draw_input_field('geo_zone_description', $_GET['geo_zone_description']));
-        $contents[] = array('text' => '<br /><a href="" onclick="zones.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_INSERT . ' "><span>' . BUTTON_TEXT_INSERT . '</span></a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID']) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br /><div class="form-group">' . xos_draw_input_field('geo_zone_name', $_GET['geo_zone_name'], 'class="form-control"') . '</div>');
+        $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_DESCRIPTION . '<br /><div class="form-group">' . xos_draw_input_field('geo_zone_description', $_GET['geo_zone_description'], 'class="form-control"') . '</div>');
+        $contents[] = array('text' => '<br /><a href="" onclick="zones.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_INSERT . ' ">' . BUTTON_TEXT_INSERT . '</a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $_GET['zID']) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
         break;
 // Steuerzone kann nicht geaendert werden, wenn bereits zugeortnet        
 /*        
@@ -104,12 +104,12 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
               $contents[] = array('text' => '<br />' . sprintf(TEXT_INFO_TAX_ZONE_NAME_ERROR, $_GET['error_name']) . '<br />');
             }  
           }          
-          $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br />' . xos_draw_input_field('geo_zone_name', (isset($_GET['geo_zone_name']) ? $_GET['geo_zone_name'] : $zInfo->geo_zone_name)) . xos_draw_hidden_field('actual_geo_zone_name', $zInfo->geo_zone_name));
+          $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br /><div class="form-group">' . xos_draw_input_field('geo_zone_name', (isset($_GET['geo_zone_name']) ? $_GET['geo_zone_name'] : $zInfo->geo_zone_name), 'class="form-control"') . '</div>' . xos_draw_hidden_field('actual_geo_zone_name', $zInfo->geo_zone_name));
         } else {
           $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br /><b>' . $zInfo->geo_zone_name . '</b>' . xos_draw_hidden_field('geo_zone_name', $zInfo->geo_zone_name) . xos_draw_hidden_field('actual_geo_zone_name', $zInfo->geo_zone_name));
         }
-        $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_DESCRIPTION . '<br />' . xos_draw_input_field('geo_zone_description', (isset($_GET['geo_zone_description']) ? $_GET['geo_zone_description'] : $zInfo->geo_zone_description)));
-        $contents[] = array('text' => '<br /><a href="" onclick="zones.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_UPDATE . ' "><span>' . BUTTON_TEXT_UPDATE . '</span></a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_DESCRIPTION . '<br /><div class="form-group">' . xos_draw_input_field('geo_zone_description', (isset($_GET['geo_zone_description']) ? $_GET['geo_zone_description'] : $zInfo->geo_zone_description), 'class="form-control"') . '</div>');
+        $contents[] = array('text' => '<br /><a href="" onclick="zones.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_UPDATE . ' ">' . BUTTON_TEXT_UPDATE . '</a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
         break;
 */
 
@@ -126,9 +126,9 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
             $contents[] = array('text' => '<br />' . sprintf(TEXT_INFO_TAX_ZONE_NAME_ERROR, $_GET['error_name']) . '<br />');
           }  
         }          
-        $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br />' . xos_draw_input_field('geo_zone_name', (isset($_GET['geo_zone_name']) ? $_GET['geo_zone_name'] : $zInfo->geo_zone_name)) . xos_draw_hidden_field('actual_geo_zone_name', $zInfo->geo_zone_name));
-        $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_DESCRIPTION . '<br />' . xos_draw_input_field('geo_zone_description', (isset($_GET['geo_zone_description']) ? $_GET['geo_zone_description'] : $zInfo->geo_zone_description)));
-        $contents[] = array('text' => '<br /><a href="" onclick="zones.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_UPDATE . ' "><span>' . BUTTON_TEXT_UPDATE . '</span></a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+        $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_NAME . '<br /><div class="form-group">' . xos_draw_input_field('geo_zone_name', (isset($_GET['geo_zone_name']) ? $_GET['geo_zone_name'] : $zInfo->geo_zone_name), 'class="form-control"') . '</div>' . xos_draw_hidden_field('actual_geo_zone_name', $zInfo->geo_zone_name));
+        $contents[] = array('text' => '<br />' . TEXT_INFO_ZONE_DESCRIPTION . '<br /><div class="form-group">' . xos_draw_input_field('geo_zone_description', (isset($_GET['geo_zone_description']) ? $_GET['geo_zone_description'] : $zInfo->geo_zone_description), 'class="form-control"') . '</div>');
+        $contents[] = array('text' => '<br /><a href="" onclick="zones.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_UPDATE . ' ">' . BUTTON_TEXT_UPDATE . '</a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
         break;        
       case 'delete_zone':
         $check_query = xos_db_query("select tax_zone_id from " . TABLE_TAX_RATES . " where tax_zone_id = '" . $zInfo->geo_zone_id . "' LIMIT 1");
@@ -138,17 +138,17 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
           $form_tag = xos_draw_form('zones', FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id . '&action=deleteconfirm_zone');
           $contents[] = array('text' => TEXT_INFO_DELETE_ZONE_INTRO);
           $contents[] = array('text' => '<br /><b>' . $zInfo->geo_zone_name . '</b>');
-          $contents[] = array('text' => '<br /><a href="" onclick="zones.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
+          $contents[] = array('text' => '<br /><a href="" onclick="zones.submit(); return false" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
         } else {
           $contents[] = array('text' => TEXT_INFO_DELETE_NOT_ALLOWED . '<br /><br />');
-          $contents[] = array('text' => '<br /><a href="' . xos_href_link(FILENAME_GEO_ZONES, xos_get_all_get_params(array('action'))) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_BACK . ' "><span>' . BUTTON_TEXT_BACK . '</span></a><br />&nbsp;');
+          $contents[] = array('text' => '<br /><a href="' . xos_href_link(FILENAME_GEO_ZONES, xos_get_all_get_params(array('action'))) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_BACK . ' ">' . BUTTON_TEXT_BACK . '</a><br />&nbsp;');
         }        
         break;
       default:
         if (isset($zInfo) && is_object($zInfo)) {
           $heading_title = '<b>' . $zInfo->geo_zone_name . '</b>';
 
-          $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id . '&action=edit_zone') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_EDIT . ' "><span>' . BUTTON_TEXT_EDIT . '</span></a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id . '&action=delete_zone') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DELETE . ' "><span>' . BUTTON_TEXT_DELETE . '</span></a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id . '&action=list') . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_DETAILS . ' "><span>' . BUTTON_TEXT_DETAILS . '</span></a>');
+          $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id . '&action=edit_zone') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_EDIT . ' ">' . BUTTON_TEXT_EDIT . '</a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id . '&action=delete_zone') . '" class="btn btn-danger btn-margin-infobox" title=" ' . BUTTON_TITLE_DELETE . ' ">' . BUTTON_TEXT_DELETE . '</a><a href="' . xos_href_link(FILENAME_GEO_ZONES, 'zpage=' . $_GET['zpage'] . '&zID=' . $zInfo->geo_zone_id . '&action=list') . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_DETAILS . ' ">' . BUTTON_TEXT_DETAILS . '</a>');
           $contents[] = array('text' => '<br />' . TEXT_INFO_NUMBER_ZONES . ' ' . $zInfo->num_zones);
           $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . xos_date_short($zInfo->date_added));
           if (xos_not_null($zInfo->last_modified)) $contents[] = array('text' => TEXT_INFO_LAST_MODIFIED . ' ' . xos_date_short($zInfo->last_modified));

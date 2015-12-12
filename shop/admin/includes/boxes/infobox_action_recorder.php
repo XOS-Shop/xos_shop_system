@@ -37,7 +37,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       if (isset($aInfo) && is_object($aInfo)) {
         $heading_title = '<b>' . $aInfo->module . '</b>';
 
-        $contents[] = array('text' => TEXT_INFO_IDENTIFIER . '<br /><br />' . (!empty($aInfo->identifier) ? '<a href="' . xos_href_link(FILENAME_ACTION_RECORDER, 'search=' . $aInfo->identifier) . '"><u>' . xos_output_string_protected($aInfo->identifier) . '</u></a>': '(empty)'));
+        $contents[] = array('text' => TEXT_INFO_IDENTIFIER . '<br />' . (!empty($aInfo->identifier) ? '<a href="' . xos_href_link(FILENAME_ACTION_RECORDER, 'search=' . $aInfo->identifier) . '"><u>' . xos_output_string_protected($aInfo->identifier) . '</u></a>': '(empty)'));
         $contents[] = array('text' => '<br />' . TEXT_INFO_DATE_ADDED . ' ' . xos_datetime_short($aInfo->date_added));
       }
       break;

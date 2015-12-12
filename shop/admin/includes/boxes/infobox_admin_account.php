@@ -45,8 +45,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       if ($_GET['error']) {
         $contents[] = array('text' => TEXT_INFO_INTRO_CONFIRM_PASSWORD_ERROR);
       }
-      $contents[] = array('text' => xos_draw_password_field('password_confirmation'));
-      $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_ADMIN_ACCOUNT) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_BACK . ' "><span>' . BUTTON_TEXT_BACK . '</span></a><a href="" onclick="account.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CONFIRM . ' "><span>' . BUTTON_TEXT_CONFIRM . '</span></a><br />&nbsp;');
+      $contents[] = array('text' => '<div class="form-group">' . xos_draw_password_field('password_confirmation', '', false, 'class="form-control"') . '</div>');
+      $contents[] = array('text' => '<a href="' . xos_href_link(FILENAME_ADMIN_ACCOUNT) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_BACK . ' ">' . BUTTON_TEXT_BACK . '</a><a href="" onclick="account.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CONFIRM . ' ">' . BUTTON_TEXT_CONFIRM . '</a><br />&nbsp;');
       break;
     default:
       $heading_title = '<b>' . TEXT_INFO_HEADING_DEFAULT . '</b>';
