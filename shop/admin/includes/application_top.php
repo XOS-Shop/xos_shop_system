@@ -124,17 +124,17 @@
 // require the smarty class and create an instance
   require(DIR_FS_SMARTY . 'Smarty-3.1.27/Smarty.class.php');  
   $smarty = new Smarty();
-  $smarty->template_dir = DIR_FS_SMARTY . 'admin/templates/';
-  $smarty->compile_dir = DIR_FS_SMARTY . 'admin/templates_c/';
-  $smarty->config_dir = DIR_FS_SMARTY . 'admin/';
-  $smarty->cache_dir = DIR_FS_SMARTY . 'admin/cache/';
+  $smarty->setTemplateDir(DIR_FS_SMARTY . 'admin/templates/');
+  $smarty->setCompileDir(DIR_FS_SMARTY . 'admin/templates_c/');
+  $smarty->setConfigDir(DIR_FS_SMARTY . 'admin/');
+  $smarty->setCacheDir(DIR_FS_SMARTY . 'admin/cache/');
   $smarty->left_delimiter = '[@{';
   $smarty->right_delimiter = '}@]';
   
 // and create an smarty instance for cache control  
   $smarty_cache_control = new Smarty();
-  $smarty_cache_control->compile_dir = DIR_FS_SMARTY . 'catalog/templates_c/';
-  $smarty_cache_control->cache_dir = DIR_FS_SMARTY . 'catalog/cache/';       
+  $smarty_cache_control->setCompileDir(DIR_FS_SMARTY . 'catalog/templates_c/');
+  $smarty_cache_control->setCacheDir(DIR_FS_SMARTY . 'catalog/cache/');       
 
 // if gzip_compression is enabled, start to buffer the output 
   if ( (GZIP_COMPRESSION == 'true') && ($_GET['action'] != 'download') && ($_GET['action'] != 'backupnow') && ($ext_zlib_loaded = extension_loaded('zlib'))) {
@@ -313,12 +313,12 @@
   
   $smarty->compile_check = false;
   $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'general');     
-  $smarty->configLoad('templates/' . ADMIN_TPL . '/includes/configuration/config.conf');
+  $smarty->configLoad('templates/' . ADMIN_TPL . '/includes/configuration/config.conf'); 
 //  $smarty->loadFilter('output','trimwhitespace');
   $smarty->assign(array('images_path' => DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/',
                         'request_type' => $request_type,
                         'project_title' => PROJECT_TITLE,
                         'project_logo' => PROJECT_LOGO,
                         'end_tags' => (DISPLAY_PAGE_PARSE_TIME == 'true' && STORE_PAGE_PARSE_TIME == 'true' ? '' : "</body>\n</html>"),
-                        'nl' => "\n"));
+                        'nl' => "\n")); 
 ?>

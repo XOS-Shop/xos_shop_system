@@ -110,10 +110,10 @@
 // require the smarty class and create an instance
   require(DIR_FS_SMARTY . 'Smarty-3.1.27/Smarty.class.php');  
   $smarty = new Smarty();
-  $smarty->template_dir = DIR_FS_SMARTY . 'catalog/templates/';
-  $smarty->compile_dir = DIR_FS_SMARTY . 'catalog/templates_c/';
-  $smarty->config_dir = DIR_FS_SMARTY . 'catalog/';
-  $smarty->cache_dir = DIR_FS_SMARTY . 'catalog/cache/';  
+  $smarty->setTemplateDir(DIR_FS_SMARTY . 'catalog/templates/');
+  $smarty->setCompileDir(DIR_FS_SMARTY . 'catalog/templates_c/');
+  $smarty->setConfigDir(DIR_FS_SMARTY . 'catalog/');
+  $smarty->setCacheDir(DIR_FS_SMARTY . 'catalog/cache/');  
   $smarty->left_delimiter = '[@{';
   $smarty->right_delimiter = '}@]';      
 
