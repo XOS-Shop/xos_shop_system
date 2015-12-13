@@ -552,7 +552,8 @@ abstract class Smarty_Internal_TemplateCompilerBase
                             if (!is_array($function)) {
                                 return $function($new_args, $this);
                             } elseif (is_object($function[0])) {
-                                return $this->smarty->registered_plugins[$plugin_type][$tag][0][0]->$function[1]($new_args, $this);
+                                // return $this->smarty->registered_plugins[$plugin_type][$tag][0][0]->$function[1]($new_args, $this);
+                                return $this->smarty->registered_plugins[$plugin_type][$tag][0][0]->{$function[1]}($new_args, $this); // update for PHP 7 compatibility  https://github.com/smarty-php/smarty/commit/c9f2a0d26eca4d5587efa2a0e1d18fbd61a8c303
                             } else {
                                 return call_user_func_array($function, array($new_args, $this));
                             }
