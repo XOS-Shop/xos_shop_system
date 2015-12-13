@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : xs_admin
-* version    : 1.0.7 for XOS-Shop version 1.0 rc8
+* version    : 1.0.7 for XOS-Shop version 1.0.1
 * descrip    : xos-shop default template for admin with css-buttons
 *              and tables for layout                                                                     
 * filename   : infobox_action_recorder.tpl

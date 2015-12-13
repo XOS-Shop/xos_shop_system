@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : darkly-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0 rc8
+* version    : 1.0.7 for XOS-Shop version 1.0.1
 * descrip    : xos-shop template built with Bootstrap3 and theme darkly                                                                    
 * filename   : also_purchased_products.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
