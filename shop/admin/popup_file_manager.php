@@ -216,7 +216,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
   } elseif ($action == 'view') {
     
-    $ws_path = str_replace($dir_fs_document_root, DIR_WS_CATALOG, $_SESSION['current_path']);
+    $ws_path = str_replace(DIR_FS_DOCUMENT_ROOT, DIR_WS_CATALOG, $_SESSION['current_path']);
     $ws_path .= (substr($ws_path, -1) != '/') ? '/' : '';  
           
     $smarty->assign(array('image_view' => true,

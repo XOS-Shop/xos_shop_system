@@ -33,7 +33,7 @@
         if (isset($fInfo) && is_object($fInfo)) {
           $heading_title = '<b>' . $fInfo->name . '</b>';
 
-          $ws_path = str_replace($dir_fs_document_root, DIR_WS_CATALOG, $_SESSION['current_path']);
+          $ws_path = str_replace(DIR_FS_DOCUMENT_ROOT, DIR_WS_CATALOG, $_SESSION['current_path']);
           if (substr($ws_path, -1) != '/') $ws_path = $ws_path . '/';
 
           if (!($fInfo->is_dir || $fInfo->is_image)) {
