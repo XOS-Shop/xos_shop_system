@@ -28,7 +28,7 @@
 *}@]
 <!-- header -->
       <header class="main-header">
-        <a href="../../index2.html" class="logo">
+        <a href="[@{$link_filename_default}@]" class="logo">
           <span class="logo-mini">XOS</span>
           <span class="logo-lg">XOS-Shop Admin</span>
         </a>
