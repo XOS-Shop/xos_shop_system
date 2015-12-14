@@ -198,6 +198,7 @@ insert into banners (banners_id, banners_group, expires_impressions, expires_dat
 insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('3', 'column_1', '0', NULL, NULL, date_sub(now(),interval 1 day), NULL, '0');
 insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('4', 'column_2', '0', NULL, NULL, date_sub(now(),interval 1 day), NULL, '1');
 insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('5', 'column_1', '0', NULL, NULL, date_sub(now(),interval 1 day), NULL, '0');
+insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('6', 'logo', '0', NULL, NULL, date_sub(now(),interval 1 day), NULL, '0');
 
 drop table if exists banners_content;
 create table banners_content (
@@ -226,6 +227,9 @@ insert into banners_content (banners_id, language_id, banners_title, banners_url
 insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('5', '2', 'valid-css21', 'http://jigsaw.w3.org/css-validator/check/referer', 'valid-css21.gif', '', NULL);
 insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('5', '1', 'valid-css21', 'http://jigsaw.w3.org/css-validator/check/referer', 'valid-css21.gif', '', NULL);
 insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('5', '3', 'valid-css21', 'http://jigsaw.w3.org/css-validator/check/referer', 'valid-css21.gif', '', NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('6', '1', 'Logo', '', '', '<p><span style=\"font-size:48px;\">Logo</span>&nbsp; &nbsp; <code class=\"text-nowrap\">Tools -&gt; Banner Manager [Banner Group \"logo\"]</code></p>',  NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('6', '2', 'Logo', '', '', '<p><span style=\"font-size:48px;\">Logo</span>&nbsp; &nbsp; <code class=\"text-nowrap\">Hilfsprogramme -&gt; Banner Manager [Banner-Gruppe \"logo\"]</code></p>',  NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('6', '3', 'Logo', '', '', '<p><span style=\"font-size:48px;\">Logo</span>&nbsp; &nbsp; <code class=\"text-nowrap\">Herramientas -&gt; Administrador de Banners [Grupo \"logo\"]</code></p>',  NULL);
 
 drop table if exists banners_history;
 create table banners_history (

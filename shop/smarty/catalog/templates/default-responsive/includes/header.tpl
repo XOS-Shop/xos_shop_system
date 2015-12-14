@@ -90,7 +90,11 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
+    [@{if $header_banner_logo}@]
+      [@{$header_banner_logo}@]
+    [@{else}@]
       <a href="[@{$header_link_filename_default}@]"><img class="img-responsive" src="[@{$images_path}@]shop_logo.gif" alt="[@{$header_store_name}@]" title=" [@{$header_store_name}@] " /></a>
+    [@{/if}@]
     </div>  
   </div>   
 </div>
