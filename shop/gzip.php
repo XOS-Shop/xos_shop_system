@@ -23,18 +23,22 @@ if (isset($_GET['file']) && isset($_GET['type']) && in_array(substr($_GET['file'
     switch ($_GET['type']) {
         case 'css':       
             header('Content-Type: text/css');
+            header('Cache-Control: max-age=604800, public'); // if 'Cache-Control' is needed
         break;
   
         case 'js':       
             header('Content-Type: text/javascript');
+            header('Cache-Control: max-age=216000, private'); // if 'Cache-Control' is needed
         break;
 
         case 'svg':
             header('Content-Type: image/svg+xml');
+            header('Cache-Control: max-age=2592000, public'); // if 'Cache-Control' is needed
         break;
 
         case 'ttf':        
             header('Content-Type: application/x-font-ttf');
+            header('Cache-Control: max-age=2592000, public'); // if 'Cache-Control' is needed
         break;
     }
 
