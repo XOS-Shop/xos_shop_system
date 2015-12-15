@@ -27,7 +27,7 @@
 ********************************************************************************
 *}@]
 [@{$html_header}@]
-<body class="hold-transition skin-purple sidebar-collapse" onload="adjustHeight();">
+<body class="hold-transition skin-purple sidebar-collapse">
 <!-- popup_forbidden --> 
       <div class="content-wrapper">  
         <section class="content-header"> 
