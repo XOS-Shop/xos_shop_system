@@ -72,9 +72,7 @@
 </head>
 <body style="text-align : left;">
           <div style="margin: 0 6px 0 6px; min-width : 250px; text-align : left;">
-            <h1 class="text-orange">[@{$heading_title}@]</h1>        
-            <div class="div-spacer-h10"></div>          
+            <h1 class="text-orange">[@{$heading_title}@]</h1>               
             <div>[@{$content}@]</div>
-            <div class="div-spacer-h10"></div>
           </div>
 [@{$end_tags}@]
