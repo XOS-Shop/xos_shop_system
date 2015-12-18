@@ -63,9 +63,9 @@
 // require the smarty class and create an instance
     require('../../smarty/Smarty-3.1.27/Smarty.class.php');  
     $smarty = new Smarty(); 
-    $smarty->template_dir = '../templates/' . INSTALL_TPL . '/';
-    $smarty->config_dir = '../templates/' . INSTALL_TPL . '/';
-    $smarty->compile_dir = '../templates_c/';
+    $smarty->setTemplateDir('../templates/' . INSTALL_TPL . '/');
+    $smarty->setConfigDir('../templates/' . INSTALL_TPL . '/');
+    $smarty->setCompileDir('../templates_c/');    
 
     $smarty->assign(array('images_path' => 'templates/' . INSTALL_TPL . '/images/',
                           'buttons_path' => 'templates/' . INSTALL_TPL . '/images/' . $_POST['language_directory'] . '/buttons/'));  
