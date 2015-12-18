@@ -62,7 +62,7 @@
     }
 
     function timer_display() {
-      return "<span style=\"font-family : Verdana, Arial, sans-serif; font-size : 10px; vertical-align: bottom;\">Parse Time: " . $this->timer_total . "s</span>\n</body>\n</html>";
+      return "<span class=\"display-parse-time\" style=\"font-family : Verdana, Arial, sans-serif; font-size : 10px; vertical-align: bottom;\">Parse Time: " . $this->timer_total . "s</span>\n</body>\n</html>";
     }
 
     function write($message, $type) {

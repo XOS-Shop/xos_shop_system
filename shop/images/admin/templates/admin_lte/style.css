@@ -70,3 +70,4 @@
 .form-element-required { display: inline-block; }
 .in-out-value { line-height: 34px; }
 .old-select-in-it select { font-size: 12px !important; width: 100% !important; min-width: 250px !important; }
+.display-parse-time { display: block !important; text-align: right !important; margin-right: 10px !important; margin-bottom: 5px !important; }
