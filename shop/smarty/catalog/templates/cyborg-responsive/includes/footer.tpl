@@ -29,6 +29,10 @@
 <div style="padding: 4px; text-align: center;">[@{$footer_banner_footer}@]</div>
 [@{/if}@]
 <div class="clearfix invisible"></div>
+[@{if $footer_banner_footer_bottom}@]
+[@{$footer_banner_footer_bottom}@]
+[@{else}@]
 <div class="footer" style="white-space: nowrap; padding: 2px; text-align: left; float: left">[@{$footer_counter_now}@] [@{#footer_text_requests_since#}@] [@{$footer_counter_startdate}@]</div>
 <div style="white-space: nowrap; padding: 2px; text-align: right; float: right;">Copyright © 2012 <a href="http://www.xos-shop.com"  target="_blank">XOS-Shop</a>&nbsp;&nbsp;Powered by <a href="http://www.xos-shop.com"  target="_blank">XOS-Shop</a></div>
 <div class="clearfix invisible"></div>
+[@{/if}@]
