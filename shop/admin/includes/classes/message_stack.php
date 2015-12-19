@@ -49,24 +49,13 @@
     function add($class, $message, $type = 'error') {
 
       if ($type == 'error') {
-        $this->messages[] = array('class' => $class, 'text' => '  <tr class="messageStackError">' . "\n" .
-                                                               '    <td valign="top" class="messageStackError" width="1">' . xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icons/error.gif', ICON_TITLE_ERROR) . '</td>' . "\n" . 
-                                                               '    <td class="messageStackError">' . $message . '</td>' . "\n" .
-                                                               '  </tr>' . "\n");
+        $this->messages[] = array('class' => $class, 'type' => $type, 'text' => '<p>' . $message . '</p>' . "\n");
       } elseif ($type == 'warning') {
-        $this->messages[] = array('class' => $class, 'text' => '  <tr class="messageStackWarning">' . "\n" .
-                                                               '    <td valign="top" class="messageStackWarning" width="1">' . xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icons/warning.gif', ICON_TITLE_WARNING) . '</td>' . "\n" . 
-                                                               '    <td class="messageStackWarning">' . $message . '</td>' . "\n" .
-                                                               '  </tr>' . "\n");
+        $this->messages[] = array('class' => $class, 'type' => $type, 'text' => '<p>' . $message . '</p>' . "\n");
       } elseif ($type == 'success') {
-        $this->messages[] = array('class' => $class, 'text' => '  <tr class="messageStackSuccess">' . "\n" .
-                                                               '    <td valign="top" class="messageStackSuccess" width="1">' . xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/icons/success.gif', ICON_TITLE_SUCCESS) . '</td>' . "\n" . 
-                                                               '    <td class="messageStackSuccess">' . $message . '</td>' . "\n" .
-                                                               '  </tr>' . "\n");
+        $this->messages[] = array('class' => $class, 'type' => $type, 'text' => '<p>' . $message . '</p>' . "\n");
       } else {
-        $this->messages[] = array('class' => $class, 'text' => '  <tr class="messageStackError">' . "\n" .
-                                                               '    <td colspan="2" class="messageStackError">' . $message . '&nbsp;</td>' . "\n" .
-                                                               '  </tr>' . "\n");
+        $this->messages[] = array('class' => $class, 'type' => $type, 'text' => '<p>' . $message . '</p>' . "\n");
       }      
     }
 
@@ -83,26 +72,25 @@
       $this->messages = array();
     }
 
-    function output($class) {
+    function output($class, $type = '') {
     
 //      if ($this->size($class) == 0) return false;
 
-      $table_string = '<table border="0" width="100%" cellspacing="0" cellpadding="2">' . "\n";      
+      $output_string = '';      
       for ($i=0, $n=sizeof($this->messages); $i<$n; $i++) {
-        if ($this->messages[$i]['class'] == $class) {
-          $table_string .= $this->messages[$i]['text'];
+        if ($this->messages[$i]['class'] == $class && ($this->messages[$i]['type'] == $type || $type == '')) {
+          $output_string .= $this->messages[$i]['text'];
         }
       }      
-      $table_string .= '</table>' . "\n";
 
-      return $table_string;
+      return $output_string;
     }
 
-    function size($class) {
+    function size($class, $type = '') {
       $count = 0;
 
       for ($i=0, $n=sizeof($this->messages); $i<$n; $i++) {
-        if ($this->messages[$i]['class'] == $class) {
+        if ($this->messages[$i]['class'] == $class && ($this->messages[$i]['type'] == $type || $type == '')) {
           $count++;
         }
       }

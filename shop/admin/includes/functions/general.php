@@ -989,11 +989,11 @@ function xos_selected_file($filename) {
 ////
 // Alias function for Store configuration values in the Administration Tool
   function xos_cfg_pull_down_country_list($country_id) {
-    return xos_draw_pull_down_menu('configuration_value', xos_get_countries(), $country_id, 'style="font-size:9px"');
+    return '<div class="form-group">' . xos_draw_pull_down_menu('configuration_value', xos_get_countries(), $country_id, 'class="form-control"') . '</div>';
   }
 
   function xos_cfg_pull_down_zone_list($zone_id) {
-    return xos_draw_pull_down_menu('configuration_value', xos_get_country_zones(STORE_COUNTRY), $zone_id, 'style="font-size:9px"');
+    return '<div class="form-group">' . xos_draw_pull_down_menu('configuration_value', xos_get_country_zones(STORE_COUNTRY), $zone_id, 'class="form-control"') . '</div>';
   }
 
   function xos_cfg_pull_down_tax_classes($tax_class_id, $key = '') {
@@ -1006,7 +1006,7 @@ function xos_selected_file($filename) {
                                  'text' => $tax_class['tax_class_title']);
     }
 
-    return xos_draw_pull_down_menu($name, $tax_class_array, $tax_class_id);
+    return '<div class="form-group">' . xos_draw_pull_down_menu($name, $tax_class_array, $tax_class_id, 'class="form-control"') . '</div>';
   }
   
   function xos_cfg_pull_down_templates() {
@@ -1019,7 +1019,7 @@ function xos_selected_file($filename) {
     }    
     
     sort($tpl_array);
-    return xos_draw_pull_down_menu('configuration_value', $tpl_array, DEFAULT_TPL);
+    return '<div class="form-group">' . xos_draw_pull_down_menu('configuration_value', $tpl_array, DEFAULT_TPL, 'class="form-control"') . '</div>';
   } 
 
   function xos_cfg_checkbox_templates() {
@@ -1040,7 +1040,7 @@ function xos_selected_file($filename) {
     $tpl_array_1 = array();
     while  (($tpl = readdir($handle)) !== false) {
       if ((in_array($tpl, $tpl_array)) && (is_dir(DIR_FS_SMARTY . 'catalog/templates/' . $tpl)) && ($tpl != '.') && ($tpl != '..')) {
-        $tpl_array_1[] =  xos_draw_checkbox_field('configuration_value[]', $tpl, (in_array($tpl, $registered_tpls_array) ? true : false), '', ($tpl == DEFAULT_TPL ? 'disabled="disabled"' : '')) . $tpl . ($tpl == DEFAULT_TPL ? xos_draw_hidden_field('configuration_value[]', $tpl) . '<br />' : '<br />') . "\n";
+        $tpl_array_1[] =  '<div class="checkbox"><label>' . xos_draw_checkbox_field('configuration_value[]', $tpl, (in_array($tpl, $registered_tpls_array) ? true : false), '', ($tpl == DEFAULT_TPL ? 'disabled="disabled"' : '')) . $tpl . ($tpl == DEFAULT_TPL ? xos_draw_hidden_field('configuration_value[]', $tpl) . '</label></div>' : '</label></div>') . "\n";
       }
     }
     closedir($handle);
@@ -1048,14 +1048,13 @@ function xos_selected_file($filename) {
     sort($tpl_array_1);    
     $tpl_string = "\n";  
     $tpl_string .= implode($tpl_array_1);           
-    return $tpl_string;
+    return '<div class="form-group">' . $tpl_string . '</div>';
   } 
-  
-////
+
 // Function to read in text area in admin
  function xos_cfg_textarea($text, $key = '') {
     $name = (($key) ? 'configuration[' . $key . ']' : 'configuration_value');
-    return xos_draw_textarea_field($name, 35, 5, $text);
+    return '<div class="form-group">' . xos_draw_textarea_field($name, '', 5, $text, 'class="form-control"') . '</div>';
  }
 
   function xos_cfg_get_zone_name($zone_id) {
@@ -1138,14 +1137,14 @@ function xos_selected_file($filename) {
     for ($i=0, $n=sizeof($select_array); $i<$n; $i++) {
       $name = ((xos_not_null($key)) ? 'configuration[' . $key . ']' : 'configuration_value');
 
-      $string .= '<br /><input type="radio" name="' . $name . '" value="' . $select_array[$i] . '"';
+      $string .= '<div class="radio"><label><input type="radio" name="' . $name . '" value="' . $select_array[$i] . '"';
 
       if ($key_value == $select_array[$i]) $string .= ' checked="checked"';
 
-      $string .= ' /> ' . $select_array[$i];
+      $string .= ' /> ' . $select_array[$i] . '</label></div>';
     }
 
-    return $string;
+    return '<div class="form-group">' . $string . '</div>';
   }
 
 ////
@@ -1569,7 +1568,7 @@ function xos_selected_file($filename) {
                                   'text' => $zone_class['geo_zone_name']);
     }
 
-    return xos_draw_pull_down_menu($name, $zone_class_array, $zone_class_id);
+    return '<div class="form-group">' . xos_draw_pull_down_menu($name, $zone_class_array, $zone_class_id, 'class="form-control"') . '</div>';
   }
 
   function xos_cfg_pull_down_order_statuses($order_status_id, $key = '') {
@@ -1583,7 +1582,7 @@ function xos_selected_file($filename) {
                                 'text' => $statuses['orders_status_name']);
     }
 
-    return xos_draw_pull_down_menu($name, $statuses_array, $order_status_id);
+    return '<div class="form-group">' . xos_draw_pull_down_menu($name, $statuses_array, $order_status_id, 'class="form-control"') . '</div>';
   }
 
   function xos_get_order_status_name($order_status_id, $language_id = '') {
