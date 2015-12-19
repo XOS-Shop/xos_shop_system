@@ -33,41 +33,41 @@
               Released under the GNU General Public License 
 ----------------------------------------------------------------------------- */
 
-.infobox-wrapper { padding-left: 1px; }
-.btn-margin-infobox { margin: 3px; }
-.btn-margin-attributes { margin: 0 1px; }
-.btn-margin-attribut_list { margin: 4px 0 0 4px; }
-.btn-margin-after-pagination { margin: 10px; }
-.data-table-wrapper { padding-right: 1px; }
-.data-table-heading-row:hover { background-color: #ffffff !important; }
-.data-table-row { cursor: pointer; }
-.data-table-rows-elected { background-color: #e8e8e8; cursor: pointer; }
-.pagination-wrapper { margin: 10px; }
-.form-lng-flag { margin: 5px 0 10px 12px; }
-.radio-wrapper-in-form-horizontal-first { margin-left: 20px; }
-.radio-wrapper-in-form-horizontal-not-first { margin-left: 30px; }
-.text-embed-php-code-wrapper { margin-top: 30px; padding: 20px 0 20px 0; border-top: 1px solid #d2d6de; }
-.icon-arrow-down { cursor: pointer; }
-.ui-datepicker{ z-index: 99 !important; }
-.price-table td { white-space: nowrap; padding: 0 10px 0 0; }
-.price-table input { display: inline-block; margin: 1px; }
-.input-price { width: 85px; }
-.price-break-input-quantity { width: 40px; }
-.attributes-value-input-price-prefix { width: 30px; }
-.table td { white-space: normal !important; }
-.table th { white-space: nowrap !important; }
-.attribute_lists td, .attributes_qty_list td { padding: 2px 0; white-space: nowrap !important; }
-.rating-text-bad { color: red; font-weight: bold; font-size: 85%; vertical-align: text-top; }
-.rating-text-good { color: green; font-weight: bold; font-size: 85%; vertical-align: text-top; }
-.rating-text input { margin: 0 10px 0 10px }
-.table-order { width: 100%; }
-.table-order-products { width: 100%; }
-.table-order td, .table-order th { vertical-align: top; white-space: nowrap; }
-.table-define-language { width: 100%; }
-.table-define-language td { padding: 0 10px 0 0; }
-.fa-chevron-up.active, .fa-chevron-down.active { color: red; }
-.fieldRequired, .errorText { color: #ff0000; font-size: 12px; }
-.form-element-required { display: inline-block; }
-.in-out-value { line-height: 34px; }
-.old-select-in-it select { font-size: 12px !important; width: 100% !important; min-width: 250px !important; }
-.display-parse-time { display: block !important; text-align: right !important; margin-right: 10px !important; margin-bottom: 5px !important; }
+.infobox-wrapper {padding-left: 1px;}
+.btn-margin-infobox {margin: 3px;}
+.btn-margin-attributes {margin: 0 1px;}
+.btn-margin-attribut_list {margin: 4px 0 0 4px;}
+.btn-margin-after-pagination {margin: 10px;}
+.data-table-wrapper {padding-right: 1px;}
+.data-table-heading-row:hover {background-color: #ffffff !important;}
+.data-table-row {cursor: pointer;}
+.data-table-rows-elected {background-color: #e8e8e8; cursor: pointer;}
+.pagination-wrapper {margin: 10px;}
+.form-lng-flag {margin: 5px 0 10px 12px;}
+.radio-wrapper-in-form-horizontal-first {margin-left: 20px;}
+.radio-wrapper-in-form-horizontal-not-first {margin-left: 30px;}
+.text-embed-php-code-wrapper {margin-top: 30px; padding: 20px 0 20px 0; border-top: 1px solid #d2d6de;}
+.icon-arrow-down {cursor: pointer;}
+.ui-datepicker{z-index: 99 !important;}
+.price-table td {white-space: nowrap; padding: 0 10px 0 0;}
+.price-table input {display: inline-block; margin: 1px;}
+.input-price {width: 85px;}
+.price-break-input-quantity {width: 40px;}
+.attributes-value-input-price-prefix {width: 30px;}
+.table td {white-space: normal !important;}
+.table th {white-space: nowrap !important;}
+.attribute_lists td, .attributes_qty_list td {padding: 2px 0; white-space: nowrap !important;}
+.rating-text-bad {color: red; font-weight: bold; font-size: 85%; vertical-align: text-top;}
+.rating-text-good {color: green; font-weight: bold; font-size: 85%; vertical-align: text-top;}
+.rating-text input {margin: 0 10px 0 10px}
+.table-order {width: 100%;}
+.table-order-products {width: 100%;}
+.table-order td, .table-order th {vertical-align: top; white-space: nowrap;}
+.table-define-language {width: 100%;}
+.table-define-language td {padding: 0 10px 0 0;}
+.fa-chevron-up.active, .fa-chevron-down.active {color: red;}
+.fieldRequired, .errorText {color: #ff0000; font-size: 12px;}
+.form-element-required {display: inline-block;}
+.in-out-value {line-height: 34px;}
+.old-select-in-it select {font-size: 12px !important; width: 100% !important; min-width: 250px !important;}
+.display-parse-time {display: block; text-align: right; font-size : 12px; margin-right: 10px; margin-bottom: 5px;}

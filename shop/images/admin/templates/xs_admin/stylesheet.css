@@ -190,6 +190,12 @@ a:hover.button-attributes-not-up-to-date span {
   padding: 1px 0 1px 2px;
 }
 
+.display-parse-time { 
+  font-family : Verdana, Arial, sans-serif; 
+  font-size : 10px; 
+  vertical-align: bottom;
+}
+
 /* CSS clear */
 html body div.clear,
 html body span.clear {
