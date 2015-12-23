@@ -34,7 +34,7 @@
   </div>
   <div class="login-box-body">
     <p><b>[@{#heading_returning_admin#}@]</b></p>    
-    <noscript><p>[@{#text_javascript_must_be_enabled#}@]</p></noscript>        
+    <noscript><p style="color: #ff0000;">[@{#text_javascript_must_be_enabled#}@]</p></noscript>       
     [@{if $cookie_not_accepted}@]                            	
     <p id="cookie_error">[@{#text_cookie_error#}@]</p>   
     [@{elseif $login_fail == 'incorrect_values'}@]
@@ -53,7 +53,8 @@
       </div>      
       <div class="row">              
         <div class="col-lg-offset-7 col-md-offset-7 col-sm-offset-6 col-lg-5 col-md-5 col-sm-6 col-xs-12">
-          <a href="" onclick="login.submit(); return false" class="btn btn-primary btn-block btn-flat" title=" [@{#button_title_confirm#}@] ">[@{#button_text_confirm#}@]</a>
+          [@{*<a href="" onclick="login.submit(); return false" class="btn btn-primary btn-block btn-flat" title=" [@{#button_title_confirm#}@] ">[@{#button_text_confirm#}@]</a>*}@]
+          <button type="submit" class="btn btn-primary btn-block btn-flat" title=" [@{#button_title_confirm#}@] ">[@{#button_text_confirm#}@]</button>          
         </div>
       </div>
     [@{$form_end}@]
