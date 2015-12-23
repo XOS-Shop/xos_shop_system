@@ -1,6 +1,15 @@
 
 ##ChangeLog
 
+# XOS-Shop 1.0.1 (Release 12/23/2015)
+
+- update:  Smarty Version-3.1.27 auf Smarty Version-3.1.29
+- update:  CKEditor Version-4.5.4 auf CKEditor Version-4.5.6
+- update:  Diverse Anpassungen in den Sprachdateien
+- update:  Diverse Anpassungen in den Templates
+- feature: Neues Admin Template 'responsive' hinzugefügt
+- bugfix:  In logger.php 
+
 # XOS-Shop v1.0_rc8 (Release 10/07/2015)
 
 - update:  Smarty Version-3.1.25 auf Smarty Version-3.1.27
