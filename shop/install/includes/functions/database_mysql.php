@@ -99,7 +99,7 @@
     if (!$db_error) {
       if (!@xos_db_select_db($database)) {
         $db_created = true;
-        if (!@xos_db_query('CREATE DATABASE ' . $database . ' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci')) {
+        if (!@xos_db_query('CREATE DATABASE ' . $database . ' DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci')) {
           $db_error = mysql_error();
         }
       } else {
@@ -162,13 +162,13 @@
     $db_error = false;
 
     if (!@xos_db_select_db($database)) {
-      if (@xos_db_query('CREATE DATABASE ' . $database . ' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci')) {
+      if (@xos_db_query('CREATE DATABASE ' . $database . ' DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci')) {
         xos_db_select_db($database);
       } else {
         $db_error = mysql_error();
       }
     } else {
-      xos_db_query('ALTER DATABASE ' . $database . ' DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci');
+      xos_db_query('ALTER DATABASE ' . $database . ' DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci');
     }
 
     if (!$db_error) {
