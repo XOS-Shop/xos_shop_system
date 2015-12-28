@@ -48,7 +48,6 @@
                     [@{foreach name=loop item=content from=$box_information_contents}@]
                     <a href="[@{$content.link_filename_content_content_id}@]">[@{$content.name}@]</a><br />
                     [@{/foreach}@]
-                    <a href="[@{$box_information_link_filename_contact_us}@]">[@{#box_information_contact#}@]</a>
                   </td>
                 </tr>
                 <tr>
