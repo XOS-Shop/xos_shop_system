@@ -63,7 +63,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
   $months_array = array();
   for ($i=1; $i<13; $i++) {
     $months_array[] = array('id' => $i,
-                            'text' => xos_date_format('%B', mktime(0,0,0,$i)));
+                            'text' => xos_date_format('%B', mktime(0,0,0,$i,1)));
   }
 
   $type_array = array(array('id' => 'daily',

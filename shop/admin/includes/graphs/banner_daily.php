@@ -59,7 +59,7 @@
 
   $graph->SetPlotBorderType('left');
   $graph->SetTitleFontSize('4');
-  $graph->SetTitle(utf8_decode(sprintf(TEXT_BANNERS_DAILY_STATISTICS, $banner['banners_title'], xos_date_format('%B', mktime(0,0,0,$month)), $year)));
+  $graph->SetTitle(utf8_decode(sprintf(TEXT_BANNERS_DAILY_STATISTICS, $banner['banners_title'], xos_date_format('%B', mktime(0,0,0,$month,1)), $year)));
 
   $graph->SetBackgroundColor('white');
 
