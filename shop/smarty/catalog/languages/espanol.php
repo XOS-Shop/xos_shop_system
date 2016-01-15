@@ -194,8 +194,8 @@ define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'Su dirección de E-Mail ya figura en
 define('ENTRY_EMAIL_ADDRESS_TEXT', '*');
 define('ENTRY_STREET_ADDRESS_ERROR', 'Su dirección debe tener al menos ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' letras.');
 define('ENTRY_STREET_ADDRESS_TEXT', '*');
-define('ENTRY_MISSING_HOUSE_NUMBE_TEXT_1', 'Número de casa es falta!');
-define('ENTRY_MISSING_HOUSE_NUMBE_TEXT_2', 'Ignorar este mensaje si no tiene ningún número de la casa.');
+define('ENTRY_MISSING_HOUSE_NUMBER_TEXT_1', 'Número de casa es falta!');
+define('ENTRY_MISSING_HOUSE_NUMBER_TEXT_2', 'Ignorar este mensaje si no tiene ningún número de la casa.');
 define('ENTRY_SUBURB_TEXT', '');
 define('ENTRY_POST_CODE_ERROR', 'Su código postal debe tener al menos ' . ENTRY_POSTCODE_MIN_LENGTH . ' letras.');
 define('ENTRY_POST_CODE_TEXT', '*');
