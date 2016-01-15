@@ -27,7 +27,7 @@
 *}@]
 
 <!-- checkout_new_address --> 
-                      <table border="0" width="100%" cellspacing="0" cellpadding="2">
+                      <table border="0" cellspacing="2" cellpadding="2">
                         [@{if $account_gender}@]
                         <tr>
                           <td class="main">[@{#entry_gender#}@]</td>
@@ -55,7 +55,7 @@
                         </tr>  
                         [@{/if}@]
                         <tr>
-                          <td class="main">[@{#entry_street_address#}@]</td>
+                          <td class="main" style="vertical-align: top;">[@{#entry_street_address#}@]</td>
                           <td class="main">[@{$input_street_address}@]</td>
                         </tr>
                         [@{if $account_suburb}@]

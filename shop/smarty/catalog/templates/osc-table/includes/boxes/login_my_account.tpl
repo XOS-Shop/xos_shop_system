@@ -41,7 +41,7 @@
             <tr>
               <td><table border="0" width="100%" cellspacing="0" cellpadding="3" class="infoBoxContents">
                 <tr>
-                  <td><img src="images/pixel_trans.gif" alt="" width="100%" height="1" /></td>
+                  <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="1" /></td>
                 </tr>
                 <tr>
                   <td class="boxText"><table border="0" width="100%" cellspacing="0" cellpadding="0">
@@ -85,7 +85,7 @@
                   </table></td>
                 </tr>
                 <tr>
-                  <td><img src="images/pixel_trans.gif" alt="" width="100%" height="1" /></td>
+                  <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="1" /></td>
                 </tr>
               </table></td>
             </tr>

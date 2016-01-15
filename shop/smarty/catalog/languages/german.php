@@ -194,6 +194,8 @@ define('ENTRY_EMAIL_ADDRESS_ERROR_EXISTS', 'Die eMail Adresse ist bereits gespei
 define('ENTRY_EMAIL_ADDRESS_TEXT', '*');
 define('ENTRY_STREET_ADDRESS_ERROR', 'Die Strassenadresse sollte mindestens ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . ' Zeichen enthalten.');
 define('ENTRY_STREET_ADDRESS_TEXT', '*');
+define('ENTRY_MISSING_HOUSE_NUMBE_TEXT_1', 'Hausnummer fehlt!');
+define('ENTRY_MISSING_HOUSE_NUMBE_TEXT_2', 'Ignorieren Sie diese Meldung wenn Sie keine haben.');
 define('ENTRY_SUBURB_TEXT', '');
 define('ENTRY_POST_CODE_ERROR', 'Die Postleitzahl sollte mindestens ' . ENTRY_POSTCODE_MIN_LENGTH . ' Zeichen enthalten.');
 define('ENTRY_POST_CODE_TEXT', '*');

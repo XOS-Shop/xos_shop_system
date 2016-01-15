@@ -154,7 +154,7 @@
                 <td></td> 
               </tr>             
               <tr>
-                <td class="main" nowrap="nowrap">[@{#entry_street_address#}@]</td>
+                <td class="main" style="vertical-align: top;" nowrap="nowrap">[@{#entry_street_address#}@]</td>
                 <td class="main" nowrap="nowrap">[@{$input_street_address}@]</td>
               </tr>
               [@{if $account_suburb}@]

@@ -73,7 +73,7 @@
           </tr>
           [@{/if}@]
           <tr>
-            <td class="main">[@{#entry_street_address#}@]</td>
+            <td class="main" style="vertical-align: top;">[@{#entry_street_address#}@]</td>
             <td class="main">[@{$input_street_address}@]</td>
           </tr>
           [@{if $account_suburb}@]
