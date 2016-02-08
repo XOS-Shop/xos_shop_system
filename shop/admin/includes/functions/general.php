@@ -406,7 +406,9 @@ function xos_selected_file($filename) {
     
       $filename = str_replace(array(HTTP_SERVER, HTTPS_SERVER, DIR_WS_CATALOG), '', $match[2].$match[3]); 
       
-    } elseif ((stripos($match[2], HTTP_SERVER) !== false || stripos($match[2], HTTPS_SERVER) !== false) && ((DIR_WS_CATALOG != '' && stripos($match[2], DIR_WS_CATALOG) !== false) || DIR_WS_CATALOG == '')) {
+    // } elseif ((stripos($match[2], HTTP_SERVER) !== false || stripos($match[2], HTTPS_SERVER) !== false) && ((DIR_WS_CATALOG != '' && stripos($match[2], DIR_WS_CATALOG) !== false) || DIR_WS_CATALOG == '')) {
+    // Folgende Zeile funktioniert auch wenn der Shop komplett verschluesselt ist also bei HTTP_SERVER das Protokoll auf 'https://' lautet, bei $match[2] das Protokoll aber auf 'http://' lautet.
+    } elseif ((stripos($match[2], HTTP_SERVER) !== false || stripos(str_replace('http://', 'https://', $match[2]), HTTP_SERVER) !== false || stripos($match[2], HTTPS_SERVER) !== false) && ((DIR_WS_CATALOG != '' && stripos($match[2], DIR_WS_CATALOG) !== false) || DIR_WS_CATALOG == '')) {
 
       switch ($match[3]) {
         case '.html/a':
