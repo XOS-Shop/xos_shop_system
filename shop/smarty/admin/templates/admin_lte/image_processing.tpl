@@ -26,9 +26,14 @@
 *              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>. 
 ********************************************************************************
 *}@]                                
-[@{if $recreate_product_images_now}@] 
+[@{if $recreate_product_images_now}@]
+    [@{if $script}@]
+      [@{$script}@] 
+                    <i class="fa fa-refresh fa-spin"></i>&nbsp; &nbsp; &nbsp;[@{#text_run#}@] [@{$counter}@] [@{#text_of#}@] [@{$total_runs}@] | [@{#text_please_wait#}@]      
+    [@{else}@]       
                     [@{#text_product_images_regenerated#}@]
                     <a href="[@{$link_filename_image_processing_back}@]" class="btn btn-primary btn-margin-after-pagination" title=" [@{#button_title_back#}@] ">[@{#button_text_back#}@]</a>
+    [@{/if}@]                    
 [@{elseif $recreate_category_images_now}@]
                     [@{#text_category_images_regenerated#}@]
                     <a href="[@{$link_filename_image_processing_back}@]" class="btn btn-primary btn-margin-after-pagination" title=" [@{#button_title_back#}@] ">[@{#button_text_back#}@]</a>

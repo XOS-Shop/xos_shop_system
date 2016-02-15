@@ -27,7 +27,21 @@
 ********************************************************************************
 *}@]
 
-[@{if $recreate_product_images_now}@] 
+[@{if $recreate_product_images_now}@]
+    [@{if $script}@]
+      [@{$script}@] 
+        <table border="0" width="100%" cellspacing="20" cellpadding="2">
+          <tr>
+            <td><table class="tableRecreateImages" border="0" width="100%" cellpadding="4" cellspacing="4">
+              <tr>
+                <td nowrap="nowrap" width="1%"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="50" height="24" /><img src="[@{$images_path}@]progress.gif" alt="progress" title=" progress " /></td>
+                <td nowrap="nowrap" width="1%">[@{#text_run#}@] [@{$counter}@] [@{#text_of#}@] [@{$total_runs}@]<br />[@{#text_please_wait#}@]</td>
+                <td nowrap="nowrap" width="98%">&nbsp;</td>
+              </tr>
+            </table></td>
+          </tr>
+        </table>
+    [@{else}@]
         <table border="0" width="100%" cellspacing="20" cellpadding="2">
           <tr>
             <td><table class="tableRecreateImages" border="0" width="100%" cellpadding="4" cellspacing="4">
@@ -43,7 +57,8 @@
               </tr>              
             </table></td>
           </tr>
-        </table>
+        </table>  
+    [@{/if}@]        
 [@{elseif $recreate_category_images_now}@]
         <table border="0" width="100%" cellspacing="20" cellpadding="2">
           <tr>

@@ -27,7 +27,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
   $action = (isset($_GET['action']) ? $_GET['action'] : '');
   
   if ($action == 'recreate_product_images_now') {
-  
+
     $smarty_cache_control->clearAllCache();
   
     require_once('includes/classes/image_creator.php');
@@ -35,9 +35,19 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     $files = array();
     $handle = opendir(DIR_FS_CATALOG_IMAGES . 'products/uploads/');
     while  ($files[] = readdir($handle)) {}  
-    closedir($handle);
+    closedir($handle); 
     
-    $products_query = xos_db_query("select products_image from " . TABLE_PRODUCTS); 
+    $increment = 10;
+    $offset = max((int)$_POST['offset'], 0);
+    $script = '';
+    
+    if (empty($_POST['total_runs'])) {
+      $total_query = xos_db_query("select count(products_image) as total from " . TABLE_PRODUCTS); 
+      $total_rows = xos_db_fetch_array($total_query);
+      $_POST['total_runs'] = ceil($total_rows['total'] / $increment);
+    }       
+    
+    $products_query = xos_db_query("select products_image from " . TABLE_PRODUCTS . " LIMIT " . $offset . ", " . $increment); 
     if (xos_db_num_rows($products_query)) { 
       while ($products = xos_db_fetch_array($products_query)) {
         $products_image = xos_get_product_images($products['products_image'], 'all');
@@ -50,9 +60,19 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
           }          
         } 
       }
-    }  
+      
+      $script .= '<script type="text/javascript">' . "\n" .    
+                 '/* <![CDATA[ */' . "\n" .
+                 '    $( "#infoSend" ).load( "' . DIR_WS_ADMIN . FILENAME_IMAGE_PROCESSING .'?action=recreate_product_images_now&amp;' .session_name() . '=' .  session_id() . '", { counter : ' . ((int)$_POST['counter'] + 1) . ', total_runs : ' . (int)$_POST['total_runs'] . ', offset : ' . ($offset + $increment) . ' } );' . "\n" .
+                 '/* ]]> */' . "\n" .
+                 '</script>' . "\n";      
+    }    
 
+    
     $smarty->assign(array('recreate_product_images_now' => true,
+                          'script' => $script,
+                          'total_runs' => (int)$_POST['total_runs'],
+                          'counter' => (int)$_POST['counter'] + 1,
                           'link_filename_image_processing_back' => xos_href_link(FILENAME_IMAGE_PROCESSING)));
 
     $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'image_processing');
@@ -90,52 +110,9 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
   $javascript = '';
 
   if ($action == 'confirm_recreate_product_images' || $action == 'confirm_recreate_category_images') {  
-    $javascript .= '<script type="text/javascript">' . "\n\n" .
-    
+    $javascript .= '<script type="text/javascript">' . "\n" .    
                    '/* <![CDATA[ */' . "\n" .
-                   '    var http_request = false;' . "\n\n" .
-
-                   '    function confirm_recreate(url) {' . "\n\n" .
-
-                   '        http_request = false;' . "\n\n" .
-
-                   '        if (window.XMLHttpRequest) { // Mozilla, Safari,...' . "\n" .
-                   '            http_request = new XMLHttpRequest();' . "\n" .
-                   '            if (http_request.overrideMimeType) {' . "\n" .
-                   '                http_request.overrideMimeType("text/html");' . "\n" .
-                   '            }' . "\n" .
-                   '        } else if (window.ActiveXObject) { // IE' . "\n" .
-                   '            try {' . "\n" .
-                   '                http_request = new ActiveXObject("Msxml2.XMLHTTP");' . "\n" .
-                   '            } catch (e) {' . "\n" .
-                   '                try {' . "\n" .
-                   '                    http_request = new ActiveXObject("Microsoft.XMLHTTP");' . "\n" .
-                   '                } catch (e) {}' . "\n" .
-                   '            }' . "\n" .
-                   '        }' . "\n\n" .
-
-                   '        if (!http_request) {' . "\n" .
-                   '            alert("Ende : Kann keine XMLHTTP-Instanz erzeugen");' . "\n" .
-                   '            return false;' . "\n" .
-                   '        }' . "\n" .
-                   '        http_request.onreadystatechange = response_processing;' . "\n" .
-                   '        http_request.open("GET", url, true);' . "\n" .
-                   '        http_request.send(null);' . "\n\n" .
-
-                   '    }' . "\n\n" .
-
-                   '    function response_processing() {' . "\n\n" .
-
-                   '        if (http_request.readyState == 4) {' . "\n" .
-                   '            if (http_request.status == 200) {' . "\n" .
-//                   '                alert(http_request.responseText);' . "\n" .
-                   '                document.getElementById("infoSend").innerHTML = http_request.responseText;' . "\n" .
-                   '            } else {' . "\n" .
-                   '                alert("Bei dem Request ist ein Problem aufgetreten.");' . "\n" .
-                   '            }' . "\n" .
-                   '        }' . "\n\n" .
-
-                   '    }' . "\n" .
+                   '    $(function(){$( "#infoSend" ).load( "' . DIR_WS_ADMIN . FILENAME_IMAGE_PROCESSING . '?action=' . ($action == 'confirm_recreate_product_images' ? 'recreate_product_images_now' : 'recreate_category_images_now' ) . '&amp;' .session_name() . '=' .  session_id() . '", { offset : 0 } );});' . "\n" .
                    '/* ]]> */' . "\n" .
                    '</script>' . "\n";                
   }
@@ -147,9 +124,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
   if ($action == 'confirm_recreate_product_images' || $action == 'confirm_recreate_category_images') { 
 
-
-    $smarty->assign(array('action' => 'confirm_recreate',
-                          'BODY_TAG_PARAMS' => 'onload="confirm_recreate(\'' . DIR_WS_ADMIN . FILENAME_IMAGE_PROCESSING . '?action=' . ($action == 'confirm_recreate_product_images' ? 'recreate_product_images_now' : 'recreate_category_images_now' ) . '&amp;' .session_name() . '=' .  session_id() . '\')"'));
+    $smarty->assign('action', 'confirm_recreate');
     
   } else {
     
