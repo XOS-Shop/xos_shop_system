@@ -46,14 +46,14 @@
       global $request_type;
 
       $last_position = sizeof($this->path) - 1;
-      if ($this->path[$last_position]['page'] == basename($_SERVER['PHP_SELF']) && $this->path[$last_position]['get']['c'] == $_GET['c'] && $this->path[$last_position]['get']['p'] == $_GET['p'] && $this->path[$last_position]['get']['co'] == $_GET['co']) {
+      if ($this->path[$last_position]['page'] == $_SERVER['BASENAME_PHP_SELF'] && $this->path[$last_position]['get']['c'] == $_GET['c'] && $this->path[$last_position]['get']['p'] == $_GET['p'] && $this->path[$last_position]['get']['co'] == $_GET['co']) {
         array_splice($this->path, ($last_position));
       }
       
       array_splice($this->path, 0, -9);
       
 
-      $this->path[] = array('page' => basename($_SERVER['PHP_SELF']),
+      $this->path[] = array('page' => $_SERVER['BASENAME_PHP_SELF'],
                             'mode' => $request_type,
                             'get' => $this->filter_parameters($_GET),
                             'post' => $this->filter_parameters($_POST));                   
@@ -61,7 +61,7 @@
 
     function remove_current_page() {
       $last_entry_position = sizeof($this->path) - 1;
-      if ($this->path[$last_entry_position]['page'] == basename($_SERVER['PHP_SELF'])) {
+      if ($this->path[$last_entry_position]['page'] == $_SERVER['BASENAME_PHP_SELF']) {
         unset($this->path[$last_entry_position]);
       }
     }
@@ -79,7 +79,7 @@
                                 'get' => $this->filter_parameters($page['get']),
                                 'post' => $this->filter_parameters($page['post']));
       } else {
-        $this->snapshot = array('page' => basename($_SERVER['PHP_SELF']),
+        $this->snapshot = array('page' => $_SERVER['BASENAME_PHP_SELF'],
                                 'mode' => $request_type,
                                 'get' => $this->filter_parameters($_GET),
                                 'post' => $this->filter_parameters($_POST));

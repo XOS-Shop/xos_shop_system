@@ -36,7 +36,7 @@ function xos_admin_check_login() {
   if (!isset($_SESSION['login_id'])) {
     xos_redirect(xos_href_link(FILENAME_LOGIN));
   } else {
-    $filename = basename( $_SERVER['PHP_SELF'] );   
+    $filename = $_SERVER['BASENAME_PHP_SELF'];   
     $filename = str_replace(array(FILENAME_POPUP_FILE_MANAGER, FILENAME_POPUP_INFO_PAGES, FILENAME_POPUP_PAGES), array(FILENAME_FILE_MANAGER, FILENAME_INFO_PAGES, FILENAME_PAGES), $filename);
     if (!(in_array($filename, array(FILENAME_DEFAULT,
                                     FILENAME_ATTRIBUTE_LISTS,
@@ -51,7 +51,7 @@ function xos_admin_check_login() {
                                     FILENAME_BANNER_STATISTICS)))) { 
       $db_file_query = xos_db_query("select admin_files_name from " . TABLE_ADMIN_FILES . " where FIND_IN_SET( '" . $_SESSION['login_groups_id'] . "', admin_groups_id) and admin_files_name = '" . $filename . "'");
       if (!xos_db_num_rows($db_file_query)) {
-        !in_array(basename( $_SERVER['PHP_SELF'] ), array(FILENAME_POPUP_FILE_MANAGER, FILENAME_POPUP_INFO_PAGES, FILENAME_POPUP_PAGES)) ? xos_redirect(xos_href_link(FILENAME_FORBIDDEN)) : xos_redirect(xos_href_link(FILENAME_POPUP_FORBIDDEN));
+        !in_array($_SERVER['BASENAME_PHP_SELF'], array(FILENAME_POPUP_FILE_MANAGER, FILENAME_POPUP_INFO_PAGES, FILENAME_POPUP_PAGES)) ? xos_redirect(xos_href_link(FILENAME_FORBIDDEN)) : xos_redirect(xos_href_link(FILENAME_POPUP_FORBIDDEN));
       }
     }
   }

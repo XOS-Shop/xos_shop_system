@@ -12,7 +12,7 @@
 
 // previous button
       if ($this->current_page_number > 1) {
-        $display_links_string .= '<li><a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), $parameters . $this->page_name . '=' . ($this->current_page_number - 1), $request_type) . '" class="page-results" title=" ' . PREVNEXT_TITLE_PREVIOUS_PAGE . ' ">' . PREVNEXT_BUTTON_PREV . '</a></li>';
+        $display_links_string .= '<li><a href="' . xos_href_link($_SERVER['BASENAME_PHP_SELF'], $parameters . $this->page_name . '=' . ($this->current_page_number - 1), $request_type) . '" class="page-results" title=" ' . PREVNEXT_TITLE_PREVIOUS_PAGE . ' ">' . PREVNEXT_BUTTON_PREV . '</a></li>';
       } elseif ($this->number_of_pages != 1) {
         $display_links_string .= '<li class="disabled"><span><span aria-hidden="true">' . PREVNEXT_BUTTON_PREV . '</span></span></li>';
       }
@@ -25,23 +25,23 @@
       if ($this->number_of_pages % $max_page_links) $max_window_num++;
 
 // previous window of pages
-      if ($cur_window_num > 1) $display_links_string .= '<li><a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), $parameters . $this->page_name . '=' . (($cur_window_num - 1) * $max_page_links), $request_type) . '" class="page-results" title=" ' . sprintf(PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE, $max_page_links) . ' ">...</a></li>';
+      if ($cur_window_num > 1) $display_links_string .= '<li><a href="' . xos_href_link($_SERVER['BASENAME_PHP_SELF'], $parameters . $this->page_name . '=' . (($cur_window_num - 1) * $max_page_links), $request_type) . '" class="page-results" title=" ' . sprintf(PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE, $max_page_links) . ' ">...</a></li>';
 
 // page nn button
       for ($jump_to_page = 1 + (($cur_window_num - 1) * $max_page_links); ($jump_to_page <= ($cur_window_num * $max_page_links)) && ($jump_to_page <= $this->number_of_pages); $jump_to_page++) {
         if ($jump_to_page == $this->current_page_number) {
           if ($this->number_of_pages > 1) $display_links_string .= '<li class="active"><span>' . $jump_to_page . '<span class="sr-only">(current)</span></span></li>';
         } else {
-          $display_links_string .= '<li><a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), $parameters . $this->page_name . '=' . $jump_to_page, $request_type) . '" class="page-results" title=" ' . sprintf(PREVNEXT_TITLE_PAGE_NO, $jump_to_page) . ' ">' . $jump_to_page . '</a></li>';
+          $display_links_string .= '<li><a href="' . xos_href_link($_SERVER['BASENAME_PHP_SELF'], $parameters . $this->page_name . '=' . $jump_to_page, $request_type) . '" class="page-results" title=" ' . sprintf(PREVNEXT_TITLE_PAGE_NO, $jump_to_page) . ' ">' . $jump_to_page . '</a></li>';
         }
       }
 
 // next window of pages
-      if ($cur_window_num < $max_window_num) $display_links_string .= '<li><a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), $parameters . $this->page_name . '=' . (($cur_window_num) * $max_page_links + 1), $request_type) . '" class="page-results" title=" ' . sprintf(PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE, $max_page_links) . ' ">...</a></li>';
+      if ($cur_window_num < $max_window_num) $display_links_string .= '<li><a href="' . xos_href_link($_SERVER['BASENAME_PHP_SELF'], $parameters . $this->page_name . '=' . (($cur_window_num) * $max_page_links + 1), $request_type) . '" class="page-results" title=" ' . sprintf(PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE, $max_page_links) . ' ">...</a></li>';
 
 // next button
       if ($this->current_page_number < $this->number_of_pages) {
-        $display_links_string .= '<li><a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), $parameters . 'page=' . ($this->current_page_number + 1), $request_type) . '" class="page-results" title=" ' . PREVNEXT_TITLE_NEXT_PAGE . ' ">' . PREVNEXT_BUTTON_NEXT . '</a></li>';
+        $display_links_string .= '<li><a href="' . xos_href_link($_SERVER['BASENAME_PHP_SELF'], $parameters . 'page=' . ($this->current_page_number + 1), $request_type) . '" class="page-results" title=" ' . PREVNEXT_TITLE_NEXT_PAGE . ' ">' . PREVNEXT_BUTTON_NEXT . '</a></li>';
       } elseif ($this->number_of_pages != 1) {
         $display_links_string .= '<li class="disabled"><span><span aria-hidden="true">' . PREVNEXT_BUTTON_NEXT . '</span></span></li>';
       } 

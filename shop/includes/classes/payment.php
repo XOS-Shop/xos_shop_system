@@ -60,7 +60,7 @@
 
         $include_modules = array();
 
-        if ( (xos_not_null($module)) && (in_array($module . '.' . substr(basename($_SERVER['PHP_SELF']), (strrpos(basename($_SERVER['PHP_SELF']), '.')+1)), $this->modules)) ) {
+        if ( (xos_not_null($module)) && (in_array($module . '.' . substr($_SERVER['BASENAME_PHP_SELF'], (strrpos($_SERVER['BASENAME_PHP_SELF'], '.')+1)), $this->modules)) ) {
           $this->selected_module = $module;
 
           $include_modules[] = array('class' => $module, 'file' => $module . '.php');

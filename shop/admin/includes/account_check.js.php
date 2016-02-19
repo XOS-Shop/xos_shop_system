@@ -30,7 +30,7 @@
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
 
-  if (substr(basename($_SERVER['PHP_SELF']), 0, 12) == 'admin_member') {
+  if (substr($_SERVER['BASENAME_PHP_SELF'], 0, 12) == 'admin_member') {
 
     $javascript .= '<script type="text/JavaScript">' . "\n" .
                    '/* <![CDATA[ */' . "\n" . 

@@ -33,9 +33,9 @@
 if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/boxes/menubox_localization.php') == 'overwrite_all')) :
   $menu_box_contents = array();
                                 
-    if (xos_admin_check_files(FILENAME_CURRENCIES)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_CURRENCIES, 'selected_box=localization'), 'selected' => $_SESSION['selected_box'] == 'localization' && FILENAME_CURRENCIES == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_LOCALIZATION_CURRENCIES);
-    if (xos_admin_check_files(FILENAME_LANGUAGES)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_LANGUAGES, 'selected_box=localization'), 'selected' => $_SESSION['selected_box'] == 'localization' && FILENAME_LANGUAGES == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_LOCALIZATION_LANGUAGES);
-    if (xos_admin_check_files(FILENAME_ORDERS_STATUS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_ORDERS_STATUS, 'selected_box=localization'), 'selected' => $_SESSION['selected_box'] == 'localization' && FILENAME_ORDERS_STATUS == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_LOCALIZATION_ORDERS_STATUS);
+    if (xos_admin_check_files(FILENAME_CURRENCIES)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_CURRENCIES, 'selected_box=localization'), 'selected' => $_SESSION['selected_box'] == 'localization' && FILENAME_CURRENCIES == $_SERVER['BASENAME_PHP_SELF'] ? true : false, 'name' => BOX_LOCALIZATION_CURRENCIES);
+    if (xos_admin_check_files(FILENAME_LANGUAGES)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_LANGUAGES, 'selected_box=localization'), 'selected' => $_SESSION['selected_box'] == 'localization' && FILENAME_LANGUAGES == $_SERVER['BASENAME_PHP_SELF'] ? true : false, 'name' => BOX_LOCALIZATION_LANGUAGES);
+    if (xos_admin_check_files(FILENAME_ORDERS_STATUS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_ORDERS_STATUS, 'selected_box=localization'), 'selected' => $_SESSION['selected_box'] == 'localization' && FILENAME_ORDERS_STATUS == $_SERVER['BASENAME_PHP_SELF'] ? true : false, 'name' => BOX_LOCALIZATION_ORDERS_STATUS);
     
     $smarty->assign('menu_box_contents', $menu_box_contents);                                                                    
 

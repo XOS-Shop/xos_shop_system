@@ -1,9 +1,9 @@
 <?php
   $menu_box_contents = array();
   if ($_SESSION['selected_box'] == 'customers' || EXPAND_MENUBOX_CUSTOMERS == 'true') {
-    if (xos_admin_check_files(FILENAME_CUSTOMERS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_CUSTOMERS, 'selected_box=customers'), 'selected' => $_SESSION['selected_box'] == 'customers' && FILENAME_CUSTOMERS == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_CUSTOMERS_CUSTOMERS);
-    if (xos_admin_check_files(FILENAME_ORDERS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_ORDERS, 'selected_box=customers'), 'selected' => $_SESSION['selected_box'] == 'customers' && FILENAME_ORDERS == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_CUSTOMERS_ORDERS);
-    if (xos_admin_check_files(FILENAME_CUSTOMERS_GROUPS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_CUSTOMERS_GROUPS, 'selected_box=customers'), 'selected' => $_SESSION['selected_box'] == 'customers' && FILENAME_CUSTOMERS_GROUPS == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_CUSTOMERS_GROUPS);
+    if (xos_admin_check_files(FILENAME_CUSTOMERS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_CUSTOMERS, 'selected_box=customers'), 'selected' => $_SESSION['selected_box'] == 'customers' && FILENAME_CUSTOMERS == $_SERVER['BASENAME_PHP_SELF'] ? true : false, 'name' => BOX_CUSTOMERS_CUSTOMERS);
+    if (xos_admin_check_files(FILENAME_ORDERS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_ORDERS, 'selected_box=customers'), 'selected' => $_SESSION['selected_box'] == 'customers' && FILENAME_ORDERS == $_SERVER['BASENAME_PHP_SELF'] ? true : false, 'name' => BOX_CUSTOMERS_ORDERS);
+    if (xos_admin_check_files(FILENAME_CUSTOMERS_GROUPS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_CUSTOMERS_GROUPS, 'selected_box=customers'), 'selected' => $_SESSION['selected_box'] == 'customers' && FILENAME_CUSTOMERS_GROUPS == $_SERVER['BASENAME_PHP_SELF'] ? true : false, 'name' => BOX_CUSTOMERS_GROUPS);
     
     $smarty->assign('menu_box_contents', $menu_box_contents);                                   		
   }

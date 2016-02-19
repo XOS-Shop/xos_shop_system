@@ -46,7 +46,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       
       $customer_orders_array = array();
       while ($products = xos_db_fetch_array($products_query)) {                                    
-        $customer_orders_array[]=array('in_cart' => xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('action')) . 'action=cust_order&pid=' . $products['products_id']),
+        $customer_orders_array[]=array('in_cart' => xos_href_link($_SERVER['BASENAME_PHP_SELF'], xos_get_all_get_params(array('action')) . 'action=cust_order&pid=' . $products['products_id']),
                                        'link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $products['products_id']),
                                        'name' => $products['products_name']);                                   
       }

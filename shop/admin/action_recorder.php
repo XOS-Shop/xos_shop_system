@@ -32,7 +32,7 @@
 
 require('includes/application_top.php');
 if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILENAME_ACTION_RECORDER) == 'overwrite_all')) :
-  $file_extension = substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.'));
+  $file_extension = substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.'));
   $directory_array = array();
   if ($dir = @dir(DIR_FS_CATALOG_MODULES . 'action_recorder/')) {
     while ($file = $dir->read()) {

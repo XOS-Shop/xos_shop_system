@@ -162,7 +162,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                           'products_tax_description' => xos_get_products_tax_description($product_info['products_tax_class_id'], $products_tax_rate),
                           'td_width_img' => MEDIUM_PRODUCT_IMAGE_MAX_WIDTH + 10,
                           'link_filename_product_reviews_write' => xos_href_link(FILENAME_PRODUCT_REVIEWS_WRITE, xos_get_all_get_params(array('lnc', 'cur', 'tpl', 'rmp')), 'SSL'),
-                          'link_buy_now' => xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('action')) . 'action=buy_now'),
+                          'link_buy_now' => xos_href_link($_SERVER['BASENAME_PHP_SELF'], xos_get_all_get_params(array('action')) . 'action=buy_now'),
                           'nav_bar_number' => $reviews_split->display_count(TEXT_DISPLAY_NUMBER_OF_REVIEWS),
                           'nav_bar_result' => TEXT_RESULT_PAGE . ' ' . $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'lnc', 'cur', 'tpl', 'x', 'y'))),
                           'nav_bar_result_in_pull_down_menu' => $reviews_split->display_links_in_pull_down_menu(MAX_DISPLAY_PAGE_LINKS, xos_get_all_get_params(array('page', 'info', 'lnc', 'cur', 'tpl', 'x', 'y')))));

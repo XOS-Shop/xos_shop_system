@@ -1,10 +1,10 @@
 <?php
   $menu_box_contents = array();
   if ($_SESSION['selected_box'] == 'gv_admin' || EXPAND_MENUBOX_GV_ADMIN == 'true') {
-    if (xos_admin_check_files(FILENAME_COUPON_ADMIN)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_COUPON_ADMIN, 'selected_box=gv_admin'), 'selected' => $_SESSION['selected_box'] == 'gv_admin' && FILENAME_COUPON_ADMIN == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_COUPON_ADMIN);
-    if (xos_admin_check_files(FILENAME_GV_QUEUE)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_GV_QUEUE, 'selected_box=gv_admin'), 'selected' => $_SESSION['selected_box'] == 'gv_admin' && FILENAME_GV_QUEUE == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_GV_ADMIN_QUEUE);
-    if (SEND_EMAILS == 'true' && xos_admin_check_files(FILENAME_GV_MAIL)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_GV_MAIL, 'selected_box=gv_admin'), 'selected' => $_SESSION['selected_box'] == 'gv_admin' && FILENAME_GV_MAIL == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_GV_ADMIN_MAIL);
-    if (xos_admin_check_files(FILENAME_GV_SENT)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_GV_SENT, 'selected_box=gv_admin'), 'selected' => $_SESSION['selected_box'] == 'gv_admin' && FILENAME_GV_SENT == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_GV_ADMIN_SENT);
+    if (xos_admin_check_files(FILENAME_COUPON_ADMIN)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_COUPON_ADMIN, 'selected_box=gv_admin'), 'selected' => $_SESSION['selected_box'] == 'gv_admin' && FILENAME_COUPON_ADMIN == $_SERVER['BASENAME_PHP_SELF'] ? true : false, 'name' => BOX_COUPON_ADMIN);
+    if (xos_admin_check_files(FILENAME_GV_QUEUE)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_GV_QUEUE, 'selected_box=gv_admin'), 'selected' => $_SESSION['selected_box'] == 'gv_admin' && FILENAME_GV_QUEUE == $_SERVER['BASENAME_PHP_SELF'] ? true : false, 'name' => BOX_GV_ADMIN_QUEUE);
+    if (SEND_EMAILS == 'true' && xos_admin_check_files(FILENAME_GV_MAIL)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_GV_MAIL, 'selected_box=gv_admin'), 'selected' => $_SESSION['selected_box'] == 'gv_admin' && FILENAME_GV_MAIL == $_SERVER['BASENAME_PHP_SELF'] ? true : false, 'name' => BOX_GV_ADMIN_MAIL);
+    if (xos_admin_check_files(FILENAME_GV_SENT)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_GV_SENT, 'selected_box=gv_admin'), 'selected' => $_SESSION['selected_box'] == 'gv_admin' && FILENAME_GV_SENT == $_SERVER['BASENAME_PHP_SELF'] ? true : false, 'name' => BOX_GV_ADMIN_SENT);
     
     $smarty->assign('menu_box_contents', $menu_box_contents);                                   		
   }

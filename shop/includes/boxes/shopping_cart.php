@@ -56,7 +56,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     }
     
     $smarty->assign('products_quantity_total', $products_quantity_total);
-    $smarty->assign('shopping_cart_will_not_display', FILENAME_SHOPPING_CART == basename($_SERVER['PHP_SELF']) ? false : true);
+    $smarty->assign('shopping_cart_will_not_display', FILENAME_SHOPPING_CART == $_SERVER['BASENAME_PHP_SELF'] ? false : true);
   } else { 
     $smarty->assign('box_shopping_cart_cart_empty', true);  
     $smarty->assign('products_quantity_total', 0);

@@ -148,7 +148,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     $filename_email_conf = $_GET['lngdir'] . '_email.conf';
        
     if ($dir = @dir(DIR_FS_SMARTY . 'catalog/languages/' . $_GET['lngdir'])) {
-      $file_extension = substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.'));
+      $file_extension = substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.'));
       $files_array = array();
       while ($file = $dir->read()) {
         if (substr($file, strrpos($file, '.')) == $file_extension) {        
@@ -162,7 +162,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     }
     
     if ($dir = @dir(DIR_FS_SMARTY . 'catalog/languages/' . $_GET['lngdir'] . '/modules/order_total')) {
-      $file_extension = substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.'));
+      $file_extension = substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.'));
       $files_array = array();
       while ($file = $dir->read()) {
         if (substr($file, strrpos($file, '.')) == $file_extension) {        
@@ -176,7 +176,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     }
     
     if ($dir = @dir(DIR_FS_SMARTY . 'catalog/languages/' . $_GET['lngdir'] . '/modules/payment')) {
-      $file_extension = substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.'));
+      $file_extension = substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.'));
       $files_array = array();
       while ($file = $dir->read()) {
         if (substr($file, strrpos($file, '.')) == $file_extension) {        
@@ -190,7 +190,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     }
     
     if ($dir = @dir(DIR_FS_SMARTY . 'catalog/languages/' . $_GET['lngdir'] . '/modules/shipping')) {
-      $file_extension = substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.'));
+      $file_extension = substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.'));
       $files_array = array();
       while ($file = $dir->read()) {
         if (substr($file, strrpos($file, '.')) == $file_extension) {        

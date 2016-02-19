@@ -1,11 +1,11 @@
 <?php
   $menu_box_contents = array();
   if ($_SESSION['selected_box'] == 'reports' || EXPAND_MENUBOX_REPORTS == 'true') {
-    if (xos_admin_check_files(FILENAME_STATS_PRODUCTS_VIEWED)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_STATS_PRODUCTS_VIEWED, 'selected_box=reports'), 'selected' => $_SESSION['selected_box'] == 'reports' && FILENAME_STATS_PRODUCTS_VIEWED == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_REPORTS_PRODUCTS_VIEWED);
-    if (xos_admin_check_files(FILENAME_STATS_PRODUCTS_PURCHASED)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_STATS_PRODUCTS_PURCHASED, 'selected_box=reports'), 'selected' => $_SESSION['selected_box'] == 'reports' && FILENAME_STATS_PRODUCTS_PURCHASED == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_REPORTS_PRODUCTS_PURCHASED);
-    if (xos_admin_check_files(FILENAME_STATS_CUSTOMERS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_STATS_CUSTOMERS, 'selected_box=reports'), 'selected' => $_SESSION['selected_box'] == 'reports' && FILENAME_STATS_CUSTOMERS == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_REPORTS_ORDERS_TOTAL);
+    if (xos_admin_check_files(FILENAME_STATS_PRODUCTS_VIEWED)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_STATS_PRODUCTS_VIEWED, 'selected_box=reports'), 'selected' => $_SESSION['selected_box'] == 'reports' && FILENAME_STATS_PRODUCTS_VIEWED == $_SERVER['BASENAME_PHP_SELF'] ? true : false, 'name' => BOX_REPORTS_PRODUCTS_VIEWED);
+    if (xos_admin_check_files(FILENAME_STATS_PRODUCTS_PURCHASED)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_STATS_PRODUCTS_PURCHASED, 'selected_box=reports'), 'selected' => $_SESSION['selected_box'] == 'reports' && FILENAME_STATS_PRODUCTS_PURCHASED == $_SERVER['BASENAME_PHP_SELF'] ? true : false, 'name' => BOX_REPORTS_PRODUCTS_PURCHASED);
+    if (xos_admin_check_files(FILENAME_STATS_CUSTOMERS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_STATS_CUSTOMERS, 'selected_box=reports'), 'selected' => $_SESSION['selected_box'] == 'reports' && FILENAME_STATS_CUSTOMERS == $_SERVER['BASENAME_PHP_SELF'] ? true : false, 'name' => BOX_REPORTS_ORDERS_TOTAL);
 // naechste zeile einkommentieren wenn gutscheine fertig
-//    if (xos_admin_check_files(FILENAME_STATS_CREDITS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_STATS_CREDITS, 'selected_box=reports'), 'selected' => $_SESSION['selected_box'] == 'reports' && FILENAME_STATS_CREDITS == basename($_SERVER['PHP_SELF']) ? true : false, 'name' => BOX_REPORTS_CREDITS);
+//    if (xos_admin_check_files(FILENAME_STATS_CREDITS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_STATS_CREDITS, 'selected_box=reports'), 'selected' => $_SESSION['selected_box'] == 'reports' && FILENAME_STATS_CREDITS == $_SERVER['BASENAME_PHP_SELF'] ? true : false, 'name' => BOX_REPORTS_CREDITS);
     
     $smarty->assign('menu_box_contents', $menu_box_contents);                                
   }

@@ -62,7 +62,7 @@
           }
         }
 
-        if (in_array(basename($_SERVER['PHP_SELF']), $pages_array)) {
+        if (in_array($_SERVER['BASENAME_PHP_SELF'], $pages_array)) {
           $templateIntegration->addBlock('<meta name="robots" content="noindex,follow" />' . "\n", $this->group);
         }
       }
@@ -139,7 +139,7 @@
 
   function ht_robot_noindex_edit_pages($values, $key) {
 
-    $file_extension = substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.'));
+    $file_extension = substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.'));
     $files_array = array();
 	  if ($dir = @dir(DIR_FS_CATALOG)) {
 	    while ($file = $dir->read()) {

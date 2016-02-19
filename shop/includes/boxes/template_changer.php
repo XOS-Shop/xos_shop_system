@@ -37,13 +37,13 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   if (sizeof($registered_tpls) > 1) { 
     
     for ($i=0; $i<sizeof($registered_tpls); $i++) {
-      $tpl_array[] = array( 'id' => xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('tpl')) . 'tpl=' . $registered_tpls[$i], $request_type, true, true, false, false, false), 'text' => $registered_tpls[$i]);
-      $template_changer_content_noscript .= '<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('tpl')) . 'tpl=' . $registered_tpls[$i], $request_type, true, true, false, false, false) . '">' . '&nbsp; ' . (SELECTED_TPL == $registered_tpls[$i] ? '<b>' . $registered_tpls[$i] .'</b>' : $registered_tpls[$i]) . '</a><br />';       
+      $tpl_array[] = array( 'id' => xos_href_link($_SERVER['BASENAME_PHP_SELF'], xos_get_all_get_params(array('tpl')) . 'tpl=' . $registered_tpls[$i], $request_type, true, true, false, false, false), 'text' => $registered_tpls[$i]);
+      $template_changer_content_noscript .= '<a href="' . xos_href_link($_SERVER['BASENAME_PHP_SELF'], xos_get_all_get_params(array('tpl')) . 'tpl=' . $registered_tpls[$i], $request_type, true, true, false, false, false) . '">' . '&nbsp; ' . (SELECTED_TPL == $registered_tpls[$i] ? '<b>' . $registered_tpls[$i] .'</b>' : $registered_tpls[$i]) . '</a><br />';       
     }
     $template_changer_content_noscript = substr($template_changer_content_noscript, 0, -6);    
 
-    $template_changer_content = xos_draw_form('templates', xos_href_link(basename($_SERVER['PHP_SELF']), '', $request_type, false, true, false, false, false), 'get');
-    $template_changer_content .= xos_draw_pull_down_menu('tpl', $tpl_array, xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('tpl')) . 'tpl=' . SELECTED_TPL, $request_type, true, true, false, false, false), 'class="form-control" onchange="location = form.tpl.options[form.tpl.selectedIndex].value;"');
+    $template_changer_content = xos_draw_form('templates', xos_href_link($_SERVER['BASENAME_PHP_SELF'], '', $request_type, false, true, false, false, false), 'get');
+    $template_changer_content .= xos_draw_pull_down_menu('tpl', $tpl_array, xos_href_link($_SERVER['BASENAME_PHP_SELF'], xos_get_all_get_params(array('tpl')) . 'tpl=' . SELECTED_TPL, $request_type, true, true, false, false, false), 'class="form-control" onchange="location = form.tpl.options[form.tpl.selectedIndex].value;"');
     $template_changer_content .= '</form>';
     
     $smarty->assign(array('box_template_changer_content' => $template_changer_content,

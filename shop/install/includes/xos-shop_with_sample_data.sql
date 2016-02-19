@@ -678,13 +678,13 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
   define(\'CONTACT_US_TEXT_EMAIL_TEXT_ENQUIRY\', \'Enquiry\');  
 
   if (SEND_EMAILS != \'true\') {
-    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die();
+    if ($_SERVER[\'BASENAME_PHP_SELF\'] == FILENAME_POPUP_CONTENT) die();
     xos_redirect(xos_href_link(FILENAME_DEFAULT), false);
   }  
 
 /* redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled (or the session has not started) */
   if ($session_started == false) {
-    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die(\'We have detected that your browser does not support cookies, or has set cookies to be disabled.<br />To continue shopping online, we encourage you to enable cookies on your browser.\');
+    if ($_SERVER[\'BASENAME_PHP_SELF\'] == FILENAME_POPUP_CONTENT) die(\'We have detected that your browser does not support cookies, or has set cookies to be disabled.<br />To continue shopping online, we encourage you to enable cookies on your browser.\');
     xos_redirect(xos_href_link(FILENAME_COOKIE_USAGE));
   }
 
@@ -753,7 +753,7 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
         $messageStack->add(\'contact\', sprintf(ERROR_PHPMAILER, $email_to_store_owner->ErrorInfo));
       } else {
         $actionRecorder->record();
-        xos_redirect(xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=success\'));
+        xos_redirect(xos_href_link($_SERVER[\'BASENAME_PHP_SELF\'], \'co=\' . (int)$content_id . \'&action=success\'));
       }
     }    
   }
@@ -769,13 +769,13 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
     $smarty->assign(\'sent\', true);
   }
 
-  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')) . xos_draw_hidden_field(\'process_id\', str_encrypt($captcha_text)),
+  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link($_SERVER[\'BASENAME_PHP_SELF\'], \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')) . xos_draw_hidden_field(\'process_id\', str_encrypt($captcha_text)),
                         \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
                         \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'class=\"form-control\" id=\"contact_us_name\"\'),
                         \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'class=\"form-control\" id=\"contact_us_email_address\"\'),
                         \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'class=\"form-control\" id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
                         \'captcha_img\' => \'<img src=\"\' . $src_captcha_base64 . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
-                        \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id, \'SSL\')),
+                        \'link_filename_default\' => (($_SERVER[\'BASENAME_PHP_SELF\']== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link($_SERVER[\'BASENAME_PHP_SELF\'], \'co=\' . (int)$content_id, \'SSL\')),
                         \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'class=\"form-control\" id=\"contact_us_enquiry\"\'),
                         \'form_end\' => \'</form>\'));
 
@@ -859,13 +859,13 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
   define(\'CONTACT_US_TEXT_EMAIL_TEXT_ENQUIRY\', \'Anfrage\');  
 
   if (SEND_EMAILS != \'true\') {
-    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die();
+    if ($_SERVER[\'BASENAME_PHP_SELF\'] == FILENAME_POPUP_CONTENT) die();
     xos_redirect(xos_href_link(FILENAME_DEFAULT), false);
   }  
 
 /* redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled (or the session has not started) */
   if ($session_started == false) {
-    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die(\'We have detected that your browser does not support cookies, or has set cookies to be disabled.<br />To continue shopping online, we encourage you to enable cookies on your browser.\');
+    if ($_SERVER[\'BASENAME_PHP_SELF\'] == FILENAME_POPUP_CONTENT) die(\'We have detected that your browser does not support cookies, or has set cookies to be disabled.<br />To continue shopping online, we encourage you to enable cookies on your browser.\');
     xos_redirect(xos_href_link(FILENAME_COOKIE_USAGE));
   }
   
@@ -934,7 +934,7 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
         $messageStack->add(\'contact\', sprintf(ERROR_PHPMAILER, $email_to_store_owner->ErrorInfo));
       } else {
         $actionRecorder->record();
-        xos_redirect(xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=success\'));
+        xos_redirect(xos_href_link($_SERVER[\'BASENAME_PHP_SELF\'], \'co=\' . (int)$content_id . \'&action=success\'));
       }
     }    
   }
@@ -950,13 +950,13 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
     $smarty->assign(\'sent\', true);
   } 
 
-  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')) . xos_draw_hidden_field(\'process_id\', str_encrypt($captcha_text)),
+  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link($_SERVER[\'BASENAME_PHP_SELF\'], \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')) . xos_draw_hidden_field(\'process_id\', str_encrypt($captcha_text)),
                         \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
                         \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'class=\"form-control\" id=\"contact_us_name\"\'),
                         \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'class=\"form-control\" id=\"contact_us_email_address\"\'),
                         \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'class=\"form-control\" id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
                         \'captcha_img\' => \'<img src=\"\' . $src_captcha_base64 . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
-                        \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id, \'SSL\')),
+                        \'link_filename_default\' => (($_SERVER[\'BASENAME_PHP_SELF\']== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link($_SERVER[\'BASENAME_PHP_SELF\'], \'co=\' . (int)$content_id, \'SSL\')),
                         \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'class=\"form-control\" id=\"contact_us_enquiry\"\'),
                         \'form_end\' => \'</form>\'));
 
@@ -1040,13 +1040,13 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
   define(\'CONTACT_US_TEXT_EMAIL_TEXT_ENQUIRY\', \'Consulta\');  
 
   if (SEND_EMAILS != \'true\') {
-    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die();
+    if ($_SERVER[\'BASENAME_PHP_SELF\'] == FILENAME_POPUP_CONTENT) die();
     xos_redirect(xos_href_link(FILENAME_DEFAULT), false);
   }  
 
 /* redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled (or the session has not started) */
   if ($session_started == false) {
-    if (basename($_SERVER[\'PHP_SELF\']) == FILENAME_POPUP_CONTENT) die(\'We have detected that your browser does not support cookies, or has set cookies to be disabled.<br />To continue shopping online, we encourage you to enable cookies on your browser.\');
+    if ($_SERVER[\'BASENAME_PHP_SELF\'] == FILENAME_POPUP_CONTENT) die(\'We have detected that your browser does not support cookies, or has set cookies to be disabled.<br />To continue shopping online, we encourage you to enable cookies on your browser.\');
     xos_redirect(xos_href_link(FILENAME_COOKIE_USAGE));
   }
   
@@ -1115,7 +1115,7 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
         $messageStack->add(\'contact\', sprintf(ERROR_PHPMAILER, $email_to_store_owner->ErrorInfo));
       } else {
         $actionRecorder->record();
-        xos_redirect(xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=success\'));
+        xos_redirect(xos_href_link($_SERVER[\'BASENAME_PHP_SELF\'], \'co=\' . (int)$content_id . \'&action=success\'));
       }
     }    
   }
@@ -1131,13 +1131,13 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
     $smarty->assign(\'sent\', true);
   } 
 
-  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')) . xos_draw_hidden_field(\'process_id\', str_encrypt($captcha_text)),
+  $smarty->assign(array(\'form_begin\' => xos_draw_form(\'contact_us\', xos_href_link($_SERVER[\'BASENAME_PHP_SELF\'], \'co=\' . (int)$content_id . \'&action=send\', \'SSL\')) . xos_draw_hidden_field(\'process_id\', str_encrypt($captcha_text)),
                         \'isset_customer_id\' => isset($_SESSION[\'customer_id\']) ? true : false,
                         \'input_field_name\' => xos_draw_input_field(\'name\', \'\', \'class=\"form-control\" id=\"contact_us_name\"\'),
                         \'input_field_email\' => xos_draw_input_field(\'email_address\', \'\', \'class=\"form-control\" id=\"contact_us_email_address\"\'),
                         \'input_security_code\' => xos_draw_input_field(\'security_code\', \'\', \'class=\"form-control\" id=\"contact_us_security_code\" maxlength=\"8\" autocomplete=\"off\"\', \'text\', false),
                         \'captcha_img\' => \'<img src=\"\' . $src_captcha_base64 . \'\" alt=\"captcha\" title=\" captcha \" />\',                          
-                        \'link_filename_default\' => ((basename($_SERVER[\'PHP_SELF\'])== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link(basename($_SERVER[\'PHP_SELF\']), \'co=\' . (int)$content_id, \'SSL\')),
+                        \'link_filename_default\' => (($_SERVER[\'BASENAME_PHP_SELF\']== FILENAME_CONTENT) ? xos_href_link(FILENAME_DEFAULT) : xos_href_link($_SERVER[\'BASENAME_PHP_SELF\'], \'co=\' . (int)$content_id, \'SSL\')),
                         \'textarea\' => xos_draw_textarea_field(\'enquiry\', \'50\', \'15\', \'\', \'class=\"form-control\" id=\"contact_us_enquiry\"\'),
                         \'form_end\' => \'</form>\'));
 

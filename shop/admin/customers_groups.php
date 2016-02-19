@@ -177,7 +177,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     $module_directory = DIR_FS_CATALOG_MODULES . 'payment/';
     $ship_module_directory = DIR_FS_CATALOG_MODULES . 'shipping/';
 
-    $file_extension = substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.'));
+    $file_extension = substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.'));
     $directory_array = array();
     if ($dir = @dir($module_directory)) {
       while ($file = $dir->read()) {
@@ -262,7 +262,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     $ship_module_directory = DIR_FS_CATALOG_MODULES . 'shipping/';
 
 // code slightly adapted from admin/modules.php
-    $file_extension = substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.'));
+    $file_extension = substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.'));
     $directory_array = array();
     if ($dir = @dir($module_directory)) {
       while ($file = $dir->read()) {

@@ -53,6 +53,10 @@
   error_reporting(E_ALL & ~E_NOTICE);
 
 //  
+  $pieces = explode('.php',$_SERVER['PHP_SELF']);
+  $_SERVER['BASENAME_PHP_SELF'] = basename($pieces[0]) . '.php';  
+  
+//  
   header('Content-Type: text/html; charset=utf-8');
   if (isset($_SERVER['HTTP_USER_AGENT']) && (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false)) header('X-UA-Compatible: IE=edge,chrome=1');  
 
@@ -121,7 +125,6 @@
   if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
     if (strlen(getenv('PATH_INFO')) > 1) {
       $GET_array = array();
-      $_SERVER['PHP_SELF'] = str_replace(getenv('PATH_INFO'), '', $_SERVER['PHP_SELF']);
       $vars = explode('/', substr(getenv('PATH_INFO'), 1));
       for ($i=0, $n=sizeof($vars)-1; $i<$n; $i++) {
         if (strpos($vars[$i], '[]')) {
@@ -142,7 +145,7 @@
   }
 
 // if gzip_compression is enabled, start to buffer the output 
-  if ( (GZIP_COMPRESSION == 'true') && (basename($_SERVER['PHP_SELF']) != FILENAME_DOWNLOAD) && (basename($_SERVER['PHP_SELF']) != FILENAME_CAPTCHA) && ($ext_zlib_loaded = extension_loaded('zlib'))) {
+  if ( (GZIP_COMPRESSION == 'true') && ($_SERVER['BASENAME_PHP_SELF'] != FILENAME_DOWNLOAD) && ($_SERVER['BASENAME_PHP_SELF'] != FILENAME_CAPTCHA) && ($ext_zlib_loaded = extension_loaded('zlib'))) {
     if (($ini_zlib_output_compression = (int)ini_get('zlib.output_compression')) < 1) {
         ob_start('ob_gzhandler');
     } else {
@@ -394,8 +397,8 @@
       $goto =  FILENAME_SHOPPING_CART;
       $parameters = array('action', 'c', 'p', 'pid');
     } else {
-      $goto = basename($_SERVER['PHP_SELF']);
-      if ($_GET['action'] == 'buy_now' && basename($_SERVER['PHP_SELF']) != FILENAME_PRODUCT_REVIEWS && basename($_SERVER['PHP_SELF']) != FILENAME_PRODUCT_REVIEWS_INFO && basename($_SERVER['PHP_SELF']) != FILENAME_PRODUCT_REVIEWS_WRITE) {
+      $goto = $_SERVER['BASENAME_PHP_SELF'];
+      if ($_GET['action'] == 'buy_now' && $_SERVER['BASENAME_PHP_SELF'] != FILENAME_PRODUCT_REVIEWS && $_SERVER['BASENAME_PHP_SELF'] != FILENAME_PRODUCT_REVIEWS_INFO && $_SERVER['BASENAME_PHP_SELF'] != FILENAME_PRODUCT_REVIEWS_WRITE) {
         $parameters = array('action', 'pid', 'p');
       } else {
         $parameters = array('action', 'pid');
@@ -415,7 +418,7 @@
                               break;
       // customer adds a product from the products page
       case 'add_product' :    if (isset($_POST['p']) && is_numeric($_POST['p'])) {
-                                if (xos_has_product_attributes($_POST['p']) && basename($_SERVER['PHP_SELF']) != FILENAME_PRODUCT_INFO) {
+                                if (xos_has_product_attributes($_POST['p']) && $_SERVER['BASENAME_PHP_SELF'] != FILENAME_PRODUCT_INFO) {
                                   xos_redirect(xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $_POST['p'] . (isset($_GET['m']) ? '&m=' . $_GET['m'] : '')), false);
                                 } else {
                                   $attributes = isset($_POST['id']) ? $_POST['id'] : '';                               
@@ -448,7 +451,7 @@
                                 } elseif (isset($_POST['notify'])) {
                                   $notify = $_POST['notify'];
                                 } else {
-                                  xos_redirect(xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('action', 'notify'))));
+                                  xos_redirect(xos_href_link($_SERVER['BASENAME_PHP_SELF'], xos_get_all_get_params(array('action', 'notify'))));
                                 }
                                 if (!is_array($notify)) $notify = array($notify);
                                 for ($i=0, $n=sizeof($notify); $i<$n; $i++) {
@@ -458,7 +461,7 @@
                                     xos_db_query("insert into " . TABLE_PRODUCTS_NOTIFICATIONS . " (products_id, customers_id, date_added) values ('" . $notify[$i] . "', '" . $_SESSION['customer_id'] . "', now())");
                                   }
                                 }
-                                xos_redirect(xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('action', 'notify'))));
+                                xos_redirect(xos_href_link($_SERVER['BASENAME_PHP_SELF'], xos_get_all_get_params(array('action', 'notify'))));
                               } else {
                                 $_SESSION['navigation']->set_snapshot();
                                 xos_redirect(xos_href_link(FILENAME_LOGIN, '', 'SSL'));
@@ -470,7 +473,7 @@
                                 if ($check['count'] > 0) {
                                   xos_db_query("delete from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . $_GET['p'] . "' and customers_id = '" . $_SESSION['customer_id'] . "'");
                                 }
-                                xos_redirect(xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('action'))));
+                                xos_redirect(xos_href_link($_SERVER['BASENAME_PHP_SELF'], xos_get_all_get_params(array('action'))));
                               } else {
                                 $_SESSION['navigation']->set_snapshot();
                                 xos_redirect(xos_href_link(FILENAME_LOGIN, '', 'SSL'));
@@ -489,10 +492,10 @@
   }
 
 // update stats products_viewed
-  if (basename($_SERVER['PHP_SELF']) == FILENAME_PRODUCT_INFO) xos_db_query("insert into " . TABLE_PRODUCTS_STATS . " (products_id, language_id, products_viewed) values('" . (int)$_GET['p'] . "', '" . (int)$_SESSION['languages_id'] . "', '1') on duplicate key update products_viewed = products_viewed+1");
+  if ($_SERVER['BASENAME_PHP_SELF'] == FILENAME_PRODUCT_INFO) xos_db_query("insert into " . TABLE_PRODUCTS_STATS . " (products_id, language_id, products_viewed) values('" . (int)$_GET['p'] . "', '" . (int)$_SESSION['languages_id'] . "', '1') on duplicate key update products_viewed = products_viewed+1");
 
 // include the who's online functions
-  if (!(in_array(basename($_SERVER['PHP_SELF']), array(FILENAME_CSS, FILENAME_JS, FILENAME_TEST)))) {
+  if (!(in_array($_SERVER['BASENAME_PHP_SELF'], array(FILENAME_CSS, FILENAME_JS, FILENAME_TEST)))) {
     require(DIR_WS_FUNCTIONS . 'whos_online.php');
     xos_update_whos_online();
   }  
@@ -559,7 +562,7 @@
         break;
       }
     }
-  } elseif (isset($_GET['m']) && (basename($_SERVER['PHP_SELF']) != FILENAME_SHOPPING_CART)) {  
+  } elseif (isset($_GET['m']) && ($_SERVER['BASENAME_PHP_SELF'] != FILENAME_SHOPPING_CART)) {  
     $manufacturers_query = xos_db_query("select manufacturers_name from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . (int)$_GET['m'] . "' and languages_id = '" . (int)$_SESSION['languages_id'] . "'");
     if (xos_db_num_rows($manufacturers_query)) {
       $manufacturers = xos_db_fetch_array($manufacturers_query);

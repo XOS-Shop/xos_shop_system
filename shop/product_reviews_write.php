@@ -212,7 +212,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                         'products_tax_description' => xos_get_products_tax_description($product_info['products_tax_class_id'], $products_tax_rate),
                         'td_width_img' => MEDIUM_PRODUCT_IMAGE_MAX_WIDTH + 10,
                         'link_back' => $back_link,
-                        'link_buy_now' => xos_href_link(basename($_SERVER['PHP_SELF']), xos_get_all_get_params(array('action')) . 'action=buy_now'))); 
+                        'link_buy_now' => xos_href_link($_SERVER['BASENAME_PHP_SELF'], xos_get_all_get_params(array('action')) . 'action=buy_now'))); 
   $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'product_reviews_write');
   $output_product_reviews_write = $smarty->fetch(SELECTED_TPL . '/product_reviews_write.tpl'); 
   

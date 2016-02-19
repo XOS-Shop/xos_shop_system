@@ -3,7 +3,7 @@
   if ($_SESSION['selected_box'] == 'modules' || EXPAND_MENUBOX_MODULES == 'true') {
    
     foreach ($cfgModules->getAll() as $m) {
-      $menu_box_contents[] = array('link' => xos_href_link(FILENAME_MODULES, 'set=' . $m['code'] . '&selected_box=modules'), 'selected' => ($_SESSION['selected_box'] == 'modules' && FILENAME_MODULES == basename($_SERVER['PHP_SELF']) && $_GET['set'] == $m['code']) ? true : false, 'name' => $m['box_name']);    
+      $menu_box_contents[] = array('link' => xos_href_link(FILENAME_MODULES, 'set=' . $m['code'] . '&selected_box=modules'), 'selected' => ($_SESSION['selected_box'] == 'modules' && FILENAME_MODULES == $_SERVER['BASENAME_PHP_SELF'] && $_GET['set'] == $m['code']) ? true : false, 'name' => $m['box_name']);    
     }  
     
     $smarty->assign('menu_box_contents', $menu_box_contents);                                   

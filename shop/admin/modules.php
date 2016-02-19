@@ -62,7 +62,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         break;                
       case 'install':
       case 'remove':       
-        $file_extension = substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.'));
+        $file_extension = substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.'));
         $class = basename($_GET['module']);
         if (file_exists($module_directory . $class . $file_extension)) {
           include($module_directory . $class . $file_extension);
@@ -95,7 +95,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
   require(DIR_WS_INCLUDES . 'column_left.php');      
   require(DIR_WS_INCLUDES . 'footer.php');
 
-  $file_extension = substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.'));
+  $file_extension = substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.'));
   $directory_array = array();
   if ($dir = @dir($module_directory)) {
     while ($file = $dir->read()) {

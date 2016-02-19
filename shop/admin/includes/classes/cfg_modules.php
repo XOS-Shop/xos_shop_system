@@ -35,7 +35,7 @@
 
     function __construct() {
 
-      $file_extension = substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.'));
+      $file_extension = substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.'));
       $directory = DIR_WS_MODULES . 'cfg_modules';
 
       if ($dir = @dir($directory)) {

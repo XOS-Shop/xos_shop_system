@@ -31,7 +31,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/modules/downloads.php') == 'overwrite_all')) :
-  if (!strstr(basename($_SERVER['PHP_SELF']), FILENAME_ACCOUNT_HISTORY_INFO)) {
+  if (!strstr($_SERVER['BASENAME_PHP_SELF'], FILENAME_ACCOUNT_HISTORY_INFO)) {
 // Get last order id for checkout_success
     $orders_query = xos_db_query("select orders_id from " . TABLE_ORDERS . " where customers_id = '" . (int)$_SESSION['customer_id'] . "' order by orders_id desc limit 1");
     $orders = xos_db_fetch_array($orders_query);
@@ -67,7 +67,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
                                       'count' => $downloads['download_count']);          
     }
 
-    if (!strstr(basename($_SERVER['PHP_SELF']), FILENAME_ACCOUNT_HISTORY_INFO)) {    
+    if (!strstr($_SERVER['BASENAME_PHP_SELF'], FILENAME_ACCOUNT_HISTORY_INFO)) {    
       $smarty->assign('download_link', '<a href="' . xos_href_link(FILENAME_ACCOUNT, '', 'SSL') . '">' . HEADER_TITLE_MY_ACCOUNT . '</a>');    
     }
     

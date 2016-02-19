@@ -60,8 +60,8 @@
 
         $include_modules = array();
 
-        if ( (xos_not_null($module)) && (in_array(substr($module['id'], 0, strpos($module['id'], '_')) . '.' . substr(basename($_SERVER['PHP_SELF']), (strrpos(basename($_SERVER['PHP_SELF']), '.')+1)), $this->modules)) ) {
-          $include_modules[] = array('class' => substr($module['id'], 0, strpos($module['id'], '_')), 'file' => substr($module['id'], 0, strpos($module['id'], '_')) . '.' . substr(basename($_SERVER['PHP_SELF']), (strrpos(basename($_SERVER['PHP_SELF']), '.')+1)));
+        if ( (xos_not_null($module)) && (in_array(substr($module['id'], 0, strpos($module['id'], '_')) . '.' . substr($_SERVER['BASENAME_PHP_SELF'], (strrpos($_SERVER['BASENAME_PHP_SELF'], '.')+1)), $this->modules)) ) {
+          $include_modules[] = array('class' => substr($module['id'], 0, strpos($module['id'], '_')), 'file' => substr($module['id'], 0, strpos($module['id'], '_')) . '.' . substr($_SERVER['BASENAME_PHP_SELF'], (strrpos($_SERVER['BASENAME_PHP_SELF'], '.')+1)));
         } else {
           reset($this->modules);
           while (list(, $value) = each($this->modules)) {

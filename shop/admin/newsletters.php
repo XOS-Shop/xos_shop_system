@@ -44,8 +44,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
         $nInfo = new objectInfo($newsletter);
 
-        // include(DIR_FS_SMARTY . 'admin/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.')));
-        include(DIR_WS_MODULES . 'newsletters/' . $nInfo->module . substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.')));
+        // include(DIR_FS_SMARTY . 'admin/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.')));
+        include(DIR_WS_MODULES . 'newsletters/' . $nInfo->module . substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.')));
         $module_name = $nInfo->module;
         $module = new $module_name($nInfo->title, $nInfo->language_id, $nInfo->content_text_plain, $nInfo->content_text_htlm, $nInfo->language_code, $nInfo->language_directory);
 
@@ -244,7 +244,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       $nInfo = new objectInfo($parameters);
     }
 
-    $file_extension = substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.'));
+    $file_extension = substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.'));
     $directory_array = array();
     if ($dir = dir(DIR_WS_MODULES . 'newsletters/')) {
       while ($file = $dir->read()) {
@@ -335,8 +335,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
     $nInfo = new objectInfo($newsletter);
 
-    include(DIR_FS_SMARTY . 'admin/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.')));
-    include(DIR_WS_MODULES . 'newsletters/' . $nInfo->module . substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.')));
+    include(DIR_FS_SMARTY . 'admin/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.')));
+    include(DIR_WS_MODULES . 'newsletters/' . $nInfo->module . substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.')));
     $module_name = $nInfo->module;
     $module = new $module_name($nInfo->title, $nInfo->language_id, $nInfo->content_text_plain, $nInfo->content_text_htlm, $nInfo->language_code, $nInfo->language_directory);
 
@@ -356,8 +356,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
     $nInfo = new objectInfo($newsletter);
 
-    include(DIR_FS_SMARTY . 'admin/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.')));
-    include(DIR_WS_MODULES . 'newsletters/' . $nInfo->module . substr(basename($_SERVER['PHP_SELF']), strrpos(basename($_SERVER['PHP_SELF']), '.')));
+    include(DIR_FS_SMARTY . 'admin/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.')));
+    include(DIR_WS_MODULES . 'newsletters/' . $nInfo->module . substr($_SERVER['BASENAME_PHP_SELF'], strrpos($_SERVER['BASENAME_PHP_SELF'], '.')));
     $module_name = $nInfo->module;
     $module = new $module_name($nInfo->title, $nInfo->language_id, $nInfo->content_text_plain, $nInfo->content_text_htlm, $nInfo->language_code, $nInfo->language_directory);
 

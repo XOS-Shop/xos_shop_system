@@ -100,7 +100,7 @@
 
 // previous button
       if ($this->current_page_number > 1) {
-        $display_links_string .= '&nbsp;<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), $parameters . $this->page_name . '=' . ($this->current_page_number - 1), $request_type) . '" class="page-results" title=" ' . PREVNEXT_TITLE_PREVIOUS_PAGE . ' "><span class="text-deco-underline">' . PREVNEXT_BUTTON_PREV . '</span></a>&nbsp;';
+        $display_links_string .= '&nbsp;<a href="' . xos_href_link($_SERVER['BASENAME_PHP_SELF'], $parameters . $this->page_name . '=' . ($this->current_page_number - 1), $request_type) . '" class="page-results" title=" ' . PREVNEXT_TITLE_PREVIOUS_PAGE . ' "><span class="text-deco-underline">' . PREVNEXT_BUTTON_PREV . '</span></a>&nbsp;';
       } elseif ($this->number_of_pages != 1) {
         $display_links_string .= '&nbsp;' . PREVNEXT_BUTTON_PREV . '&nbsp;';
       }
@@ -113,23 +113,23 @@
       if ($this->number_of_pages % $max_page_links) $max_window_num++;
 
 // previous window of pages
-      if ($cur_window_num > 1) $display_links_string .= '&nbsp;<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), $parameters . $this->page_name . '=' . (($cur_window_num - 1) * $max_page_links), $request_type) . '" class="page-results" title=" ' . sprintf(PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE, $max_page_links) . ' "><span class="text-deco-underline">...</span></a>&nbsp;';
+      if ($cur_window_num > 1) $display_links_string .= '&nbsp;<a href="' . xos_href_link($_SERVER['BASENAME_PHP_SELF'], $parameters . $this->page_name . '=' . (($cur_window_num - 1) * $max_page_links), $request_type) . '" class="page-results" title=" ' . sprintf(PREVNEXT_TITLE_PREV_SET_OF_NO_PAGE, $max_page_links) . ' "><span class="text-deco-underline">...</span></a>&nbsp;';
 
 // page nn button
       for ($jump_to_page = 1 + (($cur_window_num - 1) * $max_page_links); ($jump_to_page <= ($cur_window_num * $max_page_links)) && ($jump_to_page <= $this->number_of_pages); $jump_to_page++) {
         if ($jump_to_page == $this->current_page_number) {
           $display_links_string .= '&nbsp;<b>' . $jump_to_page . '</b>&nbsp;';
         } else {
-          $display_links_string .= '&nbsp;<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), $parameters . $this->page_name . '=' . $jump_to_page, $request_type) . '" class="page-results" title=" ' . sprintf(PREVNEXT_TITLE_PAGE_NO, $jump_to_page) . ' "><span class="text-deco-underline">' . $jump_to_page . '</span></a>&nbsp;';
+          $display_links_string .= '&nbsp;<a href="' . xos_href_link($_SERVER['BASENAME_PHP_SELF'], $parameters . $this->page_name . '=' . $jump_to_page, $request_type) . '" class="page-results" title=" ' . sprintf(PREVNEXT_TITLE_PAGE_NO, $jump_to_page) . ' "><span class="text-deco-underline">' . $jump_to_page . '</span></a>&nbsp;';
         }
       }
 
 // next window of pages
-      if ($cur_window_num < $max_window_num) $display_links_string .= '&nbsp;<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), $parameters . $this->page_name . '=' . (($cur_window_num) * $max_page_links + 1), $request_type) . '" class="page-results" title=" ' . sprintf(PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE, $max_page_links) . ' "><span class="text-deco-underline">...</span></a>&nbsp;';
+      if ($cur_window_num < $max_window_num) $display_links_string .= '&nbsp;<a href="' . xos_href_link($_SERVER['BASENAME_PHP_SELF'], $parameters . $this->page_name . '=' . (($cur_window_num) * $max_page_links + 1), $request_type) . '" class="page-results" title=" ' . sprintf(PREVNEXT_TITLE_NEXT_SET_OF_NO_PAGE, $max_page_links) . ' "><span class="text-deco-underline">...</span></a>&nbsp;';
 
 // next button
       if ($this->current_page_number < $this->number_of_pages) {
-        $display_links_string .= '&nbsp;<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), $parameters . 'page=' . ($this->current_page_number + 1), $request_type) . '" class="page-results" title=" ' . PREVNEXT_TITLE_NEXT_PAGE . ' "><span class="text-deco-underline">' . PREVNEXT_BUTTON_NEXT . '</span></a>&nbsp;';
+        $display_links_string .= '&nbsp;<a href="' . xos_href_link($_SERVER['BASENAME_PHP_SELF'], $parameters . 'page=' . ($this->current_page_number + 1), $request_type) . '" class="page-results" title=" ' . PREVNEXT_TITLE_NEXT_PAGE . ' "><span class="text-deco-underline">' . PREVNEXT_BUTTON_NEXT . '</span></a>&nbsp;';
       } elseif ($this->number_of_pages != 1) {
         $display_links_string .= '&nbsp;' . PREVNEXT_BUTTON_NEXT . '&nbsp;';
       } 
@@ -152,11 +152,11 @@
       }
 
       if ($num_pages > 1) {
-        $display_links = xos_draw_form('pages', xos_href_link(basename($_SERVER['PHP_SELF']), '', $request_type, false, true, false, false, false), 'get');
+        $display_links = xos_draw_form('pages', xos_href_link($_SERVER['BASENAME_PHP_SELF'], '', $request_type, false, true, false, false, false), 'get');
 
 // previous button
         if ($this->current_page_number > 1) {
-          $display_links .= '&nbsp;<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), $parameters . $this->page_name . '=' . ($this->current_page_number - 1), $request_type) . '" class="page-results" title=" ' . PREVNEXT_TITLE_PREVIOUS_PAGE . ' "><span class="text-deco-underline">' . PREVNEXT_BUTTON_PREV . '</span></a>&nbsp;';
+          $display_links .= '&nbsp;<a href="' . xos_href_link($_SERVER['BASENAME_PHP_SELF'], $parameters . $this->page_name . '=' . ($this->current_page_number - 1), $request_type) . '" class="page-results" title=" ' . PREVNEXT_TITLE_PREVIOUS_PAGE . ' "><span class="text-deco-underline">' . PREVNEXT_BUTTON_PREV . '</span></a>&nbsp;';
         } elseif ($this->number_of_pages != 1) {
           $display_links .= '&nbsp;' . PREVNEXT_BUTTON_PREV . '&nbsp;';
         }
@@ -165,7 +165,7 @@
         
 // next button
         if ($this->current_page_number < $this->number_of_pages) {
-          $display_links .= '&nbsp;<a href="' . xos_href_link(basename($_SERVER['PHP_SELF']), $parameters . 'page=' . ($this->current_page_number + 1), $request_type) . '" class="page-results" title=" ' . PREVNEXT_TITLE_NEXT_PAGE . ' "><span class="text-deco-underline">' . PREVNEXT_BUTTON_NEXT . '</span></a>&nbsp;';
+          $display_links .= '&nbsp;<a href="' . xos_href_link($_SERVER['BASENAME_PHP_SELF'], $parameters . 'page=' . ($this->current_page_number + 1), $request_type) . '" class="page-results" title=" ' . PREVNEXT_TITLE_NEXT_PAGE . ' "><span class="text-deco-underline">' . PREVNEXT_BUTTON_NEXT . '</span></a>&nbsp;';
         } elseif ($this->number_of_pages != 1) {
           $display_links .= '&nbsp;' . PREVNEXT_BUTTON_NEXT . '&nbsp;';
         }         

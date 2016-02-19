@@ -44,6 +44,10 @@
   error_reporting(E_ALL & ~E_NOTICE);
 
 //  
+  $pieces = explode('.php',$_SERVER['PHP_SELF']);
+  $_SERVER['BASENAME_PHP_SELF'] = basename($pieces[0]) . '.php';  
+  
+//  
   header('Content-Type: text/html; charset=utf-8');
   header('X-UA-Compatible: IE=edge,chrome=1');
 
@@ -215,7 +219,7 @@
 
 // include the language translations
   require(DIR_FS_SMARTY . 'admin/languages/' . $_SESSION['language'] . '.php');
-  $current_page = basename($_SERVER['PHP_SELF']);
+  $current_page = $_SERVER['BASENAME_PHP_SELF'];
   if (file_exists(DIR_FS_SMARTY . 'admin/languages/' . $_SESSION['language'] . '/' . $current_page)) {
     include(DIR_FS_SMARTY . 'admin/languages/' . $_SESSION['language'] . '/' . $current_page);
   }
@@ -301,7 +305,7 @@
     $messageStack->add('header', WARNING_CONFIG_FILE_WRITEABLE, 'warning');
   }  
 
-  if (basename($_SERVER['PHP_SELF']) == FILENAME_LOGIN || basename($_SERVER['PHP_SELF']) == FILENAME_PASSWORD_FORGOTTEN) {
+  if ($_SERVER['BASENAME_PHP_SELF'] == FILENAME_LOGIN || $_SERVER['BASENAME_PHP_SELF'] == FILENAME_PASSWORD_FORGOTTEN) {
     if (!defined('SECURITY_CHECK')) {
       header("HTTP/1.1 404 Not Found");
       header("Status: 404 Not Found");

@@ -56,12 +56,12 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     }
 
     if (isset($_GET['p'])) {
-      if (basename($_SERVER['PHP_SELF']) != FILENAME_TELL_A_FRIEND) include(DIR_WS_BOXES . 'share_product.php');
+      if ($_SERVER['BASENAME_PHP_SELF'] != FILENAME_TELL_A_FRIEND) include(DIR_WS_BOXES . 'share_product.php');
     } else {
       include(DIR_WS_BOXES . 'whats_new.php');
     }
 
-    if (substr(basename($_SERVER['PHP_SELF']), 0, 8) != 'checkout') {
+    if (substr($_SERVER['BASENAME_PHP_SELF'], 0, 8) != 'checkout') {
       include(DIR_WS_BOXES . 'currencies.php');
     }
 
@@ -79,7 +79,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     include(DIR_WS_BOXES . 'search.php');  
   }
   
-  if (substr(basename($_SERVER['PHP_SELF']), 0, 8) != 'checkout') {
+  if (substr($_SERVER['BASENAME_PHP_SELF'], 0, 8) != 'checkout') {
     include(DIR_WS_BOXES . 'languages.php');
   } 
 

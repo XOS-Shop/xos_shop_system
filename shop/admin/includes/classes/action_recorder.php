@@ -38,11 +38,11 @@
       $module = xos_sanitize_string(str_replace(' ', '', $module));
 
       if (defined('MODULE_ACTION_RECORDER_INSTALLED') && xos_not_null(MODULE_ACTION_RECORDER_INSTALLED)) {
-        if (xos_not_null($module) && in_array($module . '.' . substr(basename($_SERVER['PHP_SELF']), (strrpos(basename($_SERVER['PHP_SELF']), '.')+1)), explode(';', MODULE_ACTION_RECORDER_INSTALLED))) {
+        if (xos_not_null($module) && in_array($module . '.' . substr($_SERVER['BASENAME_PHP_SELF'], (strrpos($_SERVER['BASENAME_PHP_SELF'], '.')+1)), explode(';', MODULE_ACTION_RECORDER_INSTALLED))) {
           if (!class_exists($module)) {
-            if (file_exists(DIR_FS_CATALOG . 'includes/modules/action_recorder/' . $module . '.' . substr(basename($_SERVER['PHP_SELF']), (strrpos(basename($_SERVER['PHP_SELF']), '.')+1)))) {
-              include(DIR_FS_SMARTY . 'admin/languages/' . $_SESSION['language'] . '/modules/action_recorder/' . $module . '.' . substr(basename($_SERVER['PHP_SELF']), (strrpos(basename($_SERVER['PHP_SELF']), '.')+1)));
-              include(DIR_FS_CATALOG . 'includes/modules/action_recorder/' . $module . '.' . substr(basename($_SERVER['PHP_SELF']), (strrpos(basename($_SERVER['PHP_SELF']), '.')+1)));
+            if (file_exists(DIR_FS_CATALOG . 'includes/modules/action_recorder/' . $module . '.' . substr($_SERVER['BASENAME_PHP_SELF'], (strrpos($_SERVER['BASENAME_PHP_SELF'], '.')+1)))) {
+              include(DIR_FS_SMARTY . 'admin/languages/' . $_SESSION['language'] . '/modules/action_recorder/' . $module . '.' . substr($_SERVER['BASENAME_PHP_SELF'], (strrpos($_SERVER['BASENAME_PHP_SELF'], '.')+1)));
+              include(DIR_FS_CATALOG . 'includes/modules/action_recorder/' . $module . '.' . substr($_SERVER['BASENAME_PHP_SELF'], (strrpos($_SERVER['BASENAME_PHP_SELF'], '.')+1)));
             } else {
               return false;
             }

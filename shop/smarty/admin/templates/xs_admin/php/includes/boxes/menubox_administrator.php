@@ -1,8 +1,8 @@
 <?php
   $menu_box_contents = array();
   if ($_SESSION['selected_box'] == 'administrator' || EXPAND_MENUBOX_ADMINISTRATOR == 'true') {                              
-    if (xos_admin_check_files(FILENAME_ADMIN_MEMBERS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_ADMIN_MEMBERS, 'selected_box=administrator'), 'selected' => ($_SESSION['selected_box'] == 'administrator' && FILENAME_ADMIN_MEMBERS == basename($_SERVER['PHP_SELF']) && (!isset($_GET['gID']) && !isset($_GET['gPath']))) ? true : false, 'name' => BOX_ADMINISTRATOR_MEMBERS);
-    if (xos_admin_check_files(FILENAME_ADMIN_MEMBERS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_ADMIN_MEMBERS, 'selected_box=administrator&gID=groups'), 'selected' => ($_SESSION['selected_box'] == 'administrator' && FILENAME_ADMIN_MEMBERS == basename($_SERVER['PHP_SELF']) && (isset($_GET['gID']) || isset($_GET['gPath']))) ? true : false, 'name' => BOX_ADMINISTRATOR_GROUPS);
+    if (xos_admin_check_files(FILENAME_ADMIN_MEMBERS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_ADMIN_MEMBERS, 'selected_box=administrator'), 'selected' => ($_SESSION['selected_box'] == 'administrator' && FILENAME_ADMIN_MEMBERS == $_SERVER['BASENAME_PHP_SELF'] && (!isset($_GET['gID']) && !isset($_GET['gPath']))) ? true : false, 'name' => BOX_ADMINISTRATOR_MEMBERS);
+    if (xos_admin_check_files(FILENAME_ADMIN_MEMBERS)) $menu_box_contents[] = array('link' => xos_href_link(FILENAME_ADMIN_MEMBERS, 'selected_box=administrator&gID=groups'), 'selected' => ($_SESSION['selected_box'] == 'administrator' && FILENAME_ADMIN_MEMBERS == $_SERVER['BASENAME_PHP_SELF'] && (isset($_GET['gID']) || isset($_GET['gPath']))) ? true : false, 'name' => BOX_ADMINISTRATOR_GROUPS);
     
     $smarty->assign('menu_box_contents', $menu_box_contents);                                   
   }

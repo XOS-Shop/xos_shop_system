@@ -41,7 +41,7 @@
     }
   }
 
-  if (!(in_array(basename($_SERVER['PHP_SELF']), array(FILENAME_POPUP_CONTENT, FILENAME_POPUP_IMAGE)))) {
+  if (!(in_array($_SERVER['BASENAME_PHP_SELF'], array(FILENAME_POPUP_CONTENT, FILENAME_POPUP_IMAGE)))) {
     unset($_SESSION['javascript_enabled']);
   }     
 ?>
