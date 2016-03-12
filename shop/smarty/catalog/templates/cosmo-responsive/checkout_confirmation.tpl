@@ -181,7 +181,8 @@
             </div>               
           </div>                             
      [@{/if}@] 
-          <div class="well well-sm clearfix">           
+          <div class="well well-sm clearfix">
+              [@{$input_process_button}@]           
               <input type="submit" class="btn btn-success pull-right" value="[@{#button_text_confirm_order#}@]" /> 
           </div>                       
     [@{$form_end}@]
