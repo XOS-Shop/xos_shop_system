@@ -747,3 +747,10 @@ a.header-navi:hover {
     width: 30px !important;
   }
 }
+
+#scrollUp {
+  font-size: 30px;
+  bottom: 100px;
+  right: 30px;
+  padding: 4px 8px 0px 10px;
+} 

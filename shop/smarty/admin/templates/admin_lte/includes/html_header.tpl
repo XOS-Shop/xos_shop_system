@@ -52,4 +52,48 @@
 <script src="[@{$images_path}@]fastclick.min.js"></script>
 <script src="[@{$images_path}@]app.min.js"></script>
 <script src="[@{$images_path}@]jquery-ui-1.10.3.custom.min.js"></script>
+<script>
+$(function () {
+  var slideToTop = $("<div />");
+  slideToTop.html('<i class="fa fa-chevron-up" style="color: #fff"></i>');
+  slideToTop.css({
+    'position': 'fixed',
+    'bottom': '250px',
+    'right': '15px',
+    'width': '40px',
+    'height': '40px',
+    'color': '#fff',
+    'font-size': '14px',
+    'line-height': '40px',
+    'text-align': 'center',
+    'background-color': '#222d32',    
+    'cursor': 'pointer',
+    'border-radius': '5px',
+    'z-index': '99999',
+    'opacity': '.3',
+    'display': 'none'
+  });
+  slideToTop.on('mouseover', function () {
+    $(this).css('opacity', '1');
+  });
+  slideToTop.on('mouseout', function () {
+    $(this).css('opacity', '.3');
+  });
+  $('.wrapper').append(slideToTop);
+  $(window).scroll(function () {
+    if ($(window).scrollTop() >= 150) {
+      if (!$(slideToTop).is(':visible')) {
+        $(slideToTop).fadeIn(500);
+      }
+    } else {
+      $(slideToTop).fadeOut(500);
+    }
+  });
+  $(slideToTop).click(function () {
+    $("html, body").animate({
+      scrollTop: 0
+    }, 500);
+  });
+});  
+</script>
 [@{$style}@][@{$javascript}@]</head>
