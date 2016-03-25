@@ -334,8 +334,6 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
             xos_db_query($sql_array[$i]);
           }
           
-          session_write_close();
-          
           xos_db_query("delete from " . TABLE_WHOS_ONLINE);
           xos_db_query("delete from " . TABLE_SESSIONS);
           xos_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'DB_LAST_RESTORE'");
