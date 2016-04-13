@@ -46,6 +46,9 @@ define('TEXT_INFO_DOWNLOAD_ONLY', 'Bajar solo (no guardar en el servidor)');
 define('TEXT_INFO_BEST_THROUGH_HTTPS', 'Preferiblemente con una conexión segura');
 define('TEXT_NO_EXTENSION', 'Ninguna');
 define('TEXT_DELETE_INTRO', 'Seguro que quiere eliminar esta copia?');
+define('TEXT_PLEASE_WAIT', 'Please wait');
+define('TEXT_RUN', 'Run');
+define('TEXT_OF', 'of');
 
 define('ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST', 'Error: No existe el directorio de copias de seguridad.');
 define('ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE', 'Error: No hay permiso de escritura en el directorio de copias de seguridad.');

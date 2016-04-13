@@ -65,6 +65,16 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       $contents[] = array('text' => TEXT_INFO_RESTORE_LOCAL_RAW_FILE);
       $contents[] = array('text' => '<br /><a href="" onclick="restore.submit(); return false" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_RESTORE . ' ">' . BUTTON_TEXT_RESTORE . '</a><a href="' . xos_href_link(FILENAME_BACKUP) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_CANCEL . ' ">' . BUTTON_TEXT_CANCEL . '</a><br />&nbsp;');
       break;
+    case 'restorenow':
+      $heading_title = '<b>' . $buInfo->date . '</b>';
+
+      $contents[] = array('text' => TEXT_INFO_RESTORE_LOCAL . '<br /><br /><span id="process-spin"><i class="fa fa-refresh fa-spin"></i>&nbsp; &nbsp; &nbsp;</span><b><span id="restoreProcessInfo">' . TEXT_PLEASE_WAIT . ' |&nbsp;' . TEXT_RUN . '&nbsp;1</span></b><br /><br /><a id="button-ok" style="display: none;" href="' . xos_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_OK . ' ">' . BUTTON_TEXT_OK . '</a><br />&nbsp;');
+      break;      
+    case 'restorelocalnow':
+      $heading_title = '<b>' . TEXT_INFO_HEADING_RESTORE_LOCAL . '</b>';
+
+      $contents[] = array('text' => TEXT_INFO_RESTORE_LOCAL . '<br /><br /><span id="process-spin"><i class="fa fa-refresh fa-spin"></i>&nbsp; &nbsp; &nbsp;</span><b><span id="restoreProcessInfo">' . TEXT_PLEASE_WAIT . ' |&nbsp;' . TEXT_RUN . '&nbsp;1</span></b><br /><br /><a id="button-ok" style="display: none;" href="' . xos_href_link(FILENAME_BACKUP) . '" class="btn btn-default btn-margin-infobox" title=" ' . BUTTON_TITLE_OK . ' ">' . BUTTON_TEXT_OK . '</a><br />&nbsp;');
+      break;      
     case 'delete':
       $heading_title = '<b>' . $buInfo->date . '</b>';
 

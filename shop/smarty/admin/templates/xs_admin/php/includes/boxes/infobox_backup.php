@@ -33,6 +33,16 @@
       $contents[] = array('text' => TEXT_INFO_RESTORE_LOCAL_RAW_FILE);
       $contents[] = array('text' => '<br /><a href="" onclick="restore.submit(); return false" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_RESTORE . ' "><span>' . BUTTON_TEXT_RESTORE . '</span></a><a href="' . xos_href_link(FILENAME_BACKUP) . '" class="button-default" style="margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_CANCEL . ' "><span>' . BUTTON_TEXT_CANCEL . '</span></a><br />&nbsp;');
       break;
+    case 'restorenow':
+      $heading_title = '<b>' . $buInfo->date . '</b>';
+
+      $contents[] = array('text' => TEXT_INFO_RESTORE_LOCAL . '<br /><br /><b><span id="restoreProcessInfo">' . TEXT_PLEASE_WAIT . '&nbsp;|&nbsp;' . TEXT_RUN . '&nbsp;1</span></b><br /><br /><a id="button-ok" href="' . xos_href_link(FILENAME_BACKUP, 'file=' . $buInfo->file) . '" class="button-default" style="display: none; margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_OK . ' "><span>' . BUTTON_TEXT_OK . '</span></a><br />&nbsp;');
+      break;      
+    case 'restorelocalnow':
+      $heading_title = '<b>' . TEXT_INFO_HEADING_RESTORE_LOCAL . '</b>';
+
+      $contents[] = array('text' => TEXT_INFO_RESTORE_LOCAL . '<br /><br /><b><span id="restoreProcessInfo">' . TEXT_PLEASE_WAIT . '&nbsp;|&nbsp;' . TEXT_RUN . '&nbsp;1</span></b><br /><br /><a id="button-ok" href="' . xos_href_link(FILENAME_BACKUP) . '" class="button-default" style="display: none; margin-right: 5px; float: left" title=" ' . BUTTON_TITLE_OK . ' "><span>' . BUTTON_TEXT_OK . '</span></a><br />&nbsp;');
+      break;       
     case 'delete':
       $heading_title = '<b>' . $buInfo->date . '</b>';
 

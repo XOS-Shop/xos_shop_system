@@ -72,6 +72,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         fputs($fp, $schema);
 
         $tables_query = xos_db_query('show tables');
+        $ii = 0;
+        $iii = 0;
         while ($tables = xos_db_fetch_array($tables_query)) {
           list(,$table) = each($tables);
 
@@ -128,6 +130,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
           }
 
           $schema .= "\n" . ');' . "\n\n";
+          $ii++;
           fputs($fp, $schema);
 
 // dump the data
@@ -150,7 +153,13 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                 }
               }
 
-              $schema = preg_replace('/, $/', '', $schema) . ');' . "\n";
+              $schema = preg_replace('/, $/', '', $schema) . ');' . "\n";              
+              if ($ii >= 100) {
+                $iii++;
+                $schema .= '####MARK ' . $iii . ' ####' . "\n";
+                $ii = 1;
+              }
+              $ii++;
               fputs($fp, $schema);
             }
           }
@@ -203,6 +212,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       case 'restorenow':
       case 'restorelocalnow':
         xos_set_time_limit(0);
+        
+        $restore_query = '';
 
         if ($action == 'restorenow') {
           $read_from = $_GET['file'];
@@ -228,7 +239,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                     $fd = fopen($restore_file, 'rb');
                     fseek($fd, -4, SEEK_END);
                     $buf = fread($fd, 4);
-                    $filesize_uncompressed = end(unpack('V', $buf));
+                    $unpack = unpack('V', $buf);
+                    $filesize_uncompressed = end($unpack);
                     fclose($fd);                                    
                     $fdgz = gzopen($restore_file, 'rb');
                     $restore_query = gzread($fdgz, $filesize_uncompressed);
@@ -239,7 +251,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
             }
           }
         } elseif ($action == 'restorelocalnow') {
-          $sql_file = new upload('sql_file', '', '', array('sql','gz'));          
+          $sql_file = new upload('sql_file', DIR_FS_TMP, '', array('sql','gz'));          
           $sql_file->parse();
           
           $extension = substr($sql_file->filename, -3);
@@ -258,7 +270,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                   $fd = fopen($sql_file->tmp_filename, 'rb');
                   fseek($fd, -4, SEEK_END);
                   $buf = fread($fd, 4);
-                  $filesize_uncompressed = end(unpack('V', $buf));
+                  $unpack = unpack('V', $buf);
+                  $filesize_uncompressed = end($unpack);
                   fclose($fd);                                                 
                   $restore_query = gzread(gzopen($sql_file->tmp_filename, 'rb'), $filesize_uncompressed);
                   $read_from = $sql_file->filename;
@@ -268,84 +281,22 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
           }                  
         }
 
-        if (isset($restore_query)) {
-// the catalog directory name will be replaced in database dump if necessary        
-          $hcd_pos = strpos($restore_query, 'HTTP Catalog Directory:') + 23;        
-          $hcd_dir = trim(substr($restore_query, $hcd_pos, strpos($restore_query, "\n", $hcd_pos) - $hcd_pos));          
-          if ($hcd_dir != DIR_WS_CATALOG) {
-            $restore_query = preg_replace(array('#href=\\\"' . $hcd_dir . '([a-zA-Z0-9\-_])([^\"]*)\"#', '#src=\\\"' . $hcd_dir . '([a-zA-Z0-9\-_])([^\"]*)\"#'), array('href=\"' . DIR_WS_CATALOG . '$1$2"', 'src=\"' . DIR_WS_CATALOG . '$1$2"'),  $restore_query);
-          }          
-          $sql_array = array();
-          $drop_table_names = array();
-          $sql_length = strlen($restore_query);
-          $pos = strpos($restore_query, ';');
-          for ($i=$pos; $i<$sql_length; $i++) {
-            if ($restore_query[0] == '#') {
-              $restore_query = ltrim(substr($restore_query, strpos($restore_query, "\n")));
-              $sql_length = strlen($restore_query);
-              $i = strpos($restore_query, ';')-1;
-              continue;
-            }
-            if ($restore_query[($i+1)] == "\n") {
-              for ($j=($i+2); $j<$sql_length; $j++) {
-                if (trim($restore_query[$j]) != '') {
-                  $next = substr($restore_query, $j, 6);
-                  if ($next[0] == '#') {
-// find out where the break position is so we can remove this line (#comment line)
-                    for ($k=$j; $k<$sql_length; $k++) {
-                      if ($restore_query[$k] == "\n") break;
-                    }
-                    $query = substr($restore_query, 0, $i+1);
-                    $restore_query = substr($restore_query, $k);
-// join the query before the comment appeared, with the rest of the dump
-                    $restore_query = $query . $restore_query;
-                    $sql_length = strlen($restore_query);
-                    $i = strpos($restore_query, ';')-1;
-                    continue 2;
-                  }
-                  break;
-                }
-              }
-              if ($next == '') { // get the last insert query
-                $next = 'insert';
-              }
-              if ( (preg_match('/create/i', $next)) || (preg_match('/insert/i', $next)) || (preg_match('/drop t/i', $next)) ) {              
-                $query = substr($restore_query, 0, $i);
-              
-                $next = '';
-                $sql_array[] = $query;
-                $restore_query = ltrim(substr($restore_query, $i+1));
-                $sql_length = strlen($restore_query);
-                $i = strpos($restore_query, ';')-1;
-                
-                if (preg_match('/^create*/i', $query)) { 
-                  $table_name = trim(substr($query, stripos($query, 'table ')+6)); 
-                  $table_name = substr($table_name, 0, strpos($table_name, ' ')); 
-
-                  $drop_table_names[] = $table_name; 
-                }                 
-              }
-            }
-          }
-
-          xos_db_query('drop table if exists ' . implode(', ', $drop_table_names));
-
-          for ($i=0, $n=sizeof($sql_array); $i<$n; $i++) {
-            xos_db_query($sql_array[$i]);
+        if (!empty($restore_query)) {
+          $restore_query_array = array();
+          $restore_query_array = preg_split('/####MARK ([0-9]*) ####/', $restore_query);                  
+          foreach ($restore_query_array as $key => $value) {
+            file_put_contents(DIR_FS_TMP . $read_from . '.' . ($key + 1) . '.tmp',$value);
+            $iterations = $key + 1;  
           }
           
-          xos_db_query("delete from " . TABLE_WHOS_ONLINE);
-          xos_db_query("delete from " . TABLE_SESSIONS);
-          xos_db_query("delete from " . TABLE_CONFIGURATION . " where configuration_key = 'DB_LAST_RESTORE'");
-          xos_db_query("insert into " . TABLE_CONFIGURATION . " values (null, 'DB_LAST_RESTORE', '" . $read_from . "', '6', '0', null, now(), '', '')");
+// the catalog directory name will be replaced in database dump if necessary        
+          $hcd_pos = strpos($restore_query_array[0], 'HTTP Catalog Directory:') + 23;        
+          $hcd_dir = trim(substr($restore_query_array[0], $hcd_pos, strpos($restore_query_array[0], "\n", $hcd_pos) - $hcd_pos)); 
+          
+          $smarty_cache_control->clearAllCache();                           
+        }          
 
-          $messageStack->add_session('header', SUCCESS_DATABASE_RESTORED, 'success');
-        }
-        
-        $smarty_cache_control->clearAllCache();
-        
-        xos_redirect(xos_href_link(FILENAME_BACKUP));
-        break;
+        break;              
       case 'download':
         $extension = substr($_GET['file'], -3);
 
@@ -392,6 +343,16 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
   }
 
   $javascript = '<script type="text/javascript" src="' . DIR_WS_ADMIN . 'includes/general.js"></script>' . "\n";
+  
+  if ($action == 'restorenow' || $action == 'restorelocalnow' && !empty($restore_query)) {  
+    $javascript .= '<script type="text/javascript">' . "\n" .    
+                   '/* <![CDATA[ */' . "\n" .
+                   '$(function () {' . "\n" .
+                   '    $( "#restoreProcessInfo" ).load( "' . DIR_WS_ADMIN . 'restore_process.php", { iteration : 1, iterations : ' . $iterations . ', hcd_dir : "' . $hcd_dir . '", read_from : "' . $read_from . '", language : "' . $_SESSION['language'] . '" } );' . "\n" .
+                   '});' . "\n" .
+                   '/* ]]> */' . "\n" .
+                   '</script>' . "\n";                
+  }  
   
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'header.php');

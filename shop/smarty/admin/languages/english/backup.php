@@ -45,7 +45,10 @@ define('TEXT_INFO_USE_NO_COMPRESSION', 'No Compression (Pure SQL)');
 define('TEXT_INFO_DOWNLOAD_ONLY', 'Download only (do not store server side)');
 define('TEXT_INFO_BEST_THROUGH_HTTPS', 'Best through a HTTPS connection');
 define('TEXT_DELETE_INTRO', 'Are you sure you want to delete this backup?');
-define('TEXT_NO_EXTENSION', 'None');
+define('TEXT_NO_EXTENSION', 'None'); 
+define('TEXT_PLEASE_WAIT', 'Please wait');
+define('TEXT_RUN', 'Run');
+define('TEXT_OF', 'of');
 
 define('ERROR_BACKUP_DIRECTORY_DOES_NOT_EXIST', 'Error: Backup directory does not exist. Please set this in configure.php.');
 define('ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE', 'Error: Backup directory is not writeable.');
