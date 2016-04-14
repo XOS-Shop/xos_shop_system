@@ -23,8 +23,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // Set the level of error reporting
-  ini_set('display_errors', true);
-  error_reporting(E_ALL & ~E_NOTICE);
+//  ini_set('display_errors', true);
+//  error_reporting(E_ALL & ~E_NOTICE);
+  error_reporting(0);
   
   set_time_limit(0);
           
@@ -62,6 +63,18 @@
   }       
                       
   $restore_query = file_get_contents(DIR_FS_TMP . $read_from . '.' . $iteration . '.tmp');
+  
+  if ($restore_query === false) {
+
+    $script = '<script type="text/javascript">' . "\n" .    
+              '/* <![CDATA[ */' . "\n" .
+              '  $( "#button-ok" ).show();' . "\n" .
+              '  $( "#process-spin" ).hide();' . "\n" .
+              '/* ]]> */' . "\n" .
+              '</script>' . "\n";
+              
+    die(ERROR_DATABASE_NOT_RESTORED . $script);                 
+  }     
 
   if ($hcd_dir != DIR_WS_CATALOG) {
     $restore_query = preg_replace(array('#href=\\\"' . $hcd_dir . '([a-zA-Z0-9\-_])([^\"]*)\"#', '#src=\\\"' . $hcd_dir . '([a-zA-Z0-9\-_])([^\"]*)\"#'), array('href=\"' . DIR_WS_CATALOG . '$1$2"', 'src=\"' . DIR_WS_CATALOG . '$1$2"'),  $restore_query);
@@ -136,8 +149,7 @@
               '/* ]]> */' . "\n" .
               '</script>' . "\n";                                
 
-    echo TEXT_PLEASE_WAIT . '&nbsp;|&nbsp;' . TEXT_RUN . '&nbsp;' . ($iteration + 1) . '&nbsp;' . TEXT_OF . '&nbsp;' . $iterations . $script; 
-    die;                       
+    die(TEXT_PLEASE_WAIT . '&nbsp;|&nbsp;' . TEXT_RUN . '&nbsp;' . ($iteration + 1) . '&nbsp;' . TEXT_OF . '&nbsp;' . $iterations . $script);                      
   } else {
   
     $script = '<script type="text/javascript">' . "\n" .    
