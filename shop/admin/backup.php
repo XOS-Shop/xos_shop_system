@@ -154,7 +154,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
               }
 
               $schema = preg_replace('/, $/', '', $schema) . ');' . "\n";              
-              if ($ii >= 100) {
+              if ($ii >= 200) {
                 $iii++;
                 $schema .= '####MARK ' . $iii . ' ####' . "\n";
                 $ii = 1;
@@ -251,8 +251,9 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
             }
           }
         } elseif ($action == 'restorelocalnow') {
-          $sql_file = new upload('sql_file', DIR_FS_TMP, '', array('sql','gz'));          
-          $sql_file->parse();
+          $sql_file = new upload('sql_file', DIR_FS_TMP, '', array('sql','gz')); 
+                   
+          $sql_file->parse() or xos_redirect(xos_href_link(FILENAME_BACKUP, 'action=restorelocal'));
           
           $extension = substr($sql_file->filename, -3);
           
