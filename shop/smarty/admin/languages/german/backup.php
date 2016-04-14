@@ -31,7 +31,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 define('TEXT_INFO_HEADING_NEW_BACKUP', 'Neue Sicherung');
-define('TEXT_INFO_HEADING_RESTORE_LOCAL', 'Lokal wieder herstellen');
+define('TEXT_INFO_HEADING_RESTORE_LOCAL', 'Lokal wiederherstellen');
 define('TEXT_INFO_NEW_BACKUP', 'Bitte den Sicherungsprozess AUF KEINEN FALL unterbrechen. Dieser kann einige Minuten in Anspruch nehmen.');
 define('TEXT_INFO_UNPACK', '<br /><br />(nach dem die Dateien aus dem Archiv extrahiert wurden)');
 define('TEXT_INFO_RESTORE', 'Den Wiederherstellungsprozess AUF KEINEN FALL unterbrechen.<br /><br />Je grösser die Sicherungsdatei - desto länger dauert die Wiederherstellung!<br /><br />Bitte wenn möglich den mysql client benutzen.<br /><br />Beispiel:<br /><br /><b>mysql -h' . DB_SERVER . ' -u' . DB_SERVER_USERNAME . ' -p ' . DB_DATABASE . ' &lt; %s </b> %s');
@@ -55,9 +55,10 @@ define('ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE', 'Fehler: Das Sicherungsverzeichni
 define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', 'Fehler: Download Link nicht akzeptabel.');
 define('ERROR_DIRECTORY_NOT_REMOVEABLE', 'Fehler: Das Verzeichnis kann nicht gelöscht werden. Bitte korrigieren Sie die Zugriffsrechte für: %s !');
 define('ERROR_FILE_NOT_REMOVEABLE', 'Fehler: Die Datei kann nicht gelöscht werden. Bitte korrigieren Sie die Zugriffsrechte für: %s !');
+define('ERROR_DATABASE_NOT_RESTORED', 'Fehler: Die Datenbank wurde nicht wiederhergestellt.');
 
 define('SUCCESS_LAST_RESTORE_CLEARED', 'Erfolg: Das letzte Wiederherstellungdatum wurde gelöscht.');
 define('SUCCESS_DATABASE_SAVED', 'Erfolg: Die Datenbank wurde gesichert.');
-define('SUCCESS_DATABASE_RESTORED', 'Erfolg: Die Datenbank wurde wieder hergestellt.');
+define('SUCCESS_DATABASE_RESTORED', 'Erfolg: Die Datenbank wurde wiederhergestellt.');
 define('SUCCESS_BACKUP_DELETED', 'Erfolg: Die Sicherungsdatei wurde gelöscht.');
 ?>

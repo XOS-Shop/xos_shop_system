@@ -55,6 +55,7 @@ define('ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE', 'Error: Backup directory is not w
 define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', 'Error: Download link not acceptable.');
 define('ERROR_DIRECTORY_NOT_REMOVEABLE', 'Error: I can not remove this directory. Please set the right user permissions on: %s');
 define('ERROR_FILE_NOT_REMOVEABLE', 'Error: I can not remove this file. Please set the right user permissions on: %s');
+define('ERROR_DATABASE_NOT_RESTORED', 'Error: The database was not restored.');
 
 define('SUCCESS_LAST_RESTORE_CLEARED', 'Success: The last restoration date has been cleared.');
 define('SUCCESS_DATABASE_SAVED', 'Success: The database has been saved.');

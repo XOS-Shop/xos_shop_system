@@ -55,6 +55,7 @@ define('ERROR_BACKUP_DIRECTORY_NOT_WRITEABLE', 'Error: No hay permiso de escritu
 define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', 'Error: No se aceptan enlaces.');
 define('ERROR_DIRECTORY_NOT_REMOVEABLE', 'Error: No puedo eliminar el directorio. Asigne los permisos adecuados a: %s');
 define('ERROR_FILE_NOT_REMOVEABLE', 'Error: No puedo eliminar este fichero. Asigne los permisos adecuados a: %s');
+define('ERROR_DATABASE_NOT_RESTORED', 'Error: La base de datos no se ha restaurado.');
 
 define('SUCCESS_LAST_RESTORE_CLEARED', 'Exito: La fecha de ultima restauración ha sido borrada.');
 define('SUCCESS_DATABASE_SAVED', 'Exito: Se ha guardado la base de datos.');

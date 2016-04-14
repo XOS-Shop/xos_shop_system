@@ -330,7 +330,7 @@ define('BUTTON_TEXT_PREVIEW', 'Vorschau');
 define('BUTTON_TEXT_PRODUCTS_ATTRIBUTES', 'Artikelmerkmale');
 define('BUTTON_TEXT_REPORT', 'Report');
 define('BUTTON_TEXT_RESET', 'Zurücksetzen');
-define('BUTTON_TEXT_RESTORE', 'Wieder herstellen');
+define('BUTTON_TEXT_RESTORE', 'Wiederherstellen');
 define('BUTTON_TEXT_REAL_IMAGE', 'Realbild anzeigen');
 define('BUTTON_TEXT_SAVE', 'Sichern');
 define('BUTTON_TEXT_SEARCH', 'Suchen');
