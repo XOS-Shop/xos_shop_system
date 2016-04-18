@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : flatly-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0.1
+* version    : 1.0.7 for XOS-Shop version 1.0.2
 * descrip    : xos-shop template built with Bootstrap3 and theme flatly                                                                    
 * filename   : login.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>

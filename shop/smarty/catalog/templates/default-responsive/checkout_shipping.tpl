@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : default-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0.1
+* version    : 1.0.7 for XOS-Shop version 1.0.2
 * descrip    : xos-shop default template built with Bootstrap3                                                                    
 * filename   : checkout_shipping.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>

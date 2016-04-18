@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : osc-table
-* version    : 1.0.7 for XOS-Shop version 1.0.1
+* version    : 1.0.7 for XOS-Shop version 1.0.2
 * descrip    : oscommerce default template with css-buttons and tables for layout                                                                     
 * filename   : create_account_success.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>

@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : xs_admin
-* version    : 1.0.7 for XOS-Shop version 1.0.1
+* version    : 1.0.7 for XOS-Shop version 1.0.2
 * descrip    : xos-shop default template for admin with css-buttons
 *              and tables for layout                                                                     
 * filename   : html_header.tpl
@@ -34,7 +34,7 @@
 <meta http-equiv="content-language" content="[@{$xhtml_lang}@]" />
 <meta http-equiv="content-script-type" content="text/javascript" />
 <meta http-equiv="content-style-type" content="text/css" />
-<meta name="generator" content="XOS-Shop version 1.0.1, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0.2, open source e-commerce system" />
 <title>[@{$project_title}@][@{$add_title}@]</title>
 [@{if $base_href}@]
 <base href="[@{$base_href}@]" />

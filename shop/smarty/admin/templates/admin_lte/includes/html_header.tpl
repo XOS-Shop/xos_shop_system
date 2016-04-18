@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : admin_lte
-* version    : 1.0 for XOS-Shop version 1.0.1
+* version    : 1.0 for XOS-Shop version 1.0.2
 * descrip    : xos-shop template for admin based on
 *              AdminLTE https://github.com/almasaeed2010/AdminLTE                                                                    
 * filename   : html_header.tpl
@@ -32,7 +32,7 @@
 <meta charset="[@{$charset}@]">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-<meta name="generator" content="XOS-Shop version 1.0.1, open source e-commerce system">
+<meta name="generator" content="XOS-Shop version 1.0.2, open source e-commerce system">
 <title>[@{$project_title}@][@{$add_title}@]</title>
 [@{if $base_href}@]
 <base href="[@{$base_href}@]">

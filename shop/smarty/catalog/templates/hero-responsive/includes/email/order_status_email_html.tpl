@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : hero-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0.1
+* version    : 1.0.7 for XOS-Shop version 1.0.2
 * descrip    : xos-shop template built with Bootstrap3 and theme superhero                                                                    
 * filename   : order_status_email_html.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
@@ -32,7 +32,7 @@
 <meta http-equiv="content-type" content="text/html; charset=[@{$charset}@]" />
 <meta http-equiv="content-language" content="[@{$xhtml_lang}@]" />
 <meta http-equiv="content-style-type" content="text/css" />
-<meta name="generator" content="XOS-Shop version 1.0.1, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0.2, open source e-commerce system" />
 <title></title>
 </head>
 <body>
