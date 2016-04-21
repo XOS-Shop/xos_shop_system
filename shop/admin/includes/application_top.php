@@ -124,21 +124,6 @@
       define($configuration['cfgKey'], $configuration['cfgValue']);
     }     
   }
-    
-// require the smarty class and create an instance
-  require(DIR_FS_SMARTY . 'Smarty-3.1.29/Smarty.class.php');  
-  $smarty = new Smarty();
-  $smarty->setTemplateDir(DIR_FS_SMARTY . 'admin/templates/');
-  $smarty->setCompileDir(DIR_FS_SMARTY . 'admin/templates_c/');
-  $smarty->setConfigDir(DIR_FS_SMARTY . 'admin/');
-  $smarty->setCacheDir(DIR_FS_SMARTY . 'admin/cache/');
-  $smarty->left_delimiter = '[@{';
-  $smarty->right_delimiter = '}@]';
-  
-// and create an smarty instance for cache control  
-  $smarty_cache_control = new Smarty();
-  $smarty_cache_control->setCompileDir(DIR_FS_SMARTY . 'catalog/templates_c/');
-  $smarty_cache_control->setCacheDir(DIR_FS_SMARTY . 'catalog/cache/');       
 
 // if gzip_compression is enabled, start to buffer the output 
   if ( (GZIP_COMPRESSION == 'true') && ($_GET['action'] != 'download') && ($_GET['action'] != 'backupnow') && ($ext_zlib_loaded = extension_loaded('zlib'))) {
@@ -314,6 +299,22 @@
   } else {
     xos_admin_check_login();
   }
+
+// require the smarty class and create an instance
+  require(DIR_FS_SMARTY . 'Smarty-3.1.29/Smarty.class.php');  
+  $smarty = new Smarty();
+  $smarty->setTemplateDir(DIR_FS_SMARTY . 'admin/templates/');
+  $smarty->setCompileDir(DIR_FS_SMARTY . 'admin/templates_c/');
+  $smarty->setConfigDir(DIR_FS_SMARTY . 'admin/');
+  $smarty->setCacheDir(DIR_FS_SMARTY . 'admin/cache/');
+  $smarty->addPluginsDir(DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/tpl_smarty_plugins/');  
+  $smarty->left_delimiter = '[@{';
+  $smarty->right_delimiter = '}@]';
+   
+// and create an smarty instance for cache control  
+  $smarty_cache_control = new Smarty();
+  $smarty_cache_control->setCompileDir(DIR_FS_SMARTY . 'catalog/templates_c/');
+  $smarty_cache_control->setCacheDir(DIR_FS_SMARTY . 'catalog/cache/');
   
   $smarty->compile_check = false;
   $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'general');     

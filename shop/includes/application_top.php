@@ -109,17 +109,7 @@
     } else {
       define($configuration['cfgKey'], $configuration['cfgValue']);
     }    
-  }
-
-// require the smarty class and create an instance
-  require(DIR_FS_SMARTY . 'Smarty-3.1.29/Smarty.class.php');  
-  $smarty = new Smarty();
-  $smarty->setTemplateDir(DIR_FS_SMARTY . 'catalog/templates/');
-  $smarty->setCompileDir(DIR_FS_SMARTY . 'catalog/templates_c/');
-  $smarty->setConfigDir(DIR_FS_SMARTY . 'catalog/');
-  $smarty->setCacheDir(DIR_FS_SMARTY . 'catalog/cache/');  
-  $smarty->left_delimiter = '[@{';
-  $smarty->right_delimiter = '}@]';      
+  }      
 
   // set the HTTP GET parameters manually if search_engine_friendly_urls is enabled
   if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
@@ -615,6 +605,17 @@
   define('WARN_SESSION_DIRECTORY_NOT_WRITEABLE', 'true');
   define('WARN_SESSION_AUTO_START', 'true');
   define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE', 'true');
+
+// require the smarty class and create an instance
+  require(DIR_FS_SMARTY . 'Smarty-3.1.29/Smarty.class.php');  
+  $smarty = new Smarty();
+  $smarty->setTemplateDir(DIR_FS_SMARTY . 'catalog/templates/');
+  $smarty->setCompileDir(DIR_FS_SMARTY . 'catalog/templates_c/');
+  $smarty->setConfigDir(DIR_FS_SMARTY . 'catalog/');
+  $smarty->setCacheDir(DIR_FS_SMARTY . 'catalog/cache/');
+  $smarty->addPluginsDir(DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/tpl_smarty_plugins/');    
+  $smarty->left_delimiter = '[@{';
+  $smarty->right_delimiter = '}@]';
   
   $smarty->caching = 0;
   $smarty->cache_lifetime = -1;

@@ -1,13 +1,23 @@
 
 ##ChangeLog
 
+# XOS-Shop v1.0.2 (Release 04/18/2016)
+
+- update:  Die neu Generierung der Produktbilder erfolgt jetzt in mehreren DurchlÃ¤ufen
+- update:  Diverse Anpassungen in den Templates
+- update:  Diverse Anpassungen in den Sprachdateien
+- update:  Bei der Sicherung der Datenbank werden jetzt Marken gesetzt damit die Wiederherstellung in mehreren DurchlÃ¤ufen stattfinden kann 
+- update:  Die Wiederherstellung von gesicherten Datenbanken erfolgt jetzt in mehreren DurchlÃ¤ufen 
+- update:  CKEditor Version-4.5.6 auf CKEditor Version-4.5.8
+- bugfix:  Fehlender Code [@{$input_process_button}@] fÃ¼r PayPal in den Templates eingefÃ¼gt
+
 # XOS-Shop v1.0.1 (Release 12/23/2015)
 
 - update:  Smarty Version-3.1.27 auf Smarty Version-3.1.29
 - update:  CKEditor Version-4.5.4 auf CKEditor Version-4.5.6
 - update:  Diverse Anpassungen in den Sprachdateien
 - update:  Diverse Anpassungen in den Templates
-- feature: Neues Admin Template 'responsive' hinzugefügt
+- feature: Neues Admin Template 'responsive' hinzugefÃ¼gt
 - bugfix:  In logger.php 
 
 # XOS-Shop v1.0_rc8 (Release 10/07/2015)
@@ -17,9 +27,9 @@
 - update:  captcha
 - update:  xml_sitemap_generator
 - update:  base href
-- update:  Konstante für PHP7 von SID zu SESSID geändert
+- update:  Konstante fÃ¼r PHP7 von SID zu SESSID geÃ¤ndert
 - update:  Konstante COOKIE_PATH aufgeteilt in HTTP_COOKIE_PATH und HTTPS_COOKIE_PATH
-- update:  Klassenkonstruktoren für PHP7 angepasst
+- update:  Klassenkonstruktoren fÃ¼r PHP7 angepasst
 - bugfix:  temp file in captcha.php
 - bugfix:  In mysqli_fetch_array resulttype korrigiert
 - bugfix:  Fehler SEF URL's in shop/.htaccess korrigiert
@@ -28,10 +38,10 @@
 # XOS-Shop v1.0_rc7z (Release 06/16/2015)
 
 - update:  Smarty Version-3.1.21 auf Smarty Version-3.1.25
-- update:  In shop/.htaccess Direktiven zur Umleitung nach http <-> https hinzugefügt
-- update:  In shop/.htaccess Direktiven zur Umleitung nach www <-> kein-www hinzugefügt
+- update:  In shop/.htaccess Direktiven zur Umleitung nach http <-> https hinzugefÃ¼gt
+- update:  In shop/.htaccess Direktiven zur Umleitung nach www <-> kein-www hinzugefÃ¼gt
 - update:  shop/includes/general.js entfernt
-- update:  shop/gzip.php und zugehörige Direktiven in shop/.htaccess hinzugefügt
+- update:  shop/gzip.php und zugehÃ¶rige Direktiven in shop/.htaccess hinzugefÃ¼gt
 - update:  Session in Datei speichern als Standard gesetzt  
 - bugfix:  In shop/admin/categories.php
 - bugfix:  url in image_processing.php und newsletters.php bereinigt
@@ -39,11 +49,11 @@
 
 # XOS-Shop v1.0_rc7y (Release 04/22/2015)
 
-- feature: Weiter neue Templates 'responsive' hinzugefügt
+- feature: Weiter neue Templates 'responsive' hinzugefÃ¼gt
 
 # XOS-Shop v1.0_rc7x (Release 04/17/2015)
 
-- feature: Neue Templates 'responsive' hinzugefügt
+- feature: Neue Templates 'responsive' hinzugefÃ¼gt
 - update:  Alte Templates entfernt
 
 # XOS-Shop v1.0_rc7w (Release 04/08/2015)
@@ -52,13 +62,13 @@
 - bugfix:  Fehler in 'german' Sprachdatei behoben
 - bugfix:  Kurzanleitung "Installation" korrigiert
 - bugfix:  Fehler in der Kategorien-Navigation (vierte Ebene) behoben
-- feature: Diverse Skripte angepasst, damit 'Responsive Webdesign' möglich wird
-- feature: Neues Template 'responsive' hinzugefügt
-- update:  Meldungen (message-stack) für 'Responsive Webdesign' erweitert
+- feature: Diverse Skripte angepasst, damit 'Responsive Webdesign' mÃ¶glich wird
+- feature: Neues Template 'responsive' hinzugefÃ¼gt
+- update:  Meldungen (message-stack) fÃ¼r 'Responsive Webdesign' erweitert
 - update:  Sprachdateien angepasst
-- update:  Preise der Optionen können nun zusammen mit den Artikelpreisen geändert werden
+- update:  Preise der Optionen kÃ¶nnen nun zusammen mit den Artikelpreisen geÃ¤ndert werden
 - update:  Das Captcha wird nun direkt mit dem HTML-Code an den Browser ausgeliefert
-- update:  Der Sicherheitscode wird jetzt verschlüsselt mit dem HTML-Code an den Browser ausgeliefert 
+- update:  Der Sicherheitscode wird jetzt verschlÃ¼sselt mit dem HTML-Code an den Browser ausgeliefert 
 - update:  CKEditor Version-4.4.6 auf CKEditor Version-4.4.7
 - update:  In Datenbank das Feld 'sesskey' in der Tabelle 'session' von 32 auf 64 Zeichen erweitert
 - update:  Icon validieren ersetzt
@@ -68,33 +78,33 @@
 
 - bugfix:  Captcha
 - bugfix:  SEF URL's
-- feature: Angaben bezüglich Lieferzeit hinzugefügt
-- feature: plus/minus für Produktmengen-Felder
-- feature: Tag <link rel="canonical" href=... im HTML-Header hinzugefügt
+- feature: Angaben bezÃ¼glich Lieferzeit hinzugefÃ¼gt
+- feature: plus/minus fÃ¼r Produktmengen-Felder
+- feature: Tag <link rel="canonical" href=... im HTML-Header hinzugefÃ¼gt
 - update:  SEF URL's (Diverse Anpassungen)
 - update:  Session Kontrolle
 - update:  Ersetzung interner Links
 - update:  Installations-/Konfigurations-Skripte (jetzt nur noch eine cofigure.php)
-- update:  HTTP-Header in offline.php (HTTP/1.1 503 Service Temporarily Unavailable hinzugefügt)
+- update:  HTTP-Header in offline.php (HTTP/1.1 503 Service Temporarily Unavailable hinzugefÃ¼gt)
 - update:  Smarty Version-3.1.19 auf Smarty Version-3.1.21
 - update:  CKEditor Version-4.4.4 auf CKEditor Version-4.4.6
 
 # XOS-Shop v1.0_rc7u (Release 09/09/2014)
 
-- feature: SEF URL's hinzugefügt
-- feature: Tag <base href=... im HTML-Header hinzugefügt
-- update:  Die 'captcha' Kompatibilität erweitert
+- feature: SEF URL's hinzugefÃ¼gt
+- feature: Tag <base href=... im HTML-Header hinzugefÃ¼gt
+- update:  Die 'captcha' KompatibilitÃ¤t erweitert
 - update:  In der Datenbank 'products_options_values' in der Tabelle 'orders_products_attributes' erweitert
 - update:  CKEditor Version-4.4.2 auf CKEditor Version-4.4.4
 
 # XOS-Shop v1.0_rc7t (Release 07/06/2014)
 
-- feature: Den Inhalts-Seiten und den Bannern kann nun auch PHP-Qoellcode in der DB hinzugefügt werden
-- feature: Die Länge des Session Code wird jetzt überwacht
-- feature: Im Admin die Möglichkeit den Cache im Ordner "templates_c" zu leeren hinzugefügt
-- update:  Beim leeren des Ordners "cache" werden nur noch die Cachedateien gelöscht
-- update:  Dem Inputfeld "security_code" das Attribut "autocomplete=off" hinzugefügt
-- update:  Sessionen werden nun mit der PHP-eigenen Funktion “session_regenerate_id” erneuert
+- feature: Den Inhalts-Seiten und den Bannern kann nun auch PHP-Qoellcode in der DB hinzugefÃ¼gt werden
+- feature: Die LÃ¤nge des Session Code wird jetzt Ã¼berwacht
+- feature: Im Admin die MÃ¶glichkeit den Cache im Ordner "templates_c" zu leeren hinzugefÃ¼gt
+- update:  Beim leeren des Ordners "cache" werden nur noch die Cachedateien gelÃ¶scht
+- update:  Dem Inputfeld "security_code" das Attribut "autocomplete=off" hinzugefÃ¼gt
+- update:  Sessionen werden nun mit der PHP-eigenen Funktion â€œsession_regenerate_idâ€ erneuert
 - update:  Smarty Version-3.1.18 auf Smarty Version-3.1.19
 - update:  CKEditor Version-4.4.0 auf CKEditor Version-4.4.2
 
@@ -109,13 +119,13 @@
 # XOS-Shop v1.0_rc7q (Release 04/04/2014
 
 - update:  CKEditor Version-4.3.3 auf CKEditor Version-4.3.4
-- feature: Modulfunktionalität erweitert
-- feature: Modulfunktion Aktionen-Rekorder eingefügt
-- feature: Modulfunktion Header Tags eingefügt
-- feature: Modulfunktion Social Bookmarks eingefügt
-- feature: Module Anmeldungen in die Administration, Kontakt, Kunden-Passwort zurücksetzen und Produkt weiterempfehlen in Modulfunktionalität Aktionen-Rekorder eingefügt
-- feature: Module Piwik und Robot NoIndex in Modulfunktionalität Header Tags eingefügt
-- feature: Module E-Mail, Facebook und Twitter in Modulfunktionalität Social Bookmarks eingefügt
+- feature: ModulfunktionalitÃ¤t erweitert
+- feature: Modulfunktion Aktionen-Rekorder eingefÃ¼gt
+- feature: Modulfunktion Header Tags eingefÃ¼gt
+- feature: Modulfunktion Social Bookmarks eingefÃ¼gt
+- feature: Module Anmeldungen in die Administration, Kontakt, Kunden-Passwort zurÃ¼cksetzen und Produkt weiterempfehlen in ModulfunktionalitÃ¤t Aktionen-Rekorder eingefÃ¼gt
+- feature: Module Piwik und Robot NoIndex in ModulfunktionalitÃ¤t Header Tags eingefÃ¼gt
+- feature: Module E-Mail, Facebook und Twitter in ModulfunktionalitÃ¤t Social Bookmarks eingefÃ¼gt
 - feature: In der Shop-Administration unter Hilfsprogramme Aktionen-Rekorder eingebaut
 - feature: Im Frontend in der Produkt-Detailansicht werden jetzt neu in der Box Weiterempfehlen die Social Bookmarks angezeigt  
 
@@ -129,19 +139,19 @@
 # XOS-Shop v1.0_rc7o (Release 01/17/2014
 
 - update:  Smarty Version-3.1.15 auf Smarty Version-3.1.16
-- bugfix:  In der Shop-Administration werden Die Requests in den Hauptmenüpunkten nicht mehr doppelt gesendet
-- feature: Die Möglichkeit das Administrations-Verzeichnis umzubenennen hinzugefügt
+- bugfix:  In der Shop-Administration werden Die Requests in den HauptmenÃ¼punkten nicht mehr doppelt gesendet
+- feature: Die MÃ¶glichkeit das Administrations-Verzeichnis umzubenennen hinzugefÃ¼gt
 
 # XOS-Shop v1.0_rc7n (Release 12/23/2013
 
 - update:  CKEditor Version-4.3 auf CKEditor Version-4.3.1
 - update:  Versionsupdate "jquery-1.9" auf "jquery-1.10.2"
-- feature: User-Interface "jquery-ui-1.10.3" eingefügt
+- feature: User-Interface "jquery-ui-1.10.3" eingefÃ¼gt
 
 # XOS-Shop v1.0_rc7m (Release 11/25/2013
 
 - update:  CKEditor Version-4.2.2 auf CKEditor Version-4.3
-- feature: Neues Template "black-tabs-cbox-dotted" hinzugefügt
+- feature: Neues Template "black-tabs-cbox-dotted" hinzugefÃ¼gt
 - bugfix:  In "shopping_cart.tpl" diverse colspan Attribute angepasst
 
 # XOS-Shop v1.0_rc7l (Release 11/11/2013
@@ -158,46 +168,46 @@
 # XOS-Shop v1.0_rc7j (Release 07/27/2013
 
 - bugfix:  Wenn Datenbankabfragen gespeicherten werden sollen, werden nun auch die Fehlermeldungen richtig gespeichert
-- feature: Der Datenbankzugriff erfolgt wenn möglich via der PHP-Erweiterung "mysqli" anstatt der veralteten Erweiterung "mysql" 
+- feature: Der Datenbankzugriff erfolgt wenn mÃ¶glich via der PHP-Erweiterung "mysqli" anstatt der veralteten Erweiterung "mysql" 
 - update:  CKEditor Version-4.1.2 auf CKEditor Version-4.2
 
 # XOS-Shop v1.0_rc7i (Release 07/08/2013
 
-- feature: In der Administration > Konfiguration > eMail  Die Möglichkeit eingefügt via der Versandart SMTP Nachrichten verschlüsselt zu übermitteln 
+- feature: In der Administration > Konfiguration > eMail  Die MÃ¶glichkeit eingefÃ¼gt via der Versandart SMTP Nachrichten verschlÃ¼sselt zu Ã¼bermitteln 
 - update:  PHPMailer Version-5.1 auf PHPMailer Version-5.2.4 
 - update:  Smarty Version-3.1.13 auf Smarty Version-3.1.14
 
 # XOS-Shop v1.0_rc7h (Release 06/25/2013
 
-- feature: Mit dem CKeditor können Links auf Dateien der Shopinstallation oder auf Datenbankinhalte der Shopdatenbank gesetzt werden
-- feature: In der Administration > Kunden > Kunden Kommentarfeld hinzugefügt deren Inhalt nur Administratoren sehen können 
-- feature: In der Administration > Katalog > Kategorien/Artikel > Produkt [Bearbeiten] erweiterte Produktbildinformationen eingefügt
-- feature: In der Konfiguration  Wahlmöglichkeit "In übergeordneten Kategorien Produkte anzeigen" eingefügt 
-- feature: Neues Template "black-tabs-cbox" mit Colorbox als lightbox hinzugefügt 
+- feature: Mit dem CKeditor kÃ¶nnen Links auf Dateien der Shopinstallation oder auf Datenbankinhalte der Shopdatenbank gesetzt werden
+- feature: In der Administration > Kunden > Kunden Kommentarfeld hinzugefÃ¼gt deren Inhalt nur Administratoren sehen kÃ¶nnen 
+- feature: In der Administration > Katalog > Kategorien/Artikel > Produkt [Bearbeiten] erweiterte Produktbildinformationen eingefÃ¼gt
+- feature: In der Konfiguration  WahlmÃ¶glichkeit "In Ã¼bergeordneten Kategorien Produkte anzeigen" eingefÃ¼gt 
+- feature: Neues Template "black-tabs-cbox" mit Colorbox als lightbox hinzugefÃ¼gt 
 - update:  CKEditor Version-4.1 auf CKEditor Version-4.1.2
 
 # XOS-Shop v1.0_rc7g (Release 04/08/2013
 
-- bugfix:  In der Schnellsuche werden nun nur noch Vorschläge zu Produkten die auch angezeigt werden können gemacht
+- bugfix:  In der Schnellsuche werden nun nur noch VorschlÃ¤ge zu Produkten die auch angezeigt werden kÃ¶nnen gemacht
 - feature: Im Datei-Manager wird nun zwischen Bild- und anderen Dateien unterschieden und Bilder werden angezeigt
 
 # XOS-Shop v1.0_rc7f (Release 03/30/2013
 
-- bugfix:  In Bild-Lightboxen werden die Bild-Links zu weiteren Bildern nun Protokollabhängig (http/https) korrekt generiert
-- feature: Das Hinzufügen eines Produkts wird in einer Fancybox bestätigt
+- bugfix:  In Bild-Lightboxen werden die Bild-Links zu weiteren Bildern nun ProtokollabhÃ¤ngig (http/https) korrekt generiert
+- feature: Das HinzufÃ¼gen eines Produkts wird in einer Fancybox bestÃ¤tigt
 - feature: In allen Templates DOMWindow-boxen durch Fancyboxen ersetzt
 - update:  CKEditor Version-4.0.2 auf CKEditor Version-4.1
 
 # XOS-Shop v1.0_rc7e (Release 03/16/2013)
 
-- feature: Shop-System angepasst damit auch HTML5-Templates eingesetzt werden können
-- feature: Ein Template nach HTML5 Standard hinzugefügt
+- feature: Shop-System angepasst damit auch HTML5-Templates eingesetzt werden kÃ¶nnen
+- feature: Ein Template nach HTML5 Standard hinzugefÃ¼gt
 - update:  CKEditor Version-4.0.1 auf CKEditor Version-4.0.2
 
 # XOS-Shop v1.0_rc7d (Release 02/10/2013)
 
 - bugfix:  In diversen PHP-Scripten reset() vor each() gesetzt
-- feature: Im  Admin-Template können nun auch PHP-Scripte eingebunden werden
+- feature: Im  Admin-Template kÃ¶nnen nun auch PHP-Scripte eingebunden werden
 - update:  jquery Version-1.8.1 auf jquery Version-1.9
 - update:  Smarty Version-3.1.12 auf Smarty Version-3.1.13
 - update:  CKEditor Version-3.6.5 auf CKEditor Version-4.0.1
@@ -205,19 +215,19 @@
 # XOS-Shop v1.0_rc7c (Release 12/04/2012)
 
 - bugfix:  In product_info.php Zeile 267 und Zeile 474 Variablenname angepasst
-- feature: Templates mit Zoom- bzw. Lupen-Funktion für Produktbilder erweitert
-- feature: In den Templates können nun auch PHP-Scripte eingebunden werden
+- feature: Templates mit Zoom- bzw. Lupen-Funktion fÃ¼r Produktbilder erweitert
+- feature: In den Templates kÃ¶nnen nun auch PHP-Scripte eingebunden werden
 
 # XOS-Shop v1.0_rc7b (Release 10/27/2012)
 
 - bugfix:  Datenbank-Dump "xos-shop_without_sample_data" an mitgelieferte Templates angepasst
-- bugfix:  In attributes_products.php Zeile 42 und attributes_values.php Zeile 71 wird ein leerer Array übergeben wenn Offset <= 0
+- bugfix:  In attributes_products.php Zeile 42 und attributes_values.php Zeile 71 wird ein leerer Array Ã¼bergeben wenn Offset <= 0
 - update:  Smarty Version-3.1.11 auf Smarty Version-3.1.12
 - update:  CKEditor Version-3.6.4 auf CKEditor Version-3.6.5
 
 # XOS-Shop v1.0_rc7a (Release 09/21/2012)
 
-- feature: Produktinformationen können jetzt durch Tabs segmentiert werden
+- feature: Produktinformationen kÃ¶nnen jetzt durch Tabs segmentiert werden
 
 # XOS-Shop v1.0_rc7 (Release 08/28/2012)
 
@@ -227,34 +237,34 @@
 
 # XOS-Shop v1.0_rc6 (Release 05/19/2012)
 
-- feature: Inhalts-Seiten in Menüstruktur eingeführt, dies gibt die Möglichkeit das System als CMS zu nutzen
-- feature: Inhalts-Seiten können im Menü versteckt werden
-- feature: Es ist nun wählbar ob eine Sprache im Frontend angezeigt wird oder nicht 
-- update:  Produkte und Kategorien können nur noch in relevante Ordner kopiert bzw. verschoben werden
+- feature: Inhalts-Seiten in MenÃ¼struktur eingefÃ¼hrt, dies gibt die MÃ¶glichkeit das System als CMS zu nutzen
+- feature: Inhalts-Seiten kÃ¶nnen im MenÃ¼ versteckt werden
+- feature: Es ist nun wÃ¤hlbar ob eine Sprache im Frontend angezeigt wird oder nicht 
+- update:  Produkte und Kategorien kÃ¶nnen nur noch in relevante Ordner kopiert bzw. verschoben werden
 - update:  CKEditor Version-3.6.2 auf CKEditor Version-3.6.3
 - bugfix:  Alle Versandarten die installiert sind werden in der Kundengruppe angezeigt
 - bugfix:  Produkteanzahl hinter Kategorien werden nicht mehr angezeigt wenn alle Status "inaktiv" sind
 
 # XOS-Shop v1.0_rc5 (Release 04/04/2012)
 
-- feature: Die Maximalwerte für die Bildgröße (Large) sind nun pro hochgeladenem Bild wählbar
-- feature: In Kategorien, Produkten, Inhalts-Seiten und Bannern können interne Links gesetzt werden
-- feature: Die Möglichkeit eine Kategorie als Inhalts-Seite zu nutzen eingefügt (CMS-Funktionalität)
+- feature: Die Maximalwerte fÃ¼r die BildgrÃ¶ÃŸe (Large) sind nun pro hochgeladenem Bild wÃ¤hlbar
+- feature: In Kategorien, Produkten, Inhalts-Seiten und Bannern kÃ¶nnen interne Links gesetzt werden
+- feature: Die MÃ¶glichkeit eine Kategorie als Inhalts-Seite zu nutzen eingefÃ¼gt (CMS-FunktionalitÃ¤t)
 - feature: Kategorien haben nun eine eigene Seite und sind so einfacher zu editieren
 - feature: Bei "Tabellarische Versandkosten" wird das zugrundeliegende Gewicht bzw. der Betrag angezeigt          
 - update:  Smarty Version-3.1.7 auf Smarty Version-3.1.8
-- bugfix:  Fehlerhafte Behandlung von “Integers” in der Funktion Wert nicht Null behoben wieder zurückgesetzt 
-- bugfix:  Beim verschieben einer Kategorie wird der “Status” nun korrekt gesetzt
+- bugfix:  Fehlerhafte Behandlung von â€œIntegersâ€ in der Funktion Wert nicht Null behoben wieder zurÃ¼ckgesetzt 
+- bugfix:  Beim verschieben einer Kategorie wird der â€œStatusâ€ nun korrekt gesetzt
 
 # XOS-Shop v1.0_rc4 (Release 02/03/2012)
 
 - feature: Globales Overlay-Bild im Ordner [/shop/contents/image/] mit Vorrang vor den Overlays in den Template-Bildordner
-- feature: Nachnahmegebühren können mit berechnet und angezeigt werden           
-- update:  Datumsangaben werden Serverunabhängig in der richtigen Sprache angezeigt
-- update:  Datenbank-Feldlängen angepasst
-- update:  Session-Token für Kunden eingeführt
+- feature: NachnahmegebÃ¼hren kÃ¶nnen mit berechnet und angezeigt werden           
+- update:  Datumsangaben werden ServerunabhÃ¤ngig in der richtigen Sprache angezeigt
+- update:  Datenbank-FeldlÃ¤ngen angepasst
+- update:  Session-Token fÃ¼r Kunden eingefÃ¼hrt
 - update:  Verbesserung der Validierung von E-Mail-Adressen
-- update:  Kennwortverschlüsselung basierend auf Phpass eingeführt
+- update:  KennwortverschlÃ¼sselung basierend auf Phpass eingefÃ¼hrt
 - update:  In erweiterte Suche werden die Suchergebnisse unten angezeigt
 - update:  In erweiterte Suche Kategorien-/Hersteller-Filter enthalten nur noch relevante Optionen
 - update:  Vorschlagsliste der Schnellsuche optimiert
@@ -264,14 +274,14 @@
 - bugfix:  Fehlerhafte Behandlung von Integers in der Funktion Wert nicht Null behoben
 - bugfix:  Bilder mit Leerzeichen im Bildnamen werden nun  auch angezeigt
 - bugfix:  Warnung wenn Konfigurationsdatei im Admin beschreibbar ist 
-- bugfix:  Überprüfung damit nicht die Kunden Standard-Adresse gelöscht wird
+- bugfix:  ÃœberprÃ¼fung damit nicht die Kunden Standard-Adresse gelÃ¶scht wird
 - bugfix:  Diverse fehlerhafte Datenbank-Inputs korrigiert
 
 # XOS-Shop v1.0_rc3 (Release 07/24/2011)
 
 - feature: Alle Templates werden im Bildschirm mittig zentriert angezeigt
-- feature: Untermenüs werden als Vorschau in Popups angezeigt
-- feature: Optionen können als Übersichtslisten angezeigt werden
+- feature: UntermenÃ¼s werden als Vorschau in Popups angezeigt
+- feature: Optionen kÃ¶nnen als Ãœbersichtslisten angezeigt werden
 - feature: Eine Vorschlagsliste wird in der Schnellsuche eingeblendet
 - feature: Bewertungssystem kann wahlweise (Global) aktiviert werden
 - update:  Smarty Version-3.0.7 auf Smarty Version-3.0.8

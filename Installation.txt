@@ -3,15 +3,15 @@ SYSTEMVORAUSSETZUNGEN
 
 Betriebs-System:           Unix, Linux, BSD, Solaris, Microsoft Windows
 Web-Server:                NCSA-kompatibler Webserver (Apache empfohlen) 
-Skriptsprache:             PHP ab Version 5.2 mit (GDLib2 und GIF Create Support)
+Skriptsprache:             PHP ab Version 5.4 mit (GDLib2 und GIF Create Support)
 Datenbank-System:          MySQL ab Version 4.0.2
 
 --------------------------------------------------------------------------------
 
 INSTALLATIONS-VORBEREITUNGEN
 
-Ordner "shop" mit hilfe eines FTP Client-Programms auf den Webserver ins Webroot-Verzeichnis überspielen.
-Auch leere Verzeichnisse müssen übertragen werden.
+Ordner "shop" mit hilfe eines FTP Client-Programms auf den Webserver ins Webroot-Verzeichnis Ã¼berspielen.
+Auch leere Verzeichnisse mÃ¼ssen Ã¼bertragen werden.
 
 danch Rechte setzen:
 /shop/includes/configure.php = chmod 777
@@ -20,14 +20,14 @@ danch Rechte setzen:
 
 WEBBASIERTE INSTALLATION
 
-Rufe die URL: http://www.your-domain.tld/shop/install/index.php auf. Es öffnet sich die web-
-basierende Installationsoberfläche von XOS-Shop. Folge nun den Anweisungen am Bildschirm.
+Rufe die URL: http://www.your-domain.tld/shop/install/index.php auf. Es Ã¶ffnet sich die web-
+basierende InstallationsoberflÃ¤che von XOS-Shop. Folge nun den Anweisungen am Bildschirm.
 
 --------------------------------------------------------------------------------
 
 NACH INSTALLATION
 
-Verzeichnis /shop/install löschen.
+Verzeichnis /shop/install lÃ¶schen.
 
 danach Rechte setzen:
 /shop/includes/configure.php = chmod 444
@@ -36,7 +36,7 @@ danach Rechte setzen:
 
 SICH ALS ADMINISTRATOR ANMELDEN
 
-Wichtiger Hinweis: das Verzeichnis "admin" wurde während der Installation eventuell umbenannt.
+Wichtiger Hinweis: das Verzeichnis "admin" wurde wÃ¤hrend der Installation eventuell umbenannt.
 
 Rufe die URL: http://www.your-domain.tld/shop/admin auf.
 Im Anmelde-Panel mit 
