@@ -1,7 +1,7 @@
 
 ##ChangeLog
 
-# XOS-Shop v1.0.2 (Release 04/18/2016)
+# XOS-Shop v1.0.2 (Release 04/23/2016)
 
 - update:  Die neu Generierung der Produktbilder erfolgt jetzt in mehreren Durchläufen
 - update:  Diverse Anpassungen in den Templates
