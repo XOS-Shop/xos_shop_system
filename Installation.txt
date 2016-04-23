@@ -4,7 +4,7 @@ SYSTEMVORAUSSETZUNGEN
 Betriebs-System:           Unix, Linux, BSD, Solaris, Microsoft Windows
 Web-Server:                NCSA-kompatibler Webserver (Apache empfohlen) 
 Skriptsprache:             PHP ab Version 5.4 mit (GDLib2 und GIF Create Support)
-Datenbank-System:          MySQL ab Version 4.0.2
+Datenbank-System:          MySQL ab Version 5.0.27
 
 --------------------------------------------------------------------------------
 
