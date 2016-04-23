@@ -30,7 +30,7 @@
       <footer class="main-footer">
         <div style="text-align:center;">
           <div style="text-align: left; display: inline-block;">
-            <a href="http://www.xos-shop.com"  target="_blank"><b>XOS-Shop open source e-commerce system</b></a>, Copyright © 2015 Hanspeter Zeller<br />XOS-Shop comes with ABSOLUTELY NO WARRANTY; <a href="[@{$link_license_section15}@]" target="_blank">click for details</a>. This is free<br />software, and you can redistribute it under certain conditions; <a href="[@{$link_license_terms}@]" target="_blank">click for details</a>.
+            <a href="http://www.xos-shop.com"  target="_blank"><b>XOS-Shop open source e-commerce system</b></a>, Copyright © 2016 Hanspeter Zeller<br />XOS-Shop comes with ABSOLUTELY NO WARRANTY; <a href="[@{$link_license_section15}@]" target="_blank">click for details</a>. This is free<br />software, and you can redistribute it under certain conditions; <a href="[@{$link_license_terms}@]" target="_blank">click for details</a>.
           </div>
         </div>
       </footer>
