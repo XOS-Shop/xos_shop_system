@@ -84,7 +84,7 @@ define('EMAIL_FROM_DESCRIPTION', 'Die eMail-Absenderadresse, die in ausgehenden 
 define('STORE_COUNTRY_DESCRIPTION', 'Das Land, in dem der Online-Shop ansässig ist.<br /><br /><b>Hinweis: Bei einer Änderung bitte auch an die Aktualisierung des Kantons/Bundeslandes denken.</b>');
 define('STORE_ZONE_DESCRIPTION', 'Kanton/Bundesland, in dem der Online-Shop ansässig ist.');
 define('EXPECTED_PRODUCTS_SORT_DESCRIPTION', 'Die Sortierreihenfolge in der Box (Erwartete Artikel).'); 
-define('EXPECTED_PRODUCTS_FIELD_DESCRIPTION', 'Die Spalte, nach der in der Box (Erwartete Artikel) sortiert wird.<br /><br />products_name = Produktname<br />date_expected = Erscheinungsdatum'); 
+define('EXPECTED_PRODUCTS_FIELD_DESCRIPTION', 'Die Spalte, nach der in der Box (Erwartete Artikel) sortiert wird.'); 
 define('SEND_EXTRA_ORDER_EMAILS_TO_DESCRIPTION', 'Versand von zusätzlichen eMails bei Bestellungen an die folgenden Adressen im Format:<br />Name 1 &lt;email@address1&gt;, Name 2 &lt;email@address2&gt;'); 
 define('DISPLAY_LINK_TO_ROOT_DIRECTORY_DESCRIPTION', 'In der Brotkrümelnavigation  einen Link zum Wurzelverzeichnis anzeigen.');
 define('SEARCH_ENGINE_FRIENDLY_URLS_DESCRIPTION', 'Suchmaschinenfreudliche URLs für Links nutzen.');
@@ -354,8 +354,8 @@ define('DEFAULT_TPL_TITLE', 'Standard-Vorlage (Template)');
 define('REGISTERED_TPLS_TITLE', 'Registrierte Vorlagen (Templates)');
 
 define('CACHE_LEVEL_DESCRIPTION', 'Cache einschalten und Level wählen.<br />0 = No cache<br />1 = Level1 cache<br />2 = Level2 cache<br />3 = Level3 cache');
-define('COMPILE_CHECK_DESCRIPTION', 'Überprüfen ob die kompilierte Vorlage (Template) noch aktuell ist.<br />Standard = "false"');
-define('ALLOW_VISITORS_TO_CHANGE_TEMPLATE_DESCRIPTION', 'Wollen Sie Shop-Besuchern das wechseln der Vorlage erlauben.<br />Standard = "false"');
+define('COMPILE_CHECK_DESCRIPTION', 'Überprüfen ob die kompilierte Vorlage (Template) noch aktuell ist.<br />Standard = "Nein"');
+define('ALLOW_VISITORS_TO_CHANGE_TEMPLATE_DESCRIPTION', 'Wollen Sie Shop-Besuchern das wechseln der Vorlage erlauben.<br />Standard = "Nein"');
 define('DEFAULT_TPL_DESCRIPTION', 'Wählen Sie eine Vorlage (Template) als Standard-Vorlage.<br />');
 define('REGISTERED_TPLS_DESCRIPTION', 'Vorlagen (Templates) registrieren.<br />Die Vorlagen müssen sich in folgenden Verzeichnissen befinden:<br /><br />' . DIR_FS_SMARTY . '<br />catalog/templates/<br /><br />und<br /><br />' . DIR_FS_CATALOG_IMAGES . '<br />catalog/templates/<br />');
 

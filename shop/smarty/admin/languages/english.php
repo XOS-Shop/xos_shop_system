@@ -479,4 +479,17 @@ define('WARNING_ADMIN_CONFIG_FILE_WRITEABLE', 'Warning: I am able to write to th
 define('ERROR_PHPMAILER', 'Mailer Error: %s (E-Mail was not sent)');
 
 define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
-?>
+
+define('CFG_TEXT_SUBSTITUTE_TRUE', 'Yes');
+define('CFG_TEXT_SUBSTITUTE_FALSE', 'No');
+define('CFG_TEXT_SUBSTITUTE_AND', 'and');
+define('CFG_TEXT_SUBSTITUTE_OR', 'or');
+define('CFG_TEXT_SUBSTITUTE_ASC', 'ascending');
+define('CFG_TEXT_SUBSTITUTE_DESC', 'descending');
+define('CFG_TEXT_SUBSTITUTE_WEIGHT', 'Weight');
+define('CFG_TEXT_SUBSTITUTE_PRICE', 'Price');
+define('CFG_TEXT_SUBSTITUTE_NATIONAL', 'national');
+define('CFG_TEXT_SUBSTITUTE_INTERNATIONAL', 'international');
+define('CFG_TEXT_SUBSTITUTE_BOTH', 'both');
+define('CFG_TEXT_SUBSTITUTE_PRODUCTS_NAME', 'Product name');
+define('CFG_TEXT_SUBSTITUTE_DATE_EXPECTED', 'Date expected');

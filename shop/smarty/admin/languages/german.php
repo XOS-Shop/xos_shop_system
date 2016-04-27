@@ -479,4 +479,17 @@ define('WARNING_ADMIN_CONFIG_FILE_WRITEABLE', 'Warnung: XOS-Shop kann in die Kon
 define('ERROR_PHPMAILER', 'Mailer Fehler: %s (E-mail wurde nicht gesendet)');
 
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
-?>
+
+define('CFG_TEXT_SUBSTITUTE_TRUE', 'Ja');
+define('CFG_TEXT_SUBSTITUTE_FALSE', 'Nein');
+define('CFG_TEXT_SUBSTITUTE_AND', 'und');
+define('CFG_TEXT_SUBSTITUTE_OR', 'oder');
+define('CFG_TEXT_SUBSTITUTE_ASC', 'aufsteigend');
+define('CFG_TEXT_SUBSTITUTE_DESC', 'absteigend');
+define('CFG_TEXT_SUBSTITUTE_WEIGHT', 'Gewicht');
+define('CFG_TEXT_SUBSTITUTE_PRICE', 'Preis');
+define('CFG_TEXT_SUBSTITUTE_NATIONAL', 'national');
+define('CFG_TEXT_SUBSTITUTE_INTERNATIONAL', 'international');
+define('CFG_TEXT_SUBSTITUTE_BOTH', 'beides');
+define('CFG_TEXT_SUBSTITUTE_PRODUCTS_NAME', 'Produktname');
+define('CFG_TEXT_SUBSTITUTE_DATE_EXPECTED', 'Erscheinungsdatum');

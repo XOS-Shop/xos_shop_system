@@ -75,7 +75,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         $cfgValue = xos_call_function($use_function, $configuration['configuration_value']);
       }
     } else {
-      $cfgValue = $configuration['configuration_value'];
+      $cfgValue = xos_cfg_get_val_to_txt($configuration['configuration_value']);
     }
 
     if ((!isset($_GET['cID']) || (isset($_GET['cID']) && ($_GET['cID'] == $configuration['configuration_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {

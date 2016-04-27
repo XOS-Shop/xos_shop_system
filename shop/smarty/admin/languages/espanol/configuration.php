@@ -354,8 +354,8 @@ define('DEFAULT_TPL_TITLE', 'Default Template');
 define('REGISTERED_TPLS_TITLE', 'Registered Templates');
 
 define('CACHE_LEVEL_DESCRIPTION', 'Use caching level <br />0 = No cache<br />1 = Level1 cache<br />2 = Level2 cache<br />3 = Level3 cache');
-define('COMPILE_CHECK_DESCRIPTION', 'Default = "false"');
-define('ALLOW_VISITORS_TO_CHANGE_TEMPLATE_DESCRIPTION', 'Default = "false"');
+define('COMPILE_CHECK_DESCRIPTION', 'Default = "no"');
+define('ALLOW_VISITORS_TO_CHANGE_TEMPLATE_DESCRIPTION', 'Default = "no"');
 define('DEFAULT_TPL_DESCRIPTION', 'Choose a template as the default template.<br />');
 define('REGISTERED_TPLS_DESCRIPTION', 'Register Templates.<br />The templates must be saved before in the following folders:<br /><br />' . DIR_FS_SMARTY . '<br />catalog/templates/<br /><br />and<br /><br />' . DIR_FS_CATALOG_IMAGES . '<br />catalog/templates/<br />');
 

@@ -1051,7 +1051,12 @@ function xos_selected_file($filename) {
     $tpl_string = "\n";  
     $tpl_string .= implode($tpl_array_1);           
     return '<div class="form-group">' . $tpl_string . '</div>';
-  } 
+  }
+  
+  function xos_cfg_get_val_to_txt($val) {
+    $upper_val = strtoupper($val);
+    return (defined('CFG_TEXT_SUBSTITUTE_' . $upper_val)) ? constant('CFG_TEXT_SUBSTITUTE_' . $upper_val) : $val ;
+  }   
 
 // Function to read in text area in admin
  function xos_cfg_textarea($text, $key = '') {
@@ -1143,7 +1148,7 @@ function xos_selected_file($filename) {
 
       if ($key_value == $select_array[$i]) $string .= ' checked="checked"';
 
-      $string .= ' /> ' . $select_array[$i] . '</label></div>';
+      $string .= ' /> ' . xos_cfg_get_val_to_txt($select_array[$i]) . '</label></div>';
     }
 
     return '<div class="form-group">' . $string . '</div>';

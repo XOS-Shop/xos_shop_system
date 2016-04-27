@@ -75,7 +75,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
               $keys .= xos_call_function($use_function, $value['value']);
             }
           } else {
-            $keys .= $value['value'];
+            $keys .= xos_cfg_get_val_to_txt($value['value']);
           }
           $keys .= '<br /><br />';
         }
