@@ -1055,7 +1055,7 @@ function xos_selected_file($filename) {
   
   function xos_cfg_get_val_to_txt($val) {
     $upper_val = strtoupper($val);
-    return (defined('CFG_TEXT_SUBSTITUTE_' . $upper_val)) ? constant('CFG_TEXT_SUBSTITUTE_' . $upper_val) : $val ;
+    return (defined('CFG_VAL_TO_TXT_' . $upper_val)) ? constant('CFG_VAL_TO_TXT_' . $upper_val) : $val ;
   }   
 
 // Function to read in text area in admin
