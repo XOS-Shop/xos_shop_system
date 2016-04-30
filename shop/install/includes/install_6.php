@@ -144,7 +144,8 @@
     }
 //    $http_server .= '/';
 
-    $https_server = $enable_ssl == 'true' ? str_replace('http://', 'https://', $http_server) : '';
+//    $https_server = $enable_ssl == 'true' ? str_replace('http://', 'https://', $http_server) : '';
+    $https_server = str_replace('http://', 'https://', $http_server);    
     $https_cookie_domain = $enable_ssl == 'true' ? $http_cookie_domain : '';
     $https_cookie_path = $enable_ssl == 'true' ? $http_cookie_path : '';
 
