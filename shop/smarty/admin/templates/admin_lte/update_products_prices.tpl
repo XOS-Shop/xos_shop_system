@@ -148,8 +148,8 @@
                               <td class="text-center">[@{$products_prices.special_status_image}@]</td>
                               <td>[@{$products_prices.input_special_expires_date|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td> 
                               [@{else}@]
-                              <td>[@{$products_prices.input_price|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{*<span style="visibility: hidden;">[@{$products_prices.input_special_price|replace:'<input':'<input class="form-control input-sm input-price"'}@]</span>*}@]</td>
-                              <td>[@{$products_prices.input_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{*<span style="visibility: hidden;">[@{$products_prices.input_special_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]</span>*}@]</td>
+                              <td>[@{$products_prices.input_price|replace:'<input':'<input class="form-control input-sm input-price"'}@]<span style="visibility: hidden;">[@{$products_prices.input_special_price|replace:'<input':'<input class="form-control input-sm input-price"'}@]</span></td>
+                              <td>[@{$products_prices.input_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]<span style="visibility: hidden;">[@{$products_prices.input_special_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]</span></td>
                               <td class="text-center" style="visibility: hidden;">[@{$products_prices.special_status_image}@]</td>
                               <td style="visibility: hidden;">[@{$products_prices.input_special_expires_date|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>                                         
                               [@{/if}@]
@@ -171,8 +171,8 @@
                                   <td>[@{$price_break.input_price_break_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{$price_break.input_special_price_break_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
                                   [@{else}@]
                                   <td>[@{$price_break.input_quantity|replace:'<input':'<input class="form-control input-sm price-break-input-quantity"'}@]</td>
-                                  <td>[@{$price_break.input_price_break|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{*<span style="visibility: hidden;">[@{$price_break.input_special_price_break|replace:'<input':'<input class="form-control input-sm input-price"'}@]</span>*}@]</td>
-                                  <td>[@{$price_break.input_price_break_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{*<span style="visibility: hidden;">[@{$price_break.input_special_price_break_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]</span>*}@]</td>                                            
+                                  <td>[@{$price_break.input_price_break|replace:'<input':'<input class="form-control input-sm input-price"'}@]<span style="visibility: hidden;">[@{$price_break.input_special_price_break|replace:'<input':'<input class="form-control input-sm input-price"'}@]</span></td>
+                                  <td>[@{$price_break.input_price_break_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]<span style="visibility: hidden;">[@{$price_break.input_special_price_break_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]</span></td>                                            
                                   [@{/if}@]
                                 </tr> 
                                 [@{/foreach}@]                                                           
