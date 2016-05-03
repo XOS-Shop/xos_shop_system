@@ -59,16 +59,20 @@
         $piwikCode = '<!-- Piwik -->' . "\n" .
                      '<script type="text/javascript">' . "\n" .
                      '/* <![CDATA[ */' . "\n" .
-                     ' var _paq = _paq || [];' . "\n" .  
-                     '  _paq.push([\'trackPageView\']);' . "\n" .  
-                     '  _paq.push([\'enableLinkTracking\']);' . "\n";
+                     ' var _paq = _paq || [];' . "\n" .
+                     '  (function() {' . "\n" . 
+                     '    var u=(("https:" == document.location.protocol) ? "' . xos_output_string(MODULE_HEADER_TAGS_PIWIK_HTTPS_URL) . '" : "' . xos_output_string(MODULE_HEADER_TAGS_PIWIK_HTTP_URL) . '");' . "\n" .  
+                     '    var d=document, g=d.createElement(\'script\'), s=d.getElementsByTagName(\'script\')[0];' . "\n" . 
+                     '    g.type=\'text/javascript\'; g.defer=true; g.async=true; g.src=u+\'piwik.js\'; s.parentNode.insertBefore(g,s);' . "\n" . 
+                     '    _paq.push([\'trackPageView\']);' . "\n" .  
+                     '    _paq.push([\'enableLinkTracking\']);' . "\n";
 
         if ( (MODULE_HEADER_TAGS_PIWIK_EC_TRACKING == 'true') && ($_SERVER['BASENAME_PHP_SELF'] == FILENAME_DEFAULT) && isset($current_category_id) && $current_category_id > 0 ) {
           $categories_query = xos_db_query("select cd.categories_or_pages_name from " . TABLE_CATEGORIES_OR_PAGES_DATA . " cd, " . TABLE_LANGUAGES . " l where categories_or_pages_id = '" . (int)$current_category_id . "' and l.code = '" . xos_db_input(DEFAULT_LANGUAGE) . "' and l.languages_id = cd.language_id");
 	        $categories = xos_db_fetch_array($categories_query);
 			
 	        if ($categories['categories_or_pages_name'] != '') {	
-            $piwikCode .= '  _paq.push([\'setEcommerceView\',productSku = false,productName = false,category = "' . xos_output_string($categories['categories_or_pages_name']) . '"]);' . "\n";
+            $piwikCode .= '    _paq.push([\'setEcommerceView\',productSku = false,productName = false,category = "' . xos_output_string($categories['categories_or_pages_name']) . '"]);' . "\n";
 	        }			
         }
 
@@ -76,7 +80,7 @@
           $products_query = xos_db_query("select p.products_id, pd.products_name, cd.categories_or_pages_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, ". TABLE_CATEGORIES_OR_PAGES_DATA ." cd, " . TABLE_LANGUAGES . " l WHERE p.products_id = pd.products_id and p2c.categories_or_pages_id = cd.categories_or_pages_id and p.products_id = " . (int)$_GET['p'] . " and l.code = '" . xos_db_input(DEFAULT_LANGUAGE) . "' and l.languages_id = cd.language_id and l.languages_id = pd.language_id");
 	        $products = xos_db_fetch_array($products_query);	
 
-          $piwikCode .= '  _paq.push([\'setEcommerceView\',"' . (int)$products['products_id'] . '","' . xos_output_string($products['products_name']) . '","' . xos_output_string($products['categories_or_pages_name']) . '"]);' . "\n";
+          $piwikCode .= '    _paq.push([\'setEcommerceView\',"' . (int)$products['products_id'] . '","' . xos_output_string($products['products_name']) . '","' . xos_output_string($products['categories_or_pages_name']) . '"]);' . "\n";
         }
 
         if ( (MODULE_HEADER_TAGS_PIWIK_EC_TRACKING == 'true') && ($_SERVER['BASENAME_PHP_SELF'] == FILENAME_SHOPPING_CART) ) {
@@ -87,10 +91,10 @@
 		          $categories_query = xos_db_query("select pd.products_name, cd.categories_or_pages_name from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CATEGORIES_OR_PAGES_DATA ." cd, ". TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_LANGUAGES . " l WHERE cd.categories_or_pages_id = p2c.categories_or_pages_id and p2c.products_id = " . (int)$products[$i]['id'] . " and p2c.products_id = pd.products_id and l.code = '" . xos_db_input(DEFAULT_LANGUAGE) . "' and l.languages_id = cd.language_id and l.languages_id = pd.language_id");
 			        $categories = xos_db_fetch_array($categories_query);	
  
-              $piwikCode .= '  _paq.push([\'addEcommerceItem\',"' . (int)$products[$i]['id'] . '","' . xos_output_string($categories['products_name']) . '","' . xos_output_string($categories['categories_or_pages_name']) . '",' . $this->format_raw($products[$i]['final_price']) . ',' . (int)$products[$i]['quantity'] . ']);' . "\n";  
+              $piwikCode .= '    _paq.push([\'addEcommerceItem\',"' . (int)$products[$i]['id'] . '","' . xos_output_string($categories['products_name']) . '","' . xos_output_string($categories['categories_or_pages_name']) . '",' . $this->format_raw($products[$i]['final_price']) . ',' . (int)$products[$i]['quantity'] . ']);' . "\n";  
             }
    
-            $piwikCode .= '  _paq.push([\'trackEcommerceCartUpdate\',' . $this->format_raw($_SESSION['cart']->show_total()) . ']);' . "\n";
+            $piwikCode .= '    _paq.push([\'trackEcommerceCartUpdate\',' . $this->format_raw($_SESSION['cart']->show_total()) . ']);' . "\n";
           }  
         }
 
@@ -114,20 +118,16 @@
               $category_query = xos_db_query("select cd.categories_or_pages_name from " . TABLE_CATEGORIES_OR_PAGES_DATA . " cd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_LANGUAGES . " l where p2c.products_id = '" . (int)$order_products['products_id'] . "' and p2c.categories_or_pages_id = cd.categories_or_pages_id and l.code = '" . xos_db_input(DEFAULT_LANGUAGE) . "' and l.languages_id = cd.language_id limit 1");
               $category = xos_db_fetch_array($category_query);
               
-              $piwikCode .= '  _paq.push([\'addEcommerceItem\',"' . (int)$order_products['products_id'] . '","' . xos_output_string($order_products['products_name']) . '","' . xos_output_string($category['categories_or_pages_name']) . '",' . $this->format_raw($order_products['final_price'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) . ',' . (int)$order_products['products_quantity'] . ']);' . "\n"; 
+              $piwikCode .= '    _paq.push([\'addEcommerceItem\',"' . (int)$order_products['products_id'] . '","' . xos_output_string($order_products['products_name']) . '","' . xos_output_string($category['categories_or_pages_name']) . '",' . $this->format_raw($order_products['final_price'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) . ',' . (int)$order_products['products_quantity'] . ']);' . "\n"; 
             }
                      
-//            $piwikCode .= '  _paq.push([\'trackEcommerceOrder\',"' . (int)$order['orders_id'] . '",' . (isset($totals['ot_total']) ? $this->format_raw($totals['ot_total'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ',' . (isset($totals['ot_subtotal']) ? $this->format_raw($totals['ot_subtotal'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ','.(isset($totals['ot_tax']) ? $this->format_raw($totals['ot_tax'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ',' . (isset($totals['ot_shipping']) ? $this->format_raw($totals['ot_shipping'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ',' . (isset($totals['ot_discount']) ? $this->format_raw($totals['ot_discount'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 'false') . ']);' . "\n";
-            $piwikCode .= '  _paq.push([\'trackEcommerceOrder\',"' . (int)$order['orders_id'] . '",' . (isset($totals['ot_total']) ? $this->format_raw($totals['ot_total'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ',' . (isset($totals['ot_subtotal']) ? $this->format_raw($totals['ot_subtotal'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ','.(isset($totals['ot_tax']) ? $this->format_raw($totals['ot_tax'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ',' . (isset($totals['ot_shipping']) ? $this->format_raw($totals['ot_shipping'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ',' . (isset($totals['ot_discount']) ? $this->format_raw($totals['ot_discount'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ']);' . "\n"; 
+//            $piwikCode .= '    _paq.push([\'trackEcommerceOrder\',"' . (int)$order['orders_id'] . '",' . (isset($totals['ot_total']) ? $this->format_raw($totals['ot_total'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ',' . (isset($totals['ot_subtotal']) ? $this->format_raw($totals['ot_subtotal'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ','.(isset($totals['ot_tax']) ? $this->format_raw($totals['ot_tax'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ',' . (isset($totals['ot_shipping']) ? $this->format_raw($totals['ot_shipping'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ',' . (isset($totals['ot_discount']) ? $this->format_raw($totals['ot_discount'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 'false') . ']);' . "\n";
+            $piwikCode .= '    _paq.push([\'trackEcommerceOrder\',"' . (int)$order['orders_id'] . '",' . (isset($totals['ot_total']) ? $this->format_raw($totals['ot_total'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ',' . (isset($totals['ot_subtotal']) ? $this->format_raw($totals['ot_subtotal'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ','.(isset($totals['ot_tax']) ? $this->format_raw($totals['ot_tax'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ',' . (isset($totals['ot_shipping']) ? $this->format_raw($totals['ot_shipping'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ',' . (isset($totals['ot_discount']) ? $this->format_raw($totals['ot_discount'] / (($order['currency_value'] > 0) ? $order['currency_value'] : 1)) : 0) . ']);' . "\n"; 
           }
         }
  
-        $piwikCode .= '  (function() {' . "\n" .  
-                      '    var u=(("https:" == document.location.protocol) ? "' . xos_output_string(MODULE_HEADER_TAGS_PIWIK_HTTPS_URL) . '" : "' . xos_output_string(MODULE_HEADER_TAGS_PIWIK_HTTP_URL) . '");' . "\n" .  
-                      '    _paq.push([\'setTrackerUrl\', u+\'piwik.php\']);' . "\n" .  
-                      '    _paq.push([\'setSiteId\', ' . (int)MODULE_HEADER_TAGS_PIWIK_ID . ']);' . "\n" .  
-                      '    var d=document, g=d.createElement(\'script\'), s=d.getElementsByTagName(\'script\')[0]; g.type=\'text/javascript\';' . "\n" .  
-                      '    g.defer=true; g.async=true; g.src=u+\'piwik.js\'; s.parentNode.insertBefore(g,s);' . "\n" .  
+        $piwikCode .= '    _paq.push([\'setTrackerUrl\', u+\'piwik.php\']);' . "\n" .  
+                      '    _paq.push([\'setSiteId\', ' . (int)MODULE_HEADER_TAGS_PIWIK_ID . ']);' . "\n" . 
                       '  })();' . "\n" .                                                                                   
                       '/* ]]> */' . "\n" .
                       '</script>' . "\n";
