@@ -50,6 +50,9 @@
 <base href="[@{$base_href}@]" />
 [@{/if}@]
 <link rel="canonical" href="[@{$html_header_link_canonical}@]" />
+[@{foreach item=hreflang from=$html_header_hreflang_link_and_code}@]
+<link rel="alternate" hreflang="[@{$hreflang.lang_code}@]" href="[@{$hreflang.link}@]" />
+[@{/foreach}@]
 <link rel="shortcut icon" type="image/x-icon" href="[@{$images_path}@]favicon.ico" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]jquery-ui-1.10.3.custom.css" />

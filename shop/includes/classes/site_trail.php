@@ -81,7 +81,7 @@
       $id = session_name() . '=' . session_id();
       $id_sef = session_name() . '/' . session_id();
 
-      $this->_canonical_link = str_replace(
+      $link = str_replace(
         array('?' . $id . '&amp;', 
               '?' . $id . '&', 
               '?' . $id, 
@@ -100,7 +100,52 @@
               ''),      
         $this->_canonical_link);
       
-      return $this->_canonical_link;
-    }   
+      return $link;
+    }
+    
+    function hreflang_link_and_code() {
+      global $lng;
+    
+      reset($lng->catalog_languages);
+      
+      if (sizeof($lng->catalog_languages) > 1) {      
+
+        if ($_SESSION['languages_code'] == '') return false; 
+
+        $lnc = 'lnc=' . $_SESSION['languages_code'];
+        $lnc_sef = 'lnc/' . $_SESSION['languages_code'];
+
+        $link = str_replace(
+          array('?' . $lnc . '&amp;', 
+                '?' . $lnc . '&', 
+                '?' . $lnc, 
+                '&amp;' . $lnc . '&amp;', 
+                '&' . $lnc . '&', 
+                '&amp;' . $lnc, 
+                '&' . $lnc, 
+                '/' . $lnc_sef),
+          array('?', 
+                '?', 
+                '', 
+                '&amp;', 
+                '&', 
+                '', 
+                '', 
+                ''),      
+          $this->canonical_link());
+        
+        $hreflang_link_and_code = array();       
+        while (list($lang_code) = each($lng->catalog_languages)) { 
+          if ($_SESSION['languages_code'] != $lang_code) {
+            $hreflang_link_and_code[] = array('link' => (strpos($link, '.php?') ? $link . '&amp;lnc=' . $lang_code : (strpos($link, '.php') ? $link . '?lnc=' . $lang_code : rtrim($link, '/') . '/lnc/' . $lang_code)),
+                                              'lang_code' => $lang_code);
+          }        
+        }
+                               
+        return $hreflang_link_and_code;      
+      } else { 
+           
+        return false;
+      }      
+    }      
   }
-?>

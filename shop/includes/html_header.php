@@ -39,7 +39,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
                         'html_header_xhtml_lang' => XHTML_LANG,
                         'html_header_charset' => CHARSET,
                         'html_header_page_title' => STORE_NAME . ($page_title_trail != '' ? PAGE_TITLE_TRAIL_SEPARATOR . $page_title_trail : ''),
-                        'html_header_link_canonical' => $site_trail->canonical_link(),                        
+                        'html_header_link_canonical' => $site_trail->canonical_link(),
+                        'html_header_hreflang_link_and_code' => $site_trail->hreflang_link_and_code(),                                                
                         'add_headTag_elements' => $add_header,
                         'link_to_dynamic_css' => xos_href_link(FILENAME_CSS, '', $request_type),
                         'link_to_dynamic_js' => xos_href_link(FILENAME_JS, '', $request_type)));
