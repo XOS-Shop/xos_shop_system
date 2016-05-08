@@ -27,10 +27,10 @@
 *}@]
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="[@{$xhtml_lang}@]" xml:lang="[@{$xhtml_lang}@]">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="[@{$html_lang}@]" xml:lang="[@{$html_lang}@]">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=[@{$charset}@]" />
-<meta http-equiv="content-language" content="[@{$xhtml_lang}@]" />
+<meta http-equiv="content-language" content="[@{$html_lang}@]" />
 <meta http-equiv="content-style-type" content="text/css" />
 <meta name="generator" content="XOS-Shop version 1.0.2, open source e-commerce system" />
 [@{if $base_href}@]

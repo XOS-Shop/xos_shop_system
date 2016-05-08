@@ -103,7 +103,7 @@ function xos_date_raw($date, $reverse = false) {
 define('HTML_PARAMS','dir="ltr" lang="es"');
 
 // language attribute for the <html> tag
-define('XHTML_LANG','es');
+define('HTML_LANG','es');
 
 // charset for web pages and emails
 define('CHARSET', 'UTF-8');

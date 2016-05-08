@@ -27,7 +27,7 @@
 ********************************************************************************
 *}@]
 <!DOCTYPE html>
-<html lang="[@{$html_header_xhtml_lang}@]">
+<html lang="[@{$html_header_html_lang}@]">
 <head>
 <meta charset="[@{$html_header_charset}@]" />
 

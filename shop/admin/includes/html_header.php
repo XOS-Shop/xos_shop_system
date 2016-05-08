@@ -25,7 +25,7 @@
 if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/html_header.php') == 'overwrite_all')) :
   $smarty->assign(array('base_href' => substr(HTTP_SERVER, -1) == '/' ? ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER : '',
                         'html_params' => HTML_PARAMS,
-                        'xhtml_lang' => XHTML_LANG,
+                        'html_lang' => HTML_LANG,
                         'charset' => CHARSET,
                         'style' => $style,
                         'javascript' => $javascript));
@@ -33,7 +33,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
   $output_html_header = $smarty->fetch(ADMIN_TPL . '/includes/html_header.tpl');
   $smarty->clearAssign(array('base_href',
                              'html_params',
-                             'xhtml_lang',
+                             'html_lang',
                              'charset',
                              'style',
                              'javascript'));

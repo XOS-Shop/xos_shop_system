@@ -27,10 +27,10 @@
 *}@]
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="[@{$html_header_xhtml_lang}@]" xml:lang="[@{$html_header_xhtml_lang}@]">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="[@{$html_header_html_lang}@]" xml:lang="[@{$html_header_html_lang}@]">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=[@{$html_header_charset}@]" />
-<meta http-equiv="content-language" content="[@{$html_header_xhtml_lang}@]" />
+<meta http-equiv="content-language" content="[@{$html_header_html_lang}@]" />
 <meta http-equiv="content-script-type" content="text/javascript" />
 <meta http-equiv="content-style-type" content="text/css" />
 

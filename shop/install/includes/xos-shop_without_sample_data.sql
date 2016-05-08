@@ -1278,7 +1278,7 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
       $smarty->unregisterFilter(\'output\',\'smarty_outputfilter_trimwhitespace\');
     
       $smarty->assign(array(\'html_params\' => HTML_PARAMS,
-                            \'xhtml_lang\' => XHTML_LANG,
+                            \'html_lang\' => HTML_LANG,
                             \'charset\' => CHARSET,
                             \'store_name_address\' => STORE_NAME_ADDRESS,
                             \'store_name\' => STORE_NAME,
@@ -1289,7 +1289,7 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
       $output_contact_us_email_html = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_html.tpl\'); 
       $output_contact_us_email_text = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_text.tpl\');
       $smarty->clearAssign(array(\'html_params\',
-                                  \'xhtml_lang\',
+                                  \'html_lang\',
                                   \'charset\',
                                   \'store_name_address\',
                                   \'store_name\',
@@ -1459,7 +1459,7 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
       $smarty->unregisterFilter(\'output\',\'smarty_outputfilter_trimwhitespace\');
     
       $smarty->assign(array(\'html_params\' => HTML_PARAMS,
-                            \'xhtml_lang\' => XHTML_LANG,
+                            \'html_lang\' => HTML_LANG,
                             \'charset\' => CHARSET,
                             \'store_name_address\' => STORE_NAME_ADDRESS,
                             \'store_name\' => STORE_NAME,
@@ -1470,7 +1470,7 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
       $output_contact_us_email_html = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_html.tpl\'); 
       $output_contact_us_email_text = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_text.tpl\');
       $smarty->clearAssign(array(\'html_params\',
-                                  \'xhtml_lang\',
+                                  \'html_lang\',
                                   \'charset\',
                                   \'store_name_address\',
                                   \'store_name\',
@@ -1640,7 +1640,7 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
       $smarty->unregisterFilter(\'output\',\'smarty_outputfilter_trimwhitespace\');
     
       $smarty->assign(array(\'html_params\' => HTML_PARAMS,
-                            \'xhtml_lang\' => XHTML_LANG,
+                            \'html_lang\' => HTML_LANG,
                             \'charset\' => CHARSET,
                             \'store_name_address\' => STORE_NAME_ADDRESS,
                             \'store_name\' => STORE_NAME,
@@ -1651,7 +1651,7 @@ if (!((@include DIR_FS_SMARTY . \'catalog/templates/\' . SELECTED_TPL . \'/php/i
       $output_contact_us_email_html = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_html.tpl\'); 
       $output_contact_us_email_text = $smarty->fetch(SELECTED_TPL . \'/includes/content/contact_us_email_text.tpl\');
       $smarty->clearAssign(array(\'html_params\',
-                                  \'xhtml_lang\',
+                                  \'html_lang\',
                                   \'charset\',
                                   \'store_name_address\',
                                   \'store_name\',

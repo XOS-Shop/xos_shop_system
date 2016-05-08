@@ -49,7 +49,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
   
   $smarty->assign(array('base_href' => substr(HTTP_SERVER, -1) == '/' ? ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER : '',
                         'html_params' => HTML_PARAMS,
-                        'xhtml_lang' => XHTML_LANG,
+                        'html_lang' => HTML_LANG,
                         'charset' => CHARSET,
                         'style' => $style,
                         'javascript' => $javascript));  

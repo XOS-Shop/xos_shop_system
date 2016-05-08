@@ -126,7 +126,7 @@ define('SEF_URL_NAME_COOKIE_USAGE', 'Verwendung von Cookies');
 define('HTML_PARAMS','dir="LTR" lang="de"');
 
 // language attribute for the <html> tag
-define('XHTML_LANG','de');
+define('HTML_LANG','de');
 
 // charset for web pages and emails
 define('CHARSET', 'UTF-8');

@@ -27,7 +27,7 @@
 ********************************************************************************
 *}@]
 <!DOCTYPE html>
-<html lang="[@{$xhtml_lang}@]">
+<html lang="[@{$html_lang}@]">
 <head>
 <meta charset="[@{$charset}@]">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">

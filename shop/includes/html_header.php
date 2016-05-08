@@ -36,7 +36,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
 
   $smarty->assign(array('base_href' => substr(HTTP_SERVER, -1) == '/' ? ENABLE_SSL == 'true' ? ($request_type == 'SSL' ? HTTPS_SERVER : HTTP_SERVER) : HTTP_SERVER : '',
                         'html_header_html_params' => HTML_PARAMS,
-                        'html_header_xhtml_lang' => XHTML_LANG,
+                        'html_header_html_lang' => HTML_LANG,
                         'html_header_charset' => CHARSET,
                         'html_header_page_title' => STORE_NAME . ($page_title_trail != '' ? PAGE_TITLE_TRAIL_SEPARATOR . $page_title_trail : ''),
                         'html_header_link_canonical' => $site_trail->canonical_link(),

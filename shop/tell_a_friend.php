@@ -140,7 +140,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       }
 
       $smarty->assign(array('html_params' => HTML_PARAMS,
-                            'xhtml_lang' => XHTML_LANG,
+                            'html_lang' => HTML_LANG,
                             'charset' => CHARSET,
                             'store_name_address' => STORE_NAME_ADDRESS,
                             'store_name' => STORE_NAME,
@@ -158,7 +158,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $output_tell_a_friend_email_text = $smarty->fetch(SELECTED_TPL . '/includes/email/tell_a_friend_email_text.tpl');
       $smarty->clearAssign(array('message',
                                   'html_params',
-                                  'xhtml_lang',
+                                  'html_lang',
                                   'charset',
                                   'store_name_address',
                                   'store_name',

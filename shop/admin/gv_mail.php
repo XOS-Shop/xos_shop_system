@@ -110,7 +110,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         if (EMAIL_USE_HTML == 'true') {
       
           $smarty_gv_email->assign(array('html_params' => HTML_PARAMS,
-                                         'xhtml_lang' => $languages['code'],
+                                         'html_lang' => $languages['code'],
                                          'charset' => CHARSET,
                                          'store_name_address' => STORE_NAME_ADDRESS,
                                          'store_name' => STORE_NAME,
@@ -187,7 +187,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
           if (EMAIL_USE_HTML == 'true') {
       
             $smarty_gv_email->assign(array('html_params' => HTML_PARAMS,
-                                           'xhtml_lang' => $languages['code'],
+                                           'html_lang' => $languages['code'],
                                            'charset' => CHARSET,
                                            'store_name_address' => STORE_NAME_ADDRESS,
                                            'store_name' => STORE_NAME,

@@ -570,7 +570,7 @@
         }
   
         $smarty->assign(array('html_params' => HTML_PARAMS,
-                              'xhtml_lang' => XHTML_LANG,
+                              'html_lang' => HTML_LANG,
                               'charset' => CHARSET,
                               'link_invoice' => xos_href_link(FILENAME_ACCOUNT_HISTORY_INFO, 'order_id=' . $order_id, 'SSL', false, false),
                               'default_address' => xos_address_label($_SESSION['customer_id'], $_SESSION['customer_default_address_id'], 0, '', "\n"),
