@@ -133,6 +133,11 @@
       }
     }
   }
+  
+  if (!empty($_GET['goto'])) {
+    $_GET['lnc'] = $_GET['goto'];
+    unset($_GET['goto']);
+  }  
 
 // if gzip_compression is enabled, start to buffer the output 
   if ( (GZIP_COMPRESSION == 'true') && ($_SERVER['BASENAME_PHP_SELF'] != FILENAME_DOWNLOAD) && ($_SERVER['BASENAME_PHP_SELF'] != FILENAME_CAPTCHA) && ($ext_zlib_loaded = extension_loaded('zlib'))) {
