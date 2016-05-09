@@ -104,11 +104,14 @@
 #
 # RewriteCond %{HTTPS} !=on
 # RewriteCond %{HTTP_HOST} ^(?!www\.)(.+)$ [NC]
+# RewriteCond %{HTTP_HOST} ^(?!localhost)(.+)$ [NC]
+# RewriteCond %{HTTP_HOST} ^(?!.+\..+\..+)(.+) [NC]    
 # RewriteRule ^ http://www\.%1%{REQUEST_URI} [L,R=301]
 # RewriteCond %{HTTPS} =on
 # RewriteCond %{HTTP_HOST} ^(?!www\.)(.+)$ [NC]
+# RewriteCond %{HTTP_HOST} ^(?!localhost)(.+)$ [NC] 
+# RewriteCond %{HTTP_HOST} ^(?!.+\..+\..+)(.+) [NC]   
 # RewriteRule ^ https://www\.%1%{REQUEST_URI} [L,R=301]
-
 
 #########################
 # redirect www to no-www
