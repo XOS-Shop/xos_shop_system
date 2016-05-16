@@ -1594,10 +1594,12 @@ insert into countries_list (countries_id, countries_name, countries_iso_code_2, 
 insert into countries_list (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('233', 'Wallis and Futuna Islands', 'WF', 'WLF', '1');
 insert into countries_list (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('234', 'Western Sahara', 'EH', 'ESH', '1');
 insert into countries_list (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('235', 'Yemen', 'YE', 'YEM', '1');
-insert into countries_list (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('236', 'Yugoslavia', 'YU', 'YUG', '1');
+#insert into countries_list (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('236', 'Yugoslavia', 'YU', 'YUG', '1');
 insert into countries_list (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('237', 'Zaire', 'ZR', 'ZAR', '1');
 insert into countries_list (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('238', 'Zambia', 'ZM', 'ZMB', '1');
 insert into countries_list (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('239', 'Zimbabwe', 'ZW', 'ZWE', '1');
+insert into countries_list (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('240', 'Serbia', 'RS', 'SRB', '1');
+insert into countries_list (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('241', 'Montenegro', 'ME', 'MNE', '1');
 
 drop table if exists coupons;
 create table coupons (

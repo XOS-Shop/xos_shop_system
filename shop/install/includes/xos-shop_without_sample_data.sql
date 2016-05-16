@@ -1969,10 +1969,12 @@ INSERT INTO countries_list VALUES (232,'Virgin Islands (U.S.)','VI','VIR','1');
 INSERT INTO countries_list VALUES (233,'Wallis and Futuna Islands','WF','WLF','1');
 INSERT INTO countries_list VALUES (234,'Western Sahara','EH','ESH','1');
 INSERT INTO countries_list VALUES (235,'Yemen','YE','YEM','1');
-INSERT INTO countries_list VALUES (236,'Yugoslavia','YU','YUG','1');
+#INSERT INTO countries_list VALUES (236,'Yugoslavia','YU','YUG','1');
 INSERT INTO countries_list VALUES (237,'Zaire','ZR','ZAR','1');
 INSERT INTO countries_list VALUES (238,'Zambia','ZM','ZMB','1');
 INSERT INTO countries_list VALUES (239,'Zimbabwe','ZW','ZWE','1');
+INSERT INTO countries_list VALUES (240,'Serbia','RS','SRB','1');
+INSERT INTO countries_list VALUES (241,'Montenegro','ME','MNE','1');
 
 INSERT INTO currencies VALUES ('1', '2', 'Schweizer Franken', 'CHF', '', 'CHF', '.', ',', '2', '1.00000000', now());
 INSERT INTO currencies VALUES ('1', '1', 'Swiss franc', 'CHF', '', 'CHF', '.', ',', '2', '1.00000000', now());
