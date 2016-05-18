@@ -74,5 +74,8 @@
 <h3>We're sorry, but your browser is not supported.</h3><h4>If you see this message, it means that you are using an outdated browser that we no longer support.</h4><hr>
 <![endif]-->
 
+<style>
+  body {overflow-y: scroll;}
+</style>
 [@{$add_headTag_elements}@]
 </head>

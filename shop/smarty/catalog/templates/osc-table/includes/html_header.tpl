@@ -75,6 +75,10 @@
 <script type="text/javascript" src="[@{$images_path}@]jquery.fancybox-1.3.4.patch.pack.js"></script>
 <script type="text/javascript" src="[@{$images_path}@]general.js"></script>
 [@{*<script type="text/javascript" src="[@{$link_to_dynamic_js}@]"></script>*}@]
-
+<style type="text/css">
+/* <![CDATA[ */
+  body {overflow-y: scroll;}
+/* ]]> */
+</style>
 [@{$add_headTag_elements}@]
 </head>

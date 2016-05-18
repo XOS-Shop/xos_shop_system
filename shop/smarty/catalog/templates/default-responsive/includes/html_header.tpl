@@ -77,5 +77,8 @@
 <script type="text/javascript" src="[@{$images_path}@]respond.min.js"></script> 
 <![endif]-->
 
+<style>
+  body {overflow-y: scroll;}
+</style>
 [@{$add_headTag_elements}@]
 </head>

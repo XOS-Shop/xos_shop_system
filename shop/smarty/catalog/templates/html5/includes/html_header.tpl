@@ -68,6 +68,10 @@
 <script type="text/javascript" src="[@{$languages_path}@]jquery.colorbox-language.js"></script>
 <script type="text/javascript" src="[@{$images_path}@]general.js"></script>
 [@{*<script type="text/javascript" src="[@{$link_to_dynamic_js}@]"></script>*}@]
-
+<style type="text/css">
+/* <![CDATA[ */
+  body {overflow-y: scroll;}
+/* ]]> */
+</style>
 [@{$add_headTag_elements}@]
 </head>
