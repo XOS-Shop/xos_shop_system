@@ -142,7 +142,7 @@ class image_create {
     function calc_image_size($width, $height) {
 	$new_size = array($width, $height);
 
-	if ($this->max_width > 0) {
+	if ($this->max_width > 0 && $this->max_width <= $width) {
 	    $new_size = $this->calc_width($width, $height);
 
 	    if ($this->max_height > 0) {
@@ -153,7 +153,7 @@ class image_create {
 	    return $this->return_value($new_size);
 	}
 
-	if ($this->max_height > 0) {
+	if ($this->max_height > 0 && $this->max_height <= $height) {
 	    $new_size = $this->calc_height($width, $height);
 	    return $this->return_value($new_size);
 	}
