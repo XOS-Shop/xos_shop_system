@@ -442,7 +442,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                               'image_name' => $products_image[$i]['name'],
                               'large_img_width' => $large_img_size[0],
                               'large_img_height' => $large_img_size[1],
-                              'large_img_base' => ($products_image[$i]['large_image_max_width'] == 'default' ? 'default_size' : ($products_image[$i]['large_image_max_width'] == '0' ? 'origin_size' : ((int)$products_image[$i]['large_image_max_width'] > 0 ? 'self_selected_size' : ''))),
+                              'large_img_base' => ($products_image[$i]['large_image_max_width'] == 'default' && $products_image[$i]['large_image_max_height'] == 'default' ? 'default_size' : ($products_image[$i]['large_image_max_width'] == '0' && $products_image[$i]['large_image_max_height'] == '0' ? 'origin_size' : 'self_selected_size')),
                               'hidden_current_image' => xos_draw_hidden_field('current_product_image_' . $i, $products_image[$i]['name']));
                                
       if (empty($products_image[$i]['name'])) $more_images = true;  

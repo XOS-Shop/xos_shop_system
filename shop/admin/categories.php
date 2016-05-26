@@ -404,8 +404,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                 
                 switch ($_POST['large_image_size_' . $i]) {
                   case 'input':
-                    $image_array[$i]['large_image_max_width'] = (!empty($_POST['large_image_max_width_' . $i]) && !empty($_POST['large_image_max_height_' . $i]) ? max(min((int)$_POST['large_image_max_width_' . $i], ABSULUTE_MAXIMUM_WIDTH_FOR_LARGE_PRODUCT_IMAGES), 10) : 'default');
-                    $image_array[$i]['large_image_max_height'] = (!empty($_POST['large_image_max_width_' . $i]) && !empty($_POST['large_image_max_height_' . $i]) ? max(min((int)$_POST['large_image_max_height_' . $i], ABSULUTE_MAXIMUM_HEIGHT_FOR_LARGE_PRODUCT_IMAGES), 10) : 'default');
+                    $image_array[$i]['large_image_max_width'] = !empty($_POST['large_image_max_width_' . $i]) ? max(min((int)$_POST['large_image_max_width_' . $i], ABSULUTE_MAXIMUM_WIDTH_FOR_LARGE_PRODUCT_IMAGES), 10) : (empty($_POST['large_image_max_height_' . $i]) ? 'default' : 0);
+                    $image_array[$i]['large_image_max_height'] = !empty($_POST['large_image_max_height_' . $i]) ? max(min((int)$_POST['large_image_max_height_' . $i], ABSULUTE_MAXIMUM_HEIGHT_FOR_LARGE_PRODUCT_IMAGES), 10) : (empty($_POST['large_image_max_width_' . $i]) ? 'default' : 0);
                     break;
                   case 'uploaded':
                     $image_array[$i]['large_image_max_width'] = '0';
