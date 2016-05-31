@@ -73,9 +73,11 @@ $(window).bind('resizeEnd', function() {
                 [@{*<div id="info-images-header">[@{#text_products_image#}@]</div>*}@]                          
                 <div id="info-images">
                          [@{foreach name=images item=product_image from=$products_images}@]
-                           [@{if $smarty.foreach.images.total > 1}@]                        
-                            <script type="text/javascript">
-                              document.write('<span class="info"><img class="info-img" id="info[@{$product_image.i}@]" src="[@{$product_image.src_product_img_medium}@]" data-zoom-image="[@{$product_image.href_to_product_img_large}@]" /></span><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.href_to_product_img_large}@]" rel="images_group" target="_blank"><span class="text-primary glyphicon glyphicon-plus pull-right" style="font-size: 14px; line-height: 18px;" title=" [@{#text_click_to_enlarge#}@] "></span></a>')                          
+                           [@{if $smarty.foreach.images.total > 1}@]
+                            <div class="onload-display" style="display: none;">
+                              <span class="info"><img class="info-img" id="info[@{$product_image.i}@]" alt="" src="[@{$product_image.src_product_img_medium}@]" data-zoom-image="[@{$product_image.href_to_product_img_large}@]" /></span><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.href_to_product_img_large}@]" rel="images_group" target="_blank"><span class="text-primary glyphicon glyphicon-plus pull-right" style="font-size: 14px; line-height: 18px;" title=" [@{#text_click_to_enlarge#}@] "></span></a>                           
+                            </div>                       
+                            <script type="text/javascript">                         
                               $(window).bind('ready resizeEnd', function () {                             
 
                                   $("#info[@{$product_image.i}@]").removeData('elevateZoom');
@@ -115,8 +117,10 @@ $(window).bind('resizeEnd', function() {
                               <a id="info[@{$product_image.i}@]" class="info" href="[@{$product_image.link_product_img_noscript}@]" target="_blank"><img class="info-img" src="[@{$product_image.src_product_img_medium}@]" title=" [@{$products_name}@] " alt="[@{$products_name}@]" /></a><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.link_product_img_noscript}@]" target="_blank"><span class="text-primary glyphicon glyphicon-plus pull-right" style="font-size: 14px; line-height: 18px;" title=" [@{#text_click_to_enlarge#}@] "></span></a>
                             </noscript>                      
                            [@{elseif $smarty.foreach.images.total == 1}@]
+                            <div class="onload-display" style="display: none;">
+                              <span class="info"><img class="info-img" id="info[@{$product_image.i}@]" alt="" src="[@{$product_image.src_product_img_medium}@]" data-zoom-image="[@{$product_image.href_to_product_img_large}@]" /></span><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.href_to_product_img_large}@]" rel="images_group" target="_blank"><span class="text-primary glyphicon glyphicon-plus pull-right" style="font-size: 14px; line-height: 18px;" title=" [@{#text_click_to_enlarge#}@] "></span></a>                           
+                            </div>
                             <script type="text/javascript">
-                              document.write('<span class="info"><img class="info-img" id="info[@{$product_image.i}@]" src="[@{$product_image.src_product_img_medium}@]" data-zoom-image="[@{$product_image.href_to_product_img_large}@]" /></span><a id="glass[@{$product_image.i}@]" class="glass" href="[@{$product_image.href_to_product_img_large}@]" rel="images_group" target="_blank"><span class="text-primary glyphicon glyphicon-plus pull-right" style="font-size: 14px; line-height: 18px;" title=" [@{#text_click_to_enlarge#}@] "></span></a>')
                               $(window).bind('ready resizeEnd', function () {                             
 
                                   $("#info[@{$product_image.i}@]").removeData('elevateZoom');
@@ -161,9 +165,9 @@ $(window).bind('resizeEnd', function() {
                 <div id="info-thumbs">
                          [@{if $smarty.foreach.images.total > 1}@]                          
                            [@{foreach name=thumbs item=product_image from=$products_images}@]
-                            <script type="text/javascript">
-                              document.write('<a href="" id="thumb[@{$product_image.i}@]" class="thumb" onclick="changeImg([@{$product_image.i}@], [@{$smarty.foreach.thumbs.total}@]);return false">[@{$product_image.product_img_medium}@]</a>')                            
-                            </script>                                                                                                
+                            <div class="onload-display" style="display: none;">
+                              <a href="" id="thumb[@{$product_image.i}@]" class="thumb" onclick="changeImg([@{$product_image.i}@], [@{$smarty.foreach.thumbs.total}@]);return false">[@{$product_image.product_img_medium}@]</a>                            
+                            </div>                                                                                                
                            [@{/foreach}@]
                          [@{/if}@]
                 <div class="clearfix invisible"></div>                         
@@ -255,9 +259,7 @@ $(document).ready(function () {
                 <div><b>[@{#text_product_options#}@]</b></div> 
                 <div class="panel panel-default clearfix">           
                   <div id="options" class="panel-body">                                                 
-                    <script type="text/javascript">
-                      [@{strip}@]
-                      document.write('
+                    <div class="onload-display" style="display: none;">
                       <div id="loading" style="visibility: hidden; width: 100%; position:relative; left:0px; top:0px;">
                         <div style="position:absolute; width:100%; display:block; margin:0 auto; text-align:center;">             
                           [@{#text_loading#}@]
@@ -267,25 +269,24 @@ $(document).ready(function () {
                       [@{foreach name=options_name item=product_option from=$products_options}@]         
                         <div class="form-group">
                           <label for="option_[@{$product_option.products_options_id}@]">[@{$product_option.products_options_name}@]:</label>
-                          [@{$product_option.products_options_pull_down|escape:"quotes"}@]
+                          [@{$product_option.products_options_pull_down}@]
                         </div>
                       [@{/foreach}@]
                       </div>                                                    
                       [@{if $qty_for_these_options}@]
                       <div class="clearfix">
                         <div class="pull-left">[@{#text_in_stock_with_these_options#}@]<b>[@{$qty_for_these_options}@]</b>&nbsp;</div>
-                        <div class="hidden-xs pull-right"><a href="" class="text-deco-underline" onclick="[@{$get_otions_list|escape:"quotes"}@] return false">[@{#text_options_at_a_glance#}@]</a><a href="" class="text-deco-underline-hover-none" onclick="[@{$get_otions_list|escape:"quotes"}@] return false">&nbsp;<img src="[@{$images_path}@]icon_arrow_down.gif" title=" [@{#more#}@] " alt="[@{#more#}@]" /></a>&nbsp;</div>                     
+                        <div class="hidden-xs pull-right"><a href="" class="text-deco-underline" onclick="[@{$get_otions_list}@] return false">[@{#text_options_at_a_glance#}@]</a><a href="" class="text-deco-underline-hover-none" onclick="[@{$get_otions_list}@] return false">&nbsp;<img src="[@{$images_path}@]icon_arrow_down.gif" title=" [@{#more#}@] " alt="[@{#more#}@]" /></a>&nbsp;</div>                     
                         <div class="visible-xs-block pull-right"><a href="[@{$link_options_noscript}@]" target="_blank" class="text-deco-underline">[@{#text_options_at_a_glance#}@]</a>&nbsp;</div>
                       </div>
                       [@{else}@]
                       <div class="clearfix">
                         <div class="pull-left">&nbsp;</div>
-                        <div class="hidden-xs pull-right"><a href="" class="text-deco-underline" onclick="[@{$get_otions_list|escape:"quotes"}@] return false">[@{#text_options_at_a_glance#}@]</a><a href="" class="text-deco-underline-hover-none" onclick="[@{$get_otions_list|escape:"quotes"}@] return false">&nbsp;<img src="[@{$images_path}@]icon_arrow_down.gif" title=" [@{#more#}@] " alt="[@{#more#}@]" /></a>&nbsp;</div>
+                        <div class="hidden-xs pull-right"><a href="" class="text-deco-underline" onclick="[@{$get_otions_list}@] return false">[@{#text_options_at_a_glance#}@]</a><a href="" class="text-deco-underline-hover-none" onclick="[@{$get_otions_list}@] return false">&nbsp;<img src="[@{$images_path}@]icon_arrow_down.gif" title=" [@{#more#}@] " alt="[@{#more#}@]" /></a>&nbsp;</div>
                         <div class="visible-xs-block pull-right"><a href="[@{$link_options_noscript}@]" target="_blank" class="text-deco-underline">[@{#text_options_at_a_glance#}@]</a>&nbsp;</div>
                       </div>
-                      [@{/if}@]');
-                      [@{/strip}@] 
-                    </script>                                        
+                      [@{/if}@]
+                    </div>                                        
                     <noscript>                                
                       <div>                    
                       [@{foreach item=product_option from=$products_options}@]                            
@@ -302,20 +303,19 @@ $(document).ready(function () {
                       [@{/if}@]                                                                                               
                     </noscript>                                
                   </div>                                                                                                                      
-                </div> 
-                <script type="text/javascript">
-                [@{strip}@]
-                document.write('                                   
-                <div style="width:100%; position:relative; left:0px; top: -10px; z-index:3;">                                
+                </div>                 
+                <div class="onload-display" style="display: none;">
+                    <div style="width:100%; position:relative; left:0px; top: -10px; z-index:3;">                                
                   <div id="loading_list" class="product-listing" style="background:#fff; display:none; position:absolute; right:0px; top:0px; padding-left:20px; padding-top:10px; padding-right:20px; padding-bottom:40px; min-width:300px;">                                                             
-                    <div style="width:100%; margin:0 auto; text-align:center;">             
-                      [@{#text_loading#}@]
-                    </div>                                                                          
-                  </div>                                                 
-                  <div id="box_products_options_overview" class="product-listing" style="background:#fff; display:none; position:absolute; right:0px; top:0px; padding-left:20px; padding-top:10px; padding-right:20px; padding-bottom:40px; min-width:300px;">                                                                                          
+                      <div style="width:100%; margin:0 auto; text-align:center;">             
+                        [@{#text_loading#}@]
+                      </div>                                                                          
+                    </div>                                                 
+                    <div id="box_products_options_overview" class="product-listing" style="background:#fff; display:none; position:absolute; right:0px; top:0px; padding-left:20px; padding-top:10px; padding-right:20px; padding-bottom:40px; min-width:300px;">                                                                                          
+                    </div>                
                   </div>                
-                </div>');
-                [@{/strip}@]
+                </div>
+                <script type="text/javascript">                                  
                 $('#loading_list').css({'box-shadow' : '3px 3px 7px #333333', '-moz-box-shadow' : '3px 3px 7px #333333', '-webkit-box-shadow' : '3px 3px 7px #333333'});
                 $('#box_products_options_overview').css({'box-shadow' : '3px 3px 7px #333333', '-moz-box-shadow' : '3px 3px 7px #333333', '-webkit-box-shadow' : '3px 3px 7px #333333'});                
                 </script>                                             

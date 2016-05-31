@@ -171,9 +171,9 @@
           <div class="panel panel-default clearfix">           
             <div class="panel-body">
               <div>              
-                <script type="text/javascript">          
-                  document.write('<a href="[@{$link_filename_popup_content_8}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a><a style="margin: 0 0 0 30px;" href="[@{$link_filename_popup_content_8}@]" target="_blank"><img src="[@{$images_path}@]print_red.gif" style="vertical-align:middle" title=" [@{#text_printable_version#}@] " alt="[@{#text_printable_version#}@]" /></a>'); 
-                </script>             
+                <div class="onload-display" style="display: none;">          
+                  <a href="[@{$link_filename_popup_content_8}@]" class="lightbox-system-popup" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a><a style="margin: 0 0 0 30px;" href="[@{$link_filename_popup_content_8}@]" target="_blank"><img src="[@{$images_path}@]print_red.gif" style="vertical-align:middle" title=" [@{#text_printable_version#}@] " alt="[@{#text_printable_version#}@]" /></a>
+                </div>             
                 <noscript>
                   <a href="[@{$link_filename_popup_content_8}@]" target="_blank"><span class="text-deco-underline">[@{#text_conditions_show#}@]</span></a>
                 </noscript>   

@@ -30,9 +30,9 @@
           <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title">[@{#box_heading_manufacturers#}@]</h3></div>
             <div class="panel-body">
-              <script type="text/javascript">
-                document.write('[@{$box_manufacturers_manufacturers}@]');
-              </script>
+              <div class="onload-display" style="display: none;">
+                [@{$box_manufacturers_manufacturers}@]
+              </div>
               <noscript>
                 [@{$box_manufacturers_manufacturers_noscript}@]
               </noscript>    

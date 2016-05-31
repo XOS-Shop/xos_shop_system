@@ -28,6 +28,8 @@
 jQuery("body").attr("class","jq-no-conflict-with-colorbox");
 jQuery(document).ready(function($) {
 
+    $(".onload-display").show();
+
     $.scrollUp({
         scrollName: 'scrollUp',      // Element ID
         scrollDistance: 300,         // Distance from top/bottom before showing element (px)

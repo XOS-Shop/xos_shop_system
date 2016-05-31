@@ -74,9 +74,9 @@
             <div style="float: left; padding: 3px;">                       
               [@{#text_products_per_page#}@]     
               <div class="form-inline" style="padding: 2px 20px 0 0; white-space: nowrap;">
-                <script type="text/javascript">
-                  document.write('[@{$pull_down_menu_display_products}@]');
-                </script>
+                <div class="onload-display" style="display: none;">
+                  [@{$pull_down_menu_display_products}@]
+                </div>
                 <noscript>
                   [@{$pull_down_menu_display_products_noscript_begin}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="10" /><input type="submit" value="[@{#small_button_text_view#}@]" />[@{$pull_down_menu_display_products_noscript_end}@]
                 </noscript>                         
@@ -87,9 +87,9 @@
             <div style="float: left; padding: 3px;">                       
               [@{#text_show#}@]     
               <div class="form-inline" style="padding: 2px 20px 0 0; white-space: nowrap;">
-                <script type="text/javascript">
-                  document.write('[@{$pull_down_menu}@]');
-                </script>
+                <div class="onload-display" style="display: none;">
+                  [@{$pull_down_menu}@]
+                </div>
                 <noscript>
                   [@{$pull_down_menu_noscript_begin}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="10" /><input type="submit" value="[@{#small_button_text_view#}@]" />[@{$pull_down_menu_noscript_end}@]
                 </noscript>                         

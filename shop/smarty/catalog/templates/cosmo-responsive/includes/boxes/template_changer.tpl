@@ -30,9 +30,9 @@
           <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title">[@{#box_heading_template_changer#}@]</h3></div>
             <div class="panel-body">
-              <script type="text/javascript">
-                document.write('[@{$box_template_changer_content}@]'); 
-              </script>
+              <div class="onload-display" style="display: none;">
+                [@{$box_template_changer_content}@]
+              </div>            
               <noscript>
                 [@{$box_template_changer_content_noscript}@]
               </noscript><br />
