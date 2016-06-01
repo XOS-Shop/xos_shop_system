@@ -46,7 +46,7 @@ template {
   display: none;
 }
 a {
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
 }
 a:active,
 a:hover {
@@ -195,7 +195,7 @@ th {
   *,
   *:before,
   *:after {
-    background: transparent !important;
+    background: rgba(0, 0, 0, .01) !important;
     color: #000 !important;
     -webkit-box-shadow: none !important;
             box-shadow: none !important;
@@ -1398,7 +1398,7 @@ a.bg-danger:hover {
 .page-header {
   padding-bottom: 9.5px;
   margin: 42px 0 21px;
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, .01);
 }
 ul,
 ol {
@@ -1562,7 +1562,7 @@ pre code {
   font-size: inherit;
   color: inherit;
   white-space: pre-wrap;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
   border-radius: 0;
 }
 .pre-scrollable {
@@ -2237,7 +2237,7 @@ pre code {
   }
 }
 table {
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
 }
 caption {
   padding-top: 8px;
@@ -2491,7 +2491,7 @@ legend {
   line-height: inherit;
   color: #ffffff;
   border: 0;
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, .01);
 }
 label {
   display: inline-block;
@@ -2989,7 +2989,7 @@ select[multiple].form-group-lg .form-control {
       touch-action: manipulation;
   cursor: pointer;
   background-image: none;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, .01);
   white-space: nowrap;
   padding: 10px 15px;
   font-size: 15px;
@@ -3313,7 +3313,7 @@ fieldset[disabled] .btn-danger.active {
 .btn-link.active,
 .btn-link[disabled],
 fieldset[disabled] .btn-link {
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
   -webkit-box-shadow: none;
   box-shadow: none;
 }
@@ -3321,13 +3321,13 @@ fieldset[disabled] .btn-link {
 .btn-link:hover,
 .btn-link:focus,
 .btn-link:active {
-  border-color: transparent;
+  border-color: rgba(0, 0, 0, .01);
 }
 .btn-link:hover,
 .btn-link:focus {
   color: #0ce3ac;
   text-decoration: underline;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
 }
 .btn-link[disabled]:hover,
 fieldset[disabled] .btn-link:hover,
@@ -3411,8 +3411,8 @@ tbody.collapse.in {
   margin-left: 2px;
   vertical-align: middle;
   border-top: 4px dashed;
-  border-right: 4px solid transparent;
-  border-left: 4px solid transparent;
+  border-right: 4px solid rgba(0, 0, 0, .01);
+  border-left: 4px solid rgba(0, 0, 0, .01);
 }
 .dropup,
 .dropdown {
@@ -3484,7 +3484,7 @@ tbody.collapse.in {
 .dropdown-menu > .disabled > a:hover,
 .dropdown-menu > .disabled > a:focus {
   text-decoration: none;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
   background-image: none;
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   cursor: not-allowed;
@@ -3800,7 +3800,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #464545;
   text-align: center;
   background-color: #464545;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, .01);
   border-radius: 4px;
 }
 .input-group-addon.input-sm {
@@ -3893,7 +3893,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li.disabled > a:focus {
   color: #605e5e;
   text-decoration: none;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
   cursor: not-allowed;
 }
 .nav .open > a,
@@ -3921,7 +3921,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li > a {
   margin-right: 2px;
   line-height: 1.42857143;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, .01);
   border-radius: 4px 4px 0 0;
 }
 .nav-tabs > li > a:hover {
@@ -3933,7 +3933,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #00bc8c;
   background-color: #222222;
   border: 1px solid #464545;
-  border-bottom-color: transparent;
+  border-bottom-color: rgba(0, 0, 0, .01);
   cursor: default;
 }
 .nav-tabs.nav-justified {
@@ -4063,7 +4063,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   position: relative;
   min-height: 60px;
   margin-bottom: 21px;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, .01);
 }
 @media (min-width: 768px) {
   .navbar {
@@ -4079,7 +4079,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   overflow-x: visible;
   padding-right: 15px;
   padding-left: 15px;
-  border-top: 1px solid transparent;
+  border-top: 1px solid rgba(0, 0, 0, .01);
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
   -webkit-overflow-scrolling: touch;
@@ -4194,9 +4194,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding: 9px 10px;
   margin-top: 13px;
   margin-bottom: 13px;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
   background-image: none;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, .01);
   border-radius: 4px;
 }
 .navbar-toggle:focus {
@@ -4230,7 +4230,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     float: none;
     width: auto;
     margin-top: 0;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, .01);
     border: 0;
     -webkit-box-shadow: none;
             box-shadow: none;
@@ -4264,8 +4264,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin-left: -15px;
   margin-right: -15px;
   padding: 10px 15px;
-  border-top: 1px solid transparent;
-  border-bottom: 1px solid transparent;
+  border-top: 1px solid rgba(0, 0, 0, .01);
+  border-bottom: 1px solid rgba(0, 0, 0, .01);
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   margin-top: 7.5px;
@@ -4390,7 +4390,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default {
   background-color: #375a7f;
-  border-color: transparent;
+  border-color: rgba(0, 0, 0, .01);
 }
 .navbar-default .navbar-brand {
   color: #ffffff;
@@ -4398,7 +4398,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
   color: #00bc8c;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
 }
 .navbar-default .navbar-text {
   color: #777777;
@@ -4409,7 +4409,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #00bc8c;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
@@ -4421,7 +4421,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > .disabled > a:hover,
 .navbar-default .navbar-nav > .disabled > a:focus {
   color: #cccccc;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
 }
 .navbar-default .navbar-toggle {
   border-color: #28415b;
@@ -4435,7 +4435,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: transparent;
+  border-color: rgba(0, 0, 0, .01);
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
@@ -4450,7 +4450,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
     color: #00bc8c;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, .01);
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
@@ -4462,7 +4462,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {
     color: #cccccc;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, .01);
   }
 }
 .navbar-default .navbar-link {
@@ -4486,7 +4486,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 .navbar-inverse {
   background-color: #00bc8c;
-  border-color: transparent;
+  border-color: rgba(0, 0, 0, .01);
 }
 .navbar-inverse .navbar-brand {
   color: #ffffff;
@@ -4494,7 +4494,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
   color: #375a7f;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
 }
 .navbar-inverse .navbar-text {
   color: #ffffff;
@@ -4505,7 +4505,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
   color: #375a7f;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
 }
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
@@ -4517,7 +4517,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-nav > .disabled > a:hover,
 .navbar-inverse .navbar-nav > .disabled > a:focus {
   color: #aaaaaa;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
 }
 .navbar-inverse .navbar-toggle {
   border-color: #008966;
@@ -4541,10 +4541,10 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 @media (max-width: 767px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
-    border-color: transparent;
+    border-color: rgba(0, 0, 0, .01);
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, .01);
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
     color: #ffffff;
@@ -4552,7 +4552,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
     color: #375a7f;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, .01);
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
@@ -4564,7 +4564,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {
     color: #aaaaaa;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, .01);
   }
 }
 .navbar-inverse .navbar-link {
@@ -4622,7 +4622,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   text-decoration: none;
   color: #ffffff;
   background-color: #00bc8c;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, .01);
   margin-left: -1px;
 }
 .pagination > li:first-child > a,
@@ -4642,7 +4642,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > li > span:focus {
   color: #ffffff;
   background-color: #00dba3;
-  border-color: transparent;
+  border-color: rgba(0, 0, 0, .01);
 }
 .pagination > .active > a,
 .pagination > .active > span,
@@ -4653,7 +4653,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   z-index: 2;
   color: #ffffff;
   background-color: #00dba3;
-  border-color: transparent;
+  border-color: rgba(0, 0, 0, .01);
   cursor: default;
 }
 .pagination > .disabled > span,
@@ -4664,7 +4664,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > .disabled > a:focus {
   color: #ffffff;
   background-color: #007053;
-  border-color: transparent;
+  border-color: rgba(0, 0, 0, .01);
   cursor: not-allowed;
 }
 .pagination-lg > li > a,
@@ -4711,7 +4711,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   display: inline-block;
   padding: 5px 14px;
   background-color: #00bc8c;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, .01);
   border-radius: 15px;
 }
 .pager li > a:hover,
@@ -4916,7 +4916,7 @@ a.thumbnail.active {
 .alert {
   padding: 15px;
   margin-bottom: 21px;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, .01);
   border-radius: 4px;
 }
 .alert h4 {
@@ -5158,7 +5158,7 @@ a.list-group-item:hover,
 a.list-group-item:focus {
   text-decoration: none;
   color: #0ce3ac;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
 }
 .list-group-item.disabled,
 .list-group-item.disabled:hover,
@@ -5300,7 +5300,7 @@ a.list-group-item-danger.active:focus {
 .panel {
   margin-bottom: 21px;
   background-color: #303030;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, .01);
   border-radius: 4px;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -5310,7 +5310,7 @@ a.list-group-item-danger.active:focus {
 }
 .panel-heading {
   padding: 10px 15px;
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, .01);
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
 }
@@ -5667,7 +5667,7 @@ a.list-group-item-danger.active:focus {
   padding: 19px;
   margin-bottom: 20px;
   background-color: #303030;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, .01);
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -5705,7 +5705,7 @@ a.list-group-item-danger.active:focus {
 button.close {
   padding: 0;
   cursor: pointer;
-  background: transparent;
+  background: rgba(0, 0, 0, .01);
   border: 0;
   -webkit-appearance: none;
 }
@@ -5877,7 +5877,7 @@ button.close {
   position: absolute;
   width: 0;
   height: 0;
-  border-color: transparent;
+  border-color: rgba(0, 0, 0, .01);
   border-style: solid;
 }
 .tooltip.top .tooltip-arrow {
@@ -5988,7 +5988,7 @@ button.close {
   display: block;
   width: 0;
   height: 0;
-  border-color: transparent;
+  border-color: rgba(0, 0, 0, .01);
   border-style: solid;
 }
 .popover > .arrow {
@@ -6352,9 +6352,9 @@ button.close {
 }
 .text-hide {
   font: 0/0 a;
-  color: transparent;
+  color: rgba(0, 0, 0, .01);
   text-shadow: none;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, .01);
   border: 0;
 }
 .hidden {
@@ -6703,7 +6703,7 @@ textarea {
 .form-control,
 input,
 textarea {
-  border: 2px hidden transparent;
+  border: 2px hidden rgba(0, 0, 0, .01);
   -webkit-box-shadow: none;
   box-shadow: none;
 }
