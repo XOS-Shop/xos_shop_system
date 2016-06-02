@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : html5
-* version    : 1.0.7 for XOS-Shop version 1.0.2
+* version    : 1.0.7 for XOS-Shop version 1.0.3
 * descrip    : xos-shop default template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                     
 * filename   : checkout_confirmation.tpl

@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : cyborg-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0.2
+* version    : 1.0.7 for XOS-Shop version 1.0.3
 * descrip    : xos-shop template built with Bootstrap3 and theme cyborg                                                                    
 * filename   : css.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
