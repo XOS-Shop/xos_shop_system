@@ -1,6 +1,13 @@
 
 ##ChangeLog
 
+# XOS-Shop v1.0.3 (Release 06/04/2016)
+
+- feature: Link hreflang im html header hinzugefügt
+- update:  Produktbilder können nicht mehr grösser als die Originale skaliert werden
+- update:  Alle document.write aus Template cosmo-responsive entfernt
+- update:  CKEditor Version-4.5.8 auf CKEditor Version-4.5.9
+
 # XOS-Shop v1.0.2 (Release 04/23/2016)
 
 - update:  Die neu Generierung der Produktbilder erfolgt jetzt in mehreren Durchläufen
