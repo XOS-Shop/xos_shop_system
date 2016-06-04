@@ -563,8 +563,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                         'manufacturers_pull_down_menu' => xos_draw_pull_down_menu('_m', xos_get_manufacturers(array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS))), $_GET['_m'], 'class="form-control" id="manufacturers_id"'),
                         'input_field_pfrom' => xos_draw_input_field('pfrom', $_GET['pfrom'], 'class="form-control" id="pfrom"'),
                         'input_field_pto' => xos_draw_input_field('pto', $_GET['pto'], 'class="form-control" id="pto"'),
-                        'input_field_dfrom' => xos_draw_input_field('dfrom', (($_GET['dfrom']) ? $_GET['dfrom'] : AS_FORMAT_STRING), 'class="form-control" id="id_dfrom"'),
-                        'input_field_dto' => xos_draw_input_field('dto', (($_GET['dto']) ? $_GET['dto'] : AS_FORMAT_STRING), 'class="form-control" id="id_dto"'),
+                        'input_field_dfrom' => xos_draw_input_field('dfrom', (($_GET['dfrom']) ? $_GET['dfrom'] : AS_FORMAT_STRING), 'class="form-control" id="id_dfrom" autocomplete="off"'),
+                        'input_field_dto' => xos_draw_input_field('dto', (($_GET['dto']) ? $_GET['dto'] : AS_FORMAT_STRING), 'class="form-control" id="id_dto" autocomplete="off"'),
                         'body_tag_params' => 'onload="UpdateManufacturers();"',                        
                         'form_end' => '</form>'));
 ///////////////////////////////////////////////////////////
