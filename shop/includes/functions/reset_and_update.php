@@ -35,7 +35,7 @@
   function xos_expire_specials() {
     global $smarty;
   
-    $specials_query = xos_db_query("select specials_id, products_id, customers_group_id from " . TABLE_SPECIALS . " where status = '1' and now() > date_add(expires_date,interval 1 day) and expires_date > 0");
+    $specials_query = xos_db_query("select specials_id, products_id, customers_group_id from " . TABLE_SPECIALS . " where status = '1' and now() > expires_date and expires_date > 0");
     if (xos_db_num_rows($specials_query)) {
       while ($specials = xos_db_fetch_array($specials_query)) {              
         xos_db_query("update " . TABLE_SPECIALS . " set expires_date = null, status = '0' where specials_id = '" . (int)$specials['specials_id'] . "'");

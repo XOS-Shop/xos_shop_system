@@ -1,4 +1,4 @@
-/* Inicialización en español para la extensión 'UI date picker' para jQuery. */
+/* Inicialización en español para la extensión 'UI date picker' para jQuery con el complemento de TimePicker añade un TimePicker de jQuery UI DatePicker. */
 /* Traducido por Vester (xvester@gmail.com). */
 jQuery(function($){
 	$.datepicker.regional['es'] = {
@@ -19,5 +19,24 @@ jQuery(function($){
 		isRTL: false,
 		showMonthAfterYear: false,
 		yearSuffix: ''};
-	$.datepicker.setDefaults($.datepicker.regional['es']);
+	$.datepicker.setDefaults($.datepicker.regional['es']); 
+  
+	$.timepicker.regional['es'] = {
+		timeOnlyTitle: 'Elegir una hora',
+		timeText: 'Hora',
+		hourText: 'Horas',
+		minuteText: 'Minutos',
+		secondText: 'Segundos',
+		millisecText: 'Milisegundos',
+		microsecText: 'Microsegundos',
+		timezoneText: 'Uso horario',
+		currentText: 'Hoy',
+		closeText: 'Cerrar',
+		timeFormat: 'HH:mm',
+		timeSuffix: '',
+		amNames: ['a.m.', 'AM', 'A'],
+		pmNames: ['p.m.', 'PM', 'P'],
+		isRTL: false
+	};
+	$.timepicker.setDefaults($.timepicker.regional['es']);      
 });

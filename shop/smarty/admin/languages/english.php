@@ -41,7 +41,7 @@ define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
 define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
 define('DATE_FORMAT', 'm/d/Y'); // this is used for date()
 define('PHP_DATE_TIME_FORMAT', 'm/d/Y H:i:s'); // this is used for date()
-define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S'); // this is used for strftime()
+define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %T'); // this is used for strftime()
 
 // this array is used for function xos_date_format()
 $day_month_names = array(
@@ -90,13 +90,17 @@ $day_month_names = array(
 ////
 // Return date in raw format
 // $date should be in format mm/dd/yyyy
-// raw date is in format YYYYMMDD, or DDMMYYYY
-function xos_date_raw($date, $reverse = false) {
-  if ($reverse) {
-    return substr($date, 3, 2) . substr($date, 0, 2) . substr($date, 6, 4);
-  } else {
-    return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2);
-  }
+// raw date is in format yyyymmdd
+function xos_date_raw($date) {
+  return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2);
+}
+
+////
+// Return datetime in raw format
+// $date should be in format mm/dd/yyyy hh:ii:ss
+// raw datetime is in format yyyymmddhhiiss
+function xos_datetime_raw($date) {
+  return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 11, 2) . substr($date, 14, 2) . substr($date, 17, 2);
 }
 
 // Global entries for the <html> tag

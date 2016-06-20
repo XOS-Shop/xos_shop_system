@@ -499,10 +499,9 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                 $spec_err_gr .= $customers_group['customers_group_id'] . ',';
               }                                              
             }
-                                
-            $special_expires_date = xos_date_raw(xos_db_prepare_input($_POST['special_expires_date_' . $customers_group['customers_group_id']]));           
-            $special_expires_date = (date('Ymd') <= $special_expires_date && $all_specials) ? $special_expires_date : 'null'; 
-            
+
+            $special_expires_date = strtotime(xos_datetime_raw(xos_db_prepare_input($_POST['special_expires_date_' . $customers_group['customers_group_id']])));            
+            $special_expires_date = ($special_expires_date && time() <= $special_expires_date && $all_specials) ? date('Y-m-d H:i', $special_expires_date) : 'null';            
              
             if ($customers_group['customers_group_id'] == 0) {
               $default_price = xos_db_prepare_input($prices_array[$customers_group['customers_group_id']][0]['regular']);

@@ -60,9 +60,9 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         $banners_php_source = xos_db_prepare_input($_POST['banners_php_source']);
         $current_banners_image = xos_db_prepare_input($_POST['current_banners_image']);
         $current_date_scheduled = xos_db_prepare_input($_POST['current_date_scheduled']);
-        $expires_date = xos_date_raw(xos_db_prepare_input($_POST['expires_date']));
+        $expires_date = strtotime(xos_datetime_raw(xos_db_prepare_input($_POST['expires_date'])));
         $expires_impressions = xos_db_prepare_input($_POST['expires_impressions']);
-        $date_scheduled = xos_date_raw(xos_db_prepare_input($_POST['date_scheduled']));
+        $date_scheduled = strtotime(xos_datetime_raw(xos_db_prepare_input($_POST['date_scheduled'])));
 
         $banner_error = false;
 
@@ -137,8 +137,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
             }  
           }
                   
-          if (date('Ymd') < $expires_date) {                        
-            xos_db_query("update " . TABLE_BANNERS . " set expires_date = '" . xos_db_input($expires_date) . "', expires_impressions = NULL where banners_id = '" . (int)$banners_id . "'");
+          if (time() <= $expires_date) {                        
+            xos_db_query("update " . TABLE_BANNERS . " set expires_date = '" . xos_db_input(date('Y-m-d H:i', $expires_date)) . "', expires_impressions = NULL where banners_id = '" . (int)$banners_id . "'");
           } else {
             $expires_impressions < 1 ? $db_input_expires_impressions = 'expires_impressions = NULL,' : $db_input_expires_impressions = 'expires_impressions = ' . (int)$expires_impressions . ',';
             xos_db_query("update " . TABLE_BANNERS . " set " . $db_input_expires_impressions . " expires_date = NULL where banners_id = '" . (int)$banners_id . "'");
@@ -146,11 +146,11 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
           if (xos_not_null($date_scheduled) || xos_not_null($current_date_scheduled)) {
                               
-            if (date('Ymd') >= $date_scheduled) { 
+            if (time() >= $date_scheduled) { 
 //              xos_db_query("update " . TABLE_BANNERS . " set date_scheduled = NULL where banners_id = '" . (int)$banners_id . "'");                                                       
               xos_db_query("update " . TABLE_BANNERS . " set status = '1', date_scheduled = NULL where banners_id = '" . (int)$banners_id . "'");             
             } else {
-              xos_db_query("update " . TABLE_BANNERS . " set status = '0', date_scheduled = '" . xos_db_input($date_scheduled) . "' where banners_id = '" . (int)$banners_id . "'"); 
+              xos_db_query("update " . TABLE_BANNERS . " set status = '0', date_scheduled = '" . xos_db_input(date('Y-m-d H:i', $date_scheduled)) . "' where banners_id = '" . (int)$banners_id . "'"); 
             }
           }
 
@@ -236,12 +236,14 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                    '/* <![CDATA[ */' . "\n\n" . 
                  
                    '$(function() {' . "\n" .                                                                                        
-                   '  $( "#date_scheduled" ).datepicker({' . "\n" .
+                   '  $( "#date_scheduled" ).datetimepicker({' . "\n" .
+                   '    controlType: \'select\',' . "\n" .                    
                    '    changeMonth: true,' . "\n" .
                    '    changeYear: true' . "\n" .
                    '  });' . "\n\n" .
                               
-                   '  $( "#expires_date" ).datepicker({' . "\n" .
+                   '  $( "#expires_date" ).datetimepicker({' . "\n" .
+                   '    controlType: \'select\',' . "\n" .                    
                    '    changeMonth: true,' . "\n" .
                    '    changeYear: true' . "\n" .
                    '  });' . "\n\n" .
@@ -288,7 +290,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
       $bID = xos_db_prepare_input($_GET['bID']);
 
-      $banner_query = xos_db_query("select banners_id, banners_group, status, date_format(date_scheduled, '" . DATE_FORMAT_SHORT . "') as date_scheduled, date_format(expires_date, '" . DATE_FORMAT_SHORT . "') as expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " where banners_id = '" . (int)$bID . "'"); 
+      $banner_query = xos_db_query("select banners_id, banners_group, status, date_format(date_scheduled, '" . DATE_TIME_FORMAT . "') as date_scheduled, date_format(expires_date, '" . DATE_TIME_FORMAT . "') as expires_date, expires_impressions, date_status_change from " . TABLE_BANNERS . " where banners_id = '" . (int)$bID . "'"); 
                                            
       $banner = xos_db_fetch_array($banner_query);
 
@@ -350,8 +352,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                           'input_new_banners_group' => xos_draw_input_field('new_banners_group', '', '', ((sizeof($groups_array) > 0) ? false : true)),
                           'dir_fs_catalog_images_banners' => DIR_FS_CATALOG_IMAGES . 'banners/',
                           'hidden_field_current_date_scheduled' => xos_draw_hidden_field('current_date_scheduled', $bInfo->date_scheduled),
-                          'input_date_scheduled' => xos_draw_input_field('date_scheduled', $bInfo->date_scheduled, 'id="date_scheduled" style="background: #ffffcc;" size ="10" autocomplete="off"'),
-                          'input_expires_date' => xos_draw_input_field('expires_date', $bInfo->expires_date, 'id="expires_date" style="background: #ffffcc;" size ="10" autocomplete="off"'),
+                          'input_date_scheduled' => xos_draw_input_field('date_scheduled', substr($bInfo->date_scheduled, 0, 16), 'id="date_scheduled" style="background: #ffffcc;" size ="16" autocomplete="off"'),
+                          'input_expires_date' => xos_draw_input_field('expires_date', substr($bInfo->expires_date, 0, 16), 'id="expires_date" style="background: #ffffcc;" size ="16" autocomplete="off"'),
                           'input_expires_impressions' => xos_draw_input_field('expires_impressions', $bInfo->expires_impressions, 'maxlength="7" size="7"'),
                           'banners_content' => $banners_content_array,
                           'php_code_included' => $php_code_included,
