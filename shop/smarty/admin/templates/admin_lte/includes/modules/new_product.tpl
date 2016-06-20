@@ -166,16 +166,16 @@
                                         <td style="position: relative;">[@{if $customer_group.display}@]<a href="" onclick="toggle('[@{$customer_group.toggle_name}@]');return false"><img style="position: absolute; left: -20px;" onmouseover="this.style.cursor='pointer'" src="[@{$images_path}@]icon_arrow_down.gif" alt="" /></a>[@{/if}@][@{#text_products_price_net#}@]</td>
                                         <td>[@{#text_products_price_gross#}@]</td>
                                         <td style="color: red;">[@{#text_specials#}@]</td>
-                                        <td style="color : red;">[@{#text_specials_expires_date#}@]</td>
+                                        <td style="color : red;">[@{#text_specials_scheduled_date#}@]</td>
                                       </tr>                        
                                       <tr>
-                                        <td>[@{$customer_group.input_price|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{$customer_group.input_special_price|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
-                                        <td>[@{$customer_group.input_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{$customer_group.input_special_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
-                                        <td class="text-center"><span style="background: green; margin: 5px; padding: 5px;">[@{$customer_group.radio_special_status_1}@]</span><span style="background: red; margin: 5px; padding: 5px;">[@{$customer_group.radio_special_status_0}@]</span></td>
-                                        <td>[@{$customer_group.input_special_expires_date|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
+                                        <td style="vertical-align: top;">[@{$customer_group.input_price|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{$customer_group.input_special_price|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
+                                        <td style="vertical-align: top;">[@{$customer_group.input_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{$customer_group.input_special_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
+                                        <td style="vertical-align: top; padding-top: 5px" class="text-center"><span style="background: green; margin: 5px; padding: 5px;">[@{$customer_group.radio_special_status_1}@]</span><span style="background: red; margin: 5px; padding: 5px;">[@{$customer_group.radio_special_status_0}@]</span></td>
+                                        <td rowspan="2" style="vertical-align: top;">[@{$customer_group.input_special_date_scheduled|replace:'<input':'<input class="form-control input-sm input-price"'}@]<br><span style="color : red;">[@{#text_specials_expires_date#}@]</span><br>[@{$customer_group.input_special_expires_date|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
                                       </tr>                           
                                       <tr id="[@{$customer_group.toggle_name}@]" style="[@{$customer_group.display}@]">
-                                        <td colspan="4"><table class="price-table">
+                                        <td colspan="3"><table class="price-table">
                                           [@{foreach name=inner item=price_break from=$customer_group.price_breaks}@]
                                           [@{if $smarty.foreach.inner.first}@]                                           
                                           <tr>

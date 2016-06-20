@@ -500,13 +500,19 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
               }                                              
             }
 
-            $special_expires_date = strtotime(xos_datetime_raw(xos_db_prepare_input($_POST['special_expires_date_' . $customers_group['customers_group_id']])));            
-            $special_expires_date = ($special_expires_date && time() <= $special_expires_date && $all_specials) ? date('Y-m-d H:i', $special_expires_date) : 'null';            
+            $special_expires_date_strtotime = strtotime(xos_datetime_raw(xos_db_prepare_input($_POST['special_expires_date_' . $customers_group['customers_group_id']])));            
+            $special_expires_date = ($special_expires_date_strtotime && $special_expires_date_strtotime > time() && $all_specials) ? date('Y-m-d H:i', $special_expires_date_strtotime) : 'null'; 
+
+            $special_date_scheduled_strtotime = strtotime(xos_datetime_raw(xos_db_prepare_input($_POST['special_date_scheduled_' . $customers_group['customers_group_id']])));            
+            $special_date_scheduled = ($special_date_scheduled_strtotime && $special_date_scheduled_strtotime > time() && $all_specials && ($special_expires_date_strtotime > $special_date_scheduled_strtotime || $special_expires_date == 'null')) ? date('Y-m-d H:i', $special_date_scheduled_strtotime) : 'null';
+            
+            if ($special_date_scheduled != 'null') $prices_array[$customers_group['customers_group_id']]['special_status'] = $product_special_status = 0;           
              
             if ($customers_group['customers_group_id'] == 0) {
               $default_price = xos_db_prepare_input($prices_array[$customers_group['customers_group_id']][0]['regular']);
               $default_special_price = xos_db_prepare_input($prices_array[$customers_group['customers_group_id']][0]['special']);
               $default_product_special_status = $product_special_status;
+              $default_special_date_scheduled = $special_date_scheduled;              
               $default_special_expires_date = $special_expires_date;
             }
             
@@ -516,13 +522,14 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
             } else {
               $regular_price = $default_price;            
               $special_price = $default_special_price; 
-              $special_expires_date = $default_special_expires_date;
+              $special_date_scheduled = $default_special_date_scheduled;
+              $special_expires_date = $default_special_expires_date;              
               $product_special_status = $default_product_special_status;
             }
                           
             if ($action == 'insert_product') {
               xos_db_query("insert into " . TABLE_PRODUCTS_PRICES . " (products_id, customers_group_id, customers_group_price) values ('" . (int)$products_id . "', '" . $customers_group['customers_group_id'] . "', '" . $regular_price . "')"); 
-              if ($special_price > 0) xos_db_perform(TABLE_SPECIALS, array('products_id' => (int)$products_id, 'customers_group_id' => $customers_group['customers_group_id'], 'specials_new_products_price' => $special_price, 'expires_date' => $special_expires_date, 'status' => $product_special_status));               
+              if ($special_price > 0) xos_db_perform(TABLE_SPECIALS, array('products_id' => (int)$products_id, 'customers_group_id' => $customers_group['customers_group_id'], 'specials_new_products_price' => $special_price, 'date_scheduled' => $special_date_scheduled, 'expires_date' => $special_expires_date, 'status' => $product_special_status));               
             } elseif ($action == 'update_product') {
               $price_count_query = xos_db_query("select products_id from " . TABLE_PRODUCTS_PRICES . " where products_id = '" . (int)$products_id . "' and customers_group_id = '" . $customers_group['customers_group_id'] . "'");
               if (xos_db_num_rows($price_count_query)) {
@@ -533,12 +540,12 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
               $special_price_count_query = xos_db_query("select products_id from " . TABLE_SPECIALS . " where products_id = '" . (int)$products_id . "' and customers_group_id = '" . $customers_group['customers_group_id'] . "'");
               if (xos_db_num_rows($special_price_count_query)) {
                 if ($special_price > 0) {            
-                  xos_db_perform(TABLE_SPECIALS, array('specials_new_products_price' => $special_price, 'expires_date' => $special_expires_date, 'status' => $product_special_status, 'error' => $this_group_specials_error ? '1' : '0'), 'update', "customers_group_id = '" . $customers_group['customers_group_id'] . "' and products_id = '" . (int)$products_id . "'");
+                  xos_db_perform(TABLE_SPECIALS, array('specials_new_products_price' => $special_price, 'date_scheduled' => $special_date_scheduled, 'expires_date' => $special_expires_date, 'status' => $product_special_status, 'error' => $this_group_specials_error ? '1' : '0'), 'update', "customers_group_id = '" . $customers_group['customers_group_id'] . "' and products_id = '" . (int)$products_id . "'");
                 } else {
                   xos_db_query("delete from " . TABLE_SPECIALS . " where customers_group_id = '" . $customers_group['customers_group_id'] . "' and products_id = '" . (int)$products_id . "'");
                 }                  
               } else {
-                if ($special_price > 0) xos_db_perform(TABLE_SPECIALS, array('products_id' => (int)$products_id, 'customers_group_id' => $customers_group['customers_group_id'], 'specials_new_products_price' => $special_price, 'expires_date' => $special_expires_date, 'status' => $product_special_status, 'error' => $this_group_specials_error ? '1' : '0'));
+                if ($special_price > 0) xos_db_perform(TABLE_SPECIALS, array('products_id' => (int)$products_id, 'customers_group_id' => $customers_group['customers_group_id'], 'specials_new_products_price' => $special_price, 'date_scheduled' => $special_date_scheduled, 'expires_date' => $special_expires_date, 'status' => $product_special_status, 'error' => $this_group_specials_error ? '1' : '0'));
               }                            
             }              
           }
@@ -615,10 +622,11 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                 xos_db_query("insert into " . TABLE_PRODUCTS_PRICES . " (products_id, customers_group_id, customers_group_price) values ('" . (int)$dup_products_id . "', '" . xos_db_input($prices['customers_group_id']) . "', '" . xos_db_input($prices['customers_group_price']) . "')");
               }
             
-              $special_prices_query = xos_db_query("select customers_group_id, specials_new_products_price, expires_date, status, error from " . TABLE_SPECIALS . " where products_id = '" . (int)$products_id . "'");
+              $special_prices_query = xos_db_query("select customers_group_id, specials_new_products_price, date_scheduled, expires_date, status, error from " . TABLE_SPECIALS . " where products_id = '" . (int)$products_id . "'");
               while ($special_prices = xos_db_fetch_array($special_prices_query)) {
+                $special_date_scheduled = ($special_prices['date_scheduled'] == null) ? 'null' : xos_db_input($special_prices['date_scheduled']);
                 $special_expires_date = ($special_prices['expires_date'] == null) ? 'null' : xos_db_input($special_prices['expires_date']);
-                xos_db_perform(TABLE_SPECIALS, array('products_id' => (int)$dup_products_id, 'customers_group_id' => xos_db_input($special_prices['customers_group_id']), 'specials_new_products_price' => xos_db_input($special_prices['specials_new_products_price']), 'expires_date' => $special_expires_date, 'status' => xos_db_input($special_prices['status']), 'error' => xos_db_input($special_prices['error'])));
+                xos_db_perform(TABLE_SPECIALS, array('products_id' => (int)$dup_products_id, 'customers_group_id' => xos_db_input($special_prices['customers_group_id']), 'specials_new_products_price' => xos_db_input($special_prices['specials_new_products_price']), 'date_scheduled' => $special_date_scheduled, 'expires_date' => $special_expires_date, 'status' => xos_db_input($special_prices['status']), 'error' => xos_db_input($special_prices['error'])));
               }            
                     
               $description_query = xos_db_query("select language_id, products_name, products_p_unit, products_info, products_description_tab_label, products_description, products_url from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id = '" . (int)$products_id . "'");

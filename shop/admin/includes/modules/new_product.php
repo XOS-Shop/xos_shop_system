@@ -170,7 +170,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
         default: $in_special_status = false; $out_special_status = true;
       }        
 
-      $special_expires_date_query = xos_db_query("select date_format(expires_date, '" . DATE_TIME_FORMAT . "') as expires_date from " . TABLE_SPECIALS . " where products_id = '" . (int)$pInfo->products_id . "' and customers_group_id = '" . (int)$customers_group['customers_group_id'] . "'");
+      $special_expires_date_query = xos_db_query("select date_format(date_scheduled, '" . DATE_TIME_FORMAT . "') as date_scheduled, date_format(expires_date, '" . DATE_TIME_FORMAT . "') as expires_date from " . TABLE_SPECIALS . " where products_id = '" . (int)$pInfo->products_id . "' and customers_group_id = '" . (int)$customers_group['customers_group_id'] . "'");
       $special_expires_date = xos_db_fetch_array($special_expires_date_query);
        
       $customers_groups_array[]=array('name' => $customers_group['customers_group_name'],
@@ -182,6 +182,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
                                       'input_price_gross' => xos_draw_input_field('products_price_gross_' . $customers_group['customers_group_id'], $products_prices[$customers_group['customers_group_id']][0]['regular'], 'style="background: #fffffe;" size ="11" onkeyup="updateNet(\'products_price_gross_' . $customers_group['customers_group_id'] . '\', \'products_price_' . $customers_group['customers_group_id'] . '\')"'),
                                       'input_special_price' => xos_draw_input_field('products_special_price_' . $customers_group['customers_group_id'], $products_prices[$customers_group['customers_group_id']][0]['special'], 'style="background: ' . (in_array($customers_group['customers_group_id'], $error_groups) && !$products_prices[$customers_group['customers_group_id']][0]['special'] > 0 ? '#000000' : '#ffe1e1') . '; color : red;" size ="11" onkeyup="updateGross(\'products_special_price_' . $customers_group['customers_group_id'] . '\', \'products_special_price_gross_' . $customers_group['customers_group_id'] . '\')"'),
                                       'input_special_price_gross' => xos_draw_input_field('products_special_price_gross_' . $customers_group['customers_group_id'], $products_prices[$customers_group['customers_group_id']][0]['special'], 'style="background: ' . (in_array($customers_group['customers_group_id'], $error_groups) && !$products_prices[$customers_group['customers_group_id']][0]['special'] > 0 ? '#000000' : '#ffe1e1') . '; color : red;" size ="11" onkeyup="updateNet(\'products_special_price_gross_' . $customers_group['customers_group_id'] . '\', \'products_special_price_' . $customers_group['customers_group_id'] . '\')"'),                                      
+                                      'input_special_date_scheduled' => xos_draw_input_field('special_date_scheduled_' . $customers_group['customers_group_id'], substr($special_expires_date['date_scheduled'], 0, 16), 'id ="special_date_scheduled_' . $customers_group['customers_group_id'] . '" style="background: #ffffcc; width: 110px;" size ="16" autocomplete="off"'),
                                       'input_special_expires_date' => xos_draw_input_field('special_expires_date_' . $customers_group['customers_group_id'], substr($special_expires_date['expires_date'], 0, 16), 'id ="special_expires_date_' . $customers_group['customers_group_id'] . '" style="background: #ffffcc; width: 110px;" size ="16" autocomplete="off"'),                                                                                
                                       'radio_special_status_1' => xos_draw_radio_field('products_special_status_' . $customers_group['customers_group_id'], '1', $in_special_status),
                                       'radio_special_status_0' => xos_draw_radio_field('products_special_status_' . $customers_group['customers_group_id'], '0', $out_special_status),                                                                            
@@ -197,7 +198,13 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       
       if ($customers_group['customers_group_id'] != 0) $update_checked_string .= 'updateChecked(\'' . $customers_group['customers_group_id'] . '\');';
       
-      $javascript .= "\n" . '$(function() {' . "\n" .  
+      $javascript .= "\n" . '$(function() {' . "\n" . 
+                     '  $( "#special_date_scheduled_' . $customers_group['customers_group_id'] . '" ).datetimepicker({' . "\n" .
+                     '    controlType: \'select\',' . "\n" .                     
+                     '    changeMonth: true,' . "\n" .
+                     '    changeYear: true' . "\n" .
+                     '  });' . "\n\n" .
+                            
                      '  $( "#special_expires_date_' . $customers_group['customers_group_id'] . '" ).datetimepicker({' . "\n" .
                      '    controlType: \'select\',' . "\n" .                     
                      '    changeMonth: true,' . "\n" .

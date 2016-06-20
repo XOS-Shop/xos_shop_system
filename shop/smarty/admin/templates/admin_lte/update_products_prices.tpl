@@ -135,27 +135,27 @@
                               <td>[@{#text_products_price_gross#}@]</td>                                                                               
                               [@{if $products_prices.is_special}@]
                               <td style="color: red;">[@{#text_specials#}@]</td>
-                              <td style="color: red;">[@{#text_specials_expires_date#}@]</td>
+                              <td style="color: red;">[@{#text_specials_scheduled_date#}@]</td>
                               [@{else}@]
                               <td style="visibility: hidden;">[@{#text_specials#}@]</td>
-                              <td style="visibility: hidden;">[@{#text_specials_expires_date#}@]</td>                                        
+                              <td style="visibility: hidden;">[@{#text_specials_scheduled_date#}@]</td>                                        
                               [@{/if}@]
                             </tr>                        
                             <tr>                                                                              
                               [@{if $products_prices.is_special}@]
-                              <td>[@{$products_prices.input_price|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{$products_prices.input_special_price|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
-                              <td>[@{$products_prices.input_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{$products_prices.input_special_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
-                              <td class="text-center">[@{$products_prices.special_status_image}@]</td>
-                              <td>[@{$products_prices.input_special_expires_date|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td> 
+                              <td style="vertical-align: top;">[@{$products_prices.input_price|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{$products_prices.input_special_price|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
+                              <td style="vertical-align: top;">[@{$products_prices.input_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{$products_prices.input_special_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
+                              <td style="vertical-align: top; padding-top: 5px" class="text-center">[@{$products_prices.special_status_image}@]</td>
+                              <td rowspan="2" style="vertical-align: top;">[@{$products_prices.input_special_date_scheduled|replace:'<input':'<input class="form-control input-sm input-price"'}@]<br><span style="color : red;">[@{#text_specials_expires_date#}@]</span><br>[@{$products_prices.input_special_expires_date|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td> 
                               [@{else}@]
-                              <td>[@{$products_prices.input_price|replace:'<input':'<input class="form-control input-sm input-price"'}@]<span style="visibility: hidden;">[@{$products_prices.input_special_price|replace:'<input':'<input class="form-control input-sm input-price"'}@]</span></td>
-                              <td>[@{$products_prices.input_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]<span style="visibility: hidden;">[@{$products_prices.input_special_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]</span></td>
-                              <td class="text-center" style="visibility: hidden;">[@{$products_prices.special_status_image}@]</td>
-                              <td style="visibility: hidden;">[@{$products_prices.input_special_expires_date|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>                                         
+                              <td style="vertical-align: top;">[@{$products_prices.input_price|replace:'<input':'<input class="form-control input-sm input-price"'}@]<span style="visibility: hidden;">[@{$products_prices.input_special_price|replace:'<input':'<input class="form-control input-sm input-price"'}@]</span></td>
+                              <td style="vertical-align: top;">[@{$products_prices.input_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]<span style="visibility: hidden;">[@{$products_prices.input_special_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]</span></td>
+                              <td style="vertical-align: top; padding-top: 5px; visibility: hidden;" class="text-center">[@{$products_prices.special_status_image}@]</td>
+                              <td rowspan="2" style="vertical-align: top; visibility: hidden;">[@{$products_prices.input_special_date_scheduled|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>                                         
                               [@{/if}@]
                             </tr>                                                                 
                             <tr>
-                              <td colspan="4"><table class="price-table">
+                              <td colspan="3"><table class="price-table">
                                 [@{foreach name=inner_inner item=price_break from=$products_prices.price_breaks}@]
                                 [@{if $smarty.foreach.inner_inner.first}@]                                           
                                 <tr>
@@ -294,16 +294,16 @@
                               <td style="position: relative;">[@{if $customer_group.display}@]<a href="" onclick="toggle('[@{$customer_group.toggle_name}@]');return false"><img style="position: absolute; left: -20px;" onmouseover="this.style.cursor='pointer'" src="[@{$images_path}@]icon_arrow_down.gif" alt="" /></a>[@{/if}@][@{#text_products_price_net#}@]</td>
                               <td>[@{#text_products_price_gross#}@]</td>
                               <td style="color: red;">[@{#text_specials#}@]</td>
-                              <td style="color : red;">[@{#text_specials_expires_date#}@]</td>
+                              <td style="color : red;">[@{#text_specials_scheduled_date#}@]</td>
                             </tr>                        
                             <tr>
-                              <td>[@{$customer_group.input_price|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{$customer_group.input_special_price|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
-                              <td>[@{$customer_group.input_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{$customer_group.input_special_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
-                              <td class="text-center"><span style="background: green; margin: 5px; padding: 5px;">[@{$customer_group.radio_special_status_1}@]</span><span style="background: red; margin: 5px; padding: 5px;">[@{$customer_group.radio_special_status_0}@]</span></td>
-                              <td>[@{$customer_group.input_special_expires_date|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
+                              <td style="vertical-align: top;">[@{$customer_group.input_price|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{$customer_group.input_special_price|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
+                              <td style="vertical-align: top;">[@{$customer_group.input_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@][@{$customer_group.input_special_price_gross|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
+                              <td style="vertical-align: top; padding-top: 5px" class="text-center"><span style="background: green; margin: 5px; padding: 5px;">[@{$customer_group.radio_special_status_1}@]</span><span style="background: red; margin: 5px; padding: 5px;">[@{$customer_group.radio_special_status_0}@]</span></td>
+                              <td rowspan="2" style="vertical-align: top;">[@{$customer_group.input_special_date_scheduled|replace:'<input':'<input class="form-control input-sm input-price"'}@]<br><span style="color : red;">[@{#text_specials_expires_date#}@]</span><br>[@{$customer_group.input_special_expires_date|replace:'<input':'<input class="form-control input-sm input-price"'}@]</td>
                             </tr>                           
                             <tr id="[@{$customer_group.toggle_name}@]" style="[@{$customer_group.display}@]">
-                              <td colspan="4"><table class="price-table">
+                              <td colspan="3"><table class="price-table">
                                 [@{foreach name=inner item=price_break from=$customer_group.price_breaks}@]
                                 [@{if $smarty.foreach.inner.first}@]                                           
                                 <tr>

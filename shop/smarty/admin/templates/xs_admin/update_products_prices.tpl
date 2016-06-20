@@ -81,27 +81,27 @@
                           <td width="5%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="4" height="5" />&nbsp;[@{#text_products_price_gross#}@]</td>
                           [@{if $products_prices.is_special}@]
                           <td style="color : red;" width="5%" nowrap="nowrap" align="center">&nbsp;&nbsp;&nbsp;[@{#text_specials#}@]</td>
-                          <td style="color : red;" width="85%" nowrap="nowrap">&nbsp;&nbsp;&nbsp;[@{#text_specials_expires_date#}@]</td>
+                          <td style="color : red;" width="85%" nowrap="nowrap">&nbsp;&nbsp;&nbsp;[@{#text_specials_scheduled_date#}@]</td>
                           [@{else}@]
                           <td style="visibility : hidden" width="5%" nowrap="nowrap" align="center">&nbsp;&nbsp;&nbsp;[@{#text_specials#}@]</td>
-                          <td style="visibility : hidden" width="85%" nowrap="nowrap">&nbsp;&nbsp;&nbsp;[@{#text_specials_expires_date#}@]</td>                          
+                          <td style="visibility : hidden" width="85%" nowrap="nowrap">&nbsp;&nbsp;&nbsp;[@{#text_specials_scheduled_date#}@]</td>                          
                           [@{/if}@]
                         </tr>                        
                         <tr>
                           [@{if $products_prices.is_special}@]
-                          <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="4" height="15" />&nbsp;[@{$products_prices.input_price}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="5" height="15" />[@{$products_prices.input_special_price}@]</td>
-                          <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="4" height="15" />&nbsp;[@{$products_prices.input_price_gross}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="5" height="15" />[@{$products_prices.input_special_price_gross}@]</td>                           
-                          <td nowrap="nowrap" align="center">&nbsp;&nbsp;&nbsp;[@{$products_prices.special_status_image}@]</td>
-                          <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;[@{$products_prices.input_special_expires_date}@]</td>
+                          <td style="vertical-align: top;" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="4" height="15" />&nbsp;[@{$products_prices.input_price}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="5" height="15" />[@{$products_prices.input_special_price}@]</td>
+                          <td style="vertical-align: top;" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="4" height="15" />&nbsp;[@{$products_prices.input_price_gross}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="5" height="15" />[@{$products_prices.input_special_price_gross}@]</td>                           
+                          <td style="vertical-align: top;" nowrap="nowrap" align="center">&nbsp;&nbsp;&nbsp;[@{$products_prices.special_status_image}@]</td>
+                          <td rowspan="2" style="vertical-align: top;" nowrap="nowrap">&nbsp;&nbsp;&nbsp;[@{$products_prices.input_special_date_scheduled}@]<br>&nbsp;&nbsp;&nbsp;<span style="color : red;">[@{#text_specials_expires_date#}@]</span><br>&nbsp;&nbsp;&nbsp;[@{$products_prices.input_special_expires_date}@]</td>
                           [@{else}@]
-                          <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="4" height="15" />&nbsp;[@{$products_prices.input_price}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="5" height="15" /><span style="visibility : hidden">[@{$products_prices.input_special_price}@]</span></td>
-                          <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="4" height="15" />&nbsp;[@{$products_prices.input_price_gross}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="5" height="15" /><span style="visibility : hidden">[@{$products_prices.input_special_price_gross}@]</span></td>                                                    
-                          <td style="visibility : hidden" nowrap="nowrap" align="center">&nbsp;&nbsp;&nbsp;[@{$products_prices.special_status_image}@]</td>
-                          <td style="visibility : hidden" nowrap="nowrap">&nbsp;&nbsp;&nbsp;[@{$products_prices.input_special_expires_date}@]</td>
+                          <td style="vertical-align: top;" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="4" height="15" />&nbsp;[@{$products_prices.input_price}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="5" height="15" /><span style="visibility : hidden">[@{$products_prices.input_special_price}@]</span></td>
+                          <td style="vertical-align: top;" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="4" height="15" />&nbsp;[@{$products_prices.input_price_gross}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="5" height="15" /><span style="visibility : hidden">[@{$products_prices.input_special_price_gross}@]</span></td>                                                    
+                          <td style="vertical-align: top; visibility : hidden;" nowrap="nowrap" align="center">&nbsp;&nbsp;&nbsp;[@{$products_prices.special_status_image}@]</td>
+                          <td rowspan="2" style="vertical-align: top; visibility : hidden;" nowrap="nowrap">&nbsp;&nbsp;&nbsp;[@{$products_prices.input_special_date_scheduled}@]</td>
                           [@{/if}@]
                         </tr>                           
                         <tr>
-                          <td colspan="4">
+                          <td colspan="3">
                           [@{foreach name=inner_inner item=price_break from=$products_prices.price_breaks}@]
                             [@{if $smarty.foreach.inner_inner.first}@]
                             <table class="dataTableContent" border="0" width="100%" cellspacing="0" cellpadding="2">                                           
@@ -246,16 +246,16 @@
                           <td width="5%" nowrap="nowrap">[@{if $customer_group.display}@]<a href="" onclick="toggle('[@{$customer_group.toggle_name}@]');return false"><img onmouseover="this.style.cursor='pointer'" src="[@{$images_path}@]icon_arrow_down.gif" height="15" width="24" alt="" /></a>[@{else}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />[@{/if}@]&nbsp;[@{#text_products_price_net#}@]</td>
                           <td width="5%" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />&nbsp;[@{#text_products_price_gross#}@]</td>
                           <td style="color : red;" width="5%" nowrap="nowrap">&nbsp;&nbsp;&nbsp;[@{#text_specials#}@]</td>
-                          <td style="color : red;" width="85%" nowrap="nowrap">&nbsp;&nbsp;&nbsp;[@{#text_specials_expires_date#}@]</td>
+                          <td style="color : red;" width="85%" nowrap="nowrap">&nbsp;&nbsp;&nbsp;[@{#text_specials_scheduled_date#}@]</td>
                         </tr>                        
                         <tr>
-                          <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />&nbsp;[@{$customer_group.input_price}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="5" height="15" />[@{$customer_group.input_special_price}@]</td>
-                          <td nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />&nbsp;[@{$customer_group.input_price_gross}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="5" height="15" />[@{$customer_group.input_special_price_gross}@]</td>
-                          <td nowrap="nowrap" align="center">&nbsp;&nbsp;&nbsp;<span style="background: green;">[@{$customer_group.radio_special_status_1}@]</span>&nbsp;&nbsp;<span style="background: red;">[@{$customer_group.radio_special_status_0}@]</span>&nbsp;</td>
-                          <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;[@{$customer_group.input_special_expires_date}@]</td>
+                          <td style="vertical-align: top;" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />&nbsp;[@{$customer_group.input_price}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="5" height="15" />[@{$customer_group.input_special_price}@]</td>
+                          <td style="vertical-align: top;" nowrap="nowrap"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="24" height="15" />&nbsp;[@{$customer_group.input_price_gross}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="5" height="15" />[@{$customer_group.input_special_price_gross}@]</td>
+                          <td style="vertical-align: top;" nowrap="nowrap" align="center">&nbsp;&nbsp;&nbsp;<span style="background: green;">[@{$customer_group.radio_special_status_1}@]</span>&nbsp;&nbsp;<span style="background: red;">[@{$customer_group.radio_special_status_0}@]</span>&nbsp;</td>
+                          <td rowspan="2" style="vertical-align: top;" nowrap="nowrap">&nbsp;&nbsp;&nbsp;[@{$customer_group.input_special_date_scheduled}@]<br>&nbsp;&nbsp;&nbsp;<span style="color : red;">[@{#text_specials_expires_date#}@]</span><br>&nbsp;&nbsp;&nbsp;[@{$customer_group.input_special_expires_date}@]</td>
                         </tr>                           
                         <tr id="[@{$customer_group.toggle_name}@]" style="[@{$customer_group.display}@]">
-                          <td colspan="4"><table class="dataTableContent" border="0" width="100%" cellspacing="0" cellpadding="2">
+                          <td colspan="3"><table class="dataTableContent" border="0" width="100%" cellspacing="0" cellpadding="2">
                           [@{foreach name=inner item=price_break from=$customer_group.price_breaks}@]
                           [@{if $smarty.foreach.inner.first}@]                                           
                             <tr>
