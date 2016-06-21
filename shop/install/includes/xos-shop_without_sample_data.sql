@@ -765,6 +765,7 @@ CREATE TABLE specials (
   products_id int NOT NULL,
   customers_group_id smallint NOT NULL default '0',  
   specials_new_products_price decimal(15,4) NOT NULL,
+  date_scheduled datetime,  
   expires_date datetime,
   status int(1) NOT NULL DEFAULT '1',
   error int(1) NOT NULL,

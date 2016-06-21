@@ -2540,6 +2540,7 @@ create table specials (
   products_id int(11) default '0' not null ,
   customers_group_id smallint(5) default '0' not null ,
   specials_new_products_price decimal(15,4) default '0.0000' not null ,
+  date_scheduled datetime ,  
   expires_date datetime ,
   status int(1) default '1' not null ,
   error int(1) default '0' not null ,
@@ -2547,18 +2548,18 @@ create table specials (
   KEY IDX_PRODUCTS_ID (products_id)
 );
 
-insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, expires_date, status, error) values ('1', '26', '0', '61.8030', NULL, '1', '0');
-insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, expires_date, status, error) values ('2', '23', '0', '92.8903', NULL, '1', '0');
-insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, expires_date, status, error) values ('3', '10', '0', '25.8364', NULL, '1', '0');
-insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, expires_date, status, error) values ('4', '6', '0', '35.3160', NULL, '0', '0');
-insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, expires_date, status, error) values ('5', '7', '0', '31.5520', NULL, '1', '0');
-insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, expires_date, status, error) values ('6', '19', '0', '46.3755', NULL, '1', '0');
-insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, expires_date, status, error) values ('7', '26', '1', '61.8030', NULL, '1', '0');
-insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, expires_date, status, error) values ('8', '10', '1', '25.8364', NULL, '1', '0');
-insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, expires_date, status, error) values ('9', '7', '1', '31.5520', NULL, '1', '0');
-insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, expires_date, status, error) values ('10', '6', '1', '35.3160', NULL, '0', '0');
-insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, expires_date, status, error) values ('11', '23', '1', '92.8903', NULL, '1', '0');
-insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, expires_date, status, error) values ('12', '19', '1', '46.3755', NULL, '1', '0');
+insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, date_scheduled, expires_date, status, error) values ('1', '26', '0', '61.8030', NULL, NULL, '1', '0');
+insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, date_scheduled, expires_date, status, error) values ('2', '23', '0', '92.8903', NULL, NULL, '1', '0');
+insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, date_scheduled, expires_date, status, error) values ('3', '10', '0', '25.8364', NULL, NULL, '1', '0');
+insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, date_scheduled, expires_date, status, error) values ('4', '6', '0', '35.3160', NULL, NULL, '0', '0');
+insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, date_scheduled, expires_date, status, error) values ('5', '7', '0', '31.5520', NULL, NULL, '1', '0');
+insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, date_scheduled, expires_date, status, error) values ('6', '19', '0', '46.3755', NULL, NULL, '1', '0');
+insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, date_scheduled, expires_date, status, error) values ('7', '26', '1', '61.8030', NULL, NULL, '1', '0');
+insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, date_scheduled, expires_date, status, error) values ('8', '10', '1', '25.8364', NULL, NULL, '1', '0');
+insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, date_scheduled, expires_date, status, error) values ('9', '7', '1', '31.5520', NULL, NULL, '1', '0');
+insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, date_scheduled, expires_date, status, error) values ('10', '6', '1', '35.3160', NULL, NULL, '0', '0');
+insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, date_scheduled, expires_date, status, error) values ('11', '23', '1', '92.8903', NULL, NULL, '1', '0');
+insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, date_scheduled, expires_date, status, error) values ('12', '19', '1', '46.3755', NULL, NULL, '1', '0');
 
 drop table if exists tax_class;
 create table tax_class (
