@@ -753,4 +753,14 @@ a.header-navi:hover {
   bottom: 100px;
   right: 30px;
   padding: 4px 8px 0px 10px;
+}
+
+.breadcrumb-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb-list li{
+  display: inline-block;
 } 

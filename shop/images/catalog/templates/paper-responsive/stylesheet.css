@@ -798,3 +798,13 @@ textarea {
   right: 30px;
   padding: 4px 12px 0px 14px;
 }
+
+.breadcrumb-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb-list li{
+  display: inline-block;
+}

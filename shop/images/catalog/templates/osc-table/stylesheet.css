@@ -647,4 +647,14 @@ a.options-list {
 
 .icon-social-bookmarks {
   margin: 2px;
+} 
+
+.breadcrumb-list {
+  list-style-type: none;
+  margin: -14px 0 0 6px;
+  padding: 0;
+}
+
+.breadcrumb-list li{
+  display: inline-block;
 }

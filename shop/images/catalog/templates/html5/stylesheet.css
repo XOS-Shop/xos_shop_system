@@ -1067,4 +1067,14 @@ html>body #currencies_list_noscript { /* IE 6 ignoriert nachfolgende Deklaration
 
 .icon-social-bookmarks {
   margin: 2px;
+}
+
+.breadcrumb-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb-list li{
+  display: inline-block;
 }    

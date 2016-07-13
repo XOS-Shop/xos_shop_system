@@ -48,19 +48,24 @@
     }
 
     function breadcrumb_trail($separator = ' - ') {
-      $trail_string = '';
+      $trail_string = '  <ol class="breadcrumb-list" itemscope itemtype="http://schema.org/BreadcrumbList">' . PHP_EOL;
 
       for ($i=0, $n=sizeof($this->_trail); $i<$n; $i++) {
-        if (isset($this->_trail[$i]['link']) && xos_not_null($this->_trail[$i]['link'])) {
-          $trail_string .= '<a href="' . $this->_trail[$i]['link'] . '" class="header-navi">' . $this->_trail[$i]['title'] . '</a>';
+        $trail_string .= '    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">' . PHP_EOL;     
+        if (!empty($this->_trail[$i]['link'])) {
+          $trail_string .= '      <a itemprop="item" href="' . $this->_trail[$i]['link'] . '" class="header-navi">' . PHP_EOL .
+                           '        <span itemprop="name">' . $this->_trail[$i]['title'] . '</span>' . PHP_EOL .
+                           '      </a>' . PHP_EOL;
         } else {
-          $trail_string .= $this->_trail[$i]['title'];
+          $trail_string .= '      <span itemprop="name">' . $this->_trail[$i]['title'] . '</span>' . PHP_EOL;         
         }
 
-        if (($i+1) < $n) $trail_string .= $separator;
+        $trail_string .= '      <meta itemprop="position" content="' . ($i+1) . '">' . PHP_EOL;
+        if (($i+1) < $n) $trail_string .= '      <span>' . $separator . '</span>' . PHP_EOL;
+        $trail_string .= '    </li>' . PHP_EOL;
       }
 
-      return $trail_string;
+      return $trail_string . '  </ol>';
     }
     
     function title_trail($separator = ' - ') {
