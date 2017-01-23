@@ -34,8 +34,19 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   
   if (xos_has_product_attributes((int)$_GET['p'])) {
     
-    $product_info_query = xos_db_query("select products_tax_class_id, attributes_quantity, attributes_combinations from " . TABLE_PRODUCTS . " where products_status = '1' and products_id = '" . (int)$_GET['p'] . "'");
-    $product_info = xos_db_fetch_array($product_info_query);
+    $product_info_query = $DB->prepare
+    (
+     "SELECT products_tax_class_id,
+             attributes_quantity,
+             attributes_combinations
+      FROM   " . TABLE_PRODUCTS . "
+      WHERE  products_status = '1'
+      AND    products_id = :p"
+    );
+    
+    $DB->perform($product_info_query, array(':p' => (int)$_GET['p'])); 
+                                           
+    $product_info = $product_info_query->fetch();
                   
     xos_not_null($product_info['attributes_combinations']) ? $combinations_string = $product_info['attributes_combinations'] : $combinations_string = '';
     $attributes_quantity = xos_get_attributes_quantity($product_info['attributes_quantity']);
@@ -57,8 +68,40 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $comb_str = '';     
     $product_options_array = array();
     
-    $products_options_name_query = xos_db_query("select distinct popt.products_options_id, popt.products_options_name from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib where patrib.products_id='" . (int)$_GET['p'] . "' and patrib.options_id = popt.products_options_id and popt.language_id = '" . (int)$_SESSION['languages_id'] . "' order by patrib.options_sort_order, popt.products_options_id");
-    while ($products_options_name = xos_db_fetch_array($products_options_name_query)) {
+    $products_options_name_query = $DB->prepare
+    (
+     "SELECT DISTINCT popt.products_options_id,
+                      popt.products_options_name
+      FROM            " . TABLE_PRODUCTS_OPTIONS . " popt,
+                      " . TABLE_PRODUCTS_ATTRIBUTES . " patrib
+      WHERE           patrib.products_id = :p
+      AND             patrib.options_id = popt.products_options_id
+      AND             popt.language_id = :languages_id
+      ORDER BY        patrib.options_sort_order,
+                      popt.products_options_id"
+    );
+    
+    $DB->perform($products_options_name_query, array(':p' => (int)$_GET['p'],
+                                                     ':languages_id' => (int)$_SESSION['languages_id'])); 
+                                                                                                          
+    $products_options_query = $DB->prepare
+    (
+     "SELECT   pov.products_options_values_id,
+               pov.products_options_values_name,
+               pa.options_values_sort_order,
+               pa.options_values_price,
+               pa.price_prefix
+      FROM     " . TABLE_PRODUCTS_ATTRIBUTES . " pa,
+               " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov
+      WHERE    pa.products_id = :p
+      AND      pa.options_id = :products_options_id
+      AND      pa.options_values_id = pov.products_options_values_id
+      AND      pov.language_id = :languages_id
+      ORDER BY pa.options_values_sort_order,
+               pov.products_options_values_name"
+    );
+                                                 
+    while ($products_options_name = $products_options_name_query->fetch()) {
         
       if (is_array($_POST['id'])) {
         $selected_attribute = $_POST['id'][$products_options_name['products_options_id']];
@@ -72,8 +115,12 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $flag = false;
       $c_str = '';
       $products_options_array = array();
-      $products_options_query = xos_db_query("select pov.products_options_values_id, pov.products_options_values_name, pa.options_values_sort_order, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id = '" . (int)$_GET['p'] . "' and pa.options_id = '" . (int)$products_options_name['products_options_id'] . "' and pa.options_values_id = pov.products_options_values_id and pov.language_id = '" . (int)$_SESSION['languages_id'] . "' order by pa.options_values_sort_order, pov.products_options_values_name");
-      while ($products_options = xos_db_fetch_array($products_options_query)) {
+      
+      $DB->perform($products_options_query, array(':p' => (int)$_GET['p'],
+                                                  ':products_options_id' => (int)$products_options_name['products_options_id'],
+                                                  ':languages_id' => (int)$_SESSION['languages_id']));
+                                             
+      while ($products_options = $products_options_query->fetch()) {
 
         $pos = strpos($combinations_string, $comb_str . $products_options_name['products_options_id'] . ',' . $products_options['products_options_values_id']);
 
@@ -119,4 +166,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     
   $smarty->display(SELECTED_TPL . '/update_options.tpl');
 endif;
-?>

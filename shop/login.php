@@ -43,16 +43,30 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   $error = false;
   if (isset($_GET['action']) && ($_GET['action'] == 'process') && isset($_POST['formid']) && ($_POST['formid'] == $_SESSION['sessiontoken'])) {
-    $email_address = xos_db_prepare_input($_POST['email_address']);
-    $password = xos_db_prepare_input($_POST['password']);
+    $email_address = $_POST['email_address'];
+    $password = $_POST['password'];
 
 // Check if email exists
-    $check_customer_query = xos_db_query("select customers_id, customers_gender, customers_firstname, customers_lastname, customers_group_id, customers_password, customers_email_address, customers_default_address_id from " . TABLE_CUSTOMERS . " where customers_email_address = '" . xos_db_input($email_address) . "'");
+    $check_customer_query = $DB->prepare
+    (
+     "SELECT customers_id,
+             customers_gender,
+             customers_firstname,
+             customers_lastname,
+             customers_group_id,
+             customers_password,
+             customers_email_address,
+             customers_default_address_id
+        FROM " . TABLE_CUSTOMERS . "
+       WHERE customers_email_address = :email_address"
+    );
 
-    if (!xos_db_num_rows($check_customer_query)) {
+    $DB->perform($check_customer_query, array(':email_address' => $email_address));
+
+    if (!$check_customer_query->rowCount()) {
       $error = true;
     } else {
-      $check_customer = xos_db_fetch_array($check_customer_query);
+      $check_customer = $check_customer_query->fetch();
 // Check that password is good
       if (!xos_validate_password($password, $check_customer['customers_password'])) {
         $error = true;
@@ -63,13 +77,28 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         
 // migrate old hashed password to new phpass password
         if (xos_password_type($check_customer['customers_password']) != 'phpass') {
-          xos_db_query("update " . TABLE_CUSTOMERS . " set customers_password = '" . xos_encrypt_password($password) . "' where customers_id = '" . (int)$check_customer['customers_id'] . "'");
+          $update_customers_query = $DB->prepare
+          (
+           "UPDATE " . TABLE_CUSTOMERS . "
+               SET customers_password = :password
+             WHERE customers_id = :customers_id"
+          );
+          
+          $DB->perform($update_customers_query, array(':password' => xos_encrypt_password($password),
+                                                      ':customers_id' => (int)$check_customer['customers_id']));          
         }
                 
 // note that tax rates depend on your registered address!
         if ($_GET['skip'] != 'true' && $_POST['email_address'] == SPPC_TOGGLE_LOGIN_PASSWORD ) {
-          $existing_customers_query = xos_db_query("select customers_group_id, customers_group_name from " . TABLE_CUSTOMERS_GROUPS . " order by customers_group_id ");   
-          while ($existing_customers =  xos_db_fetch_array($existing_customers_query)) {
+          $existing_customers_query = $DB->query
+          (
+           "SELECT customers_group_id,
+                   customers_group_name
+              FROM " . TABLE_CUSTOMERS_GROUPS . "
+          ORDER BY customers_group_id"
+          );
+             
+          while ($existing_customers =  $existing_customers_query->fetch()) {
             $existing_customers_array[] = array("id" => $existing_customers['customers_group_id'], "text" => "&nbsp;".$existing_customers['customers_group_name']."&nbsp;");
           }
           
@@ -79,17 +108,50 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                                 'hidden_field_password' => xos_draw_hidden_field('password', $_POST['password'])));
         } else {
         
-          $check_country_query = xos_db_query("select entry_country_id, entry_zone_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$check_customer['customers_id'] . "' and address_book_id = '" . (int)$check_customer['customers_default_address_id'] . "'");
-          $check_country = xos_db_fetch_array($check_country_query);
+          $check_country_query = $DB->prepare 
+          (
+           "SELECT entry_country_id,
+                   entry_zone_id
+             FROM  " . TABLE_ADDRESS_BOOK . "
+            WHERE  customers_id = :customers_id
+              AND  address_book_id = :customers_default_address_id"
+          );
+          
+          $DB->perform($check_country_query, array(':customers_id' => (int)$check_customer['customers_id'],
+                                                   ':customers_default_address_id' => (int)$check_customer['customers_default_address_id']));
+                                                                 
+          $check_country = $check_country_query->fetch();
 
-	  if ($_GET['skip'] == 'true' && $_POST['email_address'] == SPPC_TOGGLE_LOGIN_PASSWORD && isset($_POST['new_customers_group_id']))  {
-	    $sppc_customer_group_id = $_POST['new_customers_group_id'];
-	    $check_customer_group = xos_db_query("select customers_group_discount, customers_group_show_tax, customers_group_tax_exempt from " . TABLE_CUSTOMERS_GROUPS . " where customers_group_id = '" .(int)$_POST['new_customers_group_id'] . "'");
-	  } else {
-	    $sppc_customer_group_id = $check_customer['customers_group_id'];
-	    $check_customer_group = xos_db_query("select customers_group_discount, customers_group_show_tax, customers_group_tax_exempt from " . TABLE_CUSTOMERS_GROUPS . " where customers_group_id = '" .(int)$check_customer['customers_group_id'] . "'");
-	  }
-	  $customer_group = xos_db_fetch_array($check_customer_group);
+      	  if ($_GET['skip'] == 'true' && $_POST['email_address'] == SPPC_TOGGLE_LOGIN_PASSWORD && isset($_POST['new_customers_group_id']))  {
+      	    $sppc_customer_group_id = $_POST['new_customers_group_id'];
+      	    $check_customer_group = $DB->prepare
+            (
+             "SELECT customers_group_discount,
+                     customers_group_show_tax,
+                     customers_group_tax_exempt
+                FROM " . TABLE_CUSTOMERS_GROUPS . "
+               WHERE customers_group_id = :new_customers_group_id"
+            );
+            
+            $DB->perform($check_customer_group, array(':new_customers_group_id' => (int)$_POST['new_customers_group_id']));
+            
+      	  } else {
+      	    $sppc_customer_group_id = $check_customer['customers_group_id'];
+      	    $check_customer_group = $DB->prepare
+            (
+             "SELECT customers_group_discount,
+                     customers_group_show_tax,
+                     customers_group_tax_exempt
+                FROM " . TABLE_CUSTOMERS_GROUPS . "
+               WHERE customers_group_id = :customers_group_id"
+            );
+            
+            $DB->perform($check_customer_group, array(':customers_group_id' => (int)$check_customer['customers_group_id']));
+            
+      	  }
+          
+	        $customer_group = $check_customer_group->fetch();
+          
           if (ACCOUNT_GENDER == 'true') {
             $_SESSION['customer_gender'] = $check_customer['customers_gender'];
           }
@@ -104,7 +166,15 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           $_SESSION['customer_country_id'] = $check_country['entry_country_id'];
           $_SESSION['customer_zone_id'] = $check_country['entry_zone_id'];	  
 
-          xos_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_of_last_logon = now(), customers_info_number_of_logons = customers_info_number_of_logons+1 where customers_info_id = '" . (int)$_SESSION['customer_id'] . "'");
+          $update_info = $DB->prepare
+          (
+           "UPDATE " . TABLE_CUSTOMERS_INFO . "
+               SET customers_info_date_of_last_logon = Now(),
+                   customers_info_number_of_logons = customers_info_number_of_logons + 1
+             WHERE customers_info_id = :customer_id"
+          );
+          
+          $DB->perform($update_info, array(':customer_id' => (int)$_SESSION['customer_id']));
 
 // reset session token
           $_SESSION['sessiontoken'] = md5(xos_rand() . xos_rand() . xos_rand() . xos_rand()); 
@@ -167,13 +237,21 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $back_link = 'javascript:history.go(-1)';
   }
   
-  $popup_status_query = xos_db_query("select status from " . TABLE_CONTENTS . "  where type = 'system_popup' and status = '1' and content_id = '10' LIMIT 1");
+  $popup_status_query = $DB->query
+  (
+   "SELECT status
+      FROM " . TABLE_CONTENTS . "
+     WHERE type = 'system_popup'
+       AND status = '1'
+       AND content_id = '10'
+     LIMIT 1"
+  );
   
   $smarty->assign(array('link_filename_create_account' => xos_href_link(FILENAME_CREATE_ACCOUNT, 'rmp=0', 'SSL'),
                         'link_back' => $back_link,
                         'input_field_email_address' => xos_draw_input_field('email_address', '', 'class="form-control" id="email_address"'),
                         'input_field_password' => xos_draw_password_field('password', '', 'class="form-control" id="password"'),
-                        'link_filename_popup_content_10' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=10', $request_type) : '',
+                        'link_filename_popup_content_10' => $popup_status_query->rowCount() ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=10', $request_type) : '',
                         'store_name' => STORE_NAME,
                         'form_end' => '</form>'));   
 
@@ -187,4 +265,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

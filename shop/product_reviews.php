@@ -38,8 +38,32 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     xos_redirect(xos_href_link(FILENAME_DEFAULT), false);
   } 
 
-  $product_info_query = xos_db_query("select p.products_id, p.products_model, p.products_quantity, p.products_image, p.products_price, p.products_tax_class_id, pd.products_name, pd.products_p_unit from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where c.categories_or_pages_status = '1' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and p.products_id = '" . (int)$_GET['p'] . "' and p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
-  if (!xos_db_num_rows($product_info_query)) {
+  $product_info_query = $DB->prepare
+  (
+   "SELECT p.products_id,
+           p.products_model,
+           p.products_quantity,
+           p.products_image,
+           p.products_price,
+           p.products_tax_class_id,
+           pd.products_name,
+           pd.products_p_unit
+    FROM   " . TABLE_PRODUCTS . " p,
+           " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+           " . TABLE_CATEGORIES_OR_PAGES . " c,
+           " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+    WHERE  c.categories_or_pages_status = '1'
+    AND    p.products_id = p2c.products_id
+    AND    p2c.categories_or_pages_id = c.categories_or_pages_id
+    AND    p.products_id = :p
+    AND    p.products_status = '1'
+    AND    p.products_id = pd.products_id
+    AND    pd.language_id = :languages_id"
+  );
+
+  $DB->perform($product_info_query, array(':p' => (int)$_GET['p'], ':languages_id' => (int)$_SESSION['languages_id']));
+  
+  if ($product_info_query->rowCount() < 1) {
     xos_redirect(xos_href_link(FILENAME_REVIEWS));
   }
 
@@ -59,7 +83,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
      
   if(!$smarty->isCached(SELECTED_TPL . '/product_reviews.tpl', $cache_id)) {
 
-    $product_info = xos_db_fetch_array($product_info_query);
+    $product_info = $product_info_query->fetch();
   
     $products_image_name = xos_get_product_images($product_info['products_image'], 'all');  
     $products_prices = xos_get_product_prices($product_info['products_price']);
@@ -93,14 +117,30 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       } 
     }    
 
-    $reviews_query_raw = "select r.reviews_id, left(rd.reviews_text, 100) as reviews_text, r.reviews_rating, r.date_added, r.customers_name from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.products_id = '" . (int)$product_info['products_id'] . "' and r.reviews_id = rd.reviews_id and rd.languages_id = '" . (int)$_SESSION['languages_id'] . "' order by r.reviews_id desc";
-    $reviews_split = new splitPageResults($reviews_query_raw, MAX_DISPLAY_NEW_REVIEWS);
+    $reviews_query_raw = "SELECT   r.reviews_id,
+                          LEFT     (rd.reviews_text, 100) AS reviews_text,
+                                   r.reviews_rating,
+                                   r.date_added,
+                                   r.customers_name
+                          FROM     " . TABLE_REVIEWS . " r,
+                                   " . TABLE_REVIEWS_DESCRIPTION . " rd
+                          WHERE    r.products_id = :products_id
+                          AND      r.reviews_id = rd.reviews_id
+                          AND      rd.languages_id = :languages_id
+                          ORDER BY r.reviews_id DESC";
+ 
+    $reviews_param_array[':products_id'] = (int)$product_info['products_id'];
+    $reviews_param_array[':languages_id'] = (int)$_SESSION['languages_id'];
+    
+    $reviews_split = new SplitPageResultsPDO($reviews_query_raw, MAX_DISPLAY_NEW_REVIEWS, '*', $reviews_param_array);   
+    $reviews_query = $DB->prepare($reviews_split->sql_query);
+    $DB->perform($reviews_query, $reviews_split->sql_param);        
 
-    if ($reviews_split->number_of_rows > 0) {
+    if ($reviews_split->number_of_rows > 0) { // Anzahl der Detansaetze total
+//  if ($reviews_query->rowCount() > 0) { // Anzahl der Detansaetze fuer diese Seite        
    
-      $reviews_query = xos_db_query($reviews_split->sql_query);
       $product_reviews_array = array();
-      while ($reviews = xos_db_fetch_array($reviews_query)) {
+      while ($reviews = $reviews_query->fetch()) {      
             
         $product_reviews_array[]=array('link_filename_product_reviews_info' => xos_href_link(FILENAME_PRODUCT_REVIEWS_INFO, xos_get_all_get_params(array('lnc', 'cur', 'tpl')) . 'r=' . $reviews['reviews_id']),
                                        'date_added' => xos_date_long($reviews['date_added']),
@@ -190,4 +230,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php'); 
 endif;
-?>

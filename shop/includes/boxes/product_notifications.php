@@ -32,12 +32,36 @@
 
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/boxes/product_notifications.php') == 'overwrite_all')) : 
   if (isset($_GET['p'])) {
-    $allowed_product_query = xos_db_query("select p.products_id total from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c where p.products_id = '" . (int)$_GET['p'] . "' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and c.categories_or_pages_status = '1' and p.products_status = '1'");
-    if (xos_db_num_rows($allowed_product_query)) {
+    $allowed_product_query = $DB->prepare
+    (
+     "SELECT p.products_id total
+      FROM   " . TABLE_PRODUCTS . " p,
+             " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c,
+             " . TABLE_CATEGORIES_OR_PAGES . " c
+      WHERE  p.products_id = :p
+      AND    p.products_id = p2c.products_id
+      AND    p2c.categories_or_pages_id = c.categories_or_pages_id
+      AND    c.categories_or_pages_status = '1'
+      AND    p.products_status = '1'"
+    );
+    
+    $DB->perform($allowed_product_query, array(':p' => (int)$_GET['p']));
+                                             
+    if ($allowed_product_query->rowCount()) {
 
       if (isset($_SESSION['customer_id'])) {
-        $check_query = xos_db_query("select count(*) as count from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . (int)$_GET['p'] . "' and customers_id = '" . (int)$_SESSION['customer_id'] . "'");
-        $check = xos_db_fetch_array($check_query);
+        $check_query = $DB->prepare
+        (
+         "SELECT Count(*) AS count
+          FROM   " . TABLE_PRODUCTS_NOTIFICATIONS . "
+          WHERE  products_id = :p
+          AND    customers_id = :customer_id"
+        );
+        
+        $DB->perform($check_query, array(':p' => (int)$_GET['p'],
+                                         ':customer_id' => (int)$_SESSION['customer_id']));
+                                                   
+        $check = $check_query->fetch();
         $notification_exists = (($check['count'] > 0) ? true : false);
       } else {
         $notification_exists = false;

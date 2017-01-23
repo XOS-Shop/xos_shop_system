@@ -38,9 +38,26 @@
 
 // class constructor
     function __construct() {
+
+      $DB = Registry::get('DB');
       $this->currencies = array();
-      $currencies_query = xos_db_query("select code, title, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value from " . TABLE_CURRENCIES. " where language_id = '" . (int)$_SESSION['languages_id'] . "'");
-      while ($currencies = xos_db_fetch_array($currencies_query)) {
+      $currencies_query = $DB->prepare
+      (
+       "SELECT code,
+               title,
+               symbol_left,
+               symbol_right,
+               decimal_point,
+               thousands_point,
+               decimal_places,
+               value
+        FROM   " . TABLE_CURRENCIES. "
+        WHERE  language_id = :languages_id"
+      );
+      
+      $DB->perform($currencies_query, array(':languages_id' => (int)$_SESSION['languages_id']));
+                                      
+      while ($currencies = $currencies_query->fetch()) {
         $this->currencies[$currencies['code']] = array('title' => $currencies['title'],
                                                        'symbol_left' => $currencies['symbol_left'],
                                                        'symbol_right' => $currencies['symbol_right'],

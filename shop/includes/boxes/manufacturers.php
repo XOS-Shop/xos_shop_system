@@ -31,9 +31,26 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/boxes/manufacturers.php') == 'overwrite_all')) : 
-  $manufacturers_query = xos_db_query("select distinct mi.manufacturers_id, mi.manufacturers_name from " . TABLE_MANUFACTURERS_INFO . " mi left join " . TABLE_PRODUCTS . " p on mi.manufacturers_id = p.manufacturers_id left join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p.products_id = p2c.products_id left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "' order by mi.manufacturers_name");
+  $manufacturers_query = $DB->prepare
+  (
+   "SELECT DISTINCT mi.manufacturers_id,
+                    mi.manufacturers_name
+    FROM            " . TABLE_MANUFACTURERS_INFO . " mi
+    LEFT JOIN       " . TABLE_PRODUCTS . " p
+    ON              mi.manufacturers_id = p.manufacturers_id
+    LEFT JOIN       " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+    ON              p.products_id = p2c.products_id
+    LEFT JOIN       " . TABLE_CATEGORIES_OR_PAGES . " c
+    ON              p2c.categories_or_pages_id = c.categories_or_pages_id
+    WHERE           c.categories_or_pages_status = '1'
+    AND             p.products_status = '1'
+    AND             mi.languages_id = :languages_id
+    ORDER BY        mi.manufacturers_name"
+  );
+  
+  $DB->perform($manufacturers_query, array(':languages_id' => (int)$_SESSION['languages_id']));  
 
-  if ($number_of_rows = xos_db_num_rows($manufacturers_query)) {
+  if ($number_of_rows = $manufacturers_query->rowCount()) {
   
     $manufacturers_content = '';
     $manufacturers_content_noscript = '';
@@ -42,7 +59,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     if (MAX_MANUFACTURERS_LIST < 2) {
       $manufacturers_array[] = array('id' => '', 'text' => PULL_DOWN_DEFAULT);
     }
-    while ($manufacturers = xos_db_fetch_array($manufacturers_query)) {
+    while ($manufacturers = $manufacturers_query->fetch()) {
       $manufacturers_name = ((strlen($manufacturers['manufacturers_name']) > MAX_DISPLAY_MANUFACTURER_NAME_LEN) ? (function_exists('mb_substr') ? mb_substr($manufacturers['manufacturers_name'], 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN, 'UTF-8') : substr($manufacturers['manufacturers_name'], 0, MAX_DISPLAY_MANUFACTURER_NAME_LEN)) . '..' : $manufacturers['manufacturers_name']);     
       $manufacturers_array[] = array('id' => xos_href_link(FILENAME_DEFAULT, 'm=' . $manufacturers['manufacturers_id']),
                                      'text' => $manufacturers_name); 

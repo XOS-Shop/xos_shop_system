@@ -42,7 +42,7 @@
     return $image;
   }
 
-  class splitPageResultsBootstrap extends splitPageResults {
+  class SplitPageResultsBootstrap extends SplitPageResultsPDO {  
 
 /* class function display_links for Bootstrap pagination */
 // display split-page-number-links
@@ -93,7 +93,9 @@
     }
   }
 
-  $listing_split = new splitPageResultsBootstrap($listing_sql, $max_display, 'p.products_id');
+  $listing_split = new SplitPageResultsBootstrap($listing_sql, $max_display, 'p.products_id', $listing_param_array);
+  $listing_query = $DB->prepare($listing_split->sql_query);
+  $DB->perform($listing_query, $listing_split->sql_param);
 
   $table_heading_array = array();
   $table_heading_alt_array = array();
@@ -187,8 +189,7 @@
   if ($listing_split->number_of_rows > 0) {      
     $rows = 0;
     $table_outer_array = array();
-    $listing_query = xos_db_query($listing_split->sql_query);
-    while ($listing = xos_db_fetch_array($listing_query)) {
+    while ($listing = $listing_query->fetch()) {    
       $rows++;
       
       $products_prices = xos_get_product_prices($listing['products_price']);
@@ -364,4 +365,3 @@
            
   }
   return 'overwrite_all';
-?>

@@ -30,6 +30,11 @@
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
 
+// set default timezone if none exists (PHP 5.3 throws an E_WARNING)
+  if (strlen(ini_get('date.timezone')) < 1) {
+    date_default_timezone_set(@date_default_timezone_get());
+  }
+  
 // Define the admin template
   define('ADMIN_TPL', 'admin_lte');
 
@@ -55,7 +60,10 @@
   if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
   
 // Include application configuration parameters
-  require('../includes/configure.php');  
+  require('../includes/configure.php');
+  
+// include the registry class
+  require(DIR_WS_CLASSES . 'registry.php');     
   
   @include(DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/configuration/config.php');  
 
@@ -106,14 +114,14 @@
   define('CURRENCY_SERVER_PRIMARY', 'oanda');
   define('CURRENCY_SERVER_BACKUP', 'xe');
 
-// include the database functions and make a connection to the database
-  if (class_exists('mysqli') && version_compare(PHP_VERSION, '5.3.0', '>=')) {
-    require(DIR_WS_FUNCTIONS . 'database_mysqli.php');
-    xos_db_connect();
-  } else { 
-    require(DIR_WS_FUNCTIONS . 'database_mysql.php');
-    xos_db_connect() or die('Unable to connect to database server!');
-  }     
+// include the database functions "mysqli" and make a connection to the database
+  require(DIR_WS_FUNCTIONS . 'database_mysqli.php');
+  xos_db_connect();
+
+// include the database class "PDO", create an instance and register it
+  require(DIR_WS_CLASSES . 'Db.class.php'); 
+  Registry::set( 'DB', new Db());
+  $DB = Registry::get('DB');        
 
 // set application wide parameters
   $configuration_query = xos_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION);
@@ -152,9 +160,6 @@
 
 // include shopping cart class
   require(DIR_WS_CLASSES . 'shopping_cart.php');
-
-// some code to solve compatibility issues
-  require(DIR_WS_FUNCTIONS . 'compatibility.php');
 
 // define how the session functions will be used
   require(DIR_WS_FUNCTIONS . 'sessions.php');

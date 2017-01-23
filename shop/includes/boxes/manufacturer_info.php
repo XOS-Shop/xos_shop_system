@@ -38,10 +38,29 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       
   if(!$smarty->isCached(SELECTED_TPL . '/includes/boxes/manufacturers_info.tpl', $cache_id)){
 
-    $manufacturer_query = xos_db_query("select m.manufacturers_id, m.manufacturers_image, mi.manufacturers_name, mi.manufacturers_url from " . TABLE_MANUFACTURERS . " m left join " . TABLE_MANUFACTURERS_INFO . " mi on (m.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "'), " . TABLE_PRODUCTS . " p  where p.products_id = '" . (int)$_GET['p'] . "' and p.manufacturers_id = m.manufacturers_id");
-    if (xos_db_num_rows($manufacturer_query)) {
+    $manufacturer_query = $DB->prepare
+    (
+     "SELECT    m.manufacturers_id,
+                m.manufacturers_image,
+                mi.manufacturers_name,
+                mi.manufacturers_url
+      FROM      " . TABLE_MANUFACTURERS . " m
+      LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi
+      ON        (
+                m.manufacturers_id = mi.manufacturers_id
+      AND       mi.languages_id = :languages_id
+                ),
+                " . TABLE_PRODUCTS . " p
+      WHERE     p.products_id = :p
+      AND       p.manufacturers_id = m.manufacturers_id"
+    );
+    
+    $DB->perform($manufacturer_query, array(':languages_id' => (int)$_SESSION['languages_id'],
+                                            ':p' => (int)$_GET['p']));
+                                                          
+    if ($manufacturer_query->rowCount()) {
           
-      $manufacturer = xos_db_fetch_array($manufacturer_query);
+      $manufacturer = $manufacturer_query->fetch();
       if (xos_not_null($manufacturer['manufacturers_image'])) {
         $smarty->assign('box_manufacturer_info_manufacturer_image', xos_image(DIR_WS_IMAGES . 'manufacturers/' . rawurlencode($manufacturer['manufacturers_image']), $manufacturer['manufacturers_name']));
       }

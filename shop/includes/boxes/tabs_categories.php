@@ -109,10 +109,31 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     }
 
     function xos_get_category_or_page_tree($full_tree = false, $parent_id = '0', $level = '0', $path = '', $category_tree_array = array()) {
-    global $cPath_array;
-       
-      $categories_query = xos_db_query("select c.categories_or_pages_id, c.link_request_type, c.parent_id, c.is_page, cpd.categories_or_pages_name from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = cpd.categories_or_pages_id and c.page_not_in_menu != '1' and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "' and c.parent_id = '" . (int)$parent_id . "' and c.categories_or_pages_status = '1' order by c.sort_order, cpd.categories_or_pages_name");
-      while ($categories = xos_db_fetch_array($categories_query)) {
+      global $cPath_array;
+      
+      $DB = Registry::get('DB'); 
+      $categories_query = $DB->prepare
+      (
+       "SELECT   c.categories_or_pages_id,
+                 c.link_request_type,
+                 c.parent_id,
+                 c.is_page,
+                 cpd.categories_or_pages_name
+        FROM     " . TABLE_CATEGORIES_OR_PAGES . " c,
+                 " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd
+        WHERE    c.categories_or_pages_id = cpd.categories_or_pages_id
+        AND      c.page_not_in_menu != '1'
+        AND      cpd.language_id = :languages_id
+        AND      c.parent_id = :parent_id
+        AND      c.categories_or_pages_status = '1'
+        ORDER BY c.sort_order,
+                 cpd.categories_or_pages_name"
+      );
+      
+      $DB->perform($categories_query, array(':languages_id' => (int)$_SESSION['languages_id'],
+                                            ':parent_id' => (int)$parent_id));
+                                               
+      while ($categories = $categories_query->fetch()) {
         if ($full_tree) {   
           $category_tree_array[$categories['categories_or_pages_id']] = array('link_request_type' => $categories['link_request_type'], 'is_page' => $categories['is_page'], 'name' => $categories['categories_or_pages_name'], 'parent' => $categories['parent_id'], 'level' => $level, 'path' => $path . $categories['categories_or_pages_id'], 'next_id' => false );
         } else {

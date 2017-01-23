@@ -34,16 +34,25 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
 
   $error = false;
   if (isset($_GET['action']) && ($_GET['action'] == 'process')) {
-    $email_address = xos_db_prepare_input($_POST['email_address']);
-    $password = xos_db_prepare_input($_POST['password']);
+    $email_address = $_POST['email_address'];
+    $password = $_POST['password'];
 
 // Check if email exists
-    $check_admin_query = xos_db_query("select admin_id as login_id, admin_email_address as login_email_address, admin_password as login_password from " . TABLE_ADMIN . " where admin_email_address = '" . xos_db_input($email_address) . "'");
+    $check_admin_query = $DB->prepare
+    (
+     "SELECT admin_id            AS login_id,
+             admin_email_address AS login_email_address,
+             admin_password      AS login_password
+      FROM   " . TABLE_ADMIN . "
+      WHERE  admin_email_address = :email_address"
+    );
+    
+    $DB->perform($check_admin_query, array(':email_address' => $email_address));
 
-    if (!xos_db_num_rows($check_admin_query)) {
+    if (!$check_admin_query->rowCount()) {
       $error = true;
     } else {
-      $check_admin = xos_db_fetch_array($check_admin_query);
+      $check_admin = $check_admin_query->fetch();
 // Check that password is good
       if (!xos_validate_password($password, $check_admin['login_password'])) {
         $error = true;

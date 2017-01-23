@@ -31,34 +31,61 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   if (!empty($_GET['keywords'])) {
 
     $results_array = array();
-              
-//    $search_suggest_sql = "select insert(insert(pd.products_name, instr(pd.products_name, '" . $_GET['keywords'] . "') + char_length('" . $_GET['keywords'] . "'), 0, '</span>'), instr(pd.products_name, '" . $_GET['keywords'] . "'), 0, '<span class=\"red-mark\">') as products_name_marked, p.products_id from " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_PRODUCTS . " p on pd.products_id = p.products_id where p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and pd.products_name like('%" . xos_db_input($_GET['keywords']) . "%') limit 15";
-    $search_suggest_sql = "select distinct insert(insert(pd.products_name, instr(pd.products_name, '" . $_GET['keywords'] . "') + char_length('" . $_GET['keywords'] . "'), 0, '</span>'), instr(pd.products_name, '" . $_GET['keywords'] . "'), 0, '<span class=\"red-mark\">') as products_name_marked, p.products_id from " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_PRODUCTS . " p on pd.products_id = p.products_id, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where p.products_status = '1' and c.categories_or_pages_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and pd.products_name like('%" . xos_db_input($_GET['keywords']) . "%') limit 15";  
-    $suggest_query = xos_db_query($search_suggest_sql);
-    while($results = xos_db_fetch_array($suggest_query)) {
+
+    $search_suggest_sql = "SELECT DISTINCT
+                          INSERT
+                                           (
+                                           INSERT
+                                                  (
+                                                   pd.products_name,
+                                                   instr
+                                                       (
+                                                       pd.products_name, 
+                                                       :keywords
+                                                       ) + char_length(:keywords),
+                                                       0,
+                                                       '</span>'
+                                                  ),
+                                                  instr
+                                                      (
+                                                       pd.products_name,
+                                                       :keywords
+                                                      ),
+                                                      0,
+                                                      '<span class=\"red-mark\">'
+                                           )
+                                           AS products_name_marked,
+                                           p.products_id
+                          FROM             " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                          LEFT JOIN        " . TABLE_PRODUCTS . " p
+                          ON               pd.products_id = p.products_id,
+                                           " . TABLE_CATEGORIES_OR_PAGES . " c,
+                                           " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+                          WHERE            p.products_status = '1'
+                          AND              c.categories_or_pages_status = '1'
+                          AND              p.products_id = pd.products_id
+                          AND              pd.language_id = :languages_id
+                          AND              p.products_id = p2c.products_id
+                          AND              p2c.categories_or_pages_id = c.categories_or_pages_id
+                          AND              pd.products_name LIKE
+                                           (
+                                           :like_keywords
+                                           )
+                          LIMIT            15";
+                            
+    $suggest_query = $DB->prepare($search_suggest_sql);
+    
+    $DB->perform($suggest_query, array(':keywords' => $_GET['keywords'],
+                                       ':like_keywords' => '%' . $_GET['keywords'] . '%',
+                                       ':languages_id' => (int)$_SESSION['languages_id'])); 
+                                          
+    while($results = $suggest_query->fetch()) {
       if (strpos($results['products_name_marked'], '<span') !== false) { 
         $results_array[]=array('products_name' => $results['products_name_marked'],    	   
                                'products_link' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $results['products_id']));	   
       }
     }
-/*
-    $search_suggest_sql = "select pd.products_name, p.products_id from " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_PRODUCTS . " p on pd.products_id = p.products_id where p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and pd.products_name like('%" . xos_db_input($_GET['keywords']) . "%') limit 15";
-    $suggest_query = xos_db_query($search_suggest_sql);
-    while($results = xos_db_fetch_array($suggest_query)) {
-      $products_name_marked = str_ireplace(mb_strtoupper(stripslashes($_GET['keywords']), 'UTF-8'), '<span class="red-mark">' . mb_strtoupper(stripslashes($_GET['keywords']), 'UTF-8') . '</span>', mb_strtoupper($results['products_name'], 'UTF-8'));
-      if (strpos($products_name_marked, '<span') !== false) { 
-        $results_array[]=array('products_name' => $products_name_marked,
-                               'products_link' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $results['products_id']));	   
-      }
-    } 
        
-    $search_suggest_sql = "select pd.products_name, p.products_id from " . TABLE_PRODUCTS_DESCRIPTION . " pd left join " . TABLE_PRODUCTS . " p on pd.products_id = p.products_id where p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and pd.products_name like('%" . xos_db_input($_GET['keywords']) . "%') limit 15";
-    $suggest_query = xos_db_query($search_suggest_sql);
-    while($results = xos_db_fetch_array($suggest_query)) {
-      $results_array[]=array('products_name' => str_ireplace(mb_strtoupper(stripslashes($_GET['keywords']), 'UTF-8'), '<span class="red-mark">' . mb_strtoupper(stripslashes($_GET['keywords']), 'UTF-8') . '</span>', mb_strtoupper($results['products_name'], 'UTF-8')),
-                             'products_link' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $results['products_id']));	   
-    }    
-*/    
     if (!empty($results_array)) {
     
       $smarty->assign('results', $results_array);	   
@@ -69,4 +96,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     }
   } 
 endif;
-?>

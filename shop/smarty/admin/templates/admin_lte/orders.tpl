@@ -105,7 +105,7 @@
                               [@{if $tax_groups}@]
                                 <th>[@{#table_heading_products_model#}@]</th>
                                 <th colspan="2">[@{#table_heading_products#}@]</th>        
-                                <th class="text-right">[@{#table_heading_tax#}@] [@{#table_heading_tax#}@]</th>    
+                                <th class="text-right">[@{#table_heading_tax#}@]</th>    
                                 <th>&nbsp;</th>
                                 <th class="text-right">[@{#table_heading_price#}@]</th>
                                 <th>&nbsp;</th>

@@ -39,9 +39,44 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   }
 
   if (isset($_GET['r']) && xos_not_null($_GET['r']) && isset($_GET['p']) && xos_not_null($_GET['p'])) {
-    $review_query = xos_db_query("select rd.reviews_text, r.reviews_rating, r.reviews_id, r.customers_name, r.date_added, r.reviews_read, p.products_id, p.products_price, p.products_tax_class_id, p.products_image, p.products_model, p.products_quantity, pd.products_name, pd.products_p_unit from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where c.categories_or_pages_status = '1' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and r.reviews_id = '" . (int)$_GET['r'] . "' and r.reviews_id = rd.reviews_id and rd.languages_id = '" . (int)$_SESSION['languages_id'] . "' and r.products_id = p.products_id and p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '". (int)$_SESSION['languages_id'] . "'");    
+    $review_query = $DB->prepare
+    (
+     "SELECT rd.reviews_text,
+             r.reviews_rating,
+             r.reviews_id,
+             r.customers_name,
+             r.date_added,
+             r.reviews_read,
+             p.products_id,
+             p.products_price,
+             p.products_tax_class_id,
+             p.products_image,
+             p.products_model,
+             p.products_quantity,
+             pd.products_name,
+             pd.products_p_unit
+      FROM   " . TABLE_REVIEWS . " r,
+             " . TABLE_REVIEWS_DESCRIPTION . " rd,
+             " . TABLE_PRODUCTS . " p,
+             " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+             " . TABLE_CATEGORIES_OR_PAGES . " c,
+             " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+      WHERE  c.categories_or_pages_status = '1'
+      AND    p.products_id = p2c.products_id
+      AND    p2c.categories_or_pages_id = c.categories_or_pages_id
+      AND    r.reviews_id = :r
+      AND    r.reviews_id = rd.reviews_id
+      AND    rd.languages_id = :languages_id
+      AND    r.products_id = p.products_id
+      AND    p.products_status = '1'
+      AND    p.products_id = pd.products_id
+      AND    pd.language_id = :languages_id"
+    );
+    
+    $DB->perform($review_query, array(':r' => (int)$_GET['r'],
+                                      ':languages_id' => (int)$_SESSION['languages_id']));        
 
-    if (!xos_db_num_rows($review_query)) {
+    if (!$review_query->rowCount()) {
       xos_redirect(xos_href_link(FILENAME_PRODUCT_REVIEWS, xos_get_all_get_params(array('r'))));
     }
     
@@ -58,7 +93,14 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   require(DIR_WS_INCLUDES . 'header.php');
   require(DIR_WS_INCLUDES . 'footer.php'); 
   
-  xos_db_query("update " . TABLE_REVIEWS . " set reviews_read = reviews_read+1 where reviews_id = '" . (int)$_GET['r'] . "'"); 
+  $update_reviews_query = $DB->prepare
+  (
+   "UPDATE " . TABLE_REVIEWS . "
+    SET    reviews_read = reviews_read+1
+    WHERE  reviews_id = :r"
+  );
+  
+  $DB->perform($update_reviews_query, array(':r' => (int)$_GET['r'])); 
 
   if (CACHE_LEVEL > 2 && ((isset($_COOKIE[session_name()]) && !isset($_GET[session_name()])) || SESSION_FORCE_COOKIE_USE == 'true')){
     $smarty->caching = 1;
@@ -67,7 +109,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
      
   if(!$smarty->isCached(SELECTED_TPL . '/product_reviews_info.tpl', $cache_id)) {
   
-    $review = xos_db_fetch_array($review_query);
+    $review = $review_query->fetch();
   
     $products_image_name = xos_get_product_images($review['products_image'], 'all');
     $products_prices = xos_get_product_prices($review['products_price']);
@@ -171,4 +213,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php'); 
 endif;
-?>

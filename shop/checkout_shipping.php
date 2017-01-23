@@ -68,8 +68,18 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   } else {
 // verify the selected shipping address
     if ( (is_array($_SESSION['sendto']) && empty($_SESSION['sendto'])) || is_numeric($_SESSION['sendto']) ) {
-      $check_address_query = xos_db_query("select count(*) as total from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$_SESSION['customer_id'] . "' and address_book_id = '" . (int)$_SESSION['sendto'] . "'");
-      $check_address = xos_db_fetch_array($check_address_query);
+      $check_address_query = $DB->prepare
+      (
+       "SELECT Count(*) AS total
+        FROM   " . TABLE_ADDRESS_BOOK . "
+        WHERE  customers_id = :customer_id
+        AND    address_book_id = :sendto"
+      );
+      
+      $DB->perform($check_address_query, array(':customer_id' => (int)$_SESSION['customer_id'],
+                                               ':sendto' => (int)$_SESSION['sendto']));        
+      
+      $check_address = $check_address_query->fetch();
 
       if ($check_address['total'] != '1') {
         $_SESSION['sendto'] = $_SESSION['customer_default_address_id'];
@@ -134,7 +144,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 // process the selected shipping method
   if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_POST['formid']) && ($_POST['formid'] == $_SESSION['sessiontoken'])) {
 
-      $_SESSION['comments'] = xos_db_prepare_input(substr(strip_tags($_POST['comments']), 0,1000));
+      $_SESSION['comments'] = substr(strip_tags($_POST['comments']), 0,1000);
 
     if ( (xos_count_shipping_modules() > 0) || ($free_shipping == true) ) {
       if ( (isset($_POST['shipping'])) && (strpos($_POST['shipping'], '_')) ) {

@@ -36,7 +36,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   if ($banner_footer = xos_banner_exists('dynamic', 'footer')) {
     $banner = array();
     $banner = xos_display_banner('static', $banner_footer);
-    eval(' ?>' . $banner['banner_php_source'] . '<?php ');
+    eval(" ?>" . $banner['banner_php_source'] . "<?php ");
     $smarty->assign('footer_banner_footer', $banner['banner_string']);
   }
   

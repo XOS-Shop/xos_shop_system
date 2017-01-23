@@ -32,12 +32,38 @@
 
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/modules/xsell_products.php') == 'overwrite_all')) :
   if (isset($_GET['p'])) {
-    $xsell_query = xos_db_query("select distinct p.products_id, p.products_image, pd.products_name, pd.products_info, p.products_tax_class_id, p.products_price from " . TABLE_PRODUCTS_XSELL . " xp, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where xp.products_id = '" . (int)$_GET['p'] . "' and xp.xsell_id = p.products_id and p.products_id = pd.products_id and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_status = '1' and c.categories_or_pages_status = '1' order by xp.sort_order ");  
-    $num_products_xsell = xos_db_num_rows($xsell_query);
+    $xsell_query = $DB->prepare
+    (
+     "SELECT DISTINCT p.products_id,
+                      p.products_image,
+                      pd.products_name,
+                      pd.products_info,
+                      p.products_tax_class_id,
+                      p.products_price
+      FROM            " . TABLE_PRODUCTS_XSELL . " xp,
+                      " . TABLE_PRODUCTS . " p,
+                      " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+                      " . TABLE_CATEGORIES_OR_PAGES . " c,
+                      " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+      WHERE           xp.products_id = :p
+      AND             xp.xsell_id = p.products_id
+      AND             p.products_id = pd.products_id
+      AND             p.products_id = p2c.products_id
+      AND             p2c.categories_or_pages_id = c.categories_or_pages_id
+      AND             pd.language_id = :languages_id
+      AND             p.products_status = '1'
+      AND             c.categories_or_pages_status = '1'
+      ORDER BY        xp.sort_order"
+    );
+    
+    $DB->perform($xsell_query, array(':p' => (int)$_GET['p'],
+                                     ':languages_id' => (int)$_SESSION['languages_id']));
+                                             
+    $num_products_xsell = $xsell_query->rowCount();
     if ($num_products_xsell > 0) {
     
       $xsell_products_array = array();
-      while ($xsell = xos_db_fetch_array($xsell_query)) { 
+      while ($xsell = $xsell_query->fetch()) { 
       
         $products_prices = xos_get_product_prices($xsell['products_price']);
         $products_tax_rate = xos_get_tax_rate($xsell['products_tax_class_id']);
@@ -94,5 +120,4 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       $smarty->assign('xsell_products', $output_xsell_products);
     }
   }
-endif;  
-?>
+endif;

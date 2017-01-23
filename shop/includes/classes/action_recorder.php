@@ -35,8 +35,8 @@
     var $_user_id;
     var $_user_name;
 
-    function __construct($module, $user_id = null, $user_name = null) {
-
+    function __construct($module, $user_id = null, $user_name = null) { 
+      
       $module = xos_sanitize_string(str_replace(' ', '', $module));
 
       if (defined('MODULE_ACTION_RECORDER_INSTALLED') && xos_not_null(MODULE_ACTION_RECORDER_INSTALLED)) {
@@ -65,7 +65,7 @@
       if (!empty($user_name)) {
         $this->_user_name = $user_name;
       }
-
+      
       $GLOBALS[$this->_module] = new $module();
       $GLOBALS[$this->_module]->setIdentifier();
     }
@@ -91,10 +91,39 @@
     }
 
     function record($success = true) {
+
+      $DB = Registry::get('DB');
       if (xos_not_null($this->_module)) {
-        xos_db_query("insert into " . TABLE_ACTION_RECORDER . " (module, user_id, user_name, identifier, success, date_added) values ('" . xos_db_input($this->_module) . "', '" . (int)$this->_user_id . "', '" . xos_db_input($this->_user_name) . "', '" . xos_db_input($this->getIdentifier()) . "', '" . ($success == true ? 1 : 0) . "', now())");
+        $insert_action_recorder_query = $DB->prepare
+        (
+         "INSERT INTO " . TABLE_ACTION_RECORDER . "
+                      (
+                       module,
+                       user_id,
+                       user_name,
+                       identifier,
+                       success,
+                       date_added
+                       )
+                       VALUES 
+                       (
+                       :module,
+                       :user_id,
+                       :user_name,
+                       :identifier,
+                       :success,
+                       Now()
+                       )"
+        );
+        
+        $DB->perform($insert_action_recorder_query, array(':module' => $this->_module,
+                                                          ':user_id' => (int)$this->_user_id,
+                                                          ':user_name' => $this->_user_name,
+                                                          ':identifier' => $this->getIdentifier(),
+                                                          ':success' => $success == true ? 1 : 0));
+                                                                    
       }
-    }
+    }   
 
     function expireEntries() {
       if (xos_not_null($this->_module)) {

@@ -168,7 +168,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                           'products_name' => $rInfo->products_name,
                           'customers_name' => $rInfo->customers_name,
                           'date_added' => xos_date_short($rInfo->date_added),
-                          'reviews_text' => xos_break_string(nl2br(xos_db_output(substr(strip_tags(isset($_POST['reviews_text']) ? $_POST['reviews_text'] : $rInfo->reviews_text), 0, 1000))), 60),
+                          'reviews_text' => xos_break_string(nl2br(htmlspecialchars(substr(strip_tags(isset($_POST['reviews_text']) ? $_POST['reviews_text'] : $rInfo->reviews_text), 0, 1000))), 60),
                           'stars_image' => xos_image(DIR_WS_ADMIN_IMAGES . ADMIN_TPL . '/stars_' . $rInfo->reviews_rating . '.gif', sprintf(TEXT_OF_5_STARS, $rInfo->reviews_rating)),
                           'text_of_5_stars' => sprintf(TEXT_OF_5_STARS, $rInfo->reviews_rating),
                           'form_end' => '</form>'));   

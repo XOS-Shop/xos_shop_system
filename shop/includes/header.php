@@ -79,7 +79,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   if ($banner_header = xos_banner_exists('dynamic', 'header')) {
     $banner = array(); 
     $banner = xos_display_banner('static', $banner_header);
-    eval(' ?>' . $banner['banner_php_source'] . '<?php ');
+    eval(" ?>" . $banner['banner_php_source'] . "<?php ");
     $smarty->assign('header_banner_header', $banner['banner_string']);
   }   
   

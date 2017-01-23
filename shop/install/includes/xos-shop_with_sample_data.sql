@@ -418,9 +418,6 @@ insert into configuration (configuration_key, configuration_value, configuration
 insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('MAX_MANUFACTURERS_LIST', '1', '3', '10', NULL, now(), NULL, NULL);
 insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('MAX_DISPLAY_MANUFACTURER_NAME_LEN', '15', '3', '11', NULL, now(), NULL, NULL);
 insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('MAX_DISPLAY_NEW_REVIEWS', '6', '3', '12', NULL, now(), NULL, NULL);
-insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('MAX_RANDOM_SELECT_REVIEWS', '10', '3', '13', NULL, now(), NULL, NULL);
-insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('MAX_RANDOM_SELECT_NEW', '10', '3', '14', NULL, now(), NULL, NULL);
-insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('MAX_RANDOM_SELECT_SPECIALS', '10', '3', '15', NULL, now(), NULL, NULL);
 insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('MAX_DISPLAY_CATEGORIES_PER_ROW', '3', '3', '16', NULL, now(), NULL, NULL);
 insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('MAX_DISPLAY_PRODUCTS_NEW', '10', '3', '17', NULL, now(), NULL, NULL);
 insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('MAX_DISPLAY_BESTSELLERS', '10', '3', '18', NULL, now(), NULL, NULL);
@@ -1917,15 +1914,15 @@ create table orders (
   customers_telephone varchar(255) not null ,
   customers_email_address varchar(255) not null ,
   customers_address_format_id int(5) default '0' not null ,
-  delivery_name varchar(255) not null ,
+  delivery_name varchar(255) ,
   delivery_company varchar(255) ,
-  delivery_street_address varchar(255) not null ,
+  delivery_street_address varchar(255) ,
   delivery_suburb varchar(255) ,
-  delivery_city varchar(255) not null ,
-  delivery_postcode varchar(255) not null ,
+  delivery_city varchar(255) ,
+  delivery_postcode varchar(255) ,
   delivery_state varchar(255) ,
-  delivery_country varchar(255) not null ,
-  delivery_address_format_id int(5) default '0' not null ,
+  delivery_country varchar(255) ,
+  delivery_address_format_id int(5) ,
   billing_name varchar(255) not null ,
   billing_company varchar(255) ,
   billing_street_address varchar(255) not null ,
@@ -2070,7 +2067,7 @@ create table orders_total (
   title varchar(255) not null ,
   text varchar(255) not null ,
   value decimal(15,4) default '0.0000' not null ,
-  tax decimal(7,4) default '0.0000' not null ,
+  tax decimal(7,4) default null ,
   class varchar(32) not null ,
   sort_order int(11) default '0' not null ,
   PRIMARY KEY (orders_total_id),

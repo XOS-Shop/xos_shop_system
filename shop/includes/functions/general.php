@@ -81,21 +81,6 @@
   }
 
 ////
-// Return a random row from a database query
-  function xos_random_select($query) {
-    $random_product = '';
-    $random_query = xos_db_query($query);
-    $num_rows = xos_db_num_rows($random_query);
-    if ($num_rows > 0) {
-      $random_row = xos_rand(0, ($num_rows - 1));
-      xos_db_data_seek($random_query, $random_row);
-      $random_product = xos_db_fetch_array($random_query);
-    }
-
-    return $random_product;
-  }
-
-////
 // Return a product's name
 // TABLES: products
   function xos_get_products_name($product_id, $language_id = 0) {

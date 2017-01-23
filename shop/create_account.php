@@ -48,50 +48,50 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
     if (ACCOUNT_GENDER == 'true') {
       if (isset($_POST['gender'])) {
-        $gender = xos_db_prepare_input($_POST['gender']);
+        $gender = $_POST['gender'];
       } else {
         $gender = false;
       }
     }
-    $firstname = xos_db_prepare_input($_POST['firstname']);
-    $lastname = xos_db_prepare_input($_POST['lastname']);
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
     if (ACCOUNT_DOB == 'true') {
-      $dob_month = xos_db_prepare_input($_POST['dob_month']);    
-      $dob_day = xos_db_prepare_input($_POST['dob_day']);
-      $dob_year = xos_db_prepare_input($_POST['dob_year']);
+      $dob_month = $_POST['dob_month'];    
+      $dob_day = $_POST['dob_day'];
+      $dob_year = $_POST['dob_year'];
     }  
-    $email_address = xos_db_prepare_input($_POST['email_address']);    
+    $email_address = $_POST['email_address'];    
     if (isset($_POST['languages'])) { 
-      $language_id = xos_db_prepare_input($_POST['languages']);
+      $language_id = $_POST['languages'];
     } else {    
       $language_id = $_SESSION['languages_id'];
     }
     if (ACCOUNT_COMPANY == 'true') {
-      $company = xos_db_prepare_input($_POST['company']);
-      $company_tax_id = xos_db_prepare_input($_POST['company_tax_id']);
+      $company = $_POST['company'];
+      $company_tax_id = $_POST['company_tax_id'];
     } 
-    $street_address = xos_db_prepare_input($_POST['street_address']);
-    if (ACCOUNT_SUBURB == 'true') $suburb = xos_db_prepare_input($_POST['suburb']);
-    $postcode = xos_db_prepare_input($_POST['postcode']);
-    $city = xos_db_prepare_input($_POST['city']);
+    $street_address = $_POST['street_address'];
+    if (ACCOUNT_SUBURB == 'true') $suburb = $_POST['suburb'];
+    $postcode = $_POST['postcode'];
+    $city = $_POST['city'];
     if (ACCOUNT_STATE == 'true') {
-      $state = xos_db_prepare_input($_POST['state']);
+      $state = $_POST['state'];
       if (isset($_POST['zone_id'])) {
-        $zone_id = xos_db_prepare_input($_POST['zone_id']);
+        $zone_id = $_POST['zone_id'];
       } else {
-        $zone_id = false;
+        $zone_id = 0;
       }
     }
-    $country = xos_db_prepare_input($_POST['country']);
-    $telephone = xos_db_prepare_input($_POST['telephone']);
-    $fax = xos_db_prepare_input($_POST['fax']);
+    $country = $_POST['country'];
+    $telephone = $_POST['telephone'];
+    $fax = $_POST['fax'];
     if (isset($_POST['newsletter'])) {
-      $newsletter = xos_db_prepare_input($_POST['newsletter']);
+      $newsletter = $_POST['newsletter'];
     } else {
-      $newsletter = false;
+      $newsletter = 0;
     }
-    $password = xos_db_prepare_input($_POST['password']);
-    $confirmation = xos_db_prepare_input($_POST['confirmation']);
+    $password = $_POST['password'];
+    $confirmation = $_POST['confirmation'];
 
     $error = false;
 
@@ -138,8 +138,16 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $messageStack->add('create_account', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
       $smarty->assign('email_address_error', true);
     } else {
-      $check_email_query = xos_db_query("select count(*) as total from " . TABLE_CUSTOMERS . " where customers_email_address = '" . xos_db_input($email_address) . "'");
-      $check_email = xos_db_fetch_array($check_email_query);
+      $check_email_query = $DB->prepare
+      (
+       "SELECT Count(*) AS total
+        FROM   " . TABLE_CUSTOMERS . "
+        WHERE  customers_email_address = :email_address"
+      );
+      
+      $DB->perform($check_email_query, array(':email_address' => $email_address));
+                                            
+      $check_email = $check_email_query->fetch();
       if ($check_email['total'] > 0) {
         $error = true;
 
@@ -178,13 +186,31 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
     if (ACCOUNT_STATE == 'true') {
       $zone_id = 0;
-      $check_query = xos_db_query("select count(*) as total from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "'");
-      $check = xos_db_fetch_array($check_query);
+      $check_query = $DB->prepare
+      (
+       "SELECT Count(*) AS total
+        FROM    " . TABLE_ZONES . "
+        WHERE  zone_country_id = :country"
+      );
+      
+      $DB->perform($check_query, array(':country' => (int)$country ));
+            
+      $check = $check_query->fetch();
       $entry_state_has_zones = ($check['total'] > 0);
       if ($entry_state_has_zones == true) {
-        $zone_query = xos_db_query("select distinct zone_id from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "' and zone_name = '" . xos_db_input($state) . "'");
-        if (xos_db_num_rows($zone_query) == 1) {
-          $zone = xos_db_fetch_array($zone_query);
+        $zone_query = $DB->prepare
+        (
+         "SELECT DISTINCT zone_id
+          FROM   " . TABLE_ZONES . "
+          WHERE  zone_country_id = :country 
+          AND    zone_name = :state"
+        );
+        
+        $DB->perform($zone_query, array(':country' => (int)$country,
+                                        ':state' => $state));
+        
+        if ($zone_query->rowCount() == 1) {
+          $zone = $zone_query->fetch();
           $zone_id = $zone['zone_id'];
         } else {
           $error = true;
@@ -241,11 +267,11 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         $sql_data_array['customers_group_ra'] = '1';
       }
       
-      xos_db_perform(TABLE_CUSTOMERS, $sql_data_array);
+      $DB->insertPrepareExecute(TABLE_CUSTOMERS, $sql_data_array);
 
-      $_SESSION['customer_id'] = xos_db_insert_id();
+      $_SESSION['customer_id'] = $DB->lastInsertId();
 
-      $sql_data_array = array('customers_id' => $_SESSION['customer_id'],
+      $sql_data_array = array('customers_id' => (int)$_SESSION['customer_id'],
                               'entry_firstname' => $firstname,
                               'entry_lastname' => $lastname,
                               'entry_street_address' => $street_address,
@@ -261,7 +287,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       if (ACCOUNT_SUBURB == 'true') $sql_data_array['entry_suburb'] = $suburb;
       if (ACCOUNT_STATE == 'true') {
         if ($zone_id > 0) {
-          $sql_data_array['entry_zone_id'] = $zone_id;
+          $sql_data_array['entry_zone_id'] = (int)$zone_id;
           $sql_data_array['entry_state'] = '';
         } else {
           $sql_data_array['entry_zone_id'] = '0';
@@ -269,26 +295,110 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         }
       }
 
-      xos_db_perform(TABLE_ADDRESS_BOOK, $sql_data_array);
+      $DB->insertPrepareExecute(TABLE_ADDRESS_BOOK, $sql_data_array);
 
-      $address_id = xos_db_insert_id();
+      $address_id = $DB->lastInsertId();
 
-      xos_db_query("update " . TABLE_CUSTOMERS . " set customers_default_address_id = '" . (int)$address_id . "' where customers_id = '" . (int)$_SESSION['customer_id'] . "'");
-
-      xos_db_query("insert into " . TABLE_CUSTOMERS_INFO . " (customers_info_id, customers_info_number_of_logons, customers_info_date_account_created) values ('" . (int)$_SESSION['customer_id'] . "', '0', now())");
+      $update_customers_query = $DB->prepare
+      (
+       "UPDATE " . TABLE_CUSTOMERS . "
+        SET    customers_default_address_id = :address_id
+        WHERE  customers_id = :customer_id"
+      );
       
-      $check_subscriber_query = xos_db_query("select subscriber_id, newsletter_status from " . TABLE_NEWSLETTER_SUBSCRIBERS . " where subscriber_email_address = '" . xos_db_input($email_address) . "'");
-      if (xos_db_num_rows($check_subscriber_query)) {
-        $check_subscriber = xos_db_fetch_array($check_subscriber_query);
+      $DB->perform($update_customers_query, array(':address_id' => (int)$address_id,
+                                                  ':customer_id' => (int)$_SESSION['customer_id']));       
+
+      $insert_customers_info_query = $DB->prepare
+      (
+       "INSERT INTO " . TABLE_CUSTOMERS_INFO . "
+                    (
+                    customers_info_id,
+                    customers_info_number_of_logons,
+                    customers_info_date_account_created
+                    )
+                    VALUES
+                    (
+                    :customer_id,
+                    '0',
+                    now()
+                    )"
+      );
+      
+      $DB->perform($insert_customers_info_query, array(':customer_id' => (int)$_SESSION['customer_id']));      
+      
+      $check_subscriber_query = $DB->prepare
+      (
+       "SELECT subscriber_id,
+               newsletter_status
+        FROM   " . TABLE_NEWSLETTER_SUBSCRIBERS . "
+        WHERE  subscriber_email_address = :email_address"
+      );
+      
+      $DB->perform($check_subscriber_query, array(':email_address' => $email_address));
+      
+      if ($check_subscriber_query->rowCount()) {
+        $check_subscriber = $check_subscriber_query->fetch();
 
         if ($newsletter == '1' && $check_subscriber['newsletter_status'] == '0') {
-          xos_db_query("update " . TABLE_NEWSLETTER_SUBSCRIBERS . " set customers_id = '" . (int)$_SESSION['customer_id'] . "', subscriber_language_id = '" . xos_db_input($language_id) . "', newsletter_status = '" . xos_db_input($newsletter) . "', newsletter_status_change = now() where subscriber_id = '" . (int)$check_subscriber['subscriber_id'] . "'");                
+          $update_newsletter_subscribers_query = $DB->prepare
+          (
+           "UPDATE " . TABLE_NEWSLETTER_SUBSCRIBERS . "
+            SET    customers_id = :customer_id,
+                   subscriber_language_id = :language_id,
+                   newsletter_status = :newsletter,
+                   newsletter_status_change = now()
+            WHERE  subscriber_id = :subscriber_id"
+          ); 
+          
+          $DB->perform($update_newsletter_subscribers_query, array(':customer_id' => (int)$_SESSION['customer_id'],
+                                                                   ':language_id' => (int)$language_id,
+                                                                   ':newsletter' => (int)$newsletter,
+                                                                   ':subscriber_id' => (int)$check_subscriber['subscriber_id'])); 
+                                                                           
         } else {
-          xos_db_query("update " . TABLE_NEWSLETTER_SUBSCRIBERS . " set customers_id = '" . (int)$_SESSION['customer_id'] . "', subscriber_language_id = '" . xos_db_input($language_id) . "' where subscriber_id = '" . (int)$check_subscriber['subscriber_id'] . "'");
+          $update_newsletter_subscribers_query = $DB->prepare
+          (
+           "UPDATE " . TABLE_NEWSLETTER_SUBSCRIBERS . "
+            SET    customers_id = :customer_id,
+                   subscriber_language_id = :language_id
+            WHERE  subscriber_id = :subscriber_id"
+          );
+          
+          $DB->perform($update_newsletter_subscribers_query, array(':customer_id' => (int)$_SESSION['customer_id'],
+                                                                   ':language_id' => (int)$language_id,
+                                                                   ':subscriber_id' => (int)$check_subscriber['subscriber_id']));           
         }                                                   
       } else {
         $identity_code  = xos_create_random_value(12);
-        xos_db_query("insert into " . TABLE_NEWSLETTER_SUBSCRIBERS . " (customers_id, subscriber_language_id, subscriber_email_address, subscriber_identity_code, newsletter_status, subscriber_date_added) values ('" . (int)$_SESSION['customer_id'] . "', '" . xos_db_input($language_id) . "', '" . xos_db_input($email_address) . "', '" . $identity_code . "', '" . xos_db_input($newsletter) . "', now())");
+        $insert_newsletter_subscribers_query = $DB->prepare
+        (
+         "INSERT INTO " . TABLE_NEWSLETTER_SUBSCRIBERS . "
+                      (
+                      customers_id,
+                      subscriber_language_id,
+                      subscriber_email_address,
+                      subscriber_identity_code,
+                      newsletter_status,
+                      subscriber_date_added
+                      )
+                      VALUES
+                      (
+                      :customer_id,
+                      :language_id,
+                      :email_address,
+                      :identity_code,
+                      :newsletter,
+                      now()
+                      )"
+        );
+        
+        $DB->perform($insert_newsletter_subscribers_query, array(':customer_id' => (int)$_SESSION['customer_id'],
+                                                                 ':language_id' => (int)$language_id,
+                                                                 ':email_address' => $email_address,
+                                                                 ':identity_code' => $identity_code,
+                                                                 ':newsletter' => (int)$newsletter)); 
+                                                                           
       } 
       
       if (SESSION_RECREATE == 'true') {
@@ -520,8 +630,17 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     if ($process == true) {
       if ($entry_state_has_zones == true) {
         $zones_array = array();
-        $zones_query = xos_db_query("select zone_name from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "' order by zone_name");
-        while ($zones_values = xos_db_fetch_array($zones_query)) {
+        $zones_query = $DB->prepare
+        (
+         "SELECT   zone_name
+          FROM     " . TABLE_ZONES . "
+          WHERE    zone_country_id = :country
+          ORDER BY zone_name"
+        );
+        
+        $DB->perform($zones_query, array(':country' => (int)$country));
+                                              
+        while ($zones_values = $zones_query->fetch()) {
           $zones_array[] = array('id' => $zones_values['zone_name'], 'text' => $zones_values['zone_name']);
         }
         $smarty->assign('input_state', xos_draw_pull_down_menu('state', $zones_array, '', 'class="form-control" id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
@@ -553,7 +672,15 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                           'pull_down_menu_languages' => xos_draw_pull_down_menu('languages', $lang_array, $languages_selected, 'class="form-control" id="languages"')));
   }
 
-  $popup_status_query = xos_db_query("select status from " . TABLE_CONTENTS . "  where type = 'system_popup' and status = '1' and content_id = '7' LIMIT 1");
+  $popup_status_query = $DB->query
+  (
+   "SELECT status
+    FROM   " . TABLE_CONTENTS . "
+    WHERE  type = 'system_popup'
+    AND    status = '1'
+    AND    content_id = '7'
+    LIMIT  1"
+  );
 
   $back = sizeof($_SESSION['navigation']->path)-2;
   if (!empty($_SESSION['navigation']->path[$back])) {
@@ -567,7 +694,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   $smarty->assign(array('form_begin' => xos_draw_form('create_account', xos_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL'), 'post', 'onsubmit="return check_form_password(create_account);"', true),
                         'hidden_field' => xos_draw_hidden_field('action', 'process'),
                         'link_filename_login' => xos_href_link(FILENAME_LOGIN, xos_get_all_get_params(), 'SSL'),
-                        'link_filename_popup_content_7' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=7', $request_type) : '',
+                        'link_filename_popup_content_7' => $popup_status_query->rowCount() ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=7', $request_type) : '',
                         'input_firstname' => xos_draw_input_field('firstname', '', 'class="form-control" id="firstname"') . '&nbsp;' . (xos_not_null(ENTRY_FIRST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_FIRST_NAME_TEXT . '</span>': ''),
                         'input_lastname' => xos_draw_input_field('lastname', '', 'class="form-control" id="lastname"') . '&nbsp;' . (xos_not_null(ENTRY_LAST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_LAST_NAME_TEXT . '</span>': ''),
                         'input_email_address' => xos_draw_input_field('email_address', '', 'class="form-control" id="email_address"') . '&nbsp;' . (xos_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="input-requirement">' . ENTRY_EMAIL_ADDRESS_TEXT . '</span>': ''),
@@ -593,4 +720,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

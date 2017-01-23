@@ -554,7 +554,7 @@
         }   
   
         if ($order->info['comments']) {
-          $smarty->assign('order_comments', xos_db_output($order->info['comments']));
+          $smarty->assign('order_comments', htmlspecialchars($order->info['comments']));
         }
   
         if ($order->content_type != 'virtual') {

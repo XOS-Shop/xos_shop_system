@@ -30,19 +30,42 @@
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
 
-  $counter_query = xos_db_query("select startdate, counter from " . TABLE_COUNTER);
+  $counter_query = $DB->query
+  (
+   "SELECT startdate, 
+           counter 
+    FROM   " . TABLE_COUNTER
+  );
 
-  if (!xos_db_num_rows($counter_query)) {
+  if (!$counter_query->rowCount()) {
     $date_now = date('Ymd');
-    xos_db_query("insert into " . TABLE_COUNTER . " (startdate, counter) values ('" . $date_now . "', '1')");
+    $insert_counter_query = $DB->prepare
+    (
+     "INSERT INTO " . TABLE_COUNTER . "
+                  (
+                   startdate,
+                   counter
+                  )
+                  VALUES 
+                  (
+                  :date_now,
+                  '1'
+                  )"
+    );
+    
+    $DB->perform($insert_counter_query, array(':date_now' => $date_now));
+    
     $counter_startdate = $date_now;
     $counter_now = 1;
   } else {
-    $counter = xos_db_fetch_array($counter_query);
+    $counter = $counter_query->fetch();
     $counter_startdate = $counter['startdate'];
     $counter_now = ($counter['counter'] + 1);
-    xos_db_query("update " . TABLE_COUNTER . " set counter = '" . $counter_now . "'");
+    $DB->exec
+    (
+     "UPDATE " . TABLE_COUNTER . "
+      SET    counter = counter + 1"
+    );
   }
 
   $counter_startdate_formatted =  xos_date_format(DATE_FORMAT_LONG, mktime(0, 0, 0, substr($counter_startdate, 4, 2), substr($counter_startdate, -2), substr($counter_startdate, 0, 4)));
-?>

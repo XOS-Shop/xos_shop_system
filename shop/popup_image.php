@@ -36,8 +36,23 @@ if (!$is_shop) :
 elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_POPUP_IMAGE) == 'overwrite_all')) :
   $_SESSION['navigation']->remove_current_page();
 
-  $products_query = xos_db_query("select pd.products_name, p.products_image, p.products_status from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_DESCRIPTION . " pd on p.products_id = pd.products_id where p.products_status = '1' and p.products_id = '" . (int)$_GET['pID'] . "' and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
-  $products = xos_db_fetch_array($products_query);
+  $products_query = $DB->prepare
+  (
+   "SELECT    pd.products_name,
+              p.products_image,
+              p.products_status
+    FROM      " . TABLE_PRODUCTS . " p
+    LEFT JOIN " . TABLE_PRODUCTS_DESCRIPTION . " pd
+    ON        p.products_id = pd.products_id
+    WHERE     p.products_status = '1'
+    AND       p.products_id = :pid
+    AND       pd.language_id = :languages_id"
+  );
+  
+  $DB->perform($products_query, array(':pid' => (int)$_GET['pID'],
+                                      ':languages_id' => (int)$_SESSION['languages_id']));
+                                        
+  $products = $products_query->fetch();
   $products_image_name = xos_get_product_images($products['products_image'], 'all');
   
   if ($products['products_status'] == '1'){
@@ -88,4 +103,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   require(DIR_WS_INCLUDES . 'counter.php');
   require(DIR_WS_INCLUDES . 'application_bottom.php'); 
 endif;
-?>

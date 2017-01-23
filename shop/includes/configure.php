@@ -67,4 +67,3 @@
   define('DB_DATABASE', 'xos_shop');
   define('USE_PCONNECT', 'false'); // use persisstent connections?
   define('STORE_SESSIONS', ''); // leave empty '' for default handler or set to 'mysql'
-?>

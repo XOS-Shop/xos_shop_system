@@ -33,19 +33,53 @@
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/boxes/order_history.php') == 'overwrite_all')) : 
   if (isset($_SESSION['customer_id'])) {
 // retreive the last x products purchased
-    $orders_query = xos_db_query("select distinct op.products_id from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c where o.customers_id = '" . (int)$_SESSION['customer_id'] . "' and o.orders_id = op.orders_id and op.products_id = p.products_id and op.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and c.categories_or_pages_status = '1' and p.products_status = '1' group by products_id order by o.date_purchased desc limit " . MAX_DISPLAY_PRODUCTS_IN_ORDER_HISTORY_BOX);
-    if (xos_db_num_rows($orders_query)) {
+    $orders_query = $DB->prepare
+    (
+     "SELECT DISTINCT op.products_id
+      FROM            " . TABLE_ORDERS . " o,
+                      " . TABLE_ORDERS_PRODUCTS . " op,
+                      " . TABLE_PRODUCTS . " p,
+                      " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c,
+                      " . TABLE_CATEGORIES_OR_PAGES . " c
+      WHERE           o.customers_id = :customer_id 
+      AND             o.orders_id = op.orders_id
+      AND             op.products_id = p.products_id
+      AND             op.products_id = p2c.products_id
+      AND             p2c.categories_or_pages_id = c.categories_or_pages_id
+      AND             c.categories_or_pages_status = '1'
+      AND             p.products_status = '1'
+      GROUP BY        products_id
+      ORDER BY        o.date_purchased DESC
+      LIMIT           " . MAX_DISPLAY_PRODUCTS_IN_ORDER_HISTORY_BOX
+    );
+    
+    $DB->perform($orders_query, array(':customer_id' => (int)$_SESSION['customer_id']));
+                
+    if ($orders_query->rowCount()) {
 
       $product_ids = '';
-      while ($orders = xos_db_fetch_array($orders_query)) {
+      while ($orders = $orders_query->fetch()) {
         $product_ids .= (int)$orders['products_id'] . ',';
       }
       $product_ids = substr($product_ids, 0, -1);
 
-      $products_query = xos_db_query("select products_id, products_name from " . TABLE_PRODUCTS_DESCRIPTION . " where products_id in (" . $product_ids . ") and language_id = '" . (int)$_SESSION['languages_id'] . "' order by products_name");
+      $products_query = $DB->prepare
+      (
+       "SELECT   products_id,
+                 products_name
+        FROM     " . TABLE_PRODUCTS_DESCRIPTION . "
+        WHERE    products_id 
+        IN       (
+                 " . $product_ids . "
+                 )
+        AND      language_id = :languages_id
+        ORDER BY products_name"
+      );
+      
+      $DB->perform($products_query, array(':languages_id' => (int)$_SESSION['languages_id']));            
       
       $customer_orders_array = array();
-      while ($products = xos_db_fetch_array($products_query)) {                                    
+      while ($products = $products_query->fetch()) {                                    
         $customer_orders_array[]=array('in_cart' => xos_href_link($_SERVER['BASENAME_PHP_SELF'], xos_get_all_get_params(array('action')) . 'action=cust_order&pid=' . $products['products_id']),
                                        'link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $products['products_id']),
                                        'name' => $products['products_name']);                                   

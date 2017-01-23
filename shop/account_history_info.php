@@ -44,8 +44,22 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     xos_redirect(xos_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL'));
   }
   
-  $customer_info_query = xos_db_query("select o.customers_id from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_STATUS . " s where o.orders_id = '". (int)$_GET['order_id'] . "' and o.orders_status = s.orders_status_id and s.language_id = '" . (int)$_SESSION['languages_id'] . "' and s.public_flag = '1'");
-  $customer_info = xos_db_fetch_array($customer_info_query);
+  $customer_info_query = $DB->prepare
+  (
+   "SELECT o.customers_id
+    FROM   " . TABLE_ORDERS . " o,
+           " . TABLE_ORDERS_STATUS . " s
+    WHERE  o.orders_id = :order_id
+    AND    o.orders_status = s.orders_status_id
+    AND    s.language_id = :languages_id
+    AND    s.public_flag = '1'"
+  );
+  
+  $DB->perform($customer_info_query, array(':order_id' => (int)$_GET['order_id'],
+                                           ':languages_id' => (int)$_SESSION['languages_id']));
+                                        
+  $customer_info = $customer_info_query->fetch();
+  
   if ($customer_info['customers_id'] != $_SESSION['customer_id']) {
     xos_redirect(xos_href_link(FILENAME_ACCOUNT_HISTORY, '', 'SSL'));
   }
@@ -115,9 +129,26 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                                 'totals_tax' => $order->totals[$i]['class'] == 'ot_shipping' || $order->totals[$i]['class'] == 'ot_loworderfee' || $order->totals[$i]['class'] == 'ot_cod_fee' ? xos_display_tax_value($order->totals[$i]['tax']) : -1);         
   }
 
-  $statuses_query = xos_db_query("select os.orders_status_name, osh.date_added, osh.comments from " . TABLE_ORDERS_STATUS . " os, " . TABLE_ORDERS_STATUS_HISTORY . " osh where osh.orders_id = '" . (int)$_GET['order_id'] . "' and osh.orders_status_id = os.orders_status_id and os.language_id = '" . (int)$_SESSION['languages_id'] . "' and os.public_flag = '1' order by osh.date_added, osh.orders_status_history_id");
+  $statuses_query = $DB->prepare
+  (
+   "SELECT   os.orders_status_name,
+             osh.date_added,
+             osh.comments
+    FROM     " . TABLE_ORDERS_STATUS . " os,
+             " . TABLE_ORDERS_STATUS_HISTORY . " osh
+    WHERE    osh.orders_id = :order_id
+    AND      osh.orders_status_id = os.orders_status_id
+    AND      os.language_id = :languages_id
+    AND      os.public_flag = '1'
+    ORDER BY osh.date_added,
+             osh.orders_status_history_id"
+  );
+  
+  $DB->perform($statuses_query, array(':order_id' => (int)$_GET['order_id'],
+                                      ':languages_id' => (int)$_SESSION['languages_id']));
+                                             
   $statuses_array = array();
-  while ($statuses = xos_db_fetch_array($statuses_query)) {         
+  while ($statuses = $statuses_query->fetch()) {         
     $statuses_array[]=array('order_date_added' => xos_date_short($statuses['date_added']),
                             'order_status_name' => $statuses['orders_status_name'],
                             'order_comments' => (empty($statuses['comments']) ? '&nbsp;' : nl2br(xos_output_string_protected($statuses['comments']))));         
@@ -145,8 +176,17 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                          
   $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'account_history_info');
   
-  $language_directory_query = xos_db_query("select directory from " . TABLE_LANGUAGES . " where use_in_id > '1' and directory = '" . $order->info['language_directory'] . "'");  
-  if (xos_db_num_rows($language_directory_query)) {
+  $language_directory_query = $DB->prepare
+  (
+   "SELECT directory
+    FROM   " . TABLE_LANGUAGES . "
+    WHERE  use_in_id > '1'
+    AND    directory = :language_directory"
+  ); 
+  
+  $DB->perform($language_directory_query, array(':language_directory' => $order->info['language_directory']));
+   
+  if ($language_directory_query->rowCount() > 0) {
     $smarty->configLoad('languages/' . $order->info['language_directory'] . '.conf', 'order_info');
   }
   
@@ -161,4 +201,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');     
 endif;
-?>

@@ -27,7 +27,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     
     $banner = array();
     $banner = xos_display_banner('static', $banner_column_1);
-    eval(' ?>' . $banner['banner_php_source'] . '<?php ');
+    eval(" ?>" . $banner['banner_php_source'] . "<?php ");
     $smarty->assign('box_banner_column_1_banner_column_1', $banner['banner_string']);
 
     $output_banner_column_1 = $smarty->fetch(SELECTED_TPL . '/includes/boxes/banner_column_1.tpl');

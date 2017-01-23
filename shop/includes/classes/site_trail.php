@@ -142,7 +142,7 @@
         $hreflang_link_and_code = array();       
         while (list($lang_code) = each($lng->catalog_languages)) { 
           if ($_SESSION['languages_code'] != $lang_code) {
-            $hreflang_link_and_code[] = array('link' => (strpos($link, '.php?') ? $link . '&amp;goto=' . $lang_code : (strpos($link, '.php') ? $link . '?goto=' . $lang_code : rtrim($link, '/') . '/goto/' . $lang_code)),
+            $hreflang_link_and_code[] = array('link' => (strpos($link, '.php?') ? $link . '&amp;go=' . $lang_code : (strpos($link, '.php') ? $link . '?go=' . $lang_code : rtrim($link, '/') . '/go/' . $lang_code)),
                                               'lang_code' => $lang_code);
           }        
         }

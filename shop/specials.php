@@ -142,30 +142,217 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     } else {
       $customer_country_id = $_SESSION['customer_country_id'];
       $customer_zone_id = $_SESSION['customer_zone_id'];
-    }    
-
+    }
+        
+    $listing_param_array = array();
+    
 // show the products of a specified manufacturer
     if (isset($_GET['filter']) && xos_not_null($_GET['filter'])) {
 // We are asked to show only a specific category
-      if (($_SESSION['sppc_customer_group_show_tax'] == '1') && ($_SESSION['sppc_customer_group_tax_exempt'] != '1')) {    
-        $listing_sql = "select " . $select_column_list . " p.products_id, p.products_delivery_time_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, (IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * if(tr.tax_rate_final is null, 1, 1 + (tr.tax_rate_final / 100))) as final_price, tr.tax_rate_final from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_ZONES_TO_GEO_ZONES . " gz on (gz.zone_country_id is null or gz.zone_country_id = '0' or gz.zone_country_id = '" . (int)$customer_country_id . "') and (gz.zone_id is null or gz.zone_id = '0' or gz.zone_id = '" . (int)$customer_zone_id . "') left join " . TABLE_TAX_RATES_FINAL . " tr on p.products_tax_class_id = tr.tax_class_id and gz.geo_zone_id = tr.tax_zone_id," . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and s.status = '1' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p2c.categories_or_pages_id = '" . (int)$_GET['filter'] . "' group by p.products_id";
+      if (($_SESSION['sppc_customer_group_show_tax'] == '1') && ($_SESSION['sppc_customer_group_tax_exempt'] != '1')) { 
+         
+        $listing_sql = "SELECT    " . $select_column_list . " 
+                                  p.products_id,
+                                  p.products_delivery_time_id,
+                                  p.manufacturers_id,
+                                  p.products_price,
+                                  p.products_tax_class_id, 
+                                  IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,(
+                                   IF(s.status, s.specials_new_products_price, 
+                                     IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * 
+                                   IF(tr.tax_rate_final IS NULL, 1, 1 + (tr.tax_rate_final / 100))) AS final_price,                                  
+                                  tr.tax_rate_final
+                        FROM      " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+                                  " . TABLE_PRODUCTS . " p
+                        LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi
+                        ON        (
+                                  p.manufacturers_id = mi.manufacturers_id
+                                  AND  mi.languages_id = :languages_id
+                                  )
+                        LEFT JOIN " . TABLE_PRODUCTS_PRICES . " ppz
+                        ON        p.products_id = ppz.products_id
+                        AND       ppz.customers_group_id = '0'
+                        LEFT JOIN " . TABLE_PRODUCTS_PRICES . " pp
+                        ON        p.products_id = pp.products_id
+                        AND       pp.customers_group_id = :customer_group_id
+                        LEFT JOIN " . TABLE_SPECIALS . " s
+                        ON        p.products_id = s.products_id
+                        AND       s.customers_group_id = :customer_group_id
+                        LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " gz
+                        ON        (
+                                  gz.zone_country_id IS NULL
+                                  OR gz.zone_country_id = '0'
+                                  OR gz.zone_country_id = :customer_country_id
+                                  )
+                        AND       (
+                                  gz.zone_id IS NULL
+                                  OR gz.zone_id = '0'
+                                  OR gz.zone_id = :customer_zone_id
+                                  )
+                        LEFT JOIN " . TABLE_TAX_RATES_FINAL . " tr
+                        ON        p.products_tax_class_id = tr.tax_class_id
+                        AND       gz.geo_zone_id = tr.tax_zone_id,
+                                  " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+                        LEFT JOIN " . TABLE_CATEGORIES_OR_PAGES . " c
+                        ON        p2c.categories_or_pages_id = c.categories_or_pages_id
+                        WHERE     c.categories_or_pages_status = '1'
+                        AND       p.products_status = '1'
+                        AND       s.status = '1'
+                        AND       p.products_id = p2c.products_id
+                        AND       pd.products_id = p2c.products_id
+                        AND       pd.language_id = :languages_id
+                        AND       p2c.categories_or_pages_id = :filter
+                        GROUP BY  p.products_id";
+                        
+        $listing_param_array[':customer_country_id'] = (int)$customer_country_id;
+        $listing_param_array[':customer_zone_id'] = (int)$customer_zone_id;
+        
       } else {
-        $listing_sql = "select " . $select_column_list . " p.products_id, p.products_delivery_time_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) as final_price from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "'," . TABLE_PRODUCTS_TO_CATEGORIES . " p2c left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and s.status = '1' and p.products_id = p2c.products_id and pd.products_id = p2c.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p2c.categories_or_pages_id = '" . (int)$_GET['filter'] . "'";
-      }         
+      
+        $listing_sql = "SELECT    " . $select_column_list . " 
+                                  p.products_id,
+                                  p.products_delivery_time_id,
+                                  p.manufacturers_id,
+                                  p.products_price,
+                                  p.products_tax_class_id,
+                                  IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
+                                  IF(s.status, s.specials_new_products_price, 
+                                    IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) AS final_price
+                        FROM      " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+                                  " . TABLE_PRODUCTS . " p
+                        LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi
+                        ON        (
+                                  p.manufacturers_id = mi.manufacturers_id
+                                  AND mi.languages_id = :languages_id
+                                  )
+                        LEFT JOIN " . TABLE_PRODUCTS_PRICES . " ppz
+                        ON        p.products_id = ppz.products_id
+                        AND       ppz.customers_group_id = '0'
+                        LEFT JOIN " . TABLE_PRODUCTS_PRICES . " pp
+                        ON        p.products_id = pp.products_id
+                        AND       pp.customers_group_id = :customer_group_id
+                        LEFT JOIN " . TABLE_SPECIALS . " s
+                        ON        p.products_id = s.products_id
+                        AND       s.customers_group_id = :customer_group_id,
+                                  " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+                        LEFT JOIN " . TABLE_CATEGORIES_OR_PAGES . " c
+                        ON        p2c.categories_or_pages_id = c.categories_or_pages_id
+                        WHERE     c.categories_or_pages_status = '1'
+                        AND       p.products_status = '1'
+                        AND       s.status = '1'
+                        AND       p.products_id = p2c.products_id
+                        AND       pd.products_id = p2c.products_id
+                        AND       pd.language_id = :languages_id
+                        AND       p2c.categories_or_pages_id = :filter";
+                        
+      } 
+      $listing_param_array[':filter'] = (int)$_GET['filter'];
+              
     } else {
 // We show them all
-      if (($_SESSION['sppc_customer_group_show_tax'] == '1') && ($_SESSION['sppc_customer_group_tax_exempt'] != '1')) {            
-        $listing_sql = "select distinct " . $select_column_list . " p.products_id, p.products_delivery_time_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, (IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * if(tr.tax_rate_final is null, 1, 1 + (tr.tax_rate_final / 100))) as final_price, tr.tax_rate_final from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_ZONES_TO_GEO_ZONES . " gz on (gz.zone_country_id is null or gz.zone_country_id = '0' or gz.zone_country_id = '" . (int)$customer_country_id . "') and (gz.zone_id is null or gz.zone_id = '0' or gz.zone_id = '" . (int)$customer_zone_id . "') left join " . TABLE_TAX_RATES_FINAL . " tr on p.products_tax_class_id = tr.tax_class_id and gz.geo_zone_id = tr.tax_zone_id left join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p.products_id = p2c.products_id left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and s.status = '1' group by p.products_id";
+      if (($_SESSION['sppc_customer_group_show_tax'] == '1') && ($_SESSION['sppc_customer_group_tax_exempt'] != '1')) { 
+                 
+        $listing_sql = "SELECT DISTINCT " . $select_column_list . " 
+                                        p.products_id,
+                                        p.products_delivery_time_id,
+                                        p.manufacturers_id,
+                                        p.products_price,
+                                        p.products_tax_class_id,
+                                        IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,(
+                                         IF(s.status, s.specials_new_products_price,                                     
+                                           IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * 
+                                         IF(tr.tax_rate_final IS NULL, 1, 1 + (tr.tax_rate_final / 100))) AS final_price,
+                                        tr.tax_rate_final
+                        FROM            " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+                                        " . TABLE_PRODUCTS . " p
+                        LEFT JOIN       " . TABLE_MANUFACTURERS_INFO . " mi
+                        ON              (
+                                        p.manufacturers_id = mi.manufacturers_id
+                                        AND mi.languages_id = :languages_id
+                                        )
+                        LEFT JOIN       " . TABLE_PRODUCTS_PRICES . " ppz
+                        ON              p.products_id = ppz.products_id
+                        AND             ppz.customers_group_id = '0'
+                        LEFT JOIN       " . TABLE_PRODUCTS_PRICES . " pp
+                        ON              p.products_id = pp.products_id
+                        AND             pp.customers_group_id = :customer_group_id
+                        LEFT JOIN       " . TABLE_SPECIALS . " s
+                        ON              p.products_id = s.products_id
+                        AND             s.customers_group_id = :customer_group_id
+                        LEFT JOIN       " . TABLE_ZONES_TO_GEO_ZONES . " gz
+                        ON              (
+                                        gz.zone_country_id IS NULL
+                                        OR gz.zone_country_id = '0'
+                                        OR gz.zone_country_id = :customer_country_id
+                                        )
+                        AND             (
+                                        gz.zone_id IS NULL
+                                        OR gz.zone_id = '0'
+                                        OR gz.zone_id = :customer_zone_id
+                                        )
+                        LEFT JOIN       " . TABLE_TAX_RATES_FINAL . " tr
+                        ON              p.products_tax_class_id = tr.tax_class_id
+                        AND             gz.geo_zone_id = tr.tax_zone_id
+                        LEFT JOIN       " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+                        ON              p.products_id = p2c.products_id
+                        LEFT JOIN       " . TABLE_CATEGORIES_OR_PAGES . " c
+                        ON              p2c.categories_or_pages_id = c.categories_or_pages_id
+                        WHERE           c.categories_or_pages_status = '1'
+                        AND             p.products_status = '1'
+                        AND             pd.products_id = p.products_id
+                        AND             pd.language_id = :languages_id
+                        AND             s.status = '1'
+                        GROUP BY        p.products_id";
+
+        $listing_param_array[':customer_country_id'] = (int)$customer_country_id;
+        $listing_param_array[':customer_zone_id'] = (int)$customer_zone_id;
       } else {
-        $listing_sql = "select distinct " . $select_column_list . " p.products_id, p.products_delivery_time_id, p.manufacturers_id, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) as final_price from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p.products_id = p2c.products_id left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and p.products_status = '1' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and s.status = '1'";
+      
+        $listing_sql = "SELECT DISTINCT " . $select_column_list . " 
+                                        p.products_id,
+                                        p.products_delivery_time_id,
+                                        p.manufacturers_id,
+                                        p.products_price,
+                                        p.products_tax_class_id,
+                                        IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
+                                        IF(s.status, s.specials_new_products_price, 
+                                          IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) AS final_price
+                        FROM            " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+                                        " . TABLE_PRODUCTS . " p
+                        LEFT JOIN       " . TABLE_MANUFACTURERS_INFO . " mi
+                        ON              (
+                                        p.manufacturers_id = mi.manufacturers_id
+                                        AND mi.languages_id = :languages_id
+                                        )
+                        LEFT JOIN       " . TABLE_PRODUCTS_PRICES . " ppz
+                        ON              p.products_id = ppz.products_id
+                        AND             ppz.customers_group_id = '0'
+                        LEFT JOIN       " . TABLE_PRODUCTS_PRICES . " pp
+                        ON              p.products_id = pp.products_id
+                        AND             pp.customers_group_id = :customer_group_id
+                        LEFT JOIN       " . TABLE_SPECIALS . " s
+                        ON              p.products_id = s.products_id
+                        AND             s.customers_group_id = :customer_group_id
+                        LEFT JOIN       " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+                        ON              p.products_id = p2c.products_id
+                        LEFT JOIN       " . TABLE_CATEGORIES_OR_PAGES . " c
+                        ON              p2c.categories_or_pages_id = c.categories_or_pages_id
+                        WHERE           c.categories_or_pages_status = '1'
+                        AND             p.products_status = '1'
+                        AND             pd.products_id = p.products_id
+                        AND             pd.language_id = :languages_id
+                        AND             s.status = '1'";
+
       }
     }
+    $listing_param_array[':languages_id'] = (int)$_SESSION['languages_id'];
+    $listing_param_array[':customer_group_id'] = (int)$customer_group_id;
 
     if ( (empty($_GET['sort'])) || (!preg_match('/^[0-9][ad]$/', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > sizeof($column_list)) ) {
       for ($i=0, $n=sizeof($column_list); $i<$n; $i++) {
         if ($column_list[$i] == 'PRODUCT_LIST_NAME') {
           $_GET['sort'] = $i . 'a';
-          $listing_sql .= " order by pd.products_name";  
+          $listing_sql .= " ORDER BY pd.products_name";  
           break;
         }
       }
@@ -174,34 +361,34 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $sort_order = substr($_GET['sort'], 1);
       switch ($column_list[$sort_col]) {
         case 'PRODUCT_LIST_MODEL':
-          $listing_sql .= " order by p.products_model " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+          $listing_sql .= " ORDER BY p.products_model " . ($sort_order == 'd' ? 'DESC' : '') . ", pd.products_name";
           break;
         case 'PRODUCT_LIST_NAME':
-          $listing_sql .= " order by pd.products_name " . ($sort_order == 'd' ? 'desc' : '');
+          $listing_sql .= " ORDER BY pd.products_name " . ($sort_order == 'd' ? 'DESC' : '');
           break;
         case 'PRODUCT_LIST_INFO':
 //--------[Alternative] wenn hier aendern auch product_listing.php, index.php, advanced_search_and_results.php, und search_result.php aendern-----------  
-//          $listing_sql .= " order by pd.products_info ". ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";      
+//          $listing_sql .= " ORDER BY pd.products_info ". ($sort_order == 'd' ? 'DESC' : '') . ", pd.products_name";      
 //------------------------------------------------------------------------------------------------------------------
-          $listing_sql .= " order by pd.products_name";
+          $listing_sql .= " ORDER BY pd.products_name";
           break; 
         case 'PRODUCT_LIST_PACKING_UNIT':       
-          $listing_sql .= " order by pd.products_p_unit " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+          $listing_sql .= " ORDER BY pd.products_p_unit " . ($sort_order == 'd' ? 'DESC' : '') . ", pd.products_name";
           break;                   
         case 'PRODUCT_LIST_MANUFACTURER':
-          $listing_sql .= " order by mi.manufacturers_name " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+          $listing_sql .= " ORDER BY mi.manufacturers_name " . ($sort_order == 'd' ? 'DESC' : '') . ", pd.products_name";
           break;
         case 'PRODUCT_LIST_QUANTITY':
-          $listing_sql .= " order by p.products_quantity " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+          $listing_sql .= " ORDER BY p.products_quantity " . ($sort_order == 'd' ? 'DESC' : '') . ", pd.products_name";
           break;
         case 'PRODUCT_LIST_IMAGE':
-          $listing_sql .= " order by pd.products_name";
+          $listing_sql .= " ORDER BY pd.products_name";
           break;
         case 'PRODUCT_LIST_WEIGHT':
-          $listing_sql .= " order by p.products_weight " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+          $listing_sql .= " ORDER BY p.products_weight " . ($sort_order == 'd' ? 'DESC' : '') . ", pd.products_name";
           break;
         case 'PRODUCT_LIST_PRICE':
-          $listing_sql .= " order by final_price " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+          $listing_sql .= " ORDER BY final_price " . ($sort_order == 'd' ? 'DESC' : '') . ", pd.products_name";
           break;
       }
     }
@@ -209,10 +396,30 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 // optional Product List Filter
     if (PRODUCT_LIST_FILTER > 0) {
 
-      $filterlist_sql = "select distinct c.categories_or_pages_id as id, cpd.categories_or_pages_name as name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd, " . TABLE_SPECIALS . " s where c.categories_or_pages_status = '1' and p.products_status = '1' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and p2c.categories_or_pages_id = cpd.categories_or_pages_id and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "' and s.products_id = p2c.products_id and s.customers_group_id = '" . $customer_group_id . "' and s.status = '1' order by cpd.categories_or_pages_name";
+      $filterlist_sql = "SELECT DISTINCT c.categories_or_pages_id     AS id,
+                                         cpd.categories_or_pages_name AS name
+                         FROM            " . TABLE_PRODUCTS . " p,
+                                         " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c,
+                                         " . TABLE_CATEGORIES_OR_PAGES . " c,
+                                         " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd,
+                                         " . TABLE_SPECIALS . " s
+                         WHERE           c.categories_or_pages_status = '1'
+                         AND             p.products_status = '1'
+                         AND             p.products_id = p2c.products_id
+                         AND             p2c.categories_or_pages_id = c.categories_or_pages_id
+                         AND             p2c.categories_or_pages_id = cpd.categories_or_pages_id
+                         AND             cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'
+                         AND             s.products_id = p2c.products_id
+                         AND             s.customers_group_id = '" . $customer_group_id . "'
+                         AND             s.status = '1'
+                         ORDER BY        name";
 
-      $filterlist_query = xos_db_query($filterlist_sql);
-      if (xos_db_num_rows($filterlist_query) > 1) {
+      $filterlist_query = $DB->prepare($filterlist_sql); 
+      
+      $DB->perform($filterlist_query, array(':languages_id' => (int)$_SESSION['languages_id'],
+                                            ':customer_group_id' => $customer_group_id));
+                                                          
+      if ($filterlist_query->rowCount() > 1) {
         
         $hidden_get_variables = '';
         if (!$session_started && xos_not_null($_GET['cur'])) {
@@ -234,7 +441,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         $options_noscript = array();
         $options = array(array('id' => xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('filter', 'page')) . 'filter=', 'NONSSL', true, true, false, false, false), 'text' => TEXT_ALL_CATEGORIES));
         $options_noscript = array(array('id' => '', 'text' => TEXT_ALL_CATEGORIES));
-        while ($filterlist = xos_db_fetch_array($filterlist_query)) {
+        while ($filterlist = $filterlist_query->fetch()) {
           $options[] = array('id' =>  xos_href_link(FILENAME_SPECIALS, xos_get_all_get_params(array('filter', 'page')) . 'filter=' . $filterlist['id'], 'NONSSL', true, true, false, false, false), 'text' => $filterlist['name']);
           $options_noscript[] = array('id' => $filterlist['id'], 'text' => $filterlist['name']);
         }
@@ -304,4 +511,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

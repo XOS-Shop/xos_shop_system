@@ -32,12 +32,45 @@
 
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/modules/also_purchased_products.php') == 'overwrite_all')) :
   if (isset($_GET['p'])) { 
-    $orders_query = xos_db_query("select p.products_id, p.products_image, pd.products_name, pd.products_info, p.products_tax_class_id, p.products_price from " . TABLE_ORDERS_PRODUCTS . " opa, " . TABLE_ORDERS_PRODUCTS . " opb, " . TABLE_ORDERS . " o, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where c.categories_or_pages_status = '1' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and opa.products_id = '" . (int)$_GET['p'] . "' and opa.orders_id = opb.orders_id and opb.products_id != '" . (int)$_GET['p'] . "' and opb.products_id = p.products_id and opb.orders_id = o.orders_id and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_status = '1' group by p.products_id order by o.date_purchased desc limit " . MAX_DISPLAY_ALSO_PURCHASED);
-    $num_products_ordered = xos_db_num_rows($orders_query);
+    $orders_query = $DB->prepare
+    (
+     "SELECT   p.products_id,
+               p.products_image,
+               pd.products_name,
+               pd.products_info,
+               p.products_tax_class_id,
+               p.products_price
+      FROM     " . TABLE_ORDERS_PRODUCTS . " opa,
+               " . TABLE_ORDERS_PRODUCTS . " opb,
+               " . TABLE_ORDERS . " o,
+               " . TABLE_PRODUCTS . " p,
+               " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+               " . TABLE_CATEGORIES_OR_PAGES . " c,
+               " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+      WHERE    c.categories_or_pages_status = '1'
+      AND      p.products_id = p2c.products_id
+      AND      p2c.categories_or_pages_id = c.categories_or_pages_id
+      AND      opa.products_id = :p
+      AND      opa.orders_id = opb.orders_id
+      AND      opb.products_id != :p
+      AND      opb.products_id = p.products_id
+      AND      opb.orders_id = o.orders_id
+      AND      p.products_id = pd.products_id
+      AND      pd.language_id = :languages_id
+      AND      p.products_status = '1'
+      GROUP BY p.products_id
+      ORDER BY o.date_purchased DESC
+      LIMIT    " . MAX_DISPLAY_ALSO_PURCHASED
+    );
+    
+    $DB->perform($orders_query, array(':p' => (int)$_GET['p'],
+                                      ':languages_id' => (int)$_SESSION['languages_id'])); 
+                                          
+    $num_products_ordered = $orders_query->rowCount();
     if ($num_products_ordered >= MIN_DISPLAY_ALSO_PURCHASED) {
     
       $also_purchased_products_array = array();
-      while ($orders = xos_db_fetch_array($orders_query)) {
+      while ($orders = $orders_query->fetch()) {
 
         $products_prices = xos_get_product_prices($orders['products_price']);
         $products_tax_rate = xos_get_tax_rate($orders['products_tax_class_id']);
@@ -94,5 +127,4 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       $smarty->assign('also_purchased_products', $output_also_purchased_products);
     }
   }
-endif;  
-?>
+endif;

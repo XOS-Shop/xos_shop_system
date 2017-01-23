@@ -64,15 +64,43 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   require(DIR_WS_INCLUDES . 'header.php');
   require(DIR_WS_INCLUDES . 'footer.php'); 
 
-  $global_query = xos_db_query("select global_product_notifications from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . (int)$_SESSION['customer_id'] . "'");
-  $global = xos_db_fetch_array($global_query);
+  $global_query = $DB->prepare
+  (
+   "SELECT global_product_notifications
+    FROM   " . TABLE_CUSTOMERS_INFO . "
+    WHERE  customers_info_id = :customer_id"
+  );
+  
+  $DB->perform($global_query, array(':customer_id' => (int)$_SESSION['customer_id'])); 
+                                                 
+  $global = $global_query->fetch();
 
   if ($global['global_product_notifications'] != '1') {
-    $orders_query = xos_db_query("select orders_id from " . TABLE_ORDERS . " where customers_id = '" . (int)$_SESSION['customer_id'] . "' order by date_purchased desc limit 1");
-    $orders = xos_db_fetch_array($orders_query);
+    $orders_query = $DB->prepare
+    (
+     "SELECT   orders_id
+      FROM     " . TABLE_ORDERS . "
+      WHERE    customers_id = :customer_id
+      ORDER BY date_purchased DESC
+      LIMIT    1"
+    );
+    
+    $DB->perform($orders_query, array(':customer_id' => (int)$_SESSION['customer_id']));
+    
+    $orders = $orders_query->fetch();
     $products_array = array();
-    $products_query = xos_db_query("select products_id, products_name from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . (int)$orders['orders_id'] . "' order by products_name");
-    while ($products = xos_db_fetch_array($products_query)) {
+    $products_query = $DB->prepare
+    (
+     "SELECT   products_id,
+               products_name
+      FROM     " . TABLE_ORDERS_PRODUCTS . "
+      WHERE    orders_id = :orders_id
+      ORDER BY products_name"
+    );
+    
+    $DB->perform($products_query, array(':orders_id' => (int)$orders['orders_id']));
+    
+    while ($products = $products_query->fetch()) {
       $products_array[] = array('id' => $products['products_id'],
                                 'text' => $products['products_name']);
     }

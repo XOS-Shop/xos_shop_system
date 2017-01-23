@@ -44,9 +44,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_ACCOUNT_PASSWORD);
 
   if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_POST['formid']) && ($_POST['formid'] == $_SESSION['sessiontoken'])) {
-    $password_current = xos_db_prepare_input($_POST['password_current']);
-    $password_new = xos_db_prepare_input($_POST['password_new']);
-    $password_confirmation = xos_db_prepare_input($_POST['password_confirmation']);
+    $password_current = $_POST['password_current'];
+    $password_new = $_POST['password_new'];
+    $password_confirmation = $_POST['password_confirmation'];
 
     $error = false;
 
@@ -61,13 +61,35 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     }
 
     if ($error == false) {
-      $check_customer_query = xos_db_query("select customers_password from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$_SESSION['customer_id'] . "'");
-      $check_customer = xos_db_fetch_array($check_customer_query);
+      $check_customer_query = $DB->prepare
+      (
+       "SELECT customers_password
+        FROM   " . TABLE_CUSTOMERS . "
+        WHERE  customers_id = :customer_id"
+      );
+      
+      $DB->perform($check_customer_query, array(':customer_id' => (int)$_SESSION['customer_id'])); 
+           
+      $check_customer = $check_customer_query->fetch();
 
       if (xos_validate_password($password_current, $check_customer['customers_password'])) {
-        xos_db_query("update " . TABLE_CUSTOMERS . " set customers_password = '" . xos_encrypt_password($password_new) . "' where customers_id = '" . (int)$_SESSION['customer_id'] . "'");
+        $update_customers_query = $DB->prepare
+        (
+         "UPDATE " . TABLE_CUSTOMERS . "
+          SET    customers_password = '" . xos_encrypt_password($password_new) . "'
+          WHERE  customers_id = :customer_id"
+        );
+        
+        $DB->perform($update_customers_query, array(':customer_id' => (int)$_SESSION['customer_id']));
 
-        xos_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . (int)$_SESSION['customer_id'] . "'");
+        $update_customers_info_query = $DB->prepare
+        (
+         "UPDATE " . TABLE_CUSTOMERS_INFO . "
+          SET    customers_info_date_account_last_modified = Now()
+          WHERE  customers_info_id = :customer_id"
+        );
+        
+        $DB->perform($update_customers_info_query, array(':customer_id' => (int)$_SESSION['customer_id']));
 
         $messageStack->add_session('account', SUCCESS_PASSWORD_UPDATED, 'success');
 
@@ -115,4 +137,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

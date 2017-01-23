@@ -125,6 +125,21 @@
 # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 # RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301] 
 
+#########################
+# redirect no-www to www (alternative)
+#########################
+# RewriteCond %{HTTP_HOST} ^[^.]+\.[^.]+$ [NC]
+# RewriteCond %{HTTPS}s ^on(s)| [NC]
+# RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+#########################
+# redirect www to no-www (alternative)
+#########################
+# RewriteCond %{HTTP_HOST} ^www\. [NC]
+# RewriteCond %{HTTPS}s ^on(s)| [NC]
+# RewriteCond http%1://%{HTTP_HOST} ^(https?://)(www\.)(.+)$ [NC]
+# RewriteRule ^ %1%3%{REQUEST_URI} [R=301,L] 
+
   RewriteRule ^(.*)\.html/a(.*)$ index.php$2 [L]  
   RewriteRule ^(.*)\.html/b(.*)$ product_info.php$2 [L]
   RewriteRule ^(.*)\.html/c(.*)$ content.php$2 [L]

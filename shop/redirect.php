@@ -34,10 +34,20 @@ require('includes/application_top.php');
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_REDIRECT) == 'overwrite_all')) : 
   switch ($_GET['action']) {
     case 'banner':
-      $banner_query = xos_db_query("select banners_url from " . TABLE_BANNERS_CONTENT . " where banners_id = '" . (int)$_GET['goto'] . "' and language_id = '" . (int)$_SESSION['languages_id'] . "'");
-      if (xos_db_num_rows($banner_query)) {
-        $banner = xos_db_fetch_array($banner_query);
-        xos_update_banner_click_count($_GET['goto']);
+      $banner_query = $DB->prepare
+      (
+       "SELECT banners_url
+        FROM   " . TABLE_BANNERS_CONTENT . "
+        WHERE  banners_id = :goto
+        AND    language_id = :languages_id"
+      );
+      
+      $DB->perform($banner_query, array(':goto' => (int)$_GET['goto'],
+                                        ':languages_id' => (int)$_SESSION['languages_id']));      
+      
+      if ($banner_query->rowCount()) {
+        $banner = $banner_query->fetch();
+        xos_update_banner_click_count((int)$_GET['goto']);
 
         xos_redirect($banner['banners_url']);
       }
@@ -45,9 +55,18 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
 
     case 'url':
       if (isset($_GET['goto']) && xos_not_null($_GET['goto'])) {
-        $check_query = xos_db_query("select products_url from " . TABLE_PRODUCTS_DESCRIPTION . " where products_url = '" . xos_db_input(xos_db_prepare_input($_GET['goto'])) . "' limit 1");
-        if (xos_db_num_rows($check_query)) {
-          $url = xos_db_fetch_array($check_query);
+        $check_query = $DB->prepare
+        (
+         "SELECT products_url
+          FROM   " . TABLE_PRODUCTS_DESCRIPTION . "
+          WHERE  products_url = :goto
+          LIMIT  1"
+        );
+        
+        $DB->perform($check_query, array(':goto' => $_GET['goto']));        
+        
+        if ($check_query->rowCount()) {
+          $url = $check_query->fetch();
           xos_redirect(parse_url($url['products_url'], PHP_URL_SCHEME) ? $url['products_url'] : 'http://' . $url['products_url']);
         }
       }
@@ -55,26 +74,70 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
 
     case 'manufacturer':
       if (isset($_GET['m']) && xos_not_null($_GET['m'])) {
-        $manufacturer_query = xos_db_query("select manufacturers_url from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . (int)$_GET['m'] . "' and languages_id = '" . (int)$_SESSION['languages_id'] . "'");
-        if (xos_db_num_rows($manufacturer_query)) {
+        $manufacturer_query = $DB->prepare
+        (
+         "SELECT manufacturers_url
+          FROM   " . TABLE_MANUFACTURERS_INFO . "
+          WHERE  manufacturers_id = :m
+          AND    languages_id = :languages_id"
+        );
+        
+        $DB->perform($manufacturer_query, array(':m' => (int)$_GET['m'],
+                                                ':languages_id' => (int)$_SESSION['languages_id']));         
+        
+        if ($manufacturer_query->rowCount()) {
 // url exists in selected language
-          $manufacturer = xos_db_fetch_array($manufacturer_query);
+          $manufacturer = $manufacturer_query->fetch();
 
           if (xos_not_null($manufacturer['manufacturers_url'])) {
-            xos_db_query("update " . TABLE_MANUFACTURERS_INFO . " set url_clicked = url_clicked+1, date_last_click = now() where manufacturers_id = '" . (int)$_GET['m'] . "' and languages_id = '" . (int)$_SESSION['languages_id'] . "'");
+          
+            $update_manufacturers_info_query = $DB->prepare
+            (
+             "UPDATE " . TABLE_MANUFACTURERS_INFO . "
+              SET    url_clicked = url_clicked+1,
+                     date_last_click = Now()
+              WHERE  manufacturers_id = :m
+              AND    languages_id = :languages_id"
+            );
+            
+            $DB->perform($update_manufacturers_info_query, array(':m' => (int)$_GET['m'],
+                                                                 ':languages_id' => (int)$_SESSION['languages_id']));            
 
             xos_redirect(parse_url($manufacturer['manufacturers_url'], PHP_URL_SCHEME) ? $manufacturer['manufacturers_url'] : 'http://' . $manufacturer['manufacturers_url']);
           }
         } else {
 // no url exists for the selected language, lets use the default language then
-          $manufacturer_query = xos_db_query("select mi.languages_id, mi.manufacturers_url from " . TABLE_MANUFACTURERS_INFO . " mi, " . TABLE_LANGUAGES . " l where mi.manufacturers_id = '" . (int)$_GET['m'] . "' and mi.languages_id = l.languages_id and l.code = '" . DEFAULT_LANGUAGE . "'");
-          if (xos_db_num_rows($manufacturer_query)) {
-            $manufacturer = xos_db_fetch_array($manufacturer_query);
+          $manufacturer_query = $DB->prepare
+          (
+           "SELECT mi.languages_id,
+                   mi.manufacturers_url
+            FROM   " . TABLE_MANUFACTURERS_INFO . " mi,
+                   " . TABLE_LANGUAGES . " l
+            WHERE  mi.manufacturers_id = :m
+            AND    mi.languages_id = l.languages_id
+            AND    l.code = :languages_id"
+          );
+          
+          $DB->perform($manufacturer_query, array(':m' => (int)$_GET['m'],
+                                                  ':languages_id' => DEFAULT_LANGUAGE));          
+          
+          if ($manufacturer_query->rowCount()) {
+            $manufacturer = $manufacturer_query->fetch();
 
             if (xos_not_null($manufacturer['manufacturers_url'])) {
-              xos_db_query("update " . TABLE_MANUFACTURERS_INFO . " set url_clicked = url_clicked+1, date_last_click = now() where manufacturers_id = '" . (int)$_GET['m'] . "' and languages_id = '" . (int)$manufacturer['languages_id'] . "'");
+              $update_manufacturers_info_query = $DB->prepare
+              (
+               "UPDATE " . TABLE_MANUFACTURERS_INFO . "
+                SET    url_clicked = url_clicked+1,
+                       date_last_click = Now()
+                WHERE  manufacturers_id = :m
+                AND    languages_id = :languages_id"
+              );
+              
+              $DB->perform($update_manufacturers_info_query, array(':m' => (int)$_GET['m'],
+                                                                   ':languages_id' => (int)$manufacturer['languages_id']));               
 
-              xos_redirect($manufacturer['manufacturers_url']);
+              xos_redirect(parse_url($manufacturer['manufacturers_url'], PHP_URL_SCHEME) ? $manufacturer['manufacturers_url'] : 'http://' . $manufacturer['manufacturers_url']);
             }
           }
         }
@@ -84,4 +147,3 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
 
   xos_redirect(xos_href_link(FILENAME_DEFAULT));
 endif;
-?>

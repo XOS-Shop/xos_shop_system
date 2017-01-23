@@ -35,18 +35,18 @@
       $current_page_number = (empty($current_page_number) || $current_page_number < 1 ? 1 : (int)$current_page_number);
 
       $pos_to = strlen($sql_query);
-      $pos_from = strpos($sql_query, ' from', 0);
+      $pos_from = stripos($sql_query, ' from', 0);
 
-      $pos_group_by = strpos($sql_query, ' group by', $pos_from);
+      $pos_group_by = stripos($sql_query, ' group by', $pos_from);
       if (($pos_group_by < $pos_to) && ($pos_group_by != false)) $pos_to = $pos_group_by;
 
-      $pos_having = strpos($sql_query, ' having', $pos_from);
+      $pos_having = stripos($sql_query, ' having', $pos_from);
       if (($pos_having < $pos_to) && ($pos_having != false)) $pos_to = $pos_having;
 
-      $pos_order_by = strpos($sql_query, ' order by', $pos_from);
+      $pos_order_by = stripos($sql_query, ' order by', $pos_from);
       if (($pos_order_by < $pos_to) && ($pos_order_by != false)) $pos_to = $pos_order_by;
       
-      if (strpos($sql_query, 'distinct') || strpos($sql_query, 'group by')) {
+      if (stripos($sql_query, 'distinct') || stripos($sql_query, 'group by')) {
         $count_string = 'distinct ' . xos_db_input($count_key);
       } else {
         $count_string = xos_db_input($count_key);

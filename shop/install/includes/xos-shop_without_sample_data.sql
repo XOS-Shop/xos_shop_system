@@ -486,15 +486,15 @@ CREATE TABLE orders (
   customers_telephone varchar(255) NOT NULL,
   customers_email_address varchar(255) NOT NULL,
   customers_address_format_id int(5) NOT NULL,
-  delivery_name varchar(255) NOT NULL,
+  delivery_name varchar(255),
   delivery_company varchar(255),
-  delivery_street_address varchar(255) NOT NULL,
+  delivery_street_address varchar(255),
   delivery_suburb varchar(255),
-  delivery_city varchar(255) NOT NULL,
-  delivery_postcode varchar(255) NOT NULL,
+  delivery_city varchar(255),
+  delivery_postcode varchar(255),
   delivery_state varchar(255),
-  delivery_country varchar(255) NOT NULL,
-  delivery_address_format_id int(5) NOT NULL,
+  delivery_country varchar(255),
+  delivery_address_format_id int(5),
   billing_name varchar(255) NOT NULL,
   billing_company varchar(255),
   billing_street_address varchar(255) NOT NULL,
@@ -596,7 +596,7 @@ CREATE TABLE orders_total (
   title varchar(255) NOT NULL,
   text varchar(255) NOT NULL,
   value decimal(15,4) NOT NULL,
-  tax decimal(7,4) NOT NULL,
+  tax decimal(7,4) DEFAULT NULL,
   class varchar(32) NOT NULL,
   sort_order int NOT NULL,
   PRIMARY KEY (orders_total_id),
@@ -983,9 +983,6 @@ INSERT INTO configuration (configuration_key, configuration_value, configuration
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MAX_MANUFACTURERS_LIST', '1', '3', '10', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MAX_DISPLAY_MANUFACTURER_NAME_LEN', '15', '3', '11', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MAX_DISPLAY_NEW_REVIEWS', '6', '3', '12', now());
-INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MAX_RANDOM_SELECT_REVIEWS', '10', '3', '13', now());
-INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MAX_RANDOM_SELECT_NEW', '10', '3', '14', now());
-INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MAX_RANDOM_SELECT_SPECIALS', '10', '3', '15', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MAX_DISPLAY_CATEGORIES_PER_ROW', '3', '3', '16', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MAX_DISPLAY_PRODUCTS_NEW', '10', '3', '17', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MAX_DISPLAY_BESTSELLERS', '10', '3', '18', now());

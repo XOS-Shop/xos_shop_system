@@ -139,10 +139,20 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                           'language_directory' => $_SESSION['language'], 
                           'currency' => $order->info['currency'], 
                           'currency_value' => $order->info['currency_value']);
-  xos_db_perform(TABLE_ORDERS, $sql_data_array);
-  $insert_id = xos_db_insert_id();
+
+  $DB->insertPrepareExecute(TABLE_ORDERS, $sql_data_array);   
+  $insert_id = $DB->lastInsertId();
   if (xos_not_null($order->info['cc_number'])) {  
-    xos_db_query("update " . TABLE_ORDERS . " set cc_number = AES_ENCRYPT('" . $order->info['cc_number'] . "', 'key_cc_number') where orders_id = '" . (int)$insert_id . "'");
+    $update_cc_number_orders_query = $DB->prepare
+    (
+     "UPDATE " . TABLE_ORDERS . "
+      SET    cc_number = AES_ENCRYPT(:cc_number, 'key_cc_number')
+      WHERE  orders_id = :insert_id"
+    );
+    
+    $DB->perform($update_cc_number_orders_query, array(':cc_number' => $order->info['cc_number'],
+                                                       ':insert_id' => (int)$insert_id)); 
+                                                                   
   }
   for ($i=0, $n=sizeof($order_totals); $i<$n; $i++) {
     $sql_data_array = array('orders_id' => $insert_id,
@@ -152,7 +162,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                             'tax' => $order_totals[$i]['tax'], 
                             'class' => $order_totals[$i]['code'], 
                             'sort_order' => $order_totals[$i]['sort_order']);
-    xos_db_perform(TABLE_ORDERS_TOTAL, $sql_data_array);
+                            
+    $DB->insertPrepareExecute(TABLE_ORDERS_TOTAL, $sql_data_array);
   }
 
   $customer_notification = (SEND_EMAILS == 'true') ? '1' : '0';
@@ -160,12 +171,21 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                           'orders_status_id' => $order->info['order_status'], 
                           'date_added' => 'now()', 
                           'customer_notified' => $customer_notification,
-                          'comments' => $order->info['comments']);
-  xos_db_perform(TABLE_ORDERS_STATUS_HISTORY, $sql_data_array);
+                          'comments' => $order->info['comments']); 
+                          
+  $DB->insertPrepareExecute(TABLE_ORDERS_STATUS_HISTORY, $sql_data_array);
   
 // Set new order true and add last modified in table configuration
   if (NEW_ORDER == 'false') {
-    xos_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = 'true', last_modified = '" . date('Ymd') . "' where configuration_key = 'NEW_ORDER'");
+  
+    $DB->exec
+    (
+     "UPDATE " . TABLE_CONFIGURATION . "
+      SET    configuration_value = 'true',
+             last_modified = Now()
+      WHERE  configuration_key = 'NEW_ORDER'"
+    );
+     
   }
   
 // initialized for the email confirmation
@@ -177,20 +197,53 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $product_id = xos_get_prid($order->products[$i]['id']);
  
       if ($product_id == $order->products[$i]['id']) {   
-        $stock_query = xos_db_query("select products_quantity from " . TABLE_PRODUCTS . " where products_id = '" . (int)$product_id . "'");
-        $stock_values = xos_db_fetch_array($stock_query);
+        $stock_query = $DB->prepare
+        (
+         "SELECT products_quantity
+          FROM   " . TABLE_PRODUCTS . "
+          WHERE  products_id = :product_id"
+        );
+        
+        $DB->perform($stock_query , array(':product_id' => (int)$product_id));
+                                                             
+        $stock_values = $stock_query->fetch();
 
         $stock_left = $stock_values['products_quantity'] - $order->products[$i]['qty'];
-        xos_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . (int)$stock_left . "' where products_id = '" . (int)$product_id . "'");
+        $update_quantity_products_query = $DB->prepare
+        (
+         "UPDATE " . TABLE_PRODUCTS . "
+          SET    products_quantity = :stock_left
+          WHERE  products_id = :product_id"
+        );
+        
+        $DB->perform($update_quantity_products_query, array(':stock_left' => (int)$stock_left,
+                                                            ':product_id' => (int)$product_id));         
 
         if ( ($stock_left < 1) && (STOCK_ALLOW_CHECKOUT == 'false') ) {
-          xos_db_query("update " . TABLE_PRODUCTS . " set products_status = '0' where products_id = '" . (int)$product_id . "'");
+          $update_status_products_query = $DB->prepare
+          (
+           "UPDATE " . TABLE_PRODUCTS . "
+            SET    products_status = '0'
+            WHERE  products_id = :product_id"
+          );
+          
+          $DB->perform($update_status_products_query, array(':product_id' => (int)$product_id)); 
+                                                                      
           $smarty->clearAllCache();
         }
 
       } else {                  
-        $stock_query = xos_db_query("select products_quantity, attributes_quantity from " . TABLE_PRODUCTS . " where products_id = '" . (int)$product_id . "'");
-        $stock_values = xos_db_fetch_array($stock_query);
+        $stock_query = $DB->prepare
+        (
+         "SELECT products_quantity,
+                 attributes_quantity
+          FROM   " . TABLE_PRODUCTS . "
+          WHERE  products_id = :product_id"
+        );
+        
+        $DB->perform($stock_query, array(':product_id' => (int)$product_id));
+                  
+        $stock_values = $stock_query->fetch();
      
         $attributes_quantity = xos_get_attributes_quantity($stock_values['attributes_quantity']);        
 
@@ -203,14 +256,32 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           }
                   
           $attributes_quantity[$params_sting] = $stock_left;        
-          xos_db_query("update " . TABLE_PRODUCTS . " set products_quantity = '" . (int)max(0, $stock_values['products_quantity']) . "', attributes_quantity = '" . xos_db_input(serialize($attributes_quantity)) . "' where products_id = '" . (int)$product_id . "'");
+          $update_quantity_products_query = $DB->prepare
+          (
+           "UPDATE " . TABLE_PRODUCTS . "
+            SET    products_quantity = :products_quantity,
+                   attributes_quantity = :attributes_quantity 
+            WHERE  products_id = :product_id"
+          );
+          
+          $DB->perform($update_quantity_products_query, array(':products_quantity' => (int)max(0, $stock_values['products_quantity']),
+                                                              ':attributes_quantity' => serialize($attributes_quantity),
+                                                              ':product_id' => (int)$product_id));            
         
           if ($stock_left < 1) {
             $smarty->clearCache(null, 'L3|cc_product_info');
           }
           
           if ( ($stock_values['products_quantity'] < 1) && (STOCK_ALLOW_CHECKOUT == 'false') ) {
-            xos_db_query("update " . TABLE_PRODUCTS . " set products_status = '0' where products_id = '" . (int)$product_id . "'");
+            $update_status_products_query = $DB->prepare
+            (
+             "UPDATE " . TABLE_PRODUCTS . "
+              SET    products_status = '0'
+              WHERE  products_id = :product_id"
+            );
+            
+            $DB->perform($update_status_products_query, array(':product_id' => (int)$product_id));
+                      
             $smarty->clearAllCache();
           }                  
         }        
@@ -218,7 +289,16 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     }
 
 // Update products_ordered (for bestsellers list)
-    xos_db_query("update " . TABLE_PRODUCTS . " set products_last_modified = now(), products_ordered = products_ordered + " . sprintf('%d', $order->products[$i]['qty']) . " where products_id = '" . xos_get_prid($order->products[$i]['id']) . "'");
+    $update_ordered_products_query = $DB->prepare
+    (
+     "UPDATE " . TABLE_PRODUCTS . "
+      SET    products_last_modified = Now(),
+             products_ordered = products_ordered + :products_qty
+      WHERE  products_id = :product_id"
+    );
+    
+    $DB->perform($update_ordered_products_query, array(':products_qty' =>  sprintf('%d', $order->products[$i]['qty']),
+                                                       ':product_id' => xos_get_prid($order->products[$i]['id'])));     
     
     $attributes_sting = null;
     if (strpos($order->products[$i]['id'], '-') !== false) {
@@ -238,8 +318,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                             'total_price_text' => $order->products[$i]['total_price_formated'],                            
                             'products_tax' => $order->products[$i]['tax'], 
                             'products_quantity' => $order->products[$i]['qty']);
-    xos_db_perform(TABLE_ORDERS_PRODUCTS, $sql_data_array);
-    $order_products_id = xos_db_insert_id();
+                            
+    $DB->insertPrepareExecute(TABLE_ORDERS_PRODUCTS, $sql_data_array);
+    $order_products_id = $DB->lastInsertId();
 
 //------insert customer choosen option to order--------
     $attributes_exist = '0';
@@ -249,22 +330,55 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $order_attributes_array = array();      
       for ($j=0, $n2=sizeof($order->products[$i]['attributes']); $j<$n2; $j++) {
         if (DOWNLOAD_ENABLED == 'true') {
-          $attributes_query = "select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix, pad.products_attributes_maxdays, pad.products_attributes_maxcount , pad.products_attributes_filename 
-                               from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa 
-                               left join " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " pad
-                                on pa.products_attributes_id=pad.products_attributes_id
-                               where pa.products_id = '" . $order->products[$i]['id'] . "' 
-                                and pa.options_id = '" . $order->products[$i]['attributes'][$j]['option_id'] . "' 
-                                and pa.options_id = popt.products_options_id 
-                                and pa.options_values_id = '" . $order->products[$i]['attributes'][$j]['value_id'] . "' 
-                                and pa.options_values_id = poval.products_options_values_id 
-                                and popt.language_id = '" . $_SESSION['languages_id'] . "' 
-                                and poval.language_id = '" . $_SESSION['languages_id'] . "'";
-          $attributes = xos_db_query($attributes_query);
+                                                                                      
+          $attributes = $DB->prepare
+          (
+           "SELECT    popt.products_options_name,
+                      poval.products_options_values_name,
+                      pa.options_values_price,
+                      pa.price_prefix,
+                      pad.products_attributes_maxdays,
+                      pad.products_attributes_maxcount ,
+                      pad.products_attributes_filename
+            FROM      " . TABLE_PRODUCTS_OPTIONS . " popt,
+                      " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval,
+                      " . TABLE_PRODUCTS_ATTRIBUTES . " pa
+            LEFT JOIN " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " pad
+            ON        pa.products_attributes_id=pad.products_attributes_id
+            WHERE     pa.products_id = :product_id
+            AND       pa.options_id = :option_id
+            AND       pa.options_id = popt.products_options_id
+            AND       pa.options_values_id = :option_value_id
+            AND       pa.options_values_id = poval.products_options_values_id
+            AND       popt.language_id = :languages_id"                    
+          );
         } else {
-          $attributes = xos_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . $order->products[$i]['id'] . "' and pa.options_id = '" . $order->products[$i]['attributes'][$j]['option_id'] . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . $order->products[$i]['attributes'][$j]['value_id'] . "' and pa.options_values_id = poval.products_options_values_id and popt.language_id = '" . $_SESSION['languages_id'] . "' and poval.language_id = '" . $_SESSION['languages_id'] . "'");
+                
+          $attributes = $DB->prepare
+          (
+           "SELECT popt.products_options_name,
+                   poval.products_options_values_name,
+                   pa.options_values_price,
+                   pa.price_prefix
+            FROM   " . TABLE_PRODUCTS_OPTIONS . " popt,
+                   " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval,
+                   " . TABLE_PRODUCTS_ATTRIBUTES . " pa
+            WHERE  pa.products_id = :product_id
+            AND    pa.options_id = :option_id
+            AND    pa.options_id = popt.products_options_id
+            AND    pa.options_values_id = :option_value_id
+            AND    pa.options_values_id = poval.products_options_values_id
+            AND    popt.language_id = :languages_id
+            AND    poval.language_id = :languages_id"
+          );
         }
-        $attributes_values = xos_db_fetch_array($attributes);
+        
+        $DB->perform($attributes, array(':product_id' =>  (int)$order->products[$i]['id'],
+                                        ':option_id' =>  (int)$order->products[$i]['attributes'][$j]['option_id'],
+                                        ':option_value_id' =>  (int)$order->products[$i]['attributes'][$j]['value_id'],
+                                        ':languages_id' => (int)$_SESSION['languages_id']));
+                                                               
+        $attributes_values = $attributes->fetch();
 
         $sql_data_array = array('orders_id' => $insert_id, 
                                 'orders_products_id' => $order_products_id, 
@@ -273,7 +387,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                                 'options_values_price' => $order->products[$i]['attributes'][$j]['price'],
                                 'options_values_price_text' => $order->products[$i]['attributes'][$j]['price'] != 0 ? $order->products[$i]['attributes'][$j]['price_formated'] : '', 
                                 'price_prefix' => $attributes_values['price_prefix']);
-        xos_db_perform(TABLE_ORDERS_PRODUCTS_ATTRIBUTES, $sql_data_array);
+                                
+        $DB->insertPrepareExecute(TABLE_ORDERS_PRODUCTS_ATTRIBUTES, $sql_data_array);
 
         if ((DOWNLOAD_ENABLED == 'true') && isset($attributes_values['products_attributes_filename']) && xos_not_null($attributes_values['products_attributes_filename'])) {
           $sql_data_array = array('orders_id' => $insert_id, 
@@ -281,7 +396,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                                   'orders_products_filename' => $attributes_values['products_attributes_filename'], 
                                   'download_maxdays' => $attributes_values['products_attributes_maxdays'], 
                                   'download_count' => $attributes_values['products_attributes_maxcount']);
-          xos_db_perform(TABLE_ORDERS_PRODUCTS_DOWNLOAD, $sql_data_array);
+                                  
+          $DB->insertPrepareExecute(TABLE_ORDERS_PRODUCTS_DOWNLOAD, $sql_data_array);
         }
         $options_values_price = '';
         if ($attributes_values['options_values_price'] != 0) {
@@ -333,7 +449,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     }   
   
     if ($order->info['comments']) {
-      $smarty->assign('order_comments', xos_db_output($order->info['comments']));
+      $smarty->assign('order_comments', htmlspecialchars($order->info['comments']));
     }
   
     if ($order->content_type != 'virtual') {
@@ -414,4 +530,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   
   xos_redirect(xos_href_link(FILENAME_CHECKOUT_SUCCESS, '', 'SSL'));
 endif;
-?>

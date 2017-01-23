@@ -52,18 +52,58 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   $orders_total = xos_count_customer_orders();
 
-  if ($orders_total > 0) {
-    $history_query_raw = "select o.orders_id, o.date_purchased, o.delivery_name, o.billing_name, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . " ot, " . TABLE_ORDERS_STATUS . " s where o.customers_id = '" . (int)$_SESSION['customer_id'] . "' and o.orders_id = ot.orders_id and ot.class = 'ot_total' and o.orders_status = s.orders_status_id and s.language_id = '" . (int)$_SESSION['languages_id'] . "' and s.public_flag = '1' group by o.orders_id order by o.orders_id DESC";
-    $history_split = new splitPageResults($history_query_raw, MAX_DISPLAY_ORDER_HISTORY, 'o.orders_id');
-    $history_query = xos_db_query($history_split->sql_query);
+  if ($orders_total > 0) {     
+    $history_query_raw = "SELECT   o.orders_id,
+                                   o.date_purchased,
+                                   o.delivery_name,
+                                   o.billing_name,
+                                   s.orders_status_name
+                          FROM     " . TABLE_ORDERS . " o,
+                                   " . TABLE_ORDERS_TOTAL . " ot,
+                                   " . TABLE_ORDERS_STATUS . " s
+                          WHERE    o.customers_id = :customer_id
+                          AND      o.orders_id = ot.orders_id
+                          AND      ot.class = 'ot_total'
+                          AND      o.orders_status = s.orders_status_id
+                          AND      s.language_id = :languages_id
+                          AND      s.public_flag = '1'
+                          GROUP BY o.orders_id
+                          ORDER BY o.orders_id DESC"; 
+                          
+    $history_param_array = array(':customer_id' => (int)$_SESSION['customer_id'],
+                                 ':languages_id' => (int)$_SESSION['languages_id']); 
+                                                                  
+    $history_split = new SplitPageResultsPDO($history_query_raw, MAX_DISPLAY_ORDER_HISTORY, 'o.orders_id', $history_param_array);   
+    $history_query = $DB->prepare($history_split->sql_query);
+    $DB->perform($history_query, $history_split->sql_param);
     
-    $orders_array = array();
-    while ($history = xos_db_fetch_array($history_query)) {
-      $products_query = xos_db_query("select count(*) as count from " . TABLE_ORDERS_PRODUCTS . " where orders_id = '" . (int)$history['orders_id'] . "'");
-      $products = xos_db_fetch_array($products_query);
+    $orders_array = array();  
+    while ($history = $history_query->fetch()) {
+    
+      $products_query = $DB->prepare
+      (
+       "SELECT Count(*) AS count
+        FROM   " . TABLE_ORDERS_PRODUCTS . "
+        WHERE  orders_id = :orders_id"
+      );
       
-      $oder_total_query = xos_db_query("select text from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . (int)$history['orders_id'] . "' and class = 'ot_total' order by orders_total_id DESC limit 1");
-      $oder_total = xos_db_fetch_array($oder_total_query);
+      $DB->perform($products_query, array(':orders_id' => (int)$history['orders_id']));
+            
+      $products = $products_query->fetch();
+      
+      $oder_total_query = $DB->prepare
+      (
+       "SELECT   text
+        FROM     " . TABLE_ORDERS_TOTAL . "
+        WHERE    orders_id = :orders_id
+        AND      class = 'ot_total'
+        ORDER BY orders_total_id DESC
+        LIMIT    1"
+      );
+      
+      $DB->perform($oder_total_query, array(':orders_id' => (int)$history['orders_id']));
+      
+      $oder_total = $oder_total_query->fetch();
 
       if (xos_not_null($history['delivery_name'])) {
         $order_type = 'shipped_to';
@@ -103,4 +143,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

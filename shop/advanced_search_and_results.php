@@ -36,7 +36,7 @@ if (!$is_shop) :
   xos_redirect(xos_href_link(FILENAME_DEFAULT), false);  
 elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_ADVANCED_SEARCH_AND_RESULTS) == 'overwrite_all')) :
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_ADVANCED_SEARCH_AND_RESULTS);
-/////////////////////////////////// 
+  
   $site_trail->add(NAVBAR_TITLE_1, xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS));  
 
   if (isset($_POST['keywords']) && isset($_POST['copid']) && isset($_POST['_m']) && isset($_POST['pfrom']) && isset($_POST['pto']) && isset($_POST['dfrom']) && isset($_POST['dto'])) {
@@ -172,21 +172,29 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   
   
   }
-//////////////////////////////////
 
   $categories_array = xos_get_categories(array(array('id' => '', 'text' => TEXT_ALL_CATEGORIES)), '', '', false);
 
 // This is a small helper function used in xos_js_manufacturers_list()
   function xos_get_categories_string($parent_id = '', $entrance = false, $categories_string = '') {
     
+    $DB = Registry::get('DB');
     if ($entrance) {
       $categories_string = " p2c.categories_or_pages_id = '" . $parent_id . "'";
     }
  
-    $child_category_query = xos_db_query("select categories_or_pages_id from " . TABLE_CATEGORIES_OR_PAGES . " where parent_id = '" . (int)$parent_id . "' and categories_or_pages_status = '1'"); 
+    $child_category_query = $DB->prepare
+    (
+     "SELECT categories_or_pages_id
+        FROM " . TABLE_CATEGORIES_OR_PAGES . "
+       WHERE parent_id = :parent_id
+         AND categories_or_pages_status = '1'"
+    );
+    
+    $DB->perform($child_category_query, array(':parent_id' => (int)$parent_id)); 
  
-    while ($categories = xos_db_fetch_array($child_category_query)) {
-      $categories_string .= " or p2c.categories_or_pages_id = '" . $categories['categories_or_pages_id'] . "'";
+    while ($categories = $child_category_query->fetch()) {
+      $categories_string .= " OR p2c.categories_or_pages_id = '" . $categories['categories_or_pages_id'] . "'";
       $categories_string = xos_get_categories_string($categories['categories_or_pages_id'], '', $categories_string);
     }
 
@@ -196,7 +204,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 // javascript to dynamically update the manufacturers list when the category is changed
   function xos_js_manufacturers_list($category, $form, $field) {
   global $categories_array;
-
+    
+    $DB = Registry::get('DB');
     $num_category = 1;
     $output_string = '';
     
@@ -208,11 +217,26 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         $output_string .= '  } else if (' . $category . ' == "' . $category_value['id'] . '") {' . "\n";
       }
 
-      $manufacturers_sql = xos_db_query("select distinct mi.manufacturers_id as id, mi.manufacturers_name as name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_MANUFACTURERS_INFO . " mi where p.products_status = '1' and p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_id = p2c.products_id and (" . xos_get_categories_string((int)$category_value['id'], true) . ") order by mi.manufacturers_name");
+      $manufacturers_sql = $DB->prepare
+      (
+       "SELECT DISTINCT mi.manufacturers_id   AS id,
+                        mi.manufacturers_name AS name
+        FROM            " . TABLE_PRODUCTS . " p,
+                        " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c,
+                        " . TABLE_MANUFACTURERS_INFO . " mi
+        WHERE           p.products_status = '1'
+        AND             p.manufacturers_id = mi.manufacturers_id
+        AND             mi.languages_id = :languages_id
+        AND             p.products_id = p2c.products_id
+        AND             (" . xos_get_categories_string((int)$category_value['id'], true) . ")
+        ORDER BY        mi.manufacturers_name"
+      );
+      
+      $DB->perform($manufacturers_sql, array(':languages_id' => (int)$_SESSION['languages_id']));
 
       $output_string .= '    document.' . $form . '.' . $field . '.options[0] = new Option("' . TEXT_ALL_MANUFACTURERS . '", "");' . "\n";
       $num_manufacturer = 1;
-      while ($manufacturers = xos_db_fetch_array($manufacturers_sql)) {
+      while ($manufacturers = $manufacturers_sql->fetch()) {
         
         $output_string .= '    document.' . $form . '.' . $field . '.options[' . $num_manufacturer . '] = new Option("' . $manufacturers['name'] . '", "' . $manufacturers['id'] . '");' . "\n";
         $num_manufacturer++;
@@ -551,14 +575,22 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $smarty->assign('message_stack_success', $messageStack->output('search', 'success'));     
   }
   
-  $popup_status_query = xos_db_query("select status from " . TABLE_CONTENTS . "  where type = 'system_popup' and status = '1' and content_id = '9' LIMIT 1");
+  $popup_status_query = $DB->query
+  (
+   "SELECT status
+    FROM   " . TABLE_CONTENTS . "
+    WHERE  type = 'system_popup'
+    AND    status = '1'
+    AND    content_id = '9'
+    LIMIT  1"
+  );
 
   $smarty->assign(array('form_begin' => xos_draw_form('advanced_search_and_results', xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS, '', 'NONSSL', false), 'post', 'onsubmit="return check_form(this);"'), 
                         'hide_session_id' => xos_hide_session_id(),
                         'input_field_keywords' => xos_draw_input_field('keywords', stripslashes($_GET['keywords']), 'class="form-control" id="keywords"'),
                         'checkbox_search_in_description' => xos_draw_checkbox_field('sid', '1', ($action && !isset($_GET['sid']) ? false : true), 'id="search_in_description"'),
                         'link_filename_advanced_search_and_results' => xos_href_link(FILENAME_ADVANCED_SEARCH_AND_RESULTS),
-                        'link_filename_popup_content_9' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=9', $request_type) : '',
+                        'link_filename_popup_content_9' => $popup_status_query->rowCount() == 1 ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=9', $request_type) : '',
                         'categories_pull_down_menu' => xos_draw_pull_down_menu('copid', $categories_array, $_GET['copid'], 'class="form-control" id="categories_or_pages_id" onchange="UpdateManufacturers();"'),                        
                         'manufacturers_pull_down_menu' => xos_draw_pull_down_menu('_m', xos_get_manufacturers(array(array('id' => '', 'text' => TEXT_ALL_MANUFACTURERS))), $_GET['_m'], 'class="form-control" id="manufacturers_id"'),
                         'input_field_pfrom' => xos_draw_input_field('pfrom', $_GET['pfrom'], 'class="form-control" id="pfrom"'),
@@ -567,7 +599,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                         'input_field_dto' => xos_draw_input_field('dto', (($_GET['dto']) ? $_GET['dto'] : AS_FORMAT_STRING), 'class="form-control" id="id_dto" autocomplete="off"'),
                         'body_tag_params' => 'onload="UpdateManufacturers();"',                        
                         'form_end' => '</form>'));
-///////////////////////////////////////////////////////////
+                        
 if ($action && !$error) {
   is_numeric($_GET['mdsr']) && $_GET['mdsr'] >= 1 ? $_SESSION['mdsr'] = (int)$_GET['mdsr'] : '';
 
@@ -648,14 +680,58 @@ if ($action && !$error) {
     }
   }
   
+  $select_str_param_array = array();
+  $from_str_param_array = array();
+  $where_str_param_array = array();
+  $order_str_param_array = array();
+  
   if (($_SESSION['sppc_customer_group_show_tax'] == '1') && ($_SESSION['sppc_customer_group_tax_exempt'] != '1')) { 
-    $select_str = "select distinct " . $select_column_list . " p.manufacturers_id, p.products_id, p.products_delivery_time_id, pd.products_name, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, (IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * if(tr.tax_rate_final is null, 1, 1 + (tr.tax_rate_final / 100))) as final_price, tr.tax_rate_final ";  
+    $select_str = "SELECT DISTINCT " . $select_column_list . " 
+                                   p.manufacturers_id,
+                                   p.products_id,
+                                   p.products_delivery_time_id,
+                                   pd.products_name,
+                                   p.products_price,
+                                   p.products_tax_class_id,
+                                   IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,(
+                                     IF(s.status, s.specials_new_products_price, 
+                                       IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * 
+                                     IF(tr.tax_rate_final IS NULL, 1, 1 + (tr.tax_rate_final / 100))) AS final_price,
+                                   tr.tax_rate_final ";  
+                                   
   } else {
-    $select_str = "select distinct " . $select_column_list . " p.manufacturers_id, p.products_id, p.products_delivery_time_id, pd.products_name, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) as final_price ";
+    $select_str = "SELECT DISTINCT " . $select_column_list . " 
+                                   p.manufacturers_id,
+                                   p.products_id,
+                                   p.products_delivery_time_id,
+                                   pd.products_name,
+                                   p.products_price,
+                                   p.products_tax_class_id,
+                                   IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
+                                   IF(s.status, s.specials_new_products_price, 
+                                     IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) AS final_price ";
+                                   
   }
 
-  $from_str = "from " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "'";
-
+  $from_str = "FROM      " . TABLE_PRODUCTS . " p
+               LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi
+               ON        (
+                          p.manufacturers_id = mi.manufacturers_id 
+                          AND mi.languages_id = :languages_id
+                          )
+               LEFT JOIN " . TABLE_PRODUCTS_PRICES . " ppz
+               ON        p.products_id = ppz.products_id
+               AND       ppz.customers_group_id = '0'
+               LEFT JOIN " . TABLE_PRODUCTS_PRICES . " pp
+               ON        p.products_id = pp.products_id
+               AND       pp.customers_group_id = :customer_group_id
+               LEFT JOIN " . TABLE_SPECIALS . " s
+               ON        p.products_id = s.products_id
+               AND       s.customers_group_id = :customer_group_id";
+      
+  $from_str_param_array[':languages_id'] = (int)$_SESSION['languages_id'];
+  $from_str_param_array[':customer_group_id'] = (int)$customer_group_id;
+  
   if (($_SESSION['sppc_customer_group_show_tax'] == '1') && ($_SESSION['sppc_customer_group_tax_exempt'] != '1')) {
     if (!isset($_SESSION['customer_id'])) {
       $customer_country_id = STORE_COUNTRY;
@@ -664,32 +740,63 @@ if ($action && !$error) {
       $customer_country_id = $_SESSION['customer_country_id'];
       $customer_zone_id = $_SESSION['customer_zone_id'];
     }
-    $from_str .= " left join " . TABLE_ZONES_TO_GEO_ZONES . " gz on (gz.zone_country_id is null or gz.zone_country_id = '0' or gz.zone_country_id = '" . (int)$customer_country_id . "') and (gz.zone_id is null or gz.zone_id = '0' or gz.zone_id = '" . (int)$customer_zone_id . "') left join " . TABLE_TAX_RATES_FINAL . " tr on p.products_tax_class_id = tr.tax_class_id and gz.geo_zone_id = tr.tax_zone_id";
+    $from_str .=  " LEFT JOIN " . TABLE_ZONES_TO_GEO_ZONES . " gz
+                    ON        (
+                               gz.zone_country_id IS NULL
+                               OR gz.zone_country_id = '0'
+                               OR gz.zone_country_id = :customer_country_id
+                               )
+                    AND        (
+                               gz.zone_id IS NULL
+                               OR gz.zone_id = '0'
+                               OR gz.zone_id = :customer_zone_id
+                              )
+                    LEFT JOIN " . TABLE_TAX_RATES_FINAL . " tr
+                    ON        p.products_tax_class_id = tr.tax_class_id
+                    AND       gz.geo_zone_id = tr.tax_zone_id";
+        
+    $from_str_param_array[':customer_country_id'] = (int)$customer_country_id;
+    $from_str_param_array[':customer_zone_id'] = (int)$customer_zone_id;
   }
 
-  $from_str .= ", " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c";
+  $from_str .= ", " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+                  " . TABLE_CATEGORIES_OR_PAGES . " c, 
+                  " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c";
 
-  $where_str = " where p.products_status = '1' and c.categories_or_pages_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id ";
-
+  $where_str =  " WHERE p.products_status = '1'
+                  AND   c.categories_or_pages_status = '1'
+                  AND   p.products_id = pd.products_id
+                  AND   pd.language_id = :languages_id
+                  AND   p.products_id = p2c.products_id
+                  AND   p2c.categories_or_pages_id = c.categories_or_pages_id ";
+    
+//  $where_str_param_array[':languages_id'] = (int)$_SESSION['languages_id']; // ist bereits im $from_str_param_array enthalten (Zeile ca. 663)
+  
   if (isset($_GET['copid']) && xos_not_null($_GET['copid'])) {
     $subcategories_array = array();
     xos_get_subcategories($subcategories_array, $_GET['copid']);
 
-    $where_str .= " and p2c.products_id = p.products_id and p2c.products_id = pd.products_id and (p2c.categories_or_pages_id = '" . (int)$_GET['copid'] . "'";
-
+    $where_str .= " AND p2c.products_id = p.products_id 
+                    AND p2c.products_id = pd.products_id 
+                    AND (p2c.categories_or_pages_id = :copid";
+                    
+    $where_str_param_array[':copid'] = (int)$_GET['copid'];
+    
     for ($i=0, $n=sizeof($subcategories_array); $i<$n; $i++ ) {
-      $where_str .= " or p2c.categories_or_pages_id = '" . (int)$subcategories_array[$i] . "'";
+      $where_str .= " OR p2c.categories_or_pages_id = :subcategory_" . $i . "";
+      $where_str_param_array[':subcategory_' . $i] = (int)$subcategories_array[$i];
     }
 
     $where_str .= ")";
   }
 
   if (isset($_GET['_m']) && xos_not_null($_GET['_m'])) {
-    $where_str .= " and mi.manufacturers_id = '" . (int)$_GET['_m'] . "'";
+    $where_str .= " AND mi.manufacturers_id = :_m";
+    $where_str_param_array[':_m'] = (int)$_GET['_m'];
   }
 
   if (isset($search_keywords) && (sizeof($search_keywords) > 0)) {
-    $where_str .= " and (";
+    $where_str .= " AND (";
     for ($i=0, $n=sizeof($search_keywords); $i<$n; $i++ ) {
       switch ($search_keywords[$i]) {
         case '(':
@@ -699,9 +806,14 @@ if ($action && !$error) {
           $where_str .= " " . $search_keywords[$i] . " ";
           break;
         default:
-          $keyword = xos_db_prepare_input($search_keywords[$i]);
-          $where_str .= "(pd.products_name like '%" . xos_db_input($keyword) . "%' or p.products_model like '%" . xos_db_input($keyword) . "%' or mi.manufacturers_name like '%" . xos_db_input($keyword) . "%'";
-          if (isset($_GET['sid']) && ($_GET['sid'] == '1')) $where_str .= " or pd.products_description like '%" . xos_db_input($keyword) . "%' or pd.products_info like '%" . xos_db_input($keyword) . "%'";
+          $where_str .= "(pd.products_name like :keyword_" . $i . " 
+                          OR p.products_model like :keyword_" . $i . " 
+                          OR mi.manufacturers_name like :keyword_" . $i . "";
+                          
+          if (isset($_GET['sid']) && ($_GET['sid'] == '1')) $where_str .= " OR pd.products_description like :keyword_" . $i . " 
+                                                                            OR pd.products_info like :keyword_" . $i . "";
+                                                                            
+          $where_str_param_array[':keyword_' . $i] = '%' . $search_keywords[$i] . '%';
           $where_str .= ')';
           break;
       }
@@ -710,11 +822,13 @@ if ($action && !$error) {
   }
 
   if (xos_not_null($dfrom)) {
-    $where_str .= " and p.products_date_added >= '" . xos_date_raw($dfrom) . "'";
+    $where_str .= " AND p.products_date_added >= :dfrom";
+    $where_str_param_array[':dfrom'] = xos_date_raw($dfrom);
   }
 
   if (xos_not_null($dto)) {
-    $where_str .= " and p.products_date_added <= '" . xos_date_raw($dto) . "'";
+    $where_str .= " AND p.products_date_added <= :dto";
+    $where_str_param_array[':dto'] = xos_date_raw($dto);
   }
 
   if ($currencies->is_set($_SESSION['currency'])) {
@@ -731,22 +845,47 @@ if ($action && !$error) {
   $precision = $currencies->currencies[$_SESSION['currency']]['decimal_places'];
 
   if (($_SESSION['sppc_customer_group_show_tax'] == '1') && ($_SESSION['sppc_customer_group_tax_exempt'] != '1')) {
-    if ($pfrom > 0) $where_str .= " and (ROUND(IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * if(tr.tax_rate_final is null, 1, 1 + (tr.tax_rate_final / 100) ), " . $precision . ") >= ROUND(" . (double)$pfrom . ", " . $precision . "))";
-    if ($pto > 0) $where_str .= " and (ROUND(IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) * if(tr.tax_rate_final is null, 1, 1 + (tr.tax_rate_final / 100) ), " . $precision . ") <= ROUND(" . (double)$pto . ", " . $precision . "))";
+    if ($pfrom > 0) $where_str .= " AND (
+                                          round(
+                                          IF(s.status, s.specials_new_products_price,
+                                            IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) *
+                                            IF(tr.tax_rate_final IS NULL, 1, 1 + (tr.tax_rate_final / 100) ), :precision) >= round(:pfrom, :precision)
+                                        )";
+                                        
+    if ($pto > 0) $where_str .= " AND (
+                                        round(
+                                        IF(s.status, s.specials_new_products_price,
+                                          IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) *
+                                          IF(tr.tax_rate_final IS NULL, 1, 1 + (tr.tax_rate_final / 100) ), :precision) <= round(:pto, :precision)
+                                      )";
+                                      
   } else {
-    if ($pfrom > 0) $where_str .= " and (ROUND(IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)), " . $precision . ") >= ROUND(" . (double)$pfrom . ", " . $precision . "))";
-    if ($pto > 0) $where_str .= " and (ROUND(IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)), " . $precision . ") <= ROUND(" . (double)$pto . ", " . $precision . "))";
+    if ($pfrom > 0) $where_str .= " AND (
+                                          round(
+                                          IF(s.status, s.specials_new_products_price,
+                                            IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)), :precision) >= round(:pfrom, :precision)
+                                        )";
+                                        
+    if ($pto > 0) $where_str .= " AND (
+                                        round(
+                                        IF(s.status, s.specials_new_products_price,
+                                          IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)), :precision) <= round(:pto, :precision)
+                                      )";
+                                      
   }
+  if ($pfrom > 0) $where_str_param_array[':pfrom'] = (double)$pfrom;
+  if ($pto > 0) $where_str_param_array[':pto'] = (double)$pto;
+  if ($pfrom > 0 || $pto > 0) $where_str_param_array[':precision'] = $precision;
 
   if (($_SESSION['sppc_customer_group_show_tax'] == '1') && ($_SESSION['sppc_customer_group_tax_exempt'] != '1')) {
-    $where_str .= " group by p.products_id";
+    $where_str .= " GROUP BY p.products_id";
   }
 
   if ( (empty($_GET['sort'])) || (!preg_match('/^[0-9][ad]$/', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > sizeof($column_list)) ) {
     for ($i=0, $n=sizeof($column_list); $i<$n; $i++) {
       if ($column_list[$i] == 'PRODUCT_LIST_NAME') {
         $_GET['sort'] = $i . 'a';
-        $order_str = ' order by pd.products_name';
+        $order_str = ' ORDER BY pd.products_name';
         break;
       }
     }
@@ -755,34 +894,34 @@ if ($action && !$error) {
     $sort_order = substr($_GET['sort'], 1);
     switch ($column_list[$sort_col]) {
       case 'PRODUCT_LIST_MODEL':
-        $order_str .= " order by p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        $order_str .= " ORDER BY p.products_model " . ($sort_order == 'd' ? "DESC" : "") . ", pd.products_name";
         break;
       case 'PRODUCT_LIST_NAME':
-        $order_str .= " order by pd.products_name " . ($sort_order == 'd' ? "desc" : "");
+        $order_str .= " ORDER BY pd.products_name " . ($sort_order == 'd' ? "DESC" : "");
         break;
       case 'PRODUCT_LIST_INFO':
 //--------[Alternative] wenn hier aendern auch product_listing.php, index.php und specials.php aendern-----------  
-//        $order_str .= " order by pd.products_info " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+//        $order_str .= " ORDER BY pd.products_info " . ($sort_order == 'd' ? "DESC" : "") . ", pd.products_name";
 //------------------------------------------------------------------------------------------------------------------      
-        $order_str .= " order by pd.products_name";
+        $order_str .= " ORDER BY pd.products_name";
         break;
       case 'PRODUCT_LIST_PACKING_UNIT':       
-        $order_str .= " order by pd.products_p_unit " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        $order_str .= " ORDER BY pd.products_p_unit " . ($sort_order == 'd' ? "DESC" : "") . ", pd.products_name";
         break;                
       case 'PRODUCT_LIST_MANUFACTURER':
-        $order_str .= " order by mi.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        $order_str .= " ORDER BY mi.manufacturers_name " . ($sort_order == 'd' ? "DESC" : "") . ", pd.products_name";
         break;
       case 'PRODUCT_LIST_QUANTITY':
-        $order_str .= " order by p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        $order_str .= " ORDER BY p.products_quantity " . ($sort_order == 'd' ? "DESC" : "") . ", pd.products_name";
         break;
       case 'PRODUCT_LIST_IMAGE':
-        $order_str .= " order by pd.products_name";
+        $order_str .= " ORDER BY pd.products_name";
         break;
       case 'PRODUCT_LIST_WEIGHT':
-        $order_str .= " order by p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        $order_str .= " ORDER BY p.products_weight " . ($sort_order == 'd' ? "DESC" : "") . ", pd.products_name";
         break;
       case 'PRODUCT_LIST_PRICE':
-        $order_str .= " order by final_price " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        $order_str .= " ORDER BY final_price " . ($sort_order == 'd' ? "DESC" : "") . ", pd.products_name";
         break;
     }
   }
@@ -831,13 +970,15 @@ if ($action && !$error) {
                         'link_switch_view' => $link_switch_search_results_view)); 
 
   $listing_sql = $select_str . $from_str . $where_str . $order_str;
+  
+  $listing_param_array = array_merge($select_str_param_array, $from_str_param_array, $where_str_param_array, $order_str_param_array);
 
   $max_display = isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS;
 
   require(DIR_WS_MODULES . FILENAME_PRODUCT_LISTING);
   
   }
-///////////////////////////////////////////////////////////
+  
   $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'advanced_search_and_results');
   $output_advanced_search_and_results = $smarty->fetch(SELECTED_TPL . '/advanced_search_and_results.tpl');
                         
@@ -848,4 +989,3 @@ if ($action && !$error) {
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

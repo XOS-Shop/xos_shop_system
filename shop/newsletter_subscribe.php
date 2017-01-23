@@ -38,9 +38,9 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
         $error = false;      
         $scy_code = false;
         if (isset($_POST['process_id']) && $_POST['security_code'] == str_decrypt($_POST['process_id'])) $scy_code = true;    
-        $subscriber_email_address = xos_db_prepare_input($_POST['subscriber_email_address']);
+        $subscriber_email_address = $_POST['subscriber_email_address'];
         if (isset($_POST['languages'])) { 
-          $language_id = xos_db_prepare_input($_POST['languages']);
+          $language_id = $_POST['languages'];
         } else {    
           $language_id = $_SESSION['languages_id'];
         }   
@@ -53,13 +53,33 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
           $messageStack->add('newsletter_subscribe', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
           $smarty->assign('error_email_address', true);      
         } elseif ($scy_code || isset($_SESSION['customer_id'])) { 
-          $check_subscriber_query = xos_db_query("select subscriber_id, customers_id, subscriber_identity_code from " . TABLE_NEWSLETTER_SUBSCRIBERS . " where subscriber_email_address = '" . xos_db_input($subscriber_email_address) . "'");
-          if (xos_db_num_rows($check_subscriber_query)) {
-            $check_subscriber = xos_db_fetch_array($check_subscriber_query);
+          $check_subscriber_query = $DB->prepare
+          (
+          "SELECT subscriber_id,
+                   customers_id,
+                   subscriber_identity_code
+            FROM   " . TABLE_NEWSLETTER_SUBSCRIBERS . "
+            WHERE  subscriber_email_address = :subscriber_email_address"
+          );
+          
+          $DB->perform($check_subscriber_query, array(':subscriber_email_address' => $subscriber_email_address));
+          
+          if ($check_subscriber_query->rowCount()) {
+            $check_subscriber = $check_subscriber_query->fetch();
             $identity_code  = $check_subscriber['subscriber_identity_code'];         
             if ($check_subscriber['customers_id'] > 0)  {  
-              $check_customer_query = xos_db_query("select customers_id, customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . $check_subscriber['customers_id'] . "'");   
-              $check_customer = xos_db_fetch_array($check_customer_query);
+              $check_customer_query = $DB->prepare
+              (
+               "SELECT customers_id,
+                       customers_firstname,
+                       customers_lastname
+                FROM   " . TABLE_CUSTOMERS . "
+                WHERE  customers_id = :customers_id"
+              ); 
+              
+              $DB->perform($check_customer_query, array(':customers_id' => $check_subscriber['customers_id']));
+                
+              $check_customer = $check_customer_query->fetch();
             }                    
           } else {
             $identity_code  = xos_create_random_value(12);
@@ -98,9 +118,41 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
           } else {
             $messageStack->add_session('newsletter_subscribe', NEWSLETTER_CONFIRMATION_EMAIL_SENT, 'success');
             if (empty($check_subscriber['subscriber_id'])) {
-              xos_db_query("insert into " . TABLE_NEWSLETTER_SUBSCRIBERS . " (subscriber_language_id, subscriber_email_address, subscriber_identity_code, newsletter_status, subscriber_date_added) values ('" . xos_db_input($language_id) . "', '" . xos_db_input($subscriber_email_address) . "', '" . $identity_code . "', '0', now())");
+              $insert_newsletter_subscribers_query = $DB->prepare
+              (
+               "INSERT INTO " . TABLE_NEWSLETTER_SUBSCRIBERS . "
+                            (
+                            subscriber_language_id,
+                            subscriber_email_address,
+                            subscriber_identity_code,
+                            newsletter_status,
+                            subscriber_date_added
+                            )
+                            VALUES 
+                            (
+                            :language_id,
+                            :subscriber_email_address,
+                            :identity_code,
+                            '0',
+                            Now()
+                            )"
+              );
+              
+              $DB->perform($insert_newsletter_subscribers_query, array(':language_id' => (int)$language_id,
+                                                                       ':subscriber_email_address' => $subscriber_email_address,
+                                                                       ':identity_code' => $identity_code));
+                                                                               
             } elseif (empty($check_customer['customers_id'])) {
-              xos_db_query("update " . TABLE_NEWSLETTER_SUBSCRIBERS . " set subscriber_language_id = '" . xos_db_input($language_id) . "' where subscriber_id = '" . (int)$check_subscriber['subscriber_id'] . "'");
+              $update_newsletter_subscribers_query = $DB->prepare
+              (
+               "UPDATE " . TABLE_NEWSLETTER_SUBSCRIBERS . "
+                SET    subscriber_language_id = :language_id
+                WHERE  subscriber_id = :subscriber_id"
+              );
+              
+              $DB->perform($update_newsletter_subscribers_query, array(':language_id' => (int)$language_id,
+                                                                       ':subscriber_id' => (int)$check_subscriber['subscriber_id']));
+                                                                                 
             }
           }
           xos_redirect(xos_href_link(FILENAME_NEWSLETTER_SUBSCRIBE, '', 'SSL'));
@@ -115,22 +167,62 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
       }
       break;
     case 'subscribe':
-      $identity_code = xos_db_prepare_input($_GET['identity_code']);
-      $check_subscribe_query = xos_db_query("select subscriber_id, customers_id from " . TABLE_NEWSLETTER_SUBSCRIBERS . " where subscriber_identity_code = '" . xos_db_input($identity_code) . "'");
-      if (xos_db_num_rows($check_subscribe_query)) {
-        $check_subscribe = xos_db_fetch_array($check_subscribe_query);
+      $identity_code = $_GET['identity_code'];
+      $check_subscribe_query = $DB->prepare
+      (
+       "SELECT subscriber_id,
+               customers_id
+        FROM   " . TABLE_NEWSLETTER_SUBSCRIBERS . "
+        WHERE  subscriber_identity_code = :identity_code"
+      );
+    
+      $DB->perform($check_subscribe_query, array(':identity_code' => $identity_code));
+      
+      if ($check_subscribe_query->rowCount()) {
+        $check_subscribe = $check_subscribe_query->fetch();
         $new_identity_code  = xos_create_random_value(12);
-        xos_db_query("update " . TABLE_NEWSLETTER_SUBSCRIBERS . " set subscriber_identity_code = '" . $new_identity_code . "', newsletter_status = '1', newsletter_status_change = now() where subscriber_id = '" . (int)$check_subscribe['subscriber_id'] . "'");
+        $update_newsletter_subscribers_query = $DB->prepare
+        (
+         "UPDATE " . TABLE_NEWSLETTER_SUBSCRIBERS . "
+          SET    subscriber_identity_code = :new_identity_code,
+                 newsletter_status = '1',
+                 newsletter_status_change = Now()
+          WHERE  subscriber_id = :subscriber_id"
+        );
+        
+        $DB->perform($update_newsletter_subscribers_query, array(':new_identity_code' => $new_identity_code,
+                                                                 ':subscriber_id' => (int)$check_subscribe['subscriber_id']));        
         $successful = true;
       }    
       break;
     case 'unsubscribe':
-      $identity_code = xos_db_prepare_input($_GET['identity_code']);
-      $check_subscribe_query = xos_db_query("select subscriber_id, customers_id from " . TABLE_NEWSLETTER_SUBSCRIBERS . " where subscriber_identity_code = '" . xos_db_input($identity_code) . "'");
-      if (xos_db_num_rows($check_subscribe_query)) {
-        $check_subscribe = xos_db_fetch_array($check_subscribe_query);
+      $identity_code = $_GET['identity_code'];
+      $check_subscribe_query = $DB->prepare
+      (
+       "SELECT subscriber_id,
+               customers_id
+        FROM   " . TABLE_NEWSLETTER_SUBSCRIBERS . "
+        WHERE  subscriber_identity_code = :identity_code"
+      );
+      
+      $DB->perform($check_subscribe_query, array(':identity_code' => $identity_code));
+      
+      if ($check_subscribe_query->rowCount()) {
+        $check_subscribe = $check_subscribe_query->fetch();
         $new_identity_code  = xos_create_random_value(12);
-        xos_db_query("update " . TABLE_NEWSLETTER_SUBSCRIBERS . " set subscriber_identity_code = '" . $new_identity_code . "', newsletter_status = '0', newsletter_status_change = now() where subscriber_id = '" . (int)$check_subscribe['subscriber_id'] . "'");
+        
+        $update_newsletter_subscribers_query = $DB->prepare
+        (
+         "UPDATE " . TABLE_NEWSLETTER_SUBSCRIBERS . "
+          SET    subscriber_identity_code = :new_identity_code,
+                 newsletter_status = '0',
+                 newsletter_status_change = Now()
+          WHERE  subscriber_id = :subscriber_id"
+        );
+        
+        $DB->perform($update_newsletter_subscribers_query, array(':new_identity_code' => $new_identity_code,
+                                                                 ':subscriber_id' =>(int)$check_subscribe['subscriber_id'] )); 
+                                                                       
         $successful = true;
       }    
       break;
@@ -210,4 +302,3 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

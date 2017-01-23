@@ -45,12 +45,20 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 // needs to be included earlier to set the success message in the messageStack
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_ACCOUNT_NOTIFICATIONS);
 
-  $global_query = xos_db_query("select global_product_notifications from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . (int)$_SESSION['customer_id'] . "'");
-  $global = xos_db_fetch_array($global_query);
+  $global_query = $DB->prepare
+  (
+   "SELECT global_product_notifications
+    FROM   " . TABLE_CUSTOMERS_INFO . "
+    WHERE  customers_info_id = :customer_id"
+  );
+  
+  $DB->perform($global_query, array(':customer_id' => (int)$_SESSION['customer_id']));
+  
+  $global = $global_query->fetch();
 
   if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_POST['formid']) && ($_POST['formid'] == $_SESSION['sessiontoken'])) {
     if (isset($_POST['product_global']) && is_numeric($_POST['product_global'])) {
-      $product_global = xos_db_prepare_input($_POST['product_global']);
+      $product_global = $_POST['product_global'];
     } else {
       $product_global = '0';
     }
@@ -60,29 +68,78 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     if ($product_global != $global['global_product_notifications']) {
       $product_global = (($global['global_product_notifications'] == '1') ? '0' : '1');
 
-      xos_db_query("update " . TABLE_CUSTOMERS_INFO . " set global_product_notifications = '" . (int)$product_global . "' where customers_info_id = '" . (int)$_SESSION['customer_id'] . "'");
+      $update_customers_info_query = $DB->prepare
+  	  (
+       "UPDATE " . TABLE_CUSTOMERS_INFO . "
+        SET    global_product_notifications = :product_global
+        WHERE  customers_info_id = :customer_id"
+  	  );
+	  
+      $DB->perform($update_customers_info_query, array(':product_global' => (int)$product_global,
+                                                       ':customer_id' => (int)$_SESSION['customer_id']));	  
+	  
     } elseif (sizeof($products) > 0) {
       $products_parsed = array();
       foreach ($products as $product) {
         if (is_numeric($product)) {
-          $products_parsed[] = $product;
+          $products_parsed[] = (int)$product;
         }
       }       
 
       if (sizeof($products_parsed) > 0) {
-        $check_query = xos_db_query("select count(*) as total from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$_SESSION['customer_id'] . "' and products_id not in (" . implode(',', $products_parsed) . ")");
-        $check = xos_db_fetch_array($check_query);
+        $check_query = $DB->prepare
+        (
+         "SELECT Count(*) AS total
+          FROM   " . TABLE_PRODUCTS_NOTIFICATIONS . "
+          WHERE  customers_id = :customer_id
+          AND    products_id 
+          NOT IN (
+                 " . implode(',', $products_parsed) . "
+                 )"
+        );
+		
+        $DB->perform($check_query, array(':customer_id' => (int)$_SESSION['customer_id']));
+													   
+        $check = $check_query->fetch();
 
         if ($check['total'] > 0) {
-          xos_db_query("delete from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$_SESSION['customer_id'] . "' and products_id not in (" . implode(',', $products_parsed) . ")");
+          $delete_products_notifications_query = $DB->prepare
+          (
+           "DELETE 
+            FROM   " . TABLE_PRODUCTS_NOTIFICATIONS . "
+            WHERE  customers_id = :customer_id
+            AND    products_id 
+            NOT IN (
+                   " . implode(',', $products_parsed) . "
+                   )"
+          );
+		  
+          $DB->perform($delete_products_notifications_query, array(':customer_id' => (int)$_SESSION['customer_id']));
+										 
         }
       }
     } else {
-      $check_query = xos_db_query("select count(*) as total from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$_SESSION['customer_id'] . "'");
-      $check = xos_db_fetch_array($check_query);
+      $check_query = $DB->prepare
+  	  (
+       "SELECT Count(*) AS total
+        FROM   " . TABLE_PRODUCTS_NOTIFICATIONS . "
+        WHERE  customers_id = :customer_id"
+  	  );
+	  
+      $DB->perform($check_query, array(':customer_id' => (int)$_SESSION['customer_id']));
+																   
+      $check = $check_query->fetch();
 
       if ($check['total'] > 0) {
-        xos_db_query("delete from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$_SESSION['customer_id'] . "'");
+        $delete_products_notifications_query = $DB->prepare
+        (
+         "DELETE 
+          FROM   " . TABLE_PRODUCTS_NOTIFICATIONS . "
+          WHERE  customers_id = :customer_id"
+        );
+		
+        $DB->perform($delete_products_notifications_query, array(':customer_id' => (int)$_SESSION['customer_id']));
+																   
       }
     }
 
@@ -119,16 +176,38 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   
     $smarty->assign('not_global_product_notifications', true);
 
-    $products_check_query = xos_db_query("select count(*) as total from " . TABLE_PRODUCTS_NOTIFICATIONS . " where customers_id = '" . (int)$_SESSION['customer_id'] . "'");
-    $products_check = xos_db_fetch_array($products_check_query);
+    $products_check_query = $DB->prepare
+  	(
+     "SELECT Count(*) AS total
+      FROM   " . TABLE_PRODUCTS_NOTIFICATIONS . "
+      WHERE  customers_id = :customer_id"
+  	);
+	
+	$DB->perform($products_check_query, array(':customer_id' => (int)$_SESSION['customer_id']));
+	
+    $products_check = $products_check_query->fetch();
     if ($products_check['total'] > 0) {
     
     $smarty->assign('products_notification', true);
 
       $counter = 0;
-      $products_query = xos_db_query("select pd.products_id, pd.products_name from " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_NOTIFICATIONS . " pn where pn.customers_id = '" . (int)$_SESSION['customer_id'] . "' and pn.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' order by pd.products_name");
+      $products_query = $DB->prepare
+  	  (
+       "SELECT   pd.products_id,
+                 pd.products_name
+        FROM     " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+                 " . TABLE_PRODUCTS_NOTIFICATIONS . " pn
+        WHERE    pn.customers_id = :customer_id
+        AND      pn.products_id = pd.products_id
+        AND      pd.language_id = :languages_id
+        ORDER BY pd.products_name"
+  	  );
+	  
+      $DB->perform($products_query, array(':customer_id' => (int)$_SESSION['customer_id'],
+                                          ':languages_id' => (int)$_SESSION['languages_id'] ));	  
+													   
       $products_notifications_array = array();
-      while ($products = xos_db_fetch_array($products_query)) {
+      while ($products = $products_query->fetch()) {
       
         $products_notifications_array[]=array('product_counter' => $counter,
                                               'product_name' => $products['products_name'],
@@ -155,4 +234,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

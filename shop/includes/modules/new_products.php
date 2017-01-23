@@ -32,15 +32,58 @@
 
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/modules/new_products.php') == 'overwrite_all')) :
   if ( (!isset($new_products_category_id)) || ($new_products_category_id == '0') ) {
-    $new_products_query = xos_db_query("select distinct p.products_id, p.products_image, pd.products_name, pd.products_info, p.products_tax_class_id, p.products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c where c.categories_or_pages_status = '1' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_status = '1' and p.products_date_added > '".date("Y-m-d", mktime(1, 1, 1, date("m"), date("d") - INTERVAL_DAYS_BACK, date("Y")))."' order by p.products_date_added desc, pd.products_name limit " . MAX_DISPLAY_NEW_PRODUCTS);   
+    $new_products_query = $DB->prepare
+    (
+     "SELECT DISTINCT p.products_id,
+                      p.products_image,
+                      pd.products_name,
+                      pd.products_info,
+                      p.products_tax_class_id,
+                      p.products_price
+      FROM            " . TABLE_PRODUCTS . " p,
+                      " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+                      " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c,
+                      " . TABLE_CATEGORIES_OR_PAGES . " c
+      WHERE           c.categories_or_pages_status = '1'
+      AND             p.products_id = p2c.products_id
+      AND             p2c.categories_or_pages_id = c.categories_or_pages_id
+      AND             p.products_id = pd.products_id
+      AND             pd.language_id = :languages_id
+      AND             p.products_status = '1'
+      AND             p.products_date_added > '".date("Y-m-d", mktime(1, 1, 1, date("m"), date("d") - INTERVAL_DAYS_BACK, date("Y")))."'
+      ORDER BY        p.products_date_added DESC,
+                      pd.products_name
+      LIMIT           " . MAX_DISPLAY_NEW_PRODUCTS
+    );
+    
+    $DB->perform($new_products_query, array(':languages_id' => (int)$_SESSION['languages_id']));
+           
   } else { 
 
     function xos_get_categories_string($parent_id = '', $entrance = false, $categories_string = '') {
+
+      $DB = Registry::get('DB');
       if ($entrance) {
         $categories_string = " c.parent_id = '" . $parent_id . "'";
       }
-      $categories_query = xos_db_query("select c.categories_or_pages_id, cpd.categories_or_pages_name, c.parent_id from " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd where c.categories_or_pages_id = cpd.categories_or_pages_id and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "' and c.parent_id = '" . (int)$parent_id . "' order by c.sort_order, cpd.categories_or_pages_name");
-      while ($categories = xos_db_fetch_array($categories_query)) {
+      $categories_query = $DB->prepare
+      (
+       "SELECT   c.categories_or_pages_id,
+                 cpd.categories_or_pages_name,
+                 c.parent_id
+        FROM     " . TABLE_CATEGORIES_OR_PAGES . " c,
+                 " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd
+        WHERE    c.categories_or_pages_id = cpd.categories_or_pages_id
+        AND      cpd.language_id = :languages_id
+        AND      c.parent_id = :parent_id
+        ORDER BY c.sort_order,
+                 cpd.categories_or_pages_name"
+      );
+      
+      $DB->perform($categories_query, array(':languages_id' => (int)$_SESSION['languages_id'],
+                                            ':parent_id' => (int)$parent_id));
+                                            
+      while ($categories = $categories_query->fetch()) {
         $categories_string .= " or c.parent_id = '" . $categories['categories_or_pages_id'] . "'";
         $categories_string = xos_get_categories_string($categories['categories_or_pages_id'], '', $categories_string);
       }
@@ -49,14 +92,41 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
  
     $includes_categories = xos_get_categories_string($new_products_category_id, true);
    
-    $new_products_query = xos_db_query("select distinct p.products_id, p.products_image, pd.products_name, pd.products_info, p.products_tax_class_id, p.products_price from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c where c.categories_or_pages_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and (" . $includes_categories . ") and p.products_status = '1' and p.products_date_added > '".date("Y-m-d", mktime(1, 1, 1, date("m"), date("d") - INTERVAL_DAYS_BACK, date("Y")))."' order by p.products_date_added desc, pd.products_name limit " . MAX_DISPLAY_NEW_PRODUCTS);     
+    $new_products_query = $DB->prepare
+    (
+     "SELECT DISTINCT p.products_id,
+                      p.products_image,
+                      pd.products_name,
+                      pd.products_info,
+                      p.products_tax_class_id,
+                      p.products_price
+      FROM            " . TABLE_PRODUCTS . " p,
+                      " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+                      " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c,
+                      " . TABLE_CATEGORIES_OR_PAGES . " c
+      WHERE           c.categories_or_pages_status = '1'
+      AND             p.products_id = pd.products_id
+      AND             pd.language_id = :languages_id
+      AND             p.products_id = p2c.products_id
+      AND             p2c.categories_or_pages_id = c.categories_or_pages_id
+      AND             (
+                      " . $includes_categories . "
+                      )
+      AND             p.products_status = '1'
+      AND             p.products_date_added > '".date("Y-m-d", mktime(1, 1, 1, date("m"), date("d") - INTERVAL_DAYS_BACK, date("Y")))."'
+      ORDER BY        p.products_date_added DESC,
+                      pd.products_name
+      LIMIT           " . MAX_DISPLAY_NEW_PRODUCTS
+    );
+    
+    $DB->perform($new_products_query, array(':languages_id' => (int)$_SESSION['languages_id']));     
   }
   
-  $num_new_products = xos_db_num_rows($new_products_query);
+  $num_new_products = $new_products_query->rowCount();
   if ($num_new_products > 0) {
   
     $new_products_array = array();
-    while ($new_products = xos_db_fetch_array($new_products_query)) {
+    while ($new_products = $new_products_query->fetch()) {
 
       $products_prices = xos_get_product_prices($new_products['products_price']);
       $products_tax_rate = xos_get_tax_rate($new_products['products_tax_class_id']);
@@ -113,5 +183,4 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       
     $smarty->assign('new_products', $output_new_products);
   }
-endif;   
-?>
+endif;

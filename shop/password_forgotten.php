@@ -48,7 +48,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_PASSWORD_FORGOTTEN);
 
   if (isset($_GET['action']) && ($_GET['action'] == 'process') && isset($_POST['formid']) && ($_POST['formid'] == $_SESSION['sessiontoken'])) {
-    $email_address = xos_db_prepare_input($_POST['email_address']);
+    $email_address = $_POST['email_address'];
     $error = false;
     
     if (!isset($_POST['process_id']) || $_POST['security_code'] != str_decrypt($_POST['process_id'])) {
@@ -66,9 +66,21 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $messageStack->add('password_forgotten', sprintf(ERROR_ACTION_RECORDER, (defined('MODULE_ACTION_RECORDER_RESET_PASSWORD_MINUTES') ? (int)MODULE_ACTION_RECORDER_RESET_PASSWORD_MINUTES : 5)));
     }     
     
-    $check_customer_query = xos_db_query("select customers_firstname, customers_lastname, customers_email_address, customers_password, customers_id from " . TABLE_CUSTOMERS . " where customers_email_address = '" . xos_db_input($email_address) . "'");
-    if (xos_db_num_rows($check_customer_query) && $error == false) {
-      $check_customer = xos_db_fetch_array($check_customer_query);
+    $check_customer_query = $DB->prepare
+    (
+     "SELECT customers_firstname,
+             customers_lastname,
+             customers_email_address,
+             customers_password,
+             customers_id
+      FROM   " . TABLE_CUSTOMERS . "
+      WHERE  customers_email_address = :email_address"
+    );
+    
+    $DB->perform($check_customer_query, array(':email_address' => $email_address)); 
+                                          
+    if ($check_customer_query->rowCount() && $error == false) {
+      $check_customer = $check_customer_query->fetch();
                       
       $new_password = xos_create_random_value(ENTRY_PASSWORD_MIN_LENGTH);
       $crypted_password = xos_encrypt_password($new_password);
@@ -107,12 +119,21 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         $actionRecorder->_user_id = $check_customer['customers_id'];
         $actionRecorder->record();
         $messageStack->add_session('login', SUCCESS_PASSWORD_SENT, 'success');
-        xos_db_query("update " . TABLE_CUSTOMERS . " set customers_password = '" . xos_db_input($crypted_password) . "' where customers_id = '" . (int)$check_customer['customers_id'] . "'");
+        $update_customers_query = $DB->prepare
+        (
+         "UPDATE " . TABLE_CUSTOMERS . "
+          SET    customers_password = :crypted_password
+          WHERE  customers_id = :customers_id"
+        );
+        
+        $DB->perform($update_customers_query, array(':crypted_password' => $crypted_password,
+                                                    ':customers_id' => (int)$check_customer['customers_id']));
+                                              
       }
       
       $_SESSION['navigation']->remove_current_page();
       xos_redirect(xos_href_link(FILENAME_LOGIN, '', 'SSL'));
-    } elseif (!xos_db_num_rows($check_customer_query)) {
+    } elseif (!$check_customer_query->rowCount()) {
       $messageStack->add('password_forgotten', TEXT_NO_EMAIL_ADDRESS_FOUND);
       $smarty->assign('error_email_address', true);      
     }
@@ -161,4 +182,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

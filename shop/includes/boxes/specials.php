@@ -31,7 +31,36 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/boxes/specials.php') == 'overwrite_all')) : 
-  if ($random_product = xos_random_select("select p.products_id, pd.products_name, p.products_price, p.products_tax_class_id, p.products_image from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_SPECIALS . " s, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where c.categories_or_pages_status = '1' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and p.products_status = '1' and p.products_id = s.products_id and pd.products_id = s.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and s.status = '1' and s.customers_group_id = '" . $customer_group_id . "' order by p.products_date_added DESC limit " . MAX_RANDOM_SELECT_SPECIALS)) {
+
+  $random_specials_select = $DB->prepare
+  ( 
+   "SELECT   p.products_id,
+             pd.products_name,
+             p.products_price,
+             p.products_tax_class_id,
+             p.products_image
+    FROM     " . TABLE_PRODUCTS . " p,
+             " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+             " . TABLE_SPECIALS . " s,
+             " . TABLE_CATEGORIES_OR_PAGES . " c,
+             " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+    WHERE    c.categories_or_pages_status = '1'
+    AND      p.products_id = p2c.products_id
+    AND      p2c.categories_or_pages_id = c.categories_or_pages_id
+    AND      p.products_status = '1'
+    AND      p.products_id = s.products_id
+    AND      pd.products_id = s.products_id
+    AND      pd.language_id = :languages_id
+    AND      s.status = '1'
+    AND      s.customers_group_id = :customer_group_id
+    ORDER BY Rand()
+    LIMIT    1"
+  );
+
+  $DB->perform($random_specials_select, array(':languages_id' => (int)$_SESSION['languages_id'],
+                                              ':customer_group_id' => (int)$customer_group_id));                                  
+    
+  if ($random_product = $random_specials_select->fetch()){
 
     $products_prices = xos_get_product_prices($random_product['products_price']);
     $products_tax_rate = xos_get_tax_rate($random_product['products_tax_class_id']);

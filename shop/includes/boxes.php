@@ -41,8 +41,17 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
 
     if (isset($_GET['p']) && PRODUCT_NOTIFICATION_ENABLED == 'true') {
       if (isset($_SESSION['customer_id'])) {
-        $check_query = xos_db_query("select count(*) as count from " . TABLE_CUSTOMERS_INFO . " where customers_info_id = '" . (int)$_SESSION['customer_id'] . "' and global_product_notifications = '1'");
-        $check = xos_db_fetch_array($check_query);
+        $check_query = $DB->prepare
+        (
+         "SELECT Count(*) AS count
+          FROM   " . TABLE_CUSTOMERS_INFO . "
+          WHERE  customers_info_id = :customer_id
+          AND    global_product_notifications = '1'"
+        );
+        
+        $DB->perform($check_query, array(':customer_id' => (int)$_SESSION['customer_id']));
+        
+        $check = $check_query->fetch();
         if ($check['count'] > 0) {
           include(DIR_WS_BOXES . 'best_sellers.php');
         } else {
@@ -92,5 +101,4 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   include(DIR_WS_BOXES . 'information.php'); 
   include(DIR_WS_BOXES . 'banner_column_1.php');
   include(DIR_WS_BOXES . 'banner_column_2.php');
-endif;       
-?>
+endif;

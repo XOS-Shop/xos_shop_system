@@ -63,11 +63,48 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   if (xos_count_customer_orders() > 0) { 
 
-    $orders_query = xos_db_query("select o.orders_id, o.date_purchased, o.delivery_name, o.delivery_country, o.billing_name, o.billing_country, s.orders_status_name from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_TOTAL . " ot, " . TABLE_ORDERS_STATUS . " s where o.customers_id = '" . (int)$_SESSION['customer_id'] . "' and o.orders_id = ot.orders_id and ot.class = 'ot_total' and o.orders_status = s.orders_status_id and s.language_id = '" . (int)$_SESSION['languages_id'] . "' and s.public_flag = '1' group by o.orders_id order by o.orders_id desc limit 3");
+    $orders_query = $DB->prepare
+    (
+     "SELECT   o.orders_id,
+               o.date_purchased,
+               o.delivery_name,
+               o.delivery_country,
+               o.billing_name,
+               o.billing_country,
+               s.orders_status_name
+      FROM     " . TABLE_ORDERS . " o,
+               " . TABLE_ORDERS_TOTAL . " ot,
+               " . TABLE_ORDERS_STATUS . " s
+      WHERE    o.customers_id = :customer_id
+      AND      o.orders_id = ot.orders_id
+      AND      ot.class = 'ot_total'
+      AND      o.orders_status = s.orders_status_id
+      AND      s.language_id = :languages_id
+      AND      s.public_flag = '1'
+      GROUP BY o.orders_id
+      ORDER BY o.orders_id DESC
+      LIMIT    3"
+    );
+    
+    $DB->perform($orders_query, array(':customer_id' => (int)$_SESSION['customer_id'],
+                                      ':languages_id' => (int)$_SESSION['languages_id']));        
+
+    $oder_total_query = $DB->prepare
+    (
+     "SELECT   text
+      FROM     " . TABLE_ORDERS_TOTAL . "
+      WHERE    orders_id = :orders_id
+      AND      class = 'ot_total'
+      ORDER BY orders_total_id DESC
+      LIMIT    1"
+    );  
+
     $orders_array = array();    
-    while ($orders = xos_db_fetch_array($orders_query)) {
-      $oder_total_query = xos_db_query("select text from " . TABLE_ORDERS_TOTAL . " where orders_id = '" . (int)$orders['orders_id'] . "' and class = 'ot_total' order by orders_total_id DESC limit 1");
-      $oder_total = xos_db_fetch_array($oder_total_query);    
+    while ($orders = $orders_query->fetch()) {
+
+      $DB->perform($oder_total_query, array(':orders_id' => (int)$orders['orders_id']));
+      
+      $oder_total = $oder_total_query->fetch();    
     
       if (xos_not_null($orders['delivery_name'])) {
         $order_name = $orders['delivery_name'];
@@ -114,4 +151,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

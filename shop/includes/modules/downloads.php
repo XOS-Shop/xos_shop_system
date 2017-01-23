@@ -33,19 +33,55 @@
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/modules/downloads.php') == 'overwrite_all')) :
   if (!strstr($_SERVER['BASENAME_PHP_SELF'], FILENAME_ACCOUNT_HISTORY_INFO)) {
 // Get last order id for checkout_success
-    $orders_query = xos_db_query("select orders_id from " . TABLE_ORDERS . " where customers_id = '" . (int)$_SESSION['customer_id'] . "' order by orders_id desc limit 1");
-    $orders = xos_db_fetch_array($orders_query);
+    $orders_query = $DB->prepare
+    (
+     "SELECT   orders_id
+      FROM     " . TABLE_ORDERS . "
+      WHERE    customers_id = :customer_id
+      ORDER BY orders_id DESC
+      LIMIT    1"
+    );
+    
+    $DB->perform($orders_query, array(':customer_id' => (int)$_SESSION['customer_id']));
+                                                   
+    $orders = $orders_query->fetch();
     $last_order = $orders['orders_id'];
   } else {
     $last_order = $_GET['order_id'];
   }
 
 // Now get all downloadable products in that order
-  $downloads_query = xos_db_query("select date_format(o.date_purchased, '%Y-%m-%d') as date_purchased_day, opd.download_maxdays, op.products_name, opd.orders_products_download_id, opd.orders_products_filename, opd.download_count, opd.download_maxdays from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " opd, " . TABLE_ORDERS_STATUS . " os where o.customers_id = '" . (int)$_SESSION['customer_id'] . "' and o.orders_id = '" . (int)$last_order . "' and o.orders_id = op.orders_id and op.orders_products_id = opd.orders_products_id and opd.orders_products_filename != '' and o.orders_status = os.orders_status_id and os.downloads_flag = '1' and os.language_id = '" . (int)$_SESSION['languages_id'] . "'");
-  if (xos_db_num_rows($downloads_query) > 0) {
+  $downloads_query = $DB->prepare 
+  (
+   "SELECT date_format(o.date_purchased, '%Y-%m-%d') AS date_purchased_day,
+           opd.download_maxdays,
+           op.products_name,
+           opd.orders_products_download_id,
+           opd.orders_products_filename,
+           opd.download_count,
+           opd.download_maxdays
+    FROM   " . TABLE_ORDERS . " o,
+           " . TABLE_ORDERS_PRODUCTS . " op,
+           " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " opd,
+           " . TABLE_ORDERS_STATUS . " os
+    WHERE  o.customers_id = :customer_id
+    AND    o.orders_id = :last_order
+    AND    o.orders_id = op.orders_id
+    AND    op.orders_products_id = opd.orders_products_id
+    AND    opd.orders_products_filename != ''
+    AND    o.orders_status = os.orders_status_id
+    AND    os.downloads_flag = '1'
+    AND    os.language_id = :languages_id"
+  );
+  
+  $DB->perform($downloads_query, array(':customer_id' => (int)$_SESSION['customer_id'],
+                                       ':last_order' => (int)$last_order,  
+                                       ':languages_id' => (int)$_SESSION['languages_id']));
+                                            
+  if ($downloads_query->rowCount() > 0) {
 
     $download_products_array = array();
-    while ($downloads = xos_db_fetch_array($downloads_query)) {
+    while ($downloads = $downloads_query->fetch()) {
 // MySQL 3.22 does not have INTERVAL
       list($dt_year, $dt_month, $dt_day) = explode('-', $downloads['date_purchased_day']);
       $download_timestamp = mktime(23, 59, 59, $dt_month, $dt_day + $downloads['download_maxdays'], $dt_year);
@@ -78,5 +114,4 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
                
     $smarty->assign('downloads', $output_downloads);  
   }
-endif;  
-?>
+endif;

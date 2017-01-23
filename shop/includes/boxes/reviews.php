@@ -33,22 +33,73 @@
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/boxes/reviews.php') == 'overwrite_all')) :   
   $allowed = true;
   if (isset($_GET['p'])) {
-    $allowed_product_query = xos_db_query("select p.products_id total from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c where p.products_id = '" . (int)$_GET['p'] . "' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and c.categories_or_pages_status = '1' and p.products_status = '1'");
-    if (!xos_db_num_rows($allowed_product_query)) $allowed = false;
+    $allowed_product_query = $DB->prepare
+    (
+     "SELECT p.products_id total
+      FROM   " . TABLE_PRODUCTS . " p,
+             " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c,
+             " . TABLE_CATEGORIES_OR_PAGES . " c
+      WHERE  p.products_id = :p
+      AND    p.products_id = p2c.products_id
+      AND    p2c.categories_or_pages_id = c.categories_or_pages_id
+      AND    c.categories_or_pages_status = '1'
+      AND    p.products_status = '1'"
+    );
+    
+    $DB->perform($allowed_product_query, array(':p' => (int)$_GET['p']));
+    
+    if (!$allowed_product_query->rowCount()) $allowed = false;
   }
 
   if ($allowed == true) {
-    $random_select = "select r.reviews_id, r.reviews_rating, p.products_id, p.products_image, pd.products_name from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where c.categories_or_pages_status='1' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and p.products_status = '1' and p.products_id = r.products_id and r.reviews_id = rd.reviews_id and rd.languages_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'";
+    $random_reviews_select = "SELECT r.reviews_id,
+                                     r.reviews_rating,
+                                     p.products_id,
+                                     p.products_image,
+                                     pd.products_name
+                              FROM   " . TABLE_REVIEWS . " r,
+                                     " . TABLE_REVIEWS_DESCRIPTION . " rd,
+                                     " . TABLE_PRODUCTS . " p,
+                                     " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+                                     " . TABLE_CATEGORIES_OR_PAGES . " c,
+                                     " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+                              WHERE  c.categories_or_pages_status='1'
+                              AND    p.products_id = p2c.products_id
+                              AND    p2c.categories_or_pages_id = c.categories_or_pages_id
+                              AND    p.products_status = '1'
+                              AND    p.products_id = r.products_id
+                              AND    r.reviews_id = rd.reviews_id
+                              AND    rd.languages_id = :languages_id
+                              AND    p.products_id = pd.products_id
+                              AND    pd.language_id = :languages_id";
+    
+    $random_reviews_select_param_array[':languages_id'] = (int)$_SESSION['languages_id'];
+                      
     if (isset($_GET['p'])) {
-      $random_select .= " and p.products_id = '" . (int)$_GET['p'] . "'";
+      $random_reviews_select .= " AND p.products_id = :p";
+      $random_reviews_select_param_array[':p'] = (int)$_GET['p'];
     }
-    $random_select .= " order by r.reviews_id desc limit " . MAX_RANDOM_SELECT_REVIEWS;
-    $random_product = xos_random_select($random_select);
+    
+    $random_reviews_select .= " ORDER BY Rand() LIMIT 1";
+    
+    $random_reviews = $DB->prepare($random_reviews_select);
+    
+    $DB->perform($random_reviews, $random_reviews_select_param_array);
 
-    if ($random_product) {
+    if ($random_product = $random_reviews->fetch()) {
 // display random review box
-      $rand_review_query = xos_db_query("select substring(reviews_text, 1, 70) as reviews_text from " . TABLE_REVIEWS_DESCRIPTION . " where reviews_id = '" . (int)$random_product['reviews_id'] . "' and languages_id = '" . (int)$_SESSION['languages_id'] . "'");
-      $rand_review = xos_db_fetch_array($rand_review_query);
+      $rand_review_query = $DB->prepare
+      (
+       "SELECT Substring(reviews_text, 1, 70) AS reviews_text
+        FROM   " . TABLE_REVIEWS_DESCRIPTION . "
+        WHERE  reviews_id = :reviews_id
+        AND    languages_id = :languages_id"
+      );
+      
+        $DB->perform($rand_review_query, array(':reviews_id' => (int)$random_product['reviews_id'],
+                                               ':languages_id' => (int)$_SESSION['languages_id']));
+                                               
+      $rand_review = $rand_review_query->fetch();
 
       $rand_review_text = xos_break_string(xos_output_string_protected($rand_review['reviews_text']), 20, '-<br />');
       $random_review_product_image = xos_get_product_images($random_product['products_image']);

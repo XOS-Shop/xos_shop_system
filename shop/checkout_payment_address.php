@@ -56,22 +56,22 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     if (xos_not_null($_POST['firstname']) && xos_not_null($_POST['lastname']) && xos_not_null($_POST['street_address'])) {
       $process = true;
 
-      if (ACCOUNT_GENDER == 'true') $gender = xos_db_prepare_input($_POST['gender']);
-      if (ACCOUNT_COMPANY == 'true') $company = xos_db_prepare_input($_POST['company']);
-      $firstname = xos_db_prepare_input($_POST['firstname']);
-      $lastname = xos_db_prepare_input($_POST['lastname']);
-      $street_address = xos_db_prepare_input($_POST['street_address']);
-      if (ACCOUNT_SUBURB == 'true') $suburb = xos_db_prepare_input($_POST['suburb']);
-      $postcode = xos_db_prepare_input($_POST['postcode']);
-      $city = xos_db_prepare_input($_POST['city']);
-      $country = xos_db_prepare_input($_POST['country']);
+      if (ACCOUNT_GENDER == 'true') $gender = $_POST['gender'];
+      if (ACCOUNT_COMPANY == 'true') $company = $_POST['company'];
+      $firstname = $_POST['firstname'];
+      $lastname = $_POST['lastname'];
+      $street_address = $_POST['street_address'];
+      if (ACCOUNT_SUBURB == 'true') $suburb = $_POST['suburb'];
+      $postcode = $_POST['postcode'];
+      $city = $_POST['city'];
+      $country = $_POST['country'];
       if (ACCOUNT_STATE == 'true') {
         if (isset($_POST['zone_id'])) {
-          $zone_id = xos_db_prepare_input($_POST['zone_id']);
+          $zone_id = $_POST['zone_id'];
         } else {
           $zone_id = false;
         }
-        $state = xos_db_prepare_input($_POST['state']);
+        $state = $_POST['state'];
       }
 
       if (ACCOUNT_GENDER == 'true') {
@@ -120,13 +120,31 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
       if (ACCOUNT_STATE == 'true') {
         $zone_id = 0;
-        $check_query = xos_db_query("select count(*) as total from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "'");
-        $check = xos_db_fetch_array($check_query);
+        $check_query = $DB->prepare
+        (
+         "SELECT Count(*) AS total
+          FROM   " . TABLE_ZONES . "
+          WHERE  zone_country_id = :country"
+        );
+        
+        $DB->perform($check_query, array(':country' => (int)$country));
+        
+        $check = $check_query->fetch();
         $entry_state_has_zones = ($check['total'] > 0);
         if ($entry_state_has_zones == true) {
-          $zone_query = xos_db_query("select distinct zone_id from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "' and zone_name = '" . xos_db_input($state) . "'");
-          if (xos_db_num_rows($zone_query) == 1) {
-            $zone = xos_db_fetch_array($zone_query);
+          $zone_query = $DB->prepare
+          (
+           "SELECT DISTINCT zone_id
+            FROM   " . TABLE_ZONES . "
+            WHERE  zone_country_id = :country
+            AND    zone_name = :state"
+          );
+          
+          $DB->perform($zone_query, array(':country' => (int)$country,
+                                          ':state' => $state));
+                   
+          if ($zone_query->rowCount() == 1) {
+            $zone = $zone_query->fetch();
             $zone_id = $zone['zone_id'];
           } else {
             $error = true;
@@ -173,9 +191,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           }
         }
 
-        xos_db_perform(TABLE_ADDRESS_BOOK, $sql_data_array);
+        $DB->insertPrepareExecute(TABLE_ADDRESS_BOOK, $sql_data_array);
 
-        $_SESSION['billto'] = xos_db_insert_id();
+        $_SESSION['billto'] = $DB->lastInsertId();
 
         if (isset($_SESSION['payment'])) unset($_SESSION['payment']);
 
@@ -194,8 +212,18 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
       $_SESSION['billto'] = $_POST['address'];
 
-      $check_address_query = xos_db_query("select count(*) as total from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$_SESSION['customer_id'] . "' and address_book_id = '" . (int)$_SESSION['billto'] . "'");
-      $check_address = xos_db_fetch_array($check_address_query);
+      $check_address_query = $DB->prepare
+      (
+       "SELECT Count(*) AS total
+        FROM   " . TABLE_ADDRESS_BOOK . "
+        WHERE  customers_id = :customer_id
+        AND    address_book_id = :billto"
+      );
+      
+      $DB->perform($check_address_query, array(':customer_id' => (int)$_SESSION['customer_id'],
+                                               ':billto' => (int)$_SESSION['billto']));
+                                                
+      $check_address = $check_address_query->fetch();      
 
       if ($check_address['total'] == '1') {
         if ($reset_payment == true) unset($_SESSION['payment']);
@@ -274,9 +302,27 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $smarty->assign('address_label', xos_address_label($_SESSION['customer_id'], $_SESSION['billto'], true, ' ', '<br />'));
     if ($addresses_count > 1) {
       $radio_buttons = 0;
-      $addresses_query = xos_db_query("select address_book_id, entry_firstname as firstname, entry_lastname as lastname, entry_company as company, entry_street_address as street_address, entry_suburb as suburb, entry_city as city, entry_postcode as postcode, entry_state as state, entry_zone_id as zone_id, entry_country_id as country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$_SESSION['customer_id'] . "'");
+      $addresses_query = $DB->prepare
+      (
+       "SELECT address_book_id,
+               entry_firstname      AS firstname,
+               entry_lastname       AS lastname,
+               entry_company        AS company,
+               entry_street_address AS street_address,
+               entry_suburb         AS suburb,
+               entry_city           AS city,
+               entry_postcode       AS postcode,
+               entry_state          AS state,
+               entry_zone_id        AS zone_id,
+               entry_country_id     AS country_id
+        FROM   " . TABLE_ADDRESS_BOOK . "
+        WHERE  customers_id = :customer_id"
+      );
+      
+      $DB->perform($addresses_query, array(':customer_id' => (int)$_SESSION['customer_id']));
+      
       $addresses_array = array();
-      while ($addresses = xos_db_fetch_array($addresses_query)) {
+      while ($addresses = $addresses_query->fetch()) {
         $format_id = xos_get_address_format_id($addresses['country_id']);
        ($addresses['address_book_id'] == $_SESSION['billto']) ? $actual_address = true : $actual_address = false;
 
@@ -317,4 +363,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

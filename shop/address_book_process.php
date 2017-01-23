@@ -47,7 +47,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     if ((int)$_GET['delete'] == $_SESSION['customer_default_address_id']) {
       $messageStack->add_session('addressbook', WARNING_PRIMARY_ADDRESS_DELETION, 'warning');
     } else {   
-      xos_db_query("delete from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . (int)$_GET['delete'] . "' and customers_id = '" . (int)$_SESSION['customer_id'] . "'");
+      $DB->deletePrepareExecute(TABLE_ADDRESS_BOOK, array('address_book_id' => (int)$_GET['delete'],
+                                                          'customers_id' => (int)$_SESSION['customer_id']));
+                                                          
       $messageStack->add_session('addressbook', SUCCESS_ADDRESS_BOOK_ENTRY_DELETED, 'success');
     }
     
@@ -60,23 +62,23 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $process = true;
     $error = false;
 
-    if (ACCOUNT_GENDER == 'true') $gender = xos_db_prepare_input($_POST['gender']);
-    if (ACCOUNT_COMPANY == 'true') $company = xos_db_prepare_input($_POST['company']);
-    if (ACCOUNT_COMPANY == 'true' && isset($_POST['company_tax_id'])) $company_tax_id = xos_db_prepare_input($_POST['company_tax_id']);    
-    $firstname = xos_db_prepare_input($_POST['firstname']);
-    $lastname = xos_db_prepare_input($_POST['lastname']);
-    $street_address = xos_db_prepare_input($_POST['street_address']);
-    if (ACCOUNT_SUBURB == 'true') $suburb = xos_db_prepare_input($_POST['suburb']);
-    $postcode = xos_db_prepare_input($_POST['postcode']);
-    $city = xos_db_prepare_input($_POST['city']);
-    $country = xos_db_prepare_input($_POST['country']);
+    if (ACCOUNT_GENDER == 'true') $gender = $_POST['gender'];
+    if (ACCOUNT_COMPANY == 'true') $company = $_POST['company'];
+    if (ACCOUNT_COMPANY == 'true' && isset($_POST['company_tax_id'])) $company_tax_id = $_POST['company_tax_id'];    
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $street_address = $_POST['street_address'];
+    if (ACCOUNT_SUBURB == 'true') $suburb = $_POST['suburb'];
+    $postcode = $_POST['postcode'];
+    $city = $_POST['city'];
+    $country = $_POST['country'];
     if (ACCOUNT_STATE == 'true') {
       if (isset($_POST['zone_id'])) {
-        $zone_id = xos_db_prepare_input($_POST['zone_id']);
+        $zone_id = $_POST['zone_id'];
       } else {
         $zone_id = false;
       }
-      $state = xos_db_prepare_input($_POST['state']);
+      $state = $_POST['state'];
     }
 
     if (ACCOUNT_GENDER == 'true') {
@@ -132,13 +134,31 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
     if (ACCOUNT_STATE == 'true') {
       $zone_id = 0;
-      $check_query = xos_db_query("select count(*) as total from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "'");
-      $check = xos_db_fetch_array($check_query);
+      $check_query = $DB->prepare
+      (
+       "SELECT Count(*) AS total
+        FROM   " . TABLE_ZONES . "
+        WHERE  zone_country_id = :country"
+      );
+      
+      $DB->perform($check_query, array(':country' => (int)$country));
+                                            
+      $check = $check_query->fetch();
       $entry_state_has_zones = ($check['total'] > 0);
       if ($entry_state_has_zones == true) {
-        $zone_query = xos_db_query("select distinct zone_id from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "' and zone_name = '" . xos_db_input($state) . "'");
-        if (xos_db_num_rows($zone_query) == 1) {
-          $zone = xos_db_fetch_array($zone_query);
+        $zone_query = $DB->prepare
+        (
+         "SELECT DISTINCT zone_id
+          FROM            " . TABLE_ZONES . "
+          WHERE           zone_country_id = :country
+          AND             zone_name = :state"
+        );
+        
+        $DB->perform($zone_query, array(':country' => (int)$country,
+                                        ':state' => $state));
+                                              
+        if ($zone_query->rowCount() == 1) {
+          $zone = $zone_query->fetch();
           $zone_id = $zone['zone_id'];
         } else {
           $error = true;
@@ -183,12 +203,25 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       }
 
       if ($_POST['action'] == 'update') {
-        $check_query = xos_db_query("select address_book_id from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . (int)$_GET['edit'] . "' and customers_id = '" . (int)$_SESSION['customer_id'] . "' limit 1");      
-        if (xos_db_num_rows($check_query) == 1) {      
-          xos_db_perform(TABLE_ADDRESS_BOOK, $sql_data_array, 'update', "address_book_id = '" . (int)$_GET['edit'] . "' and customers_id ='" . (int)$_SESSION['customer_id'] . "'");
+        $check_query = $DB->prepare
+        (
+         "SELECT address_book_id
+          FROM   " . TABLE_ADDRESS_BOOK . "
+          WHERE  address_book_id = :edit
+          AND    customers_id = :customer_id
+          LIMIT  1"
+        );
+        
+        $DB->perform($check_query, array(':edit' => (int)$_GET['edit'],
+                                         ':customer_id' => (int)$_SESSION['customer_id']));
+                                                      
+        if ($check_query->rowCount() == 1) {
+          $DB->updatePrepareExecute(TABLE_ADDRESS_BOOK, $sql_data_array, array('address_book_id' => (int)$_GET['edit'], 
+                                                                               'customers_id' => (int)$_SESSION['customer_id']));
+                                                                               
           if (ACCOUNT_COMPANY == 'true' && xos_not_null($company_tax_id)) {
             $sql_data_array2['customers_group_ra'] = '1';
-            xos_db_perform(TABLE_CUSTOMERS, $sql_data_array2, 'update', "customers_id ='" . (int)$_SESSION['customer_id'] . "'");
+            $DB->updatePrepareExecute(TABLE_CUSTOMERS, $sql_data_array2, array('customers_id' => (int)$_SESSION['customer_id']));
           
             if (SEND_EMAILS == 'true') {
               // if you would *not* like to have an email when a tax id number has been entered in
@@ -220,7 +253,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
             if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
 
-            xos_db_perform(TABLE_CUSTOMERS, $sql_data_array, 'update', "customers_id = '" . (int)$_SESSION['customer_id'] . "'");
+            $DB->updatePrepareExecute(TABLE_CUSTOMERS, $sql_data_array, array('customers_id' => (int)$_SESSION['customer_id']));
           }
           
           $messageStack->add_session('addressbook', SUCCESS_ADDRESS_BOOK_ENTRY_UPDATED, 'success');
@@ -228,9 +261,9 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       } else {
         if (xos_count_customer_address_book_entries() < MAX_ADDRESS_BOOK_ENTRIES) {      
           $sql_data_array['customers_id'] = (int)$_SESSION['customer_id'];
-          xos_db_perform(TABLE_ADDRESS_BOOK, $sql_data_array);
-
-          $new_address_book_id = xos_db_insert_id();
+          $DB->insertPrepareExecute(TABLE_ADDRESS_BOOK, $sql_data_array);
+     
+          $new_address_book_id = $DB->lastInsertId();
 
 // reregister session variables
           if (isset($_POST['primary']) && ($_POST['primary'] == 'on')) {
@@ -249,10 +282,10 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
             if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
             $sql_data_array['customers_default_address_id'] = $new_address_book_id;
 
-            xos_db_perform(TABLE_CUSTOMERS, $sql_data_array, 'update', "customers_id = '" . (int)$_SESSION['customer_id'] . "'");
-            
-            $messageStack->add_session('addressbook', SUCCESS_ADDRESS_BOOK_ENTRY_UPDATED, 'success');
+            $DB->updatePrepareExecute(TABLE_CUSTOMERS, $sql_data_array, array('customers_id' => (int)$_SESSION['customer_id']));            
           }
+          
+          $messageStack->add_session('addressbook', SUCCESS_ADDRESS_BOOK_ENTRY_UPDATED, 'success');
         }  
       }
       
@@ -263,23 +296,53 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   }
 
   if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
-    $entry_query = xos_db_query("select entry_gender, entry_company, entry_company_tax_id, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_zone_id, entry_country_id from " . TABLE_ADDRESS_BOOK . " where customers_id = '" . (int)$_SESSION['customer_id'] . "' and address_book_id = '" . (int)$_GET['edit'] . "'");
+    $entry_query = $DB->prepare
+    (
+     "SELECT entry_gender,
+             entry_company,
+             entry_company_tax_id,
+             entry_firstname,
+             entry_lastname,
+             entry_street_address,
+             entry_suburb,
+             entry_postcode,
+             entry_city,
+             entry_state,
+             entry_zone_id,
+             entry_country_id
+      FROM   " . TABLE_ADDRESS_BOOK . "
+      WHERE  customers_id = :customer_id
+      AND    address_book_id = :edit"
+    );
 
-    if (!xos_db_num_rows($entry_query)) {
+    $DB->perform($entry_query, array(':customer_id' => (int)$_SESSION['customer_id'],
+                                     ':edit' => (int)$_GET['edit']));
+                                         
+    if (!$entry_query->rowCount()) {
       $messageStack->add_session('addressbook', ERROR_NONEXISTING_ADDRESS_BOOK_ENTRY);
 
       xos_redirect(xos_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'));
     }
 
-    $entry = xos_db_fetch_array($entry_query);
+    $entry = $entry_query->fetch();
   } elseif (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     if ($_GET['delete'] == $_SESSION['customer_default_address_id']) {
       $messageStack->add_session('addressbook', WARNING_PRIMARY_ADDRESS_DELETION, 'warning');
 
       xos_redirect(xos_href_link(FILENAME_ADDRESS_BOOK, '', 'SSL'));
     } else {
-      $check_query = xos_db_query("select count(*) as total from " . TABLE_ADDRESS_BOOK . " where address_book_id = '" . (int)$_GET['delete'] . "' and customers_id = '" . (int)$_SESSION['customer_id'] . "'");
-      $check = xos_db_fetch_array($check_query);
+      $check_query = $DB->prepare
+      (
+       "SELECT Count(*) AS total
+        FROM   " . TABLE_ADDRESS_BOOK . "
+        WHERE  address_book_id = :delete
+        AND    customers_id = :customer_id"
+      );
+      
+      $DB->perform($check_query, array(':delete' => (int)$_GET['delete'],
+                                       ':customer_id' => (int)$_SESSION['customer_id'])); 
+                                            
+      $check = $check_query->fetch();
 
       if ($check['total'] < 1) {
         $messageStack->add_session('addressbook', ERROR_NONEXISTING_ADDRESS_BOOK_ENTRY);
@@ -364,4 +427,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');  
 endif;
-?>

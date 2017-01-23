@@ -236,7 +236,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
              
         $orders_history_array[]=array('date_added' => xos_datetime_short($orders_history['date_added']),
                                       'status' => $orders_status_array[$orders_history['orders_status_id']],
-                                      'comments' => nl2br(xos_db_output($orders_history['comments'])),
+                                      'comments' => nl2br(htmlspecialchars($orders_history['comments'])),
                                       'customer_notified' => $customer_notified);             
       }
       

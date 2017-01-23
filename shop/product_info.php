@@ -42,7 +42,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                 '<script type="text/javascript">' . "\n" .
                 '/* <![CDATA[ */' . "\n\n" .
                       
-		'    $(document).ready(function(){' . "\n" .
+		            '    $(document).ready(function(){' . "\n" .
                 '      $("ul.descrip-tabs").each(function(){' . "\n" .
                 '        $(this).show();' . "\n" .
                 '        var $active, $content, $links = $(this).find("a");' . "\n" .
@@ -81,13 +81,60 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
      
   if(!$smarty->isCached(SELECTED_TPL . '/product_info.tpl', $cache_id)) {
   
-    $product_check_query = xos_db_query("select count(*) as total from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p.products_id = p2c.products_id left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id, " . TABLE_PRODUCTS_DESCRIPTION . "  pd where c.categories_or_pages_status = '1' and p.products_status = '1' and p.products_id = '" . (int)$_GET['p'] . "' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'"); 
-    $product_check = xos_db_fetch_array($product_check_query);   
+    $product_check_query = $DB->prepare
+    (
+     "SELECT    Count(*) AS total
+      FROM      " . TABLE_PRODUCTS . " p
+      LEFT JOIN " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+      ON        p.products_id = p2c.products_id
+      LEFT JOIN " . TABLE_CATEGORIES_OR_PAGES . " c
+      ON        p2c.categories_or_pages_id = c.categories_or_pages_id,
+                " . TABLE_PRODUCTS_DESCRIPTION . " pd
+      WHERE     c.categories_or_pages_status = '1'
+      AND       p.products_status = '1'
+      AND       p.products_id = :p
+      AND       pd.products_id = p.products_id
+      AND       pd.language_id = :languages_id"
+    );
+    
+    $DB->perform($product_check_query, array(':p' => (int)$_GET['p'], ':languages_id' => (int)$_SESSION['languages_id']));
+     
+    $product_check = $product_check_query->fetch();   
   
     if (!$product_check['total'] < 1) {
     
-      $product_info_query = xos_db_query("select p.products_id, p.products_delivery_time_id, pd.products_name, pd.products_p_unit, pd.products_description_tab_label, pd.products_description, pd.products_url, p.products_model, p.products_quantity, p.products_image, p.products_price, p.products_tax_class_id, p.products_date_added, p.products_date_available, p.products_weight, p.manufacturers_id, p.attributes_quantity, p.attributes_combinations, p.attributes_not_updated from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$_GET['p'] . "' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
-      $product_info = xos_db_fetch_array($product_info_query);
+      $product_info_query = $DB->prepare
+      (
+       "SELECT p.products_id,
+               p.products_delivery_time_id,
+               pd.products_name,
+               pd.products_p_unit,
+               pd.products_description_tab_label,
+               pd.products_description,
+               pd.products_url,
+               p.products_model,
+               p.products_quantity,
+               p.products_image,
+               p.products_price,
+               p.products_tax_class_id,
+               p.products_date_added,
+               p.products_date_available,
+               p.products_weight,
+               p.manufacturers_id,
+               p.attributes_quantity,
+               p.attributes_combinations,
+               p.attributes_not_updated
+        FROM   " . TABLE_PRODUCTS . " p,
+               " . TABLE_PRODUCTS_DESCRIPTION . " pd
+        WHERE  p.products_status = '1'
+        AND    p.products_id = :p
+        AND    pd.products_id = p.products_id
+        AND    pd.language_id = :languages_id"
+      );
+      
+      $DB->perform($product_info_query, array(':p' => (int)$_GET['p'], ':languages_id' => (int)$_SESSION['languages_id']));
+      
+      $product_info = $product_info_query->fetch();
     
       $products_prices = xos_get_product_prices($product_info['products_price']);
       $products_tax_rate = xos_get_tax_rate($product_info['products_tax_class_id']);
@@ -205,8 +252,39 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         $comb_str = '';   
         $product_options_array = array();
     
-        $products_options_name_query = xos_db_query("select distinct popt.products_options_id, popt.products_options_name from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_ATTRIBUTES . " patrib where patrib.products_id='" . (int)$_GET['p'] . "' and patrib.options_id = popt.products_options_id and popt.language_id = '" . (int)$_SESSION['languages_id'] . "' order by patrib.options_sort_order, popt.products_options_id");
-        while ($products_options_name = xos_db_fetch_array($products_options_name_query)) {
+        $products_options_name_query = $DB->prepare
+        (
+         "SELECT DISTINCT popt.products_options_id,
+                          popt.products_options_name
+          FROM            " . TABLE_PRODUCTS_OPTIONS . " popt,
+                          " . TABLE_PRODUCTS_ATTRIBUTES . " patrib
+          WHERE           patrib.products_id = :p
+          AND             patrib.options_id = popt.products_options_id
+          AND             popt.language_id = :languages_id
+          ORDER BY        patrib.options_sort_order,
+                          popt.products_options_id"
+        );
+        
+        $products_options_query = $DB->prepare
+        (
+         "SELECT   pov.products_options_values_id,
+                   pov.products_options_values_name,
+                   pa.options_values_sort_order,
+                   pa.options_values_price,
+                   pa.price_prefix
+          FROM     " . TABLE_PRODUCTS_ATTRIBUTES . " pa,
+                   " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov
+          WHERE    pa.products_id = :p
+          AND      pa.options_id = :products_options_id
+          AND      pa.options_values_id = pov.products_options_values_id
+          AND      pov.language_id = :languages_id
+          ORDER BY pa.options_values_sort_order,
+                   pov.products_options_values_name"
+        );        
+        
+        $DB->perform($products_options_name_query, array(':p' => (int)$_GET['p'], ':languages_id' => (int)$_SESSION['languages_id']));
+        
+        while ($products_options_name = $products_options_name_query->fetch()) {
         
           if (is_array($_POST['id'])) {
             $selected_attribute = $_POST['id'][$products_options_name['products_options_id']];
@@ -224,8 +302,14 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           $selected = false;
           $products_options_noscript_array = array();
           $products_options_array = array();
-          $products_options_query = xos_db_query("select pov.products_options_values_id, pov.products_options_values_name, pa.options_values_sort_order, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id = '" . (int)$_GET['p'] . "' and pa.options_id = '" . (int)$products_options_name['products_options_id'] . "' and pa.options_values_id = pov.products_options_values_id and pov.language_id = '" . (int)$_SESSION['languages_id'] . "' order by pa.options_values_sort_order, pov.products_options_values_name");
-          while ($products_options = xos_db_fetch_array($products_options_query)) {
+          
+          $bind = array(':p' => (int)$_GET['p'], 
+                        ':products_options_id' => (int)$products_options_name['products_options_id'], 
+                        ':languages_id' => (int)$_SESSION['languages_id']);
+                  
+          $DB->perform($products_options_query,$bind);
+          
+          while ($products_options = $products_options_query->fetch()) {
 
             $pos = strpos($combinations_string, $comb_str . $products_options_name['products_options_id'] . ',' . $products_options['products_options_values_id']);
             
@@ -456,8 +540,19 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                               'products_options' => $product_options_array));           
       }
         
-      $reviews_query = xos_db_query("select count(*) as count from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd where r.products_id = '" . (int)$_GET['p'] . "' and r.reviews_id = rd.reviews_id and rd.languages_id = '" . (int)$_SESSION['languages_id'] . "'");
-      $reviews = xos_db_fetch_array($reviews_query);
+      $reviews_query = $DB->prepare
+      (
+       "SELECT Count(*) AS count
+        FROM   " . TABLE_REVIEWS . " r,
+               " . TABLE_REVIEWS_DESCRIPTION . " rd
+        WHERE  r.products_id = :p
+        AND    r.reviews_id = rd.reviews_id
+        AND    rd.languages_id = :languages_id"
+      );
+      
+      $DB->perform($reviews_query, array(':p' => (int)$_GET['p'], ':languages_id' => (int)$_SESSION['languages_id']));
+      
+      $reviews = $reviews_query->fetch();
     
       if ($reviews['count'] > 0) {    
         $smarty->assign('reviews_count', $reviews['count']);
@@ -518,4 +613,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

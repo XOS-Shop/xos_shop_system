@@ -44,9 +44,35 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   }
   
 // Check that order_id, customer_id and filename match
-  $downloads_query = xos_db_query("select date_format(o.date_purchased, '%Y-%m-%d') as date_purchased_day, opd.download_maxdays, opd.download_count, opd.download_maxdays, opd.orders_products_filename from " . TABLE_ORDERS . " o, " . TABLE_ORDERS_PRODUCTS . " op, " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " opd, " . TABLE_ORDERS_STATUS . " os where o.customers_id = '" . $_SESSION['customer_id'] . "' and o.orders_id = '" . (int)$_GET['order'] . "' and o.orders_id = op.orders_id and op.orders_products_id = opd.orders_products_id and opd.orders_products_download_id = '" . (int)$_GET['id'] . "' and opd.orders_products_filename != '' and o.orders_status = os.orders_status_id and os.downloads_flag = '1' and os.language_id = '" . (int)$_SESSION['languages_id'] . "'");
-  if (!xos_db_num_rows($downloads_query)) die;
-  $downloads = xos_db_fetch_array($downloads_query);
+  $downloads_query = $DB->prepare
+  (
+   "SELECT DATE_FORMAT(o.date_purchased, '%Y-%m-%d') AS date_purchased_day,
+           opd.download_maxdays,
+           opd.download_count,
+           opd.download_maxdays,
+           opd.orders_products_filename
+    FROM   " . TABLE_ORDERS . " o,
+           " . TABLE_ORDERS_PRODUCTS . " op,
+           " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " opd,
+           " . TABLE_ORDERS_STATUS . " os
+    WHERE  o.customers_id = :customer_id
+    AND    o.orders_id = :order
+    AND    o.orders_id = op.orders_id
+    AND    op.orders_products_id = opd.orders_products_id
+    AND    opd.orders_products_download_id = :id
+    AND    opd.orders_products_filename != ''
+    AND    o.orders_status = os.orders_status_id
+    AND    os.downloads_flag = '1'
+    AND    os.language_id = :languages_id"
+  );
+  
+  $DB->perform($downloads_query, array(':customer_id' => (int)$_SESSION['customer_id'],
+                                       ':order' => (int)$_GET['order'],
+                                       ':id' => (int)$_GET['id'],
+                                       ':languages_id' => (int)$_SESSION['languages_id']));
+                                                                         
+  if (!$downloads_query->rowCount()) die;
+  $downloads = $downloads_query->fetch();
 // MySQL 3.22 does not have INTERVAL
   list($dt_year, $dt_month, $dt_day) = explode('-', $downloads['date_purchased_day']);
   $download_timestamp = mktime(23, 59, 59, $dt_month, $dt_day + $downloads['download_maxdays'], $dt_year);
@@ -59,7 +85,14 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   if (!file_exists(DIR_FS_DOWNLOAD . $downloads['orders_products_filename'])) die;
   
 // Now decrement counter
-  xos_db_query("update " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . " set download_count = download_count-1 where orders_products_download_id = '" . (int)$_GET['id'] . "'");
+  $update_orders_products_download_query = $DB->prepare
+  (
+   "UPDATE " . TABLE_ORDERS_PRODUCTS_DOWNLOAD . "
+    SET    download_count = download_count-1
+    WHERE  orders_products_download_id = :id"
+  );
+  
+  $DB->perform($update_orders_products_download_query, array(':id' => (int)$_GET['id']));
 
 // Returns a random name, 16 to 20 characters long
 // There are more than 10^28 combinations
@@ -124,4 +157,3 @@ function xos_unlink_temp_dir($dir)
 // Fallback to readfile() delivery method. This will work on all systems, but will need considerable resources
   @readfile(DIR_FS_DOWNLOAD . $downloads['orders_products_filename']);  
 endif;
-?>

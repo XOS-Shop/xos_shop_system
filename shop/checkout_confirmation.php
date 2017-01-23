@@ -59,7 +59,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   
   if (isset($_POST['payment'])) $_SESSION['payment'] = $_POST['payment'];
 
-    $_SESSION['comments'] = xos_db_prepare_input(substr(strip_tags($_POST['comments']), 0,1000));
+    $_SESSION['comments'] = substr(strip_tags($_POST['comments']), 0,1000);
 
 // load the selected payment module
   require(DIR_WS_CLASSES . 'payment.php');
@@ -223,11 +223,19 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $smarty->assign('tax_groups', true);
   }
   
-  $popup_status_query = xos_db_query("select status from " . TABLE_CONTENTS . "  where type = 'system_popup' and status = '1' and content_id = '8' LIMIT 1");
+  $popup_status_query = $DB->query
+  (
+   "SELECT status
+    FROM   " . TABLE_CONTENTS . "
+    WHERE  type = 'system_popup'
+    AND    status = '1'
+    AND    content_id = '8'
+    LIMIT  1"
+  );  
 
   $smarty->assign(array('form_begin' => xos_draw_form('checkout_confirmation', $form_action_url, 'post', 'onsubmit="return check_form();"'),
                         'form_end' => '</form>',
-                        'link_filename_popup_content_8' => xos_db_num_rows($popup_status_query) ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=8', $request_type) : '',
+                        'link_filename_popup_content_8' => $popup_status_query->rowCount() == 1 ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=8', $request_type) : '',
                         'order_products' => $order_products_array,
                         'billing_address' => xos_address_format($order->billing['format_id'], $order->billing, 1, ' ', '<br />'),
                         'payment_method' => $order->info['payment_method'],

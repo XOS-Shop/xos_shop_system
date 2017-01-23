@@ -42,20 +42,53 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     xos_redirect(xos_href_link(FILENAME_LOGIN, '', 'SSL'));
   }
 
-  $product_info_query = xos_db_query("select p.products_id, p.products_model, p.products_image, p.products_price, p.products_tax_class_id, pd.products_name, pd.products_p_unit from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where c.categories_or_pages_status = '1' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and p.products_id = '" . (int)$_GET['p'] . "' and p.products_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
-  if (!xos_db_num_rows($product_info_query)) {
+  $product_info_query = $DB->prepare
+  (
+   "SELECT p.products_id,
+           p.products_model,
+           p.products_image,
+           p.products_price,
+           p.products_tax_class_id,
+           pd.products_name,
+           pd.products_p_unit
+    FROM   " . TABLE_PRODUCTS . " p,
+           " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+           " . TABLE_CATEGORIES_OR_PAGES . " c,
+           " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+    WHERE  c.categories_or_pages_status = '1'
+    AND    p.products_id = p2c.products_id
+    AND    p2c.categories_or_pages_id = c.categories_or_pages_id
+    AND    p.products_id = :p
+    AND    p.products_status = '1'
+    AND    p.products_id = pd.products_id
+    AND    pd.language_id = :languages_id"
+  );
+  
+  $DB->perform($product_info_query, array(':p' => (int)$_GET['p'],
+                                          ':languages_id' => (int)$_SESSION['languages_id'])); 
+                                           
+  if ($product_info_query->rowCount() < 1) {
     xos_redirect(xos_href_link(FILENAME_PRODUCT_REVIEWS, xos_get_all_get_params(array('action'))), false);
   } else {
-    $product_info = xos_db_fetch_array($product_info_query);
+    $product_info = $product_info_query->fetch();
     $products_image_name = xos_get_product_images($product_info['products_image'], 'all');   
   }
  
-  $customer_query = xos_db_query("select customers_firstname, customers_lastname from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$_SESSION['customer_id'] . "'");
-  $customer = xos_db_fetch_array($customer_query);
+  $customer_query = $DB->prepare
+  (
+   "SELECT customers_firstname,
+           customers_lastname
+    FROM   " . TABLE_CUSTOMERS . "
+    WHERE  customers_id = :customer_id"
+  );
+  
+  $DB->perform($customer_query, array(':customer_id' => (int)$_SESSION['customer_id']));  
+   
+  $customer = $customer_query->fetch();
 
   if (isset($_GET['action']) && ($_GET['action'] == 'process') && isset($_POST['formid']) && ($_POST['formid'] == $_SESSION['sessiontoken'])) {
-    $rating = xos_db_prepare_input($_POST['rating']);
-    $review = xos_db_prepare_input(substr(strip_tags($_POST['review']), 0,1000));
+    $rating = (int)$_POST['rating'];
+    $review = substr(strip_tags($_POST['review']), 0,1000);
 
     $error = false;
     if (strlen($review) < REVIEW_TEXT_MIN_LENGTH) {
@@ -71,10 +104,53 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     }
 
     if ($error == false) {
-      xos_db_query("insert into " . TABLE_REVIEWS . " (products_id, customers_id, customers_name, reviews_rating, date_added) values ('" . (int)$_GET['p'] . "', '" . (int)$_SESSION['customer_id'] . "', '" . xos_db_input($customer['customers_firstname']) . ' ' . xos_db_input($customer['customers_lastname']) . "', '" . xos_db_input($rating) . "', now())");
-      $insert_id = xos_db_insert_id();
+    
+      $insert_reviews_query = $DB->prepare
+      (
+       "INSERT INTO " . TABLE_REVIEWS . "
+                    (
+                    products_id,
+                    customers_id,
+                    customers_name,
+                    reviews_rating,
+                    date_added
+                    )
+                    VALUES
+                    (
+                    :p,
+                    :customer_id,
+                    :customers_name,
+                    :rating,
+                    now()
+                    )"
+      );
+      
+      $DB->perform($insert_reviews_query, array(':p' => (int)$_GET['p'],
+                                                ':customer_id' => (int)$_SESSION['customer_id'],
+                                                ':customers_name' => $customer['customers_firstname'] . ' ' . $customer['customers_lastname'],
+                                                ':rating' => (int)$rating));
+                                                        
+      $insert_id = $DB->lastInsertId();
 
-      xos_db_query("insert into " . TABLE_REVIEWS_DESCRIPTION . " (reviews_id, languages_id, reviews_text) values ('" . (int)$insert_id . "', '" . (int)$_SESSION['languages_id'] . "', '" . xos_db_input($review) . "')");
+      $insert_reviews_description_query = $DB->prepare
+      (
+      "INSERT INTO " . TABLE_REVIEWS_DESCRIPTION . "
+                    (
+                    reviews_id,
+                    languages_id,
+                    reviews_text
+                    )
+                    VALUES
+                    (
+                    :insert_id,
+                    :languages_id,
+                    :review
+                    )"
+      );
+      
+      $DB->perform($insert_reviews_description_query, array(':insert_id' => (int)$insert_id,
+                                                            ':languages_id' => (int)$_SESSION['languages_id'],
+                                                            ':review' => $review));      
       
       $smarty->clearCache(null, 'L3|cc_reviews');
       $smarty->clearCache(null, 'L3|cc_product_reviews');
@@ -223,4 +299,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php'); 
 endif;
-?>

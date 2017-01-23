@@ -38,8 +38,22 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
 
   if(!$smarty->isCached(SELECTED_TPL . '/includes/boxes/share_product.tpl', $cache_id)){
 
-    $allowed_product_query = xos_db_query("select p.products_id total from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c where p.products_id = '" . (int)$_GET['p'] . "' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and c.categories_or_pages_status = '1' and p.products_status = '1'");
-    if (xos_db_num_rows($allowed_product_query)) {
+    $allowed_product_query = $DB->prepare
+    (
+     "SELECT p.products_id total
+      FROM   " . TABLE_PRODUCTS . " p,
+             " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c,
+             " . TABLE_CATEGORIES_OR_PAGES . " c
+      WHERE  p.products_id = :p
+      AND    p.products_id = p2c.products_id
+      AND    p2c.categories_or_pages_id = c.categories_or_pages_id
+      AND    c.categories_or_pages_status = '1'
+      AND    p.products_status = '1'"
+    );
+    
+    $DB->perform($allowed_product_query, array(':p' => (int)$_GET['p']));
+    
+    if ($allowed_product_query->rowCount()) {
       
       $social_bookmarks = array();
       

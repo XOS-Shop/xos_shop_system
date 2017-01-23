@@ -44,14 +44,14 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_ACCOUNT_EDIT);
 
   if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_POST['formid']) && ($_POST['formid'] == $_SESSION['sessiontoken'])) {
-    if (ACCOUNT_GENDER == 'true') $gender = xos_db_prepare_input($_POST['gender']);
-    $firstname = xos_db_prepare_input($_POST['firstname']);
-    $lastname = xos_db_prepare_input($_POST['lastname']);
-    if (ACCOUNT_DOB == 'true') $dob = xos_db_prepare_input($_POST['dob']);
-    $email_address = xos_db_prepare_input($_POST['email_address']);
-    $language_id = xos_db_prepare_input($_POST['languages']);
-    $telephone = xos_db_prepare_input($_POST['telephone']);
-    $fax = xos_db_prepare_input($_POST['fax']);
+    if (ACCOUNT_GENDER == 'true') $gender = $_POST['gender'];
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    if (ACCOUNT_DOB == 'true') $dob = $_POST['dob'];
+    $email_address = $_POST['email_address'];
+    $language_id = $_POST['languages'];
+    $telephone = $_POST['telephone'];
+    $fax = $_POST['fax'];
 
     $error = false;
 
@@ -95,8 +95,19 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
     }
 
-    $check_email_query = xos_db_query("select count(*) as total from " . TABLE_CUSTOMERS . " where customers_email_address = '" . xos_db_input($email_address) . "' and customers_id != '" . (int)$_SESSION['customer_id'] . "'");
-    $check_email = xos_db_fetch_array($check_email_query);
+    $check_email_query = $DB->prepare
+    (
+     "SELECT Count(*) AS total
+      FROM   " . TABLE_CUSTOMERS . "
+      WHERE  customers_email_address = :email_address
+      AND    customers_id != :customer_id"
+    );
+    
+    $DB->perform($check_email_query, array(':email_address' => $email_address,
+                                           ':customer_id' => (int)$_SESSION['customer_id']));  
+                                             
+    $check_email = $check_email_query->fetch();
+    
     if ($check_email['total'] > 0) {
       $error = true;
 
@@ -119,20 +130,50 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
       if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
       if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = xos_date_raw($dob);
-
-      xos_db_perform(TABLE_CUSTOMERS, $sql_data_array, 'update', "customers_id = '" . (int)$_SESSION['customer_id'] . "'");
       
-      xos_db_query("delete from " . TABLE_NEWSLETTER_SUBSCRIBERS . " where subscriber_email_address = '" . xos_db_input($email_address) . "' and customers_id <> '" . (int)$_SESSION['customer_id'] . "'");
+      $DB->updatePrepareExecute(TABLE_CUSTOMERS, $sql_data_array, array('customers_id' => (int)$_SESSION['customer_id']));
       
-      xos_db_query("update " . TABLE_CUSTOMERS_INFO . " set customers_info_date_account_last_modified = now() where customers_info_id = '" . (int)$_SESSION['customer_id'] . "'");
-      xos_db_query("update " . TABLE_NEWSLETTER_SUBSCRIBERS . " set subscriber_language_id = '" . xos_db_input($language_id) . "', subscriber_email_address = '" . xos_db_input($email_address) . "' where customers_id = '" . (int)$_SESSION['customer_id'] . "'");
+      $delete_email_query = $DB->prepare
+      (
+       "DELETE
+        FROM   " . TABLE_NEWSLETTER_SUBSCRIBERS . "
+        WHERE  subscriber_email_address = :email_address
+        AND    customers_id <> :customer_id"
+      );
+      
+      $DB->perform($delete_email_query, array(':email_address' => $email_address,
+                                              ':customer_id' => (int)$_SESSION['customer_id']));                   
+      
+      $update_customers_info_query = $DB->prepare
+      (
+       "UPDATE " . TABLE_CUSTOMERS_INFO . "
+        SET    customers_info_date_account_last_modified = Now()
+        WHERE  customers_info_id = :customer_id"
+      );
+      
+      $DB->perform($update_customers_info_query, array(':customer_id' => (int)$_SESSION['customer_id'])); 
+                                                    
+      $update_newsletter_subscribers_query = $DB->prepare
+      (
+       "UPDATE " . TABLE_NEWSLETTER_SUBSCRIBERS . "
+        SET    subscriber_language_id = :language_id,
+               subscriber_email_address = :email_address
+        WHERE  customers_id = :customer_id"
+      );
+      
+      $DB->perform($update_newsletter_subscribers_query, array(':language_id' => $language_id,
+                                                               ':email_address' => $email_address,
+                                                               ':customer_id' => (int)$_SESSION['customer_id']));      
 
       $sql_data_array = array('entry_firstname' => $firstname,
                               'entry_lastname' => $lastname);
                               
       if (ACCOUNT_GENDER == 'true') $sql_data_array['entry_gender'] = $gender;                        
 
-      xos_db_perform(TABLE_ADDRESS_BOOK, $sql_data_array, 'update', "customers_id = '" . (int)$_SESSION['customer_id'] . "' and address_book_id = '" . (int)$_SESSION['customer_default_address_id'] . "'");
+      $sql_where_array = array('customers_id' => (int)$_SESSION['customer_id'],
+                               'address_book_id' => (int)$_SESSION['customer_default_address_id']);
+                              
+      $DB->updatePrepareExecute(TABLE_ADDRESS_BOOK, $sql_data_array, $sql_where_array);
 
 // reset the session variables
       if (ACCOUNT_GENDER == 'true') {
@@ -147,8 +188,24 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     }
   }
 
-  $account_query = xos_db_query("select customers_gender, customers_c_id, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_language_id, customers_telephone, customers_fax from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$_SESSION['customer_id'] . "'");
-  $account = xos_db_fetch_array($account_query);
+  $account_query = $DB->prepare
+  (
+   "SELECT customers_gender,
+           customers_c_id,
+           customers_firstname,
+           customers_lastname,
+           customers_dob,
+           customers_email_address,
+           customers_language_id,
+           customers_telephone,
+           customers_fax
+    FROM   " . TABLE_CUSTOMERS . "
+    WHERE  customers_id = :customer_id"
+  );
+  
+  $DB->perform($account_query, array(':customer_id' => (int)$_SESSION['customer_id']));
+     
+  $account = $account_query->fetch();
 
   $site_trail->add(NAVBAR_TITLE_1, xos_href_link(FILENAME_ACCOUNT, '', 'SSL'));
   $site_trail->add(NAVBAR_TITLE_2, xos_href_link(FILENAME_ACCOUNT_EDIT, '', 'SSL'));
@@ -226,4 +283,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

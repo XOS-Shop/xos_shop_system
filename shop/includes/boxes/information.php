@@ -38,10 +38,24 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   
   if(!$smarty->isCached(SELECTED_TPL . '/includes/boxes/information.tpl', $cache_id)){
 
-    $contents_query = xos_db_query("select c.content_id, c.link_request_type, cd.name from " . TABLE_CONTENTS . " c, " . TABLE_CONTENTS_DATA . " cd where c.type = 'info' and c.status = '1' and c.content_id = cd.content_id and cd.language_id = '" . (int)$_SESSION['languages_id'] . "' order by c.sort_order ");
+    $contents_query = $DB->prepare
+    (
+     "SELECT   c.content_id,
+               c.link_request_type,
+               cd.name
+      FROM     " . TABLE_CONTENTS . " c,
+               " . TABLE_CONTENTS_DATA . " cd
+      WHERE    c.type = 'info'
+      AND      c.status = '1'
+      AND      c.content_id = cd.content_id
+      AND      cd.language_id = :languages_id
+      ORDER BY c.sort_order"
+    );
+    
+    $DB->perform($contents_query, array(':languages_id' => (int)$_SESSION['languages_id']));
     
     $contents_array = array();
-    while ($contents = xos_db_fetch_array($contents_query)) {      
+    while ($contents = $contents_query->fetch()) {      
                                                
       $contents_array[]=array('link_filename_content_content_id' => xos_href_link(FILENAME_CONTENT, 'co=' . $contents['content_id'], (!empty($contents['link_request_type']) ? $contents['link_request_type'] : 'NONSSL')),
                               'name' => $contents['name']);

@@ -1,5 +1,5 @@
 <?php
-  class splitPageResultsBootstrap extends splitPageResults {
+  class SplitPageResultsBootstrap extends SplitPageResultsPDO {
 
 /* class function display_links for Bootstrap pagination */
 // display split-page-number-links
@@ -66,14 +66,48 @@
  
   if(!$smarty->isCached(SELECTED_TPL . '/products_new.tpl', $cache_id)){
 
-    $products_new_query_raw = "select distinct p.products_id, p.products_delivery_time_id, pd.products_name, pd.products_p_unit, pd.products_info, p.products_model, p.products_quantity, p.products_image, p.products_price, p.products_tax_class_id, p.products_date_added, mi.manufacturers_name from " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "'), " . TABLE_PRODUCTS_DESCRIPTION . " pd where c.categories_or_pages_status = '1' and p.products_id = p2c.products_id and c.categories_or_pages_id = p2c.categories_or_pages_id and p.products_status = '1' and p.products_date_added > '".date("Y-m-d", mktime(1, 1, 1, date("m"), date("d") - INTERVAL_DAYS_BACK, date("Y")))."' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' order by p.products_date_added DESC, pd.products_name";
-    $products_new_split = new splitPageResultsBootstrap($products_new_query_raw, MAX_DISPLAY_PRODUCTS_NEW, 'p.products_id');
+    $products_new_query_raw = "SELECT DISTINCT p.products_id,
+                                               p.products_delivery_time_id,
+                                               pd.products_name,
+                                               pd.products_p_unit,
+                                               pd.products_info,
+                                               p.products_model,
+                                               p.products_quantity,
+                                               p.products_image,
+                                               p.products_price,
+                                               p.products_tax_class_id,
+                                               p.products_date_added,
+                                               mi.manufacturers_name
+                               FROM            " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c,
+                                               " . TABLE_CATEGORIES_OR_PAGES . " c,
+                                               " . TABLE_PRODUCTS . " p
+                               LEFT JOIN       " . TABLE_MANUFACTURERS_INFO . " mi
+                               ON              ( 
+                                                p.manufacturers_id = mi.manufacturers_id
+                                                AND mi.languages_id = :languages_id
+                                               ),
+                                               " . TABLE_PRODUCTS_DESCRIPTION . " pd
+                               WHERE           c.categories_or_pages_status = '1'
+                               AND             p.products_id = p2c.products_id
+                               AND             c.categories_or_pages_id = p2c.categories_or_pages_id
+                               AND             p.products_status = '1'
+                               AND             p.products_date_added > '".date("Y-m-d", mktime(1, 1, 1, date("m"), date("d") - INTERVAL_DAYS_BACK, date("Y")))."'
+                               AND             p.products_id = pd.products_id
+                               AND             pd.language_id = :languages_id
+                               ORDER BY        p.products_date_added DESC,
+                                               pd.products_name";
+          
+    $products_new_param_array[':languages_id'] = (int)$_SESSION['languages_id'];
 
-    if ($products_new_split->number_of_rows > 0) {   
+    $products_new_split = new SplitPageResultsBootstrap($products_new_query_raw, MAX_DISPLAY_PRODUCTS_NEW, 'p.products_id', $products_new_param_array);
+    $products_new_query = $DB->prepare($products_new_split->sql_query);
+    $DB->perform($products_new_query, $products_new_split->sql_param); 
+
+    if ($products_new_split->number_of_rows > 0) { // Anzahl der Detansaetze total
+//  if ($products_new_query->rowCount() > 0) { // Anzahl der Detansaetze fuer diese Seite       
   
-      $products_new_query = xos_db_query($products_new_split->sql_query);
       $products_new_array = array();
-      while ($products_new = xos_db_fetch_array($products_new_query)) {
+      while ($products_new = $products_new_query->fetch()) {
            
         $products_prices = xos_get_product_prices($products_new['products_price']);
         $products_tax_rate = xos_get_tax_rate($products_new['products_tax_class_id']);
@@ -158,4 +192,3 @@
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
   return 'overwrite_all';
-?>

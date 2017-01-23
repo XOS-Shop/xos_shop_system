@@ -46,10 +46,23 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   $valid_product = false;
   if (isset($_GET['p'])) {
-    $product_info_query = xos_db_query("select pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_status = '1' and p.products_id = '" . (int)$_GET['p'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
-    if (xos_db_num_rows($product_info_query)) {
+    $product_info_query = $DB->prepare
+    (
+     "SELECT pd.products_name
+      FROM   " . TABLE_PRODUCTS . " p,
+             " . TABLE_PRODUCTS_DESCRIPTION . " pd
+      WHERE  p.products_status = '1'
+      AND    p.products_id = :p
+      AND    p.products_id = pd.products_id
+      AND    pd.language_id = :languages_id"
+    );
+    
+    $DB->perform($product_info_query, array(':p' => (int)$_GET['p'],
+                                            ':languages_id' => (int)$_SESSION['languages_id']));
+                                                                     
+    if ($product_info_query->rowCount()) {
       $valid_product = true;
-      $product_info = xos_db_fetch_array($product_info_query);
+      $product_info = $product_info_query->fetch();
     }
   }
 
@@ -64,11 +77,11 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   if (isset($_GET['action']) && ($_GET['action'] == 'process') && isset($_POST['formid']) && ($_POST['formid'] == $_SESSION['sessiontoken'])) {
     $error = false;
 
-    $to_email_address = xos_db_prepare_input($_POST['to_email_address']);
-    $to_name = xos_db_prepare_input($_POST['to_name']);
-    $from_email_address = xos_db_prepare_input($_POST['from_email_address']);
-    $from_name = xos_db_prepare_input($_POST['from_name']);
-    $message = xos_db_prepare_input(substr(strip_tags($_POST['message']), 0,1000));
+    $to_email_address = $_POST['to_email_address'];
+    $to_name = $_POST['to_name'];
+    $from_email_address = $_POST['from_email_address'];
+    $from_name = $_POST['from_name'];
+    $message = substr(strip_tags($_POST['message']), 0,1000);
 
     if (empty($from_name)) {
       $error = true;
@@ -128,8 +141,6 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     }
     
     if ($error == false) {
-//      $lng_code_query = xos_db_query("select code from " . TABLE_LANGUAGES . " where languages_id = '" . (int)$_SESSION['languages_id'] . "'");
-//      $customer_lng = xos_db_fetch_array($lng_code_query);
        
       $email_subject = sprintf(TEXT_EMAIL_SUBJECT, $from_name, STORE_NAME);
 
@@ -150,7 +161,6 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                             'from_name' => $from_name,
                             'products_name' => $product_info['products_name'],
                             'link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . (int)$_GET['p'], 'NONSSL', false, false)));
-//      $smarty->assign('link_filename_product_info', xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . (int)$_GET['p'] . '&lnc=' . $customer_lng['code'], 'NONSSL', false, false));
       
       $smarty->configLoad('languages/' . $_SESSION['language'] . '_email.conf', 'tell_a_friend_email_html');
       $output_tell_a_friend_email_html = $smarty->fetch(SELECTED_TPL . '/includes/email/tell_a_friend_email_html.tpl');
@@ -181,8 +191,18 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       }
     }
   } elseif (isset($_SESSION['customer_id'])) {
-    $account_query = xos_db_query("select customers_firstname, customers_lastname, customers_email_address from " . TABLE_CUSTOMERS . " where customers_id = '" . (int)$_SESSION['customer_id'] . "'");
-    $account = xos_db_fetch_array($account_query);
+    $account_query = $DB->prepare
+    (
+     "SELECT customers_firstname,
+             customers_lastname,
+             customers_email_address
+      FROM   " . TABLE_CUSTOMERS . "
+      WHERE  customers_id = :customer_id"
+    );
+    
+    $DB->perform($account_query, array(':customer_id' => (int)$_SESSION['customer_id']));
+    
+    $account = $account_query->fetch();
 
     $from_name = $account['customers_firstname'] . ' ' . $account['customers_lastname'];
     $from_email_address = $account['customers_email_address'];
@@ -234,4 +254,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

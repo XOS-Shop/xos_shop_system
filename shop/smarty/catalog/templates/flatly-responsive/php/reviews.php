@@ -3,7 +3,7 @@
     xos_redirect(xos_href_link(FILENAME_DEFAULT), false);
   }
 
-  class splitPageResultsBootstrap extends splitPageResults {
+  class SplitPageResultsBootstrap extends SplitPageResultsPDO {
 
 /* class function display_links for Bootstrap pagination */
 // display split-page-number-links
@@ -70,14 +70,42 @@
      
   if(!$smarty->isCached(SELECTED_TPL . '/reviews.tpl', $cache_id)) {
 
-    $reviews_query_raw = "select r.reviews_id, left(rd.reviews_text, 100) as reviews_text, r.reviews_rating, r.date_added, p.products_id, pd.products_name, p.products_image, r.customers_name from " . TABLE_REVIEWS . " r, " . TABLE_REVIEWS_DESCRIPTION . " rd, " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c where c.categories_or_pages_status = '1' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and p.products_status = '1' and p.products_id = r.products_id and r.reviews_id = rd.reviews_id and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and rd.languages_id = '" . (int)$_SESSION['languages_id'] . "' order by r.reviews_id DESC";
-    $reviews_split = new splitPageResultsBootstrap($reviews_query_raw, MAX_DISPLAY_NEW_REVIEWS);
+    $reviews_query_raw = "SELECT   r.reviews_id,
+                          LEFT     (rd.reviews_text, 100) AS reviews_text,
+                                   r.reviews_rating,
+                                   r.date_added,
+                                   p.products_id,
+                                   pd.products_name,
+                                   p.products_image,
+                                   r.customers_name
+                          FROM     " . TABLE_REVIEWS . " r,
+                                   " . TABLE_REVIEWS_DESCRIPTION . " rd,
+                                   " . TABLE_PRODUCTS . " p,
+                                   " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+                                   " . TABLE_CATEGORIES_OR_PAGES . " c,
+                                   " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+                          WHERE    c.categories_or_pages_status = '1'
+                          AND      p.products_id = p2c.products_id
+                          AND      p2c.categories_or_pages_id = c.categories_or_pages_id
+                          AND      p.products_status = '1'
+                          AND      p.products_id = r.products_id
+                          AND      r.reviews_id = rd.reviews_id
+                          AND      p.products_id = pd.products_id
+                          AND      pd.language_id = :languages_id
+                          AND      rd.languages_id = :languages_id
+                          ORDER BY r.reviews_id DESC";
+ 
+    $reviews_param_array[':languages_id'] = (int)$_SESSION['languages_id'];
 
-    if ($reviews_split->number_of_rows > 0) {
+    $reviews_split = new SplitPageResultsBootstrap($reviews_query_raw, MAX_DISPLAY_NEW_REVIEWS, '*', $reviews_param_array);   
+    $reviews_query = $DB->prepare($reviews_split->sql_query);
+    $DB->perform($reviews_query, $reviews_split->sql_param);
 
-      $reviews_query = xos_db_query($reviews_split->sql_query);
+    if ($reviews_split->number_of_rows > 0) { // Anzahl der Detansaetze total
+//  if ($reviews_query->rowCount() > 0) { // Anzahl der Detansaetze fuer diese Seite
+
       $reviews_array = array();
-      while ($reviews = xos_db_fetch_array($reviews_query)) {
+      while ($reviews = $reviews_query->fetch()) {
         
         $product_image = xos_get_product_images($reviews['products_image']);
           
@@ -120,4 +148,3 @@
 
   require(DIR_WS_INCLUDES . 'application_bottom.php'); 
   return 'overwrite_all';
-?>

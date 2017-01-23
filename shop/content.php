@@ -24,13 +24,31 @@
 
 require('includes/application_top.php');
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_CONTENT) == 'overwrite_all')) : 
-  $content_id = xos_db_prepare_input($_GET['co']);
 
+  $content_id = (int)$_GET['co'];
 
-
-  $content_query = xos_db_query("select c.content_id, c.link_request_type, c.type, cd.name, cd.heading_title, cd.content, cd.php_source from " . TABLE_CONTENTS . " c, " . TABLE_CONTENTS_DATA . " cd where c.status = '1' and c.content_id = '" . (int)$content_id . "' and c.content_id = cd.content_id and language_id = '" . (int)$_SESSION['languages_id'] . "'");
-  $content = xos_db_fetch_array($content_query);
-  eval(' ?>' . $content['php_source'] . '<?php ');
+  $content_query = $DB->prepare
+  (
+   "SELECT c.content_id,
+           c.link_request_type,
+           c.type,
+           cd.name,
+           cd.heading_title,
+           cd.content,
+           cd.php_source
+      FROM " . TABLE_CONTENTS . " c,
+           " . TABLE_CONTENTS_DATA . " cd
+     WHERE c.status = '1'
+       AND c.content_id = :co
+       AND c.content_id = cd.content_id
+       AND language_id = :languages_id"
+  );
+  
+  $DB->perform($content_query, array(':co' => $content_id,
+                                     ':languages_id' => (int)$_SESSION['languages_id']));
+                                       
+  $content = $content_query->fetch();
+  eval(" ?>" . $content['php_source'] . "<?php ");
   if (in_array($content['type'], array('info', 'not_in_menu'))) $site_trail->add($content['name'], xos_href_link(FILENAME_CONTENT,'co=' . $content['content_id'], (!empty($content['link_request_type']) ? $content['link_request_type'] : 'NONSSL')));
   
   require(DIR_WS_INCLUDES . 'html_header.php');

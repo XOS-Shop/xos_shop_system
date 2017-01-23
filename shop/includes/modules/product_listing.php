@@ -31,7 +31,9 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/modules/product_listing.php') == 'overwrite_all')) :
-  $listing_split = new splitPageResults($listing_sql, $max_display, 'p.products_id');
+  $listing_split = new SplitPageResultsPDO($listing_sql, $max_display, 'p.products_id', $listing_param_array);
+  $listing_query = $DB->prepare($listing_split->sql_query);
+  $DB->perform($listing_query, $listing_split->sql_param);  
 
   $table_heading_array = array();
   $table_heading_alt_array = array();
@@ -125,8 +127,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   if ($listing_split->number_of_rows > 0) {      
     $rows = 0;
     $table_outer_array = array();
-    $listing_query = xos_db_query($listing_split->sql_query);
-    while ($listing = xos_db_fetch_array($listing_query)) {
+    while ($listing = $listing_query->fetch()) {    
       $rows++;
       
       $products_prices = xos_get_product_prices($listing['products_price']);
@@ -297,5 +298,4 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     $smarty->assign('product_listing', $output_product_listing); 
            
   }
-endif;  
-?>
+endif;

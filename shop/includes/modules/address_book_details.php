@@ -69,8 +69,17 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     if ($process == true) {
       if ($entry_state_has_zones == true) {
         $zones_array = array();
-        $zones_query = xos_db_query("select zone_name from " . TABLE_ZONES . " where zone_country_id = '" . (int)$country . "' order by zone_name");
-        while ($zones_values = xos_db_fetch_array($zones_query)) {
+        $zones_query = $DB->prepare
+        (
+         "SELECT   zone_name
+          FROM     " . TABLE_ZONES . "
+          WHERE    zone_country_id = :country
+          ORDER BY zone_name"
+        );
+        
+        $DB->perform($zones_query, array(':country' => (int)$country));
+        
+        while ($zones_values = $zones_query->fetch()) {
           $zones_array[] = array('id' => $zones_values['zone_name'], 'text' => $zones_values['zone_name']);
         }
         $smarty->assign('input_state', xos_draw_pull_down_menu('state', $zones_array, '', 'class="form-control" id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
@@ -115,5 +124,4 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
                         'input_country');
                       
   $smarty->assign('address_book_details', $output_address_book_details);
-endif;  
-?>
+endif;

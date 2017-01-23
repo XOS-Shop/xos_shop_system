@@ -45,12 +45,20 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 // needs to be included earlier to set the success message in the messageStack
   require(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/' . FILENAME_ACCOUNT_NEWSLETTERS);
 
-  $newsletter_query = xos_db_query("select newsletter_status from " . TABLE_NEWSLETTER_SUBSCRIBERS . " where customers_id = '" . (int)$_SESSION['customer_id'] . "'");
-  $newsletter = xos_db_fetch_array($newsletter_query);
+  $newsletter_query = $DB->prepare
+  (
+   "SELECT newsletter_status
+	  FROM   " . TABLE_NEWSLETTER_SUBSCRIBERS . "
+	  WHERE  customers_id = :customer_id"
+  );
+  
+  $DB->perform($newsletter_query, array(':customer_id' => (int)$_SESSION['customer_id']));  
+  
+  $newsletter = $newsletter_query->fetch();
 
   if (isset($_POST['action']) && ($_POST['action'] == 'process') && isset($_POST['formid']) && ($_POST['formid'] == $_SESSION['sessiontoken'])) {
     if (isset($_POST['newsletter_general']) && is_numeric($_POST['newsletter_general'])) {
-      $newsletter_general = xos_db_prepare_input($_POST['newsletter_general']);
+      $newsletter_general = $_POST['newsletter_general'];
     } else {
       $newsletter_general = '0';
     }
@@ -58,7 +66,16 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     if ($newsletter_general != $newsletter['newsletter_status']) {
       $newsletter_general = (($newsletter['newsletter_status'] == '1') ? '0' : '1');
 
-      xos_db_query("update " . TABLE_NEWSLETTER_SUBSCRIBERS . " set newsletter_status = '" . (int)$newsletter_general . "', newsletter_status_change = now() where customers_id = '" . (int)$_SESSION['customer_id'] . "'");
+	  $update_newsletter_subscribers_query = $DB->prepare
+	  (
+	   "UPDATE " . TABLE_NEWSLETTER_SUBSCRIBERS . "
+		  SET    newsletter_status = :newsletter_general,
+			       newsletter_status_change = Now()
+		  WHERE  customers_id = :customer_id"
+	  );
+
+      $DB->perform($update_newsletter_subscribers_query, array(':newsletter_general' => (int)$newsletter_general,
+                                                               ':customer_id' => (int)$_SESSION['customer_id']));  	  	  
     }
 
     $messageStack->add_session('account', SUCCESS_NEWSLETTER_UPDATED, 'success');
@@ -106,4 +123,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

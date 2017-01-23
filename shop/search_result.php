@@ -140,16 +140,55 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     }
   }
 
-  $select_str = "select distinct " . $select_column_list . " p.manufacturers_id, p.products_id, p.products_delivery_time_id, pd.products_name, p.products_price, p.products_tax_class_id, IF(s.status, s.specials_new_products_price, NULL) as specials_new_products_price, IF(s.status, s.specials_new_products_price, IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) as final_price ";
+  $select_str_param_array = array();
+  $from_str_param_array = array();
+  $where_str_param_array = array();
+  $order_str_param_array = array();
+  
+  $select_str = "SELECT DISTINCT " . $select_column_list . "
+                                 p.manufacturers_id,
+                                 p.products_id,
+                                 p.products_delivery_time_id,
+                                 pd.products_name,
+                                 p.products_price,
+                                 p.products_tax_class_id,
+                                 IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
+                                 IF(s.status, s.specials_new_products_price,
+                                   IF(pp.customers_group_price >= 0, pp.customers_group_price, ppz.customers_group_price)) AS final_price ";
 
-  $from_str = "from " . TABLE_PRODUCTS . " p left join " . TABLE_MANUFACTURERS_INFO . " mi on (p.manufacturers_id = mi.manufacturers_id and mi.languages_id = '" . (int)$_SESSION['languages_id'] . "') left join " . TABLE_PRODUCTS_PRICES . " ppz on p.products_id = ppz.products_id and ppz.customers_group_id = '0' left join " . TABLE_PRODUCTS_PRICES . " pp on p.products_id = pp.products_id and pp.customers_group_id = '" . $customer_group_id . "' left join " . TABLE_SPECIALS . " s on p.products_id = s.products_id and s.customers_group_id = '" . $customer_group_id . "'";
+  $from_str = "FROM      " . TABLE_PRODUCTS . " p
+               LEFT JOIN " . TABLE_MANUFACTURERS_INFO . " mi
+               ON        (
+                          p.manufacturers_id = mi.manufacturers_id
+                          AND mi.languages_id = :languages_id
+                         )
+               LEFT JOIN " . TABLE_PRODUCTS_PRICES . " ppz
+               ON        p.products_id = ppz.products_id
+               AND       ppz.customers_group_id = '0'
+               LEFT JOIN " . TABLE_PRODUCTS_PRICES . " pp
+               ON        p.products_id = pp.products_id
+               AND       pp.customers_group_id = :customer_group_id
+               LEFT JOIN " . TABLE_SPECIALS . " s
+               ON        p.products_id = s.products_id
+               AND       s.customers_group_id = :customer_group_id,
+                         " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+                         " . TABLE_CATEGORIES_OR_PAGES . " c, 
+                         " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c";                
+             
+  $from_str_param_array[':languages_id'] = (int)$_SESSION['languages_id'];
+  $from_str_param_array[':customer_group_id'] = (int)$customer_group_id;  
 
-  $from_str .= ", " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_CATEGORIES_OR_PAGES . " c, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c";
-
-  $where_str = " where p.products_status = '1' and c.categories_or_pages_status = '1' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id ";
+  $where_str = " WHERE p.products_status = '1'
+                 AND   c.categories_or_pages_status = '1'
+                 AND   p.products_id = pd.products_id
+                 AND   pd.language_id = :languages_id
+                 AND   p.products_id = p2c.products_id
+                 AND   p2c.categories_or_pages_id = c.categories_or_pages_id ";
+                   
+//  $where_str_param_array[':languages_id'] = (int)$_SESSION['languages_id']; // ist bereits im $from_str_param_array enthalten (Zeile ca. 151)
 
   if (isset($search_keywords) && (sizeof($search_keywords) > 0)) {
-    $where_str .= " and (";
+    $where_str .= " AND (";
     for ($i=0, $n=sizeof($search_keywords); $i<$n; $i++ ) {
       switch ($search_keywords[$i]) {
         case '(':
@@ -159,8 +198,10 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           $where_str .= " " . $search_keywords[$i] . " ";
           break;
         default:
-          $keyword = xos_db_prepare_input($search_keywords[$i]);
-          $where_str .= "(pd.products_name like '%" . xos_db_input($keyword) . "%' or p.products_model like '%" . xos_db_input($keyword) . "%' or mi.manufacturers_name like '%" . xos_db_input($keyword) . "%'";
+          $where_str .= "(pd.products_name like :keyword_" . $i . " 
+                          OR p.products_model like :keyword_" . $i . " 
+                          OR mi.manufacturers_name like :keyword_" . $i . "";          
+          $where_str_param_array[':keyword_' . $i] = '%' . $search_keywords[$i] . '%';
           $where_str .= ')';
           break;
       }
@@ -172,7 +213,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     for ($i=0, $n=sizeof($column_list); $i<$n; $i++) {
       if ($column_list[$i] == 'PRODUCT_LIST_NAME') {
         $_GET['sort'] = $i . 'a';
-        $order_str = ' order by pd.products_name';
+        $order_str = ' ORDER BY pd.products_name';
         break;
       }
     }
@@ -181,34 +222,34 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $sort_order = substr($_GET['sort'], 1);
     switch ($column_list[$sort_col]) {
       case 'PRODUCT_LIST_MODEL':
-        $order_str .= " order by p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        $order_str .= " ORDER BY p.products_model " . ($sort_order == 'd' ? "DESC" : "") . ", pd.products_name";
         break;
       case 'PRODUCT_LIST_NAME':
-        $order_str .= " order by pd.products_name " . ($sort_order == 'd' ? "desc" : "");
+        $order_str .= " ORDER BY pd.products_name " . ($sort_order == 'd' ? "DESC" : "");
         break;
       case 'PRODUCT_LIST_INFO':
 //--------[Alternative] wenn hier aendern auch product_listing.php, index.php und specials.php aendern-----------  
-//        $order_str .= " order by pd.products_info " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+//        $order_str .= " ORDER BY pd.products_info " . ($sort_order == 'd' ? "DESC" : "") . ", pd.products_name";
 //------------------------------------------------------------------------------------------------------------------      
-        $order_str .= " order by pd.products_name";
+        $order_str .= " ORDER BY pd.products_name";
         break;
       case 'PRODUCT_LIST_PACKING_UNIT':       
-        $order_str .= " order by pd.products_p_unit " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        $order_str .= " ORDER BY pd.products_p_unit " . ($sort_order == 'd' ? "DESC" : "") . ", pd.products_name";
         break;                
       case 'PRODUCT_LIST_MANUFACTURER':
-        $order_str .= " order by mi.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        $order_str .= " ORDER BY mi.manufacturers_name " . ($sort_order == 'd' ? "DESC" : "") . ", pd.products_name";
         break;
       case 'PRODUCT_LIST_QUANTITY':
-        $order_str .= " order by p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        $order_str .= " ORDER BY p.products_quantity " . ($sort_order == 'd' ? "DESC" : "") . ", pd.products_name";
         break;
       case 'PRODUCT_LIST_IMAGE':
-        $order_str .= " order by pd.products_name";
+        $order_str .= " ORDER BY pd.products_name";
         break;
       case 'PRODUCT_LIST_WEIGHT':
-        $order_str .= " order by p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        $order_str .= " ORDER BY p.products_weight " . ($sort_order == 'd' ? "DESC" : "") . ", pd.products_name";
         break;
       case 'PRODUCT_LIST_PRICE':
-        $order_str .= " order by final_price " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        $order_str .= " ORDER BY final_price " . ($sort_order == 'd' ? "DESC" : "") . ", pd.products_name";
         break;
     }
   }
@@ -258,6 +299,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   $listing_sql = $select_str . $from_str . $where_str . $order_str;
 
+  $listing_param_array = array_merge($select_str_param_array, $from_str_param_array, $where_str_param_array, $order_str_param_array);
+
   $max_display = isset($_SESSION['mdsr']) ? $_SESSION['mdsr'] : MAX_DISPLAY_SEARCH_RESULTS;
 
   require(DIR_WS_MODULES . FILENAME_PRODUCT_LISTING);
@@ -274,4 +317,3 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   require(DIR_WS_INCLUDES . 'application_bottom.php');
 endif;
-?>

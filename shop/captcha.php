@@ -129,4 +129,3 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
   $src_captcha_base64 = 'data:image/png;base64,' . $img_data;   
   @unlink(DIR_FS_TMP . $captcha_text . 'captcha_tmp.png');   
 endif;
-?>

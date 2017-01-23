@@ -39,15 +39,63 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
   if(!$smarty->isCached(SELECTED_TPL . '/includes/boxes/best_sellers.tpl', $cache_id)){
 
     if (isset($current_category_id) && ($current_category_id > 0)) { 
-      $best_sellers_query = xos_db_query("select distinct p.products_id, pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c where p.products_status = '1' and c.categories_or_pages_status = '1' and p.products_ordered > 0 and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id and '" . (int)$current_category_id . "' in (c.categories_or_pages_id, c.parent_id) order by p.products_ordered desc, pd.products_name limit " . MAX_DISPLAY_BESTSELLERS);
+      $best_sellers_query = $DB->prepare
+      (
+       "SELECT DISTINCT p.products_id,
+                        pd.products_name
+        FROM            " . TABLE_PRODUCTS . " p,
+                        " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+                        " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c,
+                        " . TABLE_CATEGORIES_OR_PAGES . " c
+        WHERE           p.products_status = '1'
+        AND             c.categories_or_pages_status = '1'
+        AND             p.products_ordered > 0
+        AND             p.products_id = pd.products_id
+        AND             pd.language_id = :languages_id
+        AND             p.products_id = p2c.products_id
+        AND             p2c.categories_or_pages_id = c.categories_or_pages_id
+        AND             :current_category_id 
+        IN              (
+                        c.categories_or_pages_id,
+                        c.parent_id
+                        )
+        ORDER BY        p.products_ordered DESC,
+                        pd.products_name
+        LIMIT           " . MAX_DISPLAY_BESTSELLERS
+      );
+      
+      $DB->perform($best_sellers_query, array(':languages_id' => (int)$_SESSION['languages_id'],
+                                              ':current_category_id' => (int)$current_category_id));
+                                            
     } else {
-      $best_sellers_query = xos_db_query("select distinct p.products_id, pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c, " . TABLE_CATEGORIES_OR_PAGES . " c where p.products_status = '1' and c.categories_or_pages_status = '1' and p.products_ordered > 0 and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "' and p.products_id = p2c.products_id and p2c.categories_or_pages_id = c.categories_or_pages_id order by p.products_ordered desc, pd.products_name limit " . MAX_DISPLAY_BESTSELLERS);     
+      $best_sellers_query = $DB->prepare
+      (
+       "SELECT DISTINCT p.products_id,
+                        pd.products_name
+        FROM            " . TABLE_PRODUCTS . " p,
+                        " . TABLE_PRODUCTS_DESCRIPTION . " pd,
+                        " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c,
+                        " . TABLE_CATEGORIES_OR_PAGES . " c
+        WHERE           p.products_status = '1'
+        AND             c.categories_or_pages_status = '1'
+        AND             p.products_ordered > 0
+        AND             p.products_id = pd.products_id
+        AND             pd.language_id = :languages_id
+        AND             p.products_id = p2c.products_id
+        AND             p2c.categories_or_pages_id = c.categories_or_pages_id
+        ORDER BY        p.products_ordered DESC,
+                        pd.products_name
+        LIMIT           " . MAX_DISPLAY_BESTSELLERS
+      );
+      
+      $DB->perform($best_sellers_query, array(':languages_id' => (int)$_SESSION['languages_id']));
+                                                         
     }
 
-    if (xos_db_num_rows($best_sellers_query) >= MIN_DISPLAY_BESTSELLERS) {
+    if ($best_sellers_query->rowCount() >= MIN_DISPLAY_BESTSELLERS) {
       $rows = 0;
       $bestsellers_list = '<table border="0" width="100%" cellspacing="0" cellpadding="1">';
-      while ($best_sellers = xos_db_fetch_array($best_sellers_query)) {
+      while ($best_sellers = $best_sellers_query->fetch()) {
         $rows++;      
         $bestsellers_list_array[]=array('number' => xos_row_number_format($rows),
                                         'link_filename_product_info' => xos_href_link(FILENAME_PRODUCT_INFO, 'p=' . $best_sellers['products_id']),

@@ -30,6 +30,11 @@
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
 
+// set default timezone if none exists (PHP 5.3 throws an E_WARNING)
+  if (strlen(ini_get('date.timezone')) < 1) {
+    date_default_timezone_set(@date_default_timezone_get());
+  }
+  
 // start the timer for the page parse time log
   define('PAGE_PARSE_START_TIME', microtime());
 
@@ -59,13 +64,16 @@
 //  
   header('Content-Type: text/html; charset=utf-8');
   if (isset($_SERVER['HTTP_USER_AGENT']) && (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false)) header('X-UA-Compatible: IE=edge,chrome=1');  
-
+ 
 // Set the local configuration parameters - mainly for developers
   if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
 
 // include server parameters
   require('includes/configure.php');  
 
+// include the registry class
+  require(DIR_WS_CLASSES . 'registry.php'); 
+   
   if (strlen(DB_SERVER) < 1) {
     if (is_dir('install')) {
       header('Location: install/index.php');
@@ -92,18 +100,24 @@
 // include the list of project database tables
   require(DIR_WS_INCLUDES . 'database_tables.php');
 
-// include the database functions and make a connection to the database
-  if (class_exists('mysqli') && version_compare(PHP_VERSION, '5.3.0', '>=')) {
-    require(DIR_WS_FUNCTIONS . 'database_mysqli.php');
-    xos_db_connect();
-  } else { 
-    require(DIR_WS_FUNCTIONS . 'database_mysql.php');
-    xos_db_connect() or die('Unable to connect to database server!');
-  } 
+// include the database functions "mysqli" and make a connection to the database
+  require(DIR_WS_FUNCTIONS . 'database_mysqli.php');
+  xos_db_connect();
 
+// include the database class "PDO", create an instance and register it
+  require(DIR_WS_CLASSES . 'Db.class.php'); 
+  Registry::set( 'DB', new Db());
+  $DB = Registry::get('DB'); 
+  
 // set the application parameters
-  $configuration_query = xos_db_query('select configuration_key as cfgKey, configuration_value as cfgValue from ' . TABLE_CONFIGURATION);
-  while ($configuration = xos_db_fetch_array($configuration_query)) {
+  $configuration_query = $DB->query
+  (
+   "SELECT configuration_key   AS cfgKey,
+           configuration_value AS cfgValue
+    FROM   " . TABLE_CONFIGURATION
+  );
+  
+  while ($configuration = $configuration_query->fetch()) {
     if (($configuration['cfgKey'] == 'SESSION_FORCE_COOKIE_USE' || $configuration['cfgKey'] == 'SESSION_RECREATE') && $configuration['cfgValue'] == 'true' && ENABLE_SSL == 'true' && HTTP_COOKIE_DOMAIN != HTTPS_COOKIE_DOMAIN) {
       define($configuration['cfgKey'], 'false'); 
     } else {
@@ -144,9 +158,9 @@
     }
   }
   
-  if (!empty($_GET['goto'])) {
-    $_GET['lnc'] = $_GET['goto'];
-    unset($_GET['goto']);
+  if (!empty($_GET['go'])) {
+    $_GET['lnc'] = $_GET['go'];
+    unset($_GET['go']);
   }  
 
 // if gzip_compression is enabled, start to buffer the output 
@@ -173,10 +187,7 @@
 
 // include navigation history class
   require(DIR_WS_CLASSES . 'navigation_history.php');
-
-// some code to solve compatibility issues
-  require(DIR_WS_FUNCTIONS . 'compatibility.php');
-
+ 
 // define how the session functions will be used
   require(DIR_WS_FUNCTIONS . 'sessions.php');
 
@@ -366,8 +377,16 @@
 // set the customer_group values
   if(!isset($_SESSION['sppc_customer_group_id']) || !isset($_SESSION['sppc_customer_group_discount'])  ||  !isset($_SESSION['sppc_customer_group_show_tax'])  || !isset($_SESSION['sppc_customer_group_tax_exempt'])) {
 
-    $check_customer_group = xos_db_query("select customers_group_discount, customers_group_show_tax, customers_group_tax_exempt from " . TABLE_CUSTOMERS_GROUPS . " where customers_group_id = 0");
-    $customer_group = xos_db_fetch_array($check_customer_group);
+    $check_customer_group = $DB->query
+    (
+     "SELECT customers_group_discount,
+             customers_group_show_tax,
+             customers_group_tax_exempt
+      FROM   " . TABLE_CUSTOMERS_GROUPS . "
+      WHERE  customers_group_id = 0"
+    );
+    
+    $customer_group = $check_customer_group->fetch();
     
     $_SESSION['sppc_customer_group_id'] = 0;
     $_SESSION['sppc_customer_group_discount'] = $customer_group['customers_group_discount'];
@@ -459,11 +478,42 @@
                                   xos_redirect(xos_href_link($_SERVER['BASENAME_PHP_SELF'], xos_get_all_get_params(array('action', 'notify'))));
                                 }
                                 if (!is_array($notify)) $notify = array($notify);
+                                
+                                $check_query = $DB->prepare
+                                (
+                                 "SELECT Count(*) AS count
+                                  FROM   " . TABLE_PRODUCTS_NOTIFICATIONS . "
+                                  WHERE  products_id = :notify
+                                  AND    customers_id = :customer_id"
+                                );
+                                
+                                $insert_products_notifications_query = $DB->prepare
+                                (
+                                 "INSERT INTO " . TABLE_PRODUCTS_NOTIFICATIONS . "
+                                              (
+                                              products_id,
+                                              customers_id,
+                                              date_added
+                                              )
+                                              VALUES
+                                              (
+                                              :notify,
+                                              :customer_id,
+                                              now()
+                                              )"
+                                );                                
+                                                                  
                                 for ($i=0, $n=sizeof($notify); $i<$n; $i++) {
-                                  $check_query = xos_db_query("select count(*) as count from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . $notify[$i] . "' and customers_id = '" . $_SESSION['customer_id'] . "'");
-                                  $check = xos_db_fetch_array($check_query);
+                                  
+                                  $DB->perform($check_query, array(':notify' => $notify[$i],
+                                                                   ':customer_id' => (int)$_SESSION['customer_id']));  
+                                                                             
+                                  $check = $check_query->fetch();
                                   if ($check['count'] < 1 && $notify[$i] != '') {
-                                    xos_db_query("insert into " . TABLE_PRODUCTS_NOTIFICATIONS . " (products_id, customers_id, date_added) values ('" . $notify[$i] . "', '" . $_SESSION['customer_id'] . "', now())");
+                                    
+                                    $DB->perform($insert_products_notifications_query, array(':notify' => $notify[$i],
+                                                                                             ':customer_id' => (int)$_SESSION['customer_id']));  
+                                                                                                                                
                                   }
                                 }
                                 xos_redirect(xos_href_link($_SERVER['BASENAME_PHP_SELF'], xos_get_all_get_params(array('action', 'notify'))));
@@ -473,10 +523,32 @@
                               }
                               break;
       case 'notify_remove' :  if (isset($_SESSION['customer_id']) && isset($_GET['p'])) {
-                                $check_query = xos_db_query("select count(*) as count from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . $_GET['p'] . "' and customers_id = '" . $_SESSION['customer_id'] . "'");
-                                $check = xos_db_fetch_array($check_query);
-                                if ($check['count'] > 0) {
-                                  xos_db_query("delete from " . TABLE_PRODUCTS_NOTIFICATIONS . " where products_id = '" . $_GET['p'] . "' and customers_id = '" . $_SESSION['customer_id'] . "'");
+      
+                                $check_query = $DB->prepare
+                                (
+                                 "SELECT Count(*) AS count
+                                  FROM   " . TABLE_PRODUCTS_NOTIFICATIONS . "
+                                  WHERE  products_id = :p
+                                  AND    customers_id = :customer_id"
+                                );
+                                
+                                $DB->perform($check_query, array(':p' => $_GET['p'],
+                                                                 ':customer_id' => (int)$_SESSION['customer_id']));
+                                                                                                  
+                                $check = $check_query->fetch();
+                                if ($check['count'] > 0) {  
+                                                                
+                                  $delete_products_notifications_query = $DB->prepare
+                                  (
+                                   "DELETE
+                                    FROM   " . TABLE_PRODUCTS_NOTIFICATIONS . "
+                                    WHERE  products_id = :p
+                                    AND    customers_id = :customer_id"
+                                  );
+                                  
+                                  $DB->perform($delete_products_notifications_query, array(':p' => $_GET['p'],
+                                                                                           ':customer_id' => (int)$_SESSION['customer_id']));
+                                                                                                   
                                 }
                                 xos_redirect(xos_href_link($_SERVER['BASENAME_PHP_SELF'], xos_get_all_get_params(array('action'))));
                               } else {
@@ -497,7 +569,30 @@
   }
 
 // update stats products_viewed
-  if ($_SERVER['BASENAME_PHP_SELF'] == FILENAME_PRODUCT_INFO) xos_db_query("insert into " . TABLE_PRODUCTS_STATS . " (products_id, language_id, products_viewed) values('" . (int)$_GET['p'] . "', '" . (int)$_SESSION['languages_id'] . "', '1') on duplicate key update products_viewed = products_viewed+1");
+  if ($_SERVER['BASENAME_PHP_SELF'] == FILENAME_PRODUCT_INFO) {
+  
+    $insert_products_stats_query = $DB->prepare
+    (
+     "INSERT INTO " . TABLE_PRODUCTS_STATS . "
+                  (
+                  products_id,
+                  language_id,
+                  products_viewed
+                  )
+                  VALUES
+                  (
+                  :p,
+                  :languages_id,
+                  '1'
+                  )
+      ON          DUPLICATE KEY
+      UPDATE      products_viewed = products_viewed+1" 
+    );
+    
+    $DB->perform($insert_products_stats_query, array(':p' => $_GET['p'],
+                                                     ':languages_id' => (int)$_SESSION['languages_id']));
+    
+  }  
 
 // include the who's online functions
   if (!(in_array($_SERVER['BASENAME_PHP_SELF'], array(FILENAME_CSS, FILENAME_JS, FILENAME_TEST)))) {
@@ -557,10 +652,27 @@
 
 // add category names or the manufacturer name to the site trail
   if (isset($cPath_array)) {
-    for ($i=0, $n=sizeof($cPath_array); $i<$n; $i++) {
-      $categories_query = xos_db_query("select c.link_request_type, c.is_page, cpd.categories_or_pages_name from " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd left join " . TABLE_CATEGORIES_OR_PAGES . " c on cpd.categories_or_pages_id = c.categories_or_pages_id where c.categories_or_pages_status = '1' and cpd.categories_or_pages_id = '" . (int)$cPath_array[$i] . "' and cpd.language_id = '" . (int)$_SESSION['languages_id'] . "'");    
-      if (xos_db_num_rows($categories_query) > 0) {
-        $categories = xos_db_fetch_array($categories_query);
+  
+    $categories_query = $DB->prepare
+    (
+     "SELECT    c.link_request_type,
+                c.is_page,
+                cpd.categories_or_pages_name
+      FROM      " . TABLE_CATEGORIES_OR_PAGES_DATA . " cpd
+      LEFT JOIN " . TABLE_CATEGORIES_OR_PAGES . " c
+      ON        cpd.categories_or_pages_id = c.categories_or_pages_id
+      WHERE     c.categories_or_pages_status = '1'
+      AND       cpd.categories_or_pages_id = :cPath
+      AND       cpd.language_id = :languages_id"
+    );
+        
+    for ($i=0, $n=sizeof($cPath_array); $i<$n; $i++) { 
+      
+      $DB->perform($categories_query, array(':cPath' => (int)$cPath_array[$i],
+                                            ':languages_id' => (int)$_SESSION['languages_id']));
+                                                     
+      if ($categories_query->rowCount() > 0) {
+        $categories = $categories_query->fetch();
         $site_trail->add($categories['categories_or_pages_name'], xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('p', 'c', 'lnc', 'cur', 'tpl', 'x', 'y')) . 'c=' . implode('_', array_slice($cPath_array, 0, ($i+1))), (!empty($categories['link_request_type']) ? $categories['link_request_type'] : 'NONSSL')));
         $page_info = $categories['is_page'];
       } else {
@@ -568,9 +680,19 @@
       }
     }
   } elseif (isset($_GET['m']) && ($_SERVER['BASENAME_PHP_SELF'] != FILENAME_SHOPPING_CART)) {  
-    $manufacturers_query = xos_db_query("select manufacturers_name from " . TABLE_MANUFACTURERS_INFO . " where manufacturers_id = '" . (int)$_GET['m'] . "' and languages_id = '" . (int)$_SESSION['languages_id'] . "'");
-    if (xos_db_num_rows($manufacturers_query)) {
-      $manufacturers = xos_db_fetch_array($manufacturers_query);
+    $manufacturers_query = $DB->prepare
+    (
+     "SELECT manufacturers_name
+      FROM   " . TABLE_MANUFACTURERS_INFO . "
+      WHERE  manufacturers_id = :m
+      AND    languages_id = :languages_id"
+    );
+    
+    $DB->perform($manufacturers_query, array(':m' => (int)$_GET['m'],
+                                             ':languages_id' => (int)$_SESSION['languages_id']));
+                                                
+    if ($manufacturers_query->rowCount()) {
+      $manufacturers = $manufacturers_query->fetch();
       $site_trail->add($manufacturers['manufacturers_name'], xos_href_link(FILENAME_DEFAULT, xos_get_all_get_params(array('p', 'm', 'lnc', 'cur', 'tpl', 'x', 'y')) . 'm=' . $_GET['m']));
       $page_info = 'false';
     }
@@ -578,9 +700,24 @@
 /*
 // add the products model to the site trail
   if (isset($_GET['p'])) {
-    $model_query = xos_db_query("select p.products_model from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p.products_id = p2c.products_id left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id, " . TABLE_PRODUCTS_DESCRIPTION . "  pd where c.categories_or_pages_status = '1' and p.products_id = '" . (int)$_GET['p'] . "' and p.products_id = pd.products_id");
-    if (xos_db_num_rows($model_query)) {
-      $model = xos_db_fetch_array($model_query);
+    $model_query = $DB->prepare
+    (
+     "SELECT    p.products_model
+      FROM      " . TABLE_PRODUCTS . " p
+      LEFT JOIN " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+      ON        p.products_id = p2c.products_id
+      LEFT JOIN " . TABLE_CATEGORIES_OR_PAGES . " c
+      ON        p2c.categories_or_pages_id = c.categories_or_pages_id,
+                " . TABLE_PRODUCTS_DESCRIPTION . " pd
+      WHERE     c.categories_or_pages_status = '1'
+      AND       p.products_id = :p
+      AND       p.products_id = pd.products_id"
+    );
+    
+    $DB->perform($model_query, array(':p' => (int)$_GET['p']));
+                                        
+    if ($model_query->rowCount()) {
+      $model = $model_query->fetch();
       if (isset($_GET['m'])) {
         $site_trail->add($model['products_model'], xos_href_link(FILENAME_PRODUCT_INFO, 'm=' . $_GET['m'] . '&p=' . $_GET['p']));
       } else { 
@@ -591,9 +728,27 @@
 */
 // add the products name to the site trail
   if (isset($_GET['p'])) {
-    $name_query = xos_db_query("select pd.products_name from " . TABLE_PRODUCTS . " p left join " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c on p.products_id = p2c.products_id left join " . TABLE_CATEGORIES_OR_PAGES . " c on p2c.categories_or_pages_id = c.categories_or_pages_id, " . TABLE_PRODUCTS_DESCRIPTION . "  pd where p.products_status = '1' and c.categories_or_pages_status = '1' and p.products_id = '" . (int)$_GET['p'] . "' and p.products_id = pd.products_id and pd.language_id = '" . (int)$_SESSION['languages_id'] . "'");
-    if (xos_db_num_rows($name_query)) {
-      $name = xos_db_fetch_array($name_query);
+    $name_query = $DB->prepare
+    (
+     "SELECT    pd.products_name
+      FROM      " . TABLE_PRODUCTS . " p
+      LEFT JOIN " . TABLE_PRODUCTS_TO_CATEGORIES . " p2c
+      ON        p.products_id = p2c.products_id
+      LEFT JOIN " . TABLE_CATEGORIES_OR_PAGES . " c
+      ON        p2c.categories_or_pages_id = c.categories_or_pages_id,
+                " . TABLE_PRODUCTS_DESCRIPTION . " pd
+      WHERE     p.products_status = '1'
+      AND       c.categories_or_pages_status = '1'
+      AND       p.products_id = :p
+      AND       p.products_id = pd.products_id
+      AND       pd.language_id = :languages_id"
+    );
+    
+    $DB->perform($name_query, array(':p' => (int)$_GET['p'],
+                                    ':languages_id' => (int)$_SESSION['languages_id']));
+                                                 
+    if ($name_query->rowCount()) {
+      $name = $name_query->fetch();
       if (isset($_GET['m'])) {      
         $site_trail->add($name['products_name'], xos_href_link(FILENAME_PRODUCT_INFO, 'm=' . $_GET['m'] . '&p=' . $_GET['p']));        
       } else {
@@ -611,8 +766,16 @@
   $templateIntegration->buildBlocks();
   
 // check for active product categories in Level 0  
-  $check_is_shop_query = xos_db_query("select count(*) as count from " . TABLE_CATEGORIES_OR_PAGES . " where parent_id = '0' and is_page = 'false' and categories_or_pages_status = '1'");
-  $check_is_shop = xos_db_fetch_array($check_is_shop_query);
+  $check_is_shop_query = $DB->query
+  (
+   "SELECT Count(*) AS count
+    FROM   " . TABLE_CATEGORIES_OR_PAGES . "
+    WHERE  parent_id = '0'
+    AND    is_page = 'false'
+    AND    categories_or_pages_status = '1'"
+  );
+  
+  $check_is_shop = $check_is_shop_query->fetch();
   $is_shop = false;
   if ($check_is_shop['count'] > 0) $is_shop = true; 
 
@@ -638,5 +801,4 @@
                         'date_format_long' => xos_date_format(DATE_FORMAT_LONG),
                         'languages_path' => DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $_SESSION['language'] . '/',
                         'buttons_path' => DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $_SESSION['language'] . '/buttons/',
-                        'images_path' => DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/'));                        
-?>
+                        'images_path' => DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/'));
