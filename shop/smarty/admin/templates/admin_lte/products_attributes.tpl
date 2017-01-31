@@ -121,23 +121,31 @@
           </div> 
           <div id="no-filter" class="row">
           </div>          
-      [@{/if}@]      
-          <div id="attributes" class="row">
-            <div class="col-xs-12">
-              [@{if $link_back_to_product_list}@]<a href="[@{$link_back_to_product_list}@]" class="btn btn-primary pull-right btn-margin-after-pagination" title=" [@{#button_title_back_to_product_list#}@] ">[@{#button_text_back_to_product_list#}@]</a>[@{/if}@]<a href="" onclick="toggle(); return false" class="btn btn-primary pull-right btn-margin-after-pagination" title=" [@{#button_title_edit_option_and_values#}@] ">[@{#button_text_edit_option_and_values#}@]</a>
+      [@{/if}@]
+          <div id="attributes">      
+            <div class="row">
+              <div class="col-xs-12">
+                [@{if $link_back_to_product_list}@]<a href="[@{$link_back_to_product_list}@]" class="btn btn-primary pull-right btn-margin-after-pagination" title=" [@{#button_title_back_to_product_list#}@] ">[@{#button_text_back_to_product_list#}@]</a>[@{/if}@]<a href="" onclick="toggle(); return false" class="btn btn-primary pull-right btn-margin-after-pagination" title=" [@{#button_title_edit_option_and_values#}@] ">[@{#button_text_edit_option_and_values#}@]</a>
+              </div>
+            </div>  
+            <div class="row">  
+              [@{$attributes_products}@]     
             </div>
-            [@{$attributes_products}@]     
-          </div>           
-          <div id="options" class="row">
-            <div class="col-xs-12">
-              [@{if $link_back_to_product_list}@]<a href="[@{$link_back_to_product_list}@]" class="btn btn-primary pull-right btn-margin-after-pagination" title=" [@{#button_title_back_to_product_list#}@] ">[@{#button_text_back_to_product_list#}@]</a>[@{/if}@]<a href="" onclick="toggle(); return false" class="btn btn-primary pull-right btn-margin-after-pagination" title=" [@{#button_title_edit_attributes#}@] ">[@{#button_text_edit_attributes#}@]</a>
-            </div>                        
-            <div class="col-lg-6">                                 
-              [@{$attributes_options}@]                   
-            </div>                      
-            <div class="col-lg-6">                                      
-              [@{$attributes_values}@]                    
-            </div>                        
+          </div>
+          <div id="options">          
+            <div class="row">
+              <div class="col-xs-12">
+                [@{if $link_back_to_product_list}@]<a href="[@{$link_back_to_product_list}@]" class="btn btn-primary pull-right btn-margin-after-pagination" title=" [@{#button_title_back_to_product_list#}@] ">[@{#button_text_back_to_product_list#}@]</a>[@{/if}@]<a href="" onclick="toggle(); return false" class="btn btn-primary pull-right btn-margin-after-pagination" title=" [@{#button_title_edit_attributes#}@] ">[@{#button_text_edit_attributes#}@]</a>
+              </div>
+            </div>
+            <div class="row">                         
+              <div class="col-lg-6">                                 
+                [@{$attributes_options}@]                   
+              </div>                      
+              <div class="col-lg-6">                                      
+                [@{$attributes_values}@]                    
+              </div>                        
+            </div>
           </div>                                           
         </section>  
       </div>                
