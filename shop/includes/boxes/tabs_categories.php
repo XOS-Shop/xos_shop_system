@@ -77,7 +77,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
         if (SHOW_EMPTY_CATEGORIES == 'true' || $products_in_category > 0 || $tree[$counter]['is_page'] != 'false') { 
         
           if (isset($categories_array[sizeof($categories_array) - 1]['level_will_change']))
-            $level_change_last -= $categories_array[sizeof($categories_array) - 1]['level_will_change'] = ($prev_level < $tree[$counter]['level']) ? $tree[$counter]['level'] - $prev_level : (($prev_level > $tree[$counter]['level']) ? $tree[$counter]['level'] - $prev_level : '');        
+            $level_change_last -= $categories_array[sizeof($categories_array) - 1]['level_will_change'] = ($prev_level < $tree[$counter]['level']) ? $tree[$counter]['level'] - $prev_level : (($prev_level > $tree[$counter]['level']) ? $tree[$counter]['level'] - $prev_level : 0);        
                        
           $categories_array[]=array('class_name' => $class_name,
                                     'level' => $tree[$counter]['level'],
