@@ -59,6 +59,7 @@
 
 <script type="text/javascript" src="[@{$images_path}@]jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="[@{$images_path}@]jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="[@{$images_path}@]jquery.scrollUp.min.js"></script>
 <script type="text/javascript" src="[@{$images_path}@]quick_search_suggest.js"></script>
 <script type="text/javascript" src="[@{$images_path}@]jquery.colorbox-min.js"></script>
 <script type="text/javascript" src="[@{$languages_path}@]jquery.colorbox-language.js"></script>
