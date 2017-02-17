@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : cyborg-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0.3
+* version    : 1.0.7 for XOS-Shop version 1.0.4
 * descrip    : xos-shop template built with Bootstrap3 and theme cyborg                                                                    
 * filename   : product_notification_email_html.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
@@ -32,7 +32,7 @@
 <meta http-equiv="content-type" content="text/html; charset=[@{$charset}@]" />
 <meta http-equiv="content-language" content="[@{$html_lang}@]" />
 <meta http-equiv="content-style-type" content="text/css" />
-<meta name="generator" content="XOS-Shop version 1.0.3, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0.4, open source e-commerce system" />
 [@{if $base_href}@]
 <base href="[@{$base_href}@]" />
 [@{/if}@]

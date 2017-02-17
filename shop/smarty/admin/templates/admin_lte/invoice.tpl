@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : admin_lte
-* version    : 1.0 for XOS-Shop version 1.0.3
+* version    : 1.0 for XOS-Shop version 1.0.4
 * descrip    : xos-shop template for admin based on
 *              AdminLTE https://github.com/almasaeed2010/AdminLTE                                                                    
 * filename   : invoice.tpl
@@ -34,7 +34,7 @@
 <meta http-equiv="content-language" content="[@{$html_lang}@]" />
 <meta http-equiv="content-script-type" content="text/javascript" />
 <meta http-equiv="content-style-type" content="text/css" />
-<meta name="generator" content="XOS-Shop version 1.0.3, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0.4, open source e-commerce system" />
 <title>[@{$project_title}@][@{$add_title}@]</title>
 [@{if $base_href}@]
 <base href="[@{$base_href}@]" />

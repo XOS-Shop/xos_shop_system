@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : sandstone-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0.3
+* version    : 1.0.7 for XOS-Shop version 1.0.4
 * descrip    : xos-shop default template built with Bootstrap3                                                                    
 * filename   : address_book_process.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>

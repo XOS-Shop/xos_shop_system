@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : admin_lte
-* version    : 1.0 for XOS-Shop version 1.0.3
+* version    : 1.0 for XOS-Shop version 1.0.4
 * descrip    : xos-shop template for admin based on
 *              AdminLTE https://github.com/almasaeed2010/AdminLTE                                                                    
 * filename   : products_expected.tpl

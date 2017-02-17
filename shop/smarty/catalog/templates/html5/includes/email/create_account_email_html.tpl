@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : html5
-* version    : 1.0.7 for XOS-Shop version 1.0.3
+* version    : 1.0.7 for XOS-Shop version 1.0.4
 * descrip    : xos-shop default template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                     
 * filename   : create_account_email_html.tpl
@@ -33,7 +33,7 @@
 <meta http-equiv="content-type" content="text/html; charset=[@{$charset}@]" />
 <meta http-equiv="content-language" content="[@{$html_lang}@]" />
 <meta http-equiv="content-style-type" content="text/css" />
-<meta name="generator" content="XOS-Shop version 1.0.3, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0.4, open source e-commerce system" />
 <title></title>
 </head>
 <body>
