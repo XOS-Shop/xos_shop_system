@@ -10,7 +10,7 @@
 - update:  Datenbank-Dump "xos-shop_without_sample_data" und "xos-shop_with_sample_data" angepasst
 - feature: Neues Frontend Template 'sandstone-responsive' hinzugefügt
 - feature: Neues Smarty Plugin 'qrcode' hinzugefügt
-- feature: Der Datenbankzugriff erfolgt partiell via der PHP-Erweiterung "pdo" anstatt der veralteten Erweiterung "mysqli"
+- feature: Der Datenbankzugriff erfolgt partiell via der PHP-Erweiterung "pdo" anstatt der Erweiterung "mysqli"
 
 # XOS-Shop v1.0.3 (Release 06/04/2016)
 
