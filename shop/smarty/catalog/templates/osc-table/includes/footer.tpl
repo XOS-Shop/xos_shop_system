@@ -34,7 +34,7 @@
 <br />
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
   <tr>
-    <td nowrap="nowrap" align="center" class="smallText">Copyright © 2016 <a href="http://www.xos-shop.com"  target="_blank">XOS-Shop</a><br />Powered by <a href="http://www.xos-shop.com"  target="_blank">XOS-Shop</a></td>
+    <td nowrap="nowrap" align="center" class="smallText">Copyright © 2017 <a href="http://www.xos-shop.com"  target="_blank">XOS-Shop</a><br />Powered by <a href="http://www.xos-shop.com"  target="_blank">XOS-Shop</a></td>
   </tr>
 </table>
 [@{if $footer_banner_footer}@]

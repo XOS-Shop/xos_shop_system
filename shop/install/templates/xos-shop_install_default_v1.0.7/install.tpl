@@ -68,7 +68,7 @@
     <td colspan="2" align="center"><table border="0" cellspacing="0" cellpadding="0">
       <tr>        
         <td nowrap="nowrap" align="left" class="smallText">                               
-          <a href="http://www.xos-shop.com"  target="_blank"><b>XOS-Shop open source e-commerce system</b></a>, Copyright © 2016 Hanspeter Zeller<br />XOS-Shop comes with ABSOLUTELY NO WARRANTY; <a href="./includes/LICENSE.html#section15" target="_blank">click for details</a>. This is free<br />software, and you can redistribute it under certain conditions; <a href="./includes/LICENSE.html#terms" target="_blank">click for details</a>.
+          <a href="http://www.xos-shop.com"  target="_blank"><b>XOS-Shop open source e-commerce system</b></a>, Copyright © 2017 Hanspeter Zeller<br />XOS-Shop comes with ABSOLUTELY NO WARRANTY; <a href="./includes/LICENSE.html#section15" target="_blank">click for details</a>. This is free<br />software, and you can redistribute it under certain conditions; <a href="./includes/LICENSE.html#terms" target="_blank">click for details</a>.
         </td>
       </tr>    
     </table></td>
