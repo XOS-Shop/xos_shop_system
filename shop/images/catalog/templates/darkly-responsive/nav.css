@@ -358,6 +358,10 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #ffffff;
   }
+  #cssmenu [class*="selected"] > a {
+    color: #ffff00 !important;
+   /* font-weight: bold !important; */  
+  }  
   #cssmenu ul ul {
     display: none;
   }
