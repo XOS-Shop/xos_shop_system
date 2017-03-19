@@ -39,7 +39,8 @@
         <span class="glyphicon glyphicon-home" title=" [@{$header_store_name}@] [@{$smarty.const.HEADER_TITLE_HOME}@]"></span>
       </a>      
     </div>       
-    <div class="collapse navbar-collapse" id="navbar-collapse-1">      
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <h4 class="navbar-text visible-xs">[@{#box_heading_page_tree#}@]</h4>      
       [@{$box_categories}@] 
       [@{$box_search}@] 
 <!-- logoff -->     
