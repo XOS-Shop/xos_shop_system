@@ -48,7 +48,18 @@
       $this->SMTPSecure = SMTP_SECURE;      
       $this->Username = SMTP_USERNAME;
       $this->Password = SMTP_PASSWORD;
-      
+
+      // Details can be found here https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting#php-56-certificate-verification-failure
+      /*
+      $this->SMTPOptions = array(
+        'ssl' => array(
+          'verify_peer' => false,
+          'verify_peer_name' => false,
+          'allow_self_signed' => true
+        )
+      );
+      */
+            
       if ($from_email_address != '') {
         $this->From = $from_email_address;
         $this->FromName = $from_email_name;
