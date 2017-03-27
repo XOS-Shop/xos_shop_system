@@ -49,16 +49,21 @@
                           <td style="text-align: left; vertical-align: top;">
                             <a href="[@{$product.link_filename_product_info}@]"><span class="new-item-in-cart">[@{$product.name}@]</span></a>
                            [@{if $shopping_cart_will_not_display == true}@]
-                            <script type="text/javascript">
-                              $(document).ready(function () {
-                                $.colorbox({ 
-                                  onLoad: function() { $("#inline").css({'text-align':'left'}); },
-                                  inline: true,
-                                  onLoad:function() { $("#shopping_cart_box_title").css({'display':'block'}); $("#shopping_cart_box_content").css({'width':'280px', 'float':'left'}); },
-                                  onCleanup:function() { $("#shopping_cart_box_title").css({'display':'none'}); $("#shopping_cart_box_content").css({'visibility':'hidden'});},
-                                  onClosed:function() { $("#shopping_cart_box_content").css({'visibility':'visible', 'width':'220px', 'float':'right'}); },    
-                                  href:'#shopping_cart_box_content'                          
-                                });
+                            <script type="text/javascript"> 
+                              $(document).ready(function () { 
+                                if ($("#shopping_cart_box").css('display') != 'none') {
+                                  $("#shopping_cart_box_title").css({'display':'block'});
+                                  $("#shopping_cart_list").slideDown('slow').animate({opacity: 1.0}, 3000).slideUp('slow', function(){$("#shopping_cart_box_title").css({'display':'none'});}); 
+                                } else { 
+                                  $.colorbox({ 
+                                    onLoad: function() { $("#inline").css({'text-align':'left'}); },
+                                    inline: true,
+                                    onLoad:function() { $("#shopping_cart_box_title").css({'display':'block'}); $("#shopping_cart_box_content").css({'width':'280px', 'float':'left'}); },
+                                    onCleanup:function() { $("#shopping_cart_box_title").css({'display':'none'}); $("#shopping_cart_box_content").css({'visibility':'hidden'});},
+                                    onClosed:function() { $("#shopping_cart_box_content").css({'visibility':'visible', 'width':'220px', 'float':'right'}); },    
+                                    href:'#shopping_cart_box_content'                          
+                                  });
+                                }  
                               });                                                
                             </script>
                             [@{/if}@]                      
