@@ -64,7 +64,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   $process = false;
   if (isset($_POST['action']) && ($_POST['action'] == 'submit') && isset($_POST['formid']) && ($_POST['formid'] == $_SESSION['sessiontoken'])) {
 // process a new shipping address
-    if (xos_not_null($_POST['firstname']) && xos_not_null($_POST['lastname']) && xos_not_null($_POST['street_address'])) {
+    if (xos_not_null($_POST['firstname']) || xos_not_null($_POST['lastname']) || xos_not_null($_POST['street_address'])) {
       $process = true;
 
       if (ACCOUNT_GENDER == 'true') $gender = $_POST['gender'];
@@ -355,7 +355,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   if ($process == true) {  
     $smarty->assign(array('process' => true,
-                          'link_filename_checkout_shipping_address' => xos_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL')));
+                          'link_filename_checkout_shipping_address' => xos_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL')));
   }
 
   $smarty->assign(array('form_begin' => xos_draw_form('checkout_address', xos_href_link(FILENAME_CHECKOUT_SHIPPING_ADDRESS, '', 'SSL'), 'post', 'onsubmit="return true;"', true),
