@@ -49,11 +49,12 @@
                           <td style="text-align: left; vertical-align: top;">
                             <a href="[@{$product.link_filename_product_info}@]"><span class="new-item-in-cart">[@{$product.name}@]</span></a>
                            [@{if $shopping_cart_will_not_display == true}@]
+                            [@{assign 'display_cart_box_set' true}@] 
                             <script type="text/javascript"> 
-                              $(document).ready(function () { 
+                              $(function () { 
                                 if ($("#shopping_cart_box").css('display') != 'none') {
-                                  $("#shopping_cart_box_title").css({'display':'block'});
-                                  $("#shopping_cart_list").slideDown('slow').animate({opacity: 1.0}, 3000).slideUp('slow', function(){$("#shopping_cart_box_title").css({'display':'none'});}); 
+                                  $("#shopping_cart_box_title").css({'display':'block'}); 
+                                  $("#shopping_cart_list").slideDown('slow').animate({opacity: 1.0}, 3000).slideUp('slow', function(){$("#shopping_cart_box_title").css({'display':'none'});$("body").on( "mouseleave", "#shopping_cart_box",function(){$('#shopping_cart_list').css('display','none');});$("body").on( "mouseenter", "#shopping_cart_box",function(){$('#shopping_cart_list').show(400);});}); 
                                 } else { 
                                   $.colorbox({ 
                                     onLoad: function() { $("#inline").css({'text-align':'left'}); },
@@ -63,9 +64,15 @@
                                     onClosed:function() { $("#shopping_cart_box_content").css({'visibility':'visible', 'width':'220px', 'float':'right'}); },    
                                     href:'#shopping_cart_box_content'                          
                                   });
+                                  $('#shopping_cart_list').css('display','none');                                                     
+                                  $('#shopping_cart_box').mouseleave(function(){
+                                    $('#shopping_cart_list').css('display','none');
+                                  }).mouseenter(function(){               
+                                    $('#shopping_cart_list').show(400); 
+                                  });                                   
                                 }  
                               });                                                
-                            </script>
+                            </script> 
                             [@{/if}@]                      
                           </td>                    
                         </tr>    
@@ -81,15 +88,19 @@
                       <div style="padding: 1px 1px 12px 1px; text-align: right;">[@{if $box_shopping_cart_total_discount}@]<span class="red-mark">[@{$box_shopping_cart_total_discount}@]</span><br />[@{/if}@][@{$box_shopping_cart_total_price}@]</div>
                       <a href="[@{$box_shopping_cart_link_filename_shopping_cart}@]" class="btn btn-success" style="float: left" title=" [@{#box_heading_shopping_cart#}@] | [@{#header_title_checkout#}@] ">[@{#box_heading_shopping_cart#}@] | [@{#header_title_checkout#}@]</a>
                     </div>               
-                  [@{/if}@]                 
-                  <script type="text/javascript">
-                    $('#shopping_cart_list').css('display','none');                                                     
-                    $('#shopping_cart_box').mouseleave(function(){
-                      $('#shopping_cart_list').css('display','none');
-                    }).mouseenter(function(){               
-                      $('#shopping_cart_list').show(400); 
-                    });                                                  
-                  </script>                                         
+                  [@{/if}@]
+                  [@{if !$display_cart_box_set}@]                 
+                  <script type="text/javascript"> 
+                    $(function () { 
+                      $('#shopping_cart_list').css('display','none');                                                     
+                      $('#shopping_cart_box').mouseleave(function(){
+                        $('#shopping_cart_list').css('display','none');
+                      }).mouseenter(function(){               
+                        $('#shopping_cart_list').show(400); 
+                      });
+                    });                                                    
+                  </script>
+                  [@{/if}@]                                        
                 </li>
               </ul>
             </li>
