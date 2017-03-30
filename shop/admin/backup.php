@@ -68,7 +68,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                   '#     HTTP Catalog Directory: ' . DIR_WS_CATALOG . "\n" .
                   '#     Webserver Root Directory: ' . DIR_FS_DOCUMENT_ROOT . "\n" .                                    
                   '#' . "\n" .
-                  '# Backup Date: ' . date(PHP_DATE_TIME_FORMAT) . "\n\n";
+                  '# Backup Date: ' . date(PHP_DATE_TIME_FORMAT) . "\n";
         fputs($fp, $schema);
 
         $tables_query = xos_db_query('show tables');
@@ -77,63 +77,23 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         while ($tables = xos_db_fetch_array($tables_query)) {
           list(,$table) = each($tables);
 
-          $schema = 'drop table if exists ' . $table . ';' . "\n" .
-                    'create table ' . $table . ' (' . "\n";
+          $schema = "\n" . 'DROP TABLE IF EXISTS `' . $table . '`;' . "\n";
 
+          $create_table_query = xos_db_query("show create table " . $table);
+          $create_table = xos_db_fetch_array($create_table_query);
+          
+          $schema .= $create_table["Create Table"] . ';' . "\n\n";
+               
+          $ii++;
+          fputs($fp, $schema);
+
+// dump the data 
           $table_list = array();
           $fields_query = xos_db_query("show fields from " . $table);
           while ($fields = xos_db_fetch_array($fields_query)) {
             $table_list[] = $fields['Field'];
-
-            $schema .= '  ' . $fields['Field'] . ' ' . $fields['Type'];
-
-            if (strlen($fields['Default']) > 0) $schema .= ' default \'' . $fields['Default'] . '\'';
-
-            if ($fields['Null'] != 'YES') $schema .= ' not null';
-
-            if (isset($fields['Extra'])) $schema .= ' ' . $fields['Extra'];
-
-            $schema .= ',' . "\n";
           }
 
-          $schema = preg_replace("/,\n$/", '', $schema);
-
-// add the keys
-          $index = array();
-          $keys_query = xos_db_query("show keys from " . $table);
-          while ($keys = xos_db_fetch_array($keys_query)) {
-            $kname = $keys['Key_name'];
-
-            if (!isset($index[$kname])) {
-              $index[$kname] = array('unique' => !$keys['Non_unique'],
-                                     'fulltext' => ($keys['Index_type'] == 'FULLTEXT' ? '1' : '0'),
-                                     'columns' => array());
-            }
-
-            $index[$kname]['columns'][] = $keys['Column_name'];
-          }
-
-          while (list($kname, $info) = each($index)) {
-            $schema .= ',' . "\n";
-
-            $columns = implode($info['columns'], ', ');
-
-            if ($kname == 'PRIMARY') {
-              $schema .= '  PRIMARY KEY (' . $columns . ')';
-            } elseif ( $info['fulltext'] == '1' ) {  
-              $schema .= '  FULLTEXT ' . $kname . ' (' . $columns . ')';
-            } elseif ($info['unique']) {
-              $schema .= '  UNIQUE ' . $kname . ' (' . $columns . ')';
-            } else {
-              $schema .= '  KEY ' . $kname . ' (' . $columns . ')';
-            }
-          }
-
-          $schema .= "\n" . ');' . "\n\n";
-          $ii++;
-          fputs($fp, $schema);
-
-// dump the data
           if ( ($table != TABLE_SESSIONS ) && ($table != TABLE_WHOS_ONLINE) ) {
             $rows_query = xos_db_query("select " . implode(',', $table_list) . " from " . $table);
             while ($rows = xos_db_fetch_array($rows_query)) {
