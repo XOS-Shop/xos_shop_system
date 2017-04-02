@@ -128,7 +128,8 @@
                 '&' . $lnc . '&', 
                 '&amp;' . $lnc, 
                 '&' . $lnc, 
-                '/' . $lnc_sef),
+                '/' . $lnc_sef,
+                '/' . $_SESSION['languages_code'] . '/'),
           array('?', 
                 '?', 
                 '', 
@@ -136,7 +137,8 @@
                 '&', 
                 '', 
                 '', 
-                ''),      
+                '',
+                '/'),      
           $this->canonical_link());
         
         $hreflang_link_and_code = array();       
