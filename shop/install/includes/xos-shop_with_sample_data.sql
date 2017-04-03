@@ -45,7 +45,7 @@ create table action_recorder (
   KEY IDX_ACTION_RECORDER_USER_ID (user_id),
   KEY IDX_ACTION_RECORDER_IDENTIFIER (identifier),
   KEY IDX_ACTION_RECORDER_DATE_ADDED (date_added)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists address_book;
 create table address_book (
@@ -65,7 +65,7 @@ create table address_book (
   entry_zone_id int(11) default '0' not null ,
   PRIMARY KEY (address_book_id),
   KEY IDX_CUSTOMERS_ID (customers_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into address_book (address_book_id, customers_id, entry_gender, entry_company, entry_company_tax_id, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id, entry_zone_id) values ('1', '1', 'f', '', '', 'Erika', 'Mustermann', 'Einbahnstrasse 11', '', '12345', 'Bindingen', '', '204', '107');
 insert into address_book (address_book_id, customers_id, entry_gender, entry_company, entry_company_tax_id, entry_firstname, entry_lastname, entry_street_address, entry_suburb, entry_postcode, entry_city, entry_state, entry_country_id, entry_zone_id) values ('4', '1', 'm', '', NULL, 'Hans', 'Mustermann', 'Siegerstrasse 45', '', '54321', 'Buttingen', '', '14', '98');
@@ -77,7 +77,7 @@ create table address_format (
   address_format varchar(128) not null ,
   address_summary varchar(48) not null ,
   PRIMARY KEY (address_format_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into address_format (address_format_id, address_format, address_summary) values ('1', '$firstname $lastname$cr$streets$cr$city, $postcode$cr$statecomma$country', '$city / $country');
 insert into address_format (address_format_id, address_format, address_summary) values ('2', '$firstname $lastname$cr$streets$cr$city, $state    $postcode$cr$country', '$city, $state / $country');
@@ -99,7 +99,7 @@ create table admin (
   admin_lognum int(11) default '0' not null ,
   PRIMARY KEY (admin_id),
   UNIQUE KEY UNI_ADMIN_EMAIL_ADDRESS (admin_email_address)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into admin (admin_id, admin_groups_id, admin_firstname, admin_lastname, admin_email_address, admin_password, admin_created, admin_modified, admin_logdate, admin_lognum) values ('1', '1', 'AdminFirstname', 'AdminLastname', 'admin@localhost', '351683ea4e19efe34874b501fdbf9792:9b', now(), '0000-00-00 00:00:00', NULL, '14');
 
@@ -112,7 +112,7 @@ create table admin_files (
   admin_files_to_boxes int(11) default '0' not null ,
   admin_groups_id set('1','2') default '1' not null ,
   PRIMARY KEY (admin_files_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into admin_files (admin_files_id, admin_files_languages_key, admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) values ('1', 'BOX_HEADING_ADMINISTRATOR', 'menubox_administrator.php', '1', '0', '1');
 insert into admin_files (admin_files_id, admin_files_languages_key, admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) values ('2', 'BOX_HEADING_CONFIGURATION', 'menubox_configuration.php', '1', '0', '1');
@@ -175,7 +175,7 @@ create table admin_groups (
   admin_groups_name varchar(255) ,
   PRIMARY KEY (admin_groups_id),
   UNIQUE KEY UNI_ADMIN_GROUPS_NAME (admin_groups_name)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into admin_groups (admin_groups_id, admin_groups_name) values ('1', 'Top Administrator');
 insert into admin_groups (admin_groups_id, admin_groups_name) values ('2', 'Customer Relations');
@@ -191,7 +191,7 @@ create table banners (
   date_status_change datetime ,
   status int(1) default '1' not null ,
   PRIMARY KEY (banners_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('1', 'footer', NULL, NULL, NULL, date_sub(now(),interval 1 day), NULL, '1');
 insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('2', 'header', NULL, NULL, NULL, date_sub(now(),interval 1 day), NULL, '1');
@@ -209,7 +209,7 @@ create table banners_content (
   banners_html_text text ,
   banners_php_source text ,
   PRIMARY KEY (banners_id, language_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('1', '1', 'XOS-Shop', 'http://www.xos-shop.com', 'xos-shop_banner.gif', '', NULL);
 insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('1', '2', 'XOS-Shop', 'http://www.xos-shop.com', 'xos-shop_banner.gif', '', NULL);
@@ -235,7 +235,7 @@ create table banners_history (
   banners_clicked int(5) default '0' not null ,
   banners_history_date datetime default '0000-00-00 00:00:00' not null ,
   PRIMARY KEY (banners_history_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists categories_or_pages;
 create table categories_or_pages (
@@ -252,7 +252,7 @@ create table categories_or_pages (
   last_modified datetime ,
   PRIMARY KEY (categories_or_pages_id, categories_or_pages_status),
   KEY IDX_PARENT_ID (parent_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('1', 'NONSSL', 'category_hardware.gif', '0', '0', '10', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
 insert into categories_or_pages (categories_or_pages_id, link_request_type, categories_image, parent_id, product_list_b, sort_order, is_page, page_not_in_menu, categories_or_pages_status, date_added, last_modified) values ('2', 'NONSSL', 'category_software.gif', '0', '0', '20', 'false', '0', '1', date_sub(now(),interval 1 day), NULL);
@@ -285,7 +285,7 @@ create table categories_or_pages_data (
   categories_or_pages_php_source text ,
   PRIMARY KEY (categories_or_pages_id, language_id),
   KEY IDX_CATEGORIES_OR_PAGES_NAME (categories_or_pages_name)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('1', '1', 'Hardware', '', '', NULL);
 insert into categories_or_pages_data (categories_or_pages_id, language_id, categories_or_pages_name, categories_or_pages_heading_title, categories_or_pages_content, categories_or_pages_php_source) values ('2', '1', 'Software', '', '', NULL);
@@ -360,7 +360,7 @@ create table configuration (
   use_function varchar(255) ,
   set_function varchar(255) ,
   PRIMARY KEY (configuration_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('STORE_NAME', 'XOS-Shop', '1', '1', NULL, now(), NULL, NULL);
 insert into configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) values ('STORE_OWNER', 'Felix Muster', '1', '2', now(), now(), NULL, NULL);
@@ -583,7 +583,7 @@ create table contents (
   last_modified datetime ,
   date_added datetime ,
   PRIMARY KEY (content_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into contents (content_id, type, link_request_type, status, sort_order, last_modified, date_added) values ('1', 'info', 'NONSSL', '1', '1', NULL, date_sub(now(),interval 1 day));
 insert into contents (content_id, type, link_request_type, status, sort_order, last_modified, date_added) values ('2', 'info', 'NONSSL', '1', '2', NULL, date_sub(now(),interval 1 day));
@@ -604,7 +604,7 @@ create table contents_data (
   content text ,
   php_source text ,
   PRIMARY KEY (content_id, language_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('1', '1', 'Shipping &amp; Returns', 'Shipping &amp; Returns', 'Put here your Shipping &amp; Returns information.', NULL);
 insert into contents_data (content_id, language_id, name, heading_title, content, php_source) values ('1', '2', 'Liefer- und Versandkosten', 'Liefer- und Versandkosten', 'Fügen Sie hier Ihre Informationen über Liefer- und Versandkosten ein.', NULL);
@@ -1322,13 +1322,13 @@ drop table if exists counter;
 create table counter (
   startdate char(8) ,
   counter int(12) 
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists counter_history;
 create table counter_history (
   month char(8) ,
   counter int(12) 
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists countries;
 create table countries (
@@ -1339,7 +1339,7 @@ create table countries (
   address_format_id int(11) default '0' not null ,
   PRIMARY KEY (countries_id),
   KEY IDX_COUNTRIES_NAME (countries_name)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('14', 'Österreich', 'AT', 'AUT', '5');
 insert into countries (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('81', 'Deutschland', 'DE', 'DEU', '5');
@@ -1354,7 +1354,7 @@ create table countries_list (
   address_format_id int(11) default '0' not null ,
   PRIMARY KEY (countries_id),
   KEY IDX_COUNTRIES_NAME (countries_name)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into countries_list (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('1', 'Afghanistan', 'AF', 'AFG', '1');
 insert into countries_list (countries_id, countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) values ('2', 'Albania', 'AL', 'ALB', '1');
@@ -1615,7 +1615,7 @@ create table coupons (
   date_created datetime not null default '0000-00-00 00:00:00',
   date_modified datetime not null default '0000-00-00 00:00:00',
   PRIMARY KEY (coupon_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists coupons_description;
 create table coupons_description (
@@ -1624,7 +1624,7 @@ create table coupons_description (
   coupon_name varchar(255) not null default '',
   coupon_description text,
   KEY coupon_id (coupon_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists coupon_email_track;
 create table coupon_email_track (
@@ -1636,14 +1636,14 @@ create table coupon_email_track (
   emailed_to varchar(255) default null,
   date_sent datetime not null default '0000-00-00 00:00:00',
   PRIMARY KEY (unique_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists coupon_gv_customer;
 create table coupon_gv_customer (
   customer_id int(5) not null default '0',
   amount decimal(8,4) not null default '0.0000',
   PRIMARY KEY (customer_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists coupon_gv_queue;
 create table coupon_gv_queue (
@@ -1656,7 +1656,7 @@ create table coupon_gv_queue (
   release_flag char(1) not null default 'N',
   PRIMARY KEY (unique_id),
   KEY IDX_UID (customer_id,order_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists coupon_redeem_track;
 create table coupon_redeem_track (
@@ -1667,7 +1667,7 @@ create table coupon_redeem_track (
   redeem_ip varchar(64) not null default '',
   order_id int(11) not null default '0',
   PRIMARY KEY (unique_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists currencies;
 create table currencies (
@@ -1683,7 +1683,7 @@ create table currencies (
   value float(13,8) ,
   last_updated datetime ,
   PRIMARY KEY (currencies_id, language_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into currencies (currencies_id, language_id, title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value, last_updated) values ('1', '2', 'Schweizer Franken', 'CHF', 'SFr.', '', '.', ',', '2', '1.00000000', now());
 insert into currencies (currencies_id, language_id, title, code, symbol_left, symbol_right, decimal_point, thousands_point, decimal_places, value, last_updated) values ('1', '1', 'Swiss franc', 'CHF', '', 'CHF', '.', ',', '2', '1.00000000', now());
@@ -1710,7 +1710,7 @@ create table customers (
   customers_group_ra enum('0','1') default '0' not null ,
   customers_comments text ,
   PRIMARY KEY (customers_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into customers (customers_id, customers_gender, customers_c_id, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_language_id, customers_default_address_id, customers_telephone, customers_fax, customers_password, customers_group_id, customers_group_ra) values ('1', 'f', '123-321-456', 'Erika', 'Mustermann', '2001-01-01 00:00:00', 'retail@localhost', '2', '1', '123 456 789', '', 'afe47190d0daf47ddd47486c22fa0c52:2b', '0', '0');
 insert into customers (customers_id, customers_gender, customers_c_id, customers_firstname, customers_lastname, customers_dob, customers_email_address, customers_language_id, customers_default_address_id, customers_telephone, customers_fax, customers_password, customers_group_id, customers_group_ra) values ('2', 'm', '123-321-459', 'Max', 'Mustermann', '1989-10-28 00:00:00', 'reseller@localhost', '2', '5', '456 467 9432', '456 467 9433', 'ee84b3e5058c8f8e1997f05832d88e10:90', '1', '0');
@@ -1724,7 +1724,7 @@ create table customers_basket (
   final_price decimal(15,4) ,
   customers_basket_date_added varchar(8) ,
   PRIMARY KEY (customers_basket_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists customers_groups;
 create table customers_groups (
@@ -1736,7 +1736,7 @@ create table customers_groups (
   group_payment_allowed varchar(255) not null ,
   group_shipment_allowed varchar(255) not null ,
   PRIMARY KEY (customers_group_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into customers_groups (customers_group_id, customers_group_name, customers_group_discount, customers_group_show_tax, customers_group_tax_exempt, group_payment_allowed, group_shipment_allowed) values ('0', 'Retail', '0.00', '1', '0', 'cc.php;cod.php', 'flat.php');
 insert into customers_groups (customers_group_id, customers_group_name, customers_group_discount, customers_group_show_tax, customers_group_tax_exempt, group_payment_allowed, group_shipment_allowed) values ('1', 'Reseller', '7.75', '0', '0', 'cc.php;invoice.php', 'flat.php');
@@ -1750,7 +1750,7 @@ create table customers_info (
   customers_info_date_account_last_modified datetime ,
   global_product_notifications int(1) default '0' ,
   PRIMARY KEY (customers_info_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into customers_info (customers_info_id, customers_info_date_of_last_logon, customers_info_number_of_logons, customers_info_date_account_created, customers_info_date_account_last_modified, global_product_notifications) values ('1', now(), '15', now(), now(), '0');
 insert into customers_info (customers_info_id, customers_info_date_of_last_logon, customers_info_number_of_logons, customers_info_date_account_created, customers_info_date_account_last_modified, global_product_notifications) values ('2', now(), '3', now(), now(), '0');
@@ -1763,7 +1763,7 @@ create table delivery_times (
   popup_content_id int(11) default '0' not null ,
   PRIMARY KEY (delivery_times_id, language_id),
   KEY IDX_DELIVERY_TIMES_TEXT (delivery_times_text)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into delivery_times (delivery_times_id, language_id, delivery_times_text, popup_content_id) values ('1', '1', '2-3 Days', '0');
 insert into delivery_times (delivery_times_id, language_id, delivery_times_text, popup_content_id) values ('1', '2', '2-3 Tage', '0');
@@ -1783,7 +1783,7 @@ create table geo_zones (
   last_modified datetime ,
   date_added datetime default '0000-00-00 00:00:00' not null ,
   PRIMARY KEY (geo_zone_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into geo_zones (geo_zone_id, geo_zone_name, geo_zone_description, last_modified, date_added) values ('1', 'Deutschland', 'Deutsches Steuergebiet', now(), date_sub(now(),interval 3 day));
 insert into geo_zones (geo_zone_id, geo_zone_name, geo_zone_description, last_modified, date_added) values ('2', 'Schweiz', 'Schweizer Steuergebiet', NULL, date_sub(now(),interval 3 day));
@@ -1801,7 +1801,7 @@ create table languages (
   sort_order int(3) ,
   PRIMARY KEY (languages_id),
   KEY IDX_NAME (name)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into languages (languages_id, use_in_id, display_in_catalog, name, code, image, directory, sort_order) values ('1', '3', '1', 'English', 'en', 'icon.gif', 'english', '2');
 insert into languages (languages_id, use_in_id, display_in_catalog, name, code, image, directory, sort_order) values ('2', '3', '1', 'Deutsch', 'de', 'icon.gif', 'german', '1');
@@ -1814,7 +1814,7 @@ create table manufacturers (
   date_added datetime ,
   last_modified datetime ,
   PRIMARY KEY (manufacturers_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into manufacturers (manufacturers_id, manufacturers_image, date_added, last_modified) values ('1', 'manufacturer_matrox.gif', date_sub(now(),interval 1 day), now());
 insert into manufacturers (manufacturers_id, manufacturers_image, date_added, last_modified) values ('2', 'manufacturer_microsoft.gif', date_sub(now(),interval 1 day), NULL);
@@ -1836,7 +1836,7 @@ create table manufacturers_info (
   date_last_click datetime ,
   PRIMARY KEY (manufacturers_id, languages_id),
   KEY IDX_MANUFACTURERS_NAME (manufacturers_name)  
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into manufacturers_info (manufacturers_id, languages_id, manufacturers_name, manufacturers_url, url_clicked, date_last_click) values ('1', '1', 'Matrox', 'http://www.matrox.com', '0', NULL);
 insert into manufacturers_info (manufacturers_id, languages_id, manufacturers_name, manufacturers_url, url_clicked, date_last_click) values ('1', '2', 'Matrox', 'http://www.matrox.de', '0', NULL);
@@ -1877,7 +1877,7 @@ CREATE TABLE newsletter_subscribers (
    newsletter_status_change datetime DEFAULT NULL,
    subscriber_date_added datetime default NULL,
    PRIMARY KEY (subscriber_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into newsletter_subscribers (subscriber_id, customers_id, subscriber_language_id, subscriber_email_address, subscriber_identity_code, newsletter_status, newsletter_status_change, subscriber_date_added) values ('1', '1', '2', 'retail@localhost', 'CBP0RzhdRh0U', '1', date_sub(now(),interval 1 day), date_sub(now(),interval 2 day));
 insert into newsletter_subscribers (subscriber_id, customers_id, subscriber_language_id, subscriber_email_address, subscriber_identity_code, newsletter_status, newsletter_status_change, subscriber_date_added) values ('2', '2', '2', 'reseller@localhost', 'PpQbIHCoOlsQ', '1', date_sub(now(),interval 2 day), date_sub(now(),interval 5 day));
@@ -1896,7 +1896,7 @@ create table newsletters (
   status int(1) ,
   locked int(1) default '0' ,
   PRIMARY KEY (newsletters_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists orders;
 create table orders (
@@ -1947,7 +1947,7 @@ create table orders (
   currency_value decimal(14,6) ,
   PRIMARY KEY (orders_id),
   KEY IDX_CUSTOMERS_ID (customers_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into orders (orders_id, customers_id, customers_c_id, customers_name, customers_company, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address, customers_address_format_id, delivery_name, delivery_company, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, delivery_address_format_id, billing_name, billing_company, billing_street_address, billing_suburb, billing_city, billing_postcode, billing_state, billing_country, billing_address_format_id, payment_method, cc_type, cc_owner, cc_number, cc_expires, last_modified, date_purchased, orders_status, orders_date_finished, language_id, language_directory, currency, currency_value) values ('10', '2', '123-321-459', 'Max Mustermann', 'GaGa AG', 'Solgenstrasse 45', '', 'Baldingen', '57056', 'Salzburg', 'Österreich', '456 467 9432', 'reseller@localhost', '5', 'Max Mustermann', 'GaGa AG', 'Solgenstrasse 45', '', 'Baldingen', '57056', 'Salzburg', 'Österreich', '5', 'Max Mustermann', 'GaGa AG', 'Solgenstrasse 45', '', 'Baldingen', '57056', 'Salzburg', 'Österreich', '5', 'PayPal', '', '', '', '', now(), now(), '3', NULL, '2', 'german', 'EUR', '0.655200');
 insert into orders (orders_id, customers_id, customers_c_id, customers_name, customers_company, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state, customers_country, customers_telephone, customers_email_address, customers_address_format_id, delivery_name, delivery_company, delivery_street_address, delivery_suburb, delivery_city, delivery_postcode, delivery_state, delivery_country, delivery_address_format_id, billing_name, billing_company, billing_street_address, billing_suburb, billing_city, billing_postcode, billing_state, billing_country, billing_address_format_id, payment_method, cc_type, cc_owner, cc_number, cc_expires, last_modified, date_purchased, orders_status, orders_date_finished, language_id, language_directory, currency, currency_value) values ('11', '1', '123-321-456', 'Erika Mustermann', '', 'Einbahnstrasse 11', '', 'Bindingen', '12345', 'Bern', 'Schweiz', '123 456 789', 'retail@localhost', '5', 'Erika Mustermann', '', 'Einbahnstrasse 11', '', 'Bindingen', '12345', 'Bern', 'Schweiz', '5', 'Erika Mustermann', '', 'Einbahnstrasse 11', '', 'Bindingen', '12345', 'Bern', 'Schweiz', '5', 'Nachnahme', '', '', '', '', now(), now(), '2', NULL, '2', 'german', 'CHF', '1.000000');
@@ -1972,7 +1972,7 @@ create table orders_products (
   PRIMARY KEY (orders_products_id),
   KEY IDX_ORDERS_ID (orders_id),
   KEY IDX_PRODUCTS_ID (products_id)  
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into orders_products (orders_products_id, orders_id, products_id, products_attributes_sting, products_model, products_name, products_p_unit, products_price, final_price, products_price_text, final_price_text, total_price_text, products_tax, products_quantity) values ('46', '12', '27', NULL, 'HPLJ1100XI', 'Hewlett-Packard LaserJet 1100Xi', 'Set', '334.8100', '334.8100', '334.81 €', '334.81 €', '334.81 €', '2.4000', '1');
 insert into orders_products (orders_products_id, orders_id, products_id, products_attributes_sting, products_model, products_name, products_p_unit, products_price, final_price, products_price_text, final_price_text, total_price_text, products_tax, products_quantity) values ('39', '10', '26', '3,9', 'MSIMEXP', 'Microsoft IntelliMouse Explorer', 'Schachtel', '40.4900', '44.4100', '40.49 €', '44.41 €', '44.41 €', '20.0000', '1');
@@ -1994,7 +1994,7 @@ create table orders_products_attributes (
   options_values_price_text varchar(255) not null ,
   price_prefix char(1) not null ,
   PRIMARY KEY (orders_products_attributes_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into orders_products_attributes (orders_products_attributes_id, orders_id, orders_products_id, products_options, products_options_values, options_values_price, options_values_price_text, price_prefix) values ('22', '12', '45', 'Modell', 'Deluxe Ausgabe', '84.5800', '84.58 €', '+');
 insert into orders_products_attributes (orders_products_attributes_id, orders_id, orders_products_id, products_options, products_options_values, options_values_price, options_values_price_text, price_prefix) values ('21', '11', '43', 'Modell', 'USB Anschluss', '6.4500', 'SFr. 6.45', '+');
@@ -2012,7 +2012,7 @@ create table orders_products_download (
   download_maxdays int(2) default '0' not null ,
   download_count int(2) default '0' not null ,
   PRIMARY KEY (orders_products_download_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists orders_status;
 create table orders_status (
@@ -2024,7 +2024,7 @@ create table orders_status (
   downloads_flag int default '0',  
   PRIMARY KEY (orders_status_id, language_id),
   KEY IDX_ORDERS_STATUS_NAME (orders_status_name)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into orders_status (orders_status_id, language_id, orders_status_name, orders_status_code, public_flag, downloads_flag) values ('1', '1', 'Pending', '', '1', '0');
 insert into orders_status (orders_status_id, language_id, orders_status_name, orders_status_code, public_flag, downloads_flag) values ('1', '2', 'Offen', '', '1', '0');
@@ -2051,7 +2051,7 @@ create table orders_status_history (
   customer_notified int(1) default '0' ,
   comments text ,
   PRIMARY KEY (orders_status_history_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into orders_status_history (orders_status_history_id, orders_id, orders_status_id, date_added, customer_notified, comments) values ('24', '11', '1', date_sub(now(),interval 2 day), '1', '');
 insert into orders_status_history (orders_status_history_id, orders_id, orders_status_id, date_added, customer_notified, comments) values ('26', '12', '5', date_sub(now(),interval 2 day), '0', '');
@@ -2072,7 +2072,7 @@ create table orders_total (
   sort_order int(11) default '0' not null ,
   PRIMARY KEY (orders_total_id),
   KEY IDX_ORDERS_ID (orders_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into orders_total (orders_total_id, orders_id, title, text, value, tax, class, sort_order) values ('65', '10', '<span style=\"color : #ff0000;\">7.75% Rabatt:</span>', '<span style=\"color : #ff0000;\">-89.81 €</span>', '-89.8100', '0.0000', 'ot_subtotal', '1');
 insert into orders_total (orders_total_id, orders_id, title, text, value, tax, class, sort_order) values ('66', '10', 'Zwischensumme:', '1,068.98 €', '1068.9800', '0.0000', 'ot_subtotal', '1');
@@ -2113,7 +2113,7 @@ create table products (
   PRIMARY KEY (products_id, products_status),
   KEY IDX_MANUFACTURERS_ID (manufacturers_id),
   KEY IDX_PRODUCTS_DATE_ADDED (products_date_added)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into products (products_id, products_quantity, products_delivery_time_id, products_model, products_image, products_price, products_sort_order, products_date_added, products_last_modified, products_date_available, products_weight, products_status, products_tax_class_id, manufacturers_id, products_ordered, attributes_quantity, attributes_combinations, attributes_not_updated) values ('1', '40', '1', 'MG200MMS', 'a:1:{i:0;a:3:{s:4:\"name\";s:16:\"1_0_mg200mms.jpg\";s:21:\"large_image_max_width\";s:7:\"default\";s:22:\"large_image_max_height\";s:7:\"default\";}}', 'a:1:{i:0;a:2:{i:0;a:1:{s:7:\"regular\";s:8:\"299.2565\";}s:14:\"special_status\";i:0;}}', '20', date_sub(now(),interval 10 day), now(), NULL, '23.00', '1', '1', '1', '1', 'a:5:{s:7:\"3*6_4*3\";i:7;s:7:\"3*6_4*1\";i:5;s:7:\"3*6_4*2\";i:10;s:7:\"3*5_4*1\";i:10;s:7:\"3*5_4*2\";i:8;}', '3*6_4*3|3*6_4*1|3*6_4*2|3*5_4*1|3*5_4*2|', NULL);
 insert into products (products_id, products_quantity, products_delivery_time_id, products_model, products_image, products_price, products_sort_order, products_date_added, products_last_modified, products_date_available, products_weight, products_status, products_tax_class_id, manufacturers_id, products_ordered, attributes_quantity, attributes_combinations, attributes_not_updated) values ('2', '41', '1', 'MG400-32MB', 'a:1:{i:0;a:3:{s:4:\"name\";s:18:\"2_0_mg400-32mb.jpg\";s:21:\"large_image_max_width\";s:7:\"default\";s:22:\"large_image_max_height\";s:7:\"default\";}}', 'a:1:{i:0;a:2:{i:0;a:1:{s:7:\"regular\";s:8:\"499.9071\";}s:14:\"special_status\";i:0;}}', '10', date_sub(now(),interval 10 day), now(), NULL, '23.00', '1', '1', '1', '1', 'a:4:{s:7:\"3*7_4*3\";i:12;s:7:\"3*7_4*4\";i:9;s:7:\"3*6_4*3\";i:12;s:7:\"3*6_4*4\";i:8;}', '3*7_4*3|3*7_4*4|3*6_4*3|3*6_4*4|', NULL);
@@ -2155,7 +2155,7 @@ create table products_attributes (
   price_prefix char(1) not null ,
   PRIMARY KEY (products_attributes_id),
   KEY IDX_PRODUCTS_ID (products_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into products_attributes (products_attributes_id, products_id, options_id, options_values_id, options_sort_order, options_values_sort_order, options_values_price, price_prefix) values ('1', '1', '4', '1', '1', '1', '0.0000', '+');
 insert into products_attributes (products_attributes_id, products_id, options_id, options_values_id, options_sort_order, options_values_sort_order, options_values_price, price_prefix) values ('2', '1', '4', '2', '1', '1', '50.0000', '+');
@@ -2178,7 +2178,7 @@ create table products_attributes_download (
   products_attributes_maxdays int(2) default '0' ,
   products_attributes_maxcount int(2) default '0' ,
   PRIMARY KEY (products_attributes_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into products_attributes_download (products_attributes_id, products_attributes_filename, products_attributes_maxdays, products_attributes_maxcount) values ('26', 'unreal.zip', '7', '3');
 
@@ -2194,7 +2194,7 @@ create table products_description (
   products_url varchar(255) ,
   PRIMARY KEY (products_id, language_id),
   KEY IDX_PRODUCTS_NAME (products_name)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into products_description (products_id, language_id, products_name, products_p_unit, products_info, products_description_tab_label, products_description, products_url) values ('1', '1', 'Matrox G200 MMS', 'Box', 'Reinforcing its position as a multi-monitor trailblazer, Matrox Graphics Inc. has once again developed the most flexible and highly advanced solution in the industry. Introducing the new Matrox G200 Multi-Monitor Series; the first graphics card ever to support up to four DVI digital flat panel displays on a single 8\" PCI board.', '', '<p>Reinforcing its position as a multi-monitor trailblazer, Matrox Graphics Inc. has once again developed the most flexible and highly advanced solution in the industry. Introducing the new Matrox G200 Multi-Monitor Series; the first graphics card ever to support up to four DVI digital flat panel displays on a single 8\" PCI board.<br /> <br /> With continuing demand for digital flat panels in the financial workplace, the Matrox G200 MMS is the ultimate in flexible solutions. The Matrox G200 MMS also supports the new digital video interface (DVI) created by the Digital Display Working Group (DDWG) designed to ease the adoption of digital flat panels. Other configurations include composite video capture ability and onboard TV tuner, making the Matrox G200 MMS the complete solution for business needs.<br /> <br /> Based on the award-winning MGA-G200 graphics chip, the Matrox G200 Multi-Monitor Series provides superior 2D/3D graphics acceleration to meet the demanding needs of business applications such as real-time stock quotes (Versus), live video feeds (Reuters &amp; Bloombergs), multiple windows applications, word processing, spreadsheets and CAD.</p>', 'www.matrox.com/mga/products/g200_mms/home.cfm');
 insert into products_description (products_id, language_id, products_name, products_p_unit, products_info, products_description_tab_label, products_description, products_url) values ('2', '1', 'Matrox G400 32MB', 'Box', '<ul>  <li>New Matrox G400 256-bit DualBus graphics chip</li>  <li>Explosive 3D, 2D and DVD performance</li>  <li>DualHead Display</li>  <li>Superior DVD and TV output</li>  <li>3D Environment-Mapped Bump Mapping</li>  <li>Vibrant Color Quality rendering</li> </ul>', '', '<p><strong>Dramatically Different High Performance Graphics</strong><br /> <br /> Introducing the Millennium G400 Series - a dramatically different, high performance graphics experience. Armed with the industry\'s fastest graphics chip, the Millennium G400 Series takes explosive acceleration two steps further by adding unprecedented image quality, along with the most versatile display options for all your 3D, 2D and DVD applications. As the most powerful and innovative tools in your PC\'s arsenal, the Millennium G400 Series will not only change the way you see graphics, but will revolutionize the way you use your computer.<br /> <br /> <strong>Key features:</strong></p> <ul>  <li>New Matrox G400 256-bit DualBus graphics chip</li>  <li>Explosive 3D, 2D and DVD performance</li>  <li>DualHead Display</li>  <li>Superior DVD and TV output</li>  <li>3D Environment-Mapped Bump Mapping</li>  <li>Vibrant Color Quality rendering</li>  <li>UltraSharp DAC of up to 360 MHz</li>  <li>3D Rendering Array Processor</li>  <li>Support for 16 or 32 MB of memory</li> </ul>', 'www.matrox.com/mga/products/mill_g400/home.htm');
@@ -2284,7 +2284,7 @@ create table products_notifications (
   customers_id int(11) default '0' not null ,
   date_added datetime default '0000-00-00 00:00:00' not null ,
   PRIMARY KEY (products_id, customers_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into products_notifications (products_id, customers_id, date_added) values ('10', '1', date_sub(now(),interval 2 day));
 insert into products_notifications (products_id, customers_id, date_added) values ('26', '1', date_sub(now(),interval 1 day));
@@ -2295,7 +2295,7 @@ create table products_options (
   language_id int(11) default '1' not null ,
   products_options_name varchar(32) not null ,
   PRIMARY KEY (products_options_id, language_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into products_options (products_options_id, language_id, products_options_name) values ('1', '1', 'Color');
 insert into products_options (products_options_id, language_id, products_options_name) values ('2', '1', 'Size');
@@ -2319,7 +2319,7 @@ create table products_options_values (
   language_id int(11) default '1' not null ,
   products_options_values_name varchar(64) not null ,
   PRIMARY KEY (products_options_values_id, language_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into products_options_values (products_options_values_id, language_id, products_options_values_name) values ('1', '1', '4 mb');
 insert into products_options_values (products_options_values_id, language_id, products_options_values_name) values ('2', '1', '8 mb');
@@ -2360,7 +2360,7 @@ create table products_options_values_to_products_options (
   products_options_id int(11) default '0' not null ,
   products_options_values_id int(11) default '0' not null ,
   PRIMARY KEY (products_options_id,products_options_values_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into products_options_values_to_products_options (products_options_id, products_options_values_id) values ('4', '1');
 insert into products_options_values_to_products_options (products_options_id, products_options_values_id) values ('4', '2');
@@ -2380,7 +2380,7 @@ create table products_prices (
   customers_group_price decimal(15,4) default '0.0000' not null ,
   products_id int(11) default '0' not null ,
   PRIMARY KEY (customers_group_id, products_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into products_prices (customers_group_id, customers_group_price, products_id) values ('0', '299.2565', '1');
 insert into products_prices (customers_group_id, customers_group_price, products_id) values ('0', '499.9071', '2');
@@ -2444,14 +2444,14 @@ create table products_stats (
   products_viewed int(5) default '0',  
   PRIMARY KEY  (products_id,language_id),
   KEY IDX_PRODUCTS_VIEWED (products_viewed)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists products_to_categories;
 create table products_to_categories (
   products_id int(11) default '0' not null ,
   categories_or_pages_id int(11) default '0' not null ,
   PRIMARY KEY (products_id, categories_or_pages_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into products_to_categories (products_id, categories_or_pages_id) values ('1', '4');
 insert into products_to_categories (products_id, categories_or_pages_id) values ('2', '4');
@@ -2489,7 +2489,7 @@ create table products_xsell (
   sort_order int(10) default '1' not null ,
   PRIMARY KEY (ID),
   KEY IDX_PRODUCTS_ID (products_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into products_xsell (ID, products_id, xsell_id, sort_order) values ('1', '25', '26', '2');
 insert into products_xsell (ID, products_id, xsell_id, sort_order) values ('2', '25', '3', '1');
@@ -2505,7 +2505,7 @@ create table reviews (
   last_modified datetime ,
   reviews_read int(5) default '0' not null ,
   PRIMARY KEY (reviews_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into reviews (reviews_id, products_id, customers_id, customers_name, reviews_rating, date_added, last_modified, reviews_read) values ('2', '19', '1', 'Erika Mustermann', '5', date_sub(now(),interval 1 day), now(), '0');
 insert into reviews (reviews_id, products_id, customers_id, customers_name, reviews_rating, date_added, last_modified, reviews_read) values ('3', '19', '1', 'Erika Mustermann', '5', date_sub(now(),interval 5 day), NULL, '0');
@@ -2517,7 +2517,7 @@ create table reviews_description (
   languages_id int(11) default '0' not null ,
   reviews_text text not null ,
   PRIMARY KEY (reviews_id, languages_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into reviews_description (reviews_id, languages_id, reviews_text) values ('2', '1', 'this has to be one of the funniest movies released for 1999!');
 insert into reviews_description (reviews_id, languages_id, reviews_text) values ('3', '3', 'this has to be one of the funniest movies released for 1999!');
@@ -2529,7 +2529,7 @@ create table sessions (
   expiry int(11) unsigned default '0' not null ,
   value text not null ,
   PRIMARY KEY (sesskey)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists specials;
 create table specials (
@@ -2543,7 +2543,7 @@ create table specials (
   error int(1) default '0' not null ,
   PRIMARY KEY (specials_id),
   KEY IDX_PRODUCTS_ID (products_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, date_scheduled, expires_date, status, error) values ('1', '26', '0', '61.8030', NULL, NULL, '1', '0');
 insert into specials (specials_id, products_id, customers_group_id, specials_new_products_price, date_scheduled, expires_date, status, error) values ('2', '23', '0', '92.8903', NULL, NULL, '1', '0');
@@ -2566,7 +2566,7 @@ create table tax_class (
   last_modified datetime ,
   date_added datetime default '0000-00-00 00:00:00' not null ,
   PRIMARY KEY (tax_class_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into tax_class (tax_class_id, tax_class_title, tax_class_description, last_modified, date_added) values ('1', 'MwSt. normal', 'Mehrwertsteuer normaler Satz', now(), date_sub(now(),interval 2 day));
 insert into tax_class (tax_class_id, tax_class_title, tax_class_description, last_modified, date_added) values ('2', 'MwSt. reduziert', 'Mehrwertsteuer reduzierter Satz', NULL, date_sub(now(),interval 2 day));
@@ -2581,7 +2581,7 @@ create table tax_rates (
   last_modified datetime ,
   date_added datetime default '0000-00-00 00:00:00' not null ,
   PRIMARY KEY (tax_rates_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into tax_rates (tax_rates_id, tax_zone_id, tax_class_id, tax_priority, tax_rate, last_modified, date_added) values ('1', '1', '1', '1', '19.0000', now(), date_sub(now(),interval 2 day));
 insert into tax_rates (tax_rates_id, tax_zone_id, tax_class_id, tax_priority, tax_rate, last_modified, date_added) values ('2', '2', '1', '1', '7.6000', NULL, date_sub(now(),interval 2 day));
@@ -2596,7 +2596,7 @@ create table tax_rates_description (
   language_id int(11) default '1' not null ,
   tax_description varchar(255) not null ,
   PRIMARY KEY (tax_rates_id, language_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into tax_rates_description (tax_rates_id, language_id, tax_description) values ('1', '1', 'VAT(DE)');
 insert into tax_rates_description (tax_rates_id, language_id, tax_description) values ('1', '2', 'MwSt.(DE)');
@@ -2626,7 +2626,7 @@ create table tax_rates_final (
   PRIMARY KEY (tax_rates_final_id),
   KEY IDX_TAX_ZONE_ID (tax_zone_id),
   KEY IDX_TAX_CLASS_ID (tax_class_id)  
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into tax_rates_final (tax_rates_final_id, tax_zone_id, tax_class_id, tax_rate_final) values ('1', '1', '1', '19.0000');
 insert into tax_rates_final (tax_rates_final_id, tax_zone_id, tax_class_id, tax_rate_final) values ('2', '2', '1', '7.6000');
@@ -2644,7 +2644,7 @@ create table whos_online (
   time_entry varchar(14) not null ,
   time_last_click varchar(14) not null ,
   last_page_url text not null 
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 drop table if exists zones;
 create table zones (
@@ -2653,7 +2653,7 @@ create table zones (
   zone_code varchar(32) not null ,
   zone_name varchar(255) not null ,
   PRIMARY KEY (zone_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('79', '81', 'NDS', 'Niedersachsen');
 insert into zones (zone_id, zone_country_id, zone_code, zone_name) values ('80', '81', 'BAW', 'Baden-Württemberg');
@@ -2714,7 +2714,7 @@ create table zones_list (
   zone_code varchar(32) not null ,
   zone_name varchar(255) not null ,
   PRIMARY KEY (zone_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into zones_list (zone_id, zone_country_id, zone_code, zone_name) values ('1', '223', 'AL', 'Alabama');
 insert into zones_list (zone_id, zone_country_id, zone_code, zone_name) values ('2', '223', 'AK', 'Alaska');
@@ -2908,7 +2908,7 @@ create table zones_to_geo_zones (
   date_added datetime default '0000-00-00 00:00:00' not null ,
   PRIMARY KEY (association_id),
   KEY IDX_ZONE_COUNTRY_ID (zone_country_id)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 insert into zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) values ('1', '81', NULL, '1', now(), date_sub(now(),interval 2 day));
 insert into zones_to_geo_zones (association_id, zone_country_id, zone_id, geo_zone_id, last_modified, date_added) values ('3', '204', '0', '2', NULL, date_sub(now(),interval 2 day));
