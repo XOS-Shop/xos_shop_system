@@ -66,7 +66,7 @@
           list($prid, $attributes_sting) = explode('-', $products['products_id']);
           $attributes_values = explode('_', $attributes_sting);         
           for ($i=0, $n=sizeof($attributes_values); $i<$n; $i++) {
-            list($key, $value) = explode(',', $attributes_values[$i]);
+            list($key, $value) = explode('*', $attributes_values[$i]);
             if (is_numeric($key) && is_numeric($value)) {
               $this->contents[$products['products_id']]['attributes'][$key] = $value;
             }            
@@ -130,7 +130,7 @@
           list($prid, $attributes_sting) = explode('-', $products['products_id']);
           $attributes_values = explode('_', $attributes_sting);         
           for ($i=0, $n=sizeof($attributes_values); $i<$n; $i++) {
-            list($key1, $value1) = explode(',', $attributes_values[$i]);
+            list($key1, $value1) = explode('*', $attributes_values[$i]);
             if (is_numeric($key1) && is_numeric($value1)) {
               $this->contents[$products['products_id']]['attributes'][$key1] = $value1;
             }            

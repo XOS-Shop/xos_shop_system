@@ -275,12 +275,12 @@
           
           while ($products_options = $products_options_query->fetch()) {
 
-            $pos = strpos($combinations_string, $comb_str . $products_options_name['products_options_id'] . ',' . $products_options['products_options_values_id']);
+            $pos = strpos($combinations_string, $comb_str . $products_options_name['products_options_id'] . '*' . $products_options['products_options_values_id']);
             
             if ($pos === false && $selected_attribute == $products_options['products_options_values_id']) $selected_attribute = false;
  
             if ($pos !== false || $combinations_string == '') {
-              if ($c_str == '') $c_str = $products_options_name['products_options_id'] . ',' . $products_options['products_options_values_id'] . '_';
+              if ($c_str == '') $c_str = $products_options_name['products_options_id'] . '*' . $products_options['products_options_values_id'] . '_';
               $products_options_array[] = array('id' => $products_options['products_options_values_id'], 'text' => $products_options['products_options_values_name']);        
               
               if (sizeof($products_options_array) == 1) $products_options_noscript_selected_string = '<span class="option-selected">' . $products_options['products_options_values_name'] . ($products_options['options_values_price'] != '0' ? ' (' . $products_options['price_prefix'] . $currencies->display_price($products_options['options_values_price'], $products_tax_rate) .') ' : '') . '</span><br />' . xos_draw_hidden_field('id[' . $products_options_name['products_options_id'] . ']', $products_options['products_options_values_id']);
@@ -298,10 +298,10 @@
               
               if ($flag == false) {
                 if ($selected_attribute == false) {
-                  $combi_str .= $products_options_name['products_options_id'] . ',' . $products_options['products_options_values_id'] . '_';
+                  $combi_str .= $products_options_name['products_options_id'] . '*' . $products_options['products_options_values_id'] . '_';
                   $flag = true;
                 } elseif ($selected_attribute == $products_options['products_options_values_id']) {
-                  $combi_str .= $products_options_name['products_options_id'] . ',' . $products_options['products_options_values_id'] . '_';
+                  $combi_str .= $products_options_name['products_options_id'] . '*' . $products_options['products_options_values_id'] . '_';
                   $flag = true;
                 }                
               }              

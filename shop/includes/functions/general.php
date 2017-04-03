@@ -1036,7 +1036,7 @@
         reset($params);
         while (list($option, $value) = each($params)) {
           if (is_numeric($option) && is_numeric($value)) {
-            $attributes_ids .= (int)$option . ',' . (int)$value . '_';
+            $attributes_ids .= (int)$option . '*' . (int)$value . '_';
           } else {
             $attributes_check = false;
             break;
@@ -1060,9 +1060,9 @@
           list($prid, $params_sting) = explode('-', $prid);
           $params = explode('_', $params_sting);
           for ($i=0, $n=sizeof($params); $i<$n; $i++) {
-            $pair = explode(',', $params[$i]);
+            $pair = explode('*', $params[$i]);
             if (is_numeric($pair[0]) && is_numeric($pair[1])) {
-              $attributes_ids .= (int)$pair[0] . ',' . (int)$pair[1] . '_';
+              $attributes_ids .= (int)$pair[0] . '*' . (int)$pair[1] . '_';
             } else {
               $attributes_check = false;
               break;
