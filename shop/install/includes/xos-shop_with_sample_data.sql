@@ -2032,7 +2032,7 @@ insert into orders_status (orders_status_id, language_id, orders_status_name, or
 insert into orders_status (orders_status_id, language_id, orders_status_name, orders_status_code, public_flag, downloads_flag) values ('2', '1', 'Processing', '', '1', '0');
 insert into orders_status (orders_status_id, language_id, orders_status_name, orders_status_code, public_flag, downloads_flag) values ('2', '2', 'In Bearbeitung', '', '1', '0');
 insert into orders_status (orders_status_id, language_id, orders_status_name, orders_status_code, public_flag, downloads_flag) values ('2', '3', 'Proceso', '', '1', '0');
-insert into orders_status (orders_status_id, language_id, orders_status_name, orders_status_code, public_flag, downloads_flag) values ('3', '1', 'Delivered', '', '1', '1');
+insert into orders_status (orders_status_id, language_id, orders_status_name, orders_status_code, public_flag, downloads_flag) values ('3', '1', 'Shipped', '', '1', '1');
 insert into orders_status (orders_status_id, language_id, orders_status_name, orders_status_code, public_flag, downloads_flag) values ('3', '2', 'Versendet', '', '1', '1');
 insert into orders_status (orders_status_id, language_id, orders_status_name, orders_status_code, public_flag, downloads_flag) values ('3', '3', 'Entregado', '', '1', '1');
 insert into orders_status (orders_status_id, language_id, orders_status_name, orders_status_code, public_flag, downloads_flag) values ('4', '2', 'Storniert', '', '1', '0');

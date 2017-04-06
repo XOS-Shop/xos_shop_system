@@ -2002,7 +2002,7 @@ INSERT INTO orders_status VALUES ( '1', '3', 'Pendiente', '', '1', '0');
 INSERT INTO orders_status VALUES ( '2', '1', 'Processing', '', '1', '0');
 INSERT INTO orders_status VALUES ( '2', '2', 'In Bearbeitung', '', '1', '0');
 INSERT INTO orders_status VALUES ( '2', '3', 'Proceso', '', '1', '0');
-INSERT INTO orders_status VALUES ( '3', '1', 'Delivered', '', '1', '0');
+INSERT INTO orders_status VALUES ( '3', '1', 'Shipped', '', '1', '0');
 INSERT INTO orders_status VALUES ( '3', '2', 'Versendet', '', '1', '0');
 INSERT INTO orders_status VALUES ( '3', '3', 'Entregado', '', '1', '0');
 
