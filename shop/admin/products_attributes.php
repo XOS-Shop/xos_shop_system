@@ -344,7 +344,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
           if ((int)$value > 0) xos_db_query("update " . TABLE_PRODUCTS_ATTRIBUTES . " set options_sort_order = '" . (int)$value . "' where products_id = '" . (int)$_GET['products_id'] . "' and options_id = '" . (int)$key . "'");               
         }
         
-        $combinations_query = xos_db_query("select attributes_combinations from " . TABLE_PRODUCTS . " where products_id = '" . (int)$_GET['products_id'] . "'");
+        $combinations_query = xos_db_query("select attributes_quantity, attributes_combinations from " . TABLE_PRODUCTS . " where products_id = '" . (int)$_GET['products_id'] . "'");
         $combinations = xos_db_fetch_array($combinations_query);
                
         if (xos_not_null($combinations['attributes_combinations'])) {       
@@ -354,22 +354,21 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
           while($sort = xos_db_fetch_array($sort_query)) {
             $sorted_options_id[] = $sort['options_id'];
           }
-
+          
+          $attributes_quantity_array = xos_get_attributes_quantity($combinations['attributes_quantity']);
           $attributes_quantity = array(); 
           $c_str = '';
-          reset($_POST['string_fragment'][(int)$_GET['products_id']]);
-          while (list($key, $value) = @each($_POST['string_fragment'][(int)$_GET['products_id']])) { 
-            $qty = isset($_POST['attributes_quantity'][(int)$_GET['products_id']][$value]) ? (int)$_POST['attributes_quantity'][(int)$_GET['products_id']][$value] : 0;       
-            $elements_in = explode('_', $value);                    
+          while (list($key, $value) = @each($attributes_quantity_array)) {      
+            $elements_in = explode('_', $key);                    
             for ($i=0, $n=sizeof($elements_in); $i<$n; $i++) {           
               for ($ii=0, $m=sizeof($sorted_options_id); $ii<$m; $ii++) {          
                 if (strpos($elements_in[$i], $sorted_options_id[$ii] . '*') !== false) $elements_out[$ii] = $elements_in[$i];                                 
               }
             }          
             ksort($elements_out);
-            $value = implode('_', $elements_out);
-            $attributes_quantity[$value] = $qty;
-            $c_str .= $value . '|';                       
+            $new_key = implode('_', $elements_out);
+            $attributes_quantity[$new_key] = $value;
+            $c_str .= $new_key . '|';                       
           }
 
           if ($c_str != '') xos_db_query("update " . TABLE_PRODUCTS . " set products_last_modified = now(), attributes_quantity = '" . xos_db_input(serialize($attributes_quantity)) . "', attributes_combinations = '" . xos_db_input($c_str) . "' where products_id = '" . (int)$_GET['products_id'] . "'");
