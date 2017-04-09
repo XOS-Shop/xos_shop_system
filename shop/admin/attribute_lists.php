@@ -93,7 +93,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
           }  
         
           $opt_result_array[$i][$ii] = $opt_values_array[$opt_array[$ii]['options_id']][max(0, $opt_out_array[$ii])]['options_values_name'];          
-          $comb_string .= $opt_array[$ii]['options_id'] . '*' . $opt_values_array[$opt_array[$ii]['options_id']][max(0, $opt_out_array[$ii])]['options_values_id'] . '_';
+          $comb_string .= $opt_array[$ii]['options_id'] . 'O' . $opt_values_array[$opt_array[$ii]['options_id']][max(0, $opt_out_array[$ii])]['options_values_id'] . '_';
         }
         
         $comb_string = substr($comb_string, 0, -1);

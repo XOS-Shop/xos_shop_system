@@ -157,7 +157,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
             
             if (xos_not_null($attributes['attributes_combinations'])) {
               $attributes_not_updated = xos_get_attributes_not_updated($attributes['attributes_not_updated']);
-              $attributes_not_updated[] = (int)$options_id . '*' . (int)$values_id;
+              $attributes_not_updated[] = (int)$options_id . 'O' . (int)$values_id;
               if (!empty($attributes_not_updated)) xos_db_query("update " . TABLE_PRODUCTS . " set products_last_modified = now(), attributes_not_updated = '" . xos_db_input(serialize($attributes_not_updated)) . "' where products_id = '" . (int)$products_id . "'");
             }  
           }          
@@ -272,10 +272,10 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
               $attributes_not_updated = xos_get_attributes_not_updated($combinations['attributes_not_updated']);
               if ($values_id != $current_options_values_id) {
                 foreach ($attributes_not_updated as $key_not_updated => $val_not_updated) {                
-                  if ($val_not_updated == $current_options_id . '*' . $current_options_values_id) unset($attributes_not_updated[$key_not_updated]);                           
+                  if ($val_not_updated == $current_options_id . 'O' . $current_options_values_id) unset($attributes_not_updated[$key_not_updated]);                           
                 }
 
-                $attributes_not_updated[] = (int)$options_id . '*' . (int)$values_id;
+                $attributes_not_updated[] = (int)$options_id . 'O' . (int)$values_id;
                                 
                 ksort($attributes_not_updated);
                 if (empty($attributes_not_updated)) { 
@@ -292,7 +292,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
               $combinations['attributes_combinations'] = trim($combinations['attributes_combinations'], '|');
               $elements_comb = explode('|', $combinations['attributes_combinations']);        
               for ($i=0, $n=sizeof($elements_comb); $i<$n; $i++) {      
-                if (strpos($elements_comb[$i], $current_options_id . '*' . $current_options_values_id) !== false && $values_id != $current_options_values_id) {
+                if (strpos($elements_comb[$i], $current_options_id . 'O' . $current_options_values_id) !== false && $values_id != $current_options_values_id) {
                   $qty -= $attributes_quantity[$elements_comb[$i]] > 0 ? $attributes_quantity[$elements_comb[$i]] : 0;
                   unset($attributes_quantity[$elements_comb[$i]]);
                   unset($elements_comb[$i]);
@@ -362,7 +362,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
             $elements_in = explode('_', $key);                    
             for ($i=0, $n=sizeof($elements_in); $i<$n; $i++) {           
               for ($ii=0, $m=sizeof($sorted_options_id); $ii<$m; $ii++) {          
-                if (strpos($elements_in[$i], $sorted_options_id[$ii] . '*') !== false) $elements_out[$ii] = $elements_in[$i];                                 
+                if (strpos($elements_in[$i], $sorted_options_id[$ii] . 'O') !== false) $elements_out[$ii] = $elements_in[$i];                                 
               }
             }          
             ksort($elements_out);
@@ -438,7 +438,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
           $attributes_not_updated = xos_get_attributes_not_updated($combinations['attributes_not_updated']);
           foreach ($attributes_not_updated as $key_not_updated => $val_not_updated) {                
-            if ($val_not_updated == $combinations['options_id'] . '*' . $combinations['options_values_id']) unset($attributes_not_updated[$key_not_updated]);                           
+            if ($val_not_updated == $combinations['options_id'] . 'O' . $combinations['options_values_id']) unset($attributes_not_updated[$key_not_updated]);                           
           }          
               
           ksort($attributes_not_updated);
@@ -453,7 +453,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
           $combinations['attributes_combinations'] = trim($combinations['attributes_combinations'], '|');
           $elements_comb = explode('|', $combinations['attributes_combinations']);        
           for ($i=0, $n=sizeof($elements_comb); $i<$n; $i++) {      
-            if (strpos($elements_comb[$i], $combinations['options_id'] . '*' . $combinations['options_values_id']) !== false) {
+            if (strpos($elements_comb[$i], $combinations['options_id'] . 'O' . $combinations['options_values_id']) !== false) {
               $qty -= $attributes_quantity[$elements_comb[$i]] > 0 ? $attributes_quantity[$elements_comb[$i]] : 0;
               unset($attributes_quantity[$elements_comb[$i]]);
               unset($elements_comb[$i]);
