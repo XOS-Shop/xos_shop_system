@@ -31,7 +31,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
   function xos_update_whos_online() {
-    global $session_started;  
+    global $session_started, $CrawlerDetect;  
 
     if (isset($_SESSION['customer_id'])) {
       $wo_customer_id = $_SESSION['customer_id'];
@@ -41,8 +41,14 @@
 
       $wo_full_name = $customer['customers_firstname'] . ' ' . $customer['customers_lastname'];
     } else {
-      $wo_customer_id = '';
-      $wo_full_name = 'Guest';
+      $wo_customer_id = ''; 
+      
+      if($CrawlerDetect->isCrawler()) {
+        // set the name if crawler user agent detected
+        $wo_full_name = 'Crawler - ' . $CrawlerDetect->getMatches();	
+      } else {                    
+        $wo_full_name = 'Guest';      
+      }
     }
 
     $wo_session_id = xos_session_id();

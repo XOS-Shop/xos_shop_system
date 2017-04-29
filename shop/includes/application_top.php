@@ -53,10 +53,7 @@
   define('INTERVAL_DAYS_BACK', '30'); 
 
 //
-  define('MUST_ACCEPT_CONDITIONS', 'true');
-  
-//
-  define('USE_CRAWLER_DETECT_SIMPLE', 'true');    
+  define('MUST_ACCEPT_CONDITIONS', 'true');  
   
 // Set the level of error reporting
   ini_set('display_errors', true);
@@ -78,6 +75,10 @@
 
 // include the registry class
   require(DIR_WS_CLASSES . 'registry.php'); 
+  
+// Use Crawler Detect - a web crawler detection library | https://github.com/JayBizzle/Crawler-Detect
+  require(DIR_WS_CLASSES . 'CrawlerDetect.php'); 
+  $CrawlerDetect = new CrawlerDetect;  
    
   if (strlen(DB_SERVER) < 1) {
     if (is_dir('install')) {
@@ -226,38 +227,12 @@
       $session_started = true;
     }
   } elseif (SESSION_BLOCK_SPIDERS == 'true') {
-    // User lowercase string for comparison.  
-    $user_agent = strtolower(getenv('HTTP_USER_AGENT'));
     $spider_flag = false;
-        
-    if (USE_CRAWLER_DETECT_SIMPLE == 'true') {
-      //  Use Crawler Detect - simple and fast         
-      // A list of some common words used only for bots and crawlers.
-      $bot_identifiers = array(
-        'bot',
-        'slurp',
-        'crawler',
-        'spider',
-        'curl',
-        'facebook',
-        'fetch'
-      );
-      // See if one of the identifiers is in the UA string.
-      foreach ($bot_identifiers as $identifier) {
-        if (strpos($user_agent, $identifier) !== false) {
-          $spider_flag = true;
-          break;
-        }
-      }        
-    } else {
-      // Use Crawler Detect - a web crawler detection library | https://github.com/JayBizzle/Crawler-Detect
-      require(DIR_WS_CLASSES . 'CrawlerDetect.php'); 
-      $CrawlerDetect = new CrawlerDetect;
-      // Check the user agent of the current 'visitor'
-      if($CrawlerDetect->isCrawler()) {
-        // true if crawler user agent detected
-        $spider_flag = true;	
-      }  
+
+    // Check the user agent of the current 'visitor'
+    if($CrawlerDetect->isCrawler()) {
+      // true if crawler user agent detected
+      $spider_flag = true;	
     }
     
     if ($spider_flag == false) {
