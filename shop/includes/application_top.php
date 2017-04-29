@@ -30,6 +30,8 @@
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
 
+  use CrawlerDetect\CrawlerDetect;
+  
 // set default timezone if none exists (PHP 5.3 throws an E_WARNING)
   if (strlen(ini_get('date.timezone')) < 1) {
     date_default_timezone_set(@date_default_timezone_get());
@@ -52,6 +54,9 @@
 
 //
   define('MUST_ACCEPT_CONDITIONS', 'true');
+  
+//
+  define('USE_CRAWLER_DETECT_SIMPLE', 'true');    
   
 // Set the level of error reporting
   ini_set('display_errors', true);
@@ -221,22 +226,40 @@
       $session_started = true;
     }
   } elseif (SESSION_BLOCK_SPIDERS == 'true') {
+    // User lowercase string for comparison.  
     $user_agent = strtolower(getenv('HTTP_USER_AGENT'));
     $spider_flag = false;
-
-    if (xos_not_null($user_agent)) {
-      $spiders = file(DIR_WS_INCLUDES . 'spiders.txt');
-
-      for ($i=0, $n=sizeof($spiders); $i<$n; $i++) {
-        if (xos_not_null($spiders[$i])) {
-          if (is_integer(strpos($user_agent, trim($spiders[$i])))) {
-            $spider_flag = true;
-            break;
-          }
+        
+    if (USE_CRAWLER_DETECT_SIMPLE == 'true') {
+      //  Use Crawler Detect - simple and fast         
+      // A list of some common words used only for bots and crawlers.
+      $bot_identifiers = array(
+        'bot',
+        'slurp',
+        'crawler',
+        'spider',
+        'curl',
+        'facebook',
+        'fetch'
+      );
+      // See if one of the identifiers is in the UA string.
+      foreach ($bot_identifiers as $identifier) {
+        if (strpos($user_agent, $identifier) !== false) {
+          $spider_flag = true;
+          break;
         }
-      }
+      }        
+    } else {
+      // Use Crawler Detect - a web crawler detection library | https://github.com/JayBizzle/Crawler-Detect
+      require(DIR_WS_CLASSES . 'CrawlerDetect.php'); 
+      $CrawlerDetect = new CrawlerDetect;
+      // Check the user agent of the current 'visitor'
+      if($CrawlerDetect->isCrawler()) {
+        // true if crawler user agent detected
+        $spider_flag = true;	
+      }  
     }
-
+    
     if ($spider_flag == false) {
       if ((!isset($_COOKIE[session_name()]) && isset($_GET[session_name()])) || (isset($_COOKIE[session_name()]) && isset($_GET[session_name()]) && $request_type == 'SSL' && ENABLE_SSL == 'true' && $_COOKIE[session_name()] != $_GET[session_name()] && HTTP_COOKIE_DOMAIN != HTTPS_COOKIE_DOMAIN)) setcookie(session_name(), $_GET[session_name()], 0, $cookie_path, $cookie_domain);
       xos_session_start();
