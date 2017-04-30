@@ -68,7 +68,7 @@
     function write($message, $type) {
       global $day_month_names;
       
-      if (is_array($day_month_names)) error_log(xos_date_format(STORE_PARSE_DATE_TIME_FORMAT) . ' [' . $type . '] ' . $message . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
+      if (is_array($day_month_names)) error_log(xos_date_format(STORE_PARSE_DATE_TIME_FORMAT) . ' (' . $type . ') ' . (!empty(getenv('REMOTE_ADDR')) ? '[' . str_pad(getenv('REMOTE_ADDR'), 15) . '] ' : '[---------------] ') . '(------------) ' . $message . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
     }
   }
 ?>
