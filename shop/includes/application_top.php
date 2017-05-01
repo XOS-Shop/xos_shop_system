@@ -567,7 +567,7 @@
   }
 
 // update stats products_viewed
-  if ($_SERVER['BASENAME_PHP_SELF'] == FILENAME_PRODUCT_INFO) {
+  if ($_SERVER['BASENAME_PHP_SELF'] == FILENAME_PRODUCT_INFO && !empty($_GET['p'])) {
   
     $insert_products_stats_query = $DB->prepare
     (
