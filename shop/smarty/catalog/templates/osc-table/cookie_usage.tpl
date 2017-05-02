@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : osc-table
-* version    : 1.0.7 for XOS-Shop version 1.0.4
+* version    : 1.0.7 for XOS-Shop version 1.0.5
 * descrip    : oscommerce default template with css-buttons and tables for layout                                                                     
 * filename   : cookie_usage.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>

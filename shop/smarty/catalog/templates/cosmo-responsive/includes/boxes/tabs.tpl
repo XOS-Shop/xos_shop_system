@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : cosmo-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0.4
+* version    : 1.0.7 for XOS-Shop version 1.0.5
 * descrip    : xos-shop template built with Bootstrap3 and theme cosmo                                                                    
 * filename   : tabs.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
