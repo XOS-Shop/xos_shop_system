@@ -29,8 +29,6 @@
 //
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
-
-  use CrawlerDetect\CrawlerDetect;
   
 // set default timezone if none exists (PHP 5.3 throws an E_WARNING)
   if (strlen(ini_get('date.timezone')) < 1) {
@@ -77,7 +75,7 @@
   require(DIR_WS_CLASSES . 'registry.php'); 
   
 // Use Crawler Detect - a web crawler detection library | https://github.com/JayBizzle/Crawler-Detect
-  require(DIR_WS_CLASSES . 'CrawlerDetect.php'); 
+  require(DIR_WS_CLASSES . 'crawler_detect/CrawlerDetect.php'); 
   $CrawlerDetect = new CrawlerDetect;  
    
   if (strlen(DB_SERVER) < 1) {

@@ -7,18 +7,12 @@
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
- */ 
- 
-namespace CrawlerDetect;
+ */
 
-use CrawlerDetect\Fixtures\Headers;
-use CrawlerDetect\Fixtures\Crawlers;
-use CrawlerDetect\Fixtures\Exclusions; 
-
-require(DIR_WS_CLASSES . 'Fixtures/AbstractProvider.php');  
-require(DIR_WS_CLASSES . 'Fixtures/Crawlers.php'); 
-require(DIR_WS_CLASSES . 'Fixtures/Exclusions.php'); 
-require(DIR_WS_CLASSES . 'Fixtures/Headers.php');
+require('AbstractProvider.php');  
+require('Crawlers.php'); 
+require('Exclusions.php'); 
+require('Headers.php');
 
 class CrawlerDetect
 {
