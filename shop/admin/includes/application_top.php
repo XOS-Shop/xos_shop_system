@@ -39,7 +39,7 @@
   define('ADMIN_TPL', 'admin_lte');
 
 // Start the clock for the page parse time log
-  define('PAGE_PARSE_START_TIME', microtime());
+  define('PAGE_PARSE_START_TIME', microtime(true));
 
 // Set the length of the redeem code, the longer the more secure
   define('SECURITY_CODE_LENGTH', '8');
@@ -132,6 +132,9 @@
       define($configuration['cfgKey'], $configuration['cfgValue']);
     }     
   }
+
+// Define directory and filename of the page parse time log
+  define('STORE_PAGE_PARSE_TIME_LOG', STORE_PAGE_PARSE_TIME_LOG_PATH != '' ? STORE_PAGE_PARSE_TIME_LOG_PATH . 'page_parse_time_' . date('Y-m-d') .'.log' : DIR_FS_LOGS . 'page_parse_time_' . date('Y-m-d') .'.log');
 
 // if gzip_compression is enabled, start to buffer the output 
   if ( (GZIP_COMPRESSION == 'true') && ($_GET['action'] != 'download') && ($_GET['action'] != 'backupnow') && ($ext_zlib_loaded = extension_loaded('zlib'))) {

@@ -33,7 +33,7 @@
   if (STORE_PAGE_PARSE_TIME == 'true') {
     $time_start = explode(' ', PAGE_PARSE_START_TIME);
     $time_end = explode(' ', microtime());
-    $parse_time = ' (' . number_format(($time_end[1] + $time_end[0] - ($time_start[1] + $time_start[0])), 3) . 's) ';
+    $parse_time = ' (' . number_format((microtime(true)-PAGE_PARSE_START_TIME), 3) . 's) ';
     $ip_address = !empty(getenv('REMOTE_ADDR')) ? '[' . str_pad(getenv('REMOTE_ADDR'), 15) . '] ' : '[---------------] ';    
     $crawler_name = $CrawlerDetect->isCrawler() ? '(' . str_pad($CrawlerDetect->getMatches(), 12) . ') ' : '(------------) ';   
                 
@@ -46,5 +46,4 @@
 
   if (!(in_array($_SERVER['BASENAME_PHP_SELF'], array(FILENAME_POPUP_CONTENT, FILENAME_POPUP_IMAGE)))) {
     unset($_SESSION['javascript_enabled']);
-  }     
-?>
+  }

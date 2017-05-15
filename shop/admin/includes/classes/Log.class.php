@@ -7,10 +7,10 @@
 	*/
 	class Log {
 			
-		    # @string, Log directory name and timezone
-		    	private $path = DIR_FS_ADMIN . 'db_logs/';
+		  # @string, Log directory name and timezone
+		  private $path = DIR_FS_LOGS . 'db_logs/';
 				
-		    # @void, Default Constructor.
+		  # @void, Default Constructor.
 			public function __construct() {
       
 			}

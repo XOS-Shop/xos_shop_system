@@ -36,7 +36,7 @@
   }
   
 // start the timer for the page parse time log
-  define('PAGE_PARSE_START_TIME', microtime());
+  define('PAGE_PARSE_START_TIME', microtime(true));
 
 // define which tax description should be displayed
   define('FULL_TAX_INFO', 'false');
@@ -128,6 +128,9 @@
       define($configuration['cfgKey'], $configuration['cfgValue']);
     }    
   }
+
+// Define directory and filename of the page parse time log
+  define('STORE_PAGE_PARSE_TIME_LOG', STORE_PAGE_PARSE_TIME_LOG_PATH != '' ? STORE_PAGE_PARSE_TIME_LOG_PATH . 'page_parse_time_' . date('Y-m-d') .'.log' : DIR_FS_LOGS . 'page_parse_time_' . date('Y-m-d') .'.log');
   
 // require the smarty class and create an instance
   require(DIR_FS_SMARTY . 'Smarty-3.1.30/Smarty.class.php');  

@@ -327,13 +327,13 @@ define('STOCK_REORDER_LEVEL_DESCRIPTION', 'Define when stock needs to be re-orde
 
 
 define('STORE_PAGE_PARSE_TIME_TITLE', 'Store Page Parse Time');
-define('STORE_PAGE_PARSE_TIME_LOG_TITLE', 'Log Destination');
+define('STORE_PAGE_PARSE_TIME_LOG_PATH_TITLE', 'Log Destination');
 define('STORE_PARSE_DATE_TIME_FORMAT_TITLE', 'Log Date Format');
 define('DISPLAY_PAGE_PARSE_TIME_TITLE', 'Display The Page Parse Time');
 define('STORE_DB_TRANSACTIONS_TITLE', 'Store Database Queries');
 
 define('STORE_PAGE_PARSE_TIME_DESCRIPTION', 'Store the time it takes to parse a page');
-define('STORE_PAGE_PARSE_TIME_LOG_DESCRIPTION', 'Directory and filename of the page parse time log');
+define('STORE_PAGE_PARSE_TIME_LOG_PATH_DESCRIPTION', 'Store the page parse time in this directory.<br /><br /><b>Note:</b><br />Leave this field empty to store the page parse time in the default directory.<br /><br /><b>Example:</b> /var/www/log/');
 define('STORE_PARSE_DATE_TIME_FORMAT_DESCRIPTION', 'The date format');
 define('DISPLAY_PAGE_PARSE_TIME_DESCRIPTION', 'Display the page parse time (store page parse time must be enabled)');
 define('STORE_DB_TRANSACTIONS_DESCRIPTION', 'Store the database queries in the page parse time log');

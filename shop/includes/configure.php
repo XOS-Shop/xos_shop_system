@@ -54,6 +54,7 @@
   define('DIR_FS_DOWNLOAD', DIR_FS_CATALOG . 'download/');
   define('DIR_FS_DOWNLOAD_PUBLIC', DIR_FS_CATALOG . 'pub/');   
   define('DIR_FS_SMARTY', DIR_FS_CATALOG . 'smarty/');
+  define('DIR_FS_LOGS', DIR_FS_DOCUMENT_ROOT . 'logs/');   
   define('DIR_FS_TMP', DIR_FS_DOCUMENT_ROOT . 'tmp/');  
 
   define('ADMIN_DIR_NAME', 'default_dir_name');

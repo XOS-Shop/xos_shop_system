@@ -66,6 +66,7 @@
                              'smarty/admin/templates_c',
                              'smarty/catalog/cache',
                              'smarty/catalog/templates_c',
+                             'logs',
                              'tmp',); 
                              
   $files_array = array('includes/configure.php',);                            

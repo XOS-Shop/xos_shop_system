@@ -327,13 +327,13 @@ define('STOCK_REORDER_LEVEL_DESCRIPTION', 'Der Mindestlagerbestand, ab dem ein A
 
 
 define('STORE_PAGE_PARSE_TIME_TITLE', 'Speicherung der Erstellungszeit');
-define('STORE_PAGE_PARSE_TIME_LOG_TITLE', 'Logdatei-Verzeichnis');
+define('STORE_PAGE_PARSE_TIME_LOG_PATH_TITLE', 'Logdatei-Verzeichnis');
 define('STORE_PARSE_DATE_TIME_FORMAT_TITLE', 'Log-Datumsformat');
 define('DISPLAY_PAGE_PARSE_TIME_TITLE', 'Erstellungszeit anzeigen');
 define('STORE_DB_TRANSACTIONS_TITLE', 'Datenbankabfragen speichern');
 
 define('STORE_PAGE_PARSE_TIME_DESCRIPTION', 'Die Zeit speichern, die zum Erstellen (Parsen) von Seiten benötigt wird.');
-define('STORE_PAGE_PARSE_TIME_LOG_DESCRIPTION', 'Das Verzeichnis und der Dateiname zur Speicherung der Erstellungszeit.');
+define('STORE_PAGE_PARSE_TIME_LOG_PATH_DESCRIPTION', 'Die Erstellungszeiten werden in dem angegebenen Verzeichnis gespeichert.<br /><br /><b>Hinweis:</b><br />Lassen Sie dieses Feld leer um die Erstellungszeiten im Standard-Verzeichnis zu speichern.<br /><br /><b>Beispiel:</b> /var/www/log/');
 define('STORE_PARSE_DATE_TIME_FORMAT_DESCRIPTION', 'Das Datumsformat für die Logdaten');
 define('DISPLAY_PAGE_PARSE_TIME_DESCRIPTION', 'Die Zeit anzeigen, die zum Erstellen (Parsen) von Seiten benötigt wird (Speicherung der Erstellungszeit muss aktiviert sein).');
 define('STORE_DB_TRANSACTIONS_DESCRIPTION', 'Die Datenbankabfragen in der Logdatei speichern.');

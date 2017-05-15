@@ -1104,7 +1104,7 @@ INSERT INTO configuration (configuration_key, configuration_value, configuration
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('STOCK_REORDER_LEVEL', '5', '10', '5', now());
 
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('STORE_PAGE_PARSE_TIME', 'false', '11', '1', 'xos_cfg_select_option(array(\'true\', \'false\'), ', now());
-INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('STORE_PAGE_PARSE_TIME_LOG', '/var/log/www/tep/page_parse_time.log', '11', '2', now());
+INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('STORE_PAGE_PARSE_TIME_LOG_PATH', '', '11', '2', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('STORE_PARSE_DATE_TIME_FORMAT', '%d/%m/%Y %H:%M:%S', '11', '3', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('DISPLAY_PAGE_PARSE_TIME', 'true', '11', '4', 'xos_cfg_select_option(array(\'true\', \'false\'), ', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('STORE_DB_TRANSACTIONS', 'false', '11', '5', 'xos_cfg_select_option(array(\'true\', \'false\'), ', now());
