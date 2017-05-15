@@ -33,11 +33,11 @@
   if (STORE_PAGE_PARSE_TIME == 'true') {
     $time_start = explode(' ', PAGE_PARSE_START_TIME);
     $time_end = explode(' ', microtime());
-    $parse_time = ' (' . number_format((microtime(true)-PAGE_PARSE_START_TIME), 3) . 's) ';
+    $parse_time = number_format((microtime(true)-PAGE_PARSE_START_TIME), 3);
     $ip_address = !empty(getenv('REMOTE_ADDR')) ? '[' . str_pad(getenv('REMOTE_ADDR'), 15) . '] ' : '[---------------] ';    
     $crawler_name = $CrawlerDetect->isCrawler() ? '(' . str_pad($CrawlerDetect->getMatches(), 12) . ') ' : '(------------) ';   
                 
-    error_log(strftime(STORE_PARSE_DATE_TIME_FORMAT) . $parse_time . $ip_address . $crawler_name . getenv('REQUEST_URI') . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
+    error_log(strftime(STORE_PARSE_DATE_TIME_FORMAT) . ' (' . $parse_time . 's) ' . $ip_address . $crawler_name . getenv('REQUEST_URI') . "\n", 3, STORE_PAGE_PARSE_TIME_LOG);
 
     if (DISPLAY_PAGE_PARSE_TIME == 'true') {
       echo "<div class=\"display-parse-time\" style=\"font-family : Verdana, Arial, sans-serif; font-size : 9px; text-align: left; vertical-align: bottom;\">&nbsp;&nbsp;Parse Time: " . $parse_time . "s</div>\n</body>\n</html>";
