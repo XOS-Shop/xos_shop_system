@@ -94,6 +94,12 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
     $smarty->assign('language_str', $language_str);
   }
 
+  if ($banner_offline = xos_banner_exists('dynamic', 'offline')) {
+    $banner = array(); 
+    $banner = xos_display_banner('static', $banner_offline);
+    eval(" ?>" . $banner['banner_php_source'] . "<?php ");
+    $smarty->assign('offline_banner_offline', $banner['banner_string']);
+  }
   
   $smarty->assign(array('form_begin' => xos_draw_form('offline', xos_href_link(FILENAME_OFFLINE, 'action=process', 'SSL')),
                         'input_field_email_address' => xos_draw_input_field('email_address', '', 'id="email_address"'),

@@ -25,6 +25,7 @@
 *              along with XOS-Shop.  If not, see <http://www.gnu.org/licenses/>. 
 ********************************************************************************
 *}@]
+[@{$banner_cookie_consent}@]
 [@{if $footer_banner_footer}@]
 <div style="padding: 4px; text-align: center;">[@{$footer_banner_footer}@]</div>
 [@{/if}@]

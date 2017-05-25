@@ -1075,6 +1075,13 @@ html>body #currencies_list_noscript { /* IE 6 ignoriert nachfolgende Deklaration
   padding: 0;
 }
 
-.breadcrumb-list li{
+.breadcrumb-list li {
   display: inline-block;
-}    
+}
+
+#cookieChoiceInfo {
+  background-color: #e6e6e6;
+  color: #000000;
+  font-family: Verdana,Arial,sans-serif;
+  font-size: 13px;  
+}   

@@ -51,7 +51,7 @@
                 <td colspan="2" style="padding: 10px 3px 50px 3px; text-align: right;">[@{$language_str}@]</td>
               </tr>
               <tr>
-                <td class="main" colspan="2" align="center"><b>[@{#text_offline#}@]</b></td>
+                <td class="main" colspan="2" align="center">[@{$offline_banner_offline|default:#text_offline#}@]</td>
               </tr>
               <tr>
                 <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="50" /></td>

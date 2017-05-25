@@ -38,7 +38,7 @@
           [@{/if}@]           
           <div class="info-box-central-contents"> 
             <div style="padding: 5px 5px 52px 5px; text-align: right;">[@{$language_str}@]</div>
-            <div class="main"  style="padding: 2px 2px 52px 2px; text-align: center;"><b>[@{#text_offline#}@]</b></div>
+            <div class="main"  style="padding: 2px 2px 52px 2px; text-align: center;">[@{$offline_banner_offline|default:#text_offline#}@]</div>
             <fieldset>
               <label class="main" style="padding: 4px; width: 100px; float: left; display: block;" for="email_address">[@{#entry_email_address#}@]</label>
               <div class="main" style="padding: 4px; float: left;">[@{$input_field_email_address}@]</div>

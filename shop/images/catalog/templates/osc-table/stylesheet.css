@@ -655,6 +655,14 @@ a.options-list {
   padding: 0;
 }
 
-.breadcrumb-list li{
+.breadcrumb-list li {
   display: inline-block;
+}
+
+#cookieChoiceInfo {
+  background-color: #f8f8f9;
+  color: #000000;
+  font-family: Verdana,Arial,sans-serif;
+  font-size: 13px;
+  border-top: 1px solid #b6b7cb;  
 }

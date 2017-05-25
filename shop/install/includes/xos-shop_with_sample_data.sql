@@ -198,6 +198,8 @@ insert into banners (banners_id, banners_group, expires_impressions, expires_dat
 insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('3', 'column_1', NULL, NULL, NULL, date_sub(now(),interval 1 day), NULL, '0');
 insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('4', 'column_2', NULL, NULL, NULL, date_sub(now(),interval 1 day), NULL, '1');
 insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('5', 'logo', NULL, NULL, NULL, date_sub(now(),interval 1 day), NULL, '0');
+insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('6', 'cookie_consent', NULL, NULL, NULL, date_sub(now(),interval 1 day), NULL, '1');
+insert into banners (banners_id, banners_group, expires_impressions, expires_date, date_scheduled, date_added, date_status_change, status) values ('7', 'offline', NULL, NULL, NULL, date_sub(now(),interval 1 day), NULL, '1');
 
 drop table if exists banners_content;
 create table banners_content (
@@ -226,6 +228,177 @@ insert into banners_content (banners_id, language_id, banners_title, banners_url
 insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('5', '1', 'Logo', '', '', '<p><span style=\"font-size:48px;\">Logo</span>&nbsp; &nbsp; <code class=\"text-nowrap\">Tools -&gt; Banner Manager [Banner Group \"logo\"]</code></p>',  NULL);
 insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('5', '2', 'Logo', '', '', '<p><span style=\"font-size:48px;\">Logo</span>&nbsp; &nbsp; <code class=\"text-nowrap\">Hilfsprogramme -&gt; Banner Manager [Banner-Gruppe \"logo\"]</code></p>',  NULL);
 insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('5', '3', 'Logo', '', '', '<p><span style=\"font-size:48px;\">Logo</span>&nbsp; &nbsp; <code class=\"text-nowrap\">Herramientas -&gt; Administrador de Banners [Grupo \"logo\"]</code></p>',  NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('6', '1', 'Cookie Consent', '', '', '<script>
+if (navigator.cookieEnabled) {
+  $(function() {
+    (function ($) { 
+        $.fn.cookieConsent = function(options) {
+     
+            var settings = $.extend({           
+                // Number of days before the cookie expires, and the banner reappears
+                cookieDuration : 120,        
+                // Name of our cookie
+                cookieName: \'complianceCookie\',        
+                // Value of cookie
+                cookieValue: \'on\',       
+                // Path of cookie
+                cookiePath: \'/\'                     
+            }, options);         
+            
+            function checkCookie(name) {
+                var nameEQ = name + \"=\"
+                var ca = document.cookie.split(\';\')
+                for(var i = 0; i < ca.length; i++) {
+                    var c = ca[i]
+                    while (c.charAt(0)==\' \')
+                        c = c.substring(1, c.length)
+                    if (c.indexOf(nameEQ) == 0) 
+                        return c.substring(nameEQ.length, c.length)
+                }
+                return null
+            };        
+                    
+            if (checkCookie(settings.cookieName) != settings.cookieValue) {        
+              $(\"#cookieChoiceInfo\").slideDown();
+            }     
+     
+            $(\"#cookieChoiceDismiss\").on(\"click\", function () {        
+              var expires = \"\"
+              if (settings.cookieDuration) {
+                  var date = new Date()
+                  date.setTime(date.getTime() + (settings.cookieDuration*24*60*60*1000))
+                  expires = \"; expires=\" + date.toGMTString()
+              }
+              document.cookie = settings.cookieName + \"=\" + settings.cookieValue + expires + \"; path=\" + settings.cookiePath;
+              $(\"#cookieChoiceInfo\").slideUp();
+            });
+                         
+        }; 
+    }(jQuery));
+
+    $(document).cookieConsent({
+      cookieName: \'complianceCookie\'
+    });
+  });
+}  
+</script>
+<div class=\"alert alert-success alert-dismissible text-center\" id=\"cookieChoiceInfo\" style=\"position: fixed; width: 100%; opacity: 1; margin: 0px; left: 0px; bottom: 0px; padding: 4px; z-index: 1000; text-align: center; display: none;\">This website uses cookies. These essential cookies are used to track important logical information for the smooth operation of the site.&nbsp;<a class=\"lightbox-system-popup\" href=\"[@{link xos_href_link(\'popup_content.php\', \'co=2\', \'REQUEST_TYPE\')}@]\" style=\"margin-left: 8px;\" target=\"_blank\"><b>Read more</b></a><button class=\"btn btn-success btn-xs\" id=\"cookieChoiceDismiss\" style=\"margin-left: 24px; cursor: pointer;\" type=\"button\">OK</button></div>',  NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('6', '2', 'Cookie-Zustimmung', '', '', '<script>
+if (navigator.cookieEnabled) {
+  $(function() {
+    (function ($) { 
+        $.fn.cookieConsent = function(options) {
+     
+            var settings = $.extend({           
+                // Number of days before the cookie expires, and the banner reappears
+                cookieDuration : 120,        
+                // Name of our cookie
+                cookieName: \'complianceCookie\',        
+                // Value of cookie
+                cookieValue: \'on\',       
+                // Path of cookie
+                cookiePath: \'/\'                     
+            }, options);         
+            
+            function checkCookie(name) {
+                var nameEQ = name + \"=\"
+                var ca = document.cookie.split(\';\')
+                for(var i = 0; i < ca.length; i++) {
+                    var c = ca[i]
+                    while (c.charAt(0)==\' \')
+                        c = c.substring(1, c.length)
+                    if (c.indexOf(nameEQ) == 0) 
+                        return c.substring(nameEQ.length, c.length)
+                }
+                return null
+            };        
+                    
+            if (checkCookie(settings.cookieName) != settings.cookieValue) {        
+              $(\"#cookieChoiceInfo\").slideDown();
+            }     
+     
+            $(\"#cookieChoiceDismiss\").on(\"click\", function () {        
+              var expires = \"\"
+              if (settings.cookieDuration) {
+                  var date = new Date()
+                  date.setTime(date.getTime() + (settings.cookieDuration*24*60*60*1000))
+                  expires = \"; expires=\" + date.toGMTString()
+              }
+              document.cookie = settings.cookieName + \"=\" + settings.cookieValue + expires + \"; path=\" + settings.cookiePath;
+              $(\"#cookieChoiceInfo\").slideUp();
+            });
+                         
+        }; 
+    }(jQuery));
+
+    $(document).cookieConsent({
+      cookieName: \'complianceCookie\'
+    });
+  });
+}  
+</script>
+<div class=\"alert alert-success alert-dismissible text-center\" id=\"cookieChoiceInfo\" style=\"position: fixed; width: 100%; opacity: 1; margin: 0px; left: 0px; bottom: 0px; padding: 4px; z-index: 1000; text-align: center; display: none;\">Diese Website benutzt Cookies. Diese essentiellen Cookies sind für den reibungslosen Betrieb dieser Website wichtig.&nbsp;<a class=\"lightbox-system-popup\" href=\"[@{link xos_href_link(\'popup_content.php\', \'co=2\', \'REQUEST_TYPE\')}@]\" style=\"margin-left: 8px;\" target=\"_blank\"><b>Details lesen</b></a><button class=\"btn btn-success btn-xs\" id=\"cookieChoiceDismiss\" style=\"margin-left: 24px; cursor: pointer;\" type=\"button\">OK</button></div>',  NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('6', '3', 'Consentimiento de Cookie', '', '', '<script>
+if (navigator.cookieEnabled) {
+  $(function() {
+    (function ($) { 
+        $.fn.cookieConsent = function(options) {
+     
+            var settings = $.extend({           
+                // Number of days before the cookie expires, and the banner reappears
+                cookieDuration : 120,        
+                // Name of our cookie
+                cookieName: \'complianceCookie\',        
+                // Value of cookie
+                cookieValue: \'on\',       
+                // Path of cookie
+                cookiePath: \'/\'                     
+            }, options);         
+            
+            function checkCookie(name) {
+                var nameEQ = name + \"=\"
+                var ca = document.cookie.split(\';\')
+                for(var i = 0; i < ca.length; i++) {
+                    var c = ca[i]
+                    while (c.charAt(0)==\' \')
+                        c = c.substring(1, c.length)
+                    if (c.indexOf(nameEQ) == 0) 
+                        return c.substring(nameEQ.length, c.length)
+                }
+                return null
+            };        
+                    
+            if (checkCookie(settings.cookieName) != settings.cookieValue) {        
+              $(\"#cookieChoiceInfo\").slideDown();
+            }     
+     
+            $(\"#cookieChoiceDismiss\").on(\"click\", function () {        
+              var expires = \"\"
+              if (settings.cookieDuration) {
+                  var date = new Date()
+                  date.setTime(date.getTime() + (settings.cookieDuration*24*60*60*1000))
+                  expires = \"; expires=\" + date.toGMTString()
+              }
+              document.cookie = settings.cookieName + \"=\" + settings.cookieValue + expires + \"; path=\" + settings.cookiePath;
+              $(\"#cookieChoiceInfo\").slideUp();
+            });
+                         
+        }; 
+    }(jQuery));
+
+    $(document).cookieConsent({
+      cookieName: \'complianceCookie\'
+    });
+  });
+}  
+</script>
+<div class=\"alert alert-success alert-dismissible text-center\" id=\"cookieChoiceInfo\" style=\"position: fixed; width: 100%; opacity: 1; margin: 0px; left: 0px; bottom: 0px; padding: 4px; z-index: 1000; text-align: center; display: none;\">Este sitio web utiliza cookies. Estas cookies esenciales se utilizan para rastrear información lógica importante para el buen funcionamiento del sitio.&nbsp;<a class=\"lightbox-system-popup\" href=\"[@{link xos_href_link(\'popup_content.php\', \'co=2\', \'REQUEST_TYPE\')}@]\" style=\"margin-left: 8px;\" target=\"_blank\"><b>Leer más</b></a><button class=\"btn btn-success btn-xs\" id=\"cookieChoiceDismiss\" style=\"margin-left: 24px; cursor: pointer;\" type=\"button\">OK</button></div>',  NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('7', '1', 'Offline text', '', '', '<p>This site is down for maintenance.<br />
+Please check back again soon.</p>',  NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('7', '2', 'Offline-Text', '', '', '<p>Diese Website ist wegen Wartungsarbeiten abgeschaltet.<br />
+Bitte besuchen Sie uns später wieder.</p>',  NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('7', '3', 'Texto sin conexión', '', '', '<p>Esta web está cerrada por tareas de mantenimiento.<br />
+Vuelve pasados unos minutos. ¡Gracias!</p>',  NULL);
 
 drop table if exists banners_history;
 create table banners_history (

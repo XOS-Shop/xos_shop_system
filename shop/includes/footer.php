@@ -33,6 +33,13 @@
 if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/includes/footer.php') == 'overwrite_all')) : 
   require(DIR_WS_INCLUDES . 'counter.php');
 
+  if ($banner_cookie_consent = xos_banner_exists('dynamic', 'cookie_consent')) {
+    $banner = array();
+    $banner = xos_display_banner('static', $banner_cookie_consent);
+    eval(" ?>" . $banner['banner_php_source'] . "<?php ");
+    $smarty->assign('banner_cookie_consent', $banner['banner_string']);
+  }
+
   if ($banner_footer = xos_banner_exists('dynamic', 'footer')) {
     $banner = array();
     $banner = xos_display_banner('static', $banner_footer);
