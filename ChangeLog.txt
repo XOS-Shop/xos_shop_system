@@ -1,6 +1,16 @@
 
 ##ChangeLog
 
+# XOS-Shop v1.0.5 (Release 05/27/2017)
+
+- update:  Email-Versand angepasst
+- update:  Logging erweitert bzw. umgebaut
+- update:  Crawlerdetektierung erweitert bzw. umgebaut
+- update:  Bildergenerierung erweitert
+- update:  Diverse Erweiterungen in den Frontend-Templates eingefügt
+- update:  Diverse Anpassungen in den  Frontend-Templates
+- update:  Datenbankbackup und DB-Dump umgebaut
+
 # XOS-Shop v1.0.4 (Release 02/17/2017)
 
 - update:  Smarty Version-3.1.29 auf Smarty Version-3.1.30
