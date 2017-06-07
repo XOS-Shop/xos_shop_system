@@ -177,11 +177,11 @@
         $email_to_admin = new mailer('', MODULE_PAYMENT_CC_EMAIL, 'Extra Order Info: #' . $insert_id, '', $message, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
         
         if(!$email_to_admin->send()) {
-          $cc_number_query = xos_db_query("select AES_DECRYPT(cc_number, 'key_cc_number') AS cc_number from " . TABLE_ORDERS . " where orders_id = '" . (int)$insert_id . "'");
+          $cc_number_query = xos_db_query("select AES_DECRYPT(cc_number, '" . KEY . "') AS cc_number from " . TABLE_ORDERS . " where orders_id = '" . (int)$insert_id . "'");
           $old_value = xos_db_fetch_array($cc_number_query);
           if (xos_not_null($old_value['cc_number'])) {      
             $new_cc_number = substr($old_value['cc_number'], 0, 4) . $this->cc_middle . substr($old_value['cc_number'], -4);    
-            xos_db_query("update " . TABLE_ORDERS . " set last_modified = now(), cc_number = AES_ENCRYPT('" . $new_cc_number . "', 'key_cc_number') where orders_id = '" . (int)$insert_id . "'");
+            xos_db_query("update " . TABLE_ORDERS . " set last_modified = now(), cc_number = AES_ENCRYPT('" . $new_cc_number . "', '" . KEY . "') where orders_id = '" . (int)$insert_id . "'");
           }  
         }
       }
