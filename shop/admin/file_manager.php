@@ -68,7 +68,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       case 'save':          
         if (isset($_POST['filename']) && xos_not_null(basename($_POST['filename']))) { 
           if (is_writable($_SESSION['current_path']) && ($fp = fopen($_SESSION['current_path'] . '/' . basename($_POST['filename']), 'w+'))) {
-            fputs($fp, stripslashes($_POST['file_contents'])); 
+            fputs($fp, $_POST['file_contents']); 
             fclose($fp); 
             xos_redirect(xos_href_link(FILENAME_FILE_MANAGER, 'info=' . urlencode(basename($_POST['filename'])))); 
           } 
