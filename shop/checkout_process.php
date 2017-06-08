@@ -146,7 +146,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $update_cc_number_orders_query = $DB->prepare
     (
      "UPDATE " . TABLE_ORDERS . "
-      SET    cc_number = AES_ENCRYPT(:cc_number, '" . KEY . "')
+      SET    cc_number = AES_ENCRYPT(:cc_number, 'key_cc_number')
       WHERE  orders_id = :insert_id"
     );
     
