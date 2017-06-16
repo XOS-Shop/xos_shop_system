@@ -1176,13 +1176,11 @@ function xos_selected_file($filename) {
     $db_query = xos_db_query("select now() as datetime");
     $db = xos_db_fetch_array($db_query);
 
-    list($system, $host, $kernel) = preg_split('/[\s,]+/', @exec('uname -a'), 5);
-
     return array('date' => xos_datetime_short(date('Y-m-d H:i:s')),
-                 'system' => $system,
-                 'kernel' => $kernel,
-                 'host' => $host,
-                 'ip' => gethostbyname($host),
+                 'system' => php_uname('s'),
+                 'kernel' => php_uname('v'),
+                 'host' => php_uname('n'),
+                 'ip' => gethostbyname(php_uname('n')),
                  'uptime' => @exec('uptime'),
                  'http_server' => $_SERVER['SERVER_SOFTWARE'],
                  'php' => PHP_VERSION,
@@ -1190,9 +1188,9 @@ function xos_selected_file($filename) {
                  'db_server' => DB_SERVER,
                  'db_ip' => gethostbyname(DB_SERVER),
                  'db_version' => 'MySQL ' . (class_exists('mysqli') && version_compare(PHP_VERSION, '5.3.0', '>=') ? mysqli_get_server_info($$link) : (function_exists('mysql_get_server_info') ? mysql_get_server_info() : '')),
-                 'db_date' => xos_datetime_short($db['datetime']));
+                 'db_date' => xos_datetime_short($db['datetime']));                                                  
   }
-
+ 
   function xos_generate_category_path($id, $from = 'category', $categories_array = '', $index = 0) {
 
     if (!is_array($categories_array)) $categories_array = array();
