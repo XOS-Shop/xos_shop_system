@@ -588,7 +588,7 @@
       UPDATE      products_viewed = products_viewed+1" 
     );
     
-    $DB->perform($insert_products_stats_query, array(':p' => $_GET['p'],
+    $DB->perform($insert_products_stats_query, array(':p' => (int)$_GET['p'],
                                                      ':languages_id' => (int)$_SESSION['languages_id']));
     
   }  
