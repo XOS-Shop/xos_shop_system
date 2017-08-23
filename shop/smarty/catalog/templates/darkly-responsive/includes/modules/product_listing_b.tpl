@@ -145,7 +145,7 @@
           </div>
           <div class="div-spacer-h10"></div>
           [@{/if}@] 
-          <div class="row">                 
+          <div class="row eq-height">                 
             [@{foreach name=outer item=table_data from=$table_data_list}@]
             <div class="col-sm-6 col-md-4"> 
               <div class="panel panel-default clearfix">           

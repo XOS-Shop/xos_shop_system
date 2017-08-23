@@ -28,7 +28,7 @@
 
 <!-- also_purchased_products -->
           <div class="info-box-heading">[@{#text_also_purchased_products#}@]</div>
-          <div class="row">
+          <div class="row eq-height">
             [@{foreach name=outer item=also_purchased from=$also_purchased_products}@]
             <div class="col-sm-6 col-md-4"> 
               <div class="panel panel-default clearfix">           

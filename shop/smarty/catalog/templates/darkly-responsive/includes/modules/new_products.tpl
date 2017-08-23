@@ -28,7 +28,7 @@
 
 <!-- new_products -->
           <div class="info-box-heading">[@{#table_heading_new_products#}@]</div>
-          <div class="row">
+          <div class="row eq-height">
             [@{foreach name=outer item=new_product from=$new_products}@]
             <div class="col-sm-6 col-md-4"> 
               <div class="panel panel-default clearfix">           
