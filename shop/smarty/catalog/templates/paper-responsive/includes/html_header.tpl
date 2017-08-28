@@ -59,6 +59,7 @@
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]nav.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]stylesheet.css" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]colorbox.css" />
+<link rel="stylesheet" type="text/css" href="[@{$images_path}@]bootstrap.offcanvas.min.css" />
 [@{*<link rel="stylesheet" type="text/css" href="[@{$link_to_dynamic_css}@]" />*}@]
 
 <script type="text/javascript" src="[@{$images_path}@]jquery-1.10.2.min.js"></script>
@@ -68,6 +69,7 @@
 <script type="text/javascript" src="[@{$images_path}@]jquery.colorbox-min.js"></script>
 <script type="text/javascript" src="[@{$languages_path}@]jquery.colorbox-language.js"></script>
 <script type="text/javascript" src="[@{$images_path}@]bootstrap.min.js"></script>
+<script type="text/javascript" src="[@{$images_path}@]jquery.bootstrap.offcanvas.min.js"></script>
 <script type="text/javascript" src="[@{$images_path}@]general.js"></script>
 [@{*<script type="text/javascript" src="[@{$link_to_dynamic_js}@]"></script>*}@]
 <!--[if lt IE 9]>
@@ -75,7 +77,7 @@
 <![endif]-->
 
 <style>
-  body {overflow-y: scroll;}
+  body {overflow-y: scroll; padding-top: 64px;}
 </style>
 [@{$add_headTag_elements}@]
 </head>

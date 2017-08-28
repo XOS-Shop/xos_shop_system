@@ -26,10 +26,11 @@
 ********************************************************************************
 *}@]
 [@{$header_message_stack_output}@]
-<nav class="navbar navbar-inverse navbar-static-top" style="z-index: 1001;">
+<nav class="navbar navbar-inverse navbar-fixed-top" style="z-index: 1001;">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      [@{*<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">*}@]
+      <button type="button" class="navbar-toggle offcanvas-toggle" data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas"> 
         <span class="sr-only">Navigation ein-/ausblenden</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -39,7 +40,11 @@
         <span class="glyphicon glyphicon-home" title=" [@{$header_store_name}@] [@{$smarty.const.HEADER_TITLE_HOME}@]"></span>
       </a>      
     </div>       
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    [@{*<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">*}@]
+    <div class="navbar-offcanvas navbar-offcanvas-touch"  id="js-bootstrap-offcanvas">
+      <div class="navbar-brand offcanvas-toggle pull-right visible-xs" data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas">
+        <span class="glyphicon glyphicon glyphicon-chevron-left"></span>
+      </div>         
       <h4 class="navbar-text visible-xs">[@{#box_heading_page_tree#}@]</h4>      
       [@{$box_categories}@] 
       [@{$box_search}@] 
