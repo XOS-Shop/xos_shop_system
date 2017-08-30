@@ -823,6 +823,7 @@ textarea {
   }
   
   .eq-height > div[class*='col-'] {
+    margin: -1px; /* hack adjust for wrapping in Safari */ 
     flex:1 1 inherit;
     display: flex;
   }
