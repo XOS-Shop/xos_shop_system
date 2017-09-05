@@ -1176,10 +1176,10 @@ function xos_selected_file($filename) {
     $db = xos_db_fetch_array($db_query);
 
     return array('date' => xos_datetime_short(date('Y-m-d H:i:s')),
-                 'system' => php_uname('s'),
-                 'kernel' => php_uname('v'),
-                 'host' => php_uname('n'),
-                 'ip' => gethostbyname(php_uname('n')),
+                 'system' => @php_uname('s'),
+                 'kernel' => @php_uname('v'),
+                 'host' => @php_uname('n'),
+                 'ip' => gethostbyname(@php_uname('n')),
                  'uptime' => @exec('uptime'),
                  'http_server' => $_SERVER['SERVER_SOFTWARE'],
                  'php' => PHP_VERSION,

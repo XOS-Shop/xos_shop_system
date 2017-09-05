@@ -49,8 +49,14 @@
   error_reporting(E_ALL & ~E_NOTICE);
 
 //  
-  $pieces = explode('.php',$_SERVER['PHP_SELF']);
-  $_SERVER['BASENAME_PHP_SELF'] = basename($pieces[0]) . '.php';  
+  if(!empty($_SERVER['SCRIPT_NAME']) && strpos($_SERVER['SCRIPT_NAME'], '.php') !== false) {
+    $_SERVER['BASENAME_PHP_SELF'] = basename($_SERVER['SCRIPT_NAME']);
+  } elseif(!empty($_SERVER['PHP_SELF']) && strpos($_SERVER['PHP_SELF'], '.php') !== false) {
+    $pieces = explode('.php',$_SERVER['PHP_SELF']);
+    $_SERVER['BASENAME_PHP_SELF'] = basename($pieces[0]) . '.php'; 
+  } else {
+    die('<b>ERROR:</b> <i>$_SERVER[\'BASENAME_PHP_SELF\']</i>');
+  }
   
 //  
   header('Content-Type: text/html; charset=utf-8');

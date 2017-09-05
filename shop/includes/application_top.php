@@ -29,7 +29,7 @@
 //
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
-  
+ 
 // set default timezone if none exists (PHP 5.3 throws an E_WARNING)
   if (strlen(ini_get('date.timezone')) < 1) {
     date_default_timezone_set(@date_default_timezone_get());
@@ -58,8 +58,14 @@
   error_reporting(E_ALL & ~E_NOTICE);
 
 //  
-  $pieces = explode('.php',$_SERVER['PHP_SELF']);
-  $_SERVER['BASENAME_PHP_SELF'] = basename($pieces[0]) . '.php';  
+  if(!empty($_SERVER['SCRIPT_NAME']) && strpos($_SERVER['SCRIPT_NAME'], '.php') !== false) {
+    $_SERVER['BASENAME_PHP_SELF'] = basename($_SERVER['SCRIPT_NAME']);
+  } elseif(!empty($_SERVER['PHP_SELF']) && strpos($_SERVER['PHP_SELF'], '.php') !== false) {
+    $pieces = explode('.php',$_SERVER['PHP_SELF']);
+    $_SERVER['BASENAME_PHP_SELF'] = basename($pieces[0]) . '.php'; 
+  } else {
+    die('<b>ERROR:</b> <i>$_SERVER[\'BASENAME_PHP_SELF\']</i>');
+  } 
   
 //  
   header('Content-Type: text/html; charset=utf-8');
@@ -144,9 +150,9 @@
 
   // set the HTTP GET parameters manually if search_engine_friendly_urls is enabled
   if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
-    if (strlen(getenv('PATH_INFO')) > 1) {
+    if (!empty($_GET['SEO_PARAMS']) && strlen($_GET['SEO_PARAMS']) > 1) {
       $GET_array = array();
-      $vars = explode('/', substr(getenv('PATH_INFO'), 1));
+      $vars = explode('/', substr($_GET['SEO_PARAMS'], 1));
       for ($i=0, $n=sizeof($vars)-1; $i<$n; $i++) {
         if (strpos($vars[$i], '[]')) {
           $GET_array[substr($vars[$i], 0, -2)][] = $vars[$i+1];
@@ -164,6 +170,8 @@
       }
     }
   }
+  
+  unset($_GET['SEO_PARAMS']); 
   
   if (!empty($_GET['go'])) {
     $_GET['lnc'] = $_GET['go'];

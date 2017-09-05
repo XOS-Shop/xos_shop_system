@@ -39,7 +39,16 @@
   error_reporting(E_ALL & ~E_NOTICE);
 
   if (!isset($_POST['language_file_name'])) {
-    header('Location:' . str_replace(stristr($_SERVER['PHP_SELF'], 'install.php'), 'index.php', 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF']));
+    if(!empty($_SERVER['SCRIPT_NAME']) && strpos($_SERVER['SCRIPT_NAME'], '.php') !== false) {
+      $PHP_SELF = $_SERVER['SCRIPT_NAME'];
+    } elseif(!empty($_SERVER['PHP_SELF']) && strpos($_SERVER['PHP_SELF'], '.php') !== false) {
+      $pieces = explode('.php',$_SERVER['PHP_SELF']);
+      $PHP_SELF = $pieces[0] . '.php'; 
+    } else {
+      die('<b>ERROR:</b> <i>$_SERVER[\'PHP_SELF\'] and $_SERVER[\'SCRIPT_NAME\']</i>');
+    }
+  
+    header('Location:' . str_replace(stristr($PHP_SELF, 'install.php'), 'index.php', 'http://' . $_SERVER['SERVER_NAME'] . $PHP_SELF));
     exit;
   }
 
