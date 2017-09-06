@@ -214,7 +214,9 @@
           $name_str = SEF_URL_NAME_COOKIE_USAGE;                
           $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/r' : FILENAME_COOKIE_USAGE; 
           break;                                                                                                          
-      }                                                
+      } 
+      
+      $page = str_replace('.php', '.html/z', $page);                                                
     }    
                  
     if (xos_not_null($parameters)) {                   
