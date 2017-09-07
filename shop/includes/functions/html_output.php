@@ -80,7 +80,11 @@
       }
              
       parse_str($parameters, $param_array);
-       
+      
+      // Alternative parameter delimetrs
+      // $param_delim = '.html/';
+      $param_delim = '/.';  
+           
       $lng_code = '';
       // enable this lines if language code is needed
       // if (sizeof($lng->catalog_languages) > 1) {
@@ -103,7 +107,7 @@
           } else {        
             $name_str = HEADER_TITLE_HOME;        
           }         
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/a' : FILENAME_DEFAULT;                          
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'a' : FILENAME_DEFAULT;                          
           break;      
         case FILENAME_PRODUCT_INFO:        
           if (array_key_exists('c', $param_array)) {             
@@ -123,29 +127,29 @@
             }
           }
           $name_str = $name_str . '^' . htmlspecialchars_decode(xos_get_products_name($param_array['p']));
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/b' : FILENAME_PRODUCT_INFO;                  
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'b' : FILENAME_PRODUCT_INFO;                  
           break;
         case FILENAME_CONTENT:                
           if (array_key_exists('co', $param_array)) {      
             $name_str = $cots[$param_array['co']];      
           }         
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/c' : FILENAME_CONTENT;                  
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'c' : FILENAME_CONTENT;                  
           break;
         case FILENAME_SPECIALS:
           $name_str = SEF_URL_NAME_SPECIALS;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/d' : FILENAME_SPECIALS; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'd' : FILENAME_SPECIALS; 
           break; 
         case FILENAME_PRODUCTS_NEW:
           $name_str = SEF_URL_NAME_NEW_PRODUCTS;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/e' : FILENAME_PRODUCTS_NEW; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'e' : FILENAME_PRODUCTS_NEW; 
           break;
         case FILENAME_NEWSLETTER_SUBSCRIBE:
           $name_str = SEF_URL_NAME_SUBSCRIBE_NEWSLETTER;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/f' : FILENAME_NEWSLETTER_SUBSCRIBE; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'f' : FILENAME_NEWSLETTER_SUBSCRIBE; 
           break;              
         case FILENAME_REVIEWS:
           $name_str = SEF_URL_NAME_REVIEWS;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/g' : FILENAME_REVIEWS; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'g' : FILENAME_REVIEWS; 
           break;                            
         case FILENAME_PRODUCT_REVIEWS:            
           if (array_key_exists('m', $param_array)) {        
@@ -158,7 +162,7 @@
             $name_str = implode('^', $c_name_array);                
           }
           $name_str = $name_str . '^' . htmlspecialchars_decode(xos_get_products_name($param_array['p'])) . '^' . SEF_URL_NAME_REVIEWS;
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/h' : FILENAME_PRODUCT_REVIEWS;
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'h' : FILENAME_PRODUCT_REVIEWS;
           break; 
         case FILENAME_PRODUCT_REVIEWS_INFO:
           if (array_key_exists('m', $param_array)) {        
@@ -171,7 +175,7 @@
             $name_str = implode('^', $c_name_array);                
           }
           $name_str = $name_str . '^' . htmlspecialchars_decode(xos_get_products_name($param_array['p'])) . '^' . SEF_URL_NAME_REVIEWS;               
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/i' : FILENAME_PRODUCT_REVIEWS_INFO; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'i' : FILENAME_PRODUCT_REVIEWS_INFO; 
           break;
         case FILENAME_TELL_A_FRIEND:  
           if (array_key_exists('m', $param_array)) {        
@@ -184,39 +188,39 @@
             $name_str = implode('^', $c_name_array);                
           }            
           $name_str = $name_str . '^' . htmlspecialchars_decode(xos_get_products_name($param_array['p'])) . '^' . SEF_URL_NAME_TELL_A_FRIEND;               
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/k' : FILENAME_TELL_A_FRIEND; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'k' : FILENAME_TELL_A_FRIEND; 
           break;
         case FILENAME_SHOPPING_CART:
           $name_str = SEF_URL_NAME_SHOPPING_CART;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/l' : FILENAME_SHOPPING_CART; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'l' : FILENAME_SHOPPING_CART; 
           break;
         case FILENAME_LOGIN:
           $name_str = SEF_URL_NAME_LOGIN;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/m' : FILENAME_LOGIN; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'm' : FILENAME_LOGIN; 
           break; 
         case FILENAME_CREATE_ACCOUNT:
           $name_str = SEF_URL_NAME_CREATE_ACCOUNT;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/n' : FILENAME_CREATE_ACCOUNT; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'n' : FILENAME_CREATE_ACCOUNT; 
           break;
         case FILENAME_PASSWORD_FORGOTTEN:
           $name_str = SEF_URL_NAME_PASSWORD_FORGOTTEN;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/o' : FILENAME_PASSWORD_FORGOTTEN; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'o' : FILENAME_PASSWORD_FORGOTTEN; 
           break;
         case FILENAME_ADVANCED_SEARCH_AND_RESULTS:
           $name_str = SEF_URL_NAME_ADVANCED_SEARCH_AND_RESULTS;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/p' : FILENAME_ADVANCED_SEARCH_AND_RESULTS; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'p' : FILENAME_ADVANCED_SEARCH_AND_RESULTS; 
           break;
         case FILENAME_SEARCH_RESULT:
           $name_str = SEF_URL_NAME_SEARCH_RESULT;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/q' : FILENAME_SEARCH_RESULT; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'q' : FILENAME_SEARCH_RESULT; 
           break;
         case FILENAME_COOKIE_USAGE:
           $name_str = SEF_URL_NAME_COOKIE_USAGE;                
-          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . '.html/r' : FILENAME_COOKIE_USAGE; 
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'r' : FILENAME_COOKIE_USAGE; 
           break;                                                                                                          
       } 
       
-      $page = str_replace('.php', '.html/z', $page);                                                
+      $page = str_replace('.php', $param_delim . 'z', $page);                                                
     }    
                  
     if (xos_not_null($parameters)) {                   
