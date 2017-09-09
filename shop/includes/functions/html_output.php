@@ -82,8 +82,8 @@
       parse_str($parameters, $param_array);
       
       // Alternative parameter delimetrs
-      // $param_delim = '.html/';
-      $param_delim = '/.';  
+         $param_delim = '.html/';
+      // $param_delim = '/.';  
            
       $lng_code = '';
       // enable this lines if language code is needed
