@@ -35,8 +35,6 @@
   function xos_href_link($page = '', $parameters = '', $connection = 'NONSSL', $add_session_id = true, $search_engine_safe = true, $add_get_language = true, $add_get_currency = true, $add_get_tpl = true) {
     global $session_started, $request_type, $cats, $mans, $cots, $lng, $lang_code;
     
-    $add_parameter = false;
-    
     if (!xos_not_null($page)) {
       die('<br /><br /><span style="color : #ff0000;"><b>Error!</b></span><br /><br /><b>Unable to determine the page link!</b><br /><br />');
     }
@@ -225,7 +223,6 @@
                  
     if (xos_not_null($parameters)) {                   
       $link .= $page . '?' . xos_output_string($parameters);
-      $add_parameter = true;
       $separator = '&';
     } else {
       $link .= $page;
@@ -236,19 +233,16 @@
 
     if (!$session_started && xos_not_null($_GET['cur']) && $add_get_currency == true) {
       $link .= $separator . xos_output_string('cur=' . $_GET['cur']);
-      $add_parameter = true;
       $separator = '&';
     }  
 
     if (!$session_started && xos_not_null($_GET['lnc']) && $add_get_language == true) {
       $link .= $separator . xos_output_string('lnc=' . $_GET['lnc']);
-      $add_parameter = true;
       $separator = '&';      
     }
     
     if (!$session_started && xos_not_null($_GET['tpl']) && $add_get_tpl == true) {
-      $link .= $separator . xos_output_string('tpl=' . $_GET['tpl']);
-      $add_parameter = true;     
+      $link .= $separator . xos_output_string('tpl=' . $_GET['tpl']);   
     }    
 
 // Add the session ID when moving from different HTTP and HTTPS servers, or when SESSID is not empty
@@ -261,15 +255,12 @@
     }
 
     if (isset($_sid)) {
-      $add_parameter = true;
       $link .= $separator . xos_output_string($_sid);
     }
 
     if ( (SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true) ) {
     
-      $link = str_replace(array('=%20', '&&', '=&', '/?', '?', '&', '='), array('=', '&', '/^/', '/', '/', '/', '/'), $link);    
-      
-      if ($add_parameter) $link = $link . '/';
+      $link = str_replace(array('=%20', '&&', '=&', '/?', '?', '&', '='), array('=', '&', '/^/', '/', '/', '/', '/'), $link);
 
     } else {
     
