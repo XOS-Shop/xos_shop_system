@@ -787,4 +787,13 @@ a.header-navi:hover {
   .eq-height > div[class*='col-'] > .panel {
     flex:1 0 100%;
   }  
+}
+
+form[name="display_products_of_manufacturer"] .form-control,
+form[name="display_products_in_category"] .form-control,
+form[name="display_special_products"] .form-control,
+form[name="display_search_results"] .form-control,
+form[name="filter"] .form-control  {
+  color: #fff;
+  background-color: #4E5D6C;
 } 
