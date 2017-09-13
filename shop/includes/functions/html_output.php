@@ -260,8 +260,7 @@
 
     if ( (SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true) ) {
     
-      $link = str_replace(array('=%20', '&&', '=&', '/?', '?', '&', '='), array('=', '&', '/^/', '/', '/', '/', '/'), $link);
-      if ($link[strlen($link)-1]==='/') $link=substr($link, 0, -1);
+      $link = rtrim(str_replace(array('=%20', '&&', '=&', '/?', '?', '&', '='), array('=', '&', '/^/', '/', '/', '/', '/'), $link), '/');
 
     } else {
     
