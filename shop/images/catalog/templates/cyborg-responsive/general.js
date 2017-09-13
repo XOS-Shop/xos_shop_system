@@ -3,7 +3,7 @@
 //              http://www.xos-shop.com
 //
 // template   : cyborg-responsive
-// version    : 1.0.7 for XOS-Shop version 1.0.5
+// version    : 1.0.7 for XOS-Shop version 1.0.6
 // descrip    : xos-shop template built with Bootstrap3 and theme cyborg                                                                    
 // filename   : general.js
 // author     : Hanspeter Zeller <hpz@xos-shop.com>
