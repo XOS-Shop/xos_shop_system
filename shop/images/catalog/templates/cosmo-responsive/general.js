@@ -28,6 +28,8 @@
 jQuery("body").attr("class","jq-no-conflict-with-colorbox");
 jQuery(document).ready(function($) {
 
+    $('.ul-cat-outer').doubleTapToGo();
+
     $(".onload-display").show();
 
     $.scrollUp({

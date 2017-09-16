@@ -29,6 +29,8 @@
 jQuery("body").attr("class","jq-no-conflict-with-colorbox");
 jQuery(document).ready(function($) {
 
+            $('.ul-tab-outer, .ul-cat-outer').doubleTapToGo();
+
             if(!(typeof document.body.style.maxHeight === 'undefined') && !(navigator.userAgent.toLowerCase().indexOf('konqueror') > -1)) {  // is not IE6 and not Konqueror
               $('.sub-cat-level1').children('ul').css('display','none');
               $('.sub-cat-level2').children('ul').css('display','none');

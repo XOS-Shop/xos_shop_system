@@ -368,9 +368,9 @@
   }
   #cssmenu > ul > li > a {
     padding: 15px 20px;
-    border-left: 1px solid #1682ba;
-    border-right: 1px solid #1682ba;
-    border-top: 1px solid #1682ba;
+    border-left: 1px solid #9d9d9d;
+    border-right: 1px solid #9d9d9d;
+    border-top: 1px solid #9d9d9d;
     cursor: pointer;
     z-index: 2;
     font-size: 14px;
@@ -378,43 +378,49 @@
     text-decoration: none;
     color: #ffffff;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
-    background: #36aae7;
+    background: #222222;
+/*             
     background: -webkit-linear-gradient(#36aae7, #1fa0e4);
     background: -moz-linear-gradient(#36aae7, #1fa0e4);
     background: -o-linear-gradient(#36aae7, #1fa0e4);
     background: -ms-linear-gradient(#36aae7, #1fa0e4);
     background: linear-gradient(#36aae7, #1fa0e4);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+*/            
   }
   #cssmenu > ul > li.has-sub > a {
     padding-right: 70px;
   }
   #cssmenu > ul > li.open > a {
     color: #eeeeee;
-    background: #1fa0e4;
+    background: #353941;
+/*            
     background: -webkit-linear-gradient(#1fa0e4, #1992d1);
     background: -moz-linear-gradient(#1fa0e4, #1992d1);
     background: -o-linear-gradient(#1fa0e4, #1992d1);
     background: -ms-linear-gradient(#1fa0e4, #1992d1);
-    background: linear-gradient(#1fa0e4, #1992d1);
+    background: linear-gradient(#1fa0e4, #1992d1); 
+*/        
   }    
   #cssmenu > ul > li > a:hover,
   #cssmenu > ul > li.active > a {
     color: #eeeeee;
-    background: #2c99d2;
+    background: #000;
+/*            
     background: -webkit-linear-gradient(#2c99d2, #178dcb);
     background: -moz-linear-gradient(#2c99d2, #178dcb);
     background: -o-linear-gradient(#2c99d2, #178dcb);
     background: -ms-linear-gradient(#2c99d2, #178dcb);
     background: linear-gradient(#2c99d2, #178dcb);
+*/            
   }
   #cssmenu > ul > li.open > a {
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.15);
-    border-bottom: 1px solid #1682ba;
+    border-bottom: 1px solid #9d9d9d;
   }
   #cssmenu > ul > li:last-child > a,
   #cssmenu > ul > li.last > a {
-    border-bottom: 1px solid #1682ba;
+    border-bottom: 1px solid #9d9d9d;
   }
   .holder {
     width: 0;
@@ -445,22 +451,25 @@
   .ul-cat-outer .holder::after {
     line-height: 45px; 
     height: 45px;  
-    border-right: 1px solid #1682ba;
-    border-top: 1px solid #1682ba;
-    background: #199ade;
+    border-right: 1px solid #9d9d9d;
+    border-top: 1px solid #9d9d9d;
+    background: #7b7b7b;
+/*            
     background: -webkit-linear-gradient(#199ade, #0f8dce);
     background: -moz-linear-gradient(#199ade, #0f8dce);
     background: -o-linear-gradient(#199ade, #0f8dce);
     background: -ms-linear-gradient(#199ade, #0f8dce);
     background: linear-gradient(#199ade, #0f8dce); 
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);  
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15); 
+*/     
   }
   .ul-cat-inner .holder::after {
     line-height: 34px; 
-    height: 34px;  
+    height: 33px;  
     border-top: none;
-    border-bottom: 1px solid #32373e;
-    border-right: 1px solid #32373e;  
+    border-left: none;    
+    border-bottom: none;
+    border-right: 1px solid #9d9d9d;  
     background: #4f5869;  
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);   
   }
@@ -480,8 +489,8 @@
   #cssmenu ul ul li a {
     cursor: pointer;
     border-bottom: 1px solid #32373e;
-    border-left: 1px solid #32373e;
-    border-right: 1px solid #32373e;
+    border-left: 1px solid #9d9d9d;
+    border-right: 1px solid #9d9d9d;
     padding: 10px 20px;
     z-index: 1;
     text-decoration: none;
