@@ -1,6 +1,14 @@
 
 ##ChangeLog
 
+# XOS-Shop v1.0.6 (Release 09/16/2017)
+
+- feature: Neue Variante SEO-freundlicher URLs hinzugefügt
+- update:  CKEditor Version-4.6.2 auf CKEditor Version-4.7.3
+- update:  Diverse Anpassungen in den  Frontend-Templates
+- update:  Diverse Anpassungen gemacht damit das Shopsystem auch auf Nginx betrieben werden kann
+- bugfix:  Im Datei-Manager Fehler beim Abspeichern von Dateien behoben
+
 # XOS-Shop v1.0.5 (Release 05/27/2017)
 
 - update:  Email-Versand angepasst
