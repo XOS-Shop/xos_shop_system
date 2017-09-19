@@ -28,6 +28,7 @@
 
 <!-- categories --> 
           [@{if $boxes_categories_tabs_full_categories_tree}@]
+          <h4 class="navbar-text visible-xs">[@{#box_heading_page_tree#}@]</h4>                    
           <div id="cssmenu" class="nav navbar-nav navbar-left cat-tree-title">
             <a class="navbar-brand hidden-xs" style="cursor: pointer;">[@{#box_heading_page_tree#}@]</a>                 
             <ul class="ul-cat-outer"  role="menu">

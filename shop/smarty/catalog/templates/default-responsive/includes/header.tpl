@@ -44,8 +44,8 @@
     <div class="navbar-offcanvas navbar-offcanvas-touch"  id="js-bootstrap-offcanvas">
       <div class="navbar-brand offcanvas-toggle pull-right visible-xs" data-toggle="offcanvas" data-target="#js-bootstrap-offcanvas">
         <span class="glyphicon glyphicon glyphicon-chevron-left"></span>
-      </div>         
-      <h4 class="navbar-text visible-xs">[@{#box_heading_page_tree#}@]</h4>      
+      </div>
+      <div class="clearfix invisible visible-xs"></div>               
       [@{$box_categories}@] 
       [@{$box_search}@] 
 <!-- logoff -->     
