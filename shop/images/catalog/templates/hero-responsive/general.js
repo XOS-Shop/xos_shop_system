@@ -60,6 +60,8 @@ jQuery(document).ready(function($) {
   
       } else {
 
+        $(".sub-cat-touchpad").css("background", "initial");      
+        
         $('#cssmenu li.has-sub>span.holder').on('click', function(e){
           if (getWindowWidth() < 768) {
 		var element = $(this).parent('li');
