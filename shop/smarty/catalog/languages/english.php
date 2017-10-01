@@ -108,7 +108,7 @@ function xos_datetime_raw($date) {
   return substr($date, 6, 4) . substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 11, 2) . substr($date, 14, 2) . substr($date, 17, 2);
 }
 
-// Language-specific ASCII replacements for SEF URLs (URL compliant)
+// Sprachspezifische ASCII-Ersetzungen für SEF-URLs (URL-konform)
 $sef_url_trail_search = array("&");
 $sef_url_trail_replace = array("-and-");
 

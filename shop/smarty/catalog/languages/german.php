@@ -108,9 +108,9 @@ function xos_datetime_raw($date) {
   return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2) . substr($date, 11, 2) . substr($date, 14, 2) . substr($date, 17, 2);
 }
 
-// Language-specific ASCII replacements for SEF URLs (URL compliant)
-$sef_url_trail_search = array("ß", "ä", "ü", "ö", "Ä", "Ü", "Ö", "&");                        
-$sef_url_trail_replace  = array("ss", "ae", "ue", "oe", "Ae", "Ue", "Oe", "-und-");   
+// Sprachspezifische ASCII-Ersetzungen für SEF-URLs (URL-konform)
+$sef_url_trail_search = array("&");                        
+$sef_url_trail_replace  = array("-und-");   
 
 // Insertions for SEF URLs
 define('SEF_URL_NAME_REVIEWS', 'Meinungen');
