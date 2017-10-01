@@ -368,8 +368,8 @@
   		'п' => 'p', 'р' => 'r', 'с' => 's', 'т' => 't', 'у' => 'u', 'ф' => 'f', 'х' => 'h', 'ц' => 'c',
   		'ч' => 'ch', 'ш' => 'sh', 'щ' => 'sh', 'ъ' => '', 'ы' => 'y', 'ь' => '', 'э' => 'e', 'ю' => 'yu',
   		'я' => 'ya',
-  
-      // Transkription Ukrainisch [kyrillisches Alphabet] nach Englisch [lateinisches Alphabet (ASCII)]
+      
+  		// Transkription Ukrainisch [kyrillisches Alphabet] nach Englisch [lateinisches Alphabet (ASCII)]
   		'Є' => 'Ye', 'І' => 'I', 'Ї' => 'Yi', 'Ґ' => 'G',
   		'є' => 'ye', 'і' => 'i', 'ї' => 'yi', 'ґ' => 'g'      
   	);
