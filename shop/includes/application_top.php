@@ -148,25 +148,24 @@
   $smarty->left_delimiter = '[@{';
   $smarty->right_delimiter = '}@]';        
 
-  // set the HTTP GET parameters manually if search_engine_friendly_urls is enabled
-  if (SEARCH_ENGINE_FRIENDLY_URLS == 'true') {
-    if (!empty($_GET['SEO_PARAMS']) && strlen($_GET['SEO_PARAMS']) > 1) {
-      $GET_array = array();
-      $vars = explode('/', substr($_GET['SEO_PARAMS'], 1));
-      for ($i=0, $n=sizeof($vars)-1; $i<$n; $i++) {
-        if (strpos($vars[$i], '[]')) {
-          $GET_array[substr($vars[$i], 0, -2)][] = $vars[$i+1];
-        } else {
-          $vars[$i+1] = str_replace(array('_.~', '~._'), array('/', '\\'), $vars[$i+1]);          
-          ($vars[$i+1] == '^') ? $_GET[$vars[$i]] = ' ' : $_GET[$vars[$i]] = $vars[$i+1];
-        }
-        $i++;
+  // For search engine friendly URLs
+  // Set the HTTP GET parameters manually if $_GET['SEO_PARAMS'] are set. 
+  if (!empty($_GET['SEO_PARAMS']) && strlen($_GET['SEO_PARAMS']) > 1) {
+    $GET_array = array();
+    $vars = explode('/', substr($_GET['SEO_PARAMS'], 1));
+    for ($i=0, $n=sizeof($vars)-1; $i<$n; $i++) {
+      if (strpos($vars[$i], '[]')) {
+        $GET_array[substr($vars[$i], 0, -2)][] = $vars[$i+1];
+      } else {
+        $vars[$i+1] = str_replace(array('_.~', '~._'), array('/', '\\'), $vars[$i+1]);          
+        ($vars[$i+1] == '^') ? $_GET[$vars[$i]] = ' ' : $_GET[$vars[$i]] = $vars[$i+1];
       }
+      $i++;
+    }
 
-      if (sizeof($GET_array) > 0) {
-        while (list($key, $value) = each($GET_array)) {
-          $_GET[$key] = $value;
-        }
+    if (sizeof($GET_array) > 0) {
+      while (list($key, $value) = each($GET_array)) {
+        $_GET[$key] = $value;
       }
     }
   }
