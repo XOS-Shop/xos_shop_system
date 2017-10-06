@@ -65,26 +65,63 @@
                 </div>                      
                 <div class="col-xs-9 col-sm-10 form-group">            
                   [@{$input_gender}@]
-                </div>            
+                   
+                  [@{*
+                  [@{if $gender_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_GENDER_ERROR}@]
+                  </p>
+                  [@{/if}@]
+                  *}@]
+                  
+                </div>
+                [@{if $gender_error}@]
+                <div class="col-xs-12 create-account-error-text" style=" margin-top: -25px; margin-bottom: 15px">
+                  [@{$smarty.const.ENTRY_GENDER_ERROR}@]
+                </div>
+                [@{/if}@]                            
               </div>                     
               [@{/if}@]
               
               <div class="row">           
                 <div class="col-sm-6 col-lg-5 form-group[@{if $first_name_error}@] has-error[@{/if}@]">
                   <label class="control-label" for="firstname">[@{#entry_first_name#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_FIRST_NAME_TEXT}@]</span>
-                  [@{$input_firstname|replace:'>&nbsp;':'>'}@] 
-                </div>                      
+                  [@{$input_firstname|replace:'>&nbsp;':'>'}@]
+                  [@{if $first_name_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_FIRST_NAME_ERROR}@]
+                  </p>
+                  [@{/if}@]                     
+                </div>                                     
                 <div class="col-sm-6 col-lg-5 col-lg-offset-1 form-group[@{if $last_name_error}@] has-error[@{/if}@]">
                   <label class="control-label" for="lastname">[@{#entry_last_name#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_LAST_NAME_TEXT}@]</span>
                   [@{$input_lastname|replace:'>&nbsp;':'>'}@]
-                </div>            
+                  [@{if $last_name_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_LAST_NAME_ERROR}@]
+                  </p>
+                  [@{/if}@]                   
+                </div>                         
               </div>                         
               
               [@{if $languages}@]            
               <div class="row">           
-                <div class="col-sm-6 col-lg-5 form-group[@{if $email_address_error}@] has-error[@{/if}@]">
+                <div class="col-sm-6 col-lg-5 form-group[@{if $email_address_error_exists or $email_address_check_error or $email_address_error}@] has-error[@{/if}@]">
                   <label class="control-label" for="email_address">[@{#entry_email_address#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_EMAIL_ADDRESS_TEXT}@]</span>
                   [@{$input_email_address|replace:'>&nbsp;':'>'}@]
+                  [@{if $email_address_error_exists}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_EMAIL_ADDRESS_ERROR_EXISTS}@]
+                  </p>
+                  [@{else if $email_address_check_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_EMAIL_ADDRESS_CHECK_ERROR}@]
+                  </p>                  
+                  [@{else if $email_address_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_EMAIL_ADDRESS_ERROR}@]
+                  </p>
+                  [@{/if}@]              
                 </div>                       
                 <div class="col-sm-6 col-lg-5 col-lg-offset-1 form-group">
                   <label class="control-label" for="languages">[@{#entry_language#}@]</label>
@@ -93,9 +130,22 @@
               </div>                             
               [@{else}@]            
               <div class="row">           
-                <div class="col-sm-6 col-lg-5 form-group[@{if $email_address_error}@] has-error[@{/if}@]">
+                <div class="col-sm-6 col-lg-5 form-group[@{if $email_address_error_exists or $email_address_check_error or $email_address_error}@] has-error[@{/if}@]">
                   <label class="control-label" for="email_address">[@{#entry_email_address#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_EMAIL_ADDRESS_TEXT}@]</span>
                   [@{$input_email_address|replace:'>&nbsp;':'>'}@]
+                  [@{if $email_address_error_exists}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_EMAIL_ADDRESS_ERROR_EXISTS}@]
+                  </p>
+                  [@{else if $email_address_check_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_EMAIL_ADDRESS_CHECK_ERROR}@]
+                  </p>                  
+                  [@{else if $email_address_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_EMAIL_ADDRESS_ERROR}@]
+                  </p>
+                  [@{/if}@]                  
                 </div>            
               </div> 
               [@{/if}@]
@@ -106,6 +156,11 @@
                   <label class="control-label" for="dob_first">[@{#entry_date_of_birth#}@]</label><span class="input-requirement-moved">&nbsp;&nbsp;[@{$smarty.const.ENTRY_DATE_OF_BIRTH_TEXT_1}@]</span>
                   <div class="form-inline-dob">                                            
                     [@{$pull_down_menus_dob}@]
+                    [@{if $date_of_birth_error}@]
+                    <p class="create-account-error-text">
+                      [@{$smarty.const.ENTRY_DATE_OF_BIRTH_ERROR}@]
+                    </p>
+                    [@{/if}@]                    
                   </div> 
                 </div>            
               </div>                         
@@ -143,6 +198,11 @@
                 <div class="col-sm-6 col-lg-5 form-group[@{if $street_address_error}@] has-error[@{/if}@]">
                   <label class="control-label" for="street_address">[@{#entry_street_address#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_STREET_ADDRESS_TEXT}@]</span>
                   [@{$input_street_address|replace:'>&nbsp;':'>'}@]
+                  [@{if $street_address_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_STREET_ADDRESS_ERROR}@]
+                  </p>
+                  [@{/if}@]                  
                 </div>                      
                 <div class="col-sm-6 col-lg-5 col-lg-offset-1 form-group">
                   <label class="control-label" for="suburb">[@{#entry_suburb#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_SUBURB_TEXT}@]</span>
@@ -154,6 +214,11 @@
                 <div class="col-sm-6 col-lg-5 form-group[@{if $street_address_error}@] has-error[@{/if}@]">
                   <label class="control-label" for="street_address">[@{#entry_street_address#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_STREET_ADDRESS_TEXT}@]</span>
                   [@{$input_street_address|replace:'>&nbsp;':'>'}@]
+                  [@{if $street_address_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_STREET_ADDRESS_ERROR}@]
+                  </p>
+                  [@{/if}@]                  
                 </div>            
               </div>
               [@{/if}@]               
@@ -162,22 +227,46 @@
                 <div class="col-sm-6 col-lg-5 form-group[@{if $post_code_error}@] has-error[@{/if}@]">
                   <label class="control-label" for="postcode">[@{#entry_post_code#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_POST_CODE_TEXT}@]</span>
                   [@{$input_postcode|replace:'>&nbsp;':'>'}@]
+                  [@{if $post_code_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_POST_CODE_ERROR}@]
+                  </p>
+                  [@{/if}@]                  
                 </div>                     
                 <div class="col-sm-6 col-lg-5 col-lg-offset-1 form-group[@{if $city_error}@] has-error[@{/if}@]">
                   <label class="control-label" for="city">[@{#entry_city#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_CITY_TEXT}@]</span>
                   [@{$input_city|replace:'>&nbsp;':'>'}@]
+                  [@{if $city_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_CITY_ERROR}@]
+                  </p>
+                  [@{/if}@]                   
                 </div>            
               </div>  
   
               [@{if $account_state}@] 
               <div class="row">           
-                <div class="col-sm-6 col-lg-5 form-group[@{if $state_error}@] has-error[@{/if}@]">
+                <div class="col-sm-6 col-lg-5 form-group[@{if $state_error_select or $state_error}@] has-error[@{/if}@]">
                   <label class="control-label" for="state">[@{#entry_state#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_STATE_TEXT}@]</span>
                   [@{$input_state|replace:'>&nbsp;':'>'}@]
+                  [@{if $state_error_select}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_STATE_ERROR_SELECT}@]
+                  </p>                  
+                  [@{else if $state_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_STATE_ERROR}@]
+                  </p>
+                  [@{/if}@]                   
                 </div>                      
                 <div class="col-sm-6 col-lg-5 col-lg-offset-1 form-group[@{if $country_error}@] has-error[@{/if}@]">
                   <label class="control-label" for="country">[@{#entry_country#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_COUNTRY_TEXT}@]</span>
                   [@{$input_country|replace:'>&nbsp;':'>'}@]
+                  [@{if $country_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_COUNTRY_ERROR}@]
+                  </p>
+                  [@{/if}@]                    
                 </div>            
               </div> 
               [@{else}@]             
@@ -185,6 +274,11 @@
                 <div class="col-sm-6 col-lg-5 form-group[@{if $country_error}@] has-error[@{/if}@]">
                   <label class="control-label" for="country">[@{#entry_country#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_COUNTRY_TEXT}@]</span>
                   [@{$input_country|replace:'>&nbsp;':'>'}@]
+                  [@{if $country_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_COUNTRY_ERROR}@]
+                  </p>
+                  [@{/if}@]                   
                 </div>            
               </div> 
               [@{/if}@]                                                  
@@ -200,6 +294,11 @@
                 <div class="col-sm-6 col-lg-5 form-group[@{if $telephone_number_error}@] has-error[@{/if}@]">
                   <label class="control-label" for="telephone">[@{#entry_telephone_number#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_TELEPHONE_NUMBER_TEXT}@]</span>
                   [@{$input_telephone|replace:'>&nbsp;':'>'}@]
+                  [@{if $telephone_number_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_TELEPHONE_NUMBER_ERROR}@]
+                  </p>
+                  [@{/if}@]                    
                 </div>                      
                 <div class="col-sm-6 col-lg-5 col-lg-offset-1 form-group">
                   <label class="control-label" for="fax">[@{#entry_fax_number#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_FAX_NUMBER_TEXT}@]</span>
@@ -238,10 +337,20 @@
                 <div class="col-sm-6 col-lg-5 form-group[@{if $password_error}@] has-error[@{/if}@]">
                   <label class="control-label" for="password">[@{#entry_password#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_PASSWORD_TEXT}@]</span>
                   [@{$input_password|replace:'>&nbsp;':'>'}@]
+                  [@{if $password_error}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_PASSWORD_ERROR}@]
+                  </p>
+                  [@{/if}@]                   
                 </div>                      
-                <div class="col-sm-6 col-lg-5 col-lg-offset-1 form-group[@{if $password_error}@] has-error[@{/if}@]">
+                <div class="col-sm-6 col-lg-5 col-lg-offset-1 form-group[@{if $password_error or $password_error_not_matching}@] has-error[@{/if}@]">
                   <label class="control-label" for="confirmation">[@{#entry_password_confirmation#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_PASSWORD_CONFIRMATION_TEXT}@]</span>
                   [@{$input_confirmation|replace:'>&nbsp;':'>'}@]
+                  [@{if $password_error_not_matching}@]
+                  <p class="create-account-error-text">
+                    [@{$smarty.const.ENTRY_PASSWORD_ERROR_NOT_MATCHING}@]
+                  </p>
+                  [@{/if}@]                  
                 </div>            
               </div>              
             </div>

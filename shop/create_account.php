@@ -99,7 +99,6 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       if ( ($gender != 'm') && ($gender != 'f') ) {
         $error = true;
 
-        $messageStack->add('create_account', ENTRY_GENDER_ERROR);
         $smarty->assign('gender_error', true);
       }
     } 
@@ -107,14 +106,12 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
       $error = true;
 
-      $messageStack->add('create_account', ENTRY_FIRST_NAME_ERROR);
       $smarty->assign('first_name_error', true);
     }
 
     if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
       $error = true;
 
-      $messageStack->add('create_account', ENTRY_LAST_NAME_ERROR);
       $smarty->assign('last_name_error', true);
     }
 
@@ -122,7 +119,6 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       if ((strlen($dob_month . $dob_day . $dob_year) != 8) || (ctype_digit($dob_month . $dob_day . $dob_year) == false) || (@checkdate($dob_month, $dob_day, $dob_year) == false)) {
         $error = true;
 
-        $messageStack->add('create_account', ENTRY_DATE_OF_BIRTH_ERROR);
         $smarty->assign('date_of_birth_error', true);
       }
     }
@@ -130,13 +126,11 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     if (strlen($email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
       $error = true;
 
-      $messageStack->add('create_account', ENTRY_EMAIL_ADDRESS_ERROR);
       $smarty->assign('email_address_error', true);
     } elseif (xos_validate_email($email_address) == false) {
       $error = true;
 
-      $messageStack->add('create_account', ENTRY_EMAIL_ADDRESS_CHECK_ERROR);
-      $smarty->assign('email_address_error', true);
+      $smarty->assign('email_address_check_error', true);
     } else {
       $check_email_query = $DB->prepare
       (
@@ -151,36 +145,31 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       if ($check_email['total'] > 0) {
         $error = true;
 
-        $messageStack->add('create_account', ENTRY_EMAIL_ADDRESS_ERROR_EXISTS);
-        $smarty->assign('email_address_error', true);
+        $smarty->assign('email_address_error_exists', true);
       }
     }
 
     if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
       $error = true;
 
-      $messageStack->add('create_account', ENTRY_STREET_ADDRESS_ERROR);
       $smarty->assign('street_address_error', true);
     }
 
     if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
       $error = true;
 
-      $messageStack->add('create_account', ENTRY_POST_CODE_ERROR);
       $smarty->assign('post_code_error', true);
     }
 
     if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
       $error = true;
 
-      $messageStack->add('create_account', ENTRY_CITY_ERROR);
       $smarty->assign('city_error', true);
     }
 
     if (is_numeric($country) == false) {
       $error = true;
 
-      $messageStack->add('create_account', ENTRY_COUNTRY_ERROR);
       $smarty->assign('country_error', true);
     }
 
@@ -215,14 +204,13 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         } else {
           $error = true;
 
-          $messageStack->add('create_account', ENTRY_STATE_ERROR_SELECT);
           $smarty->assign('state_error', true);
+          $smarty->assign('state_error_select', true);
         }
       } else {
         if (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
           $error = true;
 
-          $messageStack->add('create_account', ENTRY_STATE_ERROR);
           $smarty->assign('state_error', true);
         }
       }
@@ -231,7 +219,6 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     if (strlen($telephone) < ENTRY_TELEPHONE_MIN_LENGTH) {
       $error = true;
 
-      $messageStack->add('create_account', ENTRY_TELEPHONE_NUMBER_ERROR);
       $smarty->assign('telephone_number_error', true);
     }
 
@@ -239,14 +226,12 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     if (strlen($password) < ENTRY_PASSWORD_MIN_LENGTH) {
       $error = true;
 
-      $messageStack->add('create_account', ENTRY_PASSWORD_ERROR);
+      $smarty->assign('password_error', true);      
     } elseif ($password != $confirmation) {
       $error = true;
 
-      $messageStack->add('create_account', ENTRY_PASSWORD_ERROR_NOT_MATCHING);
+      $smarty->assign('password_error_not_matching', true);
     }
-    
-    if ($error == true) $smarty->assign('password_error', true);
 
     if ($error == false) {
       $sql_data_array = array('customers_firstname' => $firstname,
@@ -705,8 +690,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                         'input_telephone' => xos_draw_input_field('telephone', '', 'class="form-control" id="telephone"') . '&nbsp;' . (xos_not_null(ENTRY_TELEPHONE_NUMBER_TEXT) ? '<span class="input-requirement">' . ENTRY_TELEPHONE_NUMBER_TEXT . '</span>': ''),
                         'input_fax' => xos_draw_input_field('fax', '', 'class="form-control" id="fax"') . '&nbsp;' . (xos_not_null(ENTRY_FAX_NUMBER_TEXT) ? '<span class="input-requirement">' . ENTRY_FAX_NUMBER_TEXT . '</span>': ''),
                         'input_newsletter' => (NEWSLETTER_ENABLED == 'true') ? xos_draw_checkbox_field('newsletter', '1', '', 'id="newsletter"') . '&nbsp;' . (xos_not_null(ENTRY_NEWSLETTER_TEXT) ? '<span class="input-requirement">' . ENTRY_NEWSLETTER_TEXT . '</span>': '') : '',
-                        'input_password' => xos_draw_password_field('password', '', 'class="form-control" id="password"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_TEXT . '</span>': ''),
-                        'input_confirmation' => xos_draw_password_field('confirmation', '', 'class="form-control" id="confirmation"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_CONFIRMATION_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_CONFIRMATION_TEXT . '</span>': ''),
+                        'input_password' => xos_draw_password_field('password', '', 'class="form-control" id="password"', ($smarty->getTemplateVars('password_error') ? false : true)) . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_TEXT . '</span>': ''),
+                        'input_confirmation' => xos_draw_password_field('confirmation', '', 'class="form-control" id="confirmation"', ($smarty->getTemplateVars('password_error') || $smarty->getTemplateVars('password_error_not_matching') ? false : true)) . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_CONFIRMATION_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_CONFIRMATION_TEXT . '</span>': ''),
                         'link_back' => $back_link,
                         'form_end' => '</form>'));
 

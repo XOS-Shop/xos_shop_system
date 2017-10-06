@@ -794,4 +794,8 @@ form[name="display_search_results"] .form-control,
 form[name="filter"] .form-control  {
   color: #fff;
   background-color: #464545;
+}
+
+.create-account-error-text {
+  color: #e74c3c;  
 }  

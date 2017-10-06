@@ -815,3 +815,7 @@ a.header-navi:hover {
     flex:1 0 100%;
   }  
 }
+
+.create-account-error-text {
+  color: #ff0039;  
+}
