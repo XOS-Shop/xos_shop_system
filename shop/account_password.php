@@ -122,7 +122,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   $smarty->assign(array('form_begin' => xos_draw_form('account_password', xos_href_link(FILENAME_ACCOUNT_PASSWORD, '', 'SSL'), 'post', 'onsubmit="return true;"', true),
                         'hidden_field' => xos_draw_hidden_field('action', 'process'),
                         'input_password_current' => xos_draw_password_field('password_current','', 'class="form-control" id="password_current"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_CURRENT_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_CURRENT_TEXT . '</span>': ''),
-                        'input_password_new' => xos_draw_password_field('password_new','', 'class="form-control" id="password_new"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_NEW_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_NEW_TEXT . '</span>': ''),
+                        'input_password_new' => xos_draw_password_field('password_new','', 'class="form-control" id="password_new" placeholder="' . ENTRY_PASSWORD_PLACEHOLDER . '"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_NEW_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_NEW_TEXT . '</span>': ''),
                         'input_password_confirmation' => xos_draw_password_field('password_confirmation','', 'class="form-control" id="password_confirmation"') . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_CONFIRMATION_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_CONFIRMATION_TEXT . '</span>': ''),
                         'link_filename_account' => xos_href_link(FILENAME_ACCOUNT, '', 'SSL'),
                         'form_end' => '</form>'));

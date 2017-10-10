@@ -227,6 +227,7 @@ define('ENTRY_PASSWORD_NEW', 'Neues Passwort:');
 define('ENTRY_PASSWORD_NEW_TEXT', '*');
 define('ENTRY_PASSWORD_NEW_ERROR', 'Das neue Passwort sollte mindestens ' . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen enthalten.');
 define('ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING', 'Die Passwort-Bestätigung muss mit Ihrem neuen Passwort übereinstimmen.');
+define('ENTRY_PASSWORD_PLACEHOLDER', 'Min. ' . ENTRY_PASSWORD_MIN_LENGTH . ' Zeichen Bsp. Yltx)7k!Iu');
 define('PASSWORD_HIDDEN', '--VERSTECKT--');
 
 // constants for use in xos_prev_next_display function

@@ -227,6 +227,7 @@ define('ENTRY_PASSWORD_NEW', 'New Password:');
 define('ENTRY_PASSWORD_NEW_TEXT', '*');
 define('ENTRY_PASSWORD_NEW_ERROR', 'Your new Password must contain a minimum of ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters.');
 define('ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING', 'The Password Confirmation must match your new Password.');
+define('ENTRY_PASSWORD_PLACEHOLDER', 'Min. ' . ENTRY_PASSWORD_MIN_LENGTH . ' characters eg Yltx)7k!Iu');
 define('PASSWORD_HIDDEN', '--HIDDEN--');
 
 // constants for use in xos_prev_next_display function
