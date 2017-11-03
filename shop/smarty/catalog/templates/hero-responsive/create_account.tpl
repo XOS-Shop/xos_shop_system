@@ -59,28 +59,17 @@
             <legend>[@{#category_personal#}@]</legend>
             <div class="well well-sm">                                
               [@{if $account_gender}@] 
-              <div class="row [@{if $gender_error}@]has-error[@{/if}@]">           
-                <div class="col-xs-3 col-sm-2 form-group">            
-                  <span class="control-label">[@{#entry_gender#}@]</span><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_GENDER_TEXT}@]</span> 
-                </div>                      
-                <div class="col-xs-9 col-sm-10 form-group">            
-                  [@{$input_gender}@]
-                   
-                  [@{*
+              <div class="row">           
+                <div class="col-sm-6 col-lg-5 form-group[@{if $gender_error}@] has-error[@{/if}@]">
+                  <label class="control-label" for="gender">[@{#entry_gender#}@]</label><span class="input-requirement-moved">&nbsp;[@{$smarty.const.ENTRY_GENDER_TEXT}@]</span>
+                  [@{$input_gender|replace:'>&nbsp;':'>'}@]
                   [@{if $gender_error}@]
                   <p class="create-account-error-text">
                     [@{$smarty.const.ENTRY_GENDER_ERROR}@]
                   </p>
-                  [@{/if}@]
-                  *}@]
-                  
-                </div>
-                [@{if $gender_error}@]
-                <div class="col-xs-12 create-account-error-text" style=" margin-top: -25px; margin-bottom: 15px">
-                  [@{$smarty.const.ENTRY_GENDER_ERROR}@]
-                </div>
-                [@{/if}@]                            
-              </div>                     
+                  [@{/if}@]                   
+                </div>            
+              </div>                    
               [@{/if}@]
               
               <div class="row">           

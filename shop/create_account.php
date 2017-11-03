@@ -471,55 +471,193 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     }
   }
 
-  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL')); 
+  $site_trail->add(NAVBAR_TITLE, xos_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL'));
 
-  $add_header = '<script type="text/javascript">' . "\n" .
-                '/* <![CDATA[ */' . "\n" .
-                'var form = "";' . "\n" .
-                'var submitted = false;' . "\n" .
-                'var error_dob = false;' . "\n" .                 
-                'var error = false;' . "\n" .
-                'var error_message = "";' . "\n\n" .
+  $add_header = '<script>
+  /**
+   * @package             jQuery HTML5 Custom Validation Messages plugin
+   * @author              Steven Palmer
+   * @author url          https://github.com/CoalaWeb
+   * @author email        support@coalaweb.com
+   * @version             1.0.0
+   * @date                13-10-2015
+   * @copyright           Copyright (c) 2015 Steven Palmer All rights reserved.
+   *
+   * Dual licensed under the MIT and GPL licenses:
+   *   http://www.opensource.org/licenses/mit-license.php
+   *   http://www.gnu.org/licenses/gpl.html
+   */
+  
+  (function ($) {
+  
+      $.fn.html5cvm = function (options) {
+  
+          // Establish our default settings
+          var settings = $.extend({
+              valueMissing: null,
+              typeMismatch: null,
+              patternMismatch: null,
+              tooLong: null,
+              rangeUnderflow: null,
+              rangeOverflow: null,
+              stepMismatch: null,
+              generic: null
+          }, options);
+  
+          return this.each(function () {
+  
+              //lets get our form ID
+              var form = $(this).attr("name")
+  
+              //now to add some custom messages to our form
+              $("form[name=" + form + "] :input").on({
+                  //lets start out validity check
+                  invalid: function (e) { 
+                      
+                      //clear the custom validity value                                            
+                  		e.target.setCustomValidity("");  
+  
+                      //is the form element invalid?
+                      if (!e.target.validity.valid) {
+  
+                          //initiate our msg variable
+                          var msg;
+  
+                          //returns true if the element has no value but is a required field.
+                          if (e.target.validity.valueMissing) {
+                              if ($(this).data("errormessage-value-missing")) {
+                                  msg = $(this).data("errormessage-value-missing");
+                              } else {
+                                  msg = settings.valueMissing;
+                              }
+                          }
+  
+                          //returns true if the elements value doesnt match its type attribute.
+                          if (e.target.validity.typeMismatch) {
+                              if ($(this).data("errormessage-type-mismatch")) {
+                                  msg = $(this).data("errormessage-type-mismatch");
+                              } else {
+                                  msg = settings.typeMismatch;
+                              }
+                          }
+  
+                          //returns true if the elements value doesnt match its pattern attribute.
+                          if (e.target.validity.patternMismatch) {
+                              if ($(this).data("errormessage-pattern-mismatch")) {
+                                  msg = $(this).data("errormessage-pattern-mismatch");
+                              } else {
+                                  msg = settings.patternMismatch;
+                              }
+                          }
+  
+                          //returns true if the elements value exceeds its maxlength attribute.
+                          if (e.target.validity.tooLong) {
+                              if ($(this).data("errormessage-pattern-too-long")) {
+                                  msg = $(this).data("errormessage-pattern-too-long");
+                              } else {
+                                  msg = settings.tooLong;
+                              }
+                          }
+  
+                          //returns true if the elements value is lower than its min attribute.
+                          if (e.target.validity.rangeUnderflow) {
+                              if ($(this).data("errormessage-pattern-range-underflow")) {
+                                  msg = $(this).data("errormessage-pattern-range-underflow");
+                              } else {
+                                  msg = settings.rangeUnderflow;
+                              }
+                          }
+  
+                          //returns true if the element’s value is higher than its max attribute.
+                          if (e.target.validity.rangeOverflow) {
+                              if ($(this).data("errormessage-pattern-range-overflow")) {
+                                  msg = $(this).data("errormessage-pattern-range-overflow");
+                              } else {
+                                  msg = settings.rangeUOverflow;
+                              }
+                          }
+  
+                          //returns true if the elements value is invalid per its step attribute.
+                          if (e.target.validity.stepMismatch) {
+                              if ($(this).data("errormessage-step-mismatch")) {
+                                  msg = $(this).data("errormessage-step-mismatch");
+                              } else {
+                                  msg = settings.stepMismatch;
+                              }
+                          } 
+  
+                          //generic fall back message.
+                          if (!msg) {
+                              if ($(this).data("errormessage-generic")) {
+                                  msg = $(this).data("errormessage-generic");
+                              } else {
+                                  msg = settings.generic;
+                              }
+                          }
+  
+                          //set the custom validty value to our custom message if we have one.
+                          if (msg) {
+                              e.target.setCustomValidity(msg);
+                          }
+  
+                      }
+                  },
+                  input: function (e) {
+                      //clear the custom validty value
+                      e.target.setCustomValidity("");
+                  },
+                  change: function (e) {
+                      //clear the custom validty value
+                      e.target.setCustomValidity("");
+                  }
+              });
+          });
+  
+      };
+  
+  }(jQuery));  
+    
+  $(function () {
+    
+    $("form[name=create_account]").html5cvm();    
+  
+    $("form[name=create_account] #gender, form[name=create_account] #firstname, form[name=create_account] #lastname, form[name=create_account] #password, form[name=create_account] #confirmation, form[name=create_account] #email_address, form[name=create_account] #country, form[name=create_account] #street_address, form[name=create_account] #postcode, form[name=create_account] #telephone, form[name=create_account] #city, form[name=create_account] #state, form[name=create_account] select[name=dob_day], form[name=create_account] select[name=dob_month], form[name=create_account] select[name=dob_year]").attr("required", true);
+    $(".has-error input, .has-error select, .has-error textarea").addClass("alert-danger").focus(function () {$(this).removeClass("alert-danger");});
 
-                'function check_password(field_name_1, field_name_2, field_size, message_1, message_2) {' . "\n" .
-                '  if (form.elements[field_name_1] && (form.elements[field_name_1].type != "hidden")) {' . "\n" .
-                '    var password = form.elements[field_name_1].value;' . "\n" .
-                '    var confirmation = form.elements[field_name_2].value;' . "\n\n" .
-
-                '    if (password == "" || password.length < field_size) {' . "\n" .
-                '      error_message = error_message + "* " + message_1 + "\n";' . "\n" .
-                '      error = true;' . "\n" .
-                '    } else if (password != confirmation) {' . "\n" .
-                '      error_message = error_message + "* " + message_2 + "\n";' . "\n" .
-                '      error = true;' . "\n" .
-                '    }' . "\n" .
-                '  }' . "\n" .
-                '}' . "\n\n" .
-        
-                'function check_form_password(form_name) {' . "\n" .
-                '  if (submitted == true) {' . "\n" .
-                '    alert("' . JS_ERROR_SUBMITTED . '");' . "\n" .
-                '    return false;' . "\n" .
-                '  }' . "\n\n" .
-                 
-                '  error_dob = false;' . "\n" . 
-                '  error = false;' . "\n" .
-                '  form = form_name;' . "\n" .
-                '  error_message = "' . JS_ERROR . '";' . "\n\n" .
-                 
-                '  check_password("password", "confirmation", ' . ENTRY_PASSWORD_MIN_LENGTH . ', "' . ENTRY_PASSWORD_ERROR . '", "' . ENTRY_PASSWORD_ERROR_NOT_MATCHING . '");' . "\n" .
-                '  check_password("password_new", "password_confirmation", ' . ENTRY_PASSWORD_MIN_LENGTH . ', "' . ENTRY_PASSWORD_NEW_ERROR . '", "' . ENTRY_PASSWORD_NEW_ERROR_NOT_MATCHING . '");' . "\n\n" .
-
-                '  if (error == true) {' . "\n" .
-                '    alert(error_message);' . "\n" .
-                '    return false;' . "\n" .
-                '  } else {' . "\n" .
-                '    submitted = true;' . "\n" .
-                '    return true;' . "\n" .
-                '  }' . "\n" .
-                '}' . "\n" .
-                '/* ]]> */' . "\n" .
-                '</script> ' . "\n";
+    var password = document.getElementById("password")
+      , confirmation = document.getElementById("confirmation");
+    
+    function validatePassword(){
+      if(password.value != confirmation.value) {
+        $("form[name=create_account] #confirmation").attr("pattern", "^$");
+      } else {
+        $("form[name=create_account] #confirmation").removeAttr("pattern");
+      }
+    }
+    
+    password.onchange = validatePassword;
+    confirmation.onkeyup = validatePassword; 
+    
+    function scrollToInvalid() {
+      // Height of your nav bar plus a bottom margin
+      var navHeight = 100;
+      // Offset of the first input element minus your nav height
+      var invalid_el = $("input:invalid, select:invalid, textarea:invalid").first().offset().top - navHeight;
+    
+      // If the invalid element is already within the window view, return true. If you return false, the validation will stop.
+//      if ( invalid_el > (window.pageYOffset - navHeight) && invalid_el < (window.pageYOffset + window.innerHeight - navHeight) ) {
+      if ( invalid_el > (window.pageYOffset) && invalid_el < (window.pageYOffset + window.innerHeight) ) {
+        return true;
+      } else {
+        // If the first invalid input is not within the current view, scroll to it.
+        $("html, body").scrollTop(invalid_el);
+      }
+    }
+    
+    $("input, select, textarea").on("invalid", scrollToInvalid);  
+          
+  });  
+</script>';    
 
   require(DIR_WS_INCLUDES . 'html_header.php');
   require(DIR_WS_INCLUDES . 'boxes.php');
@@ -534,8 +672,17 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
   }
   
   if (ACCOUNT_GENDER == 'true') {
-    $smarty->assign(array('account_gender' => true,
-                          'input_gender' => xos_draw_radio_field('gender', 'm', '', 'id="gender_m"') . '<label class="control-label" for="gender_m">&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;</label>' . xos_draw_radio_field('gender', 'f', '', 'id="gender_f"') . '<label class="control-label" for="gender_f">&nbsp;&nbsp;' . FEMALE . '&nbsp;</label>' . (xos_not_null(ENTRY_GENDER_TEXT) ? '<span class="input-requirement">' . ENTRY_GENDER_TEXT . '</span>': '')));
+//    $smarty->assign(array('account_gender' => true,
+//                          'input_gender' => xos_draw_radio_field('gender', 'm', '', 'id="gender_m" data-errormessage-value-missing="' . ENTRY_GENDER_ERROR . '"') . '<label class="control-label" for="gender_m">&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;</label>' . xos_draw_radio_field('gender', 'f', '', 'id="gender_f"') . '<label class="control-label" for="gender_f">&nbsp;&nbsp;' . FEMALE . '&nbsp;</label>' . (xos_not_null(ENTRY_GENDER_TEXT) ? '<span class="input-requirement">' . ENTRY_GENDER_TEXT . '</span>': '')));
+
+    $gender_array = array(array('id' => '', 'text' => PULL_DOWN_DEFAULT),                                             
+                          array('id' => 'm', 'text' => MALE),
+                          array('id' => 'f', 'text' => FEMALE));
+
+    $smarty->assign(array('account_gender' => true,          
+                          'input_gender' => xos_draw_pull_down_menu('gender', $gender_array, '', 'class="form-control" id="gender" data-errormessage-value-missing="' . ENTRY_GENDER_ERROR . '"') . '&nbsp;' . (xos_not_null(ENTRY_GENDER_TEXT) ? '<span class="input-requirement">' . ENTRY_GENDER_TEXT . '</span>': '')));
+
+
   } 
   
   if (ACCOUNT_DOB == 'true') {
@@ -579,13 +726,13 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $c = substr($field_order, $i, 1);
       switch ($c) {
         case 'D':
-          $pull_down_menu_field .= xos_draw_pull_down_menu('dob_day', $days_array, (int)$_POST['dob_day'], ($i == 0 ? 'class="form-control" id="dob_first"' : 'class="form-control"'));
+          $pull_down_menu_field .= xos_draw_pull_down_menu('dob_day', $days_array, (int)$_POST['dob_day'], ($i == 0 ? 'class="form-control" id="dob_first" data-errormessage-value-missing="' . ENTRY_DATE_OF_BIRTH_DAY_SELECT . '"' : 'class="form-control" data-errormessage-value-missing="' . ENTRY_DATE_OF_BIRTH_DAY_SELECT . '"'));
           break;
         case 'M':
-          $pull_down_menu_field .= xos_draw_pull_down_menu('dob_month', $months_array, (int)$_POST['dob_month'], ($i == 0 ? 'class="form-control" id="dob_first"' : 'class="form-control"'));
+          $pull_down_menu_field .= xos_draw_pull_down_menu('dob_month', $months_array, (int)$_POST['dob_month'], ($i == 0 ? 'class="form-control" id="dob_first" data-errormessage-value-missing="' . ENTRY_DATE_OF_BIRTH_MONTH_SELECT . '"' : 'class="form-control" data-errormessage-value-missing="' . ENTRY_DATE_OF_BIRTH_MONTH_SELECT . '"'));
           break;
         case 'Y':
-          $pull_down_menu_field .= xos_draw_pull_down_menu('dob_year', $years_array, (int)$_POST['dob_year'], ($i == 0 ? 'class="form-control" id="dob_first"' : 'class="form-control"'));
+          $pull_down_menu_field .= xos_draw_pull_down_menu('dob_year', $years_array, (int)$_POST['dob_year'], ($i == 0 ? 'class="form-control" id="dob_first" data-errormessage-value-missing="' . ENTRY_DATE_OF_BIRTH_JEAR_SELECT . '"' : 'class="form-control" data-errormessage-value-missing="' . ENTRY_DATE_OF_BIRTH_JEAR_SELECT . '"'));
           break;
       } 
 
@@ -624,16 +771,18 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
         );
         
         $DB->perform($zones_query, array(':country' => (int)$country));
+        
+        $zones_array[] = array('id' => '', 'text' => PULL_DOWN_DEFAULT);
                                               
         while ($zones_values = $zones_query->fetch()) {
           $zones_array[] = array('id' => $zones_values['zone_name'], 'text' => $zones_values['zone_name']);
         }
-        $smarty->assign('input_state', xos_draw_pull_down_menu('state', $zones_array, '', 'class="form-control" id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
+        $smarty->assign('input_state', xos_draw_pull_down_menu('state', $zones_array, '', 'class="form-control" id="state" data-errormessage-value-missing="' . ENTRY_STATE_ERROR_SELECT . '"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
       } else {
-        $smarty->assign('input_state', xos_draw_input_field('state', '', 'class="form-control" id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
+        $smarty->assign('input_state', xos_draw_input_field('state', '', 'class="form-control" id="state" data-errormessage-value-missing="' . ENTRY_STATE_ERROR . '" data-errormessage-pattern-mismatch="' . ENTRY_STATE_ERROR . '" pattern="^[^ ].{' . (ENTRY_STATE_MIN_LENGTH - 2) . ',}[^ ]$"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
       }
     } else {
-      $smarty->assign('input_state', xos_draw_input_field('state', '', 'class="form-control" id="state"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
+      $smarty->assign('input_state', xos_draw_input_field('state', '', 'class="form-control" id="state" data-errormessage-value-missing="' . ENTRY_STATE_ERROR . '" data-errormessage-pattern-mismatch="' . ENTRY_STATE_ERROR . '" pattern="^[^ ].{' . (ENTRY_STATE_MIN_LENGTH - 2) . ',}[^ ]$"') . '&nbsp;' . (xos_not_null(ENTRY_STATE_TEXT) ? '<span class="input-requirement">' . ENTRY_STATE_TEXT . '</span>': ''));
     }   
   }
 
@@ -676,22 +825,22 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $back_link = 'javascript:history.go(-1)';
   }
 
-  $smarty->assign(array('form_begin' => xos_draw_form('create_account', xos_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL'), 'post', 'onsubmit="return check_form_password(create_account);"', true),
+  $smarty->assign(array('form_begin' => xos_draw_form('create_account', xos_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL'), 'post', '', true),
                         'hidden_field' => xos_draw_hidden_field('action', 'process'),
                         'link_filename_login' => xos_href_link(FILENAME_LOGIN, xos_get_all_get_params(), 'SSL'),
                         'link_filename_popup_content_7' => $popup_status_query->rowCount() ? xos_href_link(FILENAME_POPUP_CONTENT, 'co=7', $request_type) : '',
-                        'input_firstname' => xos_draw_input_field('firstname', '', 'class="form-control" id="firstname"') . '&nbsp;' . (xos_not_null(ENTRY_FIRST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_FIRST_NAME_TEXT . '</span>': ''),
-                        'input_lastname' => xos_draw_input_field('lastname', '', 'class="form-control" id="lastname"') . '&nbsp;' . (xos_not_null(ENTRY_LAST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_LAST_NAME_TEXT . '</span>': ''),
-                        'input_email_address' => xos_draw_input_field('email_address', '', 'class="form-control" id="email_address"') . '&nbsp;' . (xos_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="input-requirement">' . ENTRY_EMAIL_ADDRESS_TEXT . '</span>': ''),
-                        'input_street_address' => xos_draw_input_field('street_address', '', 'class="form-control" id="street_address" onblur="if(!/[1-9]/.test(this.value) && this.value.length >= ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . '){$(\'#number-error\').show(100)}else{$(\'#number-error\').hide(100)}"') . '&nbsp;' . (xos_not_null(ENTRY_STREET_ADDRESS_TEXT) ? '<span class="input-requirement">' . ENTRY_STREET_ADDRESS_TEXT . '</span>': '') . '<p id="number-error" style="display: none;"><span class="red-mark">' . ENTRY_MISSING_HOUSE_NUMBER_TEXT_1 . '</span>&nbsp; &nbsp;' . ENTRY_MISSING_HOUSE_NUMBER_TEXT_2 . '</p>',
-                        'input_postcode' => xos_draw_input_field('postcode', '', 'class="form-control" id="postcode"') . '&nbsp;' . (xos_not_null(ENTRY_POST_CODE_TEXT) ? '<span class="input-requirement">' . ENTRY_POST_CODE_TEXT . '</span>': ''),
-                        'input_city' => xos_draw_input_field('city', '', 'class="form-control" id="city"') . '&nbsp;' . (xos_not_null(ENTRY_CITY_TEXT) ? '<span class="input-requirement">' . ENTRY_CITY_TEXT . '</span>': ''),
-                        'input_country' => xos_get_country_list('country', '', 'class="form-control" id="country"') . '&nbsp;' . (xos_not_null(ENTRY_COUNTRY_TEXT) ? '<span class="input-requirement">' . ENTRY_COUNTRY_TEXT . '</span>': ''),
-                        'input_telephone' => xos_draw_input_field('telephone', '', 'class="form-control" id="telephone"') . '&nbsp;' . (xos_not_null(ENTRY_TELEPHONE_NUMBER_TEXT) ? '<span class="input-requirement">' . ENTRY_TELEPHONE_NUMBER_TEXT . '</span>': ''),
+                        'input_firstname' => xos_draw_input_field('firstname', '', 'class="form-control" id="firstname" data-errormessage-value-missing="' . ENTRY_FIRST_NAME_ERROR . '" data-errormessage-pattern-mismatch="' . ENTRY_FIRST_NAME_ERROR . '" pattern="^[^ ].{' . (ENTRY_FIRST_NAME_MIN_LENGTH - 2) . ',}[^ ]$"') . '&nbsp;' . (xos_not_null(ENTRY_FIRST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_FIRST_NAME_TEXT . '</span>': ''),
+                        'input_lastname' => xos_draw_input_field('lastname', '', 'class="form-control" id="lastname" data-errormessage-value-missing="' . ENTRY_LAST_NAME_ERROR . '" data-errormessage-pattern-mismatch="' . ENTRY_LAST_NAME_ERROR . '" pattern="^[^ ].{' . (ENTRY_LAST_NAME_MIN_LENGTH - 2) . ',}[^ ]$"') . '&nbsp;' . (xos_not_null(ENTRY_LAST_NAME_TEXT) ? '<span class="input-requirement">' . ENTRY_LAST_NAME_TEXT . '</span>': ''),
+                        'input_email_address' => xos_draw_input_field('email_address', '', 'class="form-control" id="email_address" data-errormessage-value-missing="' . ENTRY_EMAIL_ADDRESS_ERROR . '" data-errormessage-pattern-mismatch="' . ENTRY_EMAIL_ADDRESS_ERROR . '" data-errormessage-type-mismatch="' . ENTRY_EMAIL_ADDRESS_CHECK_ERROR . '" pattern="^[^ ].{' . (ENTRY_EMAIL_ADDRESS_MIN_LENGTH - 2) . ',}[^ ]$"', 'email') . '&nbsp;' . (xos_not_null(ENTRY_EMAIL_ADDRESS_TEXT) ? '<span class="input-requirement">' . ENTRY_EMAIL_ADDRESS_TEXT . '</span>': ''),                        
+                        'input_street_address' => xos_draw_input_field('street_address', '', 'class="form-control" id="street_address" data-errormessage-value-missing="' . ENTRY_STREET_ADDRESS_ERROR . '" data-errormessage-pattern-mismatch="' . ENTRY_STREET_ADDRESS_ERROR . '" pattern="^[^ ].{' . (ENTRY_STREET_ADDRESS_MIN_LENGTH - 2) . ',}[^ ]$" onblur="if(!/[1-9]/.test(this.value) && this.value.length >= ' . ENTRY_STREET_ADDRESS_MIN_LENGTH . '){$(\'#number-error\').show(100)}else{$(\'#number-error\').hide(100)}"') . '&nbsp;' . (xos_not_null(ENTRY_STREET_ADDRESS_TEXT) ? '<span class="input-requirement">' . ENTRY_STREET_ADDRESS_TEXT . '</span>': '') . '<p id="number-error" style="display: none;"><span class="red-mark">' . ENTRY_MISSING_HOUSE_NUMBER_TEXT_1 . '</span>&nbsp; &nbsp;' . ENTRY_MISSING_HOUSE_NUMBER_TEXT_2 . '</p>',
+                        'input_postcode' => xos_draw_input_field('postcode', '', 'class="form-control" id="postcode" data-errormessage-value-missing="' . ENTRY_POST_CODE_ERROR . '" data-errormessage-pattern-mismatch="' . ENTRY_POST_CODE_ERROR . '" pattern="^[^ ].{' . (ENTRY_POSTCODE_MIN_LENGTH - 2) . ',}[^ ]$"') . '&nbsp;' . (xos_not_null(ENTRY_POST_CODE_TEXT) ? '<span class="input-requirement">' . ENTRY_POST_CODE_TEXT . '</span>': ''),
+                        'input_city' => xos_draw_input_field('city', '', 'class="form-control" id="city" data-errormessage-value-missing="' . ENTRY_CITY_ERROR . '" data-errormessage-pattern-mismatch="' . ENTRY_CITY_ERROR . '" pattern="^[^ ].{' . (ENTRY_CITY_MIN_LENGTH - 2) . ',}[^ ]$"') . '&nbsp;' . (xos_not_null(ENTRY_CITY_TEXT) ? '<span class="input-requirement">' . ENTRY_CITY_TEXT . '</span>': ''),
+                        'input_country' => xos_get_country_list('country', '', 'class="form-control" id="country" data-errormessage-value-missing="' . ENTRY_COUNTRY_ERROR . '"') . '&nbsp;' . (xos_not_null(ENTRY_COUNTRY_TEXT) ? '<span class="input-requirement">' . ENTRY_COUNTRY_TEXT . '</span>': ''),                        
+                        'input_telephone' => xos_draw_input_field('telephone', '', 'class="form-control" id="telephone" data-errormessage-value-missing="' . ENTRY_TELEPHONE_NUMBER_ERROR . '" data-errormessage-pattern-mismatch="' . ENTRY_TELEPHONE_NUMBER_ERROR . '" pattern="^[^ ].{' . (ENTRY_TELEPHONE_MIN_LENGTH - 2) . ',}[^ ]$"') . '&nbsp;' . (xos_not_null(ENTRY_TELEPHONE_NUMBER_TEXT) ? '<span class="input-requirement">' . ENTRY_TELEPHONE_NUMBER_TEXT . '</span>': ''),
                         'input_fax' => xos_draw_input_field('fax', '', 'class="form-control" id="fax"') . '&nbsp;' . (xos_not_null(ENTRY_FAX_NUMBER_TEXT) ? '<span class="input-requirement">' . ENTRY_FAX_NUMBER_TEXT . '</span>': ''),
                         'input_newsletter' => (NEWSLETTER_ENABLED == 'true') ? xos_draw_checkbox_field('newsletter', '1', '', 'id="newsletter"') . '&nbsp;' . (xos_not_null(ENTRY_NEWSLETTER_TEXT) ? '<span class="input-requirement">' . ENTRY_NEWSLETTER_TEXT . '</span>': '') : '',
-                        'input_password' => xos_draw_password_field('password', '', 'class="form-control" id="password" placeholder="' . ENTRY_PASSWORD_PLACEHOLDER . '"', ($smarty->getTemplateVars('password_error') ? false : true)) . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_TEXT . '</span>': ''),
-                        'input_confirmation' => xos_draw_password_field('confirmation', '', 'class="form-control" id="confirmation"', ($smarty->getTemplateVars('password_error') || $smarty->getTemplateVars('password_error_not_matching') ? false : true)) . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_CONFIRMATION_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_CONFIRMATION_TEXT . '</span>': ''),
+                        'input_password' => xos_draw_password_field('password', '', 'class="form-control" id="password" data-errormessage-value-missing="' . ENTRY_PASSWORD_ERROR . '" data-errormessage-pattern-mismatch="' . ENTRY_PASSWORD_ERROR . '" placeholder="' . ENTRY_PASSWORD_PLACEHOLDER . '" pattern="^\S{' . ENTRY_PASSWORD_MIN_LENGTH . ',}$"', ($smarty->getTemplateVars('password_error') ? false : true)) . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_TEXT . '</span>': ''),
+                        'input_confirmation' => xos_draw_password_field('confirmation', '', 'class="form-control" id="confirmation" data-errormessage-value-missing="' . ENTRY_PASSWORD_ERROR_NOT_MATCHING . '" data-errormessage-pattern-mismatch="' . ENTRY_PASSWORD_ERROR_NOT_MATCHING . '"', ($smarty->getTemplateVars('password_error') || $smarty->getTemplateVars('password_error_not_matching') ? false : true)) . '&nbsp;' . (xos_not_null(ENTRY_PASSWORD_CONFIRMATION_TEXT) ? '<span class="input-requirement">' . ENTRY_PASSWORD_CONFIRMATION_TEXT . '</span>': ''),
                         'link_back' => $back_link,
                         'form_end' => '</form>'));
 
