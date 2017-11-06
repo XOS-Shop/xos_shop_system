@@ -800,4 +800,17 @@ form[name="filter"] .form-control  {
 
 .create-account-error-text {
   color: #d9534f;  
+}
+
+form[name=create_account] input:required:invalid, 
+form[name=create_account] select:required:invalid, 
+form[name=create_account] textarea:required:invalid {
+  color: #000;
+  background-color: #ffeaed;
+}  
+
+form[name=create_account] input:required:valid, 
+form[name=create_account] select:required:valid, 
+form[name=create_account] textarea:required:valid {
+  /* background-color: #e7ffe7; */
 } 

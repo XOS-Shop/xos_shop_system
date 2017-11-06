@@ -821,3 +821,16 @@ a.header-navi:hover {
 .create-account-error-text {
   color: #a94442;  
 }
+
+form[name=create_account] input:required:invalid, 
+form[name=create_account] select:required:invalid, 
+form[name=create_account] textarea:required:invalid {
+  color: #000;
+  background-color: #f5edee;
+}  
+
+form[name=create_account] input:required:valid, 
+form[name=create_account] select:required:valid, 
+form[name=create_account] textarea:required:valid {
+  /* background-color: #e7ffe7; */
+}
