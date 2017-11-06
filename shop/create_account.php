@@ -640,7 +640,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     
     function scrollToInvalid() {
       // Height of your nav bar plus a bottom margin
-      var navHeight = 100;
+      var navHeight = 200;
       // Offset of the first input element minus your nav height
       var invalid_el = $("input:invalid, select:invalid, textarea:invalid").first().offset().top - navHeight;
     
