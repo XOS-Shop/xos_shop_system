@@ -630,8 +630,10 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     function validatePassword(){
       if(password.value != confirmation.value) {
         $("form[name=create_account] #confirmation").attr("pattern", "^$");
+        $("form[name=create_account]").get(0).checkValidity();        
       } else {
         $("form[name=create_account] #confirmation").removeAttr("pattern");
+        $("form[name=create_account]").get(0).checkValidity();        
       }
     }
     
