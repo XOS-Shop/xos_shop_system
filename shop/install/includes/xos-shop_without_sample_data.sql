@@ -963,7 +963,7 @@ INSERT INTO configuration (configuration_key, configuration_value, configuration
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('ENTRY_CITY_MIN_LENGTH', '3', '2', '8', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('ENTRY_STATE_MIN_LENGTH', '2', '2', '9', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('ENTRY_TELEPHONE_MIN_LENGTH', '3', '2', '10', now());
-INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('ENTRY_PASSWORD_MIN_LENGTH', '5', '2', '11', now());
+INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('ENTRY_PASSWORD_MIN_LENGTH', '6', '2', '11', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('CC_OWNER_MIN_LENGTH', '3', '2', '12', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('CC_NUMBER_MIN_LENGTH', '10', '2', '13', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('REVIEW_TEXT_MIN_LENGTH', '50', '2', '14', now());
