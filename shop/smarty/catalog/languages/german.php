@@ -183,7 +183,7 @@ define('ERROR_CONDITIONS_NOT_ACCEPTED', 'Bitte bestätigen Sie die Allgemeinen G
 define('ENTRY_COMPANY_TEXT', '');
 define('ENTRY_COMPANY_TAX_ID_ERROR', '');
 define('ENTRY_COMPANY_TAX_ID_TEXT', '');
-define('ENTRY_GENDER_ERROR', 'Bitte das Geschlecht angeben.');
+define('ENTRY_GENDER_ERROR', 'Bitte wählen Sie Ihre Anrede aus.');
 define('ENTRY_GENDER_TEXT', '*');
 define('ENTRY_FIRST_NAME_ERROR', 'Der Vorname sollte mindestens ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' Zeichen enthalten.');
 define('ENTRY_FIRST_NAME_TEXT', '*');

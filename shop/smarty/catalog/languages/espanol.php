@@ -152,8 +152,8 @@ define('HEADER_TITLE_TOP', 'Inicio');
 define('HEADER_TITLE_HOME', 'Portada del sitio');
 
 // text for gender
-define('MALE', 'Varón');
-define('FEMALE', 'Mujer');
+define('MALE', 'Sr.');
+define('FEMALE', 'Sra.');
 define('MALE_ADDRESS', 'Sr.');
 define('FEMALE_ADDRESS', 'Sra.');
 
@@ -183,7 +183,7 @@ define('ERROR_CONDITIONS_NOT_ACCEPTED', 'Por favor, confirme las Condiciones Gen
 define('ENTRY_COMPANY_TEXT', '');
 define('ENTRY_COMPANY_TAX_ID_ERROR', '');
 define('ENTRY_COMPANY_TAX_ID_TEXT', '');
-define('ENTRY_GENDER_ERROR', 'Por favor seleccione una opción.');
+define('ENTRY_GENDER_ERROR', 'Por favor, seleccione su saludo.');
 define('ENTRY_GENDER_TEXT', '*');
 define('ENTRY_FIRST_NAME_ERROR', 'Su Nombre debe tener al menos ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' letras.');
 define('ENTRY_FIRST_NAME_TEXT', '*');

@@ -152,8 +152,8 @@ define('HEADER_TITLE_TOP', 'Top');
 define('HEADER_TITLE_HOME', 'Home');
 
 // text for gender
-define('MALE', 'Male');
-define('FEMALE', 'Female');
+define('MALE', 'Mr.');
+define('FEMALE', 'Ms.');
 define('MALE_ADDRESS', 'Mr.');
 define('FEMALE_ADDRESS', 'Ms.');
 
@@ -183,7 +183,7 @@ define('ERROR_CONDITIONS_NOT_ACCEPTED', 'Please confirm the General Business Con
 define('ENTRY_COMPANY_TEXT', '');
 define('ENTRY_COMPANY_TAX_ID_ERROR', '');
 define('ENTRY_COMPANY_TAX_ID_TEXT', '');
-define('ENTRY_GENDER_ERROR', 'Please select your Gender.');
+define('ENTRY_GENDER_ERROR', 'Please select your salutation.');
 define('ENTRY_GENDER_TEXT', '*');
 define('ENTRY_FIRST_NAME_ERROR', 'Your First Name must contain a minimum of ' . ENTRY_FIRST_NAME_MIN_LENGTH . ' characters.');
 define('ENTRY_FIRST_NAME_TEXT', '*');
