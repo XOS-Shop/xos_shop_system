@@ -313,12 +313,12 @@
 
 // if site offline is enabled, set site offline
   if (SITE_OFFLINE == 'true') {
-    if ($_SESSION['access_allowed'] != 'true' && !strpos($_SERVER['REQUEST_URI'], FILENAME_OFFLINE)) {
+    if ($_SESSION['access_allowed'] != 'true' && !strpos($_SERVER['REQUEST_URI'], 'offline')) {
         xos_redirect(xos_href_link(FILENAME_OFFLINE, '', 'SSL'));
     }
   } else {
     unset($_SESSION['access_allowed']);
-    if (strpos($_SERVER['REQUEST_URI'], FILENAME_OFFLINE)) xos_redirect(xos_href_link(FILENAME_DEFAULT), false);  
+    if (strpos($_SERVER['REQUEST_URI'], 'offline')) xos_redirect(xos_href_link(FILENAME_DEFAULT), false);  
   }
 
 // include the mail class 
