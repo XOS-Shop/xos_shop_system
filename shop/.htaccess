@@ -77,6 +77,11 @@
 # Change the following line using the instructions above 
 #  RewriteBase / 
 
+#########################  
+# Remove UNIX Timestamp in '.css' and '.js' files, example "...trap.min.1510740390.css" -> "...trap.min.css" 
+#########################
+  RewriteRule ^(.*)\.[0-9]{10}\.(css|js) $1.$2 
+  
 #########################   
 # gzip for '.js', '.css', '.svg' and '.ttf' files 
 #########################

@@ -807,4 +807,5 @@
                         'date_format_long' => xos_date_format(DATE_FORMAT_LONG),
                         'languages_path' => DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $_SESSION['language'] . '/',
                         'buttons_path' => DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $_SESSION['language'] . '/buttons/',
+                        'absolute_images_path' => DIR_FS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/',                        
                         'images_path' => DIR_WS_CATALOG . DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/'));

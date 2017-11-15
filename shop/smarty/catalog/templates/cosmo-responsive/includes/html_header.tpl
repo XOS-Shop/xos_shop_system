@@ -54,26 +54,26 @@
 <link rel="alternate" hreflang="[@{$hreflang.lang_code}@]" href="[@{$hreflang.link}@]" />
 [@{/foreach}@]
 <link rel="shortcut icon" type="image/x-icon" href="[@{$images_path}@]favicon.ico" />
-<link rel="stylesheet" type="text/css" href="[@{$images_path}@]bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="[@{$images_path}@]jquery-ui-1.10.3.custom.css" />
-<link rel="stylesheet" type="text/css" href="[@{$images_path}@]nav.css" />
-<link rel="stylesheet" type="text/css" href="[@{$images_path}@]stylesheet.css" />
-<link rel="stylesheet" type="text/css" href="[@{$images_path}@]colorbox.css" />
+<link rel="stylesheet" type="text/css" href="[@{$images_path}@]bootstrap.min.[@{"`$absolute_images_path`bootstrap.min.css"|filemtime}@].css" />
+<link rel="stylesheet" type="text/css" href="[@{$images_path}@]jquery-ui-1.10.3.custom.[@{"`$absolute_images_path`jquery-ui-1.10.3.custom.css"|filemtime}@].css" />
+<link rel="stylesheet" type="text/css" href="[@{$images_path}@]nav.[@{"`$absolute_images_path`nav.css"|filemtime}@].css" />
+<link rel="stylesheet" type="text/css" href="[@{$images_path}@]stylesheet.[@{"`$absolute_images_path`stylesheet.css"|filemtime}@].css" />
+<link rel="stylesheet" type="text/css" href="[@{$images_path}@]colorbox.[@{"`$absolute_images_path`colorbox.css"|filemtime}@].css" />
 [@{*<link rel="stylesheet" type="text/css" href="[@{$link_to_dynamic_css}@]" />*}@]
 
-<script type="text/javascript" src="[@{$images_path}@]jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="[@{$images_path}@]jquery-ui-1.10.3.custom.min.js"></script>
-<script type="text/javascript" src="[@{$images_path}@]jquery.scrollUp.min.js"></script>
-<script type="text/javascript" src="[@{$images_path}@]quick_search_suggest.js"></script>
-<script type="text/javascript" src="[@{$images_path}@]jquery.colorbox-min.js"></script>
-<script type="text/javascript" src="[@{$languages_path}@]jquery.colorbox-language.js"></script>
-<script type="text/javascript" src="[@{$images_path}@]bootstrap.min.js"></script>
-<script type="text/javascript" src="[@{$images_path}@]jquery.doubletaptogo.min.js"></script>
-<script type="text/javascript" src="[@{$images_path}@]general.js"></script>
+<script type="text/javascript" src="[@{$images_path}@]jquery-1.10.2.min.[@{"`$absolute_images_path`jquery-1.10.2.min.js"|filemtime}@].js"></script>
+<script type="text/javascript" src="[@{$images_path}@]jquery-ui-1.10.3.custom.min.[@{"`$absolute_images_path`jquery-ui-1.10.3.custom.min.js"|filemtime}@].js"></script>
+<script type="text/javascript" src="[@{$images_path}@]jquery.scrollUp.min.[@{"`$absolute_images_path`jquery.scrollUp.min.js"|filemtime}@].js"></script>
+<script type="text/javascript" src="[@{$images_path}@]quick_search_suggest.[@{"`$absolute_images_path`quick_search_suggest.js"|filemtime}@].js"></script>
+<script type="text/javascript" src="[@{$images_path}@]jquery.colorbox-min.[@{"`$absolute_images_path`jquery.colorbox-min.js"|filemtime}@].js"></script>
+<script type="text/javascript" src="[@{$languages_path}@]jquery.colorbox-language.[@{"`$absolute_images_path``$smarty.session.language`/jquery.colorbox-language.js"|filemtime}@].js"></script>
+<script type="text/javascript" src="[@{$images_path}@]bootstrap.min.[@{"`$absolute_images_path`bootstrap.min.js"|filemtime}@].js"></script>
+<script type="text/javascript" src="[@{$images_path}@]jquery.doubletaptogo.min.[@{"`$absolute_images_path`jquery.doubletaptogo.min.js"|filemtime}@].js"></script>
+<script type="text/javascript" src="[@{$images_path}@]general.[@{"`$absolute_images_path`general.js"|filemtime}@].js"></script>
 [@{*<script type="text/javascript" src="[@{$link_to_dynamic_js}@]"></script>*}@]
 <!--[if lt IE 9]>
-<link rel="stylesheet" type="text/css" href="[@{$images_path}@]nav_ie8.css" />
-<script type="text/javascript" src="[@{$images_path}@]respond.min.js"></script> 
+<link rel="stylesheet" type="text/css" href="[@{$images_path}@]nav_ie8.[@{"`$absolute_images_path`nav_ie8.css"|filemtime}@].css" />
+<script type="text/javascript" src="[@{$images_path}@]respond.min.[@{"`$absolute_images_path`respond.min.js"|filemtime}@].js"></script> 
 <![endif]-->
 
 <style>

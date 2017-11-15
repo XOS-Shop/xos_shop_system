@@ -50,9 +50,9 @@
 <base href="[@{$base_href}@]" />
 [@{/if}@]
 <link rel="shortcut icon" type="image/x-icon" href="[@{$images_path}@]favicon.ico" />
-<link rel="stylesheet" type="text/css" href="[@{$images_path}@]bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="[@{$images_path}@]nav.css" />
-<link rel="stylesheet" type="text/css" href="[@{$images_path}@]stylesheet.css" />
+<link rel="stylesheet" type="text/css" href="[@{$images_path}@]bootstrap.min.[@{"`$absolute_images_path`bootstrap.min.css"|filemtime}@].css" />
+<link rel="stylesheet" type="text/css" href="[@{$images_path}@]nav.[@{"`$absolute_images_path`nav.css"|filemtime}@].css" />
+<link rel="stylesheet" type="text/css" href="[@{$images_path}@]stylesheet.[@{"`$absolute_images_path`stylesheet.css"|filemtime}@].css" />
 [@{*<link rel="stylesheet" type="text/css" href="[@{$link_to_dynamic_css}@]" />*}@]
 </head>
 <body>
