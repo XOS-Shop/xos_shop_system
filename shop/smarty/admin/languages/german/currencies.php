@@ -47,9 +47,9 @@ define('TEXT_INFO_HEADING_NEW_CURRENCY', 'neue Währung');
 define('TEXT_INFO_HEADING_EDIT_CURRENCY', 'Währung bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_CURRENCY', 'Währung löschen');
 define('TEXT_INFO_SET_AS_DEFAULT', TEXT_SET_DEFAULT . ' (manuelles Aktualisieren der Wechselkurse erforderlich.)');
-define('TEXT_INFO_CURRENCY_UPDATED', 'The exchange rate for %s (%s) was updated successfully via %s.');
+define('TEXT_INFO_CURRENCY_UPDATED', 'Der Wechselkurs für %s (%s) wurde erfolgreich über %s aktualisiert.');
 
 define('ERROR_REMOVE_DEFAULT_CURRENCY', 'Fehler: Die Standardwährung darf nicht gelöscht werden. Bitte definieren Sie eine neue Standardwährung und wiederholen Sie den Vorgang.');
-define('ERROR_CURRENCY_INVALID', 'Error: The exchange rate for %s (%s) was not updated via %s. Is it a valid currency code?');
-define('WARNING_PRIMARY_SERVER_FAILED', 'Warning: The primary exchange rate server (%s) failed for %s (%s) - trying the secondary exchange rate server.');
+define('ERROR_CURRENCY_INVALID', 'Fehler: Der Wechselkurs für %s (%s) wurde nicht über %s aktualisiert. Ist dies es ein gültiger Währungscode?');
+define('WARNING_PRIMARY_SERVER_FAILED', 'Warnung: Der primäre Wechselkurs-Server (%s) konnte den Wechselkurs für %s (%s) nicht ermitteln oder ist nicht verfügbar  - versuche den sekundären Wechselkurs-Server.');
 ?>

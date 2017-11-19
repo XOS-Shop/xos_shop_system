@@ -5,7 +5,7 @@
 //                                                                     
 // filename   : localization.php
 // author     : Hanspeter Zeller <hpz@xos-shop.com>
-// copyright  : Copyright (c) 2007 Hanspeter Zeller
+// copyright  : Copyright (c) 2017 Hanspeter Zeller
 // license    : This file is part of XOS-Shop.
 //
 //              XOS-Shop is free software: you can redistribute it and/or modify
@@ -30,26 +30,25 @@
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
 
-  function quote_oanda_currency($code, $base = DEFAULT_CURRENCY) {
-    $page = file('http://www.oanda.com/convert/fxdaily?value=1&redirected=1&exch=' . $code .  '&format=CSV&dest=Get+Table&sel_list=' . $base);
-
-    $match = array();
-
-    preg_match('/(.+),(\w{3}),([0-9.]+),([0-9.]+)/i', implode('', $page), $match);
-
-    if (sizeof($match) > 0) {
-      return $match[3];
+  function quote_fixer_currency($to, $from = DEFAULT_CURRENCY) {
+    $url = 'https://api.fixer.io/latest?base=' . $from . '&symbols=' . $to;
+    $currency = get_external_content($url, 3, false);
+    $currency = json_decode($currency, true);
+   
+    if ($from === $to) $currency['rates'][$to] = 1;
+   
+    if (isset($currency['rates'][$to])) {
+      return $currency['rates'][$to];
     } else {
       return false;
     }
   }
 
   function quote_xe_currency($to, $from = DEFAULT_CURRENCY) {
-    $page = file('http://www.xe.com/ucc/convert.cgi?Amount=1&From=' . $from . '&To=' . $to);
+    $url = 'http://www.xe.com/currencyconverter/convert/?Amount=1&From=' . $from . '&To=' . $to;
+    $page = get_external_content($url, 3, false);
 
-    $match = array();
-
-    preg_match('/[0-9.]+\s*' . $from . '\s*=\s*([0-9.]+)\s*' . $to . '/', implode('', $page), $match);
+    preg_match('/[0-9.]+\s*' . $from . '\s*=\s*([0-9.]+)\s*' . $to . '/', $page, $match);  
 
     if (sizeof($match) > 0) {
       return $match[1];
@@ -57,4 +56,67 @@
       return false;
     }
   }
-?>
+  
+  function get_external_content($url, $timeout='3', $rss=true) {
+    $data = '';
+
+    if (function_exists('curl_version') && is_array(curl_version())) {
+      $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+            curl_setopt($ch, CURLOPT_HEADER, FALSE);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+      $data = curl_exec($ch);
+              curl_close($ch);
+
+      if ($data && !check_valid_xml($data, $rss))
+        $data='';
+    }
+    if ($data=='' && function_exists('file_get_contents')) {
+      $opts = array('http' => array('method'=>"GET", 'header'=>"Content-Type: text/html; charset=UTF-8", 'timeout' => $timeout));
+      $context = stream_context_create($opts); 
+      $data = @file_get_contents($url, false, $context);
+
+      if ($data && !check_valid_xml($data, $rss))
+        $data='';
+    }
+    if ($data=='' && function_exists('fopen')) {
+      ini_set('default_socket_timeout', $timeout);  
+      $fp = @fopen($url, 'r');
+      if (is_resource($fp)) {
+        $data = @stream_get_contents($fp);
+        fclose($fp);
+      }
+
+      if ($data && !check_valid_xml($data, $rss))
+        $data='';
+    }
+        
+    return $data;
+  }
+  
+  function check_valid_xml($data, $rss) {
+    $valid = true;
+    
+    if (!$rss)
+      return $valid;
+      
+    libxml_use_internal_errors(true);
+    libxml_clear_errors();
+    
+    if (class_exists('SimpleXmlElement')) {
+      $xml = simplexml_load_string($data);
+      if (sizeof(libxml_get_errors()) > 0) {
+        $valid = false;
+      }
+    } else {
+      $xml = new DOMDocument;
+      $xml->load($data);
+      if (sizeof(libxml_get_errors()) > 0) {      
+        $valid = false;
+      }
+    }
+    libxml_clear_errors();
+    
+    return $valid;
+  }

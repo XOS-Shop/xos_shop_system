@@ -124,7 +124,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
             $server_used = CURRENCY_SERVER_BACKUP;
           }
 
-          if (xos_not_null($rate)) {
+          if (!empty($rate) && is_numeric($rate)) {
             xos_db_query("update " . TABLE_CURRENCIES . " set value = '" . $rate . "', last_updated = now() where currencies_id = '" . (int)$currency['currencies_id'] . "'");
 
             $messageStack->add_session('header', sprintf(TEXT_INFO_CURRENCY_UPDATED, $currency['title'], $currency['code'], $server_used), 'success');
