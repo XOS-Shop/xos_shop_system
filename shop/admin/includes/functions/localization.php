@@ -30,15 +30,15 @@
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
 
-  function quote_fixer_currency($to, $from = DEFAULT_CURRENCY) {
-    $url = 'https://api.fixer.io/latest?base=' . $from . '&symbols=' . $to;
+  function quote_fixer_currency($code, $base = DEFAULT_CURRENCY) {
+    $url = 'https://api.fixer.io/latest?base=' . $base . '&symbols=' . $code;
     $currency = get_external_content($url, 3, false);
     $currency = json_decode($currency, true);
    
-    if ($from === $to) $currency['rates'][$to] = 1;
+    if ($base == $code) $currency['rates'][$code] = 1;
    
-    if (isset($currency['rates'][$to])) {
-      return $currency['rates'][$to];
+    if (isset($currency['rates'][$code])) {
+      return $currency['rates'][$code];
     } else {
       return false;
     }
