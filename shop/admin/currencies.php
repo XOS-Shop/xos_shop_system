@@ -108,8 +108,6 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         xos_redirect(xos_href_link(FILENAME_CURRENCIES, 'page=' . $_GET['page']));
         break;
       case 'update':
-        $server_used = CURRENCY_SERVER_PRIMARY;
-
         $currency_query = xos_db_query("select currencies_id, code, title from " . TABLE_CURRENCIES . " where language_id = '" . (int)$_SESSION['used_lng_id'] . "'");
         while ($currency = xos_db_fetch_array($currency_query)) {
           $quote_function = 'quote_' . CURRENCY_SERVER_PRIMARY . '_currency';
@@ -122,6 +120,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
             $rate = $quote_function($currency['code']);
 
             $server_used = CURRENCY_SERVER_BACKUP;
+          } else {
+            $server_used = CURRENCY_SERVER_PRIMARY;
           }
 
           if (!empty($rate) && is_numeric($rate)) {
