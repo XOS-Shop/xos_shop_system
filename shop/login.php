@@ -63,8 +63,29 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
     $DB->perform($check_customer_query, array(':email_address' => $email_address));
 
-    if (!$check_customer_query->rowCount()) {
-      $error = true;
+    if (!$check_customer_query->rowCount()) {   
+      // Check if admin email exists
+      $check_admin_query = $DB->prepare
+      (
+       "SELECT admin_id,
+               admin_password
+          FROM " . TABLE_ADMIN . "
+         WHERE admin_email_address = :email_address"
+      );
+
+      $DB->perform($check_admin_query, array(':email_address' => $email_address));
+
+      if (!$check_admin_query->rowCount()) {    
+        $error = true;           
+      } else {
+        $check_admin = $check_admin_query->fetch();
+        // Check that admin password is good
+        if (!xos_validate_password($password, $check_admin['admin_password'])) {
+          $error = true;
+        } else {                
+          xos_redirect(xos_href_link((ADMIN_DIR_NAME != 'default_dir_name' ? ADMIN_DIR_NAME : 'admin') . '/login.php', 'email_address=' . $email_address, 'SSL', false, false, false, false, false));                   
+        }
+      } 
     } else {
       $check_customer = $check_customer_query->fetch();
 // Check that password is good

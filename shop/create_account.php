@@ -142,7 +142,19 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       $DB->perform($check_email_query, array(':email_address' => $email_address));
                                             
       $check_email = $check_email_query->fetch();
-      if ($check_email['total'] > 0) {
+      
+      $check_admin_email_query = $DB->prepare
+      (
+       "SELECT Count(*) AS total
+        FROM   " . TABLE_ADMIN . "
+        WHERE  admin_email_address = :email_address"
+      );
+      
+      $DB->perform($check_admin_email_query, array(':email_address' => $email_address));
+                                            
+      $check_admin_email = $check_admin_email_query->fetch();      
+      
+      if ($check_email['total'] > 0 || $check_admin_email['total'] > 0) {
         $error = true;
 
         $smarty->assign('email_address_error_exists', true);

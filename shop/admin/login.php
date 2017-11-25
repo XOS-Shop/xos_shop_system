@@ -34,6 +34,8 @@ define('SECURITY_CHECK', true);
 
 require('includes/application_top.php');
 if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILENAME_LOGIN) == 'overwrite_all')) :
+  $email_address = !empty($_GET['email_address']) ? xos_db_prepare_input($_GET['email_address']) : '';
+
   if (isset($_GET['action']) && ($_GET['action'] == 'process') && ((SESSION_FORCE_COOKIE_USE == 'true' && isset($_COOKIE[session_name()])) || SESSION_FORCE_COOKIE_USE == 'false')) {
     $email_address = xos_db_prepare_input($_POST['email_address']);
     $password = xos_db_prepare_input($_POST['password']);

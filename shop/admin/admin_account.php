@@ -62,10 +62,21 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         while ($check_email = xos_db_fetch_array($check_email_query)) {
           $stored_email[] = $check_email['admin_email_address'];
         }
+
+        $check_customers_email_query = $DB->prepare
+        (
+         "SELECT Count(*) AS total
+          FROM   " . TABLE_CUSTOMERS . "
+          WHERE  customers_email_address = :email_address"
+        );
+        
+        $DB->perform($check_customers_email_query, array(':email_address' => $admin_email_address));
+                                              
+        $check_customers_email = $check_customers_email_query->fetch();
         
         if (xos_validate_email($admin_email_address) == false) {
            xos_redirect(xos_href_link(FILENAME_ADMIN_ACCOUNT, 'action=edit_process&error=email_not_valid'));
-        } elseif (in_array($admin_email_address, $stored_email)) {
+        } elseif (in_array($admin_email_address, $stored_email) || $check_customers_email['total'] > 0) {
           xos_redirect(xos_href_link(FILENAME_ADMIN_ACCOUNT, 'action=edit_process&error=email_used'));
         } else {         
           $my_old_account_query = xos_db_query ("select admin_id, admin_firstname, admin_lastname, admin_email_address from " . TABLE_ADMIN . " where admin_id= " . $_SESSION['login_id'] . "");

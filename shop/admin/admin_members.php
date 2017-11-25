@@ -44,10 +44,21 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         while ($check_email = xos_db_fetch_array($check_email_query)) {
           $stored_email[] = $check_email['admin_email_address'];
         }
+
+        $check_customers_email_query = $DB->prepare
+        (
+         "SELECT Count(*) AS total
+          FROM   " . TABLE_CUSTOMERS . "
+          WHERE  customers_email_address = :email_address"
+        );
+        
+        $DB->perform($check_customers_email_query, array(':email_address' => $admin_email_address));
+                                              
+        $check_customers_email = $check_customers_email_query->fetch();
         
         if (xos_validate_email($admin_email_address) == false) {
           xos_redirect(xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&error=email_not_valid&action=new_member'));          
-        } elseif (in_array($admin_email_address, $stored_email)) {
+        } elseif (in_array($admin_email_address, $stored_email) || $check_customers_email['total'] > 0) {
           xos_redirect(xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&error=email_used&action=new_member'));
         } else {
          
@@ -75,7 +86,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
           xos_redirect(xos_href_link(FILENAME_ADMIN_MEMBERS));
         }
         break;
-      case 'member_edit':
+      case 'member_edit': 
         $admin_id = xos_db_prepare_input($_POST['admin_id']);
         $admin_email_address = xos_db_prepare_input($_POST['admin_email_address']);        
         $hiddenPassword = TEXT_INFO_PASSWORD_HIDDEN;
@@ -86,9 +97,20 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
           $stored_email[] = $check_email['admin_email_address'];
         }
 
+        $check_customers_email_query = $DB->prepare
+        (
+         "SELECT Count(*) AS total
+          FROM   " . TABLE_CUSTOMERS . "
+          WHERE  customers_email_address = :email_address"
+        );
+        
+        $DB->perform($check_customers_email_query, array(':email_address' => $admin_email_address));
+                                              
+        $check_customers_email = $check_customers_email_query->fetch();
+
         if (xos_validate_email($admin_email_address) == false) {
           xos_redirect(xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&mID=' . $_GET['mID'] . '&error=email_not_valid&action=edit_member'));        
-        } elseif (in_array($admin_email_address, $stored_email)) {
+        } elseif (in_array($admin_email_address, $stored_email) || $check_customers_email['total'] > 0) {
           xos_redirect(xos_href_link(FILENAME_ADMIN_MEMBERS, 'page=' . $_GET['page'] . '&mID=' . $_GET['mID'] . '&error=email_used&action=edit_member'));
         } else {
           $sql_data_array = array('admin_groups_id' => xos_db_prepare_input($_POST['admin_groups_id']),

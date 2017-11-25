@@ -112,8 +112,20 @@
       
       $DB->perform($check_email_query, array(':email_address' => $email_address));
                                             
-      $check_email = $check_email_query->fetch();
-      if ($check_email['total'] > 0) {
+      $check_email = $check_email_query->fetch(); 
+      
+      $check_admin_email_query = $DB->prepare
+      (
+       "SELECT Count(*) AS total
+        FROM   " . TABLE_ADMIN . "
+        WHERE  admin_email_address = :email_address"
+      );
+      
+      $DB->perform($check_admin_email_query, array(':email_address' => $email_address));
+                                            
+      $check_admin_email = $check_admin_email_query->fetch();      
+                        
+      if ($check_email['total'] > 0 || $check_admin_email['total'] > 0) { 
         $error = true;
 
         $messageStack->add('create_account', ENTRY_EMAIL_ADDRESS_ERROR_EXISTS);
