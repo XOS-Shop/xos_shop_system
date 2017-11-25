@@ -122,7 +122,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     if ($check_email['total'] > 0 || $check_admin_email['total'] > 0) {
       $error = true;
 
-      $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_ERROR_EXISTS);
+      $messageStack->add('account_edit', ENTRY_EMAIL_ADDRESS_ERROR_EXISTS_CHOOSE_DIFFERENT_ADDRESS);
     }
 
     if (strlen($telephone) < ENTRY_TELEPHONE_MIN_LENGTH) {

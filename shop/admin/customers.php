@@ -169,7 +169,19 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       }
 
       $check_email = xos_db_query("select customers_email_address from " . TABLE_CUSTOMERS . " where customers_email_address = '" . xos_db_input($customers_email_address) . "' and customers_id != '" . (int)$customers_id . "'");
-      if (xos_db_num_rows($check_email)) {
+
+      $check_admin_email_query = $DB->prepare
+      (
+       "SELECT Count(*) AS total
+        FROM   " . TABLE_ADMIN . "
+        WHERE  admin_email_address = :email_address"
+      );
+      
+      $DB->perform($check_admin_email_query, array(':email_address' => $customers_email_address));
+                                            
+      $check_admin_email = $check_admin_email_query->fetch();      
+      
+      if (xos_db_num_rows($check_email) || $check_admin_email['total'] > 0) {
         $error = true;
         $entry_email_address_exists = true;
       } else {
