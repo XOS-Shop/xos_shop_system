@@ -30,7 +30,24 @@
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
 
-  function quote_fixer_currency($code, $base = DEFAULT_CURRENCY) {
+  function quote_ecb_currency($code, $base = DEFAULT_CURRENCY) {  
+    $url = 'https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml';
+    $page = get_external_content($url, 3, false);    
+    $XML = simplexml_load_string($page);
+        
+    $cur = array();         
+    foreach($XML->Cube->Cube->Cube as $rate){ 
+      $cur[(string)$rate["currency"]] = (float)$rate["rate"]; 
+    }
+    
+    $cur["EUR"] = 1;
+    
+    if (!empty($cur[$code]) && !empty($cur[$base])) {    
+      return $cur[$code] / $cur[$base];
+    } else {
+      return false;
+    }          
+/*       
     $url = 'https://api.fixer.io/latest?base=' . $base . '&symbols=' . $code;
     $currency = get_external_content($url, 3, false);
     $currency = json_decode($currency, true);
@@ -42,6 +59,7 @@
     } else {
       return false;
     }
+*/    
   }
 
   function quote_xe_currency($to, $from = DEFAULT_CURRENCY) {
