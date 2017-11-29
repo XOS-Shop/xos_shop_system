@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : darkly-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0.6
+* version    : 1.0.7 for XOS-Shop version 1.0.7
 * descrip    : xos-shop template built with Bootstrap3 and theme darkly                                                                    
 * filename   : account_newsletters.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
