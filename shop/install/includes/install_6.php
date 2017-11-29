@@ -121,9 +121,9 @@
   } else {
     
     if($_POST['RENAME_ADMIN_DIR'] == 'true') {    
-      $possible_char="123456789"; 
+      $possible_char="1234567890"; 
       $rand_str = ''; 
-      while(strlen($rand_str)<4) { 
+      while(strlen($rand_str)<8) { 
         $rand_str .= substr($possible_char,(rand()%(strlen($possible_char))),1); 
       }    
       
