@@ -1,6 +1,13 @@
 
 ##ChangeLog
 
+# XOS-Shop v1.0.7 (Release 12/02/2017)
+
+- feature: Im Template 'cosmo-responsive' Zeitstempel in '.css' und '.js' Dateien eingefügt
+- feature: Registrierungsformular überarbeitet jetzt neu mit Vorvalidierung
+- feature: Backendanmeldung jetzt auch über das Frontend möglich
+- update:  Währungsaktualisierung in 'localization.php' überarbeitet
+
 # XOS-Shop v1.0.6 (Release 09/16/2017)
 
 - feature: Neue Variante SEO-freundlicher URLs hinzugefügt
