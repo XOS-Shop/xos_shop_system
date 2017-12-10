@@ -69,13 +69,16 @@
   
 //  
   header('Content-Type: text/html; charset=utf-8');
-  if (isset($_SERVER['HTTP_USER_AGENT']) && (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false)) header('X-UA-Compatible: IE=edge,chrome=1');  
- 
-// Set the local configuration parameters - mainly for developers
-  if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
+  if (isset($_SERVER['HTTP_USER_AGENT']) && (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false)) header('X-UA-Compatible: IE=edge,chrome=1');
 
 // include server parameters
   require('includes/configure.php');  
+
+  if (!defined('DB_SERVER') || strlen(DB_SERVER) < 1) { 
+    if (is_dir('install')) {
+      header('Location: install/index.php');
+    }
+  }
 
 // include the registry class
   require(DIR_WS_CLASSES . 'registry.php'); 
@@ -83,12 +86,6 @@
 // Use Crawler Detect - a web crawler detection library | https://github.com/JayBizzle/Crawler-Detect
   require(DIR_WS_CLASSES . 'crawler_detect/CrawlerDetect.php'); 
   $CrawlerDetect = new CrawlerDetect;  
-   
-  if (strlen(DB_SERVER) < 1) {
-    if (is_dir('install')) {
-      header('Location: install/index.php');
-    }
-  }
 
 // define the project version
   define('PROJECT_VERSION', 'XOS-Shop version 1.0.7');
