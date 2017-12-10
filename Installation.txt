@@ -6,7 +6,7 @@ Web-Server:                Apache 2.2, Apache 2.4 oder Nginx 1.13.4 (Apache empf
 Skriptsprache:             PHP ab Version 5.6 mit (GDLib2 und GIF Create Support)
 Datenbank-System:          MySQL ab Version 5.0.27
 
---------------------------------------------------------------------------------
+################################################################################
 
 INSTALLATIONSVORBEREITUNGEN
 
@@ -16,14 +16,14 @@ Auch leere Verzeichnisse müssen übertragen werden.
 danch Rechte setzen:
 /shop/includes/configure.php = chmod 777
 
---------------------------------------------------------------------------------
+################################################################################
 
 WEBBASIERTE INSTALLATION
 
 Rufen Sie die URL: http://your-domain.tld/shop/install/index.php in einem Webbrowser auf. Es öffnet sich die web-
 basierte Installationsoberfläche von XOS-Shop. Folgen Sie nun den Anweisungen am Bildschirm.
 
---------------------------------------------------------------------------------
+################################################################################
 
 NACH INSTALLATION
 
@@ -32,15 +32,31 @@ Verzeichnis /shop/install löschen.
 danach Rechte setzen:
 /shop/includes/configure.php = chmod 444
 
---------------------------------------------------------------------------------
+################################################################################
 
 SICH ALS ADMINISTRATOR ANMELDEN
+
+--------------------------------------------------------------------------------
+Methode 1)
+
+Klicken Sie im letzten Schritt der webbasierte Installationsoberfläche von XOS-Shop auf den Button [Administration]
+
+Tragen Sie für ihre Erstanmeldung in die Eingabefelder folgendes ein.
+
+Beim Briefumschlagsymbol: admin@localhost
+Beim Schlosssymbol:       admin
+
+--------------------------------------------------------------------------------
+Methode 2)
+
+Diese Methode ist nur anwendbar, wenn während der Shopinstallation der Import der Katalog-Datenbank mit Beispieldaten erfolgte.
 
 Rufen Sie die URL: http://your-domain.tld/shop/ in einem Webbrowser auf.
 
 Klicken Sie in der Menüleiste oben auf Anmelden.
 
 Tragen Sie für ihre Erstanmeldung in die Eingabefelder folgendes ein.
+
 E-Mail Adresse: admin@localhost
 Passwort:       admin
 
@@ -48,9 +64,22 @@ Sie werden danach zum XOS-Shop Admin umgeleitet und es erscheint ein Anmelde-Pan
 umschlagsymbol, ist bereits mit der E-Mail-Adresse ausgefüllt, in das untere Feld, mit dem Schloss-
 symbol, müssen Sie erneut das Kennwort "admin" eingeben.
 
-Wichtig:
-Ändern Sie nach erfolgter Erstanmeldung die Zugangsdaten zur Shopadministration (E-Mail-Adresse und Passwort/Kennwort) sofort.
+--------------------------------------------------------------------------------
+Methode 3)
+
+Wichtiger Hinweis, das Verzeichnis "admin" wurde während der Installation eventuell mit einem achtstelligen Zahlencode erweitert.
+
+Rufen Sie die URL: http://www.your-domain.tld/shop/admin auf.
+
+Tragen Sie für ihre Erstanmeldung in die Eingabefelder folgendes ein.
+
+Beim Briefumschlagsymbol: admin@localhost
+Beim Schlosssymbol:       admin
 
 --------------------------------------------------------------------------------
 
+Wichtig:
+Ändern Sie nach erfolgter Erstanmeldung die Zugangsdaten zur Shopadministration (E-Mail-Adresse und Passwort/Kennwort) sofort.
+
+################################################################################
 ENDE
