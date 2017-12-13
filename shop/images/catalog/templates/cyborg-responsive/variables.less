@@ -1,4 +1,4 @@
-// Cyborg 3.3.4
+// Cyborg 3.3.7
 // Variables
 // --------------------------------------------------
 
@@ -52,12 +52,12 @@
 @font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
 @font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
 
-@font-size-h1:            36px;
-@font-size-h2:            30px;
-@font-size-h3:            24px;
-@font-size-h4:            18px;
-@font-size-h5:            14px;
-@font-size-h6:            12px;
+@font-size-h1:            56px;
+@font-size-h2:            45px;
+@font-size-h3:            34px;
+@font-size-h4:            24px;
+@font-size-h5:            20px;
+@font-size-h6:            16px;
 
 //** Unit-less `line-height` for use in components like buttons.
 @line-height-base:        1.428571429; // 20/14
@@ -76,8 +76,7 @@
 //## Specify custom location and filename of the included Glyphicons icon font. Useful for those including Bootstrap via Bower.
 
 //** Load fonts from this directory.
-/* @icon-font-path:          "../fonts/"; */
-@icon-font-path:          "fonts/";
+@icon-font-path:          "../fonts/";
 //** File name for all font files.
 @icon-font-name:          "glyphicons-halflings-regular";
 //** Element ID within SVG icon file.
@@ -112,7 +111,7 @@
 //** Global background color for active items (e.g., navs or dropdowns).
 @component-active-bg:       @brand-primary;
 
-//** Width of the `border` for generating carets that indicator dropdowns.
+//** Width of the `border` for generating carets that indicate dropdowns.
 @caret-width-base:          4px;
 //** Carets increase slightly in size for larger components.
 @caret-width-large:         5px;
@@ -171,6 +170,11 @@
 
 @btn-link-disabled-color:        @gray-light;
 
+// Allows for customizing button radius independently from global border radius
+@btn-border-radius-base:         @border-radius-base;
+@btn-border-radius-large:        @border-radius-large;
+@btn-border-radius-small:        @border-radius-small;
+
 
 //== Forms
 //
@@ -215,7 +219,7 @@
 @legend-border-color:            @gray-dark;
 
 //** Background color for textual input addons
-@input-group-addon-bg:           @gray-lighter;
+@input-group-addon-bg:           @btn-default-bg;
 //** Border color for textual input addons
 @input-group-addon-border-color: @input-border;
 
@@ -384,7 +388,7 @@
 @navbar-default-toggle-border-color:       @gray-dark;
 
 
-// Inverted navbar
+//=== Inverted navbar
 // Reset inverted navbar basics
 @navbar-inverse-color:                      @gray-light;
 @navbar-inverse-bg:                         @gray-darker;
@@ -485,6 +489,7 @@
 @jumbotron-bg:                   darken(@gray-darker, 5%);
 @jumbotron-heading-color:        inherit;
 @jumbotron-font-size:            ceil((@font-size-base * 1.5));
+@jumbotron-heading-font-size:    ceil((@font-size-base * 4.5));
 
 
 //== Form states and alerts
@@ -517,7 +522,7 @@
 //** Tooltip text color
 @tooltip-color:               #fff;
 //** Tooltip background color
-@tooltip-bg:                  #000;
+@tooltip-bg:                  lighten(@body-bg, 15%);
 @tooltip-opacity:             .9;
 
 //** Tooltip arrow width
@@ -531,13 +536,13 @@
 //##
 
 //** Popover body background color
-@popover-bg:                          lighten(@body-bg, 10%);
+@popover-bg:                          @tooltip-bg;
 //** Popover maximum width
 @popover-max-width:                   276px;
 //** Popover border color
 @popover-border-color:                rgba(0,0,0,.2);
 //** Popover fallback border color
-@popover-fallback-border-color:       #999;
+@popover-fallback-border-color:       @popover-bg;
 
 //** Popover title background color
 @popover-title-bg:                    darken(@popover-bg, 3%);
@@ -550,9 +555,9 @@
 //** Popover outer arrow width
 @popover-arrow-outer-width:           (@popover-arrow-width + 1);
 //** Popover outer arrow color
-@popover-arrow-outer-color:           fadein(@popover-border-color, 5%);
+@popover-arrow-outer-color:           @popover-border-color;
 //** Popover outer arrow fallback color
-@popover-arrow-outer-fallback-color:  darken(@popover-fallback-border-color, 20%);
+@popover-arrow-outer-fallback-color:  @popover-fallback-border-color;
 
 
 //== Labels
@@ -858,5 +863,7 @@
 @page-header-border-color:    @gray-dark;
 //** Width of horizontal description list titles
 @dl-horizontal-offset:        @component-offset-horizontal;
+//** Point at which .dl-horizontal becomes horizontal
+@dl-horizontal-breakpoint:    @grid-float-breakpoint;
 //** Horizontal line color.
 @hr-border:                   @gray-dark;

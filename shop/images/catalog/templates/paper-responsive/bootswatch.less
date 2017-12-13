@@ -1,8 +1,41 @@
-// Paper 3.3.4
+// Paper 3.3.7
 // Bootswatch
 // -----------------------------------------------------
 
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
+@web-font-path: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700";
+
+.web-font(@path) {
+  @import url("@{path}");
+}
+.web-font(@web-font-path);
+
+// Effects =================================================================
+
+.ripple(@color) {
+  position: relative;
+
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    #gradient > .radial(@color 10%, transparent 10.01%);
+    background-size: 1000% 1000%;
+    background-position: 50%;
+    opacity: 0;
+    pointer-events: none;
+    transition: background .5s, opacity 1s;
+  }
+
+  &:active:after {
+    background-size: 0% 0%;
+    opacity: .2;
+    transition: 0s;
+  }
+}
 
 // Navbar =====================================================================
 
@@ -15,12 +48,13 @@
   }
 
   &-inverse {
-    .form-control {
-      color: #fff;
-      .placeholder(@navbar-inverse-link-color);
+    .navbar-form {
 
-      &[type=text] {
+      input[type=text],
+      input[type=password] {
+        color: #fff;
         .box-shadow(inset 0 -1px 0 @navbar-inverse-link-color);
+        .placeholder(@navbar-inverse-link-color);
 
         &:focus {
           .box-shadow(inset 0 -2px 0 #fff);
@@ -28,60 +62,79 @@
       }
     }
   }
-
-  &-nav > li > .dropdown-menu {
-    margin-top: 2px;
-  }
 }
 
 // Buttons ====================================================================
 
-#btn(@class,@bg) {
+#btn(@class,@bg,@color) {
   .btn-@{class} {
-    background-size: 200%;
-    background-position: 50%;
+    &:focus {
+      background-color: @bg;
+    }
 
     &:hover,
-    &:active:hover,
-    &:focus {
+    &:active:hover {
       background-color: darken(@bg, 6%);
     }
 
     &:active {
-      background-color: darken(@bg, 6%);
-      #gradient > .radial(darken(@bg, 6%) 10%, @bg 11%);
-      background-size: 1000%;
-      .box-shadow(2px 2px 2px rgba(0,0,0,.3));
+      .box-shadow(2px 2px 4px rgba(0,0,0,.4));
     }
+
+    .ripple(@color);
   }
 }
 
-#btn(default,@btn-default-bg);
-#btn(primary,@btn-primary-bg);
-#btn(success,@btn-success-bg);
-#btn(info,@btn-info-bg);
-#btn(warning,@btn-warning-bg);
-#btn(danger,@btn-danger-bg);
+#btn(default,@btn-default-bg,@btn-default-color);
+#btn(primary,@btn-primary-bg,@btn-primary-color);
+#btn(success,@btn-success-bg,@btn-success-color);
+#btn(info,@btn-info-bg,@btn-info-color);
+#btn(warning,@btn-warning-bg,@btn-warning-color);
+#btn(danger,@btn-danger-bg,@btn-danger-color);
+#btn(link,#fff,@btn-default-color);
 
 .btn {
   text-transform: uppercase;
-  border-right: none;
-  border-bottom: none;
-  .box-shadow(1px 1px 2px rgba(0,0,0,.3));
-  .transition(all 0.2s);
+  border: none;
+  .box-shadow(1px 1px 4px rgba(0,0,0,.4));
+  .transition(all 0.4s);
 
   &-link {
+    border-radius: @btn-border-radius-base;
     .box-shadow(none);
+    color: @btn-default-color;
 
     &:hover,
     &:focus {
-      color: @brand-primary;
+      .box-shadow(none);
+      color: @btn-default-color;
       text-decoration: none;
+    }
+
+    .disabled, // Although btn-link is intended for buttons, which want to look like link, I include here a.disable for the sake of consistency
+    &[disabled],
+    fieldset[disabled] & {
+      &:hover,
+      &:active:hover {
+        background-color: #fff;
+        color: @btn-default-color;
+      }
     }
   }
 
-  &-default.disabled {
-    border: 1px solid @btn-default-border;
+  &-default {
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+      background-color: rgba(0, 0, 0, 0.1);
+      color: rgba(0, 0, 0, 0.4);
+      opacity: 1;
+
+      &:hover,
+      &:focus {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
   }
 }
 
@@ -108,7 +161,6 @@
 body {
   -webkit-font-smoothing: antialiased;
   letter-spacing: .1px;
-  text-rendering: optimizeLegibility;
 }
 
 p {
@@ -119,7 +171,6 @@ input,
 button {
   -webkit-font-smoothing: antialiased;
   letter-spacing: .1px;
-  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -127,6 +178,14 @@ a {
 }
 
 // Tables =====================================================================
+
+.table-hover {
+  > tbody > tr,
+  > tbody > tr > th,
+  > tbody > tr > td {
+    .transition(all 0.2s);
+  }
+}
 
 // Forms ======================================================================
 
@@ -233,11 +292,11 @@ input[type="radio"],
 .radio input[type="radio"],
 .radio-inline input[type="radio"] {
   position: relative;
-  margin-top: 5px;
+  margin-top: 6px;
   margin-right: 4px;
-  vertical-align: -4px;
+  vertical-align: top;
   border: none;
-  background-color: rgba(255, 255, 255, .01);
+  background-color: transparent;
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
@@ -252,7 +311,6 @@ input[type="radio"],
     display: block;
     width: 18px;
     height: 18px;
-    margin-top: -3px;
     border-radius: 50%;
     .transition(240ms);
   }
@@ -260,12 +318,14 @@ input[type="radio"],
   &:before {
     position: absolute;
     left: 0;
-    top: 0;
+    top: -3px;
     background-color: @brand-primary;
     .scale(0);
   }
 
   &:after {
+    position: relative;
+    top: -3px;
     border: 2px solid @gray;
   }
 
@@ -291,14 +351,18 @@ input[type="checkbox"],
 .checkbox input[type="checkbox"],
 .checkbox-inline input[type="checkbox"] {
   position: relative;
-  vertical-align: -4px;
   border: none;
+  margin-bottom: -4px;
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
 
   &:focus {
     outline: none;
+  }
+
+  &:focus:after {
+    border-color: @brand-primary;
   }
 
   &:after {
@@ -338,15 +402,19 @@ input[type="checkbox"],
 
   &:disabled:checked:after {
     background-color: @gray-light;
-    border-color: rgba(255, 255, 255, .01);
+    border-color: transparent;
   }
 }
 
 .has-warning {
   input:not([type=checkbox]),
   .form-control,
+  input.form-control[readonly],
+  input[type=text][readonly],
+  [type=text].form-control[readonly],
   input:not([type=checkbox]):focus,
   .form-control:focus {
+    border-bottom: none;
     .box-shadow(inset 0 -2px 0 @brand-warning);
   }
 }
@@ -354,8 +422,12 @@ input[type="checkbox"],
 .has-error {
   input:not([type=checkbox]),
   .form-control,
+  input.form-control[readonly],
+  input[type=text][readonly],
+  [type=text].form-control[readonly],
   input:not([type=checkbox]):focus,
   .form-control:focus {
+    border-bottom: none;
     .box-shadow(inset 0 -2px 0 @brand-danger);
   }
 }
@@ -363,9 +435,29 @@ input[type="checkbox"],
 .has-success {
   input:not([type=checkbox]),
   .form-control,
+  input.form-control[readonly],
+  input[type=text][readonly],
+  [type=text].form-control[readonly],
   input:not([type=checkbox]):focus,
   .form-control:focus {
+    border-bottom: none;
     .box-shadow(inset 0 -2px 0 @brand-success);
+  }
+}
+
+// Remove the Bootstrap feedback styles for input addons
+.input-group-addon {
+  .has-warning &, .has-error &, .has-success & {
+    color: @input-color;
+    border-color: @input-group-addon-border-color;
+    background-color: @input-group-addon-bg;
+  }
+}
+
+.form-group-lg {
+  select,
+  select.form-control {
+    line-height: 1.5;
   }
 }
 
@@ -375,14 +467,14 @@ input[type="checkbox"],
   > li > a,
   > li > a:focus {
     margin-right: 0;
-    background-color: rgba(255, 255, 255, .01);
+    background-color: transparent;
     border: none;
     color: @navbar-default-link-color;
     .box-shadow(inset 0 -1px 0 #ddd);
     .transition(all 0.2s);
 
     &:hover {
-      background-color: rgba(255, 255, 255, .01);
+      background-color: transparent;
       .box-shadow(inset 0 -2px 0 @brand-primary);
       color: @brand-primary;
     }
@@ -408,8 +500,10 @@ input[type="checkbox"],
 
     & > li > a,
     & > li > a:hover,
+    & > li > a:focus,
     & > .active > a,
-    & > .active > a:hover {
+    & > .active > a:hover,
+    & > .active > a:focus {
       border: none;
     }
   }
@@ -420,6 +514,7 @@ input[type="checkbox"],
 }
 
 .dropdown-menu {
+  margin-top: 0;
   border: none;
   .box-shadow(0 1px 4px rgba(0,0,0,.3));
 }
@@ -446,7 +541,7 @@ input[type="checkbox"],
     background-color: @brand-danger;
   }
 
-  a:not(.close),
+  a:not(.close):not(.btn),
   .alert-link {
     color: #fff;
     font-weight: bold;
@@ -458,7 +553,7 @@ input[type="checkbox"],
 }
 
 .badge {
-  padding: 3px 6px 5px;
+  padding: 4px 6px 4px;
 }
 
 .progress {
@@ -489,18 +584,18 @@ input[type="checkbox"],
         background-color: lighten(@progress-bar-bg, 35%);
       }
     }
-    
+
     &-success:last-child.progress-bar:before {
       background-color: lighten(@brand-success, 35%);
     }
-    
+
     &-info:last-child.progress-bar:before {
       background-color: lighten(@brand-info, 45%);
     }
     &-warning:last-child.progress-bar:before {
       background-color: lighten(@brand-warning, 35%);
     }
-    
+
     &-danger:last-child.progress-bar:before {
       background-color: lighten(@brand-danger, 25%);
     }
@@ -516,6 +611,7 @@ input[type="checkbox"],
   font-weight: 300;
   line-height: 24px;
   opacity: 0.6;
+  .transition(all 0.2s);
 
   &:hover {
     opacity: 1;
@@ -564,4 +660,3 @@ input[type="checkbox"],
     }
   }
 }
-
