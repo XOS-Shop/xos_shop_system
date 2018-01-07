@@ -29,14 +29,26 @@
 //
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
- 
+
+// start the timer for the page parse time log
+  define('PAGE_PARSE_START_TIME', microtime(true));
+  
+// Set the local configuration parameters - mainly for developers
+  if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
+
+// include server parameters
+  include('includes/configure.php'); 
+    
+// Set the level of error reporting
+  error_reporting(E_ALL & ~E_NOTICE);    
+  ini_set('display_errors', 0); 
+  ini_set('log_errors', 1);
+  ini_set('error_log', DIR_FS_LOGS . 'php_errors_' . date('Y-m-d') . '.log');
+  
 // set default timezone if none exists (PHP 5.3 throws an E_WARNING)
   if (strlen(ini_get('date.timezone')) < 1) {
     date_default_timezone_set(@date_default_timezone_get());
   }
-  
-// start the timer for the page parse time log
-  define('PAGE_PARSE_START_TIME', microtime(true));
 
 // define which tax description should be displayed
   define('FULL_TAX_INFO', 'false');
@@ -52,10 +64,6 @@
 
 //
   define('MUST_ACCEPT_CONDITIONS', 'true');  
-  
-// Set the level of error reporting
-  ini_set('display_errors', true);
-  error_reporting(E_ALL & ~E_NOTICE);
 
 //  
   if(!empty($_SERVER['SCRIPT_NAME']) && strpos($_SERVER['SCRIPT_NAME'], '.php') !== false) {
@@ -69,16 +77,7 @@
   
 //  
   header('Content-Type: text/html; charset=utf-8');
-  if (isset($_SERVER['HTTP_USER_AGENT']) && (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false)) header('X-UA-Compatible: IE=edge,chrome=1');
-
-// include server parameters
-  require('includes/configure.php');  
-
-  if (!defined('DB_SERVER') || strlen(DB_SERVER) < 1) { 
-    if (is_dir('install')) {
-      header('Location: install/index.php');
-    }
-  }
+  if (isset($_SERVER['HTTP_USER_AGENT']) && (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false)) header('X-UA-Compatible: IE=edge,chrome=1');  
 
 // include the registry class
   require(DIR_WS_CLASSES . 'registry.php'); 
@@ -86,6 +85,12 @@
 // Use Crawler Detect - a web crawler detection library | https://github.com/JayBizzle/Crawler-Detect
   require(DIR_WS_CLASSES . 'crawler_detect/CrawlerDetect.php'); 
   $CrawlerDetect = new CrawlerDetect;  
+   
+  if (strlen(DB_SERVER) < 1) {
+    if (is_dir('install')) {
+      header('Location: install/index.php');
+    }
+  }
 
 // define the project version
   define('PROJECT_VERSION', 'XOS-Shop version 1.0.7');

@@ -30,6 +30,21 @@
 //              Released under the GNU General Public License 
 ////////////////////////////////////////////////////////////////////////////////
 
+// Start the clock for the page parse time log
+  define('PAGE_PARSE_START_TIME', microtime(true));
+  
+// Set the local configuration parameters - mainly for developers
+  if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
+  
+// Include application configuration parameters
+  require('../includes/configure.php');
+    
+// Set the level of error reporting
+  error_reporting(E_ALL & ~E_NOTICE);    
+  ini_set('display_errors', 0);
+  ini_set('log_errors', 1);
+  ini_set('error_log', DIR_FS_LOGS . 'php_errors_admin_' . date('Y-m-d') . '.log');
+  
 // set default timezone if none exists (PHP 5.3 throws an E_WARNING)
   if (strlen(ini_get('date.timezone')) < 1) {
     date_default_timezone_set(@date_default_timezone_get());
@@ -38,15 +53,8 @@
 // Define the admin template
   define('ADMIN_TPL', 'admin_lte');
 
-// Start the clock for the page parse time log
-  define('PAGE_PARSE_START_TIME', microtime(true));
-
 // Set the length of the redeem code, the longer the more secure
   define('SECURITY_CODE_LENGTH', '8');
-
-// Set the level of error reporting
-  ini_set('display_errors', true);
-  error_reporting(E_ALL & ~E_NOTICE);
 
 //  
   if(!empty($_SERVER['SCRIPT_NAME']) && strpos($_SERVER['SCRIPT_NAME'], '.php') !== false) {
@@ -61,12 +69,6 @@
 //  
   header('Content-Type: text/html; charset=utf-8');
   header('X-UA-Compatible: IE=edge,chrome=1');
-
-// Set the local configuration parameters - mainly for developers
-  if (file_exists('includes/local/configure.php')) include('includes/local/configure.php');
-  
-// Include application configuration parameters
-  require('../includes/configure.php');
   
 // include the registry class
   require(DIR_WS_CLASSES . 'registry.php');     
