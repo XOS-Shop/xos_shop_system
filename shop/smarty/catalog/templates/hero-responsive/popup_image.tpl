@@ -30,20 +30,19 @@
 <head>
 <meta charset="[@{$html_header_charset}@]" />
 
-<!--[
+<!--
 
 
 *******************************************************************
       this online shop is powered by XOS-Shop
       XOS-Shop is a free open source e-commerce system
       created by Hanspeter Zeller and licensed under GNU/GPL.
-      XOS-Shop is copyright ©2012 of Hanspeter Zeller.
+      XOS-Shop is copyright ©2018 of Hanspeter Zeller.
 *******************************************************************
 
       	
 -->
 
-<!--[if]><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="XOS-Shop version 1.0.7, open source e-commerce system" />
 <title>[@{$html_header_page_title}@][@{$html_header_add_page_title}@]</title>
