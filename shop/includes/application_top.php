@@ -141,7 +141,7 @@
   define('STORE_PAGE_PARSE_TIME_LOG', STORE_PAGE_PARSE_TIME_LOG_PATH != '' ? STORE_PAGE_PARSE_TIME_LOG_PATH . 'page_parse_time_' . date('Y-m-d') .'.log' : DIR_FS_LOGS . 'page_parse_time_' . date('Y-m-d') .'.log');
   
 // require the smarty class and create an instance
-  require(DIR_FS_SMARTY . 'Smarty-3.1.30/Smarty.class.php');  
+  require(DIR_FS_SMARTY . 'Smarty-3.1.31/Smarty.class.php');  
   $smarty = new Smarty();
   $smarty->setTemplateDir(DIR_FS_SMARTY . 'catalog/templates/');
   $smarty->setCompileDir(DIR_FS_SMARTY . 'catalog/templates_c/');
