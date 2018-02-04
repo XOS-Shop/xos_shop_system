@@ -5,7 +5,7 @@
 //
 // filename   : configure.php
 // author     : Hanspeter Zeller <hpz@xos-shop.com>
-// copyright  : Copyright (c) 2014 Hanspeter Zeller
+// copyright  : Copyright (c) 2018 Hanspeter Zeller
 // license    : This file is part of XOS-Shop.
 //
 //              XOS-Shop is free software: you can redistribute it and/or modify

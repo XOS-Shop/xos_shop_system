@@ -5,7 +5,7 @@
 //                                                                     
 // filename   : install_6.php
 // author     : Hanspeter Zeller <hpz@xos-shop.com>
-// copyright  : Copyright (c) 2007 Hanspeter Zeller
+// copyright  : Copyright (c) 2018 Hanspeter Zeller
 // license    : This file is part of XOS-Shop.
 //
 //              XOS-Shop is free software: you can redistribute it and/or modify
@@ -142,16 +142,23 @@
     if (isset($http_url['port']) && !empty($http_url['port'])) {
       $http_server .= ':' . $http_url['port'];
     }
+    
 //    $http_server .= '/';
 
+    if ($enable_ssl == 'true') $http_server = str_replace('http://', 'https://', $http_server);
+    
 //    $https_server = $enable_ssl == 'true' ? str_replace('http://', 'https://', $http_server) : '';
+//    $https_cookie_domain = $enable_ssl == 'true' ? $http_cookie_domain : '';
+//    $https_cookie_path = $enable_ssl == 'true' ? $http_cookie_path : '';  
+  
     $https_server = str_replace('http://', 'https://', $http_server);    
-    $https_cookie_domain = $enable_ssl == 'true' ? $http_cookie_domain : '';
-    $https_cookie_path = $enable_ssl == 'true' ? $http_cookie_path : '';
+    $https_cookie_domain = $http_cookie_domain;
+    $https_cookie_path = $http_cookie_path;
 
     if (substr($http_catalog, -1) != '/') {
       $http_catalog .= '/';
-    }  
+    } 
+     
 //    $http_catalog = ltrim($http_catalog, '/');
 
     $file_contents = '<?php' . "\n" .
@@ -161,7 +168,7 @@
                      '//' . "\n" .                                                                     
                      '// filename   : configure.php' . "\n" .
                      '// author     : Hanspeter Zeller <hpz@xos-shop.com>' . "\n" .
-                     '// copyright  : Copyright (c) 2014 Hanspeter Zeller' . "\n" .                     
+                     '// copyright  : Copyright (c) 2018 Hanspeter Zeller' . "\n" .                     
                      '// license    : This file is part of XOS-Shop.' . "\n" .
                      '//' . "\n" .
                      '//              XOS-Shop is free software: you can redistribute it and/or modify' . "\n" .
