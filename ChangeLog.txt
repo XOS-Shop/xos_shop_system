@@ -1,6 +1,11 @@
 
 ##ChangeLog
 
+# XOS-Shop v1.0.8 (Release 02/08/2018)
+
+- update:  CKEditor Version-4.7.3 auf CKEditor Version-4.8.0
+- update:  Smarty Version-3.1.30 auf Smarty Version-3.1.31
+
 # XOS-Shop v1.0.7 (Release 12/02/2017)
 
 - feature: Im Template 'cosmo-responsive' Zeitstempel in '.css' und '.js' Dateien eingefügt
