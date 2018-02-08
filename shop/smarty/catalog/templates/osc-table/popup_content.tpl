@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : osc-table
-* version    : 1.0.7 for XOS-Shop version 1.0.7
+* version    : 1.0.7 for XOS-Shop version 1.0.8
 * descrip    : oscommerce default template with css-buttons and tables for layout                                                                     
 * filename   : popup_content.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
@@ -47,7 +47,7 @@
       	
 -->
 
-<meta name="generator" content="XOS-Shop version 1.0.7, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0.8, open source e-commerce system" />
 <title>[@{$html_header_page_title}@][@{$html_header_add_page_title}@]</title>
 [@{if $base_href}@]
 <base href="[@{$base_href}@]" />

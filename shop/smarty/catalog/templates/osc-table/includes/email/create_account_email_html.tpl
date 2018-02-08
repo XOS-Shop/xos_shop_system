@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : osc-table
-* version    : 1.0.7 for XOS-Shop version 1.0.7
+* version    : 1.0.7 for XOS-Shop version 1.0.8
 * descrip    : oscommerce default template with css-buttons and tables for layout                                                                     
 * filename   : create_account_email_html.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
@@ -32,7 +32,7 @@
 <meta http-equiv="content-type" content="text/html; charset=[@{$charset}@]" />
 <meta http-equiv="content-language" content="[@{$html_lang}@]" />
 <meta http-equiv="content-style-type" content="text/css" />
-<meta name="generator" content="XOS-Shop version 1.0.7, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0.8, open source e-commerce system" />
 <title></title>
 </head>
 <body>

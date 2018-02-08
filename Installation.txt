@@ -69,12 +69,16 @@ Methode 3)
 
 Wichtiger Hinweis, das Verzeichnis "admin" wurde während der Installation eventuell mit einem achtstelligen Zahlencode erweitert.
 
-Rufen Sie die URL: http://www.your-domain.tld/shop/admin auf.
+Rufen Sie die URL: http://www.your-domain.tld/shop/login.php auf.
 
 Tragen Sie für ihre Erstanmeldung in die Eingabefelder folgendes ein.
 
-Beim Briefumschlagsymbol: admin@localhost
-Beim Schlosssymbol:       admin
+E-Mail Adresse: admin@localhost
+Passwort:       admin
+
+Sie werden danach zum XOS-Shop Admin umgeleitet und es erscheint ein Anmelde-Panel, das obere Feld, mit dem Brief-
+umschlagsymbol, ist bereits mit der E-Mail-Adresse ausgefüllt, in das untere Feld, mit dem Schloss-
+symbol, müssen Sie erneut das Kennwort "admin" eingeben.
 
 --------------------------------------------------------------------------------
 

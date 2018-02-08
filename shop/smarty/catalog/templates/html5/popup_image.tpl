@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : html5
-* version    : 1.0.7 for XOS-Shop version 1.0.7
+* version    : 1.0.7 for XOS-Shop version 1.0.8
 * descrip    : xos-shop default template with tabs navigation
 *              and popup windows as lightboxes and div/css layout                                                                     
 * filename   : popup_image.tpl
@@ -44,7 +44,7 @@
       	
 -->
 
-<meta name="generator" content="XOS-Shop version 1.0.7, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0.8, open source e-commerce system" />
 <title>[@{$html_header_page_title}@][@{$html_header_add_page_title}@]</title>
 [@{if $base_href}@]
 <base href="[@{$base_href}@]" />

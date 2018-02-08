@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : hero-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0.7
+* version    : 1.0.7 for XOS-Shop version 1.0.8
 * descrip    : xos-shop template built with Bootstrap3 and theme superhero                                                                    
 * filename   : tell_a_friend_email_text.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
