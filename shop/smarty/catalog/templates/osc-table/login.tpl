@@ -39,47 +39,6 @@
       <tr>
         <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="10" /></td>
       </tr>
-      [@{if $sppc_toggle_login}@]
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-          <tr>
-            <td width="100%" height="100%" valign="top"><table align="center" border="0" width="40%" cellspacing="1" cellpadding="2" class="infoBox">
-              <tr class="infoBoxContents">
-                <td><table border="0" width="100%" cellspacing="2" cellpadding="4">
-                  <tr>
-                    <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="10" /></td>
-                  </tr>
-                  <tr>
-                    <td nowrap="nowrap" class="main" valign="top">&nbsp;<b>[@{#text_choose_customer_group#}@]</b><br /><br />&nbsp;[@{$customers_groups_pull_down_menu}@]</td>
-                  </tr>
-                  <tr>
-                    <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="10" /></td>
-                  </tr>
-                  <tr>
-                    <td><table border="0" width="100%" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td width="10"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="10" height="1" /></td>                     
-                        <td nowrap="nowrap" align="right">[@{$hidden_field_email_address}@][@{$hidden_field_password}@]                        
-                          <script type="text/javascript">
-                          /* <![CDATA[ */
-                            document.write('<a href="" onclick="login.submit(); return false" class="button-continue" style="float: right" title=" [@{#button_title_continue#}@] "><span>[@{#button_text_continue#}@]</span></a><input type="image" src="[@{$images_path}@]pixel_trans.gif" alt="" />')
-                          /* ]]> */  
-                          </script>
-                          <noscript>
-                            <input type="submit" value="[@{#button_text_continue#}@]" />
-                          </noscript>                     
-                        </td>                        
-                        <td width="10"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="5" height="1" /></td>
-                      </tr>
-                    </table></td>
-                  </tr>
-                </table></td>
-              </tr>
-            </table></td>
-          </tr>
-        </table></td>
-      </tr>
-      [@{else}@]
       [@{if $message_stack}@]      
       <tr>
         <td>[@{$message_stack}@]</td>
@@ -88,7 +47,7 @@
         <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="10" /></td>
       </tr>
       [@{/if}@]
-      [@{if $cart_contents}@]
+      [@{if $cart_contents && $is_shop}@]
       <tr>
         <td class="smallText">[@{#text_visitors_cart#}@]
         [@{if $link_filename_popup_content_10}@]       
@@ -106,7 +65,8 @@
       <tr>
         <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="10" /></td>
       </tr>      
-      [@{/if}@]      
+      [@{/if}@] 
+    [@{if $is_shop}@]           
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
@@ -193,7 +153,55 @@
           </tr>
         </table></td>
       </tr>
-      [@{/if}@]      
+    [@{else}@]            
+      <tr>
+        <td><table border="0" width="50%" cellspacing="0" cellpadding="2">
+          <tr>
+            <td width="50%" height="100%" valign="top"><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+              <tr class="infoBoxContents">
+                <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                  <tr>
+                    <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="10" /></td>
+                  </tr>
+                  <tr>
+                    <td class="main"><b>[@{#entry_email_address#}@]</b></td>
+                    <td class="main">[@{$input_field_email_address}@]</td>
+                  </tr>
+                  <tr>
+                    <td class="main"><b>[@{#entry_password#}@]</b></td>
+                    <td class="main">[@{$input_field_password}@]</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="10" /></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="10" /></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                      <tr>
+                        <td width="10"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="10" height="1" /></td>                  
+                        <td nowrap="nowrap" align="right">
+                          <script type="text/javascript">
+                          /* <![CDATA[ */
+                            document.write('<a href="" onclick="login.submit(); return false" class="button-login" style="float: right" title=" [@{#button_title_login#}@] "><span>[@{#button_text_login#}@]</span></a><input type="image" src="[@{$images_path}@]pixel_trans.gif" alt="" />')
+                          /* ]]> */  
+                          </script>
+                          <noscript>
+                            <input type="submit" value="[@{#button_text_login#}@]" />
+                          </noscript>                         
+                        </td>                         
+                        <td width="10"><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="10" height="1" /></td>
+                      </tr>
+                    </table></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>         
+    [@{/if}@]      
     </table>[@{$form_end}@]    
     <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>

@@ -32,6 +32,3 @@
 
 define('NAVBAR_TITLE', 'Entrar');
 define('TEXT_LOGIN_ERROR', 'Error: El E-Mail y/o Contraseña no figuran en nuestros datos.');
-define('SPPC_TOGGLE_LOGIN_PASSWORD', 'root@localhost');
-/**TIP:** The above root@localhost entry should be replaced with the site Admin's email address. This enables him to log-in as a member of each group for testing purposes. This email address must be defined in the XOS-Shop Admin section called Configuration.*/
-?>

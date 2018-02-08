@@ -30,27 +30,8 @@
     [@{$form_begin}@]
           <h1 class="text-orange">[@{#heading_title#}@]</h1>                
           <div class="div-spacer-h10"></div>        
-      [@{if $sppc_toggle_login}@]
-          <div class="row">
-            <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">                     
-              <div class="panel panel-info">
-                <div class="panel-body">
-                  <fieldset>                   
-                    <div class="row">           
-                      <div class="col-lg-9 form-group">
-                        <label for="new_customers_group_id">[@{#text_choose_customer_group#}@]</label>
-                        [@{$customers_groups_pull_down_menu}@]  
-                      </div>            
-                    </div>                                                         
-                    <div class="div-spacer-h10">[@{$hidden_field_email_address}@][@{$hidden_field_password}@]</div>
-                  </fieldset>                                 
-                  <input type="submit" class="btn btn-success pull-right" value="[@{#button_text_continue#}@]" />                           
-                </div>
-              </div>                             
-            </div>
-          </div>                                                                               
-      [@{else}@]          
-          [@{if $cart_contents}@]      
+        
+          [@{if $cart_contents && $is_shop}@]      
           <div>[@{#text_visitors_cart#}@]
             [@{if $link_filename_popup_content_10}@]                   
             <a href="[@{$link_filename_popup_content_10}@]" class="lightbox-system-popup" target="_blank">[@{#text_visitors_cart_link#}@]</a>
@@ -74,8 +55,8 @@
             [@{$message_stack_success}@]
           </div>                            
           [@{/if}@]           
-
-          <div class="row">                             
+          <div class="row"> 
+        [@{if $is_shop}@]                                      
             <div class="col-sm-6 col-lg-5">              
               <div class="panel panel-info">
                 <div class="panel-heading">
@@ -88,7 +69,7 @@
                   <a href="[@{$link_filename_create_account}@]" class="btn btn-success  pull-right" title=" [@{#button_title_continue#}@] ">[@{#button_text_continue#}@]</a>                              
                 </div>
               </div>   
-            </div>           
+            </div>                       
             <div class="col-sm-6 col-lg-5 col-lg-offset-2">                     
               <div class="panel panel-info">
                 <div class="panel-heading">
@@ -120,8 +101,33 @@
                 </div>
               </div>                             
             </div>
-          </div> 
-      [@{/if}@]      
+        [@{else}@]
+            <div class="col-sm-6 col-lg-5">                      
+              <div class="panel panel-info">
+                <div class="panel-body">           
+                  <div class="div-spacer-h10"></div> 
+                  <fieldset>                   
+                    <div class="row">           
+                      <div class="col-sm-12 col-md-9 form-group">
+                        <label class="control-label" for="email_address">[@{#entry_email_address#}@]</label>
+                        [@{$input_field_email_address}@]  
+                      </div>            
+                    </div>
+                    <div class="row">           
+                      <div class="col-sm-12 col-md-9 form-group">
+                        <label class="control-label" for="password">[@{#entry_password#}@]</label>
+                        [@{$input_field_password}@]  
+                      </div>            
+                    </div>                                 
+                         
+                    <div class="div-spacer-h10"></div>
+                  </fieldset>                                 
+                  <input type="submit" class="btn btn-success pull-right" value="[@{#button_text_login#}@]" />                            
+                </div>
+              </div>                               
+            </div>
+        [@{/if}@]            
+          </div>      
     [@{$form_end}@]            
           <div class="well well-sm clearfix"> 
             <a href="[@{$link_back}@]" class="btn btn-primary pull-left" title=" [@{#button_title_back#}@] ">[@{#button_text_back#}@]</a>                                                                                                                                                                                                              

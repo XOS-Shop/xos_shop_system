@@ -30,32 +30,8 @@
 <!-- login -->
     [@{$form_begin}@]
           <div class="page-heading" style="line-height: [@{#page_heading_height#}@]px;">[@{#heading_title#}@]</div>                
-          <div style="height: 10px; font-size: 0;">&nbsp;</div>        
-      [@{if $sppc_toggle_login}@]
-          <div class="info-box-central-contents" style="width: 315px; padding: 4px; margin : 0 auto;">
-            <fieldset>                
-              <div style="height: 10px; font-size: 0;">&nbsp;</div>                
-              <label class="main" for="new_customers_group_id"><b>[@{#text_choose_customer_group#}@]</b></label>
-              <div style="height: 10px; font-size: 0;">&nbsp;</div>
-              <div class="main">[@{$customers_groups_pull_down_menu}@]</div>            
-              <div style="height: 10px; font-size: 0;">&nbsp;</div>
-            </fieldset>            
-            <div class="main" style="padding: 2px 6px 2px 0; float: right;">[@{$hidden_field_email_address}@][@{$hidden_field_password}@]                      
-              <script type="text/javascript">
-              /* <![CDATA[ */
-                document.write('<a href="" onclick="login.submit(); return false" class="button-continue" style="float: right" title=" [@{#button_title_continue#}@] "><span>[@{#button_text_continue#}@]</span></a><input type="image" src="[@{$images_path}@]pixel_trans.gif" alt="" />')
-              /* ]]> */  
-              </script>
-              <noscript>
-                <input type="submit" value="[@{#button_text_continue#}@]" />
-              </noscript>                 
-            </div>
-            <div style="height: 0; font-size: 0;">&nbsp;</div>             
-            <div class="clear">&nbsp;</div>
-            <div style="height: 0; font-size: 0;">&nbsp;</div>                         
-          </div>                                                             
-      [@{else}@]          
-          [@{if $cart_contents}@]      
+          <div style="height: 10px; font-size: 0;">&nbsp;</div>               
+          [@{if $cart_contents && $is_shop}@]      
           <div class="small-text">[@{#text_visitors_cart#}@]
             [@{if $link_filename_popup_content_10}@]         
             <script type="text/javascript">
@@ -75,7 +51,7 @@
           [@{$message_stack}@]          
           <div style="height: 10px; font-size: 0;">&nbsp;</div>             
           [@{/if}@]            
-
+        [@{if $is_shop}@]
           <div style="width: 315px; padding: 2px 0 0 2px; float: left">             
             <div class="main"><b>[@{#heading_new_customer#}@]</b></div>
             <div class="info-box-central-contents" style="padding: 4px;">            
@@ -132,8 +108,40 @@
               <div style="height: 0; font-size: 0;">&nbsp;</div>                         
             </div>                                                             
           </div>
-          <div class="clear">&nbsp;</div>
-      [@{/if}@]      
+          <div class="clear">&nbsp;</div>          
+        [@{else}@]          
+          <div style="width: 315px; padding: 2px 2px 0 0;">      
+
+            <div class="info-box-central-contents" style="padding: 4px;">           
+                <div style="height: 10px; font-size: 0;">&nbsp;</div> 
+
+              <fieldset>                                                 
+                <label class="main login-label" for="email_address"><b>[@{#entry_email_address#}@]</b></label>
+                <div class="main login-input">[@{$input_field_email_address}@]</div>
+                <div class="clear">&nbsp;</div> 
+
+                <label class="main login-label" for="password"><b>[@{#entry_password#}@]</b></label>
+                <div class="main login-input">[@{$input_field_password}@]</div>
+                <div class="clear">&nbsp;</div> 
+                           
+                <div style="height: 10px; font-size: 0;">&nbsp;</div>
+              </fieldset>            
+              <div class="main" style="padding: 2px 6px 2px 0; float: right;">                      
+                <script type="text/javascript">
+                /* <![CDATA[ */
+                  document.write('<a href="" onclick="login.submit(); return false" class="button-login" style="float: right;" title=" [@{#button_title_login#}@] "><span>[@{#button_text_login#}@]</span></a><input type="image" src="[@{$images_path}@]pixel_trans.gif" alt="" />')
+                /* ]]> */  
+                </script>
+                <noscript>
+                  <input type="submit" value="[@{#button_text_login#}@]" />
+                </noscript>                  
+              </div>
+              <div style="height: 0; font-size: 0;">&nbsp;</div>             
+              <div class="clear">&nbsp;</div>
+              <div style="height: 0; font-size: 0;">&nbsp;</div>                         
+            </div>                                                             
+          </div>                    
+        [@{/if}@]      
     [@{$form_end}@]            
           <div style="padding: 0 2px 0 2px;">
             <div style="height: 20px; font-size: 0;">&nbsp;</div>

@@ -31,9 +31,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 require('includes/application_top.php');
-if (!$is_shop) :
-  xos_redirect(xos_href_link(FILENAME_DEFAULT), false);  
-elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_LOGIN) == 'overwrite_all')) :
+if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . FILENAME_LOGIN) == 'overwrite_all')) :
 // redirect the customer to a friendly cookie-must-be-enabled page if cookies are disabled (or the session has not started)
   if ($session_started == false) {
     xos_redirect(xos_href_link(FILENAME_COOKIE_USAGE));
@@ -63,7 +61,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
     $DB->perform($check_customer_query, array(':email_address' => $email_address));
 
-    if (!$check_customer_query->rowCount()) {   
+    if (!$check_customer_query->rowCount() || !$is_shop) {   
       // Check if admin email exists
       $check_admin_query = $DB->prepare
       (
@@ -108,111 +106,90 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           $DB->perform($update_customers_query, array(':password' => xos_encrypt_password($password),
                                                       ':customers_id' => (int)$check_customer['customers_id']));          
         }
-                
-// note that tax rates depend on your registered address!
-        if ($_GET['skip'] != 'true' && $_POST['email_address'] == SPPC_TOGGLE_LOGIN_PASSWORD ) {
-          $existing_customers_query = $DB->query
-          (
-           "SELECT customers_group_id,
-                   customers_group_name
-              FROM " . TABLE_CUSTOMERS_GROUPS . "
-          ORDER BY customers_group_id"
-          );
-             
-          while ($existing_customers =  $existing_customers_query->fetch()) {
-            $existing_customers_array[] = array("id" => $existing_customers['customers_group_id'], "text" => "&nbsp;".$existing_customers['customers_group_name']."&nbsp;");
-          }
-          
-          $smarty->assign(array('sppc_toggle_login' => true,
-                                'customers_groups_pull_down_menu' => xos_draw_pull_down_menu('new_customers_group_id', $existing_customers_array, $check_customer['customers_group_id'], 'class="form-control" id="new_customers_group_id"'),
-                                'hidden_field_email_address' => xos_draw_hidden_field('email_address', $_POST['email_address']),
-                                'hidden_field_password' => xos_draw_hidden_field('password', $_POST['password'])));
-        } else {
         
-          $check_country_query = $DB->prepare 
+        $check_country_query = $DB->prepare 
+        (
+         "SELECT entry_country_id,
+                 entry_zone_id
+           FROM  " . TABLE_ADDRESS_BOOK . "
+          WHERE  customers_id = :customers_id
+            AND  address_book_id = :customers_default_address_id"
+        );
+        
+        $DB->perform($check_country_query, array(':customers_id' => (int)$check_customer['customers_id'],
+                                                 ':customers_default_address_id' => (int)$check_customer['customers_default_address_id']));
+                                                               
+        $check_country = $check_country_query->fetch();
+
+    	  if ($_GET['skip'] == 'true' && $_POST['email_address'] == SPPC_TOGGLE_LOGIN_PASSWORD && isset($_POST['new_customers_group_id']))  {
+    	    $sppc_customer_group_id = $_POST['new_customers_group_id'];
+    	    $check_customer_group = $DB->prepare
           (
-           "SELECT entry_country_id,
-                   entry_zone_id
-             FROM  " . TABLE_ADDRESS_BOOK . "
-            WHERE  customers_id = :customers_id
-              AND  address_book_id = :customers_default_address_id"
+           "SELECT customers_group_discount,
+                   customers_group_show_tax,
+                   customers_group_tax_exempt
+              FROM " . TABLE_CUSTOMERS_GROUPS . "
+             WHERE customers_group_id = :new_customers_group_id"
           );
           
-          $DB->perform($check_country_query, array(':customers_id' => (int)$check_customer['customers_id'],
-                                                   ':customers_default_address_id' => (int)$check_customer['customers_default_address_id']));
-                                                                 
-          $check_country = $check_country_query->fetch();
-
-      	  if ($_GET['skip'] == 'true' && $_POST['email_address'] == SPPC_TOGGLE_LOGIN_PASSWORD && isset($_POST['new_customers_group_id']))  {
-      	    $sppc_customer_group_id = $_POST['new_customers_group_id'];
-      	    $check_customer_group = $DB->prepare
-            (
-             "SELECT customers_group_discount,
-                     customers_group_show_tax,
-                     customers_group_tax_exempt
-                FROM " . TABLE_CUSTOMERS_GROUPS . "
-               WHERE customers_group_id = :new_customers_group_id"
-            );
-            
-            $DB->perform($check_customer_group, array(':new_customers_group_id' => (int)$_POST['new_customers_group_id']));
-            
-      	  } else {
-      	    $sppc_customer_group_id = $check_customer['customers_group_id'];
-      	    $check_customer_group = $DB->prepare
-            (
-             "SELECT customers_group_discount,
-                     customers_group_show_tax,
-                     customers_group_tax_exempt
-                FROM " . TABLE_CUSTOMERS_GROUPS . "
-               WHERE customers_group_id = :customers_group_id"
-            );
-            
-            $DB->perform($check_customer_group, array(':customers_group_id' => (int)$check_customer['customers_group_id']));
-            
-      	  }
+          $DB->perform($check_customer_group, array(':new_customers_group_id' => (int)$_POST['new_customers_group_id']));
           
-	        $customer_group = $check_customer_group->fetch();
-          
-          if (ACCOUNT_GENDER == 'true') {
-            $_SESSION['customer_gender'] = $check_customer['customers_gender'];
-          }
-          $_SESSION['customer_id'] = $check_customer['customers_id'];
-          $_SESSION['customer_default_address_id'] = $check_customer['customers_default_address_id'];
-          $_SESSION['customer_first_name'] = $check_customer['customers_firstname'];
-          $_SESSION['customer_lastname'] = $check_customer['customers_lastname'];
-          $_SESSION['sppc_customer_group_id'] = $sppc_customer_group_id;
-          $_SESSION['sppc_customer_group_discount'] = $customer_group['customers_group_discount'];          
-          $_SESSION['sppc_customer_group_show_tax'] = (int)$customer_group['customers_group_show_tax'];
-          $_SESSION['sppc_customer_group_tax_exempt'] = (int)$customer_group['customers_group_tax_exempt'];         
-          $_SESSION['customer_country_id'] = $check_country['entry_country_id'];
-          $_SESSION['customer_zone_id'] = $check_country['entry_zone_id'];	  
-
-          $update_info = $DB->prepare
+    	  } else {
+    	    $sppc_customer_group_id = $check_customer['customers_group_id'];
+    	    $check_customer_group = $DB->prepare
           (
-           "UPDATE " . TABLE_CUSTOMERS_INFO . "
-               SET customers_info_date_of_last_logon = Now(),
-                   customers_info_number_of_logons = customers_info_number_of_logons + 1
-             WHERE customers_info_id = :customer_id"
+           "SELECT customers_group_discount,
+                   customers_group_show_tax,
+                   customers_group_tax_exempt
+              FROM " . TABLE_CUSTOMERS_GROUPS . "
+             WHERE customers_group_id = :customers_group_id"
           );
           
-          $DB->perform($update_info, array(':customer_id' => (int)$_SESSION['customer_id']));
+          $DB->perform($check_customer_group, array(':customers_group_id' => (int)$check_customer['customers_group_id']));
+          
+    	  }
+        
+        $customer_group = $check_customer_group->fetch();
+        
+        if (ACCOUNT_GENDER == 'true') {
+          $_SESSION['customer_gender'] = $check_customer['customers_gender'];
+        }
+        $_SESSION['customer_id'] = $check_customer['customers_id'];
+        $_SESSION['customer_default_address_id'] = $check_customer['customers_default_address_id'];
+        $_SESSION['customer_first_name'] = $check_customer['customers_firstname'];
+        $_SESSION['customer_lastname'] = $check_customer['customers_lastname'];
+        $_SESSION['sppc_customer_group_id'] = $sppc_customer_group_id;
+        $_SESSION['sppc_customer_group_discount'] = $customer_group['customers_group_discount'];          
+        $_SESSION['sppc_customer_group_show_tax'] = (int)$customer_group['customers_group_show_tax'];
+        $_SESSION['sppc_customer_group_tax_exempt'] = (int)$customer_group['customers_group_tax_exempt'];         
+        $_SESSION['customer_country_id'] = $check_country['entry_country_id'];
+        $_SESSION['customer_zone_id'] = $check_country['entry_zone_id'];	  
+
+        $update_info = $DB->prepare
+        (
+         "UPDATE " . TABLE_CUSTOMERS_INFO . "
+             SET customers_info_date_of_last_logon = Now(),
+                 customers_info_number_of_logons = customers_info_number_of_logons + 1
+           WHERE customers_info_id = :customer_id"
+        );
+        
+        $DB->perform($update_info, array(':customer_id' => (int)$_SESSION['customer_id']));
 
 // reset session token
-          $_SESSION['sessiontoken'] = md5(xos_rand() . xos_rand() . xos_rand() . xos_rand()); 
+        $_SESSION['sessiontoken'] = md5(xos_rand() . xos_rand() . xos_rand() . xos_rand()); 
 
 // restore cart contents
-          $_SESSION['cart']->restore_contents();
-          
-          $_SESSION['navigation']->remove_current_page();
-          
-          if (sizeof($_SESSION['navigation']->snapshot) > 0) {
-            $origin_href = xos_href_link($_SESSION['navigation']->snapshot['page'], xos_array_to_query_string($_SESSION['navigation']->snapshot['get'], array(xos_session_name())), $_SESSION['navigation']->snapshot['mode']);
-            $_SESSION['navigation']->clear_snapshot();
-            xos_redirect($origin_href);
-          } else {
-            xos_redirect(xos_href_link(FILENAME_DEFAULT));
-          }                  
-        }  
+        $_SESSION['cart']->restore_contents();
+        
+        $_SESSION['navigation']->remove_current_page();
+        
+        if (sizeof($_SESSION['navigation']->snapshot) > 0) {
+          $origin_href = xos_href_link($_SESSION['navigation']->snapshot['page'], xos_array_to_query_string($_SESSION['navigation']->snapshot['get'], array(xos_session_name())), $_SESSION['navigation']->snapshot['mode']);
+          $_SESSION['navigation']->clear_snapshot();
+          xos_redirect($origin_href);
+        } else {
+          xos_redirect(xos_href_link(FILENAME_DEFAULT));
+        }                    
       }
     }
   }
