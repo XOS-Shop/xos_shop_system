@@ -32,7 +32,7 @@
 
   reset($_POST);
   $hidden_fields = '';
-  while (list($key, $value) = each($_POST)) {
+  foreach ($_POST as $key => $value) {
     if (($key != 'x') && ($key != 'y') && ($key != 'DB_TEST_CONNECTION')) {
       if (is_array($value)) {
         for ($i=0; $i<sizeof($value); $i++) {

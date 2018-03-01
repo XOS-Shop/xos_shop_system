@@ -48,7 +48,7 @@
       
       reset($_POST);
       $hidden_fields = '';
-      while (list($key, $value) = each($_POST)) {
+      foreach ($_POST as $key => $value) {
         if (($key != 'x') && ($key != 'y') && ($key != 'DB_TEST_CONNECTION')) {
           if (is_array($value)) {
             for ($i=0; $i<sizeof($value); $i++) {
@@ -87,7 +87,7 @@
 
       reset($_POST);
       $hidden_fields = '';
-      while (list($key, $value) = each($_POST)) {
+      foreach ($_POST as $key => $value) {
         if (($key != 'x') && ($key != 'y') && ($key != 'DB_TEST_CONNECTION')) {
           if (is_array($value)) {
             for ($i=0; $i<sizeof($value); $i++) {
@@ -109,7 +109,7 @@
 
     reset($_POST);
     $hidden_fields = '';
-    while (list($key, $value) = each($_POST)) {
+    foreach ($_POST as $key => $value) {
       if (($key != 'x') && ($key != 'y') && ($key != 'DB_SERVER') && ($key != 'DB_SERVER_USERNAME') && ($key != 'DB_SERVER_PASSWORD') && ($key != 'DB_DATABASE') && ($key != 'USE_PCONNECT') && ($key != 'STORE_SESSIONS') && ($key != 'DB_TEST_CONNECTION')) {
         if (is_array($value)) {
           for ($i=0; $i<sizeof($value); $i++) {

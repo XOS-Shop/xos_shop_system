@@ -31,8 +31,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 
   reset($_POST);
-  $body_tag_params = 'onload="dbImport(\'includes/install_db.php\', \'';     
-  while (list($key, $value) = each($_POST)) {
+  $body_tag_params = 'onload="dbImport(\'includes/install_db.php\', \''; 
+  foreach ($_POST as $key => $value) {
     if (($key != 'x') && ($key != 'y') && ($key != 'DB_TEST_CONNECTION')) {
       if (is_array($value)) {
         for ($i=0; $i<sizeof($value); $i++) {
