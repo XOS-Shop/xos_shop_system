@@ -12,15 +12,5 @@ function smarty_outputfilter_set_internal_link($source, Smarty_Internal_Template
 {
     return preg_replace_callback('#\[@\{link(.*)\}@\]#siU', function($match) {return eval('return '.$match[1].';');}, $source);
 }
-/*
-function smarty_outputfilter_set_internal_link($source, Smarty_Internal_Template $smarty)
-{
-    return preg_replace_callback('#\[@\{link(.*)\}@\]#siU', 'set_internal_link', $source);
-}
 
-function set_internal_link($match) 
-{   
-    return eval('return '.$match[1].';');
-}
-*/
 ?>
