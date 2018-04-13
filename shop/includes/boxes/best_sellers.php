@@ -42,6 +42,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       $best_sellers_query = $DB->prepare
       (
        "SELECT DISTINCT p.products_id,
+                        p.products_ordered,
                         pd.products_name
         FROM            " . TABLE_PRODUCTS . " p,
                         " . TABLE_PRODUCTS_DESCRIPTION . " pd,
@@ -71,6 +72,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       $best_sellers_query = $DB->prepare
       (
        "SELECT DISTINCT p.products_id,
+                        p.products_ordered,
                         pd.products_name
         FROM            " . TABLE_PRODUCTS . " p,
                         " . TABLE_PRODUCTS_DESCRIPTION . " pd,
