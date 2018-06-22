@@ -94,14 +94,14 @@ create table admin (
   admin_email_address varchar(255) not null ,
   admin_password varchar(60) not null ,
   admin_created datetime ,
-  admin_modified datetime default '0000-00-00 00:00:00' not null ,
+  admin_modified datetime ,
   admin_logdate datetime ,
   admin_lognum int(11) default '0' not null ,
   PRIMARY KEY (admin_id),
   UNIQUE KEY UNI_ADMIN_EMAIL_ADDRESS (admin_email_address)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-insert into admin (admin_id, admin_groups_id, admin_firstname, admin_lastname, admin_email_address, admin_password, admin_created, admin_modified, admin_logdate, admin_lognum) values ('1', '1', 'AdminFirstname', 'AdminLastname', 'admin@localhost', '351683ea4e19efe34874b501fdbf9792:9b', now(), '0000-00-00 00:00:00', NULL, '14');
+insert into admin (admin_id, admin_groups_id, admin_firstname, admin_lastname, admin_email_address, admin_password, admin_created, admin_modified, admin_logdate, admin_lognum) values ('1', '1', 'AdminFirstname', 'AdminLastname', 'admin@localhost', '351683ea4e19efe34874b501fdbf9792:9b', now(), NULL, NULL, '14');
 
 drop table if exists admin_files;
 create table admin_files (
@@ -187,7 +187,7 @@ create table banners (
   expires_impressions int(7) default '0' ,
   expires_date datetime ,
   date_scheduled datetime ,
-  date_added datetime default '0000-00-00 00:00:00' not null ,
+  date_added datetime ,
   date_status_change datetime ,
   status int(1) default '1' not null ,
   PRIMARY KEY (banners_id)
@@ -225,9 +225,9 @@ insert into banners_content (banners_id, language_id, banners_title, banners_url
 insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('4', '1', 'W3C', 'http://validator.w3.org/check?uri=referer', 'valid-xhtml10.gif', '', NULL);
 insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('4', '2', 'W3C', 'http://validator.w3.org/check?uri=referer', 'valid-xhtml10.gif', '', NULL);
 insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('4', '3', 'W3C', 'http://validator.w3.org/check?uri=referer', 'valid-xhtml10.gif', '', NULL);
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('5', '1', 'Logo', '', '', '<p><span style=\"font-size:48px;\">Logo</span><br /><code>Tools -&gt; Banner Manager [Banner Group \"logo\"]</code></p>',  NULL);
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('5', '2', 'Logo', '', '', '<p><span style=\"font-size:48px;\">Logo</span><br /><code>Hilfsprogramme -&gt; Banner Manager [Banner-Gruppe \"logo\"]</code></p>',  NULL);
-insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('5', '3', 'Logo', '', '', '<p><span style=\"font-size:48px;\">Logo</span><br /><code>Herramientas -&gt; Administrador de Banners [Grupo \"logo\"]</code></p>',  NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('5', '1', 'Logo', '', '', '<p><span style=\"font-size:48px;\">Logo</span>&nbsp; &nbsp; <code class=\"text-nowrap\">Tools -&gt; Banner Manager [Banner Group \"logo\"]</code></p>',  NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('5', '2', 'Logo', '', '', '<p><span style=\"font-size:48px;\">Logo</span>&nbsp; &nbsp; <code class=\"text-nowrap\">Hilfsprogramme -&gt; Banner Manager [Banner-Gruppe \"logo\"]</code></p>',  NULL);
+insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('5', '3', 'Logo', '', '', '<p><span style=\"font-size:48px;\">Logo</span>&nbsp; &nbsp; <code class=\"text-nowrap\">Herramientas -&gt; Administrador de Banners [Grupo \"logo\"]</code></p>',  NULL);
 insert into banners_content (banners_id, language_id, banners_title, banners_url, banners_image, banners_html_text, banners_php_source) values ('6', '1', 'Cookie Consent', '', '', '<script>
 if (navigator.cookieEnabled) {
   $(function() {
@@ -406,7 +406,7 @@ create table banners_history (
   banners_id int(11) default '0' not null ,
   banners_shown int(5) default '0' not null ,
   banners_clicked int(5) default '0' not null ,
-  banners_history_date datetime default '0000-00-00 00:00:00' not null ,
+  banners_history_date datetime ,
   PRIMARY KEY (banners_history_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -529,7 +529,7 @@ create table configuration (
   configuration_group_id int(11) default '0' not null ,
   sort_order int(5) ,
   last_modified datetime ,
-  date_added datetime default '0000-00-00 00:00:00' not null ,
+  date_added datetime ,
   use_function varchar(255) ,
   set_function varchar(255) ,
   PRIMARY KEY (configuration_id)
@@ -1778,15 +1778,15 @@ create table coupons (
   coupon_code varchar(32) not null default '',
   coupon_amount decimal(8,4) not null default '0.0000',
   coupon_minimum_order decimal(8,4) not null default '0.0000',
-  coupon_start_date datetime not null default '0000-00-00 00:00:00',
-  coupon_expire_date datetime not null default '0000-00-00 00:00:00',
+  coupon_start_date datetime,
+  coupon_expire_date datetime,
   uses_per_coupon int(5) not null default '1',
   uses_per_user int(5) not null default '0',
   restrict_to_products varchar(255) default null,
   restrict_to_categories varchar(255) default null,
   coupon_active char(1) not null default 'Y',
-  date_created datetime not null default '0000-00-00 00:00:00',
-  date_modified datetime not null default '0000-00-00 00:00:00',
+  date_created datetime,
+  date_modified datetime,
   PRIMARY KEY (coupon_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -1807,7 +1807,7 @@ create table coupon_email_track (
   sent_firstname varchar(255) default null,
   sent_lastname varchar(255) default null,
   emailed_to varchar(255) default null,
-  date_sent datetime not null default '0000-00-00 00:00:00',
+  date_sent datetime,
   PRIMARY KEY (unique_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -1824,7 +1824,7 @@ create table coupon_gv_queue (
   customer_id int(5) not null default '0',
   order_id int(5) not null default '0',
   amount decimal(8,4) not null default '0.0000',
-  date_created datetime not null default '0000-00-00 00:00:00',
+  date_created datetime,
   ipaddr varchar(64) not null default '',
   release_flag char(1) not null default 'N',
   PRIMARY KEY (unique_id),
@@ -1836,7 +1836,7 @@ create table coupon_redeem_track (
   unique_id int(11) not null auto_increment,
   coupon_id int(11) not null default '0',
   customer_id int(11) not null default '0',
-  redeem_date datetime not null default '0000-00-00 00:00:00',
+  redeem_date datetime,
   redeem_ip varchar(64) not null default '',
   order_id int(11) not null default '0',
   PRIMARY KEY (unique_id)
@@ -1872,7 +1872,7 @@ create table customers (
   customers_c_id varchar(64) ,
   customers_firstname varchar(255) not null ,
   customers_lastname varchar(255) not null ,
-  customers_dob datetime default '0000-00-00 00:00:00' not null ,
+  customers_dob datetime ,
   customers_email_address varchar(255) not null ,
   customers_language_id int(11) not null,
   customers_default_address_id int(11) ,
@@ -1954,7 +1954,7 @@ create table geo_zones (
   geo_zone_name varchar(255) not null ,
   geo_zone_description varchar(255) not null ,
   last_modified datetime ,
-  date_added datetime default '0000-00-00 00:00:00' not null ,
+  date_added datetime ,
   PRIMARY KEY (geo_zone_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -2064,7 +2064,7 @@ create table newsletters (
   content_text_plain text not null ,
   content_text_htlm text not null ,
   module varchar(255) not null ,
-  date_added datetime default '0000-00-00 00:00:00' not null ,
+  date_added datetime ,
   date_sent datetime ,
   status int(1) ,
   locked int(1) default '0' ,
@@ -2220,7 +2220,7 @@ create table orders_status_history (
   orders_status_history_id int(11) not null auto_increment,
   orders_id int(11) default '0' not null ,
   orders_status_id int(5) default '0' not null ,
-  date_added datetime default '0000-00-00 00:00:00' not null ,
+  date_added datetime ,
   customer_notified int(1) default '0' ,
   comments text ,
   PRIMARY KEY (orders_status_history_id)
@@ -2272,7 +2272,7 @@ create table products (
   products_image text ,
   products_price text ,
   products_sort_order int(6) ,
-  products_date_added datetime default '0000-00-00 00:00:00' not null ,
+  products_date_added datetime ,
   products_last_modified datetime ,
   products_date_available datetime ,
   products_weight decimal(5,2) default '0.00' not null ,
@@ -2455,7 +2455,7 @@ drop table if exists products_notifications;
 create table products_notifications (
   products_id int(11) default '0' not null ,
   customers_id int(11) default '0' not null ,
-  date_added datetime default '0000-00-00 00:00:00' not null ,
+  date_added datetime ,
   PRIMARY KEY (products_id, customers_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -2737,7 +2737,7 @@ create table tax_class (
   tax_class_title varchar(32) not null ,
   tax_class_description varchar(255) not null ,
   last_modified datetime ,
-  date_added datetime default '0000-00-00 00:00:00' not null ,
+  date_added datetime ,
   PRIMARY KEY (tax_class_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -2752,7 +2752,7 @@ create table tax_rates (
   tax_priority int(5) default '1' ,
   tax_rate decimal(7,4) default '0.0000' not null ,
   last_modified datetime ,
-  date_added datetime default '0000-00-00 00:00:00' not null ,
+  date_added datetime ,
   PRIMARY KEY (tax_rates_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -3078,7 +3078,7 @@ create table zones_to_geo_zones (
   zone_id int(11) ,
   geo_zone_id int(11) ,
   last_modified datetime ,
-  date_added datetime default '0000-00-00 00:00:00' not null ,
+  date_added datetime ,
   PRIMARY KEY (association_id),
   KEY IDX_ZONE_COUNTRY_ID (zone_country_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

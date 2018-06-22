@@ -84,7 +84,7 @@ CREATE TABLE admin (
   admin_email_address varchar(255) NOT NULL default '',
   admin_password varchar(60) NOT NULL default '',
   admin_created datetime default NULL,
-  admin_modified datetime NOT NULL default '0000-00-00 00:00:00',
+  admin_modified datetime default NULL,
   admin_logdate datetime default NULL,
   admin_lognum int(11) NOT NULL default '0',
   PRIMARY KEY  (admin_id),
@@ -252,15 +252,15 @@ CREATE TABLE coupons (
   coupon_code varchar(32) NOT NULL default '',
   coupon_amount decimal(8,4) NOT NULL default '0.0000',
   coupon_minimum_order decimal(8,4) NOT NULL default '0.0000',
-  coupon_start_date datetime NOT NULL default '0000-00-00 00:00:00',
-  coupon_expire_date datetime NOT NULL default '0000-00-00 00:00:00',
+  coupon_start_date datetime default NULL,
+  coupon_expire_date datetime default NULL,
   uses_per_coupon int(5) NOT NULL default '1',
   uses_per_user int(5) NOT NULL default '0',
   restrict_to_products varchar(255) default NULL,
   restrict_to_categories varchar(255) default NULL,
   coupon_active char(1) NOT NULL default 'Y',
-  date_created datetime NOT NULL default '0000-00-00 00:00:00',
-  date_modified datetime NOT NULL default '0000-00-00 00:00:00',
+  date_created datetime default NULL,
+  date_modified datetime default NULL,
   PRIMARY KEY (coupon_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -281,7 +281,7 @@ CREATE TABLE coupon_email_track (
   sent_firstname varchar(255) default NULL,
   sent_lastname varchar(255) default NULL,
   emailed_to varchar(255) default NULL,
-  date_sent datetime NOT NULL default '0000-00-00 00:00:00',
+  date_sent datetime default NULL,
   PRIMARY KEY (unique_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -298,7 +298,7 @@ CREATE TABLE coupon_gv_queue (
   customer_id int(5) NOT NULL default '0',
   order_id int(5) NOT NULL default '0',
   amount decimal(8,4) NOT NULL default '0.0000',
-  date_created datetime NOT NULL default '0000-00-00 00:00:00',
+  date_created datetime default NULL,
   ipaddr varchar(64) NOT NULL default '',
   release_flag char(1) NOT NULL default 'N',
   PRIMARY KEY (unique_id),
@@ -310,7 +310,7 @@ CREATE TABLE coupon_redeem_track (
   unique_id int(11) NOT NULL auto_increment,
   coupon_id int(11) NOT NULL default '0',
   customer_id int(11) NOT NULL default '0',
-  redeem_date datetime NOT NULL default '0000-00-00 00:00:00',
+  redeem_date datetime default NULL,
   redeem_ip varchar(64) NOT NULL default '',
   order_id int(11) NOT NULL default '0',
   PRIMARY KEY (unique_id)
@@ -339,7 +339,7 @@ CREATE TABLE customers (
    customers_c_id varchar(64), 
    customers_firstname varchar(255) NOT NULL,
    customers_lastname varchar(255) NOT NULL,
-   customers_dob datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+   customers_dob datetime default NULL,
    customers_email_address varchar(255) NOT NULL,
    customers_language_id int NOT NULL,
    customers_default_address_id int,
@@ -864,7 +864,7 @@ INSERT INTO address_format VALUES (3, '$firstname $lastname$cr$streets$cr$city$c
 INSERT INTO address_format VALUES (4, '$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country', '$postcode / $country');
 INSERT INTO address_format VALUES (5, '$firstname $lastname$cr$streets$cr$postcode $city$cr$country','$city / $country');
 
-INSERT INTO admin VALUES (1, 1, 'AdminFirstname', 'AdminLastname', 'admin@localhost', '351683ea4e19efe34874b501fdbf9792:9b', now(), '0000-00-00 00:00:00', null, 0);
+INSERT INTO admin VALUES (1, 1, 'AdminFirstname', 'AdminLastname', 'admin@localhost', '351683ea4e19efe34874b501fdbf9792:9b', now(), null, null, 0);
 
 INSERT INTO admin_files VALUES ('1', 'BOX_HEADING_ADMINISTRATOR', 'menubox_administrator.php', '1', '0', '1');
 INSERT INTO admin_files VALUES ('2', 'BOX_HEADING_CONFIGURATION', 'menubox_configuration.php', '1', '0', '1');
