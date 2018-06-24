@@ -794,7 +794,7 @@
   
   $smarty->caching = 0;
   $smarty->cache_lifetime = -1;
-  $smarty->compile_check = constant(COMPILE_CHECK);
+  $smarty->compile_check = constant('COMPILE_CHECK');
   $smarty->configLoad('languages/' . $_SESSION['language'] . '.conf', 'general');    
   $smarty->configLoad('templates/' . SELECTED_TPL . '/includes/configuration/config.conf');
   $smarty->addPluginsDir(DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/tpl_smarty_plugins/');   

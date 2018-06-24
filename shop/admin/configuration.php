@@ -105,7 +105,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
   $smarty->assign(array('BODY_TAG_PARAMS' => 'onload="SetFocus();"',
                         'configurations' => $configurations_array,
-                        'configuration_group_title' => constant(HEADING_TITLE_CONFIGURATION_GROUP_ . (int)$gID)));
+                        'configuration_group_title' => constant('HEADING_TITLE_CONFIGURATION_GROUP_' . (int)$gID)));
  
   require(DIR_WS_BOXES . 'infobox_configuration.php');
   

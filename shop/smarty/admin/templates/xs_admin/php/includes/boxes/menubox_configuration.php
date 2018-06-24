@@ -5,7 +5,7 @@
       if ($i != 6) {
         $menu_box_contents[] = array('link' => xos_href_link(FILENAME_CONFIGURATION, 'gID=' . $i . '&selected_box=configuration'),
                                      'selected' => $_SESSION['selected_box'] == 'configuration' && $i == $_GET['gID'] ? true : false,
-                                     'name' => constant(BOX_CONFIGURATION_ . $i));
+                                     'name' => constant('BOX_CONFIGURATION_' . $i));
       }                                    
     }
     

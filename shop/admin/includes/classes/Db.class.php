@@ -15,8 +15,7 @@ class Db extends PDO
     private $dsn = 'mysql:dbname='.DB_DATABASE.';host='.DB_SERVER;
     private $user = DB_SERVER_USERNAME;
     private $password = DB_SERVER_PASSWORD;
-//    private $options = array(PDO::ATTR_PERSISTENT => USE_PCONNECT, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8", PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, MYSQL_ATTR_USE_BUFFERED_QUERY => true);
-    private $options = array(PDO::ATTR_PERSISTENT => USE_PCONNECT, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8", PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, MYSQL_ATTR_USE_BUFFERED_QUERY => false);
+    private $options = array(PDO::ATTR_PERSISTENT => USE_PCONNECT, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8", PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true);
     
     public function __construct()
     {
