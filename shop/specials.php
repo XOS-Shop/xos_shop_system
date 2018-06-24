@@ -202,7 +202,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                         AND       pd.products_id = p2c.products_id
                         AND       pd.language_id = :languages_id
                         AND       p2c.categories_or_pages_id = :filter
-                        GROUP BY  p.products_id";
+                        GROUP BY  p.products_id, s.specials_new_products_price, tr.tax_rate_final";
                         
         $listing_param_array[':customer_country_id'] = (int)$customer_country_id;
         $listing_param_array[':customer_zone_id'] = (int)$customer_zone_id;
@@ -302,7 +302,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                         AND             pd.products_id = p.products_id
                         AND             pd.language_id = :languages_id
                         AND             s.status = '1'
-                        GROUP BY        p.products_id";
+                        GROUP BY        p.products_id, s.specials_new_products_price, tr.tax_rate_final";
 
         $listing_param_array[':customer_country_id'] = (int)$customer_country_id;
         $listing_param_array[':customer_zone_id'] = (int)$customer_zone_id;

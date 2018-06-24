@@ -71,7 +71,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $products_options_name_query = $DB->prepare
     (
      "SELECT DISTINCT popt.products_options_id,
-                      popt.products_options_name
+                      popt.products_options_name,
+                      patrib.options_sort_order
       FROM            " . TABLE_PRODUCTS_OPTIONS . " popt,
                       " . TABLE_PRODUCTS_ATTRIBUTES . " patrib
       WHERE           patrib.products_id = :p

@@ -40,7 +40,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
   require(DIR_WS_INCLUDES . 'footer.php');  
 
   (isset($_GET['page']) && ($_GET['page'] > 1)) ? $rows = $_GET['page'] * MAX_DISPLAY_RESULTS - MAX_DISPLAY_RESULTS : $rows = 0;
-  $products_query_raw = "select p.products_id, p.products_ordered, pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['used_lng_id'] . "' and p.products_ordered > 0 group by pd.products_id order by p.products_ordered DESC, pd.products_name";
+  $products_query_raw = "select p.products_id, p.products_ordered, pd.products_name from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['used_lng_id'] . "' and p.products_ordered > 0 group by p.products_id, p.products_ordered, pd.products_name order by p.products_ordered DESC, pd.products_name";
   $products_split = new splitPageResults($_GET['page'], MAX_DISPLAY_RESULTS, $products_query_raw, $products_query_numrows, 'p.products_id');
 
   $rows = 0;

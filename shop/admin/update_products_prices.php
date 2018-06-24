@@ -370,7 +370,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 
         $has_product_attributes = xos_has_product_attributes($products['products_id']); 
         if ($has_product_attributes) {
-          $attributes = xos_db_query("select distinct pa.*, po.products_options_name, pov.products_options_values_name from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id ='" . (int)$products['products_id'] . "' and pa.options_id = po.products_options_id and pa.options_values_id = pov.products_options_values_id and po.language_id = pov.language_id and po.language_id = '" . (int)$_SESSION['used_lng_id'] . "' order by pa.options_sort_order, po.products_options_id, pa.options_values_sort_order, pov.products_options_values_name");
+          $attributes = xos_db_query("select distinct pa.*, po.products_options_id, po.products_options_name, pov.products_options_values_name from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id ='" . (int)$products['products_id'] . "' and pa.options_id = po.products_options_id and pa.options_values_id = pov.products_options_values_id and po.language_id = pov.language_id and po.language_id = '" . (int)$_SESSION['used_lng_id'] . "' order by pa.options_sort_order, po.products_options_id, pa.options_values_sort_order, pov.products_options_values_name");
       
           $attributes_values_array = array();
           while ($attributes_values = xos_db_fetch_array($attributes)) {
@@ -599,7 +599,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 //////////////////////////////////////// 
     $has_product_attributes = xos_has_product_attributes($_GET['product_ID']); 
     if ($has_product_attributes) {
-      $attributes = xos_db_query("select distinct pa.*, po.products_options_name, pov.products_options_values_name from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id ='" . (int)$_GET['product_ID'] . "' and pa.options_id = po.products_options_id and pa.options_values_id = pov.products_options_values_id and po.language_id = pov.language_id and po.language_id = '" . (int)$_SESSION['used_lng_id'] . "' order by pa.options_sort_order, po.products_options_id, pa.options_values_sort_order, pov.products_options_values_name");
+      $attributes = xos_db_query("select distinct pa.*, po.products_options_id, po.products_options_name, pov.products_options_values_name from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_OPTIONS . " po, " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov where pa.products_id ='" . (int)$_GET['product_ID'] . "' and pa.options_id = po.products_options_id and pa.options_values_id = pov.products_options_values_id and po.language_id = pov.language_id and po.language_id = '" . (int)$_SESSION['used_lng_id'] . "' order by pa.options_sort_order, po.products_options_id, pa.options_values_sort_order, pov.products_options_values_name");
       
       $current_attributes_values_array = array();
       $attributes_values_array = array();

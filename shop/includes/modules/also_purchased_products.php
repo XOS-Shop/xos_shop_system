@@ -58,7 +58,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       AND      p.products_id = pd.products_id
       AND      pd.language_id = :languages_id
       AND      p.products_status = '1'
-      GROUP BY p.products_id
+      GROUP BY p.products_id, o.date_purchased
       ORDER BY o.date_purchased DESC
       LIMIT    " . MAX_DISPLAY_ALSO_PURCHASED
     );

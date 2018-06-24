@@ -92,13 +92,15 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     
     $opt_values_query = $DB->prepare
     (
-     "SELECT DISTINCT pa.products_attributes_id,
+     "SELECT DISTINCT pa.options_id,
+                      pa.products_attributes_id,
                       pa.options_values_id,
                       pa.options_values_sort_order,
+                      pa.options_sort_order,
                       pa.options_values_price,
                       pa.price_prefix,
                       po.products_options_name,
-                      pov.products_options_values_name
+                      pov.products_options_values_name                      
       FROM            " . TABLE_PRODUCTS_ATTRIBUTES . " pa,
                       " . TABLE_PRODUCTS_OPTIONS . " po,
                       " . TABLE_PRODUCTS_OPTIONS_VALUES . " pov

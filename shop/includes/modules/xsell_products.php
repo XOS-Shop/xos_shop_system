@@ -39,7 +39,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
                       pd.products_name,
                       pd.products_info,
                       p.products_tax_class_id,
-                      p.products_price
+                      p.products_price,
+                      xp.sort_order
       FROM            " . TABLE_PRODUCTS_XSELL . " xp,
                       " . TABLE_PRODUCTS . " p,
                       " . TABLE_PRODUCTS_DESCRIPTION . " pd,

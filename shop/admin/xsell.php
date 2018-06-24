@@ -210,7 +210,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
       }
       if ($_POST['xsell_id']) {
 	foreach ($_POST['xsell_id'] as $temp) {
-	  $query = "INSERT INTO " . TABLE_PRODUCTS_XSELL . " VALUES ('','".$_GET['add_related_product_ID']."',$temp,1)";
+	  $query = "INSERT INTO " . TABLE_PRODUCTS_XSELL . " VALUES (NULL,'".$_GET['add_related_product_ID']."',$temp,1)";
 	    if (!xos_db_query($query)) exit('could not insert to DB');
 	}
       }

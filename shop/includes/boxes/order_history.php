@@ -35,7 +35,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
 // retreive the last x products purchased
     $orders_query = $DB->prepare
     (
-     "SELECT DISTINCT op.products_id
+     "SELECT DISTINCT op.products_id,
+                      o.date_purchased
       FROM            " . TABLE_ORDERS . " o,
                       " . TABLE_ORDERS_PRODUCTS . " op,
                       " . TABLE_PRODUCTS . " p,
@@ -48,7 +49,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
       AND             p2c.categories_or_pages_id = c.categories_or_pages_id
       AND             c.categories_or_pages_status = '1'
       AND             p.products_status = '1'
-      GROUP BY        products_id
+      GROUP BY        products_id, o.date_purchased
       ORDER BY        o.date_purchased DESC
       LIMIT           " . MAX_DISPLAY_PRODUCTS_IN_ORDER_HISTORY_BOX
     );
