@@ -348,7 +348,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         $combinations = xos_db_fetch_array($combinations_query);
                
         if (xos_not_null($combinations['attributes_combinations'])) {       
-          $sort_query = xos_db_query("select distinct options_id from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_id = '" . (int)$_GET['products_id'] . "' order by options_sort_order asc, options_id asc");        
+          $sort_query = xos_db_query("select distinct options_id, options_sort_order from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_id = '" . (int)$_GET['products_id'] . "' order by options_sort_order asc, options_id asc");                  
           $c_str = '';
           $sorted_options_id = array();
           while($sort = xos_db_fetch_array($sort_query)) {
