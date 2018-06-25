@@ -63,7 +63,7 @@
   }
 
   function quote_xe_currency($to, $from = DEFAULT_CURRENCY) {
-    $url = 'http://www.xe.com/currencyconverter/convert/?Amount=1&From=' . $from . '&To=' . $to;
+    $url = 'https://www.xe.com/currencyconverter/convert/?Amount=1&From=' . $from . '&To=' . $to;
     $page = get_external_content($url, 3, false);
 
     preg_match('/[0-9.]+\s*' . $from . '\s*=\s*([0-9.]+)\s*' . $to . '/', $page, $match);  
