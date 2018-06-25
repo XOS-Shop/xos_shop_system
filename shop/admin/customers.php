@@ -199,7 +199,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                                 'customers_fax' => $customers_fax,
                                 'customers_comments' => $customers_comments,
                                 'customers_group_id' => $customers_group_id,
-                                'customers_group_ra' => $customers_group_ra);
+                                'customers_group_ra' => $customers_group_ra == '' ? 0 : $customers_group_ra);
 
         if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $customers_gender;
         if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = xos_date_raw($customers_dob);
