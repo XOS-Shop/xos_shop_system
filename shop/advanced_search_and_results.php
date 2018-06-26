@@ -878,7 +878,7 @@ if ($action && !$error) {
   if ($pfrom > 0 || $pto > 0) $where_str_param_array[':precision'] = $precision;
 
   if (($_SESSION['sppc_customer_group_show_tax'] == '1') && ($_SESSION['sppc_customer_group_tax_exempt'] != '1')) {
-    $where_str .= " GROUP BY p.products_id";
+    $where_str .= " GROUP BY p.products_id, s.status, s.specials_new_products_price, tr.tax_rate_final";
   }
 
   if ( (empty($_GET['sort'])) || (!preg_match('/^[0-9][ad]$/', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > sizeof($column_list)) ) {
