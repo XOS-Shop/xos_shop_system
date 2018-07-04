@@ -45,7 +45,8 @@
     if (mysqli_connect_errno($$link)) {
       $db_error = mysqli_connect_error($$link);
     } else {
-      mysqli_set_charset($$link,"utf8");  
+      mysqli_set_charset($$link,"utf8");
+      xos_db_query("SET SESSION sql_mode=''");        
 
       return $$link;
     }      

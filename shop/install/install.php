@@ -52,12 +52,7 @@
     exit;
   }
 
-  if (class_exists('mysqli') && version_compare(PHP_VERSION, '5.3.0', '>=')) {
-    require('includes/functions/database_mysqli.php');
-  } else {
-    require('includes/functions/database_mysql.php'); 
-  }  
-
+  require('includes/functions/database_mysqli.php'); 
   require('includes/functions/general.php'); 
   require('includes/functions/html_output.php');
   @include('../includes/configure.php');

@@ -41,12 +41,7 @@
   
     error_reporting(E_ALL & ~E_NOTICE);
 
-    if (class_exists('mysqli') && version_compare(PHP_VERSION, '5.3.0', '>=')) {
-      require('functions/database_mysqli.php');
-    } else {
-      require('functions/database_mysql.php'); 
-    } 
-
+    require('functions/database_mysqli.php');
     require('functions/general.php');
     require('functions/html_output.php');
   

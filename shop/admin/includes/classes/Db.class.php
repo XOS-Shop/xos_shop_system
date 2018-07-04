@@ -24,6 +24,7 @@ class Db extends PDO
         
         try {
             parent::__construct($this->dsn, $this->user, $this->password, $this->options);
+            if (DISABLE_SQL_MODE == 'true') parent::exec("SET SESSION sql_mode=''");            
         }
         catch (PDOException $e) {
             # Write into log and display Exception

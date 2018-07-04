@@ -47,14 +47,9 @@
 // include the list of project database tables
   require(DIR_WS_INCLUDES . 'database_tables.php');
 
-// include the database functions and make a connection to the database
-  if (class_exists('mysqli') && version_compare(PHP_VERSION, '5.3.0', '>=')) {
-    require(DIR_WS_FUNCTIONS . 'database_mysqli.php');
-    xos_db_connect();
-  } else { 
-    require(DIR_WS_FUNCTIONS . 'database_mysql.php');
-    xos_db_connect() or die('Unable to connect to database server!');
-  } 
+// include the database functions "mysqli" and make a connection to the database
+  require(DIR_WS_FUNCTIONS . 'database_mysqli.php');
+  xos_db_connect();
   
 // include the language translations
   require(DIR_FS_SMARTY . 'admin/languages/' . $language . '.php');

@@ -42,7 +42,8 @@
     if (mysqli_connect_errno($$link)) {
       die('<span style="color : #000000;"><b><br />Unable to connect to database server!<br />Connection error: ' . mysqli_connect_errno() . '<br /></b></span>');
     } else {
-      mysqli_set_charset($$link,"utf8");  
+      mysqli_set_charset($$link,"utf8");
+      if (DISABLE_SQL_MODE == 'true') xos_db_query("SET SESSION sql_mode=''");
 
       return $$link;
     }

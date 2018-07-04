@@ -231,6 +231,7 @@
                      '  define(\'DB_DATABASE\', \'' . $_POST['DB_DATABASE']. '\');' . "\n" .
                      '  define(\'USE_PCONNECT\', \'' . (($_POST['USE_PCONNECT'] == 'true') ? 'true' : 'false') . '\'); // use persistent connections?' . "\n" .
                      '  define(\'STORE_SESSIONS\', \'' . (($_POST['STORE_SESSIONS'] == 'files') ? '' : 'mysql') . '\'); // leave empty \'\' for default handler or set to \'mysql\'' . "\n" .
+                     '  define(\'DISABLE_SQL_MODE\', \'false\');' . "\n" .
                      '?>';
 
     $fp = fopen($dir_fs_document_root . 'includes/configure.php', 'w');
