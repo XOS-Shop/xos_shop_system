@@ -412,56 +412,77 @@ function xos_selected_file($filename) {
 
       switch ($match[3]) {
         case '.html/a':
+        case '.a':
           $filename = 'index.php';
           break;
         case '.html/b':
+        case '.b':
           $filename = 'product_info.php';
           break;
         case '.html/c':
+        case '.c':
           $filename = 'content.php';
           break;
         case '.html/d':
+        case '.d':
           $filename = 'specials.php';
           break;
         case '.html/e':
+        case '.e':
           $filename = 'products_new.php';
           break;
         case '.html/f':
+        case '.f':
           $filename = 'newsletter_subscribe.php';
           break;
         case '.html/g':
+        case '.g':
           $filename = 'reviews.php';
           break;
         case '.html/h':
+        case '.h':
           $filename = 'product_reviews.php';
           break;
         case '.html/i':
+        case '.i':
           $filename = 'product_reviews_info.php';
           break;
         case '.html/k':
+        case '.k':
           $filename = 'tell_a_friend.php';
           break;
         case '.html/l':
+        case '.l':
           $filename = 'shopping_cart.php';
           break;
         case '.html/m':
+        case '.m':
           $filename = 'login.php';
           break;
         case '.html/n':
+        case '.n':
           $filename = 'create_account.php';
           break;
         case '.html/o':
+        case '.o':
           $filename = 'password_forgotten.php';
           break;
         case '.html/p':
+        case '.p':
           $filename = 'advanced_search_and_results.php';
           break;
         case '.html/q':
+        case '.q':
           $filename = 'search_result.php';
           break;
         case '.html/r':
+        case '.r':
           $filename = 'cookie_usage.php';
-          break;                                             
+          break;
+        case '.html/z':
+        case '.z':
+          $filename = str_replace(array(HTTP_SERVER, HTTPS_SERVER, DIR_WS_CATALOG), '', rtrim($match[2], '/').'.php');
+          break;                    
       }
     }    
 
