@@ -43,6 +43,7 @@
   define('FILENAME_ADVANCED_SEARCH_AND_RESULTS', 'advanced_search_and_results.php');  
   define('FILENAME_ALSO_PURCHASED_PRODUCTS', 'also_purchased_products.php');
   define('FILENAME_CAPTCHA', 'captcha.php');
+  define('FILENAME_CHECKOUT_ADDRESS', 'checkout_address.php');  
   define('FILENAME_CHECKOUT_CONFIRMATION', 'checkout_confirmation.php');
   define('FILENAME_CHECKOUT_PAYMENT', 'checkout_payment.php');
   define('FILENAME_CHECKOUT_PAYMENT_ADDRESS', 'checkout_payment_address.php');

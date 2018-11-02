@@ -5,8 +5,8 @@
 *
 * template   : sandstone-responsive
 * version    : 1.0.7 for XOS-Shop version 1.0.8
-* descrip    : xos-shop default template built with Bootstrap3                                                                    
-* filename   : create_account.tpl
+* descrip    : xos-shop template built with Bootstrap3 and theme sandstone                                                                    
+* filename   : create_account.tpl                                   
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
 * copyright  : Copyright (c) 2007 Hanspeter Zeller
 * license    : This file is part of XOS-Shop.

@@ -34,7 +34,7 @@
 <meta http-equiv="content-language" content="[@{$html_lang}@]" />
 <meta http-equiv="content-script-type" content="text/javascript" />
 <meta http-equiv="content-style-type" content="text/css" />
-<meta name="generator" content="XOS-Shop version 1.0.8, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0.6, open source e-commerce system" />
 <title>[@{$project_title}@][@{$add_title}@]</title>
 [@{if $base_href}@]
 <base href="[@{$base_href}@]" />
@@ -56,7 +56,7 @@
   <tr>
     <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
       <tr>
-        <td colspan="3"><img src="[@{$images_path}@]pixel_black.gif" alt="" width="100%" height="1" /></td>
+        <td colspan="3" style="font-size: 1px; line-height: 1px; height: 1px; width: 100%; border-top: 1px solid black;">&nbsp;</td>
       </tr>
       <tr>
         <td valign="top" width="33%"><table border="0" cellspacing="0" cellpadding="2">
@@ -91,7 +91,7 @@
     </table></td>
   </tr>  
   <tr>
-    <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="5" /></td>
+    <td style="font-size: 5px; line-height: 5px; height: 5px;">&nbsp;</td>
   </tr>          
   <tr>
     <td><table border="0" cellspacing="2" cellpadding="0">
@@ -116,7 +116,7 @@
     </table></td> 
   </tr>  
   <tr>
-    <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="10" /></td>
+    <td style="font-size: 10px; line-height: 10px; height: 10px;">&nbsp;</td>
   </tr>
   <tr>
     <td><table border="0" cellspacing="2" cellpadding="0">
@@ -127,7 +127,7 @@
     </table></td>
   </tr>
   <tr>
-    <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="10" /></td>
+    <td style="font-size: 10px; line-height: 10px; height: 10px;">&nbsp;</td>
   </tr>
   <tr>
     <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -149,7 +149,7 @@
           <table border="0" cellspacing="0" cellpadding="0">
             <tr>
               <td nowrap="nowrap" class="smallText" valign="top">&nbsp;</td>              
-              <td nowrap="nowrap" class="smallText" valign="top"><b>[@{$order_product.name}@]</b>[@{foreach name=inner item=product_attribute from=$order_product.product_attributes}@]<br />[@{$product_attribute.option_name}@]: [@{$product_attribute.option_value_name}@][@{/foreach}@][@{if $order_product.packaging_unit}@]<br /><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="100%" height="4" /><br />[@{#text_packaging_unit#}@]&nbsp;[@{$order_product.packaging_unit}@][@{/if}@]</td>                                        
+              <td nowrap="nowrap" class="smallText" valign="top"><b>[@{$order_product.name}@]</b>[@{foreach name=inner item=product_attribute from=$order_product.product_attributes}@]<br />[@{$product_attribute.option_name}@]: [@{$product_attribute.option_value_name}@][@{/foreach}@][@{if $order_product.packaging_unit}@]<br /><span style="font-family: Verdana, Arial, sans-serif; font-size: 2px;">&nbsp;</span><br />[@{#text_packaging_unit#}@]&nbsp;[@{$order_product.packaging_unit}@][@{/if}@]</td>                                        
             </tr>
           </table>                 
         </td>

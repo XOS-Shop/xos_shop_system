@@ -136,7 +136,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
       (
        "SELECT Count(*) AS total
         FROM   " . TABLE_CUSTOMERS . "
-        WHERE  customers_email_address = :email_address"
+        WHERE  customers_email_address = :email_address
+        AND    with_account = '1'"        
       );
       
       $DB->perform($check_email_query, array(':email_address' => $email_address));
@@ -252,7 +253,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
                               'customers_language_id' => $language_id,
                               'customers_telephone' => $telephone,
                               'customers_fax' => $fax,
-                              'customers_password' => xos_encrypt_password($password));
+                              'customers_password' => xos_encrypt_password($password),
+                              'with_account' => '1');
 
       if (ACCOUNT_GENDER == 'true') $sql_data_array['customers_gender'] = $gender;
       if (ACCOUNT_DOB == 'true') $sql_data_array['customers_dob'] = $dob_year . $dob_month . $dob_day;

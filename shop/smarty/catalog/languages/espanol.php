@@ -125,6 +125,7 @@ define('SEF_URL_NAME_PASSWORD_FORGOTTEN', 'Entrar^Constraseña Olvidada');
 define('SEF_URL_NAME_ADVANCED_SEARCH_AND_RESULTS', 'Búsqueda Avanzada');
 define('SEF_URL_NAME_SEARCH_RESULT', 'Resultados de la Búsqueda');
 define('SEF_URL_NAME_COOKIE_USAGE', 'Uso de Cookies');
+define('SEF_URL_NAME_CHECKOUT_ADDRESS', 'Su dirección de cliente');
 
 // Global entries for the <html> tag
 define('HTML_PARAMS','dir="LTR" lang="es"');

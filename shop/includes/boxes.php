@@ -88,7 +88,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     include(DIR_WS_BOXES . 'search.php');  
   }
   
-  if (substr($_SERVER['BASENAME_PHP_SELF'], 0, 8) != 'checkout') {
+  if (substr($_SERVER['BASENAME_PHP_SELF'], 0, 8) != 'checkout' || $_SERVER['BASENAME_PHP_SELF'] == 'checkout_address.php') {
     include(DIR_WS_BOXES . 'languages.php');
   } 
 

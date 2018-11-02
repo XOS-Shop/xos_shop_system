@@ -34,7 +34,7 @@
 <meta http-equiv="content-language" content="[@{$html_lang}@]" />
 <meta http-equiv="content-script-type" content="text/javascript" />
 <meta http-equiv="content-style-type" content="text/css" />
-<meta name="generator" content="XOS-Shop version 1.0.8, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0.6, open source e-commerce system" />
 <title>[@{$project_title}@][@{$add_title}@]</title>
 [@{if $base_href}@]
 <base href="[@{$base_href}@]" />
@@ -42,7 +42,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="[@{$images_path}@]favicon.ico" />
 <link rel="stylesheet" type="text/css" href="[@{$images_path}@]stylesheet.css" />
 [@{$style}@][@{$javascript}@]</head>
-<body bgcolor="#ffffff" onload="resize();">
+<body bgcolor="#ffffff" onload="resize();"> 
 <!-- invoice -->
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
   <tr>
@@ -56,7 +56,7 @@
   <tr>
     <td><table width="100%" border="0" cellspacing="2" cellpadding="0">
       <tr>
-        <td colspan="3"><img src="[@{$images_path}@]pixel_black.gif" alt="" width="100%" height="1" /></td>
+        <td colspan="3" style="font-size: 1px; line-height: 1px; height: 1px; width: 100%; border-top: 1px solid black;">&nbsp;</td>
       </tr>
       <tr>
         <td valign="top" width="33%"><table border="0" cellspacing="0" cellpadding="2">
@@ -91,7 +91,7 @@
     </table></td>
   </tr>      
   <tr>
-    <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="5" /></td>
+    <td style="font-size: 5px; line-height: 5px; height: 5px;">&nbsp;</td>
   </tr>                    
   <tr>
     <td><table border="0" cellspacing="2" cellpadding="0">
@@ -116,7 +116,7 @@
     </table></td> 
   </tr>
   <tr>
-    <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="10" /></td>
+    <td style="font-size: 10px; line-height: 10px; height: 10px;">&nbsp;</td>
   </tr>
   <tr>
     <td><table border="0" cellspacing="2" cellpadding="0">
@@ -127,27 +127,27 @@
     </table></td>
   </tr>
   <tr>
-    <td><img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="10" /></td>
+    <td style="font-size: 10px; line-height: 10px; height: 10px;">&nbsp;</td>
   </tr>
   <tr>
     <td><table border="0" width="100%" cellspacing="0" cellpadding="2">        
       <tr bgcolor="#d3d3d3">
       [@{if $tax_groups}@]
-        <td width="20%" nowrap="nowrap" class="smallText"><b>[@{#table_heading_products_model#}@]</b></td>
-        <td width="8%" nowrap="nowrap" class="smallText" colspan="2"><b>[@{#table_heading_products#}@]</b></td>        
-        <td width="32%" nowrap="nowrap" class="smallText" align="right"><b>[@{#table_heading_tax#}@]</b></td>    
+        <td width="15%" nowrap="nowrap" class="smallText"><b>[@{#table_heading_products_model#}@]</b></td>
+        <td width="15%" nowrap="nowrap" class="smallText" colspan="2"><b>[@{#table_heading_products#}@]</b></td>        
+        <td nowrap="nowrap" class="smallText" align="right"><b>[@{#table_heading_tax#}@]</b></td>    
         <td width="1%" nowrap="nowrap" class="smallText"><b>&nbsp;</b></td>
-        <td width="20%" nowrap="nowrap" class="smallText" align="right"><b>[@{#table_heading_price#}@]</b></td>
+        <td width="15%" nowrap="nowrap" class="smallText" align="right"><b>[@{#table_heading_price#}@]</b></td>
         <td width="1%" nowrap="nowrap" class="smallText"><b>&nbsp;</b></td>
-        <td width="15%" nowrap="nowrap" class="smallText" align="center"><b>[@{#table_heading_quantity#}@]</b></td>
+        <td width="5%" nowrap="nowrap" class="smallText" align="center"><b>[@{#table_heading_quantity#}@]</b></td>
         <td width="1%" nowrap="nowrap" class="smallText"><b>&nbsp;</b></td>
         <td width="2%" nowrap="nowrap" class="smallText" align="right"><b>[@{#table_heading_total#}@]</b></td>
       [@{else}@]
-        <td width="20%" nowrap="nowrap" class="smallText"><b>[@{#table_heading_products_model#}@]</b></td>
-        <td width="8%" nowrap="nowrap" class="smallText" colspan="2"><b>[@{#table_heading_products#}@]</b></td>        
-        <td width="53%" nowrap="nowrap" class="smallText" align="right"><b>[@{#table_heading_price#}@]</b></td>
+        <td width="15%" nowrap="nowrap" class="smallText"><b>[@{#table_heading_products_model#}@]</b></td>
+        <td width="15%" nowrap="nowrap" class="smallText" colspan="2"><b>[@{#table_heading_products#}@]</b></td>        
+        <td nowrap="nowrap" class="smallText" align="right"><b>[@{#table_heading_price#}@]</b></td>
         <td width="1%" nowrap="nowrap" class="smallText"><b>&nbsp;</b></td>
-        <td width="15%" nowrap="nowrap" class="smallText" align="center"><b>[@{#table_heading_quantity#}@]</b></td>
+        <td width="10%" nowrap="nowrap" class="smallText" align="center"><b>[@{#table_heading_quantity#}@]</b></td>
         <td width="1%" nowrap="nowrap" class="smallText"><b>&nbsp;</b></td>
         <td width="2%" nowrap="nowrap" class="smallText" align="right"><b>[@{#table_heading_total#}@]</b></td>      
       [@{/if}@]  
@@ -175,7 +175,7 @@
                 <table border="0" cellspacing="0" cellpadding="0"> 
                   <tr>
                     <td nowrap="nowrap" class="smallText">&nbsp;</td>              
-                    <td nowrap="nowrap" class="smallText" align="center" valign="top">[@{foreach name=inner item=product_attribute from=$order_product.product_attributes}@]<br />[@{if $product_attribute.option_price}@][@{$product_attribute.option_price_prefix}@][@{/if}@][@{/foreach}@]</td>
+                    <td nowrap="nowrap" class="smallText" align="center" valign="bottom">[@{foreach name=inner item=product_attribute from=$order_product.product_attributes}@]<br />[@{if $product_attribute.option_price}@][@{$product_attribute.option_price_prefix}@][@{/if}@][@{/foreach}@]</td>
                     <td nowrap="nowrap" class="smallText" align="right" valign="top">[@{$order_product.price}@][@{foreach name=inner item=product_attribute from=$order_product.product_attributes}@]<br />[@{if $product_attribute.option_price}@][@{$product_attribute.option_price}@][@{/if}@][@{/foreach}@]</td>
                   </tr>
                 </table>  
@@ -183,7 +183,7 @@
               </td>                                                            
             </tr>                                                
             <tr>            
-              <td colspan="3" class="smallText" nowrap="nowrap">[@{if $order_product.packaging_unit}@]<img src="[@{$images_path}@]pixel_trans.gif" alt="" width="1" height="4" /><br />&nbsp;[@{#text_packaging_unit#}@]&nbsp;[@{$order_product.packaging_unit}@][@{/if}@]</td>                                        
+              <td colspan="3" class="smallText" nowrap="nowrap">[@{if $order_product.packaging_unit}@]<span style="font-family: Verdana, Arial, sans-serif; font-size: 2px;">&nbsp;</span><br />&nbsp;[@{#text_packaging_unit#}@]&nbsp;[@{$order_product.packaging_unit}@][@{/if}@]</td>                                        
             </tr>                                                                                                                                                 
           </table>                 
         </td>                                     
@@ -205,14 +205,14 @@
     </table></td>
   </tr>  
   <tr>
-    <td align="right"><table border="0" cellspacing="0" cellpadding="2">
+    <td align="right"><table border="0" cellspacing="0" cellpadding="2" style="float: right;">    
      [@{foreach item=order_total from=$order_totals}@]
       <tr>
         <td nowrap="nowrap" align="right" class="smallText">[@{if $tax_groups && $order_total.tax > -1}@]<span style="color : #ff0000;">[@{#table_heading_tax#}@]&nbsp;([@{$order_total.tax}@]%)&nbsp;</span>[@{/if}@][@{$order_total.title}@]</td>
         <td nowrap="nowrap" align="right" class="smallText">[@{$order_total.text}@]</td>
       </tr>
      [@{/foreach}@]
-    </table></td>
+    </table><span style=" clear: both;" ></span></td>    
   </tr>  
 </table>
 <!-- invoice_eof -->

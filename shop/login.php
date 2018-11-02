@@ -245,7 +245,8 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
      LIMIT 1"
   );
   
-  $smarty->assign(array('link_filename_create_account' => xos_href_link(FILENAME_CREATE_ACCOUNT, 'rmp=0', 'SSL'),
+  $smarty->assign(array('link_filename_create_account' => xos_href_link(FILENAME_CREATE_ACCOUNT, '', 'SSL'),
+                        'link_filename_checkout_address' => xos_href_link(FILENAME_CHECKOUT_ADDRESS, '', 'SSL'),
                         'link_back' => $back_link,
                         'input_field_email_address' => xos_draw_input_field('email_address', '', 'class="form-control" id="email_address"'),
                         'input_field_password' => xos_draw_password_field('password', '', 'class="form-control" id="password"'),

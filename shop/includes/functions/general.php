@@ -1300,7 +1300,7 @@
 
   function xos_get_ip_address() {
 
-    $ip_address = null;
+    $ip_address = 'unknown';
     $ip_addresses = array();
 
     if (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {

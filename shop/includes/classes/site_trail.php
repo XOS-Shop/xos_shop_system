@@ -48,24 +48,51 @@
     }
 
     function breadcrumb_trail($separator = ' - ') {
-      $trail_string = '  <ol class="breadcrumb-list" itemscope itemtype="http://schema.org/BreadcrumbList">' . PHP_EOL;
+      $trail_string = '  <ol class="breadcrumb-list">' . PHP_EOL;
+      
+      $json_ld_str = PHP_EOL . '<script type="application/ld+json">' . PHP_EOL .
+                               ' {' . PHP_EOL .
+                               '   "@context": "http://schema.org/",' . PHP_EOL .
+                               '   "@type": "BreadcrumbList",' . PHP_EOL .
+                               '   "itemListElement": [' . PHP_EOL;      
 
       for ($i=0, $n=sizeof($this->_trail); $i<$n; $i++) {
-        $trail_string .= '    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">' . PHP_EOL;     
+        $trail_string .= '    <li>' . PHP_EOL; 
+            
         if (!empty($this->_trail[$i]['link'])) {
-          $trail_string .= '      <a itemprop="item" href="' . $this->_trail[$i]['link'] . '" class="header-navi">' . PHP_EOL .
-                           '        <span itemprop="name">' . $this->_trail[$i]['title'] . '</span>' . PHP_EOL .
-                           '      </a>' . PHP_EOL;
+          if (($i+1) < $n) {
+            $trail_string .= '      <a href="' . $this->_trail[$i]['link'] . '" class="header-navi">' . PHP_EOL .
+                             '        <span>' . $this->_trail[$i]['title'] . '</span>' . PHP_EOL .
+                             '      </a>' . PHP_EOL;
+          } else {
+            $trail_string .= '      <span class="current">' . $this->_trail[$i]['title'] . '</span>' . PHP_EOL;
+          }                  
+                           
+          $json_ld_str .= '     {' . PHP_EOL .
+                          '        "@type": "ListItem",' . PHP_EOL .
+                          '        "position": "' . ($i+1) . '",' . PHP_EOL .
+                          '        "item": {' . PHP_EOL .
+                          '          "@id": "' . $this->_trail[$i]['link'] . '",' . PHP_EOL .
+                          '          "name": "' . addcslashes($this->_trail[$i]['title'], '"') . '"' . PHP_EOL .
+                          '       }' . PHP_EOL .
+                          '     },' . PHP_EOL;                             
+                           
+                           
         } else {
-          $trail_string .= '      <span itemprop="name">' . $this->_trail[$i]['title'] . '</span>' . PHP_EOL;         
+          $trail_string .= '      <span>' . $this->_trail[$i]['title'] . '</span>' . PHP_EOL;         
         }
 
-        $trail_string .= '      <meta itemprop="position" content="' . ($i+1) . '">' . PHP_EOL;
         if (($i+1) < $n) $trail_string .= '      <span>' . $separator . '</span>' . PHP_EOL;
         $trail_string .= '    </li>' . PHP_EOL;
       }
+      
+      if (strrpos($json_ld_str, ',') !== false) $json_ld_str = substr_replace($json_ld_str, '', strrpos($json_ld_str, ',')) . PHP_EOL;      
+      
+      $json_ld_str .= '   ]' . PHP_EOL .
+                      ' }' . PHP_EOL .
+                      '</script>' . PHP_EOL;       
 
-      return $trail_string . '  </ol>';
+      return $trail_string . '  </ol>' . $json_ld_str;
     }
     
     function title_trail($separator = ' - ') {

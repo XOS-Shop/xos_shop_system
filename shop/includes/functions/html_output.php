@@ -215,7 +215,11 @@
         case FILENAME_COOKIE_USAGE:
           $name_str = SEF_URL_NAME_COOKIE_USAGE;                
           $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 'r' : FILENAME_COOKIE_USAGE; 
-          break;                                                                                                          
+          break; 
+        case FILENAME_CHECKOUT_ADDRESS:
+          $name_str = SEF_URL_NAME_CHECKOUT_ADDRESS;                
+          $page = ($trail_string = xos_sef_url_trail_converter($name_str)) ? $lng_code . $trail_string . $param_delim . 's' : FILENAME_CHECKOUT_ADDRESS; 
+          break;                                                                                                                     
       } 
       
       $page = str_replace('.php', $param_delim . 'z', $page);                                                

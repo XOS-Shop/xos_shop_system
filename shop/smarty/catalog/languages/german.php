@@ -125,6 +125,7 @@ define('SEF_URL_NAME_PASSWORD_FORGOTTEN', 'Anmelden^Passwort vergessen');
 define('SEF_URL_NAME_ADVANCED_SEARCH_AND_RESULTS', 'Erweiterte Suche');
 define('SEF_URL_NAME_SEARCH_RESULT', 'Suchergebnisse');
 define('SEF_URL_NAME_COOKIE_USAGE', 'Verwendung von Cookies');
+define('SEF_URL_NAME_CHECKOUT_ADDRESS', 'Ihre Kundenadresse');
 
 // Global entries for the <html> tag
 define('HTML_PARAMS','dir="LTR" lang="de"');

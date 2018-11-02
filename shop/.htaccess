@@ -162,6 +162,7 @@
   RewriteRule ^(.*)\.html/p(.*)$ advanced_search_and_results.php?SEO_PARAMS=$2 [L]
   RewriteRule ^(.*)\.html/q(.*)$ search_result.php?SEO_PARAMS=$2 [L]
   RewriteRule ^(.*)\.html/r(.*)$ cookie_usage.php?SEO_PARAMS=$2 [L] 
+  RewriteRule ^(.*)\.html/s(.*)$ checkout_address.php?SEO_PARAMS=$2 [L]  
   RewriteRule ^(.*)\.html/z(.*)$ $1.php?SEO_PARAMS=$2 [L]
   
   RewriteRule ^(.*)/\.a(.*)$ index.php?SEO_PARAMS=$2 [L]  
@@ -181,5 +182,6 @@
   RewriteRule ^(.*)/\.p(.*)$ advanced_search_and_results.php?SEO_PARAMS=$2 [L]
   RewriteRule ^(.*)/\.q(.*)$ search_result.php?SEO_PARAMS=$2 [L]
   RewriteRule ^(.*)/\.r(.*)$ cookie_usage.php?SEO_PARAMS=$2 [L] 
+  RewriteRule ^(.*)/\.s(.*)$ checkout_address.php?SEO_PARAMS=$2 [L]  
   RewriteRule ^(.*)/\.z(.*)$ $1.php?SEO_PARAMS=$2 [L]           
 </IfModule> 

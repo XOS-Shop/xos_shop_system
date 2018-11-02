@@ -779,10 +779,20 @@ a.header-navi:hover {
 
 #scrollUp {
   font-size: 30px;
-  bottom: 100px;
-  right: 30px;
+  bottom: 5px;
+  right: 50%;
+  right: calc((100% - 50px) / 2);
   padding: 4px 8px 0px 10px;
 }
+
+@media (min-width: 1310px) {
+  #scrollUp {
+    font-size: 30px;
+    bottom: 100px;
+    right: 30px;
+    padding: 4px 8px 0px 10px;
+  }
+} 
 
 .breadcrumb-list {
   list-style-type: none;
@@ -832,5 +842,18 @@ form[name=create_account] textarea:required:invalid {
 form[name=create_account] input:required:valid, 
 form[name=create_account] select:required:valid, 
 form[name=create_account] textarea:required:valid {
+  /* background-color: #e7ffe7; */
+}
+
+form[name=checkout_address] input:required:invalid, 
+form[name=checkout_address] select:required:invalid, 
+form[name=checkout_address] textarea:required:invalid {
+  color: #000;
+  background-color: #f5edee;
+}  
+
+form[name=checkout_address] input:required:valid, 
+form[name=checkout_address] select:required:valid, 
+form[name=checkout_address] textarea:required:valid {
   /* background-color: #e7ffe7; */
 }

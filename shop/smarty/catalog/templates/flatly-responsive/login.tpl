@@ -57,7 +57,7 @@
           [@{/if}@]           
           <div class="row"> 
         [@{if $is_shop}@]                                      
-            <div class="col-sm-6 col-lg-5">              
+            <div class="col-sm-6">               
               <div class="panel panel-info">
                 <div class="panel-heading">
                   <h3 class="panel-title">[@{#heading_new_customer#}@]</h3>
@@ -69,8 +69,21 @@
                   <a href="[@{$link_filename_create_account}@]" class="btn btn-success  pull-right" title=" [@{#button_title_continue#}@] ">[@{#button_text_continue#}@]</a>                              
                 </div>
               </div>   
-            </div>                       
-            <div class="col-sm-6 col-lg-5 col-lg-offset-2">                     
+            </div>             
+            <div class="col-sm-6 ">              
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <h3 class="panel-title">[@{#heading_new_guest#}@]</h3>
+                </div>
+                <div class="panel-body">                          
+                  <div class="div-spacer-h10"></div>             
+                  <div>[@{#text_new_guest#}@]<br /><br />[@{eval var=#text_new_guest_introduction#}@]</div>            
+                  <div class="div-spacer-h10"></div>                               
+                  <a href="[@{$link_filename_checkout_address}@]" class="btn btn-success  pull-right" title=" [@{#button_title_continue#}@] ">[@{#button_text_continue#}@]</a>                              
+                </div>
+              </div>   
+            </div>                                               
+            <div class="col-sm-6 col-sm-offset-6">                    
               <div class="panel panel-info">
                 <div class="panel-heading">
                   <h3 class="panel-title">[@{#heading_returning_customer#}@]</h3>

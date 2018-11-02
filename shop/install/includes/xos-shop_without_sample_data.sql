@@ -347,7 +347,8 @@ CREATE TABLE customers (
    customers_fax varchar(255),
    customers_password varchar(60) NOT NULL,
    customers_group_id smallint NOT NULL default '0',
-   customers_group_ra enum('0','1') NOT NULL,
+   customers_group_ra enum('0','1') NOT NULL default '0',
+   with_account enum('0','1') NOT NULL default '1',
    customers_comments text,       
    PRIMARY KEY (customers_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -1113,7 +1114,7 @@ INSERT INTO configuration (configuration_key, configuration_value, configuration
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('COMPILE_CHECK', 'false', '12', '2', 'xos_cfg_select_option(array(\'true\', \'false\'), ', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('ALLOW_VISITORS_TO_CHANGE_TEMPLATE', 'true', '12', '3', 'xos_cfg_select_option(array(\'true\', \'false\'), ', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('DEFAULT_TPL', 'default-responsive', '12', '4', 'xos_cfg_pull_down_templates(', now());
-INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('REGISTERED_TPLS', 'cosmo-responsive,cyborg-responsive,darkly-responsive,default-responsive,flatly-responsive,hero-responsive,html5,osc-table,paper-responsive,sandstone-responsive', '12', '5', 'xos_get_registered_tpls_list', 'xos_cfg_checkbox_templates(', now());
+INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, set_function, date_added) VALUES ('REGISTERED_TPLS', 'cosmo-responsive,cyborg-responsive,darkly-responsive,default-responsive,flatly-responsive,hero-responsive,paper-responsive,sandstone-responsive', '12', '5', 'xos_get_registered_tpls_list', 'xos_cfg_checkbox_templates(', now());
 
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('SEND_EMAILS', 'true', '13', '1', 'xos_cfg_select_option(array(\'true\', \'false\'), ', now());
 INSERT INTO configuration (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('EMAIL_USE_HTML', 'true', '13', '2', 'xos_cfg_select_option(array(\'true\', \'false\'),', now());

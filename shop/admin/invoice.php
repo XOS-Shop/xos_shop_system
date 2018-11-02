@@ -31,6 +31,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 require('includes/application_top.php');
+
+// reference the Dompdf namespace
+use Dompdf\Dompdf;
+use Dompdf\Options;
+  
 if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILENAME_ORDERS_INVOICE) == 'overwrite_all')) :
   $oID = xos_db_prepare_input($_GET['oID']);
   $orders_query = xos_db_query("select orders_id from " . TABLE_ORDERS . " where orders_id = '" . (int)$oID . "'");
@@ -45,7 +50,12 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
                 '   self.focus();'."\n".
                 '}'."\n".
                 '/* ]]> */'."\n".
-                '</script>'."\n";  
+                '</script>'."\n"; 
+                
+  // Folgender Regelsatz stellt sicher, dass bei Verwendung des HTML zu PDF Konverters (Dompdf) ein Unicode Font verwendet wird. Dadurch werden z.B. auch kyrillische und griechische Schriftzeichen dargestellt, chinesische Schriftzeichen aber nicht.
+  $style = '<style>'."\n".
+             '* { font-family: DejaVu Sans !important; }'."\n".
+           '</style>'."\n";                  
   
   $smarty->assign(array('base_href' => substr(HTTP_SERVER, -1) == '/' ? ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER : '',
                         'html_params' => HTML_PARAMS,
@@ -119,6 +129,43 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     $smarty->configLoad(DIR_FS_SMARTY . 'catalog/languages/' . $order->info['language_directory'] . '.conf', 'order_info');
   }
                                                     
-  $smarty->display(ADMIN_TPL . '/invoice.tpl');
+  $HTML = $smarty->fetch(ADMIN_TPL . '/invoice.tpl'); 
+      
+  // required dompdf
+  require_once DIR_FS_SMARTY . 'dompdf/autoload.inc.php';
+  
+  // instantiate and use the dompdf class
+  $options = new Options();
+  $options->set('isRemoteEnabled', true);
+  $options->set('isHtml5ParserEnabled', true);
+  $options->set('isFontSubsettingEnabled', true); 
+  $dompdf = new Dompdf($options);
+  $dompdf->loadHtml($HTML, 'UTF-8');
+
+  $context = stream_context_create([ 
+      'ssl' => [ 
+          'verify_peer' => false, 
+          'verify_peer_name' => false,
+          'allow_self_signed'=> true 
+      ] 
+  ]);
+  
+  $dompdf->setHttpContext($context);
+
+  $url = substr(HTTP_SERVER, -1) != '/' ? ENABLE_SSL == 'true' ? ($_SESSION['disable_ssl'] ? HTTP_SERVER : HTTPS_SERVER) : HTTP_SERVER : '';
+ 
+  if ($url != '') {
+    $dompdf->setProtocol(parse_url($url, PHP_URL_SCHEME) . '://');
+    $dompdf->setBaseHost(parse_url($url, PHP_URL_HOST));
+  }          
+  
+  // (Optional) Setup the paper size and orientation
+  $dompdf->setPaper('A4', 'portrait');
+  
+  // Render the HTML as PDF
+  $dompdf->render();
+  
+  // Output the generated PDF to Browser
+  $dompdf->stream(STORE_NAME . ' ' . BUTTON_TITLE_ORDERS_INVOICE . ' ' . $oID, array("Attachment" => false));      
 endif;  
 ?>
