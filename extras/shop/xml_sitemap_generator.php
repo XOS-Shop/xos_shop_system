@@ -44,7 +44,7 @@
   define('PRIORITY_PRODUCTS', '0.5');
 
   define('MAX_ENTRYS', 50000);
-  define('MAX_SIZE', 10485760);
+  define('MAX_SIZE', 52428800);
 
 
   define('SITEMAPINDEX_HEADER', "<?xml version='1.0' encoding='UTF-8'?>"."\n".
