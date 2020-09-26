@@ -3,7 +3,7 @@ SYSTEMVORAUSSETZUNGEN
 
 Betriebs-System:           Unix, Linux
 Web-Server:                Apache 2.2, Apache 2.4 oder Nginx 1.13.4 (Apache empfohlen)
-Skriptsprache:             PHP ab Version 5.6 mit (GDLib2 und GIF Create Support)
+Skriptsprache:             PHP ab Version 7.1 mit (GDLib2 und GIF Create Support)
 Datenbank-System:          MySQL ab Version 5.0.27
 
 ################################################################################

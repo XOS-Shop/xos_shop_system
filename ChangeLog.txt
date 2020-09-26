@@ -1,6 +1,10 @@
 
 ##ChangeLog
 
+# XOS-Shop v1.0.9 (Release 09/26/2020)
+
+- update:  Die veraltete PHP-Funktion "each()" ersetzt
+
 # XOS-Shop v1.0.8 (Release 02/08/2018)
 
 - update:  CKEditor Version-4.7.3 auf CKEditor Version-4.8.0
