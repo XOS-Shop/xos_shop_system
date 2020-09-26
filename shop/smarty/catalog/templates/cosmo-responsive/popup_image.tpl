@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : cosmo-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0.8
+* version    : 1.0.7 for XOS-Shop version 1.0.9
 * descrip    : xos-shop template built with Bootstrap3 and theme cosmo                                                                    
 * filename   : popup_image.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
@@ -44,7 +44,7 @@
 -->
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="generator" content="XOS-Shop version 1.0.8, open source e-commerce system" />
+<meta name="generator" content="XOS-Shop version 1.0.9, open source e-commerce system" />
 <title>[@{$html_header_page_title}@][@{$html_header_add_page_title}@]</title>
 [@{if $base_href}@]
 <base href="[@{$base_href}@]" />

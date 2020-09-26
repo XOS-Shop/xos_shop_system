@@ -4,7 +4,7 @@
 *              http://www.xos-shop.com
 *
 * template   : default-responsive
-* version    : 1.0.7 for XOS-Shop version 1.0.8
+* version    : 1.0.7 for XOS-Shop version 1.0.9
 * descrip    : xos-shop default template built with Bootstrap3                                                                    
 * filename   : password_forgotten_email_text.tpl
 * author     : Hanspeter Zeller <hpz@xos-shop.com>
