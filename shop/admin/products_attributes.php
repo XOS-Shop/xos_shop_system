@@ -338,8 +338,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         xos_redirect(xos_href_link(FILENAME_PRODUCTS_ATTRIBUTES, $parameter_string));
         break;
       case 'update_options_sort_order':
-        reset($_POST['option_sort_order'][(int)$_GET['products_id']]);               
-        while (list($key, $value) = each($_POST['option_sort_order'][(int)$_GET['products_id']])) {        
+        reset($_POST['option_sort_order'][(int)$_GET['products_id']]); 
+        foreach($_POST['option_sort_order'][(int)$_GET['products_id']] as $key => $value) {                     
           $value = xos_db_prepare_input($value);          
           if ((int)$value > 0) xos_db_query("update " . TABLE_PRODUCTS_ATTRIBUTES . " set options_sort_order = '" . (int)$value . "' where products_id = '" . (int)$_GET['products_id'] . "' and options_id = '" . (int)$key . "'");               
         }

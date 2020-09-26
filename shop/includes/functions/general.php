@@ -149,7 +149,7 @@
     $get_url = '';
     if (is_array($_GET) && (sizeof($_GET) > 0)) {
       reset($_GET);
-      while (list($key, $value) = each($_GET)) {
+      foreach($_GET as $key => $value) {
         if ( is_string($value) && (strlen($value) > 0) && ($key != xos_session_name()) && ($key != 'error') && (!in_array($key, $exclude_array)) && ($key != 'x') && ($key != 'y') ) {
           $get_url .= $key . '=' . rawurlencode(stripslashes($value)) . '&';
         }
@@ -1034,7 +1034,7 @@
         $attributes_ids = '';
 
         reset($params);
-        while (list($option, $value) = each($params)) {
+        foreach($params as $option => $value) {
           if (is_numeric($option) && is_numeric($value)) {
             $attributes_ids .= (int)$option . 'O' . (int)$value . '_';
           } else {
@@ -1172,7 +1172,7 @@
     $get_string = '';
     if (sizeof($array) > 0) {
       reset($array);
-      while (list($key, $value) = each($array)) {
+      foreach($array as $key => $value) {
         if ( (!in_array($key, $exclude)) && ($key != 'x') && ($key != 'y') ) {
           $get_string .= $key . $equals . rawurlencode(stripslashes($value)) . $separator;
         }

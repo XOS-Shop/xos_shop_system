@@ -336,7 +336,7 @@
         if ($products[$i]['attributes']) {
           $subindex = 0;
           reset($products[$i]['attributes']);
-          while (list($option, $value) = each($products[$i]['attributes'])) {
+          foreach($products[$i]['attributes'] as $option => $value) {
             $attributes_price = '';
             $attributes_query = xos_db_query("select popt.products_options_name, poval.products_options_values_name, pa.options_values_price, pa.price_prefix from " . TABLE_PRODUCTS_OPTIONS . " popt, " . TABLE_PRODUCTS_OPTIONS_VALUES . " poval, " . TABLE_PRODUCTS_ATTRIBUTES . " pa where pa.products_id = '" . (int)$products[$i]['id'] . "' and pa.options_id = '" . (int)$option . "' and pa.options_id = popt.products_options_id and pa.options_values_id = '" . (int)$value . "' and pa.options_values_id = poval.products_options_values_id and popt.language_id = '" . (int)$_SESSION['languages_id'] . "' and poval.language_id = '" . (int)$_SESSION['languages_id'] . "'");
             $attributes = xos_db_fetch_array($attributes_query);
@@ -385,7 +385,7 @@
         $this->info['subtotal'] -= $this->info['discount'] = round($this->info['subtotal'] / 100 * $_SESSION['sppc_customer_group_discount'], $currencies->currencies[$_SESSION['currency']]['decimal_places']);
         $this->info['discount'] = 0 - $this->info['discount'];
         reset($this->info['tax_groups']);
-        while (list($key, $value) = each($this->info['tax_groups'])) {
+        foreach($this->info['tax_groups'] as $key => $value) {
           if ($value > 0) {
             $discount_tax = round($value / 100 * $_SESSION['sppc_customer_group_discount'], $currencies->currencies[$_SESSION['currency']]['decimal_places']);
             $this->info['tax_groups']["$key"] -= $discount_tax;

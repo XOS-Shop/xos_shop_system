@@ -41,7 +41,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/incl
     if (sizeof($currencies->currencies) > 1) { 
     
       $currencies_array = array();
-      while (list($key, $value) = each($currencies->currencies)) {
+      foreach($currencies->currencies as $key => $value) {
         $currencies_array[] = array('id' => xos_href_link($_SERVER['BASENAME_PHP_SELF'], xos_get_all_get_params(array('cur')) . 'cur=' . $key, $request_type, true, true, false, false, false), 'text' => $value['title']);
         if ($_SESSION['currency'] == $key) {
           $currencies_content_string .= '<span><b>' . $value['title'] .'</b></span>';

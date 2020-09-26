@@ -201,7 +201,7 @@
   
   reset($lng->catalog_languages);
   
-  while (list($lng_code, $value) = each($lng->catalog_languages)) {
+  foreach($lng->catalog_languages as $lng_code => $value) {
 
     unset($cats);
     unset($mans); 
@@ -234,7 +234,7 @@
         $date = ($content_data['last_modified'] != NULL) ? $content_data['last_modified'] : $content_data['date_added'];
 
         reset($currencies->currencies);
-        while (list($key) = each($currencies->currencies)) {
+        foreach(array_keys($currencies->currencies) as $key) {
           $curr_param = (sizeof($currencies->currencies) > 1) ? '&cur=' . $key : '';
       
           $string = sprintf(SITEMAP_ENTRY, xos_href_link('content.php', 'co='.$content_data['content_id'].$lang_param.$curr_param, 'NONSSL', false) , PRIORITY_CONTENTS, iso8601_date($date), CHANGEFREQ_CONTENTS);
@@ -295,7 +295,7 @@
         $date = ($cat_data['last_modified'] != NULL) ? $cat_data['last_modified'] : $cat_data['date_added'];
 
         reset($currencies->currencies);
-        while (list($key) = each($currencies->currencies)) {
+        foreach(array_keys($currencies->currencies) as $key) {
           $curr_param = (sizeof($currencies->currencies) > 1) ? '&cur=' . $key : '';
          
           $string = sprintf(SITEMAP_ENTRY, xos_href_link('index.php', rv_get_path($cat_data['categories_or_pages_id'], $lng_code).$lang_param.$curr_param, 'NONSSL', false) ,PRIORITY_CATEGORIES, iso8601_date($date), CHANGEFREQ_CATEGORIES);
@@ -349,7 +349,7 @@
         $date = ($product_data['products_last_modified'] != NULL) ? $product_data['products_last_modified'] : $product_data['products_date_added'];
       
         reset($currencies->currencies);
-        while (list($key) = each($currencies->currencies)) {
+        foreach(array_keys($currencies->currencies) as $key) {
           $curr_param = (sizeof($currencies->currencies) > 1) ? '&cur=' . $key : '';
       
           $string = sprintf(SITEMAP_ENTRY, xos_href_link('product_info.php', 'p='.$product_data['products_id'].$lang_param.$curr_param, 'NONSSL', false) , PRIORITY_PRODUCTS, iso8601_date($date), CHANGEFREQ_PRODUCTS);

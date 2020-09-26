@@ -107,7 +107,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
   $column_list = array();
   reset($define_list);
-  while (list($key, $value) = each($define_list)) {
+  foreach($define_list as $key => $value) {
     if ($value == '') $value = -1;
     if ($value >= 0) $column_list[] = $key;
   }
@@ -258,7 +258,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     
     $hidden_get_variables = '';
     reset($_GET);
-    while (list($key, $value) = each($_GET)) {
+    foreach($_GET as $key => $value) {
       if ( ($key != 'mdsr') && ($key != xos_session_name()) && ($key != 'page') ) {
         $hidden_get_variables .= xos_draw_hidden_field($key, $value);
       }

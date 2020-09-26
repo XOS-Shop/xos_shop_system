@@ -33,7 +33,7 @@
 require('includes/application_top.php');
 if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILENAME_POPUP_IMAGE) == 'overwrite_all')) :
   reset($_GET);
-  while (list($key, ) = each($_GET)) {
+  foreach(array_keys($_GET) as $key) {
     switch ($key) {
       case 'banner':
         $banners_id = xos_db_prepare_input($_GET['banner']);

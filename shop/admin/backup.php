@@ -75,7 +75,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
         $ii = 0;
         $iii = 0;
         while ($tables = xos_db_fetch_array($tables_query)) {
-          list(,$table) = each($tables);
+          $table = current($tables);
 
           $schema = "\n" . 'DROP TABLE IF EXISTS `' . $table . '`;' . "\n";
 
@@ -100,7 +100,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
               $schema = 'insert into ' . $table . ' (' . implode(', ', $table_list) . ') values (';
 
               reset($table_list);
-              while (list(,$i) = each($table_list)) {
+              foreach($table_list as $i) {
                 if (!isset($rows[$i])) {
                   $schema .= 'NULL, ';
                 } elseif (xos_not_null($rows[$i])) {

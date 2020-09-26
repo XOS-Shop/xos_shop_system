@@ -196,7 +196,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
           }
 
           reset($products);
-          while (list($key, $value) = each($products)) {
+          foreach($products as $key => $value) {
             $category_ids = '';
 
             for ($i=0, $n=sizeof($value['categories']); $i<$n; $i++) {
@@ -218,7 +218,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
           }
 
           reset($products_delete);
-          while (list($key) = each($products_delete)) {
+          foreach(array_keys($products_delete) as $key) {
             xos_remove_product($key);
           }
           

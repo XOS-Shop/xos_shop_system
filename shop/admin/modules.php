@@ -54,7 +54,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     switch ($action) {
       case 'save':       
         reset($_POST['configuration']);
-        while (list($key, $value) = each($_POST['configuration'])) {
+        foreach($_POST['configuration'] as $key => $value) {
           xos_db_query("update " . TABLE_CONFIGURATION . " set configuration_value = '" . $value . "' where configuration_key = '" . $key . "'");
         }
         $smarty_cache_control->clearAllCache();

@@ -118,7 +118,9 @@
           $methods = array();
           $size = sizeof($uspsQuote);
           for ($i=0; $i<$size; $i++) {
-            list($type, $cost) = each($uspsQuote[$i]);
+            //list($type, $cost) = each($uspsQuote[$i]);
+            $type = key($uspsQuote[$i]);
+            $cost = current($uspsQuote[$i]);
 
             $methods[] = array('id' => $type,
                                'title' => ((isset($this->types[$type])) ? $this->types[$type] : $type),
@@ -203,7 +205,7 @@
         if ($order->delivery['country']['iso_code_2'] == 'US') $dest_zip = substr($dest_zip, 0, 5);
 
         reset($this->types);
-        while (list($key, $value) = each($this->types)) {
+        foreach($this->types as $key => $value) {
           $request .= '<Package ID="' . $services_count . '">' .
                       '<Service>' . $key . '</Service>' .
                       '<ZipOrigination>' . SHIPPING_ORIGIN_ZIP . '</ZipOrigination>' .

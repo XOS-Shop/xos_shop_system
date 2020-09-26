@@ -168,8 +168,8 @@
                 '/'),      
           $this->canonical_link());
         
-        $hreflang_link_and_code = array();       
-        while (list($lang_code) = each($lng->catalog_languages)) { 
+        $hreflang_link_and_code = array();
+        foreach(array_keys($lng->catalog_languages) as $lang_code) {       
           if ($_SESSION['languages_code'] != $lang_code) {
             $hreflang_link_and_code[] = array('link' => (strpos($link, '.php?') ? $link . '&amp;go=' . $lang_code : (strpos($link, '.php') ? $link . '?go=' . $lang_code : rtrim($link, '/') . '/go/' . $lang_code)),
                                               'lang_code' => $lang_code);

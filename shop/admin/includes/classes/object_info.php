@@ -35,7 +35,7 @@
 // class constructor
     function __construct($object_array) {
       reset($object_array);
-      while (list($key, $value) = each($object_array)) {
+      foreach($object_array as $key => $value) {
         $this->$key = xos_db_prepare_input($value);
       }
     }

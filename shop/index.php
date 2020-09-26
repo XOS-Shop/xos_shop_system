@@ -265,7 +265,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
 
         $column_list = array();
         reset($define_list);
-        while (list($key, $value) = each($define_list)) {
+        foreach($define_list as $key => $value) {
           if ($value == '') $value = -1;
           if ($value >= 0) $column_list[] = $key;
         }
@@ -819,7 +819,7 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
 
       $column_list = array();
       reset($define_list);
-      while (list($key, $value) = each($define_list)) {
+      foreach($define_list as $key => $value) {
         if ($value == '') $value = -1;
         if ($value >= 0) $column_list[] = $key;
       }

@@ -40,7 +40,7 @@
         $this->modules = explode(';', MODULE_ORDER_TOTAL_INSTALLED);
 
         reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
+        foreach($this->modules as $value) {
           include(DIR_FS_SMARTY . 'catalog/languages/' . $_SESSION['language'] . '/modules/order_total/' . $value);
           include(DIR_WS_MODULES . 'order_total/' . $value);
 
@@ -54,7 +54,7 @@
       $order_total_array = array();
       if (is_array($this->modules)) {
         reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
+        foreach($this->modules as $value) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
             $GLOBALS[$class]->output = array();
@@ -81,7 +81,7 @@
       $output_array = array();
       if (is_array($this->modules)) {
         reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
+        foreach($this->modules as $value) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
             $size = sizeof($GLOBALS[$class]->output);

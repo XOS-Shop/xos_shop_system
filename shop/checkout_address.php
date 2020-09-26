@@ -608,7 +608,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     
     $years_array[] = array('id' => '', 'text' => DATE_OF_BIRTH_ENTRY_TEXT_YEAR);
     
-    while (list($key, $value) = each($years)) {    
+    foreach($years as $key => $value) {   
       $years_array[] = array('id' => $value,
                              'text' => $value);
     }    
@@ -703,7 +703,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
     $lang_array = array();
     $languages_selected = '';
-    while (list($key, $value) = each($lng->catalog_languages)) {
+    foreach($lng->catalog_languages as $key => $value) {
       $lang_array[] = array('id' => $value['id'],
                             'text' => $value['name']);
       

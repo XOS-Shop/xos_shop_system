@@ -60,7 +60,7 @@ class Db extends PDO
             $preparedparam = $this->prepareDbInput($param);
             
             if ($paramtype === null) { 
-                return parent::quote($preparedparam, is_null($preparedparam) ? PDO::PARAM_NULL : is_bool($preparedparam) ? PDO::PARAM_BOOL : is_int($preparedparam) ? PDO::PARAM_INT : PDO::PARAM_STR);
+                return parent::quote($preparedparam, is_null($preparedparam) ? PDO::PARAM_NULL : (is_bool($preparedparam) ? PDO::PARAM_BOOL : (is_int($preparedparam) ? PDO::PARAM_INT : PDO::PARAM_STR)));
             } else {
                 return parent::quote($preparedparam, $paramtype);
             }
@@ -76,7 +76,7 @@ class Db extends PDO
         try {
             if (is_array($bind)) {
                 foreach ($bind as $key => $value) {
-                    $obj->bindValue($key, $this->prepareDbInput($value), is_null($value) ? PDO::PARAM_NULL : is_bool($value) ? PDO::PARAM_BOOL : is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR);
+                    $obj->bindValue($key, $this->prepareDbInput($value), is_null($value) ? PDO::PARAM_NULL : (is_bool($value) ? PDO::PARAM_BOOL : (is_int($value) ? PDO::PARAM_INT : PDO::PARAM_STR)));
                 }
                 $obj->execute();
             } else {
@@ -95,12 +95,12 @@ class Db extends PDO
             reset($data);
             if ($action == 'insert') {
                 $query = 'insert into ' . $table . ' (';
-                while (list($columns, ) = each($data)) {
+                foreach(array_keys($data) as $columns) {
                     $query .= $columns . ', ';
                 }
                 $query = substr($query, 0, -2) . ') values (';
                 reset($data);
-                while (list(, $value) = each($data)) {
+                foreach($data as $value) {
                     switch (strtolower((string)$value)) {
                         case 'now()':
                             $query .= 'now(), ';
@@ -116,7 +116,7 @@ class Db extends PDO
                 $query = substr($query, 0, -2) . ')';
             } elseif ($action == 'update') {
                 $query = 'update ' . $table . ' set ';
-                while (list($columns, $value) = each($data)) {
+                foreach($data as $columns => $value) {
                     switch (strtolower($value)) {
                         case 'now()':
                             $query .= $columns . ' = now(), ';

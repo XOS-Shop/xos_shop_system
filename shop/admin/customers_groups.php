@@ -51,8 +51,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 		$customers_group_tax_exempt = xos_db_prepare_input($_POST['customers_group_tax_exempt']);
 		$group_payment_allowed = '';
 		if ($_POST['payment_allowed'] && $_POST['group_payment_settings'] == '1') {
-		  reset($_POST['payment_allowed']);
-		  while(list($key, $val) = each($_POST['payment_allowed'])) {
+      reset($_POST['payment_allowed']);
+      foreach($_POST['payment_allowed'] as $key => $value) {
 		    if ($val == true) { 
 		    $group_payment_allowed .= xos_db_prepare_input($val).';'; 
 		    }
@@ -61,8 +61,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 		} // end if ($_POST['payment_allowed'])
 		$group_shipment_allowed = '';
 		if ($_POST['shipping_allowed'] && $_POST['group_shipment_settings'] == '1') {
-		  reset($_POST['shipping_allowed']);
-		  while(list($key, $val) = each($_POST['shipping_allowed'])) {
+      reset($_POST['shipping_allowed']);
+      foreach($_POST['shipping_allowed'] as $key => $value) {
 		    if ($val == true) { 
 		    $group_shipment_allowed .= xos_db_prepare_input($val).';'; 
 		    }
@@ -99,8 +99,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 	$customers_group_tax_exempt = xos_db_prepare_input($_POST['customers_group_tax_exempt']);
 	$group_payment_allowed = '';
 	if ($_POST['payment_allowed'] && $_POST['group_payment_settings'] == '1') {
-	      reset($_POST['payment_allowed']);
-	      while(list($key, $val) = each($_POST['payment_allowed'])) {
+        reset($_POST['payment_allowed']);
+        foreach($_POST['payment_allowed'] as $key => $value) {
 	         if ($val == true) { 
 	         $group_payment_allowed .= xos_db_prepare_input($val).';'; 
 	         }
@@ -109,8 +109,8 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
 	} // end if ($_POST['payment_allowed'])
 		$group_shipment_allowed = '';
 		if ($_POST['shipping_allowed'] && $_POST['group_shipment_settings'] == '1') {
-		  reset($_POST['shipping_allowed']);
-		  while(list($key, $val) = each($_POST['shipping_allowed'])) {
+      reset($_POST['shipping_allowed']);
+      foreach($_POST['shipping_allowed'] as $key => $value) {
 		    if ($val == true) { 
 		    $group_shipment_allowed .= xos_db_prepare_input($val).';'; 
 		    }

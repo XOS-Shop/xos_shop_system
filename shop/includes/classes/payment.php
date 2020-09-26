@@ -66,7 +66,7 @@
           $include_modules[] = array('class' => $module, 'file' => $module . '.php');
         } else {
           reset($this->modules);
-          while (list(, $value) = each($this->modules)) {
+          foreach($this->modules as $value) {
             $class = substr($value, 0, strrpos($value, '.'));
             $include_modules[] = array('class' => $class, 'file' => $value);
           }
@@ -167,7 +167,7 @@
 
       if (is_array($this->modules)) {
         reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
+        foreach($this->modules as $value) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled && method_exists($GLOBALS[$class], 'checkout_initialization_method')) {
             $initialize_array[] = $GLOBALS[$class]->checkout_initialization_method();
@@ -183,7 +183,7 @@
 
       if (is_array($this->modules)) {
         reset($this->modules);
-        while (list(, $value) = each($this->modules)) {
+        foreach($this->modules as $value) {
           $class = substr($value, 0, strrpos($value, '.'));
           if ($GLOBALS[$class]->enabled) {
             $selection = $GLOBALS[$class]->selection();

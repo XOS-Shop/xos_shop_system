@@ -256,7 +256,7 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
 
     $lang_array = array();
     $languages_selected = '';
-    while (list($key, $value) = each($lng->catalog_languages)) {
+    foreach($lng->catalog_languages as $key => $value) {  
       $lang_array[] = array('id' => $value['id'],
                             'text' => $value['name']);
       

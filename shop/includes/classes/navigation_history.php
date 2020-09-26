@@ -103,7 +103,7 @@
         echo $this->path[$i]['page'];
         $get_string = '';
         reset($this->path[$i]['get']);
-        while (list($key, $value) = each($this->path[$i]['get'])) {
+        foreach($this->path[$i]['get'] as $key => $value) {
           $get_string .=  $key . '=' . $value . '&';
         }
         if ($get_string != '') $get_string = '?' . $get_string;
@@ -111,7 +111,7 @@
         
         if (sizeof($this->path[$i]['post']) > 0) {
           reset($this->path[$i]['post']);
-          while (list($key, $value) = each($this->path[$i]['post'])) {
+          foreach($this->path[$i]['post'] as $key => $value) {
             echo '&nbsp;/&nbsp;<b>' . $key . '=' . $value . '</b>';
           }
         }
@@ -130,7 +130,7 @@
 
       if (is_array($parameters)) {
         reset($parameters);
-        while (list($key, $value) = each($parameters)) {
+        foreach($parameters as $key => $value) {
           if (strpos($key, '_nh-dns') < 1) {
             $clean[$key] = $value;
           }

@@ -36,7 +36,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
     case 'edit':      
       $keys = '';
       reset($mInfo->keys);
-      while (list($key, $value) = each($mInfo->keys)) {
+      foreach($mInfo->keys as $key => $value) {
         $keys .= '<b>' . $value['title'] . '</b><br />' . $value['description'] . '<br />';
 
         if ($value['set_function']) {
@@ -60,7 +60,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/includes/
       if ($mInfo->status == '1') {
         $keys = '';
         reset($mInfo->keys);
-        while (list(, $value) = each($mInfo->keys)) {
+        foreach($mInfo->keys as $value) {
           $keys .= '<b>' . $value['title'] . '</b><br />';
           if ($value['use_function']) {
             $use_function = $value['use_function'];

@@ -125,7 +125,7 @@ if (!((@include DIR_FS_SMARTY . 'admin/templates/' . ADMIN_TPL . '/php/' . FILEN
     /* Re-Post all POST'ed variables */
     reset($_POST);
     $hidden_fields = '';
-    while (list($key, $value) = each($_POST)) {
+    foreach($_POST as $key => $value) {
       if (!is_array($_POST[$key])) {
         $hidden_fields .= xos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)));
       }

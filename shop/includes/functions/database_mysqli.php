@@ -81,12 +81,12 @@
     reset($data);
     if ($action == 'insert') {
       $query = 'insert into ' . $table . ' (';
-      while (list($columns, ) = each($data)) {
+      foreach(array_keys($data) as $columns) {
         $query .= $columns . ', ';
       }
       $query = substr($query, 0, -2) . ') values (';
       reset($data);
-      while (list(, $value) = each($data)) {
+      foreach($data as $value) {
         switch ((string)$value) {
           case 'now()':
             $query .= 'now(), ';
@@ -102,7 +102,7 @@
       $query = substr($query, 0, -2) . ')';
     } elseif ($action == 'update') {
       $query = 'update ' . $table . ' set ';
-      while (list($columns, $value) = each($data)) {
+      foreach($data as $columns => $value) {
         switch ((string)$value) {
           case 'now()':
             $query .= $columns . ' = now(), ';
@@ -162,7 +162,7 @@
       return trim(xos_sanitize_string(stripslashes($string)));
     } elseif (is_array($string)) {
       reset($string);
-      while (list($key, $value) = each($string)) {
+      foreach($string as $key => $value) {
         $string[$key] = xos_db_prepare_input($value);
       }
       return $string;

@@ -80,7 +80,7 @@
       global $order;
 
       $types_array = array();
-      while (list($key, $value) = each($this->cc_types)) {
+      foreach($this->cc_types as $key => $value) {
         $types_array[] = array('id' => $key,
                                'text' => $value);
       }

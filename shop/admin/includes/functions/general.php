@@ -205,7 +205,7 @@ function xos_selected_file($filename) {
     $get_url = '';
 
     reset($_GET);
-    while (list($key, $value) = each($_GET)) {
+    foreach($_GET as $key => $value) {
       if (($key != xos_session_name()) && ($key != 'error') && (!in_array($key, $exclude_array))) $get_url .= $key . '=' . $value . '&';
     }
 
@@ -384,7 +384,7 @@ function xos_selected_file($filename) {
     $get_string = '';
     if (sizeof($array) > 0) {
       reset($array);
-      while (list($key, $value) = each($array)) {
+      foreach($array as $key => $value) {
         if ( (!in_array($key, $exclude)) && ($key != 'x') && ($key != 'y') ) {
           $get_string .= $key . $equals . rawurlencode(stripslashes($value)) . $separator;
         }
@@ -505,7 +505,7 @@ function xos_selected_file($filename) {
         }
 
         if (sizeof($get_array) > 0) {
-          while (list($key, $value) = each($get_array)) {
+          foreach($get_array as $key => $value) {
             $get_params[$key] = $value;
           }
         }            
@@ -1179,7 +1179,7 @@ function xos_selected_file($filename) {
 // Alias function for module configuration keys
   function xos_mod_select_option($select_array, $key_name, $key_value) {
     reset($select_array);
-    while (list($key, $value) = each($select_array)) {
+    foreach($select_array as $key => $value) {
       if (is_int($key)) $key = $value;
       $string .= '<br /><input type="radio" name="configuration[' . $key_name . ']" value="' . $key . '"';
       if ($key_value == $key) $string .= ' checked="checked"';
@@ -1345,7 +1345,9 @@ function xos_selected_file($filename) {
     $product_image = xos_db_fetch_array($product_image_query);
     $products_image_name = xos_get_product_images($product_image['products_image'], 'all');
     reset($products_image_name);
-    while($image = each($products_image_name)) {
+    //while($image = each($products_image_name)) {
+    foreach ($products_image_name as $k => $v) {
+        $image = [$k, $v];  
         @unlink(DIR_FS_CATALOG_IMAGES . 'products/uploads/' . $image[1]['name']);
         @unlink(DIR_FS_CATALOG_IMAGES . 'products/extra_small/' . $image[1]['name']);
         @unlink(DIR_FS_CATALOG_IMAGES . 'products/small/' . $image[1]['name']);

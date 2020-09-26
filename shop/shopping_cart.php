@@ -93,8 +93,8 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
           AND    popt.language_id = :languages_id
           AND    poval.language_id = :languages_id"
         );        
-               
-        while (list($option, $value) = each($products[$i]['attributes'])) {          
+        
+        foreach($products[$i]['attributes'] as $option => $value) {        
           $hidden_field = xos_draw_hidden_field('id[' . $products[$i]['id'] . '][' . $option . ']', $value);                              
 
           $DB->perform($attributes, array(':products_id' => (int)$products[$i]['id'],
@@ -160,15 +160,15 @@ elseif (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/
     $alternative_checkout_methods_array = array();
     if (!empty($initialize_checkout_methods)) {
       reset($initialize_checkout_methods);
-      while (list(, $value) = each($initialize_checkout_methods)) {
+      foreach($initialize_checkout_methods as $value) {
         $alternative_checkout_methods_array[] = array('value' => $value);
       }
     }
    
     $tax_groups = $_SESSION['cart']->show_tax_groups($currencies->currencies[$_SESSION['currency']]['value']);
     $tax_groups_array = array();
-    reset($tax_groups);   
-    while (list($key, $value) = each($tax_groups)) {
+    reset($tax_groups);
+    foreach($tax_groups as $key => $value) {   
       if ($value > 0) {
         $tax_groups_array[] = array('title' => ($_SESSION['sppc_customer_group_show_tax'] == '1' ? TEXT_TAX_INC_VAT : TEXT_TAX_PLUS_VAT) . '&nbsp;' . $key . ':',
                                     'text' => $currencies->format($value),

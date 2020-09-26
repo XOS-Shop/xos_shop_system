@@ -85,9 +85,9 @@ if (!((@include DIR_FS_SMARTY . 'catalog/templates/' . SELECTED_TPL . '/php/' . 
   $language_string = '';
   reset($lng->catalog_languages);
   
-  if (sizeof($lng->catalog_languages) > 1) { 
-  
-    while (list($key, $value) = each($lng->catalog_languages)) {
+  if (sizeof($lng->catalog_languages) > 1) {
+
+    foreach($lng->catalog_languages as $key => $value) {
       $language_str .= ' <a href="' . xos_href_link($_SERVER['BASENAME_PHP_SELF'], xos_get_all_get_params(array('lnc', 'cur', 'tpl', 'dfrom', 'dto')) . 'lnc=' . $key, $request_type) . '">' . xos_image(DIR_WS_IMAGES . 'catalog/templates/' . SELECTED_TPL . '/' . $value['directory'] . '/' . $value['image'], $value['name']) . '</a> ';
     }
 

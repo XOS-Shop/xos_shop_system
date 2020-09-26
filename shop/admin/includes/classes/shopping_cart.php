@@ -41,7 +41,7 @@
       $total_items = 0;
       if (is_array($this->contents)) {
         reset($this->contents);
-        while (list($products_id, ) = each($this->contents)) {
+        foreach(array_keys($this->contents) as $products_id) {
           $total_items += $this->get_quantity($products_id);
         }
       }
@@ -62,10 +62,10 @@
 
       if ( (DOWNLOAD_ENABLED == 'true') && ($this->count_contents() > 0) ) {
         reset($this->contents);
-        while (list($products_id, ) = each($this->contents)) {
+        foreach(array_keys($this->contents) as $products_id) {
           if (isset($this->contents[$products_id]['attributes'])) {
             reset($this->contents[$products_id]['attributes']);
-            while (list(, $value) = each($this->contents[$products_id]['attributes'])) {
+            foreach($this->contents[$products_id]['attributes'] as $value) {
               $virtual_check_query = xos_db_query("select count(*) as total from " . TABLE_PRODUCTS_ATTRIBUTES . " pa, " . TABLE_PRODUCTS_ATTRIBUTES_DOWNLOAD . " pad where pa.products_id = '" . (int)$products_id . "' and pa.options_values_id = '" . (int)$value . "' and pa.products_attributes_id = pad.products_attributes_id");
               $virtual_check = xos_db_fetch_array($virtual_check_query);
 
@@ -121,7 +121,7 @@
       $tax_address = xos_db_fetch_array($tax_address_query);
 
       reset($this->contents);
-      while (list($products_id, ) = each($this->contents)) {
+      foreach(array_keys($this->contents) as $products_id) {
         $qty = $this->contents[$products_id]['qty'];
 
 // products price
@@ -163,7 +163,7 @@
 // attributes price
         if (isset($this->contents[$products_id]['attributes'])) {
           reset($this->contents[$products_id]['attributes']);
-          while (list($option, $value) = each($this->contents[$products_id]['attributes'])) {
+          foreach($this->contents[$products_id]['attributes'] as $option => $value) {
             $attribute_price_query = xos_db_query("select options_values_price, price_prefix from " . TABLE_PRODUCTS_ATTRIBUTES . " where products_id = '" . (int)$prid . "' and options_id = '" . (int)$option . "' and options_values_id = '" . (int)$value . "'");
             $attribute_price = xos_db_fetch_array($attribute_price_query);
             if ($attribute_price['price_prefix'] == '+') {
@@ -188,7 +188,7 @@
       
       $products_array = array();
       reset($this->contents);
-      while (list($products_id, ) = each($this->contents)) {
+      foreach(array_keys($this->contents) as $products_id) {
         $products_query = xos_db_query("select p.products_id, pd.products_name, p.products_model, p.products_price, p.products_weight, p.products_tax_class_id from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd where p.products_id='" . (int)xos_get_prid($products_id) . "' and pd.products_id = p.products_id and pd.language_id = '" . (int)$_SESSION['costom_lang_id'] . "'");
         if ($products = xos_db_fetch_array($products_query)) {
 
