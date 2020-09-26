@@ -87,7 +87,7 @@
                         'images_path' => 'templates/' . INSTALL_TPL . '/images/',
                         'buttons_path' => 'templates/' . INSTALL_TPL . '/images/' . $lng->language['directory'] . '/buttons/'));
 
-  if (!function_exists('version_compare') || version_compare(PHP_VERSION, '5.4.0', '<')) {
+  if (!function_exists('version_compare') || version_compare(PHP_VERSION, '7.1.0', '<')) {
     $smarty->assign('php_ver_warning', true); 
   } else {                           
     if (extension_loaded('gd')) {     
